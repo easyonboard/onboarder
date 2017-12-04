@@ -1,3 +1,20 @@
 <p>
   courses works!
 </p>
+<div class="left-div">
+<label>
+  Search value: <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+</label>
+
+
+</div>
+
+<div class="right-div">
+  <ul>
+    <li *ngFor="let course of courses">
+      <div class="div-courses">
+      <span class="badge">{{course.id}}</span> {{course.overview}}
+      </div>
+    <br/>
+  </ul>
+</div>
