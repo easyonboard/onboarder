@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {COURSES} from '../coursesListDemo';
+import {Course} from "../course";
+import {CourseService} from "../course.service";
+import {Subject} from "rxjs/Subject";
+import {
+  debounceTime, distinctUntilChanged, switchMap
+} from 'rxjs/operators';
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-courses',
@@ -8,10 +14,30 @@ import {COURSES} from '../coursesListDemo';
 })
 export class CoursesComponent implements OnInit {
 
-  courses=COURSES;
-  constructor() { }
+  courses: Course[];
+  coursesSearched$: Observable<Course[]>;
+  constructor(private courseService: CourseService) { }
+  ngOnInit():void {
+    this.getCourses();
+    this.coursesSearched$ = this.searchTerms.pipe(
+      // wait 300ms after each keystroke before considering the term
+      debounceTime(300),
 
-  ngOnInit() {
+      // ignore new term if same as previous term
+      distinctUntilChanged(),
+
+      // switch to new search observable each time the term changes
+      switchMap((term: string) => this.courseService.searchCourses(term)));
+
   }
+  getCourses(): void {
 
+    this.courseService.findCourses().subscribe(courses=> this.courses=courses);
+  }
+  private searchTerms = new Subject<string>();
+
+// Push a search term into the observable stream.
+  search(term: string): void {
+    this.searchTerms.next(term);
+  }
 }

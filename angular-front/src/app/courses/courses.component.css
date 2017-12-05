@@ -13,16 +13,25 @@ body, input[text], button {
 }
 
 .left-div {
-  color: #f32f18;
+  color: #010908;
   font-family: Arial, Helvetica, sans-serif;
-  height: 650px;
-  width: 25%;
-  background-color: #bfe6e5;
+  height: 33%;
+  width: 23%;
+  margin-bottom: 100px;
+  margin-right: 150px;
+  margin-left: 10px;
+  text-align:left;
+  background-color:#dcfbff;
   float:left;
+  padding: 20px;
+  border: 1px solid #010908;
+  border-radius: 8px;
+  position: fixed;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
 .right-div{
-  color: #dd8cf3;
+  color: #000000;
   margin-bottom: 100px;
   margin-right: 150px;
   margin-left: 400px;
@@ -30,15 +39,25 @@ body, input[text], button {
   width: 73%;
   font-family: Arial, Helvetica, sans-serif;
   background-color: #dcfbff;
+  border: 1px solid #010908;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 .div-courses{
-  color: #fb2824;
+  color: #010908;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
-  height: 5%;
-  width: 75%;
-  background-color: rgba(40, 16, 226, 0.21);
-  border: 1px solid red;
+  height: 50px;
+  width: 99%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgba(179, 144, 226, 0.21);
+  border: 1px solid #010908;
+  border-radius: 8px;
+
+}
+.div-courses:hover{
+  background-color: #bfe6e5;
 }
 /* everywhere else */
 * {
