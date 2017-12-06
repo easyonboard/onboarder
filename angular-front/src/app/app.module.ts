@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { CoursesComponent } from './courses/courses.component';
 import {CourseService} from "./course.service";
 import {HttpClientModule} from "@angular/common/http";
+import { CourseDetailComponent} from "./courses/course-detail/course-detail.component";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CoursesComponent
+    CoursesComponent,
+    CourseDetailComponent
   ],
   imports: [
     FormsModule,
