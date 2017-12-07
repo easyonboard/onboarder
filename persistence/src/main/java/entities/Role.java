@@ -7,10 +7,12 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-public class Role implements Serializable{
+public class Role implements Serializable {
+
+    //    TODO: before: GenerationType.IDENTITY  => now: GenerationType.SEQUENCE.
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idRole;
 
     @NotNull
@@ -21,6 +23,7 @@ public class Role implements Serializable{
     public int getIdRole() {
         return idRole;
     }
+
     public RoleType getRole() {
         return role;
     }

@@ -1,17 +1,22 @@
 package entities;
 
 
+import entity.Course;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
+@Table(name = "app_user")
 public class User implements Serializable {
 
+//    TODO: before: GenerationType.IDENTITY  => now: GenerationType.SEQUENCE.
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idUser;
 
     @NotNull
@@ -31,9 +36,16 @@ public class User implements Serializable {
     @ManyToOne
     private Role role;
 
+    @ManyToMany(mappedBy = "contactPersons", targetEntity = Course.class)
+    private List<Course> contactForCourses;
+
+    @ManyToMany(mappedBy = "owners", targetEntity = Course.class)
+    private List<Course> ownerForCourses;
+
     public int getIdUser() {
         return idUser;
     }
+
     public String getName() {
         return name;
     }
@@ -64,5 +76,21 @@ public class User implements Serializable {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<Course> getContactForCourses() {
+        return contactForCourses;
+    }
+
+    public void setContactForCourses(List<Course> contactForCourses) {
+        this.contactForCourses = contactForCourses;
+    }
+
+    public List<Course> getOwnerForCourses() {
+        return ownerForCourses;
+    }
+
+    public void setOwnerForCourses(List<Course> ownerForCourses) {
+        this.ownerForCourses = ownerForCourses;
     }
 }

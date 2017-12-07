@@ -9,8 +9,9 @@ import java.io.Serializable;
 @Entity
 public class Permission  implements Serializable{
 
+    //    TODO: before: GenerationType.IDENTITY  => now: GenerationType.SEQUENCE.
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idPermission;
 
     @NotNull
