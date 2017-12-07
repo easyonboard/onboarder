@@ -15,33 +15,39 @@ body, input[text], button {
 .left-div {
   color: #010908;
   font-family: Arial, Helvetica, sans-serif;
-  height: 33%;
-  width: 23%;
-  margin-bottom: 100px;
-  margin-right: 150px;
-  margin-left: 10px;
+  margin-left: 100px;
+  margin-top: 100px;
   text-align:left;
   background-color:#dcfbff;
+  width: 200px;
   float:left;
+  position: fixed;
   padding: 20px;
   border: 1px solid #010908;
   border-radius: 8px;
-  position: fixed;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
 .right-div{
-  color: #000000;
-  margin-bottom: 100px;
-  margin-right: 150px;
-  margin-left: 400px;
-  height: 650px;
-  width: 73%;
+  margin-top: 50px;
+  margin-left: 450px;
+  width: 900px;
+  height: 1300px;
+  position: relative;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #dcfbff;
+  background-color: #e6f4ff;
   border: 1px solid #010908;
   border-radius: 8px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.inputText {
+
+
+  margin-left: 0px;
+  width: 100px;
+  position: relative;
+  border: 1px solid #010908;
+  border-radius: 3px;
 }
 
 .div-courses{

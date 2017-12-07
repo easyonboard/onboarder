@@ -21,4 +21,9 @@ export class CourseService {
        return this.http.get<Course[]>(`${this.webServiceEndpoint}/courses`);
      return this.http.get<Course[]>(`${this.webServiceEndpoint}/course?overview=${value}`);
    }
+
+  getCourse(id: number) {
+     return this.http.get<Course>(`${this.webServiceEndpoint}/detailedCourse?id=${id}`);
+
+  }
 }

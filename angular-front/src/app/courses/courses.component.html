@@ -1,30 +1,31 @@
 <div class="left-div">
 
-<label>
-    Search value: </label><input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+  <label>
+    Search value: </label><input #searchBox id="search-box" (keyup)="search(searchBox.value)" class="inputText"/>
   <p> This is added for testing purposes</p>
   <p> Some filtering choices</p>
 
- <label>Overview</label> <input type="checkbox"  [checked]="overview" (change)="saveUsername = !saveUsername" /><br/>
-  <label>Syllabus</label> <input type="checkbox"  [checked]="syllabus" (change)="saveUsername = !saveUsername" />
-
+  <label>Overview</label> <input name="option" type="radio"/><br/>
+  <label>Syllabus</label> <input name="option" type="radio"/> <br/>
+  <label>Most popular courses</label> <input name="option" type="radio"/> <br/>
+  <label>Best rated courses</label> <input name="option" type="radio"/><br/>
 
 
 </div>
 
-<div class="right-div">
-  <ul *ngIf="searchBox.value.length>0" >
-    <li *ngFor="let course of coursesSearched$ | async " (click)="search('first')">
-      <div class="div-courses">
+<div class="right-div" *ngIf="searchBox.value.length>0">
+  <a *ngFor="let course of coursesSearched$ | async " (click)="search('first')"
+     routerLink="/detailedCourse/{{course.id}}">
+    <div class="div-courses">
       <span class="badge">{{course.id}}</span> {{course.overview}}
-      </div>
+      <nav>
+
+        <a routerLink="/detailedCourse/{{course.id}}">
+
+        </a>
+      </nav>
+    </div>
     <br/>
-  </ul>
-  <ul *ngIf="searchBox.value.length<=0">
-    <li *ngFor="let course of courses ">
-      <div class="div-courses">
-        <span class="badge">{{course.id}}</span> {{course.overview}}
-      </div>
-      <br/>
-  </ul>
+  </a>
 </div>
+

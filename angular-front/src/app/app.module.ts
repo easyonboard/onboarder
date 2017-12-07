@@ -7,6 +7,8 @@ import { CoursesComponent } from './courses/courses.component';
 import {CourseService} from "./course.service";
 import {HttpClientModule} from "@angular/common/http";
 import { CourseDetailComponent} from "./courses/course-detail/course-detail.component";
+import {RouterModule, Routes} from "@angular/router";
+import { AppRoutingModule } from './/app-routing.module';
 
 
 @NgModule({
@@ -18,7 +20,8 @@ import { CourseDetailComponent} from "./courses/course-detail/course-detail.comp
   imports: [
     FormsModule,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [CourseService],
   bootstrap: [AppComponent]

@@ -1,12 +1,13 @@
 <div id="mainDiv">
-  <img src="assets/backIcon.png" id="backIcon">
-
+  <button (click)="goBack()">
+  <img src="assets/backIcon.png" id="backIcon" >
+  </button>
   <div class="vertical-menu">
-    <a class="nav-link js-scroll-trigger" href="#overview" data-target="#overview" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Overview</a>
-    <a class="nav-link js-scroll-trigger" href="#syllabus" data-target="#syllabus" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Syllabus</a>
-    <a class="nav-link js-scroll-trigger" href="#owner" data-target="#owner" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Owner</a>
-    <a class="nav-link js-scroll-trigger" href="#contactPerson" data-target="#contactPerson" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Contact person</a>
-    <a class="nav-link js-scroll-trigger" href="#ratingsReview" data-target="#ratingsReview" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Ratings and Review</a>
+    <a class="nav-link js-scroll-trigger" href="/detailedCourse/{{course.id}}#overview" data-target="#overview" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Overview</a>
+    <a class="nav-link js-scroll-trigger" href="/detailedCourse/{{course.id}}#syllabus" data-target="#syllabus" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Syllabus</a>
+    <a class="nav-link js-scroll-trigger" href="/detailedCourse/{{course.id}}#owner" data-target="#owner" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Owner</a>
+    <a class="nav-link js-scroll-trigger" href="/detailedCourse/{{course.id}}#contactPerson" data-target="#contactPerson" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Contact person</a>
+    <a class="nav-link js-scroll-trigger" href="/detailedCourse/{{course.id}}#ratingsReview" data-target="#ratingsReview" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Ratings and Review</a>
   </div>
   <div id="courseDetails">
     <button id="enrollButton">Enroll</button>
@@ -20,41 +21,7 @@
       <b>overview</b>
       <details>
         <summary>More details</summary>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        v<p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
+      {{course.overview}}
       </details>
     </section>
 
