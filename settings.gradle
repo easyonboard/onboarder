@@ -1,2 +1,3 @@
 rootProject.name = 'msg-courses-project'
+include('persistence')
 
