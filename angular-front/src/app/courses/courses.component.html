@@ -15,12 +15,12 @@
 
 <div class="right-div" *ngIf="searchBox.value.length>0">
   <a *ngFor="let course of coursesSearched$ | async " (click)="search('first')"
-     routerLink="/detailedCourse/{{course.id}}">
+     routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}">
     <div class="div-courses">
-      <span class="badge">{{course.id}}</span> {{course.overview}}
+      <span class="badge">{{course.idCourse}}</span> {{course.overview}}
       <nav>
 
-        <a routerLink="/detailedCourse/{{course.id}}">
+        <a routerLink="{{ rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}">
 
         </a>
       </nav>

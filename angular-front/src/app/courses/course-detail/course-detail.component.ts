@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {CourseService} from "../../course.service";
 import {Course} from "../../course";
 import { Location } from '@angular/common';
+import { RootConst } from "../../util/RootConst";
+
 @Component({
   selector: 'app-course-detail',
   templateUrl: './course-detail.component.html',
@@ -10,22 +12,17 @@ import { Location } from '@angular/common';
 })
 export class CourseDetailComponent implements OnInit {
   public course: Course;
-  constructor(private route: ActivatedRoute, private courseService: CourseService, private location: Location, private router: Router){
-  }
-  showStyle: false;
+  private rootConst:RootConst= new RootConst();
 
-  getStyle() {
-    if(this.showStyle){
-      return "#dce5ff";
-    } else {
-      return "";
-    }
+
+  constructor(private route: ActivatedRoute, private courseService: CourseService, private location: Location, private router: Router){
   }
 
   getCourse(): void{
-
+    debugger
     const id=+this.route.snapshot.paramMap.get('id');
-    this.courseService.getCourse(id).subscribe(course=>this.course=course);
+    this.courseService.getCourse(id).subscribe(c=>this.course=c);
+    console.log(this.course)
   }
 
   ngOnInit() {

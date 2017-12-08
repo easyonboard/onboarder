@@ -6,17 +6,21 @@ import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
 import {Observable} from "rxjs/Observable";
+import {debug} from "util";
+import {RootConst} from "../util/RootConst";
 
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.css']
+  styleUrls: ['./courses.component.css'],
 })
 export class CoursesComponent implements OnInit {
-
+  public rootConst:RootConst= new RootConst();
   courses: Course[];
   coursesSearched$: Observable<Course[]>;
   constructor(private courseService: CourseService) { }
+
+
   ngOnInit():void {
     this.getCourses();
     this.coursesSearched$ = this.searchTerms.pipe(

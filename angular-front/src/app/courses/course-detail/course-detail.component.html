@@ -1,14 +1,28 @@
 <div id="mainDiv">
   <button (click)="goBack()">
-  <img src="assets/backIcon.png" id="backIcon" >
+    <img src="assets/backIcon.png" id="backIcon">
   </button>
+
+  <!--<span>{{ rootConst.FRONT_DETAILED_COURSE }}/{{ course.idCourse }}#{{ rootConst.FRONT_OVERVIEW_SECTION }}</span>-->
   <div class="vertical-menu">
-    <a class="nav-link js-scroll-trigger" href="/detailedCourse/{{course.id}}#overview" data-target="#overview" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Overview</a>
-    <a class="nav-link js-scroll-trigger" href="/detailedCourse/{{course.id}}#syllabus" data-target="#syllabus" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Syllabus</a>
-    <a class="nav-link js-scroll-trigger" href="/detailedCourse/{{course.id}}#owner" data-target="#owner" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Owner</a>
-    <a class="nav-link js-scroll-trigger" href="/detailedCourse/{{course.id}}#contactPerson" data-target="#contactPerson" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Contact person</a>
-    <a class="nav-link js-scroll-trigger" href="/detailedCourse/{{course.id}}#ratingsReview" data-target="#ratingsReview" [style.background-color]="getStyle()" (click)="showStyle = !showStyle;">Ratings and Review</a>
+    <a class="nav-link js-scroll-trigger"
+       href="{{ rootConst.FRONT_DETAILED_COURSE }}/{{ course.idCourse }}#{{ rootConst.FRONT_OVERVIEW_SECTION }}"
+       data-target="#{{ rootConst.FRONT_OVERVIEW_SECTION }}">Overview</a>
+    <a class="nav-link js-scroll-trigger"
+       href="{{ rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}#{{ rootConst.FRONT_SYLLABUS_SECTION }}"
+       data-target="#{{ rootConst.FRONT_SYLLABUS_SECTION }}">Syllabus</a>
+    <a class="nav-link js-scroll-trigger"
+       href="{{ rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}#{{ rootConst.FRONT_OWNER_SECTION }}"
+       data-target="#{{ rootConst.FRONT_OWNER_SECTION }}">Owner</a>
+    <a class="nav-link js-scroll-trigger"
+       href="{{ rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}#{{ rootConst.FRONT_CONTACT_PERSON_SECTION }}"
+       data-target="#{{ rootConst.FRONT_CONTACT_PERSON_SECTION }}">Contact person</a>
+    <a class="nav-link js-scroll-trigger"
+       href="{{ rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}#{{ rootConst.FRONT_RATINGS_REVIEW_SECTION}}"
+       data-target="#{{ rootConst.FRONT_RATINGS_REVIEW_SECTION}}">Ratings and Review</a>
+
   </div>
+
   <div id="courseDetails">
     <button id="enrollButton">Enroll</button>
 
@@ -17,15 +31,15 @@
       <p>ieieieieieiieie</p>
     </details>
     <br><br><br>
-    <section id="overview">
+    <section id="{{ rootConst.FRONT_OVERVIEW_SECTION }}">
       <b>overview</b>
       <details>
         <summary>More details</summary>
-      {{course.overview}}
+        {{ course.overview }}
       </details>
     </section>
 
-    <section id="syllabus">
+    <section id="{{ rootConst.FRONT_SYLLABUS_SECTION }}">
       <b>syllabus</b>
       <details>
         <summary>More details</summary>
@@ -67,7 +81,7 @@
       </details>
     </section>
 
-    <section id="owner">
+    <section id="{{ rootConst.FRONT_OWNER_SECTION }}">
       <b>Owner</b>
       <details>
         <summary>More details</summary>
@@ -109,7 +123,7 @@
       </details>
     </section>
 
-    <section id="contactPerson">
+    <section id="{{ rootConst.FRONT_CONTACT_PERSON_SECTION }}">
       <b>contactPerson</b>
       <details>
         <summary>More details</summary>
@@ -152,7 +166,7 @@
 
     </section>
 
-    <section id="ratingsReview">
+    <section id="{{ rootConst.FRONT_RATINGS_REVIEW_SECTION}}">
       <b>ratingsReview</b>
       <details>
         <summary>More details</summary>
