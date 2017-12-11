@@ -23,7 +23,6 @@ export class CourseService implements OnInit {
   }
 
   searchCourses(value: string): Observable<Course[]> {
-    debugger
     if (!value.trim())
       return this.http.get<Course[]>(`${this.coursesUrl}`);
     return this.http.get<Course[]>(`${this.courseOverview}${value}`);

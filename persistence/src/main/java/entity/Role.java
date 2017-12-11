@@ -1,6 +1,6 @@
-package entities;
+package entity;
 
-import entities.enums.RoleType;
+import entity.enums.RoleType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

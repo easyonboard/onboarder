@@ -1,7 +1,5 @@
-package entities;
+package entity;
 
-
-import entity.Course;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

@@ -1,4 +1,4 @@
-package controllers;
+package controller;
 
 import entity.Course;
 import org.springframework.http.HttpStatus;
@@ -25,7 +25,7 @@ public class TestController {
         Course c1 = new Course();
         c1.setId(1);
         c1.setOverview("first course ");
-//        c1.setSubjects(new ArrayList<>("We will present ..");
+//       c1.setSubjects(new ArrayList<>("We will present ..");
 
         Course c2 = new Course();
         c2.setId(2);
@@ -80,7 +80,7 @@ public class TestController {
 
         for (int i = 0; i < courses.size(); i++) {
             if (courses.get(i).getIdCourse() == Integer.parseInt(id)) {
-                return new ResponseEntity<Course>(courses.get(i), HttpStatus.OK);
+                return new ResponseEntity<>(courses.get(i), HttpStatus.OK);
             }
         }
 

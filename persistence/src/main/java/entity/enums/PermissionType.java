@@ -1,4 +1,4 @@
-package entities.enums;
+package entity.enums;
 
 /**
  * to do

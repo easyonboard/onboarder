@@ -1,7 +1,6 @@
 package entity;
 
-import com.sun.istack.internal.Nullable;
-
+import entity.enums.MaterialType;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -18,11 +17,9 @@ public class Material implements Serializable {
     private MaterialType materialType;
 
     @Column
-    @Nullable
     private String link;
 
     @Lob
-    @Nullable
     @Column
     private byte[] fileMaterial;
 

@@ -12,22 +12,21 @@ import { RootConst } from "../../util/RootConst";
 })
 export class CourseDetailComponent implements OnInit {
   public course: Course;
-  private rootConst:RootConst= new RootConst();
-
+  public rootConst:RootConst;
+  private fragment: string;
 
   constructor(private route: ActivatedRoute, private courseService: CourseService, private location: Location, private router: Router){
   }
 
   getCourse(): void{
-    debugger
     const id=+this.route.snapshot.paramMap.get('id');
-    this.courseService.getCourse(id).subscribe(c=>this.course=c);
-    console.log(this.course)
+    this.route.fragment.subscribe(fragment => { this.fragment = fragment; });
+    this.courseService.getCourse(id).subscribe(course=>this.course=course);
   }
 
   ngOnInit() {
     this.getCourse();
-
+    this.rootConst= new RootConst();
   }
   goBack(): void {
     this.location.back();

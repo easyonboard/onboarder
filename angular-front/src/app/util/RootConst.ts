@@ -10,6 +10,6 @@ export class RootConst{
   public FRONT_SYLLABUS_SECTION='syllabus';
   public FRONT_OWNER_SECTION='owner';
   public FRONT_CONTACT_PERSON_SECTION='contactPerson';
-  public FRONT_RATINGS_REVIEW_SECTION ='retingsReview';
+  public FRONT_RATINGS_REVIEW_SECTION ='ratingsReview';
 
 }
