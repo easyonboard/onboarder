@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class AbstractDAO<E> {
 
     @Autowired
-    private EntityManager em;
+    protected EntityManager em;
 
 
     public abstract Class<E> getEntityClass();

@@ -9,12 +9,15 @@ import {HttpClientModule} from "@angular/common/http";
 import { CourseDetailComponent} from "./courses/course-detail/course-detail.component";
 import {RouterModule, Routes} from "@angular/router";
 import { AppRoutingModule } from './/app-routing.module';
+import {UserService} from "./user.service";
+import {LoginComponent} from "./login/login.component";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CoursesComponent,
+    LoginComponent,
     CourseDetailComponent
   ],
   imports: [
@@ -23,7 +26,7 @@ import { AppRoutingModule } from './/app-routing.module';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [CourseService],
+  providers: [CourseService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

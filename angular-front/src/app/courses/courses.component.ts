@@ -17,11 +17,13 @@ import {RootConst} from "../util/RootConst";
 export class CoursesComponent implements OnInit {
   public rootConst:RootConst= new RootConst();
   courses: Course[];
+  tesfddffddffdfdt:string;
   coursesSearched$: Observable<Course[]>;
   constructor(private courseService: CourseService) { }
 
 
   ngOnInit():void {
+    this.tesfddffddffdfdt=localStorage.getItem("userLogged");
     this.getCourses();
     this.coursesSearched$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term

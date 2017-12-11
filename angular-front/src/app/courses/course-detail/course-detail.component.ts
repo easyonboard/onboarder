@@ -36,8 +36,9 @@ export class CourseDetailComponent implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    this.location.replaceState("/");
   }
+
 
   isUserEnrollOnThisCourse(): any {
     const idCourse = +this.route.snapshot.paramMap.get('id');
