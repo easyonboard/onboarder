@@ -91,5 +91,5 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.dbb
-
+settings.gradle
 

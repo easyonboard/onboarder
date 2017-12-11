@@ -1,9 +1,9 @@
 package dao;
 
 import entity.Course;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-@Service
+@Repository
 public class CourseDAO extends AbstractDAO<Course>{
     @Override
     public Class<Course> getEntityClass() {

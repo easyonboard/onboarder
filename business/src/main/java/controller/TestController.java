@@ -1,6 +1,8 @@
 package controller;
 
+import dao.CourseDAO;
 import entity.Course;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,9 @@ import java.util.List;
 @Controller
 public class TestController {
 
+    @Autowired
+    private CourseDAO courseDAO;
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses", method = RequestMethod.GET)
     public ResponseEntity<List<Course>> allArticles() {
@@ -25,14 +30,14 @@ public class TestController {
         Course c1 = new Course();
         c1.setId(1);
         c1.setOverview("first course ");
-//       c1.setSubjects(new ArrayList<>("We will present ..");
 
         Course c2 = new Course();
         c2.setId(2);
         c2.setOverview("second course");
-//        c2.setSyllabus("In this article ...");
+
         courses.add(c2);
         courses.add(c1);
+
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
@@ -43,12 +48,12 @@ public class TestController {
         Course c1 = new Course();
         c1.setId(1);
         c1.setOverview("first course ");
-//        c1.setSyllabus("We will present ..");
+
 
         Course c2 = new Course();
         c2.setId(2);
         c2.setOverview("second course");
-//        c2.setSyllabus("In this article ...");
+
         courses.add(c2);
         courses.add(c1);
         ArrayList<Course> searchCourses = new ArrayList<>();
@@ -69,12 +74,12 @@ public class TestController {
         Course c1 = new Course();
         c1.setId(1);
         c1.setOverview("first course ");
-//        c1.setSyllabus("We will present ..");
+
 
         Course c2 = new Course();
         c2.setId(2);
         c2.setOverview("second course");
-//        c2.setSyllabus("In this article ...");
+
         courses.add(c2);
         courses.add(c1);
 
