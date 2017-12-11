@@ -5,6 +5,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -23,12 +24,12 @@ public class User implements Serializable {
 
 
     @NotNull
-    @Min(6)
+    @Size(min = 6)
     private String username;
 
     @NotNull
+    @Size(min = 6)
     @Column(nullable = false)
-    @Min(6)
     private String password;
 
     @ManyToOne

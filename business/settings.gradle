@@ -1,1 +1,1 @@
-include('persistence')
+include ':persistence'

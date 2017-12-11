@@ -7,7 +7,6 @@ import java.util.List;
 
 @Entity
 public class Course implements Serializable {
-
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Integer idCourse;
@@ -39,9 +38,6 @@ public class Course implements Serializable {
         return idCourse;
     }
 
-    public void setIdCourse(Integer idCourse) {
-        this.idCourse = idCourse;
-    }
 
     public String getOverview() {
         return overview;

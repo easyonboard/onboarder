@@ -1,12 +1,21 @@
+plugins {
+    id 'net.ltgt.apt' version '0.8'
+}
 group 'msg-courses-project'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'idea'
+
 
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+ext {
+    mapstructVersion = "1.2.0.CR1"
 }
 
 dependencies {
@@ -17,4 +26,14 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '1.0.0.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '1.5.8.RELEASE'
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.1.7.Final'
+    compile 'org.mapstruct:mapstruct-jdk8:1.2.0.Final'
+    apt 'org.mapstruct:mapstruct-processor:1.2.0.Final'
+    compile 'org.mapstruct:mapstruct-processor:1.1.0.Final'
+}
+
+compileJava {
+    options.compilerArgs = [
+            '-Amapstruct.suppressGeneratorTimestamp=true',
+            '-Amapstruct.suppressGeneratorVersion.InfoComment=true'
+    ]
 }

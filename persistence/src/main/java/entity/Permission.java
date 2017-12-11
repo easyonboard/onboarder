@@ -19,6 +19,7 @@ public class Permission  implements Serializable{
     @Enumerated(EnumType.STRING)
     private PermissionType permissionType;
 
+
     public int getIdPermission() {
         return idPermission;
     }

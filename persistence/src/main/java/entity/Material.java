@@ -1,6 +1,7 @@
 package entity;
 
 import entity.enums.MaterialType;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public class Material implements Serializable {
 
     @ManyToMany(mappedBy = "materials")
     private List<Course> containedByCours;
+
 
     public Integer getIdMaterial() {
         return idMaterial;
