@@ -3,8 +3,7 @@
     <img src="assets/backIcon.png" id="backIcon">
   </button>
   <div class="vertical-menu">
-    <a
-       href="{{rootConst.FRONT_DETAILED_COURSE}}/{{ course.idCourse }}#{{rootConst.FRONT_OVERVIEW_SECTION}}"
+    <a href="{{rootConst.FRONT_DETAILED_COURSE}}/{{ course.idCourse }}#{{rootConst.FRONT_OVERVIEW_SECTION}}"
        target="_self"
        data-target="#{{rootConst.FRONT_OVERVIEW_SECTION}}">Overview</a>
     <a class="nav-link js-scroll-trigger"
@@ -27,7 +26,8 @@
   </div>
 
   <div id="courseDetails">
-    <button id="enrollButton">Enroll</button>
+    <button id="enrollButton" *ngIf="isEnrolled == false" (click)="enrolleUserToCourse()">Enroll</button>
+    <button id="alreadyEnrolled" *ngIf="isEnrolled == true">Already enrolled</button>
 
     <details>
       <summary>More details</summary>

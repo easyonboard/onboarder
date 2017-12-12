@@ -30,9 +30,17 @@ public class Course implements Serializable {
     @JoinTable(name="course_material",joinColumns = @JoinColumn(name = "idCourse"), inverseJoinColumns = @JoinColumn(name = "idMaterial"))
     private List<Material> materials;
 
+    @ManyToMany(cascade = CascadeType.ALL, targetEntity = User.class)
+    @JoinTable(name="course_enrolledUser",joinColumns = @JoinColumn(name = "idCourse"), inverseJoinColumns = @JoinColumn(name = "idUser"))
+    private List<User> enrolledUsers;
+
     public Course() {
     }
 
+    public Course(Integer id,String overview) {
+        this.idCourse = id;
+        this.overview = overview;
+    }
 
     public Integer getIdCourse() {
         return idCourse;
@@ -81,5 +89,13 @@ public class Course implements Serializable {
 
     public void setMaterials(List<Material> materials) {
         this.materials = materials;
+    }
+
+    public List<User> getEnrolledUsers() {
+        return enrolledUsers;
+    }
+
+    public void setEnrolledUsers(List<User> enrolledUsers) {
+        this.enrolledUsers = enrolledUsers;
     }
 }

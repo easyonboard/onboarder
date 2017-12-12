@@ -18,6 +18,7 @@ public interface CourseWithoutUserAndSubjectAndMaterialMapper extends AbstractMa
             @Mapping(target = "contactPersons", ignore = true),
             @Mapping(target = "owners", ignore = true),
             @Mapping(target = "materials", ignore = true),
+            @Mapping(target = "enrolledUsers", ignore = true)
     })
     CourseDTO mapToDTO(Course entity);
 
@@ -26,6 +27,7 @@ public interface CourseWithoutUserAndSubjectAndMaterialMapper extends AbstractMa
             @Mapping(target = "contactPersons", ignore = true),
             @Mapping(target = "owners", ignore = true),
             @Mapping(target = "materials", ignore = true),
+            @Mapping(target = "enrolledUsers", ignore = true)
     })
     Course mapToEntity(CourseDTO materialDTO, @MappingTarget Course course);
 }

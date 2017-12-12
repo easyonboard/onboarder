@@ -5,7 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 public abstract class AbstractDAO<E> {
@@ -39,6 +42,15 @@ public abstract class AbstractDAO<E> {
     @PersistenceContext
     public void setEm(EntityManager em) {
         this.em = em;
+    }
+
+
+    public CriteriaBuilder getCriteriaBuilder(){
+        return em.getCriteriaBuilder();
+    }
+
+    public List executeCriteriaQuery(CriteriaQuery criteriaQuery){
+        return em.createQuery(criteriaQuery).getResultList();
     }
 
 }

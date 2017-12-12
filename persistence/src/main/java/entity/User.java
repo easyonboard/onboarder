@@ -1,7 +1,6 @@
 package entity;
 
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
@@ -40,6 +39,12 @@ public class User implements Serializable {
 
     @ManyToMany(mappedBy = "owners", targetEntity = Course.class)
     private List<Course> ownerForCourses;
+
+    @ManyToMany(mappedBy = "enrolledUsers", targetEntity = Course.class)
+    private List<Course> enrolledCourses;
+
+
+
 
     public int getIdUser() {
         return idUser;
@@ -91,5 +96,13 @@ public class User implements Serializable {
 
     public void setOwnerForCourses(List<Course> ownerForCourses) {
         this.ownerForCourses = ownerForCourses;
+    }
+
+    public List<Course> getEnrolledCourses() {
+        return enrolledCourses;
+    }
+
+    public void setEnrolledCourses(List<Course> enrolledCourses) {
+        this.enrolledCourses = enrolledCourses;
     }
 }

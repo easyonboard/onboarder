@@ -23,74 +23,74 @@ public class TestController {
     @Autowired
     private CourseDAO courseDAO;
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/courses", method = RequestMethod.GET)
-    public ResponseEntity<List<Course>> allArticles() {
-        List<Course> courses = new ArrayList<>();
-        Course c1 = new Course();
-        c1.setId(1);
-        c1.setOverview("first course ");
-
-        Course c2 = new Course();
-        c2.setId(2);
-        c2.setOverview("second course");
-
-        courses.add(c2);
-        courses.add(c1);
-
-        return new ResponseEntity<>(courses, HttpStatus.OK);
-    }
-
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/course", method = RequestMethod.GET)
-    public ResponseEntity<List<Course>> searchArticlesByOverview(@RequestParam(value = "overview") String overview) {
-        List<Course> courses = new ArrayList<>();
-        Course c1 = new Course();
-        c1.setId(1);
-        c1.setOverview("first course ");
-
-
-        Course c2 = new Course();
-        c2.setId(2);
-        c2.setOverview("second course");
-
-        courses.add(c2);
-        courses.add(c1);
-        ArrayList<Course> searchCourses = new ArrayList<>();
-        for (int i = 0; i < courses.size(); i++) {
-            if (courses.get(i).getOverview().contains(overview)) {
-                searchCourses.add(courses.get(i));
-            }
-        }
-
-        return new ResponseEntity<>(searchCourses, HttpStatus.OK);
-
-    }
-
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/detailedCourse", method = RequestMethod.GET)
-    public ResponseEntity<Course> getDetails(@RequestParam(value = "id") String id) {
-        List<Course> courses = new ArrayList<>();
-        Course c1 = new Course();
-        c1.setId(1);
-        c1.setOverview("first course ");
-
-
-        Course c2 = new Course();
-        c2.setId(2);
-        c2.setOverview("second course");
-
-        courses.add(c2);
-        courses.add(c1);
-
-        for (int i = 0; i < courses.size(); i++) {
-            if (courses.get(i).getIdCourse() == Integer.parseInt(id)) {
-                return new ResponseEntity<>(courses.get(i), HttpStatus.OK);
-            }
-        }
-
-        return null;
-
-
-    }
+//    @CrossOrigin(origins = "http://localhost:4200")
+//    @RequestMapping(value = "/courses", method = RequestMethod.GET)
+//    public ResponseEntity<List<Course>> allArticles() {
+//        List<Course> courses = new ArrayList<>();
+//        Course c1 = new Course();
+//        c1.setId(1);
+//        c1.setOverview("first course ");
+//
+//        Course c2 = new Course();
+//        c2.setId(2);
+//        c2.setOverview("second course");
+//
+//        courses.add(c2);
+//        courses.add(c1);
+//
+//        return new ResponseEntity<>(courses, HttpStatus.OK);
+//    }
+//
+//    @CrossOrigin(origins = "http://localhost:4200")
+//    @RequestMapping(value = "/course", method = RequestMethod.GET)
+//    public ResponseEntity<List<Course>> searchArticlesByOverview(@RequestParam(value = "overview") String overview) {
+//        List<Course> courses = new ArrayList<>();
+//        Course c1 = new Course();
+//        c1.setId(1);
+//        c1.setOverview("first course ");
+//
+//
+//        Course c2 = new Course();
+//        c2.setId(2);
+//        c2.setOverview("second course");
+//
+//        courses.add(c2);
+//        courses.add(c1);
+//        ArrayList<Course> searchCourses = new ArrayList<>();
+//        for (int i = 0; i < courses.size(); i++) {
+//            if (courses.get(i).getOverview().contains(overview)) {
+//                searchCourses.add(courses.get(i));
+//            }
+//        }
+//
+//        return new ResponseEntity<>(searchCourses, HttpStatus.OK);
+//
+//    }
+//
+//    @CrossOrigin(origins = "http://localhost:4200")
+//    @RequestMapping(value = "/detailedCourse", method = RequestMethod.GET)
+//    public ResponseEntity<Course> getDetails(@RequestParam(value = "id") String id) {
+//        List<Course> courses = new ArrayList<>();
+//        Course c1 = new Course();
+//        c1.setId(1);
+//        c1.setOverview("first course ");
+//
+//
+//        Course c2 = new Course();
+//        c2.setId(2);
+//        c2.setOverview("second course");
+//
+//        courses.add(c2);
+//        courses.add(c1);
+//
+//        for (int i = 0; i < courses.size(); i++) {
+//            if (courses.get(i).getIdCourse() == Integer.parseInt(id)) {
+//                return new ResponseEntity<>(courses.get(i), HttpStatus.OK);
+//            }
+//        }
+//
+//        return null;
+//
+//
+//    }
 }

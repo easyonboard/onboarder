@@ -13,6 +13,9 @@ export class CourseService implements OnInit {
   private coursesUrl = this.rootConst.SERVER_COURSES_URL;
   private courseOverview = this.rootConst.SERVER_COURSE_OVERVIEW;
   private detailedCourse = this.rootConst.SERVER_DETAILED_COURSE;
+  private testIfUserIsEnroll = this.rootConst.SERVER_TEST_IF_USER_IS_ENROLLED;
+  private enrolleUserOnCourse = this.rootConst.SERVER_ENROLLE_USER_ON_COURSE;
+
 
 
   constructor(private http: HttpClient) {
@@ -30,7 +33,14 @@ export class CourseService implements OnInit {
 
   getCourse(id: number) {
     return this.http.get<Course>(`${this.detailedCourse}${id}`);
+  }
 
+  isUserEnrollOnThisCourse(idCourse: number):Observable<Boolean>{
+    return this.http.get<Boolean>(`${this.testIfUserIsEnroll}${idCourse}`)
+  }
+
+  enrolleUserToCourse(idCourse:number):Observable<any>{
+    return this.http.get(`${this.enrolleUserOnCourse}${idCourse}`)
   }
 
   ngOnInit(): void {

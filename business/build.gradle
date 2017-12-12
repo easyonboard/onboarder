@@ -29,6 +29,7 @@ dependencies {
     compile 'org.mapstruct:mapstruct-jdk8:1.2.0.Final'
     apt 'org.mapstruct:mapstruct-processor:1.2.0.Final'
     compile 'org.mapstruct:mapstruct-processor:1.1.0.Final'
+    compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.0.0.RELEASE'
 }
 
 compileJava {

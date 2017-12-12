@@ -16,6 +16,10 @@ public class CourseDTO {
 
     private List<MaterialDTO> materials;
 
+    private List<UserDTO> enrolledUsers;
+
+
+
     public Integer getIdCourse() {
         return idCourse;
     }
@@ -62,5 +66,13 @@ public class CourseDTO {
 
     public void setMaterials(List<MaterialDTO> materials) {
         this.materials = materials;
+    }
+
+    public List<UserDTO> getEnrolledUsers() {
+        return enrolledUsers;
+    }
+
+    public void setEnrolledUsers(List<UserDTO> enrolledUsers) {
+        this.enrolledUsers = enrolledUsers;
     }
 }

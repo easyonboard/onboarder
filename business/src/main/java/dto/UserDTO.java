@@ -18,6 +18,8 @@ public class UserDTO {
 
     private List<CourseDTO> ownerForCourses;
 
+    private List<CourseDTO> enrolledCourses;
+
     public int getIdUser() {
         return idUser;
     }
@@ -72,5 +74,13 @@ public class UserDTO {
 
     public void setOwnerForCourses(List<CourseDTO> ownerForCourses) {
         this.ownerForCourses = ownerForCourses;
+    }
+
+    public List<CourseDTO> getEnrolledCourses() {
+        return enrolledCourses;
+    }
+
+    public void setEnrolledCourses(List<CourseDTO> enrolledCourses) {
+        this.enrolledCourses = enrolledCourses;
     }
 }
