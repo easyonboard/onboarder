@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   public option: boolean;
   public userLogged: UserDTO;
   private message: string;
+  private messageSignIn:string;
   public rootConst: RootConst;
 
   constructor(private userService: UserService, private router:Router) {
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.message = "Welcome back!";
+    this.messageSignIn="Sign Up for Free";
     this.rootConst = new RootConst();
   }
 
@@ -47,5 +49,29 @@ export class LoginComponent implements OnInit {
 
   }
 
+  addUser(name:string, username: string, email:string, password: string, passwordII:string): void {
+    name = name.trim();
+    username = username.trim();
+    email = email.trim();
+    password=password.trim();
+    passwordII=passwordII.trim();
+    if(name==""){
+      this.messageSignIn="Name can not be empty";
+    }
+    if(username==""){
+      this.messageSignIn="Username can not be empty";
+    }
+    if(email==""){
+      this.messageSignIn="Email can not be empty";
+    }
+    if(password=="" || passwordII==""){
+      this.messageSignIn="Password can not be empty";
+    }
 
+    else{
+
+      this.userService.addUser({name,username, email,password} as UserDTO).subscribe();
+    }
+
+  }
 }

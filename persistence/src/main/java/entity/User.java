@@ -31,6 +31,11 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    @NotNull
+    private String email;
+
+
     @ManyToOne
     private Role role;
 
@@ -104,5 +109,13 @@ public class User implements Serializable {
 
     public void setEnrolledCourses(List<Course> enrolledCourses) {
         this.enrolledCourses = enrolledCourses;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

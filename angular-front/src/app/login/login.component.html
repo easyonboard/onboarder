@@ -11,30 +11,30 @@
         <div class="top-row">
           <div class="field-wrap">
 
-            <input type="text" placeholder="Name"/>
+            <input #Name type="text" placeholder="Name"/>
           </div>
 
           <div class="field-wrap">
 
-            <input type="text" placeholder="Username"/>
+            <input #UsernameSignIn type="text" placeholder="Username"/>
           </div>
         </div>
 
         <div class="field-wrap">
 
-          <input type="email" placeholder="Email"/>
+          <input #Email type="email" placeholder="Email"/>
         </div>
 
         <div class="field-wrap">
 
-          <input type="password" placeholder="Password"/>
+          <input #PasswordSignIn type="password" placeholder="Password"/>
         </div>
       <div class="field-wrap">
 
-        <input type="password" placeholder="Repeat password"/>
+        <input #PasswordII type="password" placeholder="Repeat password"/>
       </div>
 
-        <button type="submit" class="button button-block" (click)="addUser()">Get Started</button>
+        <button type="submit" class="button button-block" (click)="addUser(Name.value, UsernameSignIn.value, Email.value, PasswordSignIn.value,PasswordII.value)">Get Started</button>
 
 
 

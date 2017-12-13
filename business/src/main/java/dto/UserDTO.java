@@ -12,6 +12,8 @@ public class UserDTO {
 
     private String password;
 
+    private String email;
+
     private RoleDTO role;
 
     private List<CourseDTO> contactForCourses;
@@ -82,5 +84,13 @@ public class UserDTO {
 
     public void setEnrolledCourses(List<CourseDTO> enrolledCourses) {
         this.enrolledCourses = enrolledCourses;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

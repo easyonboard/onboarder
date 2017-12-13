@@ -28,5 +28,13 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
+    @CrossOrigin(origins ="http://localhost:4200")
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO user){
+
+       userService.addUser(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
 
 }

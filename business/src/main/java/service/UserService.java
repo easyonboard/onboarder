@@ -25,6 +25,7 @@ public class UserService {
     }
 
 
-
-
+    public void addUser(UserDTO user) {
+        userDAO.persistEntity(userMapper.mapToNewEntity(user));
+    }
 }
