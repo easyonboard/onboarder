@@ -77,4 +77,10 @@ public class CourseService {
         }
         return false;
     }
+
+    public void unenrollUserToCourse(String username, Integer idCourse) {
+        User userEntity = userDAO.findUserByUsername(username);
+        Course courseEntity = courseDAO.findEntity(idCourse);
+        enrollDAO.unenrollUserToCourse(userEntity,courseEntity);
+    }
 }

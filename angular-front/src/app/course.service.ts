@@ -15,6 +15,7 @@ export class CourseService implements OnInit {
   private detailedCourse = this.rootConst.SERVER_DETAILED_COURSE;
   private testIfUserIsEnroll = this.rootConst.SERVER_TEST_IF_USER_IS_ENROLLED;
   private enrolleUserOnCourse = this.rootConst.SERVER_ENROLLE_USER_ON_COURSE;
+  private unenrolleUserOnCourse = this.rootConst.SERVER_UNENROLLE_USER_ON_COURSE;
 
 
 
@@ -39,10 +40,15 @@ export class CourseService implements OnInit {
     return this.http.post<Boolean>(`${this.testIfUserIsEnroll}${idCourse}`,username)
   }
 
-  enrolleUserToCourse(idCourse:number, username:String):Observable<any>{
+  enrollUserToCourse(idCourse:number, username:String):Observable<any>{
     return this.http.post(`${this.enrolleUserOnCourse}${idCourse}`,username);
   }
 
   ngOnInit(): void {
+  }
+
+  unenrollUserFromCourse(idCourse: number, username: string):Observable<any> {
+    return this.http.post(`${this.unenrolleUserOnCourse}${idCourse}`,username);
+
   }
 }

@@ -46,15 +46,24 @@ export class CourseDetailComponent implements OnInit {
     this.courseService.isUserEnrollOnThisCourse(idCourse, username).subscribe(value => this.isEnrolled = value);
   }
 
-  enrolleUserToCourse(): any {
-    const username = localStorage.getItem("userLogged");
+  enrollUserToCourse(): any {
     if (confirm("Are you sure you want to enroll on this course? ")) {
+      const username = localStorage.getItem("userLogged");
       const idCourse = +this.route.snapshot.paramMap.get('id');
-      this.courseService.enrolleUserToCourse(idCourse,username).subscribe();
+      this.courseService.enrollUserToCourse(idCourse,username).subscribe();
       this.isEnrolled = true;
     }
 
   }
 
 
+  unenrollUserFromCourse():any {
+    if (confirm("Are you sure you want to unenroll from this course? ")) {
+      const username = localStorage.getItem("userLogged");
+      const idCourse = +this.route.snapshot.paramMap.get('id');
+      this.courseService.unenrollUserFromCourse(idCourse,username).subscribe();
+      this.isEnrolled = false;
+    }
+
+  }
 }

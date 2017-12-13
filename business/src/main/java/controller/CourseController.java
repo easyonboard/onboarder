@@ -61,4 +61,12 @@ public class CourseController {
         return new ResponseEntity<Boolean>(courseService.userIsEnrolledOnCourse(username, idCourse), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/unenrollUserFromCourse", method = RequestMethod.POST)
+    public ResponseEntity unenrollFromCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) {
+        courseService.unenrollUserToCourse(username, idCourse);
+        return null;
+    }
+
+
 }

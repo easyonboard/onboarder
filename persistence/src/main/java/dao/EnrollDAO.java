@@ -31,4 +31,20 @@ public class EnrollDAO {
             courseDAO.persistEntity(course);
         }
     }
+
+    public void unenrollUserToCourse(User user, Course course) {
+        List<Course> enrolledCourses= user.getEnrolledCourses();
+        if (enrolledCourses.contains(course)) {
+            enrolledCourses.remove(enrolledCourses.indexOf(course));
+            user.setEnrolledCourses(enrolledCourses);
+            userDAO.persistEntity(user);
+        }
+        List<User> enrolledUsers = course.getEnrolledUsers();
+        if(enrolledUsers.contains(user)) {
+            enrolledUsers.remove(enrolledUsers.indexOf(user));
+            course.setEnrolledUsers(enrolledUsers);
+
+            courseDAO.persistEntity(course);
+        }
+    }
 }
