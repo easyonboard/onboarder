@@ -1,28 +1,29 @@
 <div id="mainDiv">
   <button routerLink="/">
-    <img src="assets/backIcon.png" id="backIcon" >
+    <img src="assets/backIcon.png" id="backIcon">
 
   </button>
   <div class="vertical-menu">
-    <a href="{{rootConst.FRONT_DETAILED_COURSE}}/{{ course.idCourse }}#{{rootConst.FRONT_OVERVIEW_SECTION}}"
+    <a class="nav-link js-scroll-trigger"
+       href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_OVERVIEW_SECTION}}"
        target="_self"
-       data-target="{{rootConst.FRONT_OVERVIEW_SECTION}}">Overview</a>
+       data-target="{rootConst.FRONT_OVERVIEW_SECTION}}">Overview</a>
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_SYLLABUS_SECTION}}"
        target="_self"
-       data-target="{{rootConst.FRONT_SYLLABUS_SECTION}}">Syllabus</a>
+       data-target="{rootConst.FRONT_SYLLABUS_SECTION}}">Syllabus</a>
     <a class="nav-link js-scroll-trigger"
-       href="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}#{{rootConst.FRONT_OWNER_SECTION}}"
+       href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_OWNER_SECTION}}"
        target="_self"
-       data-target="{{rootConst.FRONT_OWNER_SECTION}}">Owner</a>
+       data-target="{rootConst.FRONT_OWNER_SECTION}}">Owner</a>
     <a class="nav-link js-scroll-trigger"
-       href="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}#{{rootConst.FRONT_CONTACT_PERSON_SECTION}}"
+       href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_CONTACT_PERSON_SECTION}}"
        target="_self"
-       data-target="{{rootConst.FRONT_CONTACT_PERSON_SECTION}}">Contact person</a>
+       data-target="{rootConst.FRONT_CONTACT_PERSON_SECTION}}">Contact person</a>
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_RATINGS_REVIEW_SECTION}}"
        target="_self"
-       data-target="{rootConst.FRONT_RATINGS_REVIEW_SECTION}}">Ratings and Review</a>
+       data-target="{rootConst.FRONT_RATINGS_REVIEW_SECTION}}">Ratings and review</a>
 
   </div>
 
@@ -44,7 +45,7 @@
     </section>
 
     <section id="{{ rootConst.FRONT_SYLLABUS_SECTION }}">
-      <b>syllabus</b>
+      <b>Syllabus</b>
       <details>
         <summary>More details</summary>
         <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
