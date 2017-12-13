@@ -18,15 +18,6 @@ public class UserDAO extends AbstractDAO<User>{
         return User.class;
     }
 
-    public User findEntityByUsername(String username) {
-        CriteriaBuilder cb=  this.getCriteriaBuilder();
-        CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
-        Root<User> rootUser = criteriaQuery.from(User.class);
-
-        criteriaQuery.select(rootUser).where(cb.equal(rootUser.get("username"),username));
-        return (User) this.executeCriteriaQuery(criteriaQuery).get(0);
-    }
-
     public User findUserByUsername(String username){
         TypedQuery<User> query=this.em.createNamedQuery(User.FIND_USER_BY_USERNAME, User.class);
         query.setParameter("username", username);

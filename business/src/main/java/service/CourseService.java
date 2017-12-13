@@ -30,8 +30,8 @@ public class CourseService {
     private UserMapper userMapper = UserMapper.INSTANCE;
 
 
-    public void enrollUserToCourse(UserDTO user, Integer idCourse) {
-        User userEntity = userDAO.findEntityByUsername(user.getUsername());
+    public void enrollUserToCourse(String username, Integer idCourse) {
+        User userEntity = userDAO.findUserByUsername(username);
         Course courseEntity = courseDAO.findEntity(idCourse);
         enrollDAO.enrollUserToCourse(userEntity,courseEntity);
 
@@ -69,8 +69,8 @@ public class CourseService {
         return courseMapper.entitiesToDTOs(courseDAO.searchByOverview(overview));
     }
 
-    public boolean userIsEnrolledOnCourse(UserDTO user, Integer idCourse) {
-        User userEntity = userDAO.findEntityByUsername(user.getUsername());
+    public boolean userIsEnrolledOnCourse(String username, Integer idCourse) {
+        User userEntity = userDAO.findUserByUsername(username);
         Course courseEntity = courseDAO.findEntity(idCourse);
         if(userEntity.getEnrolledCourses().contains(courseEntity)){
             return true;

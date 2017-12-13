@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import service.CourseService;
 import service.UserService;
 
@@ -52,26 +49,16 @@ public class CourseController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/enrollUserOnCourse", method = RequestMethod.GET)
-    public ResponseEntity enrollToCourse(@RequestParam(value = "idCourse") Integer idCourse) {
-//        UserDTO user = (UserDTO)SecurityContextHolder.getContext().getAuthentication();
-        UserDTO user = new UserDTO();
-        user.setUsername("ionelMarian");
-//        userService.createUser(user);
-        courseService.enrollUserToCourse(user, idCourse);
+    @RequestMapping(value = "/enrollUserOnCourse", method = RequestMethod.POST)
+    public ResponseEntity enrollToCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) {
+        courseService.enrollUserToCourse(username, idCourse);
         return null;
-
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/isEnrolledOnCourse", method = RequestMethod.GET)
-    public ResponseEntity<Boolean> isEnrolledOnCourse(@RequestParam(value = "idCourse") Integer idCourse) {
-//        UserDTO user = (UserDTO)SecurityContextHolder.getContext().getAuthentication();
-        UserDTO user = new UserDTO();
-        user.setUsername("ionelMarian");
-//        userService.createUser(user);
-        return new ResponseEntity<Boolean>(courseService.userIsEnrolledOnCourse(user, idCourse), HttpStatus.OK);
-
+    @RequestMapping(value = "/isEnrolledOnCourse", method = RequestMethod.POST)
+    public ResponseEntity<Boolean> isEnrolledOnCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) {
+        return new ResponseEntity<Boolean>(courseService.userIsEnrolledOnCourse(username, idCourse), HttpStatus.OK);
     }
 
 }

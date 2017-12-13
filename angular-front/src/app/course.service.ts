@@ -35,12 +35,12 @@ export class CourseService implements OnInit {
     return this.http.get<Course>(`${this.detailedCourse}${id}`);
   }
 
-  isUserEnrollOnThisCourse(idCourse: number):Observable<Boolean>{
-    return this.http.get<Boolean>(`${this.testIfUserIsEnroll}${idCourse}`)
+  isUserEnrollOnThisCourse(idCourse: number, username:String):Observable<Boolean>{
+    return this.http.post<Boolean>(`${this.testIfUserIsEnroll}${idCourse}`,username)
   }
 
-  enrolleUserToCourse(idCourse:number):Observable<any>{
-    return this.http.get(`${this.enrolleUserOnCourse}${idCourse}`)
+  enrolleUserToCourse(idCourse:number, username:String):Observable<any>{
+    return this.http.post(`${this.enrolleUserOnCourse}${idCourse}`,username);
   }
 
   ngOnInit(): void {
