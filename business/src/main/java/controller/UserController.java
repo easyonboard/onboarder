@@ -25,7 +25,7 @@ public class UserController {
         userLogged.getPassword().equals(user.getPassword()))
             return new ResponseEntity<>(userLogged, HttpStatus.OK);
         else
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
 

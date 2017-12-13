@@ -17,7 +17,7 @@ export class CourseDetailComponent implements OnInit {
   private fragment: string;
   private isEnrolled: Boolean;
 
-  constructor(private route: ActivatedRoute, private courseService: CourseService, private location: Location, private router: Router) {
+  constructor(private route: ActivatedRoute, private courseService: CourseService, private location: Location) {
   }
 
   getCourse(): void {
