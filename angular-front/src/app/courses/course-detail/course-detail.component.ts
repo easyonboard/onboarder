@@ -17,7 +17,7 @@ export class CourseDetailComponent implements OnInit {
   private fragment: string;
   private isEnrolled: Boolean;
 
-  constructor(private route: ActivatedRoute, private courseService: CourseService, private location: Location) {
+  constructor(private route: ActivatedRoute, private courseService: CourseService) {
   }
 
   getCourse(): void {
@@ -34,11 +34,6 @@ export class CourseDetailComponent implements OnInit {
     this.rootConst = new RootConst();
 
   }
-
-  goBack(): void {
-    this.location.replaceState("/");
-  }
-
 
   isUserEnrollOnThisCourse(): any {
     const idCourse = +this.route.snapshot.paramMap.get('id');

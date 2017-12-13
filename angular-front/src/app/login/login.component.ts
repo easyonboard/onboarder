@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, ElementRef, OnInit} from '@angular/core';
 import {UserService} from "../user.service";
 import {UserDTO} from "../user";
 import {RootConst} from "../util/RootConst";
@@ -9,26 +9,32 @@ import {Router} from "@angular/router";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,AfterContentInit {
 
   public option: boolean;
   public userLogged: UserDTO;
   private message: string;
   private messageSignIn:string;
   public rootConst: RootConst;
+  public isLoginComponent:Boolean =true;
 
-  constructor(private userService: UserService, private router:Router) {
+  private backButton:HTMLElement;
+
+  constructor(private userService: UserService, private router:Router, private elemRef:ElementRef) {
     this.option = false;
   }
-
   ngOnInit() {
     this.message = "Welcome back!";
     this.messageSignIn="Sign Up for Free";
     this.rootConst = new RootConst();
+
   }
 
+  ngAfterContentInit(){
+    this.backButton=this.elemRef.nativeElement.previousElementSibling;
+    this.backButton.remove();
+  }
   createNewAccount(option: boolean): void {
-
     this.option = option;
   }
 
@@ -37,9 +43,9 @@ export class LoginComponent implements OnInit {
     password = password.trim();
     this.userService.login({username, password} as UserDTO).subscribe(res => {
         if(res.username.length>0){
-                  localStorage.setItem("userLogged",res.username);
-                  this.router.navigateByUrl(this.rootConst.REDIRECT_LOGIN_SUCCESS_URL);
-             }
+          localStorage.setItem("userLogged",res.username);
+          this.router.navigateByUrl(this.rootConst.REDIRECT_LOGIN_SUCCESS_URL);
+        }
       },
       err => {
         if (err.status == 403) {
@@ -74,4 +80,7 @@ export class LoginComponent implements OnInit {
     }
 
   }
+
+
+
 }
