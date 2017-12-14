@@ -16,5 +16,6 @@ export class RootConst{
   public FRONT_OWNER_SECTION='owner';
   public FRONT_CONTACT_PERSON_SECTION='contactPerson';
   public FRONT_RATINGS_REVIEW_SECTION ='ratingsReview';
+  public LOGIN_PAGE = '';
 
 }

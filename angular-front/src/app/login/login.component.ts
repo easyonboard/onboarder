@@ -36,8 +36,10 @@ export class LoginComponent implements OnInit, AfterContentInit {
     this.currentComponentElement = this.elemRef.nativeElement.previousElementSibling;
     this.backButton = this.currentComponentElement.getElementsByClassName("back").item(0);
     this.logoutButton = this.currentComponentElement.getElementsByClassName("logOut").item(0);
-    this.currentComponentElement.removeChild(this.backButton);
-    this.currentComponentElement.removeChild(this.logoutButton);
+    if (this.logoutButton !== null && this.backButton !== null) {
+      this.currentComponentElement.removeChild(this.backButton);
+      this.currentComponentElement.removeChild(this.logoutButton);
+    }
   }
 
   createNewAccount(option: boolean): void {
@@ -45,15 +47,16 @@ export class LoginComponent implements OnInit, AfterContentInit {
   }
 
   login(username: string, password: string): void {
-    debugger;
     username = username.trim();
     password = password.trim();
     this.userService.login({username, password} as UserDTO).subscribe(res => {
         if (res.username.length > 0) {
           localStorage.setItem("userLogged", res.username);
           this.currentComponentElement = this.elemRef.nativeElement.parentElement;
-          this.currentComponentElement.appendChild(this.backButton);
-          this.currentComponentElement.appendChild(this.logoutButton);
+          if (this.logoutButton !== null && this.backButton !== null) {
+            this.currentComponentElement.appendChild(this.backButton);
+            this.currentComponentElement.appendChild(this.logoutButton);
+          }
           this.router.navigateByUrl(this.rootConst.REDIRECT_LOGIN_SUCCESS_URL);
         }
       },
