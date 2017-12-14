@@ -23,17 +23,21 @@ public class UserController {
         UserDTO userLogged=userService.findUserByUsername(user.getUsername());
         if(userLogged!=null &&
         userLogged.getPassword().equals(user.getPassword()))
-            return new ResponseEntity<>(userLogged, HttpStatus.OK);
+            return new ResponseEntity<>
+                    (userLogged, HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @CrossOrigin(origins ="http://localhost:4200")
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO user){
+    public ResponseEntity addUser(@RequestBody UserDTO user){
 
-       userService.addUser(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+        if (userService.checkUsername(user.getUsername())) {
+            userService.addUser(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity( HttpStatus.BAD_REQUEST);
 
     }
 

@@ -1,10 +1,9 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Component,  OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 import {CourseService} from "../../course.service";
 import {Course} from "../../course";
-import {Location} from '@angular/common';
+import {ConfirmOptions, Position} from 'angular2-bootstrap-confirm';
 import {RootConst} from "../../util/RootConst";
-import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-course-detail',

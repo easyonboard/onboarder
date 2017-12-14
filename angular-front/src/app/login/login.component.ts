@@ -16,12 +16,9 @@ export class LoginComponent implements OnInit, AfterContentInit {
   private message: string;
   private messageSignIn: string;
   public rootConst: RootConst;
-  public isLoginComponent: Boolean = true;
-
   private currentComponentElement: HTMLElement;
   private backButton: Element;
   private logoutButton: Element;
-
   constructor(private userService: UserService, private router: Router, private elemRef: ElementRef) {
     this.option = false;
   }
@@ -30,6 +27,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
     this.message = "Welcome back!";
     this.messageSignIn = "Sign Up for Free";
     this.rootConst = new RootConst();
+
   }
 
   ngAfterContentInit() {
@@ -72,23 +70,47 @@ export class LoginComponent implements OnInit, AfterContentInit {
     name = name.trim();
     username = username.trim();
     email = email.trim();
-    password = password.trim();
-    passwordII = passwordII.trim();
-    if (name == "") {
-      this.messageSignIn = "Name can not be empty";
+    password=password.trim();
+    passwordII=passwordII.trim();
+    if(name==""){
+      this.messageSignIn="Name can not be empty";
+      return;
     }
-    if (username == "") {
-      this.messageSignIn = "Username can not be empty";
+    if(username==""){
+      this.messageSignIn="Username can not be empty";
+      return;
     }
-    if (email == "") {
-      this.messageSignIn = "Email can not be empty";
+    if(username.length<5){
+      this.messageSignIn="Username must have at least 5 characters";
+      return;
     }
-    if (password == "" || passwordII == "") {
-      this.messageSignIn = "Password can not be empty";
+    if(email==""){
+      this.messageSignIn="Email can not be empty";
+      return;
+    }
+    if(password=="" || passwordII==""){
+      this.messageSignIn="Password can not be empty";
+      return;
+    }
+    if(password!=passwordII){
+      this.messageSignIn="Passwords does not match";
+      return;
     }
 
-    else {
-      this.userService.addUser({name, username, email, password} as UserDTO).subscribe();
+    else{
+
+      this.userService.addUser({name,username, email,password} as UserDTO).subscribe(
+        res => {
+
+            this.option=false;
+
+        },
+          err => {
+            if (err.status == 400) {
+              this.messageSignIn = "Username already exists";
+            }
+          });
+
     }
 
   }

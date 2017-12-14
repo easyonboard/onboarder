@@ -5,9 +5,11 @@
     <li class="tab"><a  (click)="createNewAccount(false)">Log In</a></li>
   </ul>
 
+  <form>
   <div class="tab-content">
     <div [hidden]="option==false">
-      <h1>Sign Up for Free</h1>
+      <h1>{{messageSignIn}}</h1>
+
         <div class="top-row">
           <div class="field-wrap">
 
@@ -16,7 +18,7 @@
 
           <div class="field-wrap">
 
-            <input #UsernameSignIn type="text" placeholder="Username"/>
+            <input #UsernameSignIn name="UsernameSignIn"  type="text" placeholder="Username" />
           </div>
         </div>
 
@@ -58,6 +60,6 @@
     </div>
 
   </div><!-- tab-content -->
-
+    </form>
 </div> <!-- /form -->
 

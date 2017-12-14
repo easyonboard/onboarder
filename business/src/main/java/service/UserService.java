@@ -28,4 +28,12 @@ public class UserService {
     public void addUser(UserDTO user) {
         userDAO.persistEntity(userMapper.mapToNewEntity(user));
     }
+
+
+    public boolean checkUsername(String username){
+        if (findUserByUsername(username)!=null)
+            return false;
+        return true;
+
+    }
 }
