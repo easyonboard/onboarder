@@ -1,9 +1,9 @@
-import {Component,  OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {CourseService} from "../../course.service";
 import {Course} from "../../course";
-import {ConfirmOptions, Position} from 'angular2-bootstrap-confirm';
 import {RootConst} from "../../util/RootConst";
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'app-course-detail',
@@ -16,7 +16,8 @@ export class CourseDetailComponent implements OnInit {
   private fragment: string;
   private isEnrolled: Boolean;
 
-  constructor(private route: ActivatedRoute, private courseService: CourseService) {
+
+  constructor(private route: ActivatedRoute, private courseService: CourseService,@Inject(DOCUMENT) private document: any) {
   }
 
   getCourse(): void {
@@ -59,5 +60,19 @@ export class CourseDetailComponent implements OnInit {
       this.isEnrolled = false;
     }
 
+  }
+
+  selectSection(id: string) {
+    debugger
+
+   var  allElements = this.document.getElementsByClassName("nav-link js-scroll-trigger");
+
+    for (let pos=0; pos<allElements.length; pos++) {
+      allElements[pos].style.setProperty("background-color","#dddddd")
+    }
+
+
+    var selectedElem = this.document.getElementsByName(id)[0];
+    selectedElem.style.setProperty("background-color","#15b28f")
   }
 }

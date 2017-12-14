@@ -1,25 +1,38 @@
-<div id="mainDiv">
+<div id="mainDiv" class="mainDiv" >
   <div class="vertical-menu">
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_OVERVIEW_SECTION}}"
        target="_self"
-       data-target="{rootConst.FRONT_OVERVIEW_SECTION}}">Overview</a>
+       name="overview"
+       data-target="{rootConst.FRONT_OVERVIEW_SECTION}}" (click)="selectSection('overview')">Overview</a>
+
+
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_SYLLABUS_SECTION}}"
        target="_self"
-       data-target="{rootConst.FRONT_SYLLABUS_SECTION}}">Syllabus</a>
+       name="syllabus"
+       data-target="{rootConst.FRONT_SYLLABUS_SECTION}}" (click)="selectSection('syllabus')">Syllabus</a>
+
+
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_OWNER_SECTION}}"
        target="_self"
-       data-target="{rootConst.FRONT_OWNER_SECTION}}">Owner</a>
+       name="owner"
+       data-target="{rootConst.FRONT_OWNER_SECTION}}" (click)="selectSection('owner')">Owner</a>
+
+
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_CONTACT_PERSON_SECTION}}"
        target="_self"
-       data-target="{rootConst.FRONT_CONTACT_PERSON_SECTION}}">Contact person</a>
+       name="constantPerson"
+       data-target="{rootConst.FRONT_CONTACT_PERSON_SECTION}}" (click)="selectSection('constantPerson')">Contact person</a>
+
+
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_RATINGS_REVIEW_SECTION}}"
        target="_self"
-       data-target="{rootConst.FRONT_RATINGS_REVIEW_SECTION}}">Ratings and review</a>
+       name="ratingsAndReview"
+       data-target="{rootConst.FRONT_RATINGS_REVIEW_SECTION}}" (click)="selectSection('ratingsAndReview')">Ratings and review</a>
 
   </div>
 
