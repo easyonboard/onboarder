@@ -8,8 +8,13 @@
   <form>
   <div class="tab-content">
     <div [hidden]="option==false">
-      <h1>{{messageSignIn}}</h1>
 
+      <div class="alert alert-danger" [hidden]="!errorMessage">
+        {{errorMessage}}
+      </div>
+      <div [hidden]="errorMessage">
+       <h1> {{messageSignIn}}</h1>
+      </div>
         <div class="top-row">
           <div class="field-wrap">
 

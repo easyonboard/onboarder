@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
   public userLogged: UserDTO;
   private message: string;
   private messageSignIn: string;
+  private errorMessage: string;
   public rootConst: RootConst;
   private currentComponentElement: HTMLElement;
   private backButton: Element;
@@ -73,27 +74,31 @@ export class LoginComponent implements OnInit, AfterContentInit {
     password=password.trim();
     passwordII=passwordII.trim();
     if(name==""){
-      this.messageSignIn="Name can not be empty";
+      this.errorMessage="Name can not be empty";
       return;
     }
     if(username==""){
-      this.messageSignIn="Username can not be empty";
+      this.errorMessage="Username can not be empty";
       return;
     }
-    if(username.length<5){
-      this.messageSignIn="Username must have at least 5 characters";
+    if(username.length<6){
+      this.errorMessage="Username must have at least 6 characters";
       return;
     }
     if(email==""){
-      this.messageSignIn="Email can not be empty";
+      this.errorMessage="Email can not be empty";
       return;
     }
     if(password=="" || passwordII==""){
-      this.messageSignIn="Password can not be empty";
+      this.errorMessage="Password can not be empty";
       return;
     }
     if(password!=passwordII){
-      this.messageSignIn="Passwords does not match";
+      this.errorMessage="Passwords does not match";
+      return;
+    }
+    if(password.length<6){
+      this.errorMessage="Passwords must have at least 6 characters";
       return;
     }
 
@@ -107,7 +112,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
         },
           err => {
             if (err.status == 400) {
-              this.messageSignIn = "Username already exists";
+              this.errorMessage = "Username already exists";
             }
           });
 

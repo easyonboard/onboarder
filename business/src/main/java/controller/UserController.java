@@ -21,8 +21,9 @@ public class UserController {
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO user){
 
         UserDTO userLogged=userService.findUserByUsername(user.getUsername());
+        String encrypted=userService.encrypt(user.getPassword());
         if(userLogged!=null &&
-        userLogged.getPassword().equals(user.getPassword()))
+        userLogged.getPassword().equals(encrypted))
             return new ResponseEntity<>
                     (userLogged, HttpStatus.OK);
         else

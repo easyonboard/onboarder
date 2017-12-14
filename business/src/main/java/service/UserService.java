@@ -1,10 +1,13 @@
 package service;
 
+import com.google.common.hash.Hashing;
 import dao.UserDAO;
 import dto.UserDTO;
 import dto.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.nio.charset.StandardCharsets;
 
 @Service
 public class UserService {
@@ -26,6 +29,7 @@ public class UserService {
 
 
     public void addUser(UserDTO user) {
+        user.setPassword(encrypt(user.getPassword()));
         userDAO.persistEntity(userMapper.mapToNewEntity(user));
     }
 
@@ -35,5 +39,9 @@ public class UserService {
             return false;
         return true;
 
+    }
+
+    public String encrypt(String initString){
+        return Hashing.sha256().hashString(initString, StandardCharsets.UTF_8).toString();
     }
 }
