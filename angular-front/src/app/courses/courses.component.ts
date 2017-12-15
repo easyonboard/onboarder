@@ -6,8 +6,8 @@ import {
   debounceTime, distinctUntilChanged, switchMap
 } from 'rxjs/operators';
 import {Observable} from "rxjs/Observable";
-import {debug} from "util";
 import {RootConst} from "../util/RootConst";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-courses',
@@ -18,7 +18,7 @@ export class CoursesComponent implements OnInit {
   public rootConst:RootConst= new RootConst();
   courses: Course[];
   coursesSearched$: Observable<Course[]>;
-  constructor(private courseService: CourseService) { }
+  constructor(private courseService: CourseService, private location:Location) { }
 
 
   ngOnInit():void {
@@ -34,13 +34,18 @@ export class CoursesComponent implements OnInit {
       switchMap((term: string) => this.courseService.searchCourses(term)));
 
   }
+
+  goToPage(idC: number):void{
+    location.replace(this.rootConst.FRONT_DETAILED_COURSE+"/"+idC);
+
+}
   getCourses(): void {
 
     this.courseService.findCourses().subscribe(courses=> this.courses=courses);
   }
   private searchTerms = new Subject<string>();
 
-// Push a search term into the observable stream.
+
   search(term: string): void {
     this.searchTerms.next(term);
   }

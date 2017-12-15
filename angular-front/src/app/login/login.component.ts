@@ -102,6 +102,12 @@ export class LoginComponent implements OnInit, AfterContentInit {
       return;
     }
 
+      if(!(email.endsWith("@yahoo.com") || email.endsWith("@gmail.com"))){
+
+        this.errorMessage="Email not valid";
+        return;
+
+      }
     else{
 
       this.userService.addUser({name,username, email,password} as UserDTO).subscribe(

@@ -2,6 +2,7 @@ package entity;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +12,11 @@ public class Course implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Integer idCourse;
 
+    @Column
+    private String titleCourse;
+
+    @Lob
+    @Size(min=500)
     @Column
     private String overview;
 
@@ -37,15 +43,23 @@ public class Course implements Serializable {
     public Course() {
     }
 
-    public Course(Integer id,String overview) {
+    public Course(Integer id,String titleCourse,String overview) {
         this.idCourse = id;
         this.overview = overview;
+        this.titleCourse=titleCourse;
     }
 
     public Integer getIdCourse() {
         return idCourse;
     }
 
+    public String getTitleCourse() {
+        return titleCourse;
+    }
+
+    public void setTitleCourse(String titleCourse) {
+        this.titleCourse = titleCourse;
+    }
 
     public String getOverview() {
         return overview;

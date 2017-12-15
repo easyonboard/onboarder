@@ -4,9 +4,8 @@ import java.util.List;
 
 public class CourseDTO {
     private Integer idCourse;
-
+    private String titleCourse;
     private String overview;
-
     private List<SubjectDTO> subjects;
 
     private List<UserDTO> contactPersons;
@@ -26,6 +25,14 @@ public class CourseDTO {
 
     public void setIdCourse(Integer idCourse) {
         this.idCourse = idCourse;
+    }
+
+    public String getTitleCourse() {
+        return titleCourse;
+    }
+
+    public void setTitleCourse(String titleCourse) {
+        this.titleCourse = titleCourse;
     }
 
     public String getOverview() {

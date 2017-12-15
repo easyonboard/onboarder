@@ -5,7 +5,7 @@
     <li class="tab"><a  (click)="createNewAccount(false)">Log In</a></li>
   </ul>
 
-  <form>
+  <form novalidate>
   <div class="tab-content">
     <div [hidden]="option==false">
 
@@ -29,7 +29,7 @@
 
         <div class="field-wrap">
 
-          <input #Email type="email" placeholder="Email"/>
+          <input #Email type="email"  ng-model="string" placeholder="Email" required />
         </div>
 
         <div class="field-wrap">

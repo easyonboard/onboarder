@@ -30,7 +30,7 @@ public class CourseDAO extends AbstractDAO<Course>{
         Root<Course> rootCourse = criteriaQuery.from(Course.class);
 
         criteriaQuery.select(cb.construct(Course.class,
-                rootCourse.get("idCourse"),rootCourse.get("overview"))).where(cb.like(rootCourse.<String>get("overview"),"%"+overview+"%"));
+                rootCourse.get("idCourse"),rootCourse.get("titleCourse"),rootCourse.get("overview"))).where(cb.like(rootCourse.<String>get("overview"),"%"+overview+"%"));
 
         List<Course> courses = this.executeCriteriaQuery(criteriaQuery);
         return courses ;

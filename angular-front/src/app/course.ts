@@ -1,5 +1,6 @@
 export class Course {
   idCourse: number;
+  titleCourse: string;
   overview: string;
   syllabus: string;
   subjects: any;
