@@ -42,4 +42,8 @@ export class UserService {
     return this.http.post<UserDTO>(this.rootConst.WEB_SERVICE_ENDPOINT + "/addUser", body, this.httpOptions);
 
   }
+  updateUser(userDTO:UserDTO):any {
+    let body = JSON.stringify({username: userDTO.username, password: userDTO.password,email:userDTO.email,name:userDTO.name});
+    return this.http.post<UserDTO>(this.rootConst.WEB_SERVICE_ENDPOINT + "/updateUser", body, this.httpOptions);
+  }
 }

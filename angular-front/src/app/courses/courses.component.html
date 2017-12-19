@@ -1,3 +1,12 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<div class="editProfileButton">
+
+  <button class="btn btn-info logOut" (click)="editProfile(myModal)">
+    <span class="glyphicon  glyphicon-edit"></span> Edit profile
+  </button>
+</div>
 <div class="left-div">
 
   <label>
@@ -44,9 +53,6 @@
 </div>
 
 
-
-
-
 <div class="right-div" *ngIf="searchBox.value.length<=0">
   <div class="div-courses" *ngFor="let course of courses">
 
@@ -71,4 +77,57 @@
     <br/>
 
 </div>
+
+
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="alert alert-danger" [hidden]="message.length==0">
+    {{message}}
+    </div>
+    <button class="close" (click)="closeModal(myModal)">Close</button>
+    <br/>
+    <br/><br/>
+
+
+    <table class="table">
+      <tr>
+        <td><label>Name</label></td>
+        <td><input #name type="text" placeholder="Name"/></td>
+      </tr>
+
+      <tr>
+        <td><label>Email </label></td>
+
+        <td><input #email type="email" ng-model="string" placeholder="Email" required/>
+        </td>
+
+      </tr>
+
+      <tr>
+
+        <td><label>Password </label></td>
+
+        <td><input #pass type="password" placeholder="Password"/></td>
+
+      </tr>
+      <tr>
+        <td><label>Repeat Password </label>
+        </td>
+        <td>
+          <input #passII type="password" placeholder="Repeat password"/>
+        </td>
+      </tr>
+
+    </table>
+
+    <button id="editButton" type="submit" class="button ui-button-icon-only"
+            (click)="updateUser(name.value, email.value, pass.value,passII.value)">Change Info
+    </button>
+
+  </div>
+</div>
+
+
 

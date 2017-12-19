@@ -77,3 +77,72 @@ body, input[text], button {
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.editProfile{
+  color: #010908;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+  margin-top: 100px;
+  margin-left: 100px;
+  width: 85%;
+  height: 85%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: rgb(225, 252, 255);
+  border: 1px solid #010908;
+  border-radius: 8px;
+
+
+}
+
+
+.editProfileButton{
+
+  margin-top: 13px;
+  margin-left: 1680px;
+
+}
+.div-courses:hover{
+  background-color: #bfe6e5;
+}
+/* everywhere else */
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.field-wrap {
+  position: relative;
+  margin-bottom: 40px;
+  padding-left:2em;
+}
+.modal {
+  margin: auto;
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  width: 75%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 15px;
+  border: 1px solid #888;
+  width: 500px; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #0e0008;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #da0107;
+  text-decoration: none;
+  cursor: pointer;
+}

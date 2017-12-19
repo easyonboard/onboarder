@@ -41,5 +41,14 @@ public class UserController {
         return new ResponseEntity( HttpStatus.BAD_REQUEST);
 
     }
+    @CrossOrigin(origins ="http://localhost:4200")
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    public ResponseEntity updateUser(@RequestBody UserDTO user){
 
+        if (userService.updateUser(user)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity( HttpStatus.BAD_REQUEST);
+
+    }
 }
