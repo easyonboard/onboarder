@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {RootConst} from "./util/RootConst";
 import {Observable} from "rxjs/Observable";
-import {UserDTO} from "./user";
+import {UserDTO} from "./domain/user";
 import {catchError} from "rxjs/operators";
 import {of} from "rxjs/observable/of";
 

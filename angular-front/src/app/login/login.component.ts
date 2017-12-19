@@ -1,6 +1,6 @@
 import {AfterContentInit, Component, ElementRef, OnInit,} from '@angular/core';
 import {UserService} from "../user.service";
-import {UserDTO} from "../user";
+import {UserDTO} from "../domain/user";
 import {RootConst} from "../util/RootConst";
 import {Router} from "@angular/router";
 

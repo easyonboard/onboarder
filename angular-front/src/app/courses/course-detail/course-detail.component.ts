@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {CourseService} from "../../course.service";
-import {Course} from "../../course";
+import {Course} from "../../domain/course";
 import {RootConst} from "../../util/RootConst";
 import {DOCUMENT} from "@angular/common";
 
@@ -25,7 +25,9 @@ export class CourseDetailComponent implements OnInit {
     this.route.fragment.subscribe(fragment => {
       this.fragment = fragment;
     });
-    this.courseService.getCourse(id).subscribe(course => this.course = course);
+    var  courseList= this.courseService.getCourse(id);
+    courseList.subscribe(course => this.course = course);
+
   }
 
   ngOnInit() {

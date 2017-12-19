@@ -13,8 +13,11 @@ public class MaterialDTO {
 
     private byte[] fileMaterial;
 
-    private List<CourseDTO> containedByCours;
+    private List<SubjectDTO> containedBySubjects;
 
+    private String title;
+
+    private String description;
 
     public Integer getIdMaterial() {
         return idMaterial;
@@ -48,12 +51,28 @@ public class MaterialDTO {
         this.fileMaterial = fileMaterial;
     }
 
-    public List<CourseDTO> getContainedByCours() {
-        return containedByCours;
+    public List<SubjectDTO> getContainedBySubjects() {
+        return containedBySubjects;
     }
 
-    public void setContainedByCours(List<CourseDTO> containedByCours) {
-        this.containedByCours = containedByCours;
+    public void setContainedBySubjects(List<SubjectDTO> containedBySubjects) {
+        this.containedBySubjects = containedBySubjects;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
 

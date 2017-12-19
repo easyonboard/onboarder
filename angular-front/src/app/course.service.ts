@@ -1,6 +1,6 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Course} from "./course";
+import {Course} from "./domain/course";
 import {Observable} from "rxjs/Observable";
 import {of} from "rxjs/observable/of";
 import 'rxjs/add/operator/map';

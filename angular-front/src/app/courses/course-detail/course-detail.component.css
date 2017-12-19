@@ -59,8 +59,6 @@
 #alreadyEnrolled{
   background-color: #3dae40;
   border-color: #3d9d40;
-
-
 }
 
 .collapse {
@@ -69,3 +67,12 @@
   display: none;
 }
 
+#titleDiv{
+  font-weight: bold;
+  font-size: medium;
+ margin-left: 50px;
+  padding-bottom: 40px;
+}
+section{
+  margin-bottom: 50px
+}

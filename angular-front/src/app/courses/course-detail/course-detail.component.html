@@ -1,4 +1,4 @@
-<div id="mainDiv" class="mainDiv" >
+<div id="mainDiv" class="mainDiv">
   <div class="vertical-menu">
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_OVERVIEW_SECTION}}"
@@ -25,14 +25,16 @@
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_CONTACT_PERSON_SECTION}}"
        target="_self"
        name="constantPerson"
-       data-target="{rootConst.FRONT_CONTACT_PERSON_SECTION}}" (click)="selectSection('constantPerson')">Contact person</a>
+       data-target="{rootConst.FRONT_CONTACT_PERSON_SECTION}}" (click)="selectSection('constantPerson')">Contact
+      person</a>
 
 
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_RATINGS_REVIEW_SECTION}}"
        target="_self"
        name="ratingsAndReview"
-       data-target="{rootConst.FRONT_RATINGS_REVIEW_SECTION}}" (click)="selectSection('ratingsAndReview')">Ratings and review</a>
+       data-target="{rootConst.FRONT_RATINGS_REVIEW_SECTION}}" (click)="selectSection('ratingsAndReview')">Ratings and
+      review</a>
 
   </div>
 
@@ -40,144 +42,71 @@
     <button id="enrollButton" *ngIf="isEnrolled == false" (click)="enrollUserToCourse()">Enroll</button>
     <button id="alreadyEnrolled" *ngIf="isEnrolled == true" (click)="unenrollUserFromCourse()">Already enrolled</button>
 
-    <details>
-      <summary>More details</summary>
-      <p>ieieieieieiieie</p>
-    </details>
     <br><br><br>
+    <div id="titleDiv">{{course.titleCourse}}</div>
     <section id="{{rootConst.FRONT_OVERVIEW_SECTION}}">
-      <b>overview</b>
-      <details>
-        <summary>More details</summary>
-        {{ course.overview }}
-      </details>
+      <p><b>Overview</b></p>
+      <p>
+        {{ course.overview.substring(0,150)}} ...
+      </p>
+      <p>
+        <details>
+          <summary>More details</summary>
+          {{ course.overview }}
+        </details>
+      </p>
     </section>
 
     <section id="{{ rootConst.FRONT_SYLLABUS_SECTION }}">
-      <b>Syllabus</b>
-      <details>
-        <summary>More details</summary>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        v<p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-      </details>
+      <p><b>Syllabus</b></p>
+
+      <p>
+        <details>
+          <summary>More details</summary>
+          <table>
+            <tr *ngFor="let  subject of course.subjects ">
+              <td style="padding-right: 30px" *ngFor="let  material of subject.materials ">
+              <span *ngIf="material.materialType === 'LINK'">
+                <a href="{{material.link}}" target="_blank">{{material.title}}</a>
+              </span>
+                <span style="margin-left: 50px">{{material.description}} </span>
+              </td>
+
+              <td>
+              </td>
+            </tr>
+            <br><br>
+          </table>
+        </details>
+      </p>
     </section>
 
     <section id="{{ rootConst.FRONT_OWNER_SECTION }}">
-      <b>Owner</b>
+      <b>Owners</b>
       <details>
         <summary>More details</summary>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        v<p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
+        <table>
+          <tr *ngFor="let owner of course.owners ">
+            <td style="padding-right: 30px">{{owner.name}}</td>
+            <td style="padding-right: 30px">{{owner.email}}</td>
+            <td style="padding-right: 30px">{{owner.username}}</td>
+          </tr>
+        </table>
       </details>
     </section>
 
     <section id="{{ rootConst.FRONT_CONTACT_PERSON_SECTION }}">
-      <b>contactPerson</b>
+      <b>Contact Persons</b>
       <details>
         <summary>More details</summary>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        v<p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
-        <p> - by Refsnes Data. All Rights Reserved.</p>
-        <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
+        <table>
+          <tr *ngFor="let contactPerson of course.contactPersons ">
+            <td style="padding-right: 30px">{{contactPerson.name}}</td>
+            <td style="padding-right: 30px">{{contactPerson.email}}</td>
+            <td style="padding-right: 30px">{{contactPerson.username}}</td>
+          </tr>
+        </table>
       </details>
-
     </section>
 
     <section id="{{ rootConst.FRONT_RATINGS_REVIEW_SECTION}}">

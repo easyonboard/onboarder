@@ -10,13 +10,10 @@ public class CourseDTO {
 
     private List<UserDTO> contactPersons;
 
-
     private List<UserDTO> owners;
 
-    private List<MaterialDTO> materials;
 
     private List<UserDTO> enrolledUsers;
-
 
 
     public Integer getIdCourse() {
@@ -65,14 +62,6 @@ public class CourseDTO {
 
     public void setOwners(List<UserDTO> owners) {
         this.owners = owners;
-    }
-
-    public List<MaterialDTO> getMaterials() {
-        return materials;
-    }
-
-    public void setMaterials(List<MaterialDTO> materials) {
-        this.materials = materials;
     }
 
     public List<UserDTO> getEnrolledUsers() {

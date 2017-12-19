@@ -32,10 +32,6 @@ public class Course implements Serializable {
     @JoinTable(name="course_owner",joinColumns = @JoinColumn(name = "idCourse"), inverseJoinColumns = @JoinColumn(name = "idUser"))
     private List<User> owners;
 
-    @ManyToMany(cascade = CascadeType.ALL, targetEntity = Material.class)
-    @JoinTable(name="course_material",joinColumns = @JoinColumn(name = "idCourse"), inverseJoinColumns = @JoinColumn(name = "idMaterial"))
-    private List<Material> materials;
-
     @ManyToMany(cascade = {CascadeType.ALL, CascadeType.REMOVE}, targetEntity = User.class)
     @JoinTable(name="course_enrolledUser",joinColumns = @JoinColumn(name = "idCourse"), inverseJoinColumns = @JoinColumn(name = "idUser"))
     private List<User> enrolledUsers;
@@ -95,14 +91,6 @@ public class Course implements Serializable {
 
     public void setOwners(List<User> owners) {
         this.owners = owners;
-    }
-
-    public List<Material> getMaterials() {
-        return materials;
-    }
-
-    public void setMaterials(List<Material> materials) {
-        this.materials = materials;
     }
 
     public List<User> getEnrolledUsers() {

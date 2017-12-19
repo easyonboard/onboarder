@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Course} from "../course";
+import {Course} from "../domain/course";
 import {CourseService} from "../course.service";
 import {Subject} from "rxjs/Subject";
 import {
@@ -40,7 +40,6 @@ export class CoursesComponent implements OnInit {
 
 }
   getCourses(): void {
-
     this.courseService.findCourses().subscribe(courses=> this.courses=courses);
   }
   private searchTerms = new Subject<string>();
