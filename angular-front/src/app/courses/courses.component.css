@@ -19,7 +19,8 @@ body, input[text], button {
   margin-top: 100px;
   text-align:left;
   background-color:#dcfbff;
-  width: 200px;
+  width: 300px;
+  height: 350px;
   float:left;
   position: fixed;
   padding: 20px;
@@ -132,6 +133,15 @@ body, input[text], button {
   border: 1px solid #888;
   width: 500px; /* Could be more or less, depending on screen size */
 }
+.myCustomAlert-content{
+
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 15px;
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+
+}
 
 /* The Close Button */
 .close {
@@ -139,10 +149,12 @@ body, input[text], button {
   font-size: 28px;
   font-weight: bold;
 }
-
 .close:hover,
-.close:focus {
+.close:focus{
   color: #da0107;
   text-decoration: none;
   cursor: pointer;
 }
+
+
+

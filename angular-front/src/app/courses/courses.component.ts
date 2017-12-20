@@ -11,6 +11,7 @@ import {Location} from '@angular/common';
 import {UserDTO} from "../domain/user";
 import {UserService} from "../user.service";
 
+
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -21,11 +22,13 @@ export class CoursesComponent implements OnInit {
   courses: Course[];
   message:string;
   coursesSearched$: Observable<Course[]>;
+  public successMessage:string;
   constructor(private courseService: CourseService, private location:Location, private userService: UserService) { }
 
 
   ngOnInit():void {
     this.message="";
+    this.successMessage="";
     this.getCourses();
     this.coursesSearched$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
@@ -53,15 +56,16 @@ export class CoursesComponent implements OnInit {
     this.searchTerms.next(term);
   }
 
-  editProfile(id:string):void{
-    var modal=document.getElementById('myModal');
+  openModal(id:string):void{
+    var modal=document.getElementById(id);
 
     modal.style.display = "block";
 
   }
   closeModal(myModal:string ): void {
 
-    var modal=document.getElementById('myModal');
+
+    var modal=document.getElementById(myModal);
     modal.style.display="none";
 
   }
@@ -91,10 +95,14 @@ export class CoursesComponent implements OnInit {
         name=null;
       if(email=="")
         email=null;
+      if(password=="")
+        password=null;
       this.userService.updateUser({name,username, email,password} as UserDTO).subscribe(
         res => {
           this.closeModal('myModal');
-          alert("Operatia s-a realizat cu success!");
+          this.successMessage="Operatia s-a realizat cu success!"
+          this.openModal('myCustom');
+          this.message="";
         },
         err => {
           if (err.status == 400) {

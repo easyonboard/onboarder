@@ -1,9 +1,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="bootbox.min.js"></script>
+
 <div class="editProfileButton">
 
-  <button class="btn btn-info logOut" (click)="editProfile(myModal)">
+  <button class="btn btn-info logOut" (click)="openModal('myModal')">
     <span class="glyphicon  glyphicon-edit"></span> Edit profile
   </button>
 </div>
@@ -22,9 +23,8 @@
 
 </div>
 
-
-
 <div class="right-div" *ngIf="searchBox.value.length>0">
+
   <div class="div-courses" *ngFor="let course of coursesSearched$ | async " (click)="search('first')">
 
     <span class="badge">{{course.idCourse}}</span>
@@ -78,6 +78,14 @@
 
 </div>
 
+<div class="modal" id="myCustom" >
+
+  <div class="modal-content">
+    <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button><br/>
+    {{successMessage}}
+  </div>
+</div>
+
 
 <div id="myModal" class="modal">
 
@@ -86,7 +94,7 @@
     <div class="alert alert-danger" [hidden]="message.length==0">
     {{message}}
     </div>
-    <button class="close" (click)="closeModal(myModal)">Close</button>
+    <button class="close" (click)="closeModal('myModal')">Close</button>
     <br/>
     <br/><br/>
 

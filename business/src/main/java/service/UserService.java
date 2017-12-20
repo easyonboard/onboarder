@@ -50,8 +50,9 @@ public class UserService {
 
         User user = userDAO.findUserByUsername(userUpdated.getUsername());
         if (user != null) {
-            userUpdated.setPassword(encrypt(userUpdated.getPassword()));
-
+            if (userUpdated.getPassword() != null) {
+                userUpdated.setPassword(encrypt(userUpdated.getPassword()));
+            }
             User entity = userMapper.mapToEntity(userUpdated, user);
             userDAO.persistEntity(entity);
             return true;
