@@ -26,9 +26,11 @@ export class AppComponent {
   }
 
   logout(): void {
-    localStorage.removeItem("userLogged");
+
     if (confirm("Do you really want to logout?")) {
+      localStorage.removeItem("userLogged");
       location.replace(this.rootConst.LOGIN_PAGE);
     }
   }
+
 }

@@ -9,14 +9,12 @@
   </button>
 </div>
 <div class="left-div">
-
   <label>
-    Search value: </label><input #searchBox id="search-box" (keyup)="search(searchBox.value)" class="inputText"/>
-  <p> This is added for testing purposes</p>
-  <p> Some filtering choices</p>
+    Search value: </label><input style="margin-left: 15px" #searchBox id="search-box" (keyup)="search(searchBox.value)"
+                                 class="inputText"/><br/>
+  <br/>
+  <p style="font-weight: bold ; font-size:medium">Sort by: </p>
 
-  <label>Overview</label> <input name="option" type="radio"/><br/>
-  <label>Syllabus</label> <input name="option" type="radio"/> <br/>
   <label>Most popular courses</label> <input name="option" type="radio"/> <br/>
   <label>Best rated courses</label> <input name="option" type="radio"/><br/>
 
@@ -28,17 +26,10 @@
   <div class="div-courses" *ngFor="let course of coursesSearched$ | async " (click)="search('first')">
 
     <span class="badge">{{course.idCourse}}</span>
-
-
-
-    <div class="titleClass" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}" >
+    <div class="titleClass" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}">
       {{course.titleCourse}}
     </div>
-
-
-
     <br/>
-
     {{course.overview.substring(0,150)}}...
 
     <details>
@@ -54,45 +45,45 @@
 
 
 <div class="right-div" *ngIf="searchBox.value.length<=0">
-  <div class="div-courses" *ngFor="let course of courses">
+  <div class="div-courses" *ngFor="let cc of courses ">
 
-      <span class="badge">{{course.idCourse}}</span>
-    <div class="titleClass" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}" >
+    <span class="badge">{{cc.idCourse}}</span>
+    <div class="titleClass" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{cc.idCourse}}">
 
-      {{course.titleCourse}}
+      {{cc.titleCourse}}
 
     </div>
     <br/>
 
-    {{course.overview.substring(0,150)}}...
+    {{cc.overview.substring(0,150)}}...
 
-      <details>
-        <summary style="color: #ff1514">Read More</summary>
-        <p>{{course.overview}}</p>
-      </details>
-      <br/><br/><br/>
+    <details>
+      <summary style="color: #ff1514">Read More</summary>
+      <p>{{cc.overview}}</p>
+    </details>
+    <br/><br/><br/>
 
-    </div>
+  </div>
 
-    <br/>
+  <br/>
 
 </div>
 
-<div class="modal" id="myCustom" >
+<div class="modal" id="myCustom">
 
   <div class="modal-content">
-    <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button><br/>
+    <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
+    <br/>
     {{successMessage}}
   </div>
 </div>
-
 
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
     <div class="alert alert-danger" [hidden]="message.length==0">
-    {{message}}
+      {{message}}
     </div>
     <button class="close" (click)="closeModal('myModal')">Close</button>
     <br/>
@@ -130,12 +121,11 @@
 
     </table>
 
-    <button id="editButton" type="submit" class="button ui-button-icon-only"
-            (click)="updateUser(name.value, email.value, pass.value,passII.value)">Change Info
-    </button>
 
+    <button class="btn btn-info logOut" (click)="updateUser(name.value, email.value, pass.value,passII.value)">
+      <span class="glyphicon  glyphicon-edit"></span> Edit profile
+    </button>
   </div>
 </div>
-
 
 

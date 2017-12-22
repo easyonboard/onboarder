@@ -7,6 +7,7 @@ import dto.UserDTO;
 import entity.User;
 import entity.enums.MaterialType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -84,6 +85,17 @@ public class CourseController {
         courseService.unenrollUserToCourse(username, idCourse);
         return null;
     }
+
+    // updateCourse
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/updateCourse", method = RequestMethod.POST)
+    public ResponseEntity updateCourse( @RequestBody CourseDTO course) {
+
+        courseService.updateCourse(course);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 
     //    @CrossOrigin(origins = "http://localhost:4200")
 //    @RequestMapping(value = "/createCourse", method = RequestMethod.POST)

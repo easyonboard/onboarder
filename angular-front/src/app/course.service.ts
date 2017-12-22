@@ -1,5 +1,5 @@
 import {Injectable, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Course} from "./domain/course";
 import {Observable} from "rxjs/Observable";
 import {of} from "rxjs/observable/of";
@@ -17,7 +17,9 @@ export class CourseService implements OnInit {
   private enrolleUserOnCourse = this.rootConst.SERVER_ENROLLE_USER_ON_COURSE;
   private unenrolleUserOnCourse = this.rootConst.SERVER_UNENROLLE_USER_ON_COURSE;
 
-
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+  };
 
   constructor(private http: HttpClient) {
   }
@@ -50,5 +52,10 @@ export class CourseService implements OnInit {
   unenrollUserFromCourse(idCourse: number, username: string):Observable<any> {
     return this.http.post(`${this.unenrolleUserOnCourse}${idCourse}`,username);
 
+  }
+
+  editCourse(id:number, titleEdited:string ,overviewEdited:string):Observable<any>{
+    let body = JSON.stringify({idCourse: id, titleCourse:  titleEdited, overview: overviewEdited});
+    return this.http.post<Course>(this.rootConst.WEB_SERVICE_ENDPOINT + "/updateCourse", body, this.httpOptions);
   }
 }

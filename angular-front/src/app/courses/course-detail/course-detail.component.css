@@ -66,7 +66,20 @@
   transition: block;
   display: none;
 }
+#editCourse{
 
+  background-color: #2893f1;
+  position: absolute;
+  right: 100px;
+  height: 48px;
+  width: 75px;
+  top: 5px;
+  font-weight: bold;
+  border-width: 2px;
+  border-color: #2785e2;
+  border-radius: 5px;
+  box-shadow: 3px 5px #888888;
+}
 #titleDiv{
   font-weight: bold;
   font-size: medium;
@@ -75,4 +88,62 @@
 }
 section{
   margin-bottom: 50px
+}
+
+
+.overviewTextArea{
+
+  margin: auto;
+  display: none;
+
+}
+
+textarea{
+  resize: vertical;
+}
+.modal {
+  margin: auto;
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  width: 75%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 15px;
+  border: 1px solid #888;
+  width: 500px; /* Could be more or less, depending on screen size */
+}
+#editCourseSubmitButton{
+
+  background-color: #73afff;
+  height: 50px;
+  width: 100px;
+  margin-bottom: 50px;
+  margin-left:20px;
+  font-weight: bold;
+  font-size: large;
+  border-radius: 5px;
+  box-shadow: 3px 5px #888888;
+}
+
+
+#cancelEditing{
+
+  background-color: #73afff;
+  height: 50px;
+  width: 100px;
+  margin-bottom: 50px;
+  margin-left:10px;
+  font-weight: bold;
+  font-size: large;
+  border-radius: 5px;
+  box-shadow: 3px 5px #888888;
+
+
 }

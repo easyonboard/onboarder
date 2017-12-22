@@ -8,9 +8,11 @@ import {CourseService} from "./course.service";
 import {HttpClientModule} from "@angular/common/http";
 import { CourseDetailComponent} from "./courses/course-detail/course-detail.component";
 import {RouterModule, Routes} from "@angular/router";
-import { AppRoutingModule } from './/app-routing.module';
+import {AppRoutingModule } from './/app-routing.module';
 import {UserService} from "./user.service";
 import {LoginComponent} from "./login/login.component";
+import {Ng2OrderModule} from "ng2-order-pipe/dist/index";
+import { UtilityService } from './utility.service';
 
 
 @NgModule({
@@ -24,9 +26,10 @@ import {LoginComponent} from "./login/login.component";
     FormsModule,
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    Ng2OrderModule
   ],
-  providers: [CourseService, UserService],
+  providers: [CourseService, UserService, UtilityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,7 +10,8 @@ import {RootConst} from "../util/RootConst";
 import {Location} from '@angular/common';
 import {UserDTO} from "../domain/user";
 import {UserService} from "../user.service";
-
+import {Ng2OrderModule} from "ng2-order-pipe/dist/index";
+import {UtilityService} from "../utility.service";
 
 @Component({
   selector: 'app-courses',
@@ -23,7 +24,7 @@ export class CoursesComponent implements OnInit {
   message:string;
   coursesSearched$: Observable<Course[]>;
   public successMessage:string;
-  constructor(private courseService: CourseService, private location:Location, private userService: UserService) { }
+  constructor(private courseService: CourseService, private location:Location, private userService: UserService, private utilityService:UtilityService) { }
 
 
   ngOnInit():void {
@@ -56,18 +57,11 @@ export class CoursesComponent implements OnInit {
     this.searchTerms.next(term);
   }
 
-  openModal(id:string):void{
-    var modal=document.getElementById(id);
-
-    modal.style.display = "block";
-
-  }
-  closeModal(myModal:string ): void {
-
-
-    var modal=document.getElementById(myModal);
-    modal.style.display="none";
-
+    openModal(id:string){
+  this.utilityService.openModal(id);
+}
+  closeModal(id:string){
+    this.utilityService.closeModal(id);
   }
 
   updateUser(name: string, email: string, password: string, passwordII: string): void {
@@ -88,7 +82,6 @@ export class CoursesComponent implements OnInit {
       return;
 
     }
-
     else{
       var username = localStorage.getItem("userLogged");
       if(name=="")
@@ -99,9 +92,9 @@ export class CoursesComponent implements OnInit {
         password=null;
       this.userService.updateUser({name,username, email,password} as UserDTO).subscribe(
         res => {
-          this.closeModal('myModal');
-          this.successMessage="Operatia s-a realizat cu success!"
-          this.openModal('myCustom');
+          this.utilityService.closeModal('myModal');
+          this.successMessage="Operatia a fost realizata cu success!"
+          this.utilityService.openModal('myCustom');
           this.message="";
         },
         err => {

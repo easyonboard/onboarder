@@ -88,4 +88,18 @@ public class CourseService {
         Course courseEntity = courseDAO.findEntity(idCourse);
         enrollDAO.unenrollUserToCourse(userEntity, courseEntity);
     }
+
+    public void updateCourse(CourseDTO course) {
+
+        if(course.getTitleCourse()==""){
+            course.setTitleCourse(null);
+        }
+        Course courseEntity=courseMapper.mapToEntity(course,courseDAO.findEntity(course.getIdCourse()));
+        courseDAO.persistEntity(courseEntity);
+    }
 }
+//    User user = userDAO.findUserByUsername(userUpdated.getUsername());
+//    User entity = userMapper.mapToEntity(userUpdated, user);
+//userDAO.persistEntity(entity);
+//        return true;
+//        }

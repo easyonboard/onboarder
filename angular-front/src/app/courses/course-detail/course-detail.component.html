@@ -1,4 +1,14 @@
-<div id="mainDiv" class="mainDiv">
+
+<div class="modal" id="myCustom">
+
+  <div class="modal-content">
+    <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
+    <br/>
+    {{successMessage}}
+  </div>
+</div>
+
+<div id="mainDiv" class="mainDiv" xmlns="http://www.w3.org/1999/html">
   <div class="vertical-menu">
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_OVERVIEW_SECTION}}"
@@ -41,9 +51,15 @@
   <div id="courseDetails">
     <button id="enrollButton" *ngIf="isEnrolled == false" (click)="enrollUserToCourse()">Enroll</button>
     <button id="alreadyEnrolled" *ngIf="isEnrolled == true" (click)="unenrollUserFromCourse()">Already enrolled</button>
-
+    <button id="editCourse" (click)="editCourseMode()">
+      Edit Course
+    </button>
     <br><br><br>
-    <div id="titleDiv">{{course.titleCourse}}</div>
+    <div id="titleDiv">{{course.titleCourse}}
+      <br/>
+      <input type="text" #titleEdited name="title" #titleEdited style="visibility: hidden" id="titleEdited"/>
+
+    </div>
     <section id="{{rootConst.FRONT_OVERVIEW_SECTION}}">
       <p><b>Overview</b></p>
       <p>
@@ -55,6 +71,10 @@
           {{ course.overview }}
         </details>
       </p>
+
+
+      <textarea id="overviewTextBox" #overviewEdited style="visibility: hidden" rows="1" cols="180">{{course.overview}}
+        </textarea>
     </section>
 
     <section id="{{ rootConst.FRONT_SYLLABUS_SECTION }}">
@@ -152,6 +172,9 @@
 
     </section>
 
+
+       <button id="editCourseSubmitButton" class="glyphicon  glyphicon-edit" *ngIf="isInEditingMode == true" (click)="editCourse(titleEdited.value, overviewEdited.value)">Edit</button>
+    <button id="cancelEditing" class="glyphicon  ui-icon-cancel" *ngIf="isInEditingMode == true" (click)="exitEditingMode()">Cancel</button>
 
   </div>
 </div>
