@@ -43,10 +43,6 @@ export class CoursesComponent implements OnInit {
 
   }
 
-  goToPage(idC: number):void{
-    location.replace(this.rootConst.FRONT_DETAILED_COURSE+"/"+idC);
-
-}
   getCourses(): void {
     this.courseService.findCourses().subscribe(courses=> this.courses=courses);
   }
@@ -75,13 +71,6 @@ export class CoursesComponent implements OnInit {
     this.message="Password not matching or does not have 6 characters"
       return;
     }
-
-
-    if(email!="" && !(email.endsWith("@yahoo.com") || email.endsWith("@gmail.com"))){
-      this.message="Not a valid email address!";
-      return;
-
-    }
     else{
       var username = localStorage.getItem("userLogged");
       if(name=="")
@@ -98,7 +87,7 @@ export class CoursesComponent implements OnInit {
           this.message="";
         },
         err => {
-       console.log(err);
+       this.message=err.error.message;
         });
 
     }

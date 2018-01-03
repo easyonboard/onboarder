@@ -45,7 +45,7 @@ public class CourseController {
 
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/course", method = RequestMethod.GET)
+    @RequestMapping(value = "/courses/course", method = RequestMethod.GET)
     public ResponseEntity<List<CourseDTO>> searchArticlesByOverview(@RequestParam(value = "overview") String overview) {
 
         List<CourseDTO> searchCourses = courseService.searchByOverview(overview);
@@ -60,27 +60,27 @@ public class CourseController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/detailedCourse", method = RequestMethod.GET)
+    @RequestMapping(value = "courses/detailedCourse", method = RequestMethod.GET)
     public ResponseEntity<CourseDTO> getDetails(@RequestParam(value = "id") Integer id) {
         CourseDTO courseById = courseService.getCourseById(id);
         return new ResponseEntity<>(courseById, HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/enrollUserOnCourse", method = RequestMethod.POST)
+    @RequestMapping(value = "/courses/enrollUserOnCourse", method = RequestMethod.POST)
     public ResponseEntity enrollToCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) {
         courseService.enrollUserToCourse(username, idCourse);
         return null;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/isEnrolledOnCourse", method = RequestMethod.POST)
+    @RequestMapping(value = "/courses/isEnrolledOnCourse", method = RequestMethod.POST)
     public ResponseEntity<Boolean> isEnrolledOnCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) {
         return new ResponseEntity<Boolean>(courseService.userIsEnrolledOnCourse(username, idCourse), HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/unenrollUserFromCourse", method = RequestMethod.POST)
+    @RequestMapping(value = "/courses/unenrollUserFromCourse", method = RequestMethod.POST)
     public ResponseEntity unenrollFromCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) {
         courseService.unenrollUserToCourse(username, idCourse);
         return null;
@@ -89,7 +89,7 @@ public class CourseController {
     // updateCourse
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/updateCourse", method = RequestMethod.POST)
+    @RequestMapping(value = "/courses/updateCourse", method = RequestMethod.POST)
     public ResponseEntity updateCourse( @RequestBody CourseDTO course) {
 
         courseService.updateCourse(course);

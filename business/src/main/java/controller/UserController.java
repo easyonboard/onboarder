@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/addUser", method = RequestMethod.POST)
     public ResponseEntity addUser(@RequestBody UserDTO user) throws InvalidDataException {
 
         try {
@@ -54,7 +54,7 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/updateUser", method = RequestMethod.POST)
     public ResponseEntity updateUser(@RequestBody UserDTO user) {
 
         try {
