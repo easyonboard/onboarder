@@ -98,9 +98,7 @@ export class CoursesComponent implements OnInit {
           this.message="";
         },
         err => {
-          if (err.status == 400) {
-
-          }
+       console.log(err);
         });
 
     }

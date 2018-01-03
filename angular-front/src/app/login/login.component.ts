@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
         if (err.status == 403) {
           this.message = "Username or password wrong. Please try again";
         }
+        console.log(err);
       });
 
   }
@@ -71,59 +72,24 @@ export class LoginComponent implements OnInit, AfterContentInit {
     name = name.trim();
     username = username.trim();
     email = email.trim();
-    password=password.trim();
-    passwordII=passwordII.trim();
-    if(name==""){
-      this.errorMessage="Name can not be empty";
-      return;
-    }
-    if(username==""){
-      this.errorMessage="Username can not be empty";
-      return;
-    }
-    if(username.length<6){
-      this.errorMessage="Username must have at least 6 characters";
-      return;
-    }
-    if(email==""){
-      this.errorMessage="Email can not be empty";
-      return;
-    }
-    if(password=="" || passwordII==""){
-      this.errorMessage="Password can not be empty";
-      return;
-    }
-    if(password!=passwordII){
-      this.errorMessage="Passwords does not match";
-      return;
-    }
-    if(password.length<6){
-      this.errorMessage="Passwords must have at least 6 characters";
-      return;
+    password = password.trim();
+    passwordII = passwordII.trim();
+    if (password != passwordII) {
+      this.errorMessage = "Password does not match";
+      return ;
     }
 
-      if(!(email.endsWith("@yahoo.com") || email.endsWith("@gmail.com"))){
-
-        this.errorMessage="Email not valid";
-        return;
-
-      }
-    else{
-
-      this.userService.addUser({name,username, email,password} as UserDTO).subscribe(
+    else {
+      this.userService.addUser({name, username, email, password} as UserDTO).subscribe(
         res => {
 
-            this.option=false;
+          this.option = false;
 
         },
-          err => {
-            if (err.status == 400) {
-              this.errorMessage = "Username already exists";
-            }
-          });
+        err => {
+          this.errorMessage = err.error.message;
+        });
 
     }
-
   }
-
 }

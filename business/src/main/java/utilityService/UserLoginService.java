@@ -1,6 +1,7 @@
 package utilityService;
 
 import dto.UserDTO;
+import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -28,7 +29,12 @@ public class UserLoginService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UserDTO user=userService.findUserByUsername(username);
+        UserDTO user= null;
+        try {
+            user = userService.findUserByUsername(username);
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
         User u=new User(user.getUsername(),user.getPassword(), AuthorityUtils.createAuthorityList(user.getRole().getRole().toString()));
         u.isEnabled();
         return u;
