@@ -24,15 +24,15 @@ public class Course implements Serializable {
     @JoinTable(name="course_subject",joinColumns = @JoinColumn(name = "idCourse"), inverseJoinColumns = @JoinColumn(name = "idSubject"))
     private List<Subject> subjects;
 
-    @ManyToMany(cascade = CascadeType.ALL, targetEntity = User.class)
+    @ManyToMany( targetEntity = User.class)
     @JoinTable(name="course_contactPerson",joinColumns = @JoinColumn(name = "idCourse"), inverseJoinColumns = @JoinColumn(name = "idUser"))
     private List<User> contactPersons;
 
-    @ManyToMany(cascade = CascadeType.ALL, targetEntity = User.class)
+    @ManyToMany(targetEntity = User.class)
     @JoinTable(name="course_owner",joinColumns = @JoinColumn(name = "idCourse"), inverseJoinColumns = @JoinColumn(name = "idUser"))
     private List<User> owners;
 
-    @ManyToMany(cascade = {CascadeType.ALL, CascadeType.REMOVE}, targetEntity = User.class)
+    @ManyToMany(targetEntity = User.class)
     @JoinTable(name="course_enrolledUser",joinColumns = @JoinColumn(name = "idCourse"), inverseJoinColumns = @JoinColumn(name = "idUser"))
     private List<User> enrolledUsers;
 

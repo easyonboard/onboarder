@@ -5,6 +5,7 @@ import {Course} from "../../domain/course";
 import {RootConst} from "../../util/RootConst";
 import {DOCUMENT} from "@angular/common";
 import {UtilityService} from "../../utility.service";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-course-detail',
@@ -17,27 +18,41 @@ export class CourseDetailComponent implements OnInit {
   private fragment:string;
   private isEnrolled:Boolean;
   public isInEditingMode:Boolean;
-  private successMessage:string;
+  private modalMessage:string;
+  private errorMessage:string;
+  private courseFound:boolean;
 
   constructor(private route:ActivatedRoute, private utilityService: UtilityService, private courseService:CourseService, @Inject(DOCUMENT) private document:any) {
   }
 
-  getCourse():void {
+  getCourse():any {
 
     const id = +this.route.snapshot.paramMap.get('id');
     this.route.fragment.subscribe(fragment => {
       this.fragment = fragment;
     });
-    var courseList = this.courseService.getCourse(id);
-    courseList.subscribe(course => this.course = course);
+   this.courseService.getCourse(id).subscribe(course=> {
+      this.course = course;
+     this.courseFound=true;
+   },
+      err=> {
+        if (err.status == 400) {
+          this.errorMessage = err.error.message;
+          this.courseFound=false;
+          this.modalMessage="Course not found!";
+          this.utilityService.openModal('myCustom');
+        }
+      });
 
   }
 
   ngOnInit() {
+    this.errorMessage="";
     this.isInEditingMode = false;
     this.getCourse();
     this.isUserEnrollOnThisCourse();
     this.rootConst = new RootConst();
+
 
   }
 
@@ -75,11 +90,13 @@ export class CourseDetailComponent implements OnInit {
 
     for (let pos = 0; pos < allElements.length; pos++) {
       allElements[pos].style.setProperty("background-color", "#dddddd")
+      allElements[pos].style.setProperty("color", "#000000");
     }
 
 
     var selectedElem = this.document.getElementsByName(id)[0];
-    selectedElem.style.setProperty("background-color", "#15b28f")
+    selectedElem.style.setProperty("background-color", "rgba(132, 20, 57, 0.9)");
+    selectedElem.style.setProperty("color", "#F0F8FF");
   }
 
   editCourseMode() {
@@ -97,18 +114,29 @@ export class CourseDetailComponent implements OnInit {
   editCourse( titleEdited:string, overviewEdited:string) {
     overviewEdited = overviewEdited.trim();
     titleEdited = titleEdited.trim();
-    this.courseService.editCourse(this.course.idCourse, titleEdited, overviewEdited).subscribe();
-    this.successMessage="Operatia a fost realizata cu success!";
-    this.utilityService.openModal('myCustom');
-    this.exitEditingMode();
+    this.courseService.editCourse(this.course.idCourse, titleEdited, overviewEdited).subscribe(res=>{
+      this.modalMessage="Operatia a fost realizata cu success!";
+      this.utilityService.openModal('myCustom');
+      this.exitEditingMode();
+      this.getCourse();
+
+    },
+    err=>{
+      this.errorMessage=err.error.message;
+
+
+    });
+
   }
 
   public exitEditingMode():void {
     this.isInEditingMode = false;
+    this.errorMessage="";
     var overviewTextBox = this.document.getElementById('overviewTextBox');
     overviewTextBox.style.visibility = 'hidden';
     var titleEditedInput = this.document.getElementById('titleEdited');
     titleEditedInput.style.visibility = 'hidden';
 
   }
+
 }

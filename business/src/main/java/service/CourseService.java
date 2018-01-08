@@ -10,8 +10,11 @@ import dto.mapper.CourseMapper;
 import dto.mapper.UserMapper;
 import entity.Course;
 import entity.User;
+import exception.CourseNotFoundException;
+import exception.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import validator.CourseValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,10 @@ public class CourseService {
     @Autowired
     private SubjectService subjectService;
 
+    @Autowired
+    private CourseValidator courseValidator;
+
+    private static final String COURSE_NOT_FOUND="Course not found";
     private CourseMapper courseMapper = CourseMapper.INSTANCE;
     private UserMapper userMapper = UserMapper.INSTANCE;
 
@@ -65,8 +72,10 @@ public class CourseService {
         return courseMapper.entitiesToDTOs(courseDAO.allCourses());
     }
 
-    public CourseDTO getCourseById(Integer id) {
+    public CourseDTO getCourseById(Integer id) throws CourseNotFoundException {
         Course entity = courseDAO.findEntity(id);
+        if(entity==null)
+            throw new CourseNotFoundException(COURSE_NOT_FOUND);
         return courseMapper.mapToDTO(entity);
     }
 
@@ -89,12 +98,13 @@ public class CourseService {
         enrollDAO.unenrollUserToCourse(userEntity, courseEntity);
     }
 
-    public void updateCourse(CourseDTO course) {
+    public void updateCourse(CourseDTO course) throws InvalidDataException {
 
         if(course.getTitleCourse()==""){
             course.setTitleCourse(null);
         }
         Course courseEntity=courseMapper.mapToEntity(course,courseDAO.findEntity(course.getIdCourse()));
+        courseValidator.validateCourseData(courseMapper.mapToDTO(courseEntity));
         courseDAO.persistEntity(courseEntity);
     }
 }

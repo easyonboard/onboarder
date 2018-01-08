@@ -2,9 +2,9 @@ package validator;
 
 import dto.CourseDTO;
 import exception.InvalidDataException;
-/**
- * Created by maresb on 1/3/2018.
- */
+import org.springframework.stereotype.Service;
+
+@Service
 public class CourseValidator {
 
     private static final String TITLE_ERROR="Course title too short";
@@ -25,7 +25,7 @@ public class CourseValidator {
     }
 
     private void validateTitle(String titleCourse) throws InvalidDataException {
-        if(titleCourse.length()<MIN_NUMBER_CHARACTERS_TITLE)
+        if(titleCourse==null || titleCourse.length()<MIN_NUMBER_CHARACTERS_TITLE)
             throw new InvalidDataException(TITLE_ERROR);
     }
 }

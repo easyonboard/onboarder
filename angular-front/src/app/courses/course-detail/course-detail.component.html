@@ -4,10 +4,10 @@
   <div class="modal-content">
     <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
     <br/>
-    {{successMessage}}
+    {{modalMessage}}
   </div>
 </div>
-
+<div *ngIf="courseFound==true">
 <div id="mainDiv" class="mainDiv" xmlns="http://www.w3.org/1999/html">
   <div class="vertical-menu">
     <a class="nav-link js-scroll-trigger"
@@ -22,7 +22,6 @@
        target="_self"
        name="syllabus"
        data-target="{rootConst.FRONT_SYLLABUS_SECTION}}" (click)="selectSection('syllabus')">Syllabus</a>
-
 
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_OWNER_SECTION}}"
@@ -55,6 +54,9 @@
       Edit Course
     </button>
     <br><br><br>
+    <div class="alert alert-danger" [hidden]="errorMessage.length==0">
+      {{errorMessage}}
+    </div>
     <div id="titleDiv">{{course.titleCourse}}
       <br/>
       <input type="text" #titleEdited name="title" #titleEdited style="visibility: hidden" id="titleEdited"/>
@@ -177,4 +179,5 @@
     <button id="cancelEditing" class="glyphicon  ui-icon-cancel" *ngIf="isInEditingMode == true" (click)="exitEditingMode()">Cancel</button>
 
   </div>
+</div>
 </div>

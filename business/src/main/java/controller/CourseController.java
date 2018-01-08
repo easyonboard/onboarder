@@ -6,18 +6,29 @@ import dto.SubjectDTO;
 import dto.UserDTO;
 import entity.User;
 import entity.enums.MaterialType;
+import exception.CourseNotFoundException;
+import exception.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import service.CourseService;
 import service.MaterialService;
 import service.SubjectService;
 import service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +49,11 @@ public class CourseController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses", method = RequestMethod.GET)
-    public ResponseEntity<List<CourseDTO>> allArticles() {
+    public ResponseEntity<List<CourseDTO>> allArticles(HttpServletRequest request) {
+        HttpSession session = request.getSession(true);
+        SecurityContext sc = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
         return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
-
 
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -61,8 +73,13 @@ public class CourseController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "courses/detailedCourse", method = RequestMethod.GET)
-    public ResponseEntity<CourseDTO> getDetails(@RequestParam(value = "id") Integer id) {
-        CourseDTO courseById = courseService.getCourseById(id);
+    public ResponseEntity getDetails(@RequestParam(value = "id") Integer id) {
+        CourseDTO courseById = null;
+        try {
+            courseById = courseService.getCourseById(id);
+        } catch (CourseNotFoundException e) {
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(courseById, HttpStatus.OK);
     }
 
@@ -90,10 +107,15 @@ public class CourseController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/updateCourse", method = RequestMethod.POST)
-    public ResponseEntity updateCourse( @RequestBody CourseDTO course) {
+    public ResponseEntity updateCourse(@RequestBody CourseDTO course) {
 
-        courseService.updateCourse(course);
-        return new ResponseEntity(HttpStatus.OK);
+        try {
+            courseService.updateCourse(course);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (InvalidDataException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
+
     }
 
 

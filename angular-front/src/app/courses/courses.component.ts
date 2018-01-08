@@ -25,8 +25,7 @@ export class CoursesComponent implements OnInit {
   coursesSearched$: Observable<Course[]>;
   public successMessage:string;
   constructor(private courseService: CourseService, private location:Location, private userService: UserService, private utilityService:UtilityService) { }
-
-
+   myList:Course[]=[];
   ngOnInit():void {
     this.message="";
     this.successMessage="";

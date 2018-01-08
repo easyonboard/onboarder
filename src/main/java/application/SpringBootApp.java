@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @EntityScan(basePackages = {"entity"})
-@ComponentScan(basePackages={"controller","dao","service", "validator"})
+@ComponentScan(basePackages={"controller","dao","service", "validator", "utilityService"})
 @SpringBootApplication
 public class SpringBootApp {
     public static void main(String[] args) {

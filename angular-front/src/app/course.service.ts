@@ -34,7 +34,7 @@ export class CourseService implements OnInit {
     return this.http.get<Course[]>(`${this.courseOverview}${value}`);
   }
 
-  getCourse(id: number) {
+  getCourse(id: number): Observable<Course> {
     return this.http.get<Course>(`${this.detailedCourse}${id}`);
   }
 
@@ -57,5 +57,9 @@ export class CourseService implements OnInit {
   editCourse(id:number, titleEdited:string ,overviewEdited:string):Observable<any>{
     let body = JSON.stringify({idCourse: id, titleCourse:  titleEdited, overview: overviewEdited});
     return this.http.post<Course>(this.rootConst.SERVER_COURSES_URL + "/updateCourse", body, this.httpOptions);
+  }
+
+  sendListToBackTest(myList:Course[]){
+    return this.http.post<Course[]>("http://localhost:8090/sendCourseList", myList, this.httpOptions);
   }
 }

@@ -39,7 +39,7 @@ public class User implements Serializable {
     @ManyToOne
     private Role role;
 
-    @ManyToMany(mappedBy = "contactPersons", targetEntity = Course.class)
+    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "contactPersons", targetEntity = Course.class)
     private List<Course> contactForCourses;
 
     @ManyToMany(mappedBy = "owners", targetEntity = Course.class)

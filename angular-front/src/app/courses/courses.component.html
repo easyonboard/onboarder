@@ -1,7 +1,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="bootbox.min.js"></script>
-
 <div class="editProfileButton">
 
   <button class="btn btn-info logOut" (click)="openModal('myModal')">
@@ -48,7 +47,7 @@
   <div class="div-courses" *ngFor="let cc of courses ">
 
     <span class="badge">{{cc.idCourse}}</span>
-    <div class="titleClass" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{cc.idCourse}}">
+    <div class="titleClass" (click)="addMyList(cc)" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{cc.idCourse}}" >
 
       {{cc.titleCourse}}
 
@@ -58,7 +57,7 @@
     {{cc.overview.substring(0,150)}}...
 
     <details>
-      <summary style="color: #ff1514">Read More</summary>
+      <summary style="color: #ff1514" (click)="addMyList(cc)">Read More</summary>
       <p>{{cc.overview}}</p>
     </details>
     <br/><br/><br/>
@@ -125,6 +124,7 @@
     <button class="btn btn-info logOut" (click)="updateUser(name.value, email.value, pass.value,passII.value)">
       <span class="glyphicon  glyphicon-edit"></span> Edit profile
     </button>
+
   </div>
 </div>
 
