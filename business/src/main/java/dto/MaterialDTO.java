@@ -1,5 +1,6 @@
 package dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import entity.enums.MaterialType;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public class MaterialDTO {
 
     private String link;
 
+    @JsonProperty("material.fileMaterial")
     private byte[] fileMaterial;
 
     private List<SubjectDTO> containedBySubjects;
@@ -50,6 +52,8 @@ public class MaterialDTO {
     public void setFileMaterial(byte[] fileMaterial) {
         this.fileMaterial = fileMaterial;
     }
+
+
 
     public List<SubjectDTO> getContainedBySubjects() {
         return containedBySubjects;

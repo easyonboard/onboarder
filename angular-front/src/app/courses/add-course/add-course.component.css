@@ -1,0 +1,53 @@
+#addComponent {
+  margin: auto;
+  height: 750px;
+  width: 950px;
+  margin-top: 120px;
+  border-radius: 15px;
+  padding-left: 50px;
+  padding-top: 100px;
+  align-items: center;
+  border: black solid 1px;
+
+}
+form{
+  padding-left: 80px;
+}
+table {
+  color: #0e0008;
+  opacity: revert;
+  font-weight: bold;
+  font-size: medium;
+
+}
+
+tr {
+  padding-bottom: 20px;
+}
+
+td {
+  margin-right: 175px;
+  padding-bottom: 20px;
+}
+
+input[type~="text"], select {
+  border-radius: 5px;
+  height: 35px;
+  width: 190px;
+}
+
+textarea {
+  border-radius: 5px;
+  height: 135px;
+  width: 190px;
+}
+
+input[type~="submit"] {
+  border-radius: 7px;
+  height: 35px;
+  width: 70px;
+  border-width: 3px;
+  color: #0e0008;
+  font-weight: bold;
+}
+

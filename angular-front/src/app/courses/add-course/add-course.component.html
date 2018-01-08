@@ -1,0 +1,44 @@
+<div id="addComponent">
+
+  <form #form enctype="multipart/form-data" (ngSubmit)="createMaterial(form)">
+    <table>
+      <tr>
+        <td>Title</td>
+        <td><input type="text" id="title" [(ngModel)]="material.title" name="title"/></td>
+      </tr>
+
+      <tr>
+        <td>Description</td>
+        <td><textarea id="description" [(ngModel)]="material.description" name="description"></textarea></td>
+      </tr>
+
+
+      <tr>
+        <td>Material type</td>
+        <td>
+          <select (change)="printMaterialType()" id="selectedMaterialType" [(ngModel)]="material.materialType"
+                  name="materialType">
+            <option value="LINK" id="valueLink">Link</option>
+            <option value="FILE" id="valueFile">File</option>
+          </select>
+        </td>
+      </tr>
+
+      <br> <br>
+
+      <tr id="addLink">
+        <td>Link</td>
+        <td><input type="text" id="link" [(ngModel)]="material.link" name="link"/></td>
+      </tr>
+
+      <tr id="addFile" style="visibility: hidden">
+        <input type="file" name="materialFile" id="file" [(ngModel)]="file"  name=file value=""/>
+      </tr>
+    </table>
+    <br> <br> <br>
+    <input type="submit" value="Submit"/>
+
+  </form>
+</div>
+
+
