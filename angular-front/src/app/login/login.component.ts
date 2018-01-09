@@ -45,6 +45,13 @@ export class LoginComponent implements OnInit, AfterContentInit {
   }
 
   createNewAccount(option: boolean): void {
+    if(true===option) {
+      document.getElementById("signUp").style.backgroundColor = "#841439";
+      document.getElementById("login").style.background = "#d3d3d3";
+    }else {
+      document.getElementById("signUp").style.backgroundColor = "#d3d3d3";
+      document.getElementById("login").style.backgroundColor = "#841439";
+    }
     this.option = option;
   }
 
