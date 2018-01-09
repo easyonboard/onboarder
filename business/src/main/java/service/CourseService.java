@@ -4,8 +4,6 @@ import dao.CourseDAO;
 import dao.EnrollDAO;
 import dao.UserDAO;
 import dto.CourseDTO;
-import dto.SubjectDTO;
-import dto.UserDTO;
 import dto.mapper.CourseMapper;
 import dto.mapper.UserMapper;
 import entity.Course;

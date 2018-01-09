@@ -1,14 +1,14 @@
 import {MaterialType} from "./materialType";
 import {Subject} from "./subject";
 
-export  class material{
+export  class Material{
   idMaterial:number;
 
   materialType: MaterialType;
 
   link:string;
 
-  fileMaterial:any;
+  fileMaterial:Uint8Array;
 
   containedBySubjects:Subject[];
 

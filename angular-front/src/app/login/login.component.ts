@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
   private currentComponentElement: HTMLElement;
   private backButton: Element;
   private logoutButton: Element;
+  private profileButton: Element;
   constructor(private userService: UserService, private router: Router, private elemRef: ElementRef) {
     this.option = false;
   }
@@ -35,9 +36,11 @@ export class LoginComponent implements OnInit, AfterContentInit {
     this.currentComponentElement = this.elemRef.nativeElement.previousElementSibling;
     this.backButton = this.currentComponentElement.getElementsByClassName("back").item(0);
     this.logoutButton = this.currentComponentElement.getElementsByClassName("logOut").item(0);
+    this.profileButton = this.currentComponentElement.getElementsByClassName("edit").item(0);
     if (this.logoutButton !== null && this.backButton !== null) {
       this.currentComponentElement.removeChild(this.backButton);
       this.currentComponentElement.removeChild(this.logoutButton);
+      this.currentComponentElement.removeChild(this.profileButton);
     }
   }
 
@@ -55,6 +58,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
           if (this.logoutButton !== null && this.backButton !== null) {
             this.currentComponentElement.appendChild(this.backButton);
             this.currentComponentElement.appendChild(this.logoutButton);
+            this.currentComponentElement.appendChild(this.profileButton);
           }
           this.router.navigateByUrl(this.rootConst.REDIRECT_LOGIN_SUCCESS_URL);
         }

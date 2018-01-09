@@ -8,6 +8,7 @@
   </div>
 </div>
 <div *ngIf="courseFound==true">
+
 <div id="mainDiv" class="mainDiv" xmlns="http://www.w3.org/1999/html">
   <div class="vertical-menu">
     <a class="nav-link js-scroll-trigger"
@@ -82,20 +83,45 @@
     <section id="{{ rootConst.FRONT_SYLLABUS_SECTION }}">
       <p><b>Syllabus</b></p>
 
+      <!--<p>-->
+        <!--<details>-->
+          <!--<summary>More details</summary>-->
+          <!--<table>-->
+            <!--<tr *ngFor="let  subject of course.subjects ">-->
+              <!--<td style="padding-right: 30px" *ngFor="let  material of subject.materials ">-->
+              <!--<span *ngIf="material.materialType === 'LINK'">-->
+                <!--<a href="{{material.link}}" target="_blank">{{material.title}}</a>-->
+              <!--</span>-->
+                <!--<span style="margin-left: 50px">{{material.description}} </span>-->
+              <!--</td>-->
+
+              <!--<td>-->
+              <!--</td>-->
+            <!--</tr>-->
+            <!--<br><br>-->
+          <!--</table>-->
+        <!--</details>-->
+      <!--</p>-->
       <p>
         <details>
           <summary>More details</summary>
           <table>
             <tr *ngFor="let  subject of course.subjects ">
-              <td style="padding-right: 30px" *ngFor="let  material of subject.materials ">
-              <span *ngIf="material.materialType === 'LINK'">
-                <a href="{{material.link}}" target="_blank">{{material.title}}</a>
-              </span>
-                <span style="margin-left: 50px">{{material.description}} </span>
-              </td>
+            <ul style="padding-right: 30px" *ngFor="let  material of subject.materials ">
 
-              <td>
-              </td>
+              <ul *ngIf="material.materialType === 'LINK'">
+                <td><a href="{{material.link}}" target="_blank">{{material.title}}</a></td>
+                <td style="padding-left: 20px"> {{material.description}}</td>
+              </ul>
+              <ul *ngIf="material.materialType === 'FILE'">
+                <td>{{material.title}}
+                  <a class="glyphicon glyphicon-download" title="Download source" download="name.txt"
+                     (click)="downloadFile(material.idMaterial, material.title)"> </a></td>
+                <td style="padding-left: 20px">{{material.description}}</td>
+              </ul>
+            </ul>
+            <td>
+            </td>
             </tr>
             <br><br>
           </table>

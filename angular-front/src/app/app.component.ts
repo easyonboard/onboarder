@@ -2,6 +2,8 @@ import {Component, ElementRef} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from "@angular/router";
 import {RootConst} from "./util/RootConst";
+import {UserService} from "./user.service";
+import {UtilityService} from "./utility.service";
 
 @Component({
   selector: 'app-root',
@@ -15,9 +17,10 @@ export class AppComponent {
   private currentComponentElement: HTMLElement;
   private backButton: Element;
   private logoutButton: Element;
+  private profileButton: Element;
 
 
-  constructor(private location: Location, private router: Router, private elemRef: ElementRef) {
+  constructor(private location: Location, private router: Router, private elemRef: ElementRef,private utilityService:UtilityService) {
     this.rootConst = new RootConst();
   }
 
@@ -31,6 +34,9 @@ export class AppComponent {
       localStorage.removeItem("userLogged");
       location.replace(this.rootConst.LOGIN_PAGE);
     }
+  }
+  openModal(id:string){
+    this.utilityService.openModal(id);
   }
 
 }

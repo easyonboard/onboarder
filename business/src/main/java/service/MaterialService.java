@@ -19,4 +19,8 @@ public class MaterialService {
         Material  material = materialMapper.mapToNewEntity(materialDTO);
         materialDAO.persistEntity(material);
     }
+
+    public MaterialDTO getMaterialById(Integer id) {
+        return materialMapper.mapToDTO(materialDAO.findEntity(id));
+    }
 }

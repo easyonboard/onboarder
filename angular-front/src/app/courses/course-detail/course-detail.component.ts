@@ -6,6 +6,7 @@ import {RootConst} from "../../util/RootConst";
 import {DOCUMENT} from "@angular/common";
 import {UtilityService} from "../../utility.service";
 import {Observable} from "rxjs/Observable";
+import {MaterialService} from "../../service/material.service";
 
 @Component({
   selector: 'app-course-detail',
@@ -13,6 +14,7 @@ import {Observable} from "rxjs/Observable";
   styleUrls: ['./course-detail.component.css']
 })
 export class CourseDetailComponent implements OnInit {
+
   public course:Course;
   public rootConst:RootConst;
   private fragment:string;
@@ -22,15 +24,18 @@ export class CourseDetailComponent implements OnInit {
   private errorMessage:string;
   private courseFound:boolean;
 
-  constructor(private route:ActivatedRoute, private utilityService: UtilityService, private courseService:CourseService, @Inject(DOCUMENT) private document:any) {
+
+
+  constructor(private route: ActivatedRoute, private utilityService: UtilityService, private courseService: CourseService, private materialSevice:MaterialService ,@Inject(DOCUMENT) private document: any,) {
   }
 
-  getCourse():any {
+  getCourse(): void {
 
     const id = +this.route.snapshot.paramMap.get('id');
     this.route.fragment.subscribe(fragment => {
       this.fragment = fragment;
     });
+
    this.courseService.getCourse(id).subscribe(course=> {
       this.course = course;
      this.courseFound=true;
@@ -44,7 +49,12 @@ export class CourseDetailComponent implements OnInit {
         }
       });
 
+
+    var courseList = this.courseService.getCourse(id);
+    courseList.subscribe(course => {this.course = course;});
+
   }
+
 
   ngOnInit() {
     this.errorMessage="";
@@ -56,13 +66,13 @@ export class CourseDetailComponent implements OnInit {
 
   }
 
-  isUserEnrollOnThisCourse():any {
+  isUserEnrollOnThisCourse(): any {
     const idCourse = +this.route.snapshot.paramMap.get('id');
     const username = localStorage.getItem("userLogged");
     this.courseService.isUserEnrollOnThisCourse(idCourse, username).subscribe(value => this.isEnrolled = value);
   }
 
-  enrollUserToCourse():any {
+  enrollUserToCourse(): any {
     if (confirm("Are you sure you want to enroll on this course? ")) {
       const username = localStorage.getItem("userLogged");
       const idCourse = +this.route.snapshot.paramMap.get('id');
@@ -72,8 +82,7 @@ export class CourseDetailComponent implements OnInit {
 
   }
 
-
-  unenrollUserFromCourse():any {
+  unenrollUserFromCourse(): any {
     if (confirm("Are you sure you want to unenroll from this course? ")) {
       const username = localStorage.getItem("userLogged");
       const idCourse = +this.route.snapshot.paramMap.get('id');
@@ -83,7 +92,7 @@ export class CourseDetailComponent implements OnInit {
 
   }
 
-  selectSection(id:string) {
+  selectSection(id: string) {
     debugger
 
     var allElements = this.document.getElementsByClassName("nav-link js-scroll-trigger");
@@ -108,10 +117,11 @@ export class CourseDetailComponent implements OnInit {
 
   }
 
-  closeModal(id:string){
+  closeModal(id: string) {
     this.utilityService.closeModal(id);
   }
-  editCourse( titleEdited:string, overviewEdited:string) {
+
+  editCourse(titleEdited: string, overviewEdited: string) {
     overviewEdited = overviewEdited.trim();
     titleEdited = titleEdited.trim();
     this.courseService.editCourse(this.course.idCourse, titleEdited, overviewEdited).subscribe(res=>{
@@ -126,16 +136,30 @@ export class CourseDetailComponent implements OnInit {
 
 
     });
-
   }
 
-  public exitEditingMode():void {
+  public
+
+  exitEditingMode(): void {
     this.isInEditingMode = false;
     this.errorMessage="";
     var overviewTextBox = this.document.getElementById('overviewTextBox');
     overviewTextBox.style.visibility = 'hidden';
     var titleEditedInput = this.document.getElementById('titleEdited');
     titleEditedInput.style.visibility = 'hidden';
+  }
+
+  downloadFile(idMaterial: number, titleMaterial:string): void {
+    var file:Blob
+    this.materialSevice.getFileWithId(idMaterial, titleMaterial).subscribe();
+
+// var b: any = material.fileMaterial;
+// //A Blob() is almost a File() - it's just missing the two properties below which we will add
+// b.lastModifiedDate = new Date();
+// b.name = material.title;
+// //
+// //Cast to a File() type
+// return <File>material.fileMaterial;
 
   }
 
