@@ -1,16 +1,32 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="bootbox.min.js"></script>
-<div class="left-div">
-  <label>
-    Search value: </label><input style="margin-left: 15px" #searchBox id="search-box" (keyup)="search(searchBox.value)"
-                                 class="inputText"/><br/>
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<!--<script src="bootbox.min.js"></script>-->
+
+
+<div class=" left-div">
+  <div class="input-group">
+    <input #searchBox id="search-box" (keyup)="search(searchBox.value)"
+           class="inputText " type="text" class="form-control" placeholder="Search"/>
+    <!--<span class="glyphicon glyphicon-search form-control-feedback"></span>-->
+    <span class="input-group-addon transparent"><span class="glyphicon glyphicon-search"></span></span>
+  </div>
   <br/>
-  <p style="font-weight: bold ; font-size:medium">Sort by: </p>
 
-  <label>Most popular courses</label> <input name="option" type="radio"/> <br/>
-  <label>Best rated courses</label> <input name="option" type="radio"/><br/>
-
+  <table id="sorter">
+    <thead><label>Sort by:</label></thead>
+    <tr>
+      <td><label>Most popular courses</label></td>
+      <td><input name="option" type="radio"/></td>
+    </tr>
+    <tr>
+      <td>
+        <label>Best rated courses</label>
+      </td>
+      <td>
+        <input name="option" type="radio"/>
+      </td>
+    </tr>
+  </table>
 
 </div>
 
@@ -18,17 +34,19 @@
 
   <div class="div-courses" *ngFor="let course of coursesSearched$ | async " (click)="search('first')">
 
-    <span class="badge">{{course.idCourse}}</span>
     <div class="titleClass" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}">
       {{course.titleCourse}}
+      <hr class="separator">
     </div>
     <br/>
-    {{course.overview.substring(0,150)}}...
-
-    <details>
-      <summary style="color: #ff1514">Read More</summary>
-      <p>{{course.overview}}</p>
-    </details>
+    <div class="description">
+      {{course.overview.substring(0,150)}} ...
+      <!--<summary class="summary">Read More</summary>-->
+      <!--<p>{{course.overview}}</p>-->
+      <div class="details">
+        <a routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}">Click for more details</a>
+      </div>
+    </div>
     <br/><br/><br/>
 
   </div>
@@ -40,23 +58,26 @@
 <div class="right-div" *ngIf="searchBox.value.length<=0">
   <div class="div-courses" *ngFor="let cc of courses ">
 
-    <span class="badge">{{cc.idCourse}}</span>
-    <div class="titleClass" (click)="addMyList(cc)" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{cc.idCourse}}" >
-
+    <div class="titleClass" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{cc.idCourse}}">
       {{cc.titleCourse}}
-
     </div>
+    <hr class="separator">
     <br/>
 
-    {{cc.overview.substring(0,150)}}...
 
-    <details>
-      <summary style="color: #ff1514" (click)="addMyList(cc)">Read More</summary>
-      <p>{{cc.overview}}</p>
-    </details>
-    <br/><br/><br/>
+    <div class="description">
+      {{cc.overview.substring(0,350)}}...
+      <!--<summary class="summary">Read More</summary>-->
+      <!--<p>{{cc.overview}}</p>-->
+    </div>
+
+    <div class="details">
+      <a routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{cc.idCourse}}">Click for more details</a>
+    </div>
 
   </div>
+  <br/><br/>
+
 
   <br/>
 
@@ -118,7 +139,6 @@
     <button class="btn btn-info logOut" (click)="updateUser(name.value, email.value, pass.value,passII.value)">
       <span class="glyphicon  glyphicon-edit"></span> Edit profile
     </button>
-
   </div>
 </div>
 

@@ -4,12 +4,12 @@
   <div class="modal-content">
     <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
     <br/>
-    {{modalMessage}}
+    {{successMessage}}
   </div>
 </div>
-<div *ngIf="courseFound==true">
 
-<div id="mainDiv" class="mainDiv" xmlns="http://www.w3.org/1999/html">
+
+<div   id="mainDiv" class="mainDiv" xmlns="http://www.w3.org/1999/html">
   <div class="vertical-menu">
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_OVERVIEW_SECTION}}"
@@ -23,6 +23,7 @@
        target="_self"
        name="syllabus"
        data-target="{rootConst.FRONT_SYLLABUS_SECTION}}" (click)="selectSection('syllabus')">Syllabus</a>
+
 
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_OWNER_SECTION}}"
@@ -48,16 +49,13 @@
 
   </div>
 
-  <div id="courseDetails">
+  <div id="courseDetails" data-target="#mainDiv">
     <button id="enrollButton" *ngIf="isEnrolled == false" (click)="enrollUserToCourse()">Enroll</button>
     <button id="alreadyEnrolled" *ngIf="isEnrolled == true" (click)="unenrollUserFromCourse()">Already enrolled</button>
     <button id="editCourse" (click)="editCourseMode()">
       Edit Course
     </button>
     <br><br><br>
-    <div class="alert alert-danger" [hidden]="errorMessage.length==0">
-      {{errorMessage}}
-    </div>
     <div id="titleDiv">{{course.titleCourse}}
       <br/>
       <input type="text" #titleEdited name="title" #titleEdited style="visibility: hidden" id="titleEdited"/>
@@ -82,26 +80,6 @@
 
     <section id="{{ rootConst.FRONT_SYLLABUS_SECTION }}">
       <p><b>Syllabus</b></p>
-
-      <!--<p>-->
-        <!--<details>-->
-          <!--<summary>More details</summary>-->
-          <!--<table>-->
-            <!--<tr *ngFor="let  subject of course.subjects ">-->
-              <!--<td style="padding-right: 30px" *ngFor="let  material of subject.materials ">-->
-              <!--<span *ngIf="material.materialType === 'LINK'">-->
-                <!--<a href="{{material.link}}" target="_blank">{{material.title}}</a>-->
-              <!--</span>-->
-                <!--<span style="margin-left: 50px">{{material.description}} </span>-->
-              <!--</td>-->
-
-              <!--<td>-->
-              <!--</td>-->
-            <!--</tr>-->
-            <!--<br><br>-->
-          <!--</table>-->
-        <!--</details>-->
-      <!--</p>-->
       <p>
         <details>
           <summary>More details</summary>
@@ -205,5 +183,4 @@
     <button id="cancelEditing" class="glyphicon  ui-icon-cancel" *ngIf="isInEditingMode == true" (click)="exitEditingMode()">Cancel</button>
 
   </div>
-</div>
 </div>

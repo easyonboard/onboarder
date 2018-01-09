@@ -3,47 +3,48 @@ h1 {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 250%;
 }
+
 h2, h3 {
   color: #2e35fb;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
 }
+
 body, input[text], button {
   font-family: Cambria, Georgia;
 }
 
 .left-div {
-  color: #010908;
+  color: white;
   font-family: Arial, Helvetica, sans-serif;
   margin-left: 100px;
   margin-top: 100px;
-  text-align:left;
-  background-color:#dcfbff;
-  width: 300px;
-  height: 350px;
-  float:left;
+  text-align: left;
+  background-color: #841439;
+  width: 250px;
+  height: 200px;
+  float: left;
   position: fixed;
   padding: 20px;
-  border: 1px solid #010908;
+  border: 3.2px solid white;
   border-radius: 8px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
-.right-div{
+
+.right-div {
   margin-top: 50px;
   margin-left: 450px;
-  width: 1000px;
+  /*width: 1100px;*/
   height: 100%;
   position: relative;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #e6f4ff;
-  border: 1px solid #010908;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /*border: 1px solid #010908;*/
+  /*border-radius: 8px;*/
+  /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
 }
+
 .inputText {
-
-
   margin-left: 0px;
   width: 130px;
   position: relative;
@@ -51,36 +52,46 @@ body, input[text], button {
   border-radius: 3px;
 }
 
-.div-courses{
+.div-courses {
   color: #010908;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  background-color: rgba(179, 144, 226, 0.21);
-  border: 1px solid #010908;
+  background-color: white;
+  border: 3.5px solid #841439;
   border-radius: 8px;
-
+  width: 420px;
+  height: 300px;
+  max-height: 300px;
+  margin-bottom: 30px;
+  margin-right: 30px;
+  display: inline-table;
+  min-height: 300px;
+  position: relative;
+  /*overflow:hidden;*/
 }
 
-.titleClass{
+.titleClass {
   color: #010908;
   font-family: "Times New Roman";
-  font-size: large;
+  font-size: x-large;
   font-weight: bold;
   padding: 20px;
-
+  text-align: center;
 
 }
-.div-courses:hover{
-  background-color: #bfe6e5;
+
+.titleClass:hover {
+  text-decoration: underline;
+  color: #841439;
 }
+
 /* everywhere else */
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-
-.editProfile{
+.editProfile {
   color: #010908;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
@@ -93,28 +104,21 @@ body, input[text], button {
   border: 1px solid #010908;
   border-radius: 8px;
 
-
 }
 
-
-.editProfileButton{
+.editProfileButton {
 
   margin-top: 14px;
   margin-left: 1680px;
 
 }
-.div-courses:hover{
-  background-color: #bfe6e5;
-}
-/* everywhere else */
-* {
-  font-family: Arial, Helvetica, sans-serif;
-}
+
 .field-wrap {
   position: relative;
   margin-bottom: 40px;
-  padding-left:2em;
+  padding-left: 2em;
 }
+
 .modal {
   margin: auto;
   display: none; /* Hidden by default */
@@ -133,7 +137,8 @@ body, input[text], button {
   border: 1px solid #888;
   width: 500px; /* Could be more or less, depending on screen size */
 }
-.myCustomAlert-content{
+
+.myCustomAlert-content {
 
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
@@ -149,11 +154,38 @@ body, input[text], button {
   font-size: 28px;
   font-weight: bold;
 }
+
 .close:hover,
-.close:focus{
+.close:focus {
   color: #da0107;
   text-decoration: none;
   cursor: pointer;
 }
 
+.summary {
+  color: #841439;
+  font-weight: bold;
+  padding: 5px;
 
+}
+
+.separator {
+  border-top: 1px solid #8c8b8b;
+}
+
+.description {
+  margin-left: 10px;
+}
+
+.details {
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  bottom: 10px;
+  font-weight: bold;
+}
+
+#sorter{
+  border-spacing: 10px;
+  border-collapse: separate;
+}

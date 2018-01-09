@@ -151,7 +151,7 @@ export class CourseDetailComponent implements OnInit {
 
   downloadFile(idMaterial: number, titleMaterial:string): void {
     var file:Blob
-    this.materialSevice.getFileWithId(idMaterial, titleMaterial).subscribe();
+    this.materialSevice.getFileWithId(idMaterial, titleMaterial).subscribe(url=>window.open(url));
 
 // var b: any = material.fileMaterial;
 // //A Blob() is almost a File() - it's just missing the two properties below which we will add
