@@ -4,7 +4,7 @@
   <div class="modal-content">
     <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
     <br/>
-    {{successMessage}}
+    {{modalMessage}}
   </div>
 </div>
 
@@ -50,19 +50,19 @@
   </div>
 
   <div id="courseDetails" data-target="#mainDiv">
-    <button id="enrollButton" *ngIf="isEnrolled == false" (click)="enrollUserToCourse()">Enroll</button>
-    <button id="alreadyEnrolled" *ngIf="isEnrolled == true" (click)="unenrollUserFromCourse()">Already enrolled</button>
-    <button id="editCourse" (click)="editCourseMode()">
-      Edit Course
+    <button id="enrollButton" *ngIf="isEnrolled == false" (click)="enrollUserToCourse()" ><span class="glyphicon glyphicon-check"></span> Enroll</button>
+    <button id="alreadyEnrolled" *ngIf="isEnrolled == true" (click)="unenrollUserFromCourse()"><span class="	glyphicon glyphicon-ok"></span> Already enrolled</button>
+    <button id="editCourse" (click)="editCourseMode()"><span class="glyphicon glyphicon-edit"> </span> Edit Course
+
     </button>
     <br><br><br>
     <div id="titleDiv">{{course.titleCourse}}
       <br/>
-      <input type="text" #titleEdited name="title" #titleEdited style="visibility: hidden" id="titleEdited"/>
-
+      <input type="text" #titleEdited name="title" #titleEdited id="titleEdited"/>
+      <hr class="separator">
     </div>
-    <section id="{{rootConst.FRONT_OVERVIEW_SECTION}}">
-      <p><b>Overview</b></p>
+    <section id="{{rootConst.FRONT_OVERVIEW_SECTION}}" class="sectionStyle">
+      <p class="sectionTitle">Overview</p>
       <p>
         {{ course.overview.substring(0,150)}} ...
       </p>
@@ -78,65 +78,81 @@
         </textarea>
     </section>
 
-    <section id="{{ rootConst.FRONT_SYLLABUS_SECTION }}">
-      <p><b>Syllabus</b></p>
+    <section id="{{ rootConst.FRONT_SYLLABUS_SECTION }}"  class="sectionStyle">
+      <p class="sectionTitle">Syllabus</p>
+
       <p>
         <details>
           <summary>More details</summary>
-          <table>
-            <tr *ngFor="let  subject of course.subjects ">
-            <ul style="padding-right: 30px" *ngFor="let  material of subject.materials ">
 
-              <ul *ngIf="material.materialType === 'LINK'">
-                <td><a href="{{material.link}}" target="_blank">{{material.title}}</a></td>
-                <td style="padding-left: 20px"> {{material.description}}</td>
-              </ul>
-              <ul *ngIf="material.materialType === 'FILE'">
-                <td>{{material.title}}
-                  <a class="glyphicon glyphicon-download" title="Download source" download="name.txt"
-                     (click)="downloadFile(material.idMaterial, material.title)"> </a></td>
-                <td style="padding-left: 20px">{{material.description}}</td>
-              </ul>
-            </ul>
-            <td>
-            </td>
-            </tr>
-            <br><br>
-          </table>
+          <div class="tableStyleSyllabus">
+
+            <table class="table table-inverse">
+              <tbody>
+              <tr *ngFor="let  subject of course.subjects ">
+                <ul style="padding-right: 30px" *ngFor="let  material of subject.materials ">
+
+                  <ul *ngIf="material.materialType === 'LINK'">
+                    <td><a href="{{material.link}}" target="_blank">{{material.title}}</a></td>
+                    <td style="padding-left: 20px"> {{material.description}}</td>
+                  </ul>
+                  <ul *ngIf="material.materialType === 'FILE'">
+                    <td>{{material.title}}
+                      <a class="glyphicon glyphicon-download" title="Download source" download="name.txt"
+                         (click)="downloadFile(material.idMaterial, material.title)"> </a></td>
+                    <td style="padding-left: 20px">{{material.description}}</td>
+                  </ul>
+                </ul>
+                <td>
+                </td>
+              </tr>
+              <br><br>
+              </tbody>
+              </table>
+
+            </div>
         </details>
       </p>
     </section>
 
-    <section id="{{ rootConst.FRONT_OWNER_SECTION }}">
-      <b>Owners</b>
+    <section id="{{ rootConst.FRONT_OWNER_SECTION }}" class="sectionStyle">
+      <p class="sectionTitle">Owners</p>
       <details>
         <summary>More details</summary>
-        <table>
+        <div class="tableStyle">
+        <table class="table table-inverse">
+          <tbody>
           <tr *ngFor="let owner of course.owners ">
-            <td style="padding-right: 30px">{{owner.name}}</td>
-            <td style="padding-right: 30px">{{owner.email}}</td>
-            <td style="padding-right: 30px">{{owner.username}}</td>
+            <td>{{owner.name}}</td>
+            <td>{{owner.email}}</td>
+            <td>{{owner.username}}</td>
           </tr>
+          </tbody>
         </table>
+          </div>
       </details>
     </section>
 
-    <section id="{{ rootConst.FRONT_CONTACT_PERSON_SECTION }}">
-      <b>Contact Persons</b>
+    <section id="{{ rootConst.FRONT_CONTACT_PERSON_SECTION }}"  class="sectionStyle">
+      <p class="sectionTitle">Contact Persons</p>
       <details>
         <summary>More details</summary>
-        <table>
+        <div class="tableStyle">
+        <table class="table table-inverse">
+          <tbody>
           <tr *ngFor="let contactPerson of course.contactPersons ">
-            <td style="padding-right: 30px">{{contactPerson.name}}</td>
-            <td style="padding-right: 30px">{{contactPerson.email}}</td>
-            <td style="padding-right: 30px">{{contactPerson.username}}</td>
+            <td>{{contactPerson.name}}</td>
+            <td>{{contactPerson.email}}</td>
+            <td>{{contactPerson.username}}</td>
           </tr>
+          </tbody>
         </table>
+          </div>
       </details>
     </section>
 
-    <section id="{{ rootConst.FRONT_RATINGS_REVIEW_SECTION}}">
-      <b>ratingsReview</b>
+    <section id="{{ rootConst.FRONT_RATINGS_REVIEW_SECTION}}" class="sectionStyle">
+      <p class="sectionTitle"> Ratings</p>
       <details>
         <summary>More details</summary>
         <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
@@ -179,8 +195,8 @@
     </section>
 
 
-       <button id="editCourseSubmitButton" class="glyphicon  glyphicon-edit" *ngIf="isInEditingMode == true" (click)="editCourse(titleEdited.value, overviewEdited.value)">Edit</button>
-    <button id="cancelEditing" class="glyphicon  ui-icon-cancel" *ngIf="isInEditingMode == true" (click)="exitEditingMode()">Cancel</button>
+       <button id="editCourseSubmitButton" class="glyphicon glyphicon-edit" *ngIf="isInEditingMode == true" (click)="editCourse(titleEdited.value, overviewEdited.value)"> Edit</button>
+    <button id="cancelEditing" class="glyphicon glyphicon-remove-sign" *ngIf="isInEditingMode == true" (click)="exitEditingMode()"> Cancel</button>
 
   </div>
 </div>

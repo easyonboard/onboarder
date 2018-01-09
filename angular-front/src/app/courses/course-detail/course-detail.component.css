@@ -5,7 +5,7 @@
   float:left;
 }
 .vertical-menu {
-  margin-left: 100px;
+  margin-left: 20px;
   margin-top: 100px;
   width: 200px;
   float:left;
@@ -37,48 +37,42 @@
 
 #courseDetails{
   margin-top: 50px;
-  margin-left: 450px;
+  margin-left: 300px;
   background-color: #f7f7f7;
-  width: 1300px;
+  width: 1500px;
   position: relative;
+  border: 3.5px solid #841439;
+  border-radius: 8px;
+  align-content: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 #enrollButton, #alreadyEnrolled{
-  background-color: #2893f1;
+  background-color: #f7f7f7;
+  color:#841439;
   position: absolute;
   right: 10px;
-  top: 5px;
   height: 48px;
-  width: 75px;
-  font-size: 15px;
-  font-weight: bold;
-  border-width: 2px;
-  border-color: #2785e2;
-  border-radius: 5px;
-  box-shadow: 3px 5px #888888;
+  width: 180px;
+  border:none;
+  font-size: large;
+  font-weight: bolder;
 }
-#alreadyEnrolled{
-  background-color: #3dae40;
-  border-color: #3d9d40;
-}
-
 .collapse {
   -webkit-transition: none;
   transition: block;
   display: none;
 }
 #editCourse{
-
-  background-color: #2893f1;
+  background-color: #f7f7f7;
+  color:#841439;
   position: absolute;
-  right: 100px;
+  right: 180px;
   height: 48px;
-  width: 75px;
-  top: 5px;
-  font-weight: bold;
-  border-width: 2px;
-  border-color: #2785e2;
-  border-radius: 5px;
-  box-shadow: 3px 5px #888888;
+  width: 150px;
+  font-size: large;
+font-weight: bolder;
+
+  border:none;
 }
 #titleDiv{
   font-weight: bold;
@@ -96,10 +90,12 @@ section{
   margin: auto;
   display: none;
 
+
 }
 
 textarea{
   resize: vertical;
+  border-radius: 5px;
 }
 .modal {
   margin: auto;
@@ -121,39 +117,66 @@ textarea{
 }
 #editCourseSubmitButton{
 
-  background-color: #73afff;
+  background-color: #f7f7f7;
+  color:#841439;
   height: 50px;
-  width: 100px;
+  width: 110px;
   margin-bottom: 50px;
   margin-left:20px;
   font-weight: bold;
   font-size: large;
-  border-radius: 5px;
-  box-shadow: 3px 5px #888888;
-}
-
-
-#cancelEditing{
-
-  background-color: #73afff;
-  height: 50px;
-  width: 100px;
-  margin-bottom: 50px;
-  margin-left:10px;
-  font-weight: bold;
-  font-size: large;
-  border-radius: 5px;
-  box-shadow: 3px 5px #888888;
-
+  border:none;
 
 }
 
-#headerdiv{
-  background-color: #73afff;
+
+#cancelEditing {
+
+  background-color: #f7f7f7;
+  color:#841439;
   height: 50px;
-  width: 100px;
+  width: 110px;
   margin-bottom: 50px;
-  margin-left:20px;
+  margin-left: 10px;
   font-weight: bold;
   font-size: large;
+  border:none;
+
+}
+#editCourseSubmitButton:hover,
+#cancelEditing:hover{
+  background-color: #841439;
+  color:white;
+}
+.tableStyle{
+
+  padding: 50px;
+  width: 500px;
+  align-content: center;
+  align-self: center;
+  align-items: center;
+
+}
+.sectionStyle{
+  padding: 20px;
+}
+input[type~="text"], select {
+  border-radius: 5px;
+  height: 35px;
+  width: 190px;
+  visibility: hidden;
+}
+
+.sectionTitle{
+  font-weight: bold;
+  font-size: large;
+}
+.tableStyleSyllabus{
+
+  padding: 50px;
+  width: 1000px;
+  align-content: center;
+  align-self: center;
+  align-items: center;
+
 }

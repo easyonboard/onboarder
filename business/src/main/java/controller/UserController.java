@@ -45,16 +45,14 @@ public class UserController {
         UserDTO userLogged = userService.findUserByUsername(user.getUsername());
         String password = userService.encrypt(user.getPassword());
         String username = user.getUsername();
-
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-        token.setDetails(new WebAuthenticationDetails(request));
-        Authentication authentication = this.authentificationProvider.authenticate(token);
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session=attr.getRequest().getSession(true);
-
-
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        session.setAttribute("SPRING_SECURITY_CONTEXT", token);
+//
+//        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+//        token.setDetails(new WebAuthenticationDetails(request));
+//        Authentication authentication = this.authentificationProvider.authenticate(token);
+//        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//        HttpSession session=attr.getRequest().getSession(true);
+//        SecurityContext securityContext = SecurityContextHolder.getContext();
+//        session.setAttribute("SPRING_SECURITY_CONTEXT", token);
         return new ResponseEntity<>(userLogged, HttpStatus.OK);
 
     }
