@@ -58,39 +58,4 @@ export class CoursesComponent implements OnInit {
   closeModal(id:string){
     this.utilityService.closeModal(id);
   }
-
-  updateUser(name: string, email: string, password: string, passwordII: string): void {
-    name = name.trim();
-    email = email.trim();
-    password=password.trim();
-    passwordII=passwordII.trim();
-
-
-    if(password!="" && (password!=passwordII || password.length<6)){
-    this.message="Password not matching or does not have 6 characters"
-      return;
-    }
-    else{
-      var username = localStorage.getItem("userLogged");
-      if(name=="")
-        name=null;
-      if(email=="")
-        email=null;
-      if(password=="")
-        password=null;
-      this.userService.updateUser({name,username, email,password} as UserDTO).subscribe(
-        res => {
-          this.utilityService.closeModal('myModal');
-          this.successMessage="Operatia a fost realizata cu success!"
-          this.utilityService.openModal('myCustom');
-          this.message="";
-        },
-        err => {
-       this.message=err.error.message;
-        });
-
-    }
-
-  }
-
 }
