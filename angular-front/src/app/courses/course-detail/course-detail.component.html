@@ -1,14 +1,18 @@
 
-<div class="modal" id="myCustom">
+<div class="modal" id="editSuccessful">
 
   <div class="modal-content">
-    <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
+    <button class="close" style="font-size: 15px;" (click)="closeModal('editSuccessful')">Close</button>
     <br/>
     {{modalMessage}}
   </div>
 </div>
 
+<div class="left-buttons">
+  <button id="editCourseSubmitButton" class="glyphicon glyphicon-edit" *ngIf="isInEditingMode == true" (click)="editCourse(titleEdited.value, overviewEdited.value)"> Edit</button>
+  <button id="cancelEditing" class="glyphicon glyphicon-remove-sign" *ngIf="isInEditingMode == true" (click)="exitEditingMode()"> Cancel</button>
 
+</div>
 <div   id="mainDiv" class="mainDiv" xmlns="http://www.w3.org/1999/html">
   <div class="vertical-menu">
     <a class="nav-link js-scroll-trigger"
@@ -56,11 +60,12 @@
 
     </button>
     <br><br><br>
-    <div id="titleDiv">{{course.titleCourse}}
+    <div class="titleDiv">{{course.titleCourse}}
       <br/>
-      <input type="text" #titleEdited name="title" #titleEdited id="titleEdited"/>
-      <hr class="separator">
+      <input type="text" #titleEdited name="title" #titleEdited id="titleEdited" style="font-size:20px;"/>
+
     </div>
+    <hr class="style2"/>
     <section id="{{rootConst.FRONT_OVERVIEW_SECTION}}" class="sectionStyle">
       <p class="sectionTitle">Overview</p>
       <p>
@@ -194,9 +199,7 @@
 
     </section>
 
-
-       <button id="editCourseSubmitButton" class="glyphicon glyphicon-edit" *ngIf="isInEditingMode == true" (click)="editCourse(titleEdited.value, overviewEdited.value)"> Edit</button>
-    <button id="cancelEditing" class="glyphicon glyphicon-remove-sign" *ngIf="isInEditingMode == true" (click)="exitEditingMode()"> Cancel</button>
-
   </div>
+
+
 </div>

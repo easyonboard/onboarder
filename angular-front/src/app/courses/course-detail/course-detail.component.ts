@@ -26,7 +26,7 @@ export class CourseDetailComponent implements OnInit {
 
 
 
-  constructor(private route: ActivatedRoute, private utilityService: UtilityService, private courseService: CourseService, private materialSevice:MaterialService ,@Inject(DOCUMENT) private document: any,) {
+  constructor(private route: ActivatedRoute, private utilityService: UtilityService, private courseService: CourseService, private materialSevice:MaterialService ,@Inject(DOCUMENT) private document: any) {
   }
 
   getCourse(): void {
@@ -54,7 +54,9 @@ export class CourseDetailComponent implements OnInit {
     courseList.subscribe(course => {this.course = course;});
 
   }
-
+  openModal(id:string){
+    this.utilityService.openModal(id);
+  }
 
   ngOnInit() {
     this.errorMessage="";
@@ -126,9 +128,10 @@ export class CourseDetailComponent implements OnInit {
     titleEdited = titleEdited.trim();
     this.courseService.editCourse(this.course.idCourse, titleEdited, overviewEdited).subscribe(res=>{
       this.modalMessage="Operatia a fost realizata cu success!";
-      this.utilityService.openModal('myCustom');
+      this.openModal('editSuccessful');
       this.exitEditingMode();
       this.getCourse();
+      this.isInEditingMode=false;
 
     },
     err=>{
@@ -137,10 +140,7 @@ export class CourseDetailComponent implements OnInit {
 
     });
   }
-
-  public
-
-  exitEditingMode(): void {
+  public exitEditingMode(): void {
     this.isInEditingMode = false;
     this.errorMessage="";
     var overviewTextBox = this.document.getElementById('overviewTextBox');
