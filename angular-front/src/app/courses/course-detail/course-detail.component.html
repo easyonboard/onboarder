@@ -95,6 +95,9 @@
             <table class="table table-inverse">
               <tbody>
               <tr *ngFor="let  subject of course.subjects ">
+                <p>{{subject.name}}</p>
+                <p>{{subject.description}}</p>
+                <p>{{subject.numberOfDays}}</p>
                 <ul style="padding-right: 30px" *ngFor="let  material of subject.materials ">
 
                   <ul *ngIf="material.materialType === 'LINK'">

@@ -1,8 +1,5 @@
 package dto;
 
-import entity.enums.MaterialType;
-
-import javax.persistence.ManyToMany;
 import java.util.List;
 
 public class SubjectDTO {
@@ -15,6 +12,12 @@ public class SubjectDTO {
     public int getIdSubject() {
         return idSubject;
     }
+
+    private String description;
+
+    private String name;
+
+    private int numberOfDays;
 
     public void setIdSubject(int idSubject) {
         this.idSubject = idSubject;
@@ -36,4 +39,27 @@ public class SubjectDTO {
         this.materials = materials;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getNumberOfDays() {
+        return numberOfDays;
+    }
+
+    public void setNumberOfDays(int numberOfDays) {
+        this.numberOfDays = numberOfDays;
+    }
 }

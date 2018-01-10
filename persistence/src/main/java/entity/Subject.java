@@ -1,6 +1,8 @@
 package entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,6 +19,19 @@ public class Subject implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL, targetEntity = Material.class)
     @JoinTable(name="subject_material",joinColumns = @JoinColumn(name = "idSubject"), inverseJoinColumns = @JoinColumn(name = "idMaterial"))
     private List<Material> materials;
+
+    @Lob
+    @Column
+    private String description;
+
+    @NotNull
+    @Column
+    private String name;
+
+    @NotNull
+    @Column
+    private int numberOfDays;
+
 
 
     public int getIdSubject() {
@@ -40,4 +55,28 @@ public class Subject implements Serializable {
         this.materials = materials;
     }
 
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getNumberOfDays() {
+        return numberOfDays;
+    }
+
+    public void setNumberOfDays(int numberOfDays) {
+        this.numberOfDays = numberOfDays;
+    }
 }
