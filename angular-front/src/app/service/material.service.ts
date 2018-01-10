@@ -27,7 +27,7 @@ export class MaterialService implements OnInit {
   }
 
   getFileWithId(idMaterial: number, tiltleMaterial: string): any {
-    this.http.get(`${this.findMaterialById}${idMaterial}`, {responseType: 'arraybuffer'}).subscribe(
+    return this.http.get(`${this.findMaterialById}${idMaterial}`, {responseType: 'arraybuffer'}).subscribe(
       (response) => {
         var file = new Blob([response], {type: 'application/pdf'});
         var fileURL = URL.createObjectURL(file);

@@ -30,13 +30,24 @@ body, input[text], button {
 
 }
 
-.footerDiv{
-  background-color: #686868;
-  color: #fff;
-  width: 100%;
-  height:115px;
+footer {
+  background-color: #DADADA;
+  height: 10px;
+  /*padding: 10px;*/
+  border-top: 1px solid #f7f7f7;
   position: fixed;
-  vertical-align: middle;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  display: inline-table;
+  vertical-align: center;
+}
+
+.social #facebookIcon, #gitIcon, #youtubeIcon {
+  font-size: 20px;
+  color: #0e0008;
+  padding: 10px;
+  right: 0;
 }
 
 
@@ -57,5 +68,13 @@ body, input[text], button {
   padding: 15px;
   border: 1px solid #888;
   width: 500px; /* Could be more or less, depending on screen size */
+}
+
+
+.social a:hover{
+  text-decoration: none;
+}
+.social {
+  float: right;
 }
 

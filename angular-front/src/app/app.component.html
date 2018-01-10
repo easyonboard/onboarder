@@ -1,7 +1,8 @@
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 <div class="headerDiv">
 </div>
@@ -68,18 +69,29 @@
 
 <router-outlet>
 
-  <button class="btn btn-info back" (click)="goBack()" style="  background-color:#841439; border:none; color: #ffffff; position: absolute;top:0; left: 0; margin-top:10px; margin-left: 15px; font-size: large;" >
-    <span class="glyphicon glyphicon-arrow-left" ></span> Go back
-</button>
-
-  <button  (click)="logout()" class="btn btn-info logOut" style="position:absolute; top:0; right:0; margin-top: 15px; margin-right: 15px;  background-color:#841439; border:none; color: #ffffff; font-size: large;">
-    <span class="glyphicon glyphicon-log-out" ></span> Log out
+  <button class="btn btn-info back" (click)="goBack()"
+          style="  background-color:#841439; border:none; color: #ffffff; position: absolute;top:0; left: 0; margin-top:10px; margin-left: 15px; font-size: large;">
+    <span class="glyphicon glyphicon-arrow-left"></span> Go back
   </button>
-  <button class="btn btn-info edit" (click)="openModal('myModal')" style="position:absolute; top:0; right:0; margin-top: 15px; margin-right: 120px;  background-color:#841439; border:none; color: #ffffff; font-size: large;">
+
+  <button (click)="logout()" class="btn btn-info logOut"
+          style="position:absolute; top:0; right:0; margin-top: 15px; margin-right: 15px;  background-color:#841439; border:none; color: #ffffff; font-size: large;">
+    <span class="glyphicon glyphicon-log-out"></span> Log out
+  </button>
+  <button class="btn btn-info edit" (click)="openModal('myModal')"
+          style="position:absolute; top:0; right:0; margin-top: 15px; margin-right: 120px;  background-color:#841439; border:none; color: #ffffff; font-size: large;">
     <span class="glyphicon glyphicon-pencil"></span> Edit profile
   </button>
+
+
 </router-outlet>
 <div class="footerDiv">
-
+  <footer>
+    <div class="social">
+      <a href="https://www.facebook.com/msg.systems.romania/" target="_blank"> <i class="fa fa-facebook-square" id="facebookIcon">   </i> </a>
+      <a href="https://github.com/easyonboard/onboarder" target="_blank"> <i class="fa fa-git-square" id="gitIcon">
+          </i> </a>
+      <a> <i class="fa fa-youtube-square" id="youtubeIcon">   </i> </a>
+    </div>
+  </footer>
 </div>
-

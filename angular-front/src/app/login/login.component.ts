@@ -37,10 +37,14 @@ export class LoginComponent implements OnInit, AfterContentInit {
     this.backButton = this.currentComponentElement.getElementsByClassName("back").item(0);
     this.logoutButton = this.currentComponentElement.getElementsByClassName("logOut").item(0);
     this.profileButton = this.currentComponentElement.getElementsByClassName("edit").item(0);
+    var footer = this.currentComponentElement.parentElement.getElementsByClassName("footerDiv").item(0)
+    console.log(footer)
     if (this.logoutButton !== null && this.backButton !== null) {
       this.currentComponentElement.removeChild(this.backButton);
       this.currentComponentElement.removeChild(this.logoutButton);
       this.currentComponentElement.removeChild(this.profileButton);
+      this.currentComponentElement.parentElement.removeChild(footer);
+
     }
   }
 
