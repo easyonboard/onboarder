@@ -20,11 +20,11 @@
   padding: 100px;
   border-radius: 8px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
+  border: 3.5px solid #841439;
 }
 
 .materialTitle{
-  font-size: 25px;
+  font-size: 30px;
   text-align: center;
   align-self: center;
   background-color: #841439;
@@ -37,7 +37,6 @@
 
 }
 .linkStyle{
-  font-size: 25px;
-  color: #841439;
+  font-size: 20px;
 }
 

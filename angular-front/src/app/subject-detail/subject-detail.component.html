@@ -1,15 +1,19 @@
 <div class="defaultDiv">
 
   <ul *ngFor="let  material of subject.materials ">
+    <br/>
     <div class="materialDiv">
 
 
         <div class="materialTitle">{{material.title}}
         </div>
+
       <br/>
         <div class="aboutTheMaterial">
           {{material.description}}
         </div>
+      <p style="font-size: 20px">Link: </p>
+      <hr class="separator">
         <ul *ngIf="material.materialType === 'LINK'">
           <a href="{{material.link}}" target="_blank" class="linkStyle"> {{material.title}}</a>
 
@@ -21,12 +25,19 @@
           <div class="aboutTheMaterial">
             {{material.description}}
           </div>
+          <p style="font-size: 20px">File: </p>
+          <hr class="separator">
           <a class="glyphicon glyphicon-download" title="Download source" download="name.txt"
              (click)="downloadFile(material.idMaterial, material.title)"> </a>
 
         </ul>
-
+      <br/>
     </div>
   </ul>
 
+
 </div>
+<br/>
+<br/><br/>
+<br/>
+
