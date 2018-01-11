@@ -29,6 +29,10 @@ export class AppComponent {
   }
 
   goBack(): void {
+    if(location.href.includes("subject")){
+      this.location.back();
+      return;
+    }
     if(location.href.includes(this.rootConst.FRONT_DETAILED_COURSE)){
       this.router.navigateByUrl(this.rootConst.REDIRECT_LOGIN_SUCCESS_URL);
       return;

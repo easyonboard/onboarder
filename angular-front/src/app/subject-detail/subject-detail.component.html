@@ -1,17 +1,32 @@
+<div class="defaultDiv">
+
+  <ul *ngFor="let  material of subject.materials ">
+    <div class="materialDiv">
 
 
+        <div class="materialTitle">{{material.title}}
+        </div>
+      <br/>
+        <div class="aboutTheMaterial">
+          {{material.description}}
+        </div>
+        <ul *ngIf="material.materialType === 'LINK'">
+          <a href="{{material.link}}" target="_blank" class="linkStyle"> {{material.title}}</a>
 
-<ul style="padding-right: 30px" *ngFor="let  material of subject.materials ">
+        </ul>
+        <ul *ngIf="material.materialType === 'FILE'">
+          <div class="materialTitle">{{material.title}}
+          </div>
 
-<ul *ngIf="material.materialType === 'LINK'">
-<a href="{{material.link}}" target="_blank">{{material.title}}</a>
-{{material.description}}
-</ul>
-<ul *ngIf="material.materialType === 'FILE'">
-{{material.title}}
-<a class="glyphicon glyphicon-download" title="Download source" download="name.txt"
-(click)="downloadFile(material.idMaterial, material.title)"> </a>
-{{material.description}}
-</ul>
-</ul>
+          <div class="aboutTheMaterial">
+            {{material.description}}
+          </div>
+          <a class="glyphicon glyphicon-download" title="Download source" download="name.txt"
+             (click)="downloadFile(material.idMaterial, material.title)"> </a>
 
+        </ul>
+
+    </div>
+  </ul>
+
+</div>

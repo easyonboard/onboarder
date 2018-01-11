@@ -1,0 +1,43 @@
+.defaultDiv{
+
+  margin-top: 50px;
+  margin-left: 220px;
+  background-color: #f7f7f7;
+  width: 1500px;
+  height: 80%;
+  position: relative;
+  border: 3.5px solid #841439;
+  border-radius: 8px;
+  padding-right: 50px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  align-content: center;
+}
+.materialDiv{
+  align-self: center;
+  margin-left: 50px;
+  background-color: white;
+  align-content: center;
+  padding: 100px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.materialTitle{
+  font-size: 25px;
+  text-align: center;
+  align-self: center;
+  background-color: #841439;
+  color: white
+}
+.aboutTheMaterial{
+
+  font-size: 20px;
+  padding: 50px;
+
+}
+.linkStyle{
+  font-size: 25px;
+  color: #841439;
+}
+
