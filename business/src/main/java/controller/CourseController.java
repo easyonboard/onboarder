@@ -1,6 +1,7 @@
 package controller;
 
 import dto.CourseDTO;
+import dto.SubjectDTO;
 import exception.CourseNotFoundException;
 import exception.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -184,5 +185,18 @@ public class CourseController {
 //        courseService.createCourse(courseDTO);
 //        return null;
 //    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "courses/subject", method = RequestMethod.GET)
+
+    public ResponseEntity getDetails(@RequestParam(value = "id") Integer id, @RequestParam(value = "idSubject") Integer idSubject) {
+
+        SubjectDTO subject=subjectService.findSubjectOfCourse(id, idSubject);
+        if(subject!=null) {
+            return new ResponseEntity(subject, HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
 
 }

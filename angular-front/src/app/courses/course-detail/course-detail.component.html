@@ -86,7 +86,7 @@
     <section id="{{ rootConst.FRONT_SYLLABUS_SECTION }}"  class="sectionStyle">
       <p class="sectionTitle">Syllabus</p>
 
-      <p>
+
         <details>
           <summary>More details</summary>
 
@@ -95,24 +95,33 @@
             <table class="table table-inverse">
               <tbody>
               <tr *ngFor="let  subject of course.subjects ">
-                <p>{{subject.name}}</p>
+                <div class="subjectDiv">
+                <div class="subjectTitle">{{subject.name}}</div>
+                 <hr class="separator">
+             <div class="aboutTheCourse">About the Course </div><br/>
                 <p>{{subject.description}}</p>
-                <p>{{subject.numberOfDays}}</p>
-                <ul style="padding-right: 30px" *ngFor="let  material of subject.materials ">
+                <hr class="separator">
+                <p>Commitment: <span></span> {{subject.numberOfDays}} Days</p>
+                         <hr class="separator"><br/>
+      <a routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}/{{rootConst.FRONT_DETAILED_SUBJECT}}/{{subject.idSubject}}">Click to see more</a>
+</div>
+                <br/>
+                <br/>
+                <!--<ul style="padding-right: 30px" *ngFor="let  material of subject.materials ">-->
 
-                  <ul *ngIf="material.materialType === 'LINK'">
-                    <td><a href="{{material.link}}" target="_blank">{{material.title}}</a></td>
-                    <td style="padding-left: 20px"> {{material.description}}</td>
-                  </ul>
-                  <ul *ngIf="material.materialType === 'FILE'">
-                    <td>{{material.title}}
-                      <a class="glyphicon glyphicon-download" title="Download source" download="name.txt"
-                         (click)="downloadFile(material.idMaterial, material.title)"> </a></td>
-                    <td style="padding-left: 20px">{{material.description}}</td>
-                  </ul>
-                </ul>
-                <td>
-                </td>
+                  <!--<ul *ngIf="material.materialType === 'LINK'">-->
+                    <!--<td><a href="{{material.link}}" target="_blank">{{material.title}}</a></td>-->
+                    <!--<td style="padding-left: 20px"> {{material.description}}</td>-->
+                  <!--</ul>-->
+                  <!--<ul *ngIf="material.materialType === 'FILE'">-->
+                    <!--<td>{{material.title}}-->
+                      <!--<a class="glyphicon glyphicon-download" title="Download source" download="name.txt"-->
+                         <!--(click)="downloadFile(material.idMaterial, material.title)"> </a></td>-->
+                    <!--<td style="padding-left: 20px">{{material.description}}</td>-->
+                  <!--</ul>-->
+                <!--</ul>-->
+                <!--<td>-->
+                <!--</td>-->
               </tr>
               <br><br>
               </tbody>
@@ -120,7 +129,6 @@
 
             </div>
         </details>
-      </p>
     </section>
 
     <section id="{{ rootConst.FRONT_OWNER_SECTION }}" class="sectionStyle">

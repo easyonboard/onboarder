@@ -10,12 +10,14 @@ export class RootConst{
   public SERVER_ADD_USER=this.WEB_SERVICE_ENDPOINT+'user/addUser';
   public SERVER_UPDATE_USER=this.WEB_SERVICE_ENDPOINT + "/user/updateUser";
   public SERVER_FIND_MATERIAL_BY_ID =this.SERVER_COURSES_URL+'/material?id=' ;
-
+  public SERVER_SUBJECT_URL= this.WEB_SERVICE_ENDPOINT +'courses/subject?id=';
+  public  SERVER_SUBJECT_URL2='&idSubject='
 
   public SERVER_AUTHENTIFICATION=this.WEB_SERVICE_ENDPOINT + "/auth";
 
   public SERVER_ADD_MATERIAL = this.WEB_SERVICE_ENDPOINT+'createMaterial';
   public FRONT_DETAILED_COURSE = '/courses/detailedCourse';
+  public  FRONT_DETAILED_SUBJECT="/subject";
   public FRONT_OVERVIEW_SECTION='overview';
   public FRONT_SYLLABUS_SECTION='syllabus';
   public FRONT_OWNER_SECTION='owner';

@@ -192,6 +192,14 @@ input[type~="text"], select {
   align-items: center;
 
 }
+.subjectDiv{
+
+  width: 90%;
+  height: 90%;
+  background-color: white;
+  border: 3px solid #8c8b8b;
+  padding: 10px;
+}
 
 .left-buttons{
   margin-left: 40px;
@@ -199,5 +207,16 @@ input[type~="text"], select {
   width: 240px;
   float:left;
   position: fixed;
+
+}
+
+.subjectTitle{
+  font-size: 25px;
+  text-align: center;
+  background-color: rgb(238,238,238);
+}
+.aboutTheCourse{
+
+  font-size: 20px;
 
 }

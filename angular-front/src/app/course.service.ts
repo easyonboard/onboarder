@@ -5,6 +5,7 @@ import {Observable} from "rxjs/Observable";
 import {of} from "rxjs/observable/of";
 import 'rxjs/add/operator/map';
 import {RootConst} from "./util/RootConst";
+import {Subject} from "./domain/subject";
 
 @Injectable()
 export class CourseService implements OnInit {
@@ -16,6 +17,8 @@ export class CourseService implements OnInit {
   private testIfUserIsEnroll = this.rootConst.SERVER_TEST_IF_USER_IS_ENROLLED;
   private enrolleUserOnCourse = this.rootConst.SERVER_ENROLLE_USER_ON_COURSE;
   private unenrolleUserOnCourse = this.rootConst.SERVER_UNENROLLE_USER_ON_COURSE;
+  private detailedSubject = this.rootConst.SERVER_SUBJECT_URL;
+  private detailedSubject2=this.rootConst.SERVER_SUBJECT_URL2;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})
@@ -61,5 +64,9 @@ export class CourseService implements OnInit {
 
   sendListToBackTest(myList:Course[]){
     return this.http.post<Course[]>("http://localhost:8090/sendCourseList", myList, this.httpOptions);
+  }
+
+  getSubject(id: number, idSubject: number):Observable<Subject> {
+    return this.http.get<Subject>(`${this.detailedSubject}${id}${this.detailedSubject2}${idSubject}`);
   }
 }

@@ -14,6 +14,7 @@ import {Ng2OrderModule} from "ng2-order-pipe/dist/index";
 import {UtilityService} from './utility.service';
 import {MaterialService} from "./service/material.service";
 import {AddCourseComponent} from "./courses/add-course/add-course.component";
+import { SubjectDetailComponent } from './subject-detail/subject-detail.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {AddCourseComponent} from "./courses/add-course/add-course.component";
     CoursesComponent,
     LoginComponent,
     CourseDetailComponent,
-    AddCourseComponent
+    AddCourseComponent,
+    SubjectDetailComponent
   ],
   imports: [
     FormsModule,
@@ -30,7 +32,7 @@ import {AddCourseComponent} from "./courses/add-course/add-course.component";
     AppRoutingModule,
     Ng2OrderModule
   ],
-  providers: [CourseService, UserService, UtilityService,MaterialService],
+  providers: [CourseService, UserService, UtilityService, MaterialService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

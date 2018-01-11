@@ -1,0 +1,17 @@
+
+
+
+<ul style="padding-right: 30px" *ngFor="let  material of subject.materials ">
+
+<ul *ngIf="material.materialType === 'LINK'">
+<a href="{{material.link}}" target="_blank">{{material.title}}</a>
+{{material.description}}
+</ul>
+<ul *ngIf="material.materialType === 'FILE'">
+{{material.title}}
+<a class="glyphicon glyphicon-download" title="Download source" download="name.txt"
+(click)="downloadFile(material.idMaterial, material.title)"> </a>
+{{material.description}}
+</ul>
+</ul>
+
