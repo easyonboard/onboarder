@@ -6,6 +6,7 @@ import {of} from "rxjs/observable/of";
 import 'rxjs/add/operator/map';
 import {RootConst} from "./util/RootConst";
 import {Subject} from "./domain/subject";
+import {UserDTO} from "./domain/user";
 
 @Injectable()
 export class CourseService implements OnInit {
@@ -68,5 +69,22 @@ export class CourseService implements OnInit {
 
   getSubject(id: number, idSubject: number):Observable<Subject> {
     return this.http.get<Subject>(`${this.detailedSubject}${id}${this.detailedSubject2}${idSubject}`);
+  }
+
+  deleteContactPerson(contactPerson: UserDTO, course: Course){
+    let body = JSON.stringify({user: contactPerson, course: course});
+    return this.http.post<Course>(this.rootConst.SERVER_DELETE_CONTACT_PERSON, body, this.httpOptions);
+  }
+
+  deleteOwnerPerson(contactPerson: UserDTO, course: Course) {
+    let body = JSON.stringify({user: contactPerson, course: course});
+    return this.http.post<Course>(this.rootConst.SERVER_DELETE_OWNER_PERSON, body, this.httpOptions);
+
+  }
+
+  deleteSubjectFromCourse(subject: Subject, course: Course) {
+
+    let body=JSON.stringify({subject: subject, course:course});
+    return this.http.post<Course>(this.rootConst.SERVER_DELETE_SUBJECT, body, this.httpOptions)
   }
 }

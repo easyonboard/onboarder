@@ -5,8 +5,10 @@ import {Course} from "../../domain/course";
 import {RootConst} from "../../util/RootConst";
 import {DOCUMENT} from "@angular/common";
 import {UtilityService} from "../../utility.service";
-import {Observable} from "rxjs/Observable";
 import {MaterialService} from "../../service/material.service";
+import {FormControl} from '@angular/forms';
+import {UserDTO} from "../../domain/user";
+import {Subject} from "../../domain/subject";
 
 @Component({
   selector: 'app-course-detail',
@@ -15,18 +17,23 @@ import {MaterialService} from "../../service/material.service";
 })
 export class CourseDetailComponent implements OnInit {
 
-  public course:Course;
-  public rootConst:RootConst;
-  private fragment:string;
-  private isEnrolled:Boolean;
-  public isInEditingMode:Boolean;
-  private modalMessage:string;
-  private errorMessage:string;
-  private courseFound:boolean;
+  myControl: FormControl = new FormControl();
+  public course: Course;
+  public rootConst: RootConst;
+  private fragment: string;
+  private isEnrolled: Boolean;
+  public isInEditingMode: Boolean;
+  private modalMessage: string;
+  private errorMessage: string;
+  private courseFound: boolean;
+  options = [
+    'One',
+    'Two',
+    'Three'
+  ];
 
 
-
-  constructor(private route: ActivatedRoute, private utilityService: UtilityService, private courseService: CourseService, private materialSevice:MaterialService ,@Inject(DOCUMENT) private document: any) {
+  constructor(private route: ActivatedRoute, private utilityService: UtilityService, private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
   }
 
   getCourse(): void {
@@ -36,30 +43,33 @@ export class CourseDetailComponent implements OnInit {
       this.fragment = fragment;
     });
 
-   this.courseService.getCourse(id).subscribe(course=> {
-      this.course = course;
-     this.courseFound=true;
-   },
-      err=> {
+    this.courseService.getCourse(id).subscribe(course => {
+        this.course = course;
+        this.courseFound = true;
+      },
+      err => {
         if (err.status == 400) {
           this.errorMessage = err.error.message;
-          this.courseFound=false;
-          this.modalMessage="Course not found!";
+          this.courseFound = false;
+          this.modalMessage = "Course not found!";
           this.utilityService.openModal('myCustom');
         }
       });
 
 
     var courseList = this.courseService.getCourse(id);
-    courseList.subscribe(course => {this.course = course;});
+    courseList.subscribe(course => {
+      this.course = course;
+    });
 
   }
-  openModal(id:string){
+
+  openModal(id: string) {
     this.utilityService.openModal(id);
   }
 
   ngOnInit() {
-    this.errorMessage="";
+    this.errorMessage = "";
     this.isInEditingMode = false;
     this.getCourse();
     this.isUserEnrollOnThisCourse();
@@ -126,32 +136,47 @@ export class CourseDetailComponent implements OnInit {
   editCourse(titleEdited: string, overviewEdited: string) {
     overviewEdited = overviewEdited.trim();
     titleEdited = titleEdited.trim();
-    this.courseService.editCourse(this.course.idCourse, titleEdited, overviewEdited).subscribe(res=>{
-      this.modalMessage="Operatia a fost realizata cu success!";
-      this.openModal('editSuccessful');
-      this.exitEditingMode();
-      this.getCourse();
-      this.isInEditingMode=false;
+    this.courseService.editCourse(this.course.idCourse, titleEdited, overviewEdited).subscribe(res => {
+        this.modalMessage = "Operatia a fost realizata cu success!";
+        this.openModal('editSuccessful');
+        this.exitEditingMode();
+        this.getCourse();
+        this.isInEditingMode = false;
 
-    },
-    err=>{
-      this.errorMessage=err.error.message;
+      },
+      err => {
+        this.errorMessage = err.error.message;
 
 
-    });
+      });
   }
+
   public exitEditingMode(): void {
     this.isInEditingMode = false;
-    this.errorMessage="";
+    this.errorMessage = "";
     var overviewTextBox = this.document.getElementById('overviewTextBox');
     overviewTextBox.style.visibility = 'hidden';
     var titleEditedInput = this.document.getElementById('titleEdited');
     titleEditedInput.style.visibility = 'hidden';
   }
 
-  downloadFile(idMaterial: number, titleMaterial:string): void {
-    var file:Blob
-    this.materialSevice.getFileWithId(idMaterial, titleMaterial).subscribe(url=>window.open(url));
+  deleteContactPerson(contactPerson: UserDTO){
+
+    this.courseService.deleteContactPerson(contactPerson, this.course).subscribe();
+  }
+  deleteOwnerPerson(contactPerson: UserDTO){
+
+    this.courseService.deleteOwnerPerson(contactPerson, this.course).subscribe();
+  }
+
+  deleteSubjectFromCourse(subject: Subject){
+
+    this.courseService.deleteSubjectFromCourse(subject, this.course).subscribe();
+  }
+
+  // downloadFile(idMaterial: number, titleMaterial: string): void {
+  //   var file: Blob
+  //   this.materialSevice.getFileWithId(idMaterial, titleMaterial).subscribe(url => window.open(url));
 
 // var b: any = material.fileMaterial;
 // //A Blob() is almost a File() - it's just missing the two properties below which we will add
@@ -160,7 +185,6 @@ export class CourseDetailComponent implements OnInit {
 // //
 // //Cast to a File() type
 // return <File>material.fileMaterial;
-
-  }
+//  }
 
 }

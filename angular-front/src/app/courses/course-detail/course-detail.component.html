@@ -1,4 +1,3 @@
-
 <div class="modal" id="editSuccessful">
 
   <div class="modal-content">
@@ -9,11 +8,15 @@
 </div>
 
 <div class="left-buttons">
-  <button id="editCourseSubmitButton" class="glyphicon glyphicon-edit" *ngIf="isInEditingMode == true" (click)="editCourse(titleEdited.value, overviewEdited.value)"> Edit</button>
-  <button id="cancelEditing" class="glyphicon glyphicon-remove-sign" *ngIf="isInEditingMode == true" (click)="exitEditingMode()"> Cancel</button>
+  <button id="editCourseSubmitButton" class="glyphicon glyphicon-edit" *ngIf="isInEditingMode == true"
+          (click)="editCourse(titleEdited.value, overviewEdited.value)"> Edit
+  </button>
+  <button id="cancelEditing" class="glyphicon glyphicon-remove-sign" *ngIf="isInEditingMode == true"
+          (click)="exitEditingMode()"> Cancel
+  </button>
 
 </div>
-<div   id="mainDiv" class="mainDiv" xmlns="http://www.w3.org/1999/html">
+<div id="mainDiv" class="mainDiv" xmlns="http://www.w3.org/1999/html">
   <div class="vertical-menu">
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_OVERVIEW_SECTION}}"
@@ -54,8 +57,12 @@
   </div>
 
   <div id="courseDetails" data-target="#mainDiv">
-    <button id="enrollButton" *ngIf="isEnrolled == false" (click)="enrollUserToCourse()" ><span class="glyphicon glyphicon-check"></span> Enroll</button>
-    <button id="alreadyEnrolled" *ngIf="isEnrolled == true" (click)="unenrollUserFromCourse()"><span class="	glyphicon glyphicon-ok"></span> Already enrolled</button>
+    <button id="enrollButton" *ngIf="isEnrolled == false" (click)="enrollUserToCourse()"><span
+      class="glyphicon glyphicon-check"></span> Enroll
+    </button>
+    <button id="alreadyEnrolled" *ngIf="isEnrolled == true" (click)="unenrollUserFromCourse()"><span
+      class="	glyphicon glyphicon-ok"></span> Already enrolled
+    </button>
     <button id="editCourse" (click)="editCourseMode()"><span class="glyphicon glyphicon-edit"> </span> Edit Course
 
     </button>
@@ -74,10 +81,10 @@
       <p>
         <details>
           <summary>More details</summary>
-          <p class="textStyle">
-          {{ course.overview }}
-    </p>
-        </details>
+      <p class="textStyle">
+        {{ course.overview }}
+      </p>
+      </details>
       </p>
 
 
@@ -85,37 +92,45 @@
         </textarea>
     </section>
 
-    <section id="{{ rootConst.FRONT_SYLLABUS_SECTION }}"  class="sectionStyle">
+    <section id="{{ rootConst.FRONT_SYLLABUS_SECTION }}" class="sectionStyle">
       <p class="sectionTitle">Syllabus</p>
 
 
-        <details>
-          <summary>More details</summary>
+      <details>
+        <summary>More details</summary>
 
-          <div class="tableStyleSyllabus">
+        <div class="tableStyleSyllabus">
 
-            <table class="table table-inverse">
-              <tbody>
-              <tr *ngFor="let  subject of course.subjects ">
-                <div class="subjectDiv">
-                <div class="subjectTitle">{{subject.name}}</div>
-                 <hr class="separator">
-             <div class="aboutTheCourse">About the Course </div><br/>
+          <table class="table table-inverse">
+            <tbody>
+            <tr *ngFor="let  subject of course.subjects ">
+              <div class="subjectDiv">
+                <div class="subjectTitle">{{subject.name}}
+                  <button (click)="deleteSubjectFromCourse(subject)" class="close" *ngIf="isInEditingMode==true" >Delete</button>
+
+                </div>
+
+                <hr class="separator">
+                <div class="aboutTheCourse">About the Course</div>
+                <br/>
                 <p class="descriptionAndCommitmentStyle">{{subject.description}}</p>
                 <hr class="separator">
                 <p class="descriptionAndCommitmentStyle">Commitment: <span></span> {{subject.numberOfDays}} Days</p>
-                         <hr class="separator"><br/>
-      <a routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}/{{rootConst.FRONT_DETAILED_SUBJECT}}/{{subject.idSubject}}">Click to see more</a>
-</div>
+                <hr class="separator">
                 <br/>
-                <br/>
-              </tr>
-              <br><br>
-              </tbody>
-              </table>
+                <a
+                  routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}/{{rootConst.FRONT_DETAILED_SUBJECT}}/{{subject.idSubject}}">Click
+                  to see more</a>
+              </div>
+              <br/>
+              <br/>
+            </tr>
+            <br><br>
+            </tbody>
+          </table>
 
-            </div>
-        </details>
+        </div>
+      </details>
     </section>
 
     <section id="{{ rootConst.FRONT_OWNER_SECTION }}" class="sectionStyle">
@@ -123,34 +138,55 @@
       <details>
         <summary>More details</summary>
         <div class="tableStyle">
-        <table class="table table-inverse">
-          <tbody>
-          <tr *ngFor="let owner of course.owners ">
-            <td>{{owner.name}}</td>
-            <td>{{owner.email}}</td>
-            <td>{{owner.username}}</td>
-          </tr>
-          </tbody>
-        </table>
-          </div>
+          <table class="table table-inverse">
+            <tbody>
+            <tr *ngFor="let owner of course.owners ">
+              <td>{{owner.name}}</td>
+              <td>{{owner.email}}</td>
+              <td>{{owner.username}}</td>
+              <td *ngIf="isInEditingMode==true">
+                <button (click)="deleteOwnerPerson(owner)" class="close">Delete</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </details>
     </section>
 
-    <section id="{{ rootConst.FRONT_CONTACT_PERSON_SECTION }}"  class="sectionStyle">
+    <section id="{{ rootConst.FRONT_CONTACT_PERSON_SECTION }}" class="sectionStyle">
       <p class="sectionTitle">Contact Persons</p>
       <details>
         <summary>More details</summary>
         <div class="tableStyle">
-        <table class="table table-inverse">
-          <tbody>
-          <tr *ngFor="let contactPerson of course.contactPersons ">
-            <td>{{contactPerson.name}}</td>
-            <td>{{contactPerson.email}}</td>
-            <td>{{contactPerson.username}}</td>
-          </tr>
-          </tbody>
-        </table>
-          </div>
+          <table class="table table-inverse">
+            <tbody>
+            <tr *ngFor="let contactPerson of course.contactPersons ">
+              <td>{{contactPerson.name}}</td>
+              <td>{{contactPerson.email}}</td>
+              <td>{{contactPerson.username}}</td>
+              <td *ngIf="isInEditingMode==true">
+                <button (click)="deleteContactPerson(contactPerson)" class="close">Delete</button>
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+
+          <!--<form class="example-form">-->
+          <!--<mat-form-field class="example-full-width">-->
+          <!--<input type="text" placeholder="Pick one" matInput [formControl]="myControl"-->
+          <!--[matAutocomplete]="auto"/>-->
+          <!--<mat-autocomplete #auto="matAutocomplete">-->
+          <!--<mat-option *ngFor="let option of options" [value]="option">-->
+          <!--{{ option }}-->
+          <!--</mat-option>-->
+          <!--</mat-autocomplete>-->
+          <!--</mat-form-field>-->
+          <!--</form>-->
+        </div>
+
+
       </details>
     </section>
 
@@ -159,21 +195,35 @@
       <details>
         <summary>More details</summary>
 
-<p class="textStyle"> The only against is that don't use all HTML5 aspects, and responsive unit.
+        <p class="textStyle"> The only against is that don't use all HTML5 aspects, and responsive unit.
 
-  In another hand, this course is one of the easiest to learn Angular, and have a lot of concepts and technics that's normally hard to understand, beeing very enjoyable to learn, missing only the file system technics and e-mail support.
+          In another hand, this course is one of the easiest to learn Angular, and have a lot of concepts and technics
+          that's normally hard to understand, beeing very enjoyable to learn, missing only the file system technics and
+          e-mail support.
 
-  The instructor have a very nice description for teaching and he's not a blind men who loves Angular, he have the courage to say the agains, becuase he know the issues, he not only alert, but also try to work around it and teach it how.</p>
+          The instructor have a very nice description for teaching and he's not a blind men who loves Angular, he have
+          the courage to say the agains, becuase he know the issues, he not only alert, but also try to work around it
+          and teach it how.</p>
 
-  <p class="textStyle">Parabéns ao professor Muppala. Apesar do sotaque indiano ele fala pausadamente, o que facilita que pessoas que não dominam completamente o inglês entendam o que ele diz. Minha única observação até agora é a necessidade de atualizar o curso com as versões mais recentes das ferramentas utilizadas. É um ótimo curso.</p>
+        <p class="textStyle">Parabéns ao professor Muppala. Apesar do sotaque indiano ele fala pausadamente, o que
+          facilita que pessoas que não dominam completamente o inglês entendam o que ele diz. Minha única observação até
+          agora é a necessidade de atualizar o curso com as versões mais recentes das ferramentas utilizadas. É um ótimo
+          curso.</p>
 
-    <p class="textStyle">
-      The second of 5 courses in the specialization. The 5 courses are 5 small shining gems: all extraordinarily well structured, up to date and to the point. The whole series is a complete overhaul of the material from an earlier specialization. The material has been updated and restructured. In this case the material moves from AngularJS to Angular(2). I took the old courseseries, but even then the new series was worthwhile for me.
-    </p>
         <p class="textStyle">
-          This is a fantastic course and covers a LOT of ground with Angular. To do the course justice you need to spend quite a bit of time on it, so a commitment is required to get through it all. I fine the lecturer very thorough and knowledgeable and he does a great job of explaining every step along the way. Highly recommended.
+          The second of 5 courses in the specialization. The 5 courses are 5 small shining gems: all extraordinarily
+          well structured, up to date and to the point. The whole series is a complete overhaul of the material from an
+          earlier specialization. The material has been updated and restructured. In this case the material moves from
+          AngularJS to Angular(2). I took the old courseseries, but even then the new series was worthwhile for me.
         </p>
-        <p class="textStyle">Nice course by professor - Jogesh. I am beginners in angular 2, once i have completed this course i feel like intermediate and i got confident like i am ok with angualar 2. Once again i thank to great master jogesh for this course.</p>
+        <p class="textStyle">
+          This is a fantastic course and covers a LOT of ground with Angular. To do the course justice you need to spend
+          quite a bit of time on it, so a commitment is required to get through it all. I fine the lecturer very
+          thorough and knowledgeable and he does a great job of explaining every step along the way. Highly recommended.
+        </p>
+        <p class="textStyle">Nice course by professor - Jogesh. I am beginners in angular 2, once i have completed this
+          course i feel like intermediate and i got confident like i am ok with angualar 2. Once again i thank to great
+          master jogesh for this course.</p>
       </details>
 
     </section>

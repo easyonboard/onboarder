@@ -50,7 +50,10 @@
       </div>
 
       <div [hidden]="option==true">
-        <h1>{{message}}</h1>
+        <h1 style="color: #0e0008">{{message}}</h1>
+        <div class="alert alert-danger" [hidden]="!userNotfound">
+          {{userNotfound}}
+        </div>
         <div class="field-wrap input-group form-group">
           <span class="input-group-addon glyphicon glyphicon-user"></span>
           <input #Username type="text" placeholder="Username" class="form-control"/>

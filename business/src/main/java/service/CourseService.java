@@ -2,11 +2,15 @@ package service;
 
 import dao.CourseDAO;
 import dao.EnrollDAO;
+import dao.SubjectDAO;
 import dao.UserDAO;
 import dto.CourseDTO;
+import dto.SubjectDTO;
+import dto.UserDTO;
 import dto.mapper.CourseMapper;
 import dto.mapper.UserMapper;
 import entity.Course;
+import entity.Subject;
 import entity.User;
 import exception.CourseNotFoundException;
 import exception.InvalidDataException;
@@ -36,6 +40,9 @@ public class CourseService {
 
     @Autowired
     private CourseValidator courseValidator;
+
+    @Autowired
+    private SubjectDAO subjectDAO;
 
     private static final String COURSE_NOT_FOUND="Course not found";
     private CourseMapper courseMapper = CourseMapper.INSTANCE;
@@ -104,6 +111,43 @@ public class CourseService {
         Course courseEntity=courseMapper.mapToEntity(course,courseDAO.findEntity(course.getIdCourse()));
         courseValidator.validateCourseData(courseMapper.mapToDTO(courseEntity));
         courseDAO.persistEntity(courseEntity);
+    }
+
+    public void deleteContactPersonForCourse(UserDTO user, CourseDTO course) {
+
+        Course courseEntity=courseDAO.findEntity(course.getIdCourse());
+        User userEntity=userDAO.findEntity(user.getIdUser());
+
+
+        courseEntity.getContactPersons().remove(userEntity);
+        userEntity.getContactForCourses().remove(courseEntity);
+
+        userDAO.persistEntity(userEntity);
+        courseDAO.persistEntity(courseEntity);
+
+    }
+
+    public void deleteOwnerPersonForCourse(UserDTO user, CourseDTO course) {
+        Course courseEntity=courseDAO.findEntity(course.getIdCourse());
+        User userEntity=userDAO.findEntity(user.getIdUser());
+
+
+        courseEntity.getOwners().remove(userEntity);
+        userEntity.getOwnerForCourses().remove(courseEntity);
+
+        userDAO.persistEntity(userEntity);
+        courseDAO.persistEntity(courseEntity);
+    }
+
+    public void deleteSubjectFromCourse(CourseDTO courseDTO, SubjectDTO subjectDTO) {
+        Course courseEntity=courseDAO.findEntity(courseDTO.getIdCourse());
+        Subject subjectEntity=subjectDAO.findEntity(subjectDTO.getIdSubject());
+
+        courseEntity.getSubjects().remove(subjectEntity);
+        subjectEntity.getContainedByCourses().remove(courseEntity);
+
+        courseDAO.persistEntity(courseEntity);
+        subjectDAO.persistEntity(subjectEntity);
     }
 }
 //    User user = userDAO.findUserByUsername(userUpdated.getUsername());

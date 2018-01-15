@@ -36,4 +36,9 @@ export class UserService {
     let body = JSON.stringify({username: userDTO.username, password: userDTO.password,email:userDTO.email,name:userDTO.name});
     return this.http.post<UserDTO>(this.rootConst.SERVER_UPDATE_USER, body, this.httpOptions);
   }
+
+  getAllUserEmails():Observable<string[]> {
+    return this.http.get<string[]>(this.rootConst.SERVER_USERS_EMAIL);
+
+  }
 }

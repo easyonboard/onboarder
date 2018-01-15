@@ -1,9 +1,9 @@
 .defaultDiv{
 
   margin-top: 50px;
-  margin-left: 220px;
+  margin-left: 250px;
   background-color: #f7f7f7;
-  width: 1500px;
+  width: 80%;
   height: 80%;
   position: relative;
   border: 3.5px solid #841439;
@@ -14,7 +14,6 @@
 }
 .materialDiv{
   align-self: center;
-  margin-left: 50px;
   background-color: white;
   align-content: center;
   padding: 100px;

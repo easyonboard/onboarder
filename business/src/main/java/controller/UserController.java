@@ -24,6 +24,7 @@ import utilityService.UserLoginService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -39,9 +40,9 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
-    public ResponseEntity<UserDTO> login(@RequestBody UserDTO user, HttpServletRequest request) throws UserNotFoundException {
+    public ResponseEntity login(@RequestBody UserDTO user, HttpServletRequest request) throws UserNotFoundException {
 
-
+        try{
         UserDTO userLogged = userService.findUserByUsername(user.getUsername());
         String password = userService.encrypt(user.getPassword());
         String username = user.getUsername();
@@ -53,7 +54,10 @@ public class UserController {
 //        HttpSession session=attr.getRequest().getSession(true);
 //        SecurityContext securityContext = SecurityContextHolder.getContext();
 //        session.setAttribute("SPRING_SECURITY_CONTEXT", token);
-        return new ResponseEntity<>(userLogged, HttpStatus.OK);
+        return new ResponseEntity<>(userLogged, HttpStatus.OK);}
+        catch (UserNotFoundException exception){
+            return new ResponseEntity(exception, HttpStatus.FORBIDDEN);
+        }
 
     }
 
@@ -83,5 +87,10 @@ public class UserController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/userEmails", method = RequestMethod.GET)
+    public ResponseEntity<List<String>> getUsersEmails() {
 
+        return new ResponseEntity(userService.getUsersEmails(), HttpStatus.OK);
+    }
 }

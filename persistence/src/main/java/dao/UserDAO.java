@@ -1,13 +1,12 @@
 package dao;
+
 import entity.User;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 @Service
 public class UserDAO extends AbstractDAO<User>{
@@ -30,5 +29,12 @@ public class UserDAO extends AbstractDAO<User>{
         return null;
 
     }
+    }
+
+
+    public List<String> getUsersEmails(){
+
+        Query query=em.createQuery("Select email from User u");
+        return query.getResultList();
     }
 }

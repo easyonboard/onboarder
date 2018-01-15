@@ -1,7 +1,10 @@
 package controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.CourseDTO;
 import dto.SubjectDTO;
+import dto.UserDTO;
 import exception.CourseNotFoundException;
 import exception.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import service.CourseService;
 import service.SubjectService;
 import service.UserService;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -192,11 +197,72 @@ public class CourseController {
 
     public ResponseEntity getDetails(@RequestParam(value = "id") Integer id, @RequestParam(value = "idSubject") Integer idSubject) {
 
-        SubjectDTO subject=subjectService.findSubjectOfCourse(id, idSubject);
-        if(subject!=null) {
+        SubjectDTO subject = subjectService.findSubjectOfCourse(id, idSubject);
+        if (subject != null) {
             return new ResponseEntity(subject, HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/deleteContactPerson", method = RequestMethod.POST)
+    public ResponseEntity deleteContactPerson(@RequestBody String str) {
+
+
+        try {
+            courseService.deleteContactPersonForCourse(getUser(str),getCourse(str));
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/deleteOwnerPerson", method = RequestMethod.POST)
+    public ResponseEntity deleteOwnerPerson(@RequestBody String str)  {
+
+        try {
+            courseService.deleteOwnerPersonForCourse(getUser(str),getCourse(str));
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/deleteCourseSubject", method = RequestMethod.POST)
+    public ResponseEntity deleteCourseSubject(@RequestBody String str) {
+
+        try {
+            courseService.deleteSubjectFromCourse(getCourse(str),getSubject(str));
+            return new ResponseEntity(HttpStatus.OK);
+
+        } catch (IOException e) {
+          return new ResponseEntity(e,HttpStatus.BAD_REQUEST );
+        }
+    }
+
+    private UserDTO getUser(String str) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(str);
+        return mapper.convertValue(node.get("user"), UserDTO.class);
+    }
+
+    private CourseDTO getCourse(String str) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(str);
+        return mapper.convertValue(node.get("course"), CourseDTO.class);
+
+    }
+    private SubjectDTO getSubject(String str) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(str);
+        return mapper.convertValue(node.get("subject"), SubjectDTO.class);
+
+    }
 }

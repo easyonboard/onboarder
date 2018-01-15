@@ -1,3 +1,6 @@
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 #mainDiv{
   margin-left: 40px;
 }
@@ -162,12 +165,11 @@ hr.style2 {
 }
 .tableStyle{
 
-  padding-left: 50px;
+  padding-left: 400px;
+  padding-right: 100px;
+  padding-top: 10px;
   width: 500px;
-  align-content: center;
-  align-self: center;
-  align-items: center;
-
+  font-size: 20px;
 }
 .sectionStyle{
   padding-left: 100px;
@@ -228,4 +230,13 @@ input[type~="text"], select {
 .textStyle{
   font-size: 15px;
   margin: 50px;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
 }

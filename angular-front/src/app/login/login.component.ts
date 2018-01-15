@@ -21,11 +21,13 @@ export class LoginComponent implements OnInit, AfterContentInit {
   private backButton: Element;
   private logoutButton: Element;
   private profileButton: Element;
+  private userNotfound: string;
   constructor(private userService: UserService, private router: Router, private elemRef: ElementRef) {
     this.option = false;
   }
 
   ngOnInit() {
+    this.userNotfound="";
     this.message = "Welcome back!";
     this.messageSignIn = "Sign Up for Free";
     this.rootConst = new RootConst();
@@ -76,7 +78,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
       },
       err => {
         if (err.status == 403) {
-          this.message = "Username or password wrong. Please try again";
+          this.userNotfound =  "Username or password wrong! Please try again.";
         }
         console.log(err);
       });

@@ -7,11 +7,6 @@ html {
   overflow-y: scroll;
 }
 
-/*body {*/
-  /*background: #c1bdba;*/
-  /*font-family: 'Titillium Web', sans-serif;*/
-/*}*/
-
 a {
   text-decoration: none;
   background: #59d8d3;
@@ -134,11 +129,6 @@ input, textarea {
 input:focus, textarea:focus {
   outline: 0;
   border-color: #841439;
-}
-
-textarea {
-  border: 2px solid #a0b3b0;
-  resize: vertical;
 }
 
 .field-wrap {

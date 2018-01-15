@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import validator.UserValidator;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -61,5 +62,12 @@ public class UserService {
         }
     }
 
-
+    /**
+     *
+     * @return List<String>
+     *     returns list of all emails used for frond end user search autocomplete
+     */
+    public List<String> getUsersEmails() {
+        return userDAO.getUsersEmails();
+    }
 }
