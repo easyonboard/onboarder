@@ -1,18 +1,53 @@
+#bigDiv {
+  overflow-y: auto;
+}
+
 #addComponent {
   margin: auto;
-  height: 750px;
-  width: 950px;
-  margin-top: 120px;
-  border-radius: 15px;
+  width: 1350px;
+  height: 700px;
+  margin-top: 80px;
+  margin-bottom: 55px;
+  border-radius: 12px;
   padding-left: 50px;
-  padding-top: 100px;
+  padding-top: 30px;
   align-items: center;
-  border: black solid 1px;
-
+  border: #841439 solid 4px;
+  position: relative;
 }
-form{
+
+.stepDiv {
+  margin: auto;
+  width: 1350px;
+  height: 700px;
+  border-radius: 12px;
+  padding-left: 50px;
+  padding-top: 30px;
+}
+
+#courseTable td, #materialTable td {
+  padding-top: 10px;
+  padding-left: 50px;
+}
+
+.modal-body {
+  border: 1.5px solid #841439;
+  border-radius: 9px;
+}
+
+#addMaterialForm {
+  margin-top: 50px;
   padding-left: 80px;
 }
+
+.pageTitle {
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+
+}
+
 table {
   color: #0e0008;
   opacity: revert;
@@ -21,25 +56,20 @@ table {
 
 }
 
-tr {
-  padding-bottom: 20px;
-}
-
-td {
-  margin-right: 175px;
-  padding-bottom: 20px;
-}
-
 input[type~="text"], select {
   border-radius: 5px;
   height: 35px;
-  width: 190px;
+  width: 290px;
 }
 
 textarea {
   border-radius: 5px;
   height: 135px;
-  width: 190px;
+  width: 570px;
+}
+
+#materialTable textarea {
+  width: 290px;
 }
 
 input[type~="submit"] {
@@ -50,5 +80,81 @@ input[type~="submit"] {
   color: #0e0008;
   font-weight: bold;
 }
+
+#addMaterialIcon {
+  margin-top: 20px;
+  font-size: 25px;
+  float: right;
+}
+
+.materialModal {
+  margin: auto;
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto;
+  border: 2px #841439;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 15px;
+  border: 1px solid #888;
+}
+
+.nextStepButton {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+
+.prevStepButton {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+}
+
+#courseTable {
+  margin-top: 50px;
+}
+
+.separator {
+  margin-left: -5px;
+  width: 90%;
+}
+
+#materialTableContainer{
+  width: 85%;       /* table width will be 99% of this*/
+  height: 320px;    /* must be greater than tbody*/
+  overflow: auto;
+  margin: 0 auto;
+}
+#materialTableContainer #materials {
+  margin-top: 30px;
+  border: solid 3px #841439;
+  width: 85%;
+  border-spacing: 18px;
+  border-collapse: separate;
+}
+
+#materialTableContainer #materials tr {
+  max-width: 85%;
+}
+
+#materialTableContainer #materials>tbody{
+  overflow: auto;
+  height: 380px;
+  max-width: 85%;
+  overflow-x: hidden;
+}
+
+thead>tr>th{
+  border-bottom:  3px solid #841439;
+}
+
+
+
 
 

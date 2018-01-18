@@ -15,5 +15,4 @@ export  class Material{
   title:string;
 
   description:string;
-
 }

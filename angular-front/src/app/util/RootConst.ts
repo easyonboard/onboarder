@@ -11,6 +11,8 @@ export class RootConst{
   public SERVER_UPDATE_USER=this.WEB_SERVICE_ENDPOINT + "/user/updateUser";
   public SERVER_FIND_MATERIAL_BY_ID =this.SERVER_COURSES_URL+'/material?id=' ;
   public SERVER_SUBJECT_URL= this.WEB_SERVICE_ENDPOINT +'courses/subject?id=';
+  public SERVER_MATERIALS_UPLOADED_BY_USE= this.WEB_SERVICE_ENDPOINT+"/material/uploadedMaterial?username=" ;
+
   public  SERVER_SUBJECT_URL2='&idSubject='
   public SERVER_AUTHENTIFICATION=this.WEB_SERVICE_ENDPOINT + "/auth";
   public SERVER_USERS_EMAIL=this.WEB_SERVICE_ENDPOINT+'userEmails?email=';
