@@ -7,12 +7,14 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
-@NamedQueries({@NamedQuery( name = User.FIND_USER_BY_USERNAME, query = "select u from User u where u.username=:username")})
+@NamedQueries({@NamedQuery( name = User.FIND_USER_BY_USERNAME, query = "select u from User u where u.username=:username"),
+               @NamedQuery( name = User.FIND_USER_BY_EMAIL, query = "select u from User u where u.email=:email")})
 @Entity
 @Table(name = "app_user")
 public class User implements Serializable {
 
     public static final String FIND_USER_BY_USERNAME="User.findUSerByUsername";
+    public static final String FIND_USER_BY_EMAIL="User.findUSerByEmail";
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idUser;

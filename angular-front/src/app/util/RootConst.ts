@@ -13,10 +13,12 @@ export class RootConst{
   public SERVER_SUBJECT_URL= this.WEB_SERVICE_ENDPOINT +'courses/subject?id=';
   public  SERVER_SUBJECT_URL2='&idSubject='
   public SERVER_AUTHENTIFICATION=this.WEB_SERVICE_ENDPOINT + "/auth";
-  public SERVER_USERS_EMAIL=this.WEB_SERVICE_ENDPOINT+'userEmails';
+  public SERVER_USERS_EMAIL=this.WEB_SERVICE_ENDPOINT+'userEmails?email=';
   public SERVER_DELETE_CONTACT_PERSON=this.WEB_SERVICE_ENDPOINT+'deleteContactPerson';
   public SERVER_DELETE_OWNER_PERSON=this.WEB_SERVICE_ENDPOINT+'deleteOwnerPerson';
   public SERVER_DELETE_SUBJECT=this.WEB_SERVICE_ENDPOINT + 'deleteCourseSubject';
+  public SERVER_ADD_CONTACT_PERSON=this.WEB_SERVICE_ENDPOINT+'addContactPerson';
+  public SERVER_ADD_OWNER_PERSON=this.WEB_SERVICE_ENDPOINT+'addOwnerPerson';
 
   public SERVER_ADD_MATERIAL = this.WEB_SERVICE_ENDPOINT+'createMaterial';
   public FRONT_DETAILED_COURSE = '/courses/detailedCourse';

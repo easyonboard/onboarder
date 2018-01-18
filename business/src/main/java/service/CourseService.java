@@ -149,9 +149,29 @@ public class CourseService {
         courseDAO.persistEntity(courseEntity);
         subjectDAO.persistEntity(subjectEntity);
     }
+
+    public CourseDTO addContactPerson(String email, CourseDTO course) {
+
+        User userEntity=userDAO.findUserByEmail(email);
+        Course courseEntity=courseDAO.findEntity(course.getIdCourse());
+
+        courseEntity.getContactPersons().add(userEntity);
+        userEntity.getContactForCourses().add(courseEntity);
+        userDAO.persistEntity(userEntity);
+        Course persisted=courseDAO.persistEntity(courseEntity);
+
+        return courseMapper.mapToDTO(persisted);
+    }
+
+    public CourseDTO addOnerPerson(String email, CourseDTO course) {
+        User userEntity=userDAO.findUserByEmail(email);
+        Course courseEntity=courseDAO.findEntity(course.getIdCourse());
+
+        courseEntity.getOwners().add(userEntity);
+        userEntity.getOwnerForCourses().add(courseEntity);
+        userDAO.persistEntity(userEntity);
+        Course persisted=courseDAO.persistEntity(courseEntity);
+
+        return courseMapper.mapToDTO(persisted);
+    }
 }
-//    User user = userDAO.findUserByUsername(userUpdated.getUsername());
-//    User entity = userMapper.mapToEntity(userUpdated, user);
-//userDAO.persistEntity(entity);
-//        return true;
-//        }

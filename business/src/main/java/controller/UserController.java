@@ -1,5 +1,6 @@
 package controller;
 
+import dto.CourseDTO;
 import dto.UserDTO;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
@@ -12,10 +13,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import service.UserService;
@@ -87,10 +85,14 @@ public class UserController {
         }
     }
 
+
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/userEmails", method = RequestMethod.GET)
-    public ResponseEntity<List<String>> getUsersEmails() {
+    public ResponseEntity<List<String>> searchArticlesByOverview(@RequestParam(value = "email") String email) {
 
-        return new ResponseEntity(userService.getUsersEmails(), HttpStatus.OK);
+        List<String> searchEmail = userService.getUsersEmails(email);
+        return new ResponseEntity<>(searchEmail, HttpStatus.OK);
+
     }
 }

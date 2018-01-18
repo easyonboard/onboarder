@@ -1,16 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Course} from "../domain/course";
 import {CourseService} from "../course.service";
 import {Subject} from "rxjs/Subject";
-import {
-  debounceTime, distinctUntilChanged, switchMap
-} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import {Observable} from "rxjs/Observable";
 import {RootConst} from "../util/RootConst";
 import {Location} from '@angular/common';
-import {UserDTO} from "../domain/user";
 import {UserService} from "../user.service";
-import {Ng2OrderModule} from "ng2-order-pipe/dist/index";
 import {UtilityService} from "../utility.service";
 
 @Component({

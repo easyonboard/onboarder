@@ -6,18 +6,19 @@ import {RootConst} from "../../util/RootConst";
 import {DOCUMENT} from "@angular/common";
 import {UtilityService} from "../../utility.service";
 import {MaterialService} from "../../service/material.service";
-import {FormControl} from '@angular/forms';
 import {UserDTO} from "../../domain/user";
-import {Subject} from "../../domain/subject";
+import {Subject} from "rxjs/Subject";
+import {Observable} from "rxjs/Observable";
+import {UserService} from "../../user.service";
+import {debounceTime, switchMap, distinctUntilChanged} from "rxjs/operators";
 
 @Component({
   selector: 'app-course-detail',
   templateUrl: './course-detail.component.html',
   styleUrls: ['./course-detail.component.css']
 })
-export class CourseDetailComponent implements OnInit {
 
-  myControl: FormControl = new FormControl();
+export class CourseDetailComponent implements OnInit {
   public course: Course;
   public rootConst: RootConst;
   private fragment: string;
@@ -26,14 +27,11 @@ export class CourseDetailComponent implements OnInit {
   private modalMessage: string;
   private errorMessage: string;
   private courseFound: boolean;
-  options = [
-    'One',
-    'Two',
-    'Three'
-  ];
+  filteredOptions$: Observable<string[]>;
 
+  private searchTerms = new Subject<string>();
 
-  constructor(private route: ActivatedRoute, private utilityService: UtilityService, private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private utilityService: UtilityService, private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
   }
 
   getCourse(): void {
@@ -49,10 +47,9 @@ export class CourseDetailComponent implements OnInit {
       },
       err => {
         if (err.status == 400) {
-          this.errorMessage = err.error.message;
           this.courseFound = false;
           this.modalMessage = "Course not found!";
-          this.utilityService.openModal('myCustom');
+          this.utilityService.openModal('editSuccessful');
         }
       });
 
@@ -68,15 +65,31 @@ export class CourseDetailComponent implements OnInit {
     this.utilityService.openModal(id);
   }
 
+  search(term: string): void {
+    this.searchTerms.next(term);
+  }
+
   ngOnInit() {
     this.errorMessage = "";
     this.isInEditingMode = false;
-    this.getCourse();
-    this.isUserEnrollOnThisCourse();
     this.rootConst = new RootConst();
+
+    this.getCourse();
+
+    this.filteredOptions$ = this.searchTerms.pipe(
+      // wait 300ms after each keystroke before considering the term
+      debounceTime(100),
+
+      // ignore new term if same as previous term
+      distinctUntilChanged(),
+      // switch to new sear=ch observable each time the term changes
+      switchMap((term: string) => this.userService.getAllUserEmails(term)));
+    this.isUserEnrollOnThisCourse();
+
 
 
   }
+
 
   isUserEnrollOnThisCourse(): any {
     const idCourse = +this.route.snapshot.paramMap.get('id');
@@ -94,6 +107,8 @@ export class CourseDetailComponent implements OnInit {
 
   }
 
+
+
   unenrollUserFromCourse(): any {
     if (confirm("Are you sure you want to unenroll from this course? ")) {
       const username = localStorage.getItem("userLogged");
@@ -104,9 +119,9 @@ export class CourseDetailComponent implements OnInit {
 
   }
 
-  selectSection(id: string) {
-    debugger
 
+
+  selectSection(id: string) {
     var allElements = this.document.getElementsByClassName("nav-link js-scroll-trigger");
 
     for (let pos = 0; pos < allElements.length; pos++) {
@@ -120,12 +135,10 @@ export class CourseDetailComponent implements OnInit {
     selectedElem.style.setProperty("color", "#F0F8FF");
   }
 
+
   editCourseMode() {
     this.isInEditingMode = true;
-    var overviewTextBox = this.document.getElementById('overviewTextBox');
-    overviewTextBox.style.visibility = 'visible';
-    var titleEdited = this.document.getElementById('titleEdited');
-    titleEdited.style.visibility = 'visible';
+
 
   }
 
@@ -154,37 +167,30 @@ export class CourseDetailComponent implements OnInit {
   public exitEditingMode(): void {
     this.isInEditingMode = false;
     this.errorMessage = "";
-    var overviewTextBox = this.document.getElementById('overviewTextBox');
-    overviewTextBox.style.visibility = 'hidden';
-    var titleEditedInput = this.document.getElementById('titleEdited');
-    titleEditedInput.style.visibility = 'hidden';
+
   }
 
   deleteContactPerson(contactPerson: UserDTO){
 
     this.courseService.deleteContactPerson(contactPerson, this.course).subscribe();
   }
+
   deleteOwnerPerson(contactPerson: UserDTO){
 
     this.courseService.deleteOwnerPerson(contactPerson, this.course).subscribe();
   }
 
-  deleteSubjectFromCourse(subject: Subject){
+
+  deleteSubjectFromCourse(subject: number){
 
     this.courseService.deleteSubjectFromCourse(subject, this.course).subscribe();
   }
 
-  // downloadFile(idMaterial: number, titleMaterial: string): void {
-  //   var file: Blob
-  //   this.materialSevice.getFileWithId(idMaterial, titleMaterial).subscribe(url => window.open(url));
-
-// var b: any = material.fileMaterial;
-// //A Blob() is almost a File() - it's just missing the two properties below which we will add
-// b.lastModifiedDate = new Date();
-// b.name = material.title;
-// //
-// //Cast to a File() type
-// return <File>material.fileMaterial;
-//  }
+  selectedEmail(email: string){
+    this.courseService.addContactPerson(email, this.course).subscribe(res=>{this.getCourse();});
+  }
+  selectedEmailForOwner(email : string){
+    this.courseService.addOwnerPerson(email, this.course).subscribe(res=>{this.getCourse();});
+  }
 
 }

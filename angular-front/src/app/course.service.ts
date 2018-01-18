@@ -82,9 +82,22 @@ export class CourseService implements OnInit {
 
   }
 
-  deleteSubjectFromCourse(subject: Subject, course: Course) {
+  deleteSubjectFromCourse(subject: number, course: Course) {
 
     let body=JSON.stringify({subject: subject, course:course});
     return this.http.post<Course>(this.rootConst.SERVER_DELETE_SUBJECT, body, this.httpOptions)
+  }
+
+  addContactPerson(email: string, course: Course):Observable<Course> {
+
+    let body=JSON.stringify({email: email, course:course});
+    return this.http.post<Course>(this.rootConst.SERVER_ADD_CONTACT_PERSON, body, this.httpOptions);
+
+  }
+  addOwnerPerson(email: string, course: Course):Observable<Course> {
+
+    let body=JSON.stringify({email: email, course:course});
+    return this.http.post<Course>(this.rootConst.SERVER_ADD_OWNER_PERSON, body, this.httpOptions);
+
   }
 }

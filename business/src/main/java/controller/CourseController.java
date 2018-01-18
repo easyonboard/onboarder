@@ -247,6 +247,44 @@ public class CourseController {
         }
     }
 
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/addContactPerson", method = RequestMethod.POST)
+    public ResponseEntity addCourseContactPerson(@RequestBody String str) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            JsonNode  node = mapper.readTree(str);
+            String email=mapper.convertValue(node.get("email"), String.class);
+
+            return new ResponseEntity(courseService.addContactPerson(email,getCourse(str)),HttpStatus.OK);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
+
+
+    }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/addOwnerPerson", method = RequestMethod.POST)
+    public ResponseEntity addOnerContactPerson(@RequestBody String str) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            JsonNode  node = mapper.readTree(str);
+            String email=mapper.convertValue(node.get("email"), String.class);
+
+            return new ResponseEntity(courseService.addOnerPerson(email,getCourse(str)),HttpStatus.OK);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
+
+
+    }
+
     private UserDTO getUser(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);

@@ -67,7 +67,7 @@ public class UserService {
      * @return List<String>
      *     returns list of all emails used for frond end user search autocomplete
      */
-    public List<String> getUsersEmails() {
-        return userDAO.getUsersEmails();
+    public List<String> getUsersEmails(String email) {
+        return userDAO.getUsersEmails(email);
     }
 }

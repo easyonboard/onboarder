@@ -69,7 +69,7 @@
     <br><br><br>
     <div class="titleDiv">{{course.titleCourse}}
       <br/>
-      <input type="text" #titleEdited name="title" #titleEdited id="titleEdited" style="font-size:20px;"/>
+      <input type="text" #titleEdited name="title" #titleEdited id="titleEdited" style="font-size:20px;" *ngIf="isInEditingMode==true"/>
 
     </div>
     <hr class="style2"/>
@@ -88,7 +88,7 @@
       </p>
 
 
-      <textarea id="overviewTextBox" #overviewEdited style="visibility: hidden" rows="1" cols="180">{{course.overview}}
+      <textarea id="overviewTextBox" #overviewEdited rows="1" cols="180" *ngIf="isInEditingMode==true">{{course.overview}}
         </textarea>
     </section>
 
@@ -106,7 +106,7 @@
             <tr *ngFor="let  subject of course.subjects ">
               <div class="subjectDiv">
                 <div class="subjectTitle">{{subject.name}}
-                  <button (click)="deleteSubjectFromCourse(subject)" class="close" *ngIf="isInEditingMode==true" >Delete</button>
+                  <button (click)="deleteSubjectFromCourse(subject.idSubject)" class="close" *ngIf="isInEditingMode==true" >Delete</button>
 
                 </div>
 
@@ -133,7 +133,7 @@
       </details>
     </section>
 
-    <section id="{{ rootConst.FRONT_OWNER_SECTION }}" class="sectionStyle">
+    <section id="{{rootConst.FRONT_OWNER_SECTION }}" class="sectionStyle">
       <p class="sectionTitle">Owners</p>
       <details>
         <summary>More details</summary>
@@ -150,6 +150,17 @@
             </tr>
             </tbody>
           </table>
+
+          <input type="text" #searchEmails (keyup)="search(searchEmails.value)" class="inputText" *ngIf="isInEditingMode==true">
+
+          <div *ngIf="isInEditingMode==true">
+            <div *ngFor="let email of filteredOptions$ | async ">
+              <div class="emailDiv" (click)="selectedEmailForOwner(email)">
+                {{email}}
+              </div>
+
+            </div>
+          </div>
         </div>
       </details>
     </section>
@@ -158,7 +169,13 @@
       <p class="sectionTitle">Contact Persons</p>
       <details>
         <summary>More details</summary>
+
+
+
+
         <div class="tableStyle">
+
+
           <table class="table table-inverse">
             <tbody>
             <tr *ngFor="let contactPerson of course.contactPersons ">
@@ -173,19 +190,19 @@
             </tbody>
           </table>
 
-          <!--<form class="example-form">-->
-          <!--<mat-form-field class="example-full-width">-->
-          <!--<input type="text" placeholder="Pick one" matInput [formControl]="myControl"-->
-          <!--[matAutocomplete]="auto"/>-->
-          <!--<mat-autocomplete #auto="matAutocomplete">-->
-          <!--<mat-option *ngFor="let option of options" [value]="option">-->
-          <!--{{ option }}-->
-          <!--</mat-option>-->
-          <!--</mat-autocomplete>-->
-          <!--</mat-form-field>-->
-          <!--</form>-->
-        </div>
+          <input type="text" #searchEmails (keyup)="search(searchEmails.value)" class="inputText" *ngIf="isInEditingMode==true">
 
+           <div *ngIf="isInEditingMode==true">
+            <div *ngFor="let email of filteredOptions$ | async ">
+              <div class="emailDiv" (click)="selectedEmail(email)">
+                {{email}}
+              </div>
+
+            </div>
+    </div>
+
+
+        </div>
 
       </details>
     </section>
