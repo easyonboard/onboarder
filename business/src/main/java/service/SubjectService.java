@@ -8,8 +8,9 @@ import entity.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-
+/**
+ * Service for {@link SubjectDTO}
+ */
 @Service
 public class SubjectService {
 

@@ -3,7 +3,6 @@ package service;
 import dao.MaterialDAO;
 import dao.UserDAO;
 import dto.MaterialDTO;
-import dto.UserDTO;
 import dto.mapper.MaterialMapper;
 import entity.Course;
 import entity.Material;
@@ -12,9 +11,14 @@ import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+/**
+ * Service for {@link MaterialDTO}
+ */
 @Service
 public class MaterialService {
 
@@ -35,6 +39,11 @@ public class MaterialService {
         return materialMapper.mapToDTO(materialDAO.findEntity(id));
     }
 
+    /**
+     *
+     * @param username String
+     * @return List of Materials uploaded by the user
+     */
     public List<MaterialDTO> materialUploadedByUser(String username) {
         User user =userDAO.findUserByUsername(username);
 

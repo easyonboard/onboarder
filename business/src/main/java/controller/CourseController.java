@@ -37,8 +37,6 @@ public class CourseController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses", method = RequestMethod.GET)
     public ResponseEntity<List<CourseDTO>> allArticles(HttpServletRequest request) {
-        HttpSession session = request.getSession(true);
-        SecurityContext sc = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
         return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
 
@@ -62,13 +60,14 @@ public class CourseController {
     @RequestMapping(value = "courses/detailedCourse", method = RequestMethod.GET)
 
     public ResponseEntity getDetails(@RequestParam(value = "id") Integer id) {
-        CourseDTO courseById = null;
+
         try {
-            courseById = courseService.getCourseById(id);
+            CourseDTO courseById = courseService.getCourseById(id);
+            return new ResponseEntity<>(courseById, HttpStatus.OK);
         } catch (CourseNotFoundException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(courseById, HttpStatus.OK);
+
     }
 
 
@@ -76,7 +75,7 @@ public class CourseController {
     @RequestMapping(value = "/courses/enrollUserOnCourse", method = RequestMethod.POST)
     public ResponseEntity enrollToCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) {
         courseService.enrollUserToCourse(username, idCourse);
-        return null;
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -89,7 +88,7 @@ public class CourseController {
     @RequestMapping(value = "/courses/unenrollUserFromCourse", method = RequestMethod.POST)
     public ResponseEntity unenrollFromCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) {
         courseService.unenrollUserToCourse(username, idCourse);
-        return null;
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -104,93 +103,6 @@ public class CourseController {
         }
 
     }
-
-
-    //    @CrossOrigin(origins = "http://localhost:4200")
-//    @RequestMapping(value = "/createCourse", method = RequestMethod.POST)
-//    public ResponseEntity createCourse() {
-//        UserDTO owner1 = new UserDTO();
-//        owner1.setName("Owner1");
-//        owner1.setEmail("owner1@gmail.com");
-//        owner1.setUsername("owner1prim");
-//        owner1.setPassword("owner1prim");
-//        userService.createUser(owner1);
-//
-//        UserDTO owner2 = new UserDTO();
-//        owner2.setName("Owner2");
-//        owner2.setEmail("owner2@gmail.com");
-//        owner2.setUsername("owner2prim");
-//        owner2.setPassword("owner2prim");
-//        userService.createUser(owner2);
-//
-//
-//        UserDTO owner3 = new UserDTO();
-//        owner3.setName("Owner3");
-//        owner3.setEmail("owner3@gmail.com");
-//        owner3.setUsername("owner3prim");
-//        owner3.setPassword("owner3prim");
-//        userService.createUser(owner3);
-//
-//
-//        List<UserDTO> owners = new ArrayList<>();
-//        owners.add(owner1);
-//        owners.add(owner2);
-//        owners.add(owner3);
-//
-//
-//        MaterialDTO material1 = new MaterialDTO();
-//        material1.setMaterialType(MaterialType.LINK);
-//        material1.setLink("https://www.tutorialspoint.com/java8/java8_pdf_version.htm");
-//        materialService.createMaterial(material1);
-//
-//
-//        MaterialDTO material2 = new MaterialDTO();
-//        material2.setMaterialType(MaterialType.LINK);
-//        material2.setLink("chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/http://www.oracle.com/technetwork/java/newtojava/java8book-2172125.pdf");
-//        materialService.createMaterial(material2);
-//
-//
-//        List<MaterialDTO> materials = new ArrayList<>();
-//        materials.add(material1);
-//        materials.add(material2);
-//
-//
-//        SubjectDTO day1 = new SubjectDTO();
-//        day1.setMaterials(materials);
-//        subjectService.createSubject(day1);
-//
-//        SubjectDTO day2 = new SubjectDTO();
-//        day2.setMaterials(materials);
-//        subjectService.createSubject(day2);
-//
-//        SubjectDTO day3 = new SubjectDTO();
-//        day3.setMaterials(materials);
-//        subjectService.createSubject(day3);
-//
-//
-//        SubjectDTO day4 = new SubjectDTO();
-//        day4.setMaterials(materials);
-//        subjectService.createSubject(day4);
-//
-//
-//
-//        List<SubjectDTO> subjects = new ArrayList<>();
-//
-//        subjects.add(day1);
-//        subjects.add(day2);
-//        subjects.add(day3);
-//        subjects.add(day4);
-//
-//        CourseDTO courseDTO = new CourseDTO();
-//        courseDTO.setOverview("acesta este u curs special");
-//        courseDTO.setSubjects(subjects);
-//        courseDTO.setOwners(owners);
-//        courseDTO.setContactPersons(owners);
-//
-//        courseService.createCourse(courseDTO);
-//        return null;
-//    }
-
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "courses/subject", method = RequestMethod.GET)
@@ -275,7 +187,7 @@ public class CourseController {
             JsonNode  node = mapper.readTree(str);
             String email=mapper.convertValue(node.get("email"), String.class);
 
-            return new ResponseEntity(courseService.addOnerPerson(email,getCourse(str)),HttpStatus.OK);
+            return new ResponseEntity(courseService.addOwnerPerson(email,getCourse(str)),HttpStatus.OK);
 
         } catch (IOException e) {
             e.printStackTrace();

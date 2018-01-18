@@ -4,6 +4,9 @@ import dto.CourseDTO;
 import exception.InvalidDataException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Validator for {@link CourseDTO}
+ */
 @Service
 public class CourseValidator {
 

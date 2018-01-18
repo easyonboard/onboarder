@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+/**
+ * Validator for {@link UserDTO}
+ */
 @Service
 public class UserValidator {
 

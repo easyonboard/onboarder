@@ -1,6 +1,5 @@
 package dao;
 
-import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,16 +27,15 @@ public abstract class AbstractDAO<E> {
     }
 
     @Transactional
-    public void deleteEntity(E entity){
+    public void deleteEntity(E entity) {
         em.remove(entity);
     }
 
 
     @Transactional
-    public E findEntity(int id){
+    public E findEntity(int id) {
         return em.find(getEntityClass(), id);
     }
-
 
 
     @PersistenceContext
@@ -46,11 +44,11 @@ public abstract class AbstractDAO<E> {
     }
 
 
-    public CriteriaBuilder getCriteriaBuilder(){
+    public CriteriaBuilder getCriteriaBuilder() {
         return em.getCriteriaBuilder();
     }
 
-    public List executeCriteriaQuery(CriteriaQuery criteriaQuery){
+    public List executeCriteriaQuery(CriteriaQuery criteriaQuery) {
         return em.createQuery(criteriaQuery).getResultList();
     }
 

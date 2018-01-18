@@ -9,8 +9,6 @@ import java.io.Serializable;
 @Entity
 public class Role implements Serializable {
 
-    //    TODO: before: GenerationType.IDENTITY  => now: GenerationType.SEQUENCE.
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idRole;
