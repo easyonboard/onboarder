@@ -12,7 +12,7 @@
         <div class="aboutTheMaterial">
           {{material.description}}
         </div>
-      <p style="font-size: 20px">Link: </p>
+      <p class="linkStyle">Link: </p>
       <hr class="separator">
         <ul *ngIf="material.materialType === 'LINK'">
           <a href="{{material.link}}" target="_blank" class="linkStyle"> {{material.title}}</a>
@@ -25,7 +25,7 @@
           <div class="aboutTheMaterial">
             {{material.description}}
           </div>
-          <p style="font-size: 20px">File: </p>
+          <p class="linkStyle"> File: </p>
           <hr class="separator">
           <a class="glyphicon glyphicon-download" title="Download source" download="name.txt"
              (click)="downloadFile(material.idMaterial, material.title)"> </a>

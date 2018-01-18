@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Course} from "../domain/course";
-import {CourseService} from "../course.service";
+import {CourseService} from "../service/course.service";
 import {Subject} from "rxjs/Subject";
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import {Observable} from "rxjs/Observable";
 import {RootConst} from "../util/RootConst";
 import {Location} from '@angular/common';
-import {UserService} from "../user.service";
-import {UtilityService} from "../utility.service";
+import {UtilityService} from "../service/utility.service";
+import {UserService} from "../service/user.service";
 
 @Component({
   selector: 'app-courses',

@@ -72,39 +72,6 @@ h1 {
   font-weight: 300;
   margin: 0 0 40px;
 }
-
-label {
-  position: absolute;
-  -webkit-transform: translateY(6px);
-  transform: translateY(6px);
-  left: 13px;
-  color: rgba(255, 255, 255, 0.5);
-  -webkit-transition: all 0.25s ease;
-  transition: all 0.25s ease;
-  -webkit-backface-visibility: hidden;
-  pointer-events: none;
-  font-size: 22px;
-}
-
-label .req {
-  margin: 2px;
-  /*background: #59d8d3;*/
-}
-
-label.active {
-  -webkit-transform: translateY(50px);
-  transform: translateY(50px);
-  left: 2px;
-  font-size: 14px;
-}
-
-label.active .req {
-  opacity: 0;
-}
-
-label.highlight {
-  color: #ffffff;
-}
 input, textarea, button{
   border: 1.5px solid #989898;
   /*border-radius: 8px;*/
@@ -116,14 +83,10 @@ input, textarea {
   height: 100%;
   padding: 5px 10px;
   background: none;
-  background-image: none;
   /*border: 1.5px solid #989898;*/
   color: black;
   /*border-radius: 8px;*/
-  -webkit-transition: border-color .25s ease, -webkit-box-shadow .25s ease;
-  transition: border-color .25s ease, -webkit-box-shadow .25s ease;
-  transition: border-color .25s ease, box-shadow .25s ease;
-  transition: border-color .25s ease, box-shadow .25s ease, -webkit-box-shadow .25s ease;
+
 }
 
 input:focus, textarea:focus {
@@ -169,7 +132,7 @@ input:focus, textarea:focus {
 }
 
 .button:hover, .button:focus {
-  background: #841439;
+  background: #843743;
 }
 
 .button-block {

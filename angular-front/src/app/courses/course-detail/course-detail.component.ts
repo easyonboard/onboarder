@@ -1,15 +1,15 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {CourseService} from "../../course.service";
+import {CourseService} from "../../service/course.service";
 import {Course} from "../../domain/course";
 import {RootConst} from "../../util/RootConst";
 import {DOCUMENT} from "@angular/common";
-import {UtilityService} from "../../utility.service";
+import {UtilityService} from "../../service/utility.service";
 import {MaterialService} from "../../service/material.service";
 import {UserDTO} from "../../domain/user";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
-import {UserService} from "../../user.service";
+import {UserService} from "../../service/user.service";
 import {debounceTime, switchMap, distinctUntilChanged} from "rxjs/operators";
 
 @Component({

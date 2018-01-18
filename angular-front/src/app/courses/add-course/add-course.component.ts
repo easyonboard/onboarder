@@ -5,7 +5,7 @@ import {Material} from "../../domain/material";
 import {MaterialService} from "../../service/material.service";
 import {RootConst} from "../../util/RootConst";
 import 'rxjs/Rx';
-import {UtilityService} from "../../utility.service";
+import {UtilityService} from "../../service/utility.service";
 import {Subject} from "../../domain/subject";
 import {NgSwitch} from '@angular/common';
 import {Course} from "../../domain/course";

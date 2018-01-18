@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MaterialService} from "../service/material.service";
 import {ActivatedRoute} from "@angular/router";
-import {CourseService} from "../course.service";
+import {CourseService} from "../service/course.service";
 import {Subject} from "../domain/subject";
 
 @Component({
@@ -27,7 +27,6 @@ export class SubjectDetailComponent implements OnInit {
     this.courseService.getSubject(id, idSubject).subscribe(subject => {
       this.subject = subject;
     });
-    console.log("kjhkkjds");
   }
 
   downloadFile(idMaterial: number, titleMaterial: string): void {

@@ -2,8 +2,8 @@ import {Component, ElementRef} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from "@angular/router";
 import {RootConst} from "./util/RootConst";
-import {UserService} from "./user.service";
-import {UtilityService} from "./utility.service";
+import {UserService} from "./service/user.service";
+import {UtilityService} from "./service/utility.service";
 import {UserDTO} from "./domain/user";
 
 @Component({
@@ -13,12 +13,7 @@ import {UserDTO} from "./domain/user";
   ]
 })
 export class AppComponent {
-  title = 'app';
   private rootConst: RootConst;
-  private currentComponentElement: HTMLElement;
-  private backButton: Element;
-  private logoutButton: Element;
-  private profileButton: Element;
   public message:string;
   public successMessage:string;
 

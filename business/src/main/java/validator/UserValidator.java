@@ -8,10 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-/**
- * Created by maresb on 1/3/2018.
- */
 @Service
 public class UserValidator {
 
