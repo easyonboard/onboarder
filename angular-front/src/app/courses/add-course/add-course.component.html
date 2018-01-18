@@ -44,7 +44,7 @@
 
           <tbody>
           <tr *ngFor="let  material of materialsUploadedByThisUser ">
-            <td><input type="checkbox" (click)="addMaterialToSelectedList(material)" /></td>
+            <td><input type="checkbox" (click)="addMaterialToSelectedList(material)"/></td>
             <td>{{material.title}}</td>
             <td> {{material.description}}</td>
             <td *ngIf="material.materialType === 'LINK'">

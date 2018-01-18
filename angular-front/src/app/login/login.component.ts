@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
             this.currentComponentElement.appendChild(this.logoutButton);
             this.currentComponentElement.appendChild(this.profileButton);
           }
-          this.router.navigateByUrl(this.rootConst.REDIRECT_LOGIN_SUCCESS_URL);
+          this.router.navigateByUrl(this.rootConst.FRONT_REDIRECT_LOGIN_SUCCESS_URL);
         }
       },
       err => {

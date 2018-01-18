@@ -1,15 +1,16 @@
-
-#mainDiv{
+#mainDiv {
   margin-left: 40px;
 }
-#backIcon{
-  float:left;
+
+#backIcon {
+  float: left;
 }
+
 .vertical-menu {
   margin-left: 20px;
   margin-top: 100px;
   width: 200px;
-  float:left;
+  float: left;
   position: fixed;
   box-shadow: 4px 7px #888888;
 }
@@ -36,10 +37,9 @@
   color: white;
 }
 
-#courseDetails{
+#courseDetails {
   margin-top: 50px;
   margin-left: 300px;
-  /*background-color: #f7f7f7;*/
   background-color: white;
   width: 1500px;
   height: 80%;
@@ -49,147 +49,144 @@
   padding-right: 50px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-#enrollButton, #alreadyEnrolled{
+
+#enrollButton, #alreadyEnrolled {
   background-color: #f7f7f7;
-  color:#841439;
+  color: #841439;
   position: absolute;
   right: 10px;
   height: 48px;
   width: 180px;
-  border:none;
+  border: none;
   font-size: large;
   font-weight: bolder;
 }
+
 .collapse {
   -webkit-transition: none;
   transition: block;
   display: none;
 }
-#editCourse{
+
+#editCourse {
   background-color: #f7f7f7;
-  color:#841439;
+  color: #841439;
   position: absolute;
   right: 180px;
   height: 48px;
   width: 150px;
   font-size: large;
-font-weight: bolder;
-
-
-  border:none;
+  font-weight: bolder;
+  border: none;
 }
-.titleDiv{
+
+.titleDiv {
   font-weight: bold;
   font-size: 40px;
-  margin-left: 450px ;
+  margin-left: 450px;
   width: 500px;
   text-align: center;
   text-decoration: double;
-  text-decoration-color: #841439;
-;
-
+  text-decoration-color: #841439;;
 }
-section{
+
+section {
   margin-bottom: 50px
 }
 
-
-.overviewTextArea{
-
+.overviewTextArea {
   margin: auto;
 }
 
-textarea{
+textarea {
   resize: vertical;
   border-radius: 5px;
 }
+
 input[type~="text"], select {
   border-radius: 5px;
   height: 35px;
   width: 190px;
 }
+
 .modal {
   margin: auto;
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  width: 75%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
+  display: none;
+  position: fixed;
+  width: 75%;
+  height: 100%;
+  overflow: auto;
 
 }
 
-/* Modal Content/Box */
+
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
   padding: 15px;
   border: 1px solid #888;
-  width: 500px; /* Could be more or less, depending on screen size */
+  width: 500px;
 }
-#editCourseSubmitButton{
 
+#editCourseSubmitButton {
   background-color: #841439;
-  color:#eee;
+  color: #eee;
   height: 50px;
   width: 113px;
   font-weight: bold;
   font-size: large;
-  border:none;
+  border: none;
   box-shadow: 4px 7px #888888;
-
 }
 
-
 #cancelEditing {
-
   background-color: #841439;
-  color:#eee;
+  color: #eee;
   height: 50px;
   width: 113px;
   margin-left: 10px;
   font-weight: bold;
   font-size: large;
-  border:none;
+  border: none;
   box-shadow: 4px 7px #888888;
+}
 
+#editCourseSubmitButton:hover,#cancelEditing:hover {
+  background-color: #6b233b;
+  color: white;
 }
-#editCourseSubmitButton:hover,
-#cancelEditing:hover{
-  background-color:  #6b233b;
-  color:white;
-}
-hr.style2 {
+
+hr.hrStyle {
   border-top: 5px double #8c8b8b;
   border-color: #6b233b;
   margin-left: 50px;
 }
-.tableStyle{
 
+.tableStyle {
   padding-left: 400px;
   padding-right: 100px;
   padding-top: 10px;
   width: 500px;
   font-size: 20px;
 }
-.sectionStyle{
+
+.sectionStyle {
   padding-left: 100px;
   padding-right: 100px;
 }
 
-
-.sectionTitle{
+.sectionTitle {
   font-weight: bold;
   font-size: large;
 }
-.tableStyleSyllabus{
 
+.tableStyleSyllabus {
   padding: 50px;
   width: 1000px;
   margin-left: 150px;
-
 }
-.subjectDiv{
 
+.subjectDiv {
   width: 90%;
   height: 90%;
   background-color: white;
@@ -199,38 +196,56 @@ hr.style2 {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.left-buttons{
+.left-buttons {
   margin-left: 40px;
   margin-top: 430px;
   width: 240px;
-  float:left;
+  float: left;
   position: fixed;
-
 }
 
-.subjectTitle{
+.subjectTitle {
   font-size: 25px;
   text-align: center;
   background-color: #6b233b;
-  color:white;
+  color: white;
 }
-.aboutTheCourse{
 
+.aboutTheCourse {
   font-size: 25px;
 
 }
-.descriptionAndCommitmentStyle{
+
+.descriptionAndCommitmentStyle {
   font-size: 18px;
 }
-.textStyle{
+
+.textStyle {
   font-size: 15px;
   margin: 50px;
 }
-.emailDiv{
 
+.emailDiv {
   width: 300px;
 
 }
-.emailDiv:hover{
+
+.emailDiv:hover {
   background: #c4c3c3;
+}
+
+#closeModalButton{
+  font-size: 15px;
+}
+#titleEdited{
+  font-size:20px;
+}
+
+.selectedSection{
+  background-color:#841439 !important;
+  color:#ffffff  !important;
+}
+.deselectedSection{
+  background-color:#dddddd !important;
+  color:#000000 !important;
 }

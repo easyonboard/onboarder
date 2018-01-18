@@ -1,22 +1,23 @@
-
 <div class="modal" id="editSuccessful">
-
   <div class="modal-content">
-    <button class="close" style="font-size: 15px;" (click)="closeModal('editSuccessful')">Close</button>
+    <button class="close" id="closeModalButton" (click)="closeModal('editSuccessful')">Close</button>
     <br/>
     {{modalMessage}}
   </div>
 </div>
 
+
 <div class="left-buttons">
   <button id="editCourseSubmitButton" class="glyphicon glyphicon-edit" *ngIf="isInEditingMode == true"
-          (click)="editCourse(titleEdited.value, overviewEdited.value)"> Edit
+          (click)="editCourse(titleEdited,overviewEdited)"> Edit
   </button>
+
   <button id="cancelEditing" class="glyphicon glyphicon-remove-sign" *ngIf="isInEditingMode == true"
           (click)="exitEditingMode()"> Cancel
   </button>
-
 </div>
+
+
 <div id="mainDiv" class="mainDiv" xmlns="http://www.w3.org/1999/html">
   <div class="vertical-menu">
     <a class="nav-link js-scroll-trigger"
@@ -43,38 +44,43 @@
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_CONTACT_PERSON_SECTION}}"
        target="_self"
-       name="constantPerson"
-       data-target="{rootConst.FRONT_CONTACT_PERSON_SECTION}}" (click)="selectSection('constantPerson')">Contact
+       name="contactPerson"
+       data-target="{rootConst.FRONT_CONTACT_PERSON_SECTION}}" (click)="selectSection('contactPerson')">Contact
       person</a>
 
 
     <a class="nav-link js-scroll-trigger"
        href="{{rootConst.FRONT_DETAILED_COURSE}}/{{course.idCourse}}#{{rootConst.FRONT_RATINGS_REVIEW_SECTION}}"
        target="_self"
-       name="ratingsAndReview"
-       data-target="{rootConst.FRONT_RATINGS_REVIEW_SECTION}}" (click)="selectSection('ratingsAndReview')">Ratings and
+       name="ratingsReview"
+       data-target="{rootConst.FRONT_RATINGS_REVIEW_SECTION}}" (click)="selectSection('ratingsReview')">Ratings and
       review</a>
-
   </div>
 
   <div id="courseDetails" data-target="#mainDiv">
     <button id="enrollButton" *ngIf="isEnrolled == false" (click)="enrollUserToCourse()"><span
       class="glyphicon glyphicon-check"></span> Enroll
     </button>
-    <button id="alreadyEnrolled" *ngIf="isEnrolled == true" (click)="unenrollUserFromCourse()"><span
-      class="	glyphicon glyphicon-ok"></span> Already enrolled
-    </button>
-    <button id="editCourse" (click)="editCourseMode()"><span class="glyphicon glyphicon-edit"> </span> Edit Course
 
+    <button id="alreadyEnrolled" *ngIf="isEnrolled == true" (click)="unenrollUserFromCourse()"><span
+      class="	glyphicon glyphicon-ok"></span> Unenroll
     </button>
+
+    <button id="editCourse" (click)="editCourseMode()"><span class="glyphicon glyphicon-edit"> </span> Edit Course
+    </button>
+
     <br><br><br>
+
     <div class="titleDiv">{{course.titleCourse}}
       <br/>
-      <input type="text" #titleEdited name="title" #titleEdited id="titleEdited" style="font-size:20px;" *ngIf="isInEditingMode==true"/>
-
+      <input type="text"  [(ngModel)]="titleEdited" name="title"  id="titleEdited"
+             *ngIf="isInEditingMode==true"/>
     </div>
-    <hr class="style2"/>
-    <section id="{{rootConst.FRONT_OVERVIEW_SECTION}}" class="sectionStyle">
+
+    <hr class="hrStyle"/>
+
+    <section id="{{rootConst.FRONT_OVERVIEW_SECTION}}" class="sectionStyle"
+             (mouseover)="onHoverSection(rootConst.FRONT_OVERVIEW_SECTION)">
       <p class="sectionTitle">Overview</p>
       <p class="textStyle">
         {{ course.overview.substring(0,150)}} ...
@@ -88,26 +94,25 @@
       </details>
       </p>
 
-
-      <textarea id="overviewTextBox" #overviewEdited rows="1" cols="180" *ngIf="isInEditingMode==true">{{course.overview}}
+      <textarea id="overviewTextBox" [(ngModel)]="overviewEdited" rows="7" cols="180" *ngIf="isInEditingMode==true">{{course.overview}}
         </textarea>
     </section>
 
-    <section id="{{ rootConst.FRONT_SYLLABUS_SECTION }}" class="sectionStyle">
+    <section id="{{ rootConst.FRONT_SYLLABUS_SECTION }}" class="sectionStyle"
+             (mouseover)="onHoverSection(rootConst.FRONT_SYLLABUS_SECTION)">
       <p class="sectionTitle">Syllabus</p>
-
 
       <details>
         <summary>More details</summary>
-
         <div class="tableStyleSyllabus">
-
           <table class="table table-inverse">
             <tbody>
             <tr *ngFor="let  subject of course.subjects ">
               <div class="subjectDiv">
                 <div class="subjectTitle">{{subject.name}}
-                  <button (click)="deleteSubjectFromCourse(subject.idSubject)" class="close" *ngIf="isInEditingMode==true" >Delete</button>
+                  <button (click)="deleteSubjectFromCourse(subject.idSubject)" class="close"
+                          *ngIf="isInEditingMode==true">Delete
+                  </button>
 
                 </div>
 
@@ -129,12 +134,12 @@
             <br><br>
             </tbody>
           </table>
-
         </div>
       </details>
     </section>
 
-    <section id="{{rootConst.FRONT_OWNER_SECTION }}" class="sectionStyle">
+    <section id="{{ rootConst.FRONT_OWNER_SECTION }}" class="sectionStyle"
+             (mouseover)="onHoverSection(rootConst.FRONT_OWNER_SECTION)">
       <p class="sectionTitle">Owners</p>
       <details>
         <summary>More details</summary>
@@ -150,9 +155,12 @@
               </td>
             </tr>
             </tbody>
+
           </table>
 
-          <input type="text" #searchEmails (keyup)="search(searchEmails.value)" class="inputText" *ngIf="isInEditingMode==true">
+
+          <input type="text" #searchEmails (keyup)="search(searchEmails.value)" class="inputText"
+                 *ngIf="isInEditingMode==true" placeholder="Search user by email">
 
           <div *ngIf="isInEditingMode==true">
             <div *ngFor="let email of filteredOptions$ | async ">
@@ -166,16 +174,12 @@
       </details>
     </section>
 
-    <section id="{{ rootConst.FRONT_CONTACT_PERSON_SECTION }}" class="sectionStyle">
+    <section id="{{ rootConst.FRONT_CONTACT_PERSON_SECTION }}" class="sectionStyle"
+             (mouseover)="onHoverSection(rootConst.FRONT_CONTACT_PERSON_SECTION)">
       <p class="sectionTitle">Contact Persons</p>
       <details>
         <summary>More details</summary>
-
-
-
-
         <div class="tableStyle">
-
 
           <table class="table table-inverse">
             <tbody>
@@ -191,24 +195,23 @@
             </tbody>
           </table>
 
-          <input type="text" #searchEmails (keyup)="search(searchEmails.value)" class="inputText" *ngIf="isInEditingMode==true">
+          <input type="text" #searchEmails (keyup)="search(searchEmails.value)" class="inputText"
+                 *ngIf="isInEditingMode==true">
 
-           <div *ngIf="isInEditingMode==true">
+          <div *ngIf="isInEditingMode==true">
             <div *ngFor="let email of filteredOptions$ | async ">
               <div class="emailDiv" (click)="selectedEmail(email)">
                 {{email}}
               </div>
 
             </div>
-    </div>
-
-
+          </div>
         </div>
-
       </details>
     </section>
 
-    <section id="{{ rootConst.FRONT_RATINGS_REVIEW_SECTION}}" class="sectionStyle">
+    <section id="{{ rootConst.FRONT_RATINGS_REVIEW_SECTION}}" class="sectionStyle"
+             (mouseover)="onHoverSection(rootConst.FRONT_RATINGS_REVIEW_SECTION)">
       <p class="sectionTitle"> Ratings</p>
       <details>
         <summary>More details</summary>
@@ -243,10 +246,6 @@
           course i feel like intermediate and i got confident like i am ok with angualar 2. Once again i thank to great
           master jogesh for this course.</p>
       </details>
-
     </section>
-
   </div>
-
-
 </div>

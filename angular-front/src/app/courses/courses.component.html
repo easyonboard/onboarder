@@ -1,7 +1,7 @@
 <div class=" left-div">
   <div class="input-group">
     <input #searchBox id="search-box" (keyup)="search(searchBox.value)"
-           class="inputText " type="text" class="form-control" placeholder="Search"/>
+           class="inputText" type="text" class="form-control" placeholder="Search"/>
     <span class="input-group-addon transparent"><span class="glyphicon glyphicon-search"></span></span>
   </div>
   <br/>
@@ -35,8 +35,6 @@
     <br/>
     <div class="description">
       {{course.overview.substring(0,150)}} ...
-      <!--<summary class="summary">Read More</summary>-->
-      <!--<p>{{course.overview}}</p>-->
       <div class="details">
         <a routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}">Click for more details</a>
       </div>
@@ -61,8 +59,6 @@
 
     <div class="description">
       {{cc.overview.substring(0,350)}}...
-      <!--<summary class="summary">Read More</summary>-->
-      <!--<p>{{cc.overview}}</p>-->
     </div>
 
     <div class="details">
@@ -76,6 +72,3 @@
   <br/>
 
 </div>
-
-
-

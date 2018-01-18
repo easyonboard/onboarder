@@ -10,7 +10,7 @@ h2, h3 {
   font-weight: lighter;
 }
 
-body, input[text], button {
+input[text], button {
   font-family: Cambria, Georgia;
 }
 
@@ -65,7 +65,6 @@ body, input[text], button {
   display: inline-table;
   min-height: 300px;
   position: relative;
-  /*overflow:hidden;*/
 }
 
 .titleClass {
@@ -83,7 +82,6 @@ body, input[text], button {
   color: #841439;
 }
 
-/* everywhere else */
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -100,14 +98,11 @@ body, input[text], button {
   background-color: rgb(225, 252, 255);
   border: 1px solid #010908;
   border-radius: 8px;
-
 }
 
 .editProfileButton {
-
   margin-top: 14px;
   margin-left: 1680px;
-
 }
 
 .field-wrap {
@@ -118,21 +113,19 @@ body, input[text], button {
 
 .modal {
   margin: auto;
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  width: 75%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
+  display: none;
+  position: fixed;
+  width: 75%;
+  height: 100%;
+  overflow: auto;
 
 }
-
-/* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
   padding: 15px;
   border: 1px solid #888;
-  width: 500px; /* Could be more or less, depending on screen size */
+  width: 500px;
 }
 
 

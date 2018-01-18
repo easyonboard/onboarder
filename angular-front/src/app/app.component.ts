@@ -29,7 +29,7 @@ export class AppComponent {
       return;
     }
     if(location.href.includes(this.rootConst.FRONT_DETAILED_COURSE)){
-      this.router.navigateByUrl(this.rootConst.REDIRECT_LOGIN_SUCCESS_URL);
+      this.router.navigateByUrl(this.rootConst.FRONT_REDIRECT_LOGIN_SUCCESS_URL);
       return;
     }
     this.location.back();
@@ -39,7 +39,7 @@ export class AppComponent {
 
     if (confirm("Do you really want to logout?")) {
       localStorage.removeItem("userLogged");
-      location.replace(this.rootConst.LOGIN_PAGE);
+      location.replace(this.rootConst.FRONT_LOGIN_PAGE);
     }
   }
   openModal(id:string){

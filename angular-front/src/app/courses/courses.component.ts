@@ -15,43 +15,39 @@ import {UserService} from "../service/user.service";
   styleUrls: ['./courses.component.css'],
 })
 export class CoursesComponent implements OnInit {
-  public rootConst:RootConst= new RootConst();
+  public rootConst: RootConst = new RootConst();
   courses: Course[];
-  message:string;
+  message: string;
   coursesSearched$: Observable<Course[]>;
-  public successMessage:string;
-  constructor(private courseService: CourseService, private location:Location, private userService: UserService, private utilityService:UtilityService) { }
-   myList:Course[]=[];
-  ngOnInit():void {
-    this.message="";
-    this.successMessage="";
+  public successMessage: string;
+  private searchTerms = new Subject<string>();
+
+  constructor(private courseService: CourseService, private location: Location, private userService: UserService, private utilityService: UtilityService) {}
+
+  ngOnInit(): void {
+    this.message = "";
+    this.successMessage = "";
     this.getCourses();
     this.coursesSearched$ = this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the term
       debounceTime(300),
-
       // ignore new term if same as previous term
       distinctUntilChanged(),
-
-      // switch to new search observable each time the term changes
       switchMap((term: string) => this.courseService.searchCourses(term)));
-
   }
 
   getCourses(): void {
-    this.courseService.findCourses().subscribe(courses=> this.courses=courses);
+    this.courseService.findCourses().subscribe(courses => this.courses = courses);
   }
-  private searchTerms = new Subject<string>();
-
 
   search(term: string): void {
     this.searchTerms.next(term);
   }
 
-    openModal(id:string){
-  this.utilityService.openModal(id);
-}
-  closeModal(id:string){
+  openModal(id: string) {
+    this.utilityService.openModal(id);
+  }
+
+  closeModal(id: string) {
     this.utilityService.closeModal(id);
   }
 }
