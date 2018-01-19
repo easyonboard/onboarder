@@ -163,10 +163,10 @@ hr.hrStyle {
 }
 
 .tableStyle {
-  padding-left: 400px;
+  padding-left: 250px;
   padding-right: 100px;
   padding-top: 10px;
-  width: 500px;
+  width: 600px;
   font-size: 20px;
 }
 
@@ -248,4 +248,8 @@ hr.hrStyle {
 .deselectedSection{
   background-color:#dddddd !important;
   color:#000000 !important;
+}
+
+.table{
+  width: 800px;
 }

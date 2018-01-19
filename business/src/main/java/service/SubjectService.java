@@ -1,6 +1,5 @@
 package service;
 
-import dao.CourseDAO;
 import dao.SubjectDAO;
 import dto.SubjectDTO;
 import dto.mapper.SubjectMapper;
@@ -16,9 +15,6 @@ public class SubjectService {
 
     @Autowired
     private SubjectDAO subjectDAO;
-
-    @Autowired
-    private CourseDAO courseDAO;
 
     private SubjectMapper subjectMapper = SubjectMapper.INSTANCE;
 

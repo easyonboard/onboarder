@@ -144,7 +144,12 @@
       <details>
         <summary>More details</summary>
         <div class="tableStyle">
-          <table class="table table-inverse">
+          <table class="table">
+            <thead>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Username</td>
+            </thead>
             <tbody>
             <tr *ngFor="let owner of course.owners ">
               <td>{{owner.name}}</td>
@@ -159,14 +164,16 @@
           </table>
 
 
-          <input type="text" #searchEmails (keyup)="search(searchEmails.value)" class="inputText"
-                 *ngIf="isInEditingMode==true" placeholder="Search user by email">
+          <input type="text" #searchEmails (keyup)="search(searchEmails.value, true)" class="inputText"
+                 *ngIf="isInEditingMode==true" placeholder="Search user by email" >
 
-          <div *ngIf="isInEditingMode==true">
-            <div *ngFor="let email of filteredOptions$ | async ">
+
+          <div *ngIf="isInEditingMode==true && showListEmailsOwner==true">
+            <div  *ngFor="let email of filteredOptions$ | async ">
               <div class="emailDiv" (click)="selectedEmailForOwner(email)">
                 {{email}}
               </div>
+
 
             </div>
           </div>
@@ -181,7 +188,12 @@
         <summary>More details</summary>
         <div class="tableStyle">
 
-          <table class="table table-inverse">
+          <table class="table">
+            <thead>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Username</td>
+            </thead>
             <tbody>
             <tr *ngFor="let contactPerson of course.contactPersons ">
               <td>{{contactPerson.name}}</td>
@@ -195,10 +207,10 @@
             </tbody>
           </table>
 
-          <input type="text" #searchEmails (keyup)="search(searchEmails.value)" class="inputText"
+          <input type="text" #searchEmails2 (keyup)="search(searchEmails2.value, false)" class="inputText" placeholder="Search user by email"
                  *ngIf="isInEditingMode==true">
 
-          <div *ngIf="isInEditingMode==true">
+          <div *ngIf="isInEditingMode==true && showListEmailsOwner==false">
             <div *ngFor="let email of filteredOptions$ | async ">
               <div class="emailDiv" (click)="selectedEmail(email)">
                 {{email}}

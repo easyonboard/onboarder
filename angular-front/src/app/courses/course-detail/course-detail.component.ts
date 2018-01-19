@@ -32,7 +32,7 @@ export class CourseDetailComponent implements OnInit {
   private searchTerms = new Subject<string>();
   public overviewEdited: string;
   public titleEdited: string;
-
+  private showListEmailsOwner: boolean;
   constructor(private route: ActivatedRoute, private userService: UserService, private utilityService: UtilityService, private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
   }
 
@@ -64,7 +64,8 @@ export class CourseDetailComponent implements OnInit {
     this.utilityService.openModal(id);
   }
 
-  search(term: string): void {
+  search(term: string, ownersShow: boolean): void {
+    this.showListEmailsOwner=ownersShow;
     this.searchTerms.next(term);
   }
 
@@ -185,7 +186,6 @@ export class CourseDetailComponent implements OnInit {
     this.document.getElementsByName(sectionId)[0].classList.remove("deselectedSection");
     this.document.getElementsByName(sectionId)[0].classList.add("selectedSection");
     if (this.prevSectionId != null && this.prevSectionId != sectionId) {
-      this.document.getElementById()
       this.document.getElementsByName(this.prevSectionId)[0].classList.remove("selectedSection");
       this.document.getElementsByName(this.prevSectionId)[0].classList.add("deselectedSection");
     }
@@ -193,3 +193,6 @@ export class CourseDetailComponent implements OnInit {
   }
 
 }
+
+
+

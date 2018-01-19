@@ -66,7 +66,6 @@ public class UserService {
     }
 
     /**
-     *
      * @return List<String>
      *     returns list of all emails used for frond-end user search autocomplete
      */

@@ -38,7 +38,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/addUser", method = RequestMethod.POST)
-    public ResponseEntity addUser(@RequestBody UserDTO user) throws InvalidDataException {
+    public ResponseEntity addUser(@RequestBody UserDTO user) {
 
         try {
             userService.addUser(user);

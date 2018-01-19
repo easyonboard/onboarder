@@ -10,15 +10,12 @@ import exception.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import service.CourseService;
 import service.SubjectService;
-import service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -26,9 +23,6 @@ import java.util.List;
 public class CourseController {
     @Autowired
     private CourseService courseService;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private SubjectService subjectService;
@@ -106,7 +100,6 @@ public class CourseController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "courses/subject", method = RequestMethod.GET)
-
     public ResponseEntity getDetails(@RequestParam(value = "id") Integer id, @RequestParam(value = "idSubject") Integer idSubject) {
 
         SubjectDTO subject = subjectService.findSubjectOfCourse(id, idSubject);
@@ -116,14 +109,13 @@ public class CourseController {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
-
+//    public ResponseEntity addMaterial(@RequestParam(name = "material") String mat, @RequestParam(name = "file") MultipartFile file) throws IOException {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/deleteContactPerson", method = RequestMethod.POST)
     public ResponseEntity deleteContactPerson(@RequestBody String str) {
 
-
         try {
-            courseService.deleteContactPersonForCourse(getUser(str),getCourse(str));
+            courseService.deleteContactPersonForCourse(getUser(str), getCourse(str));
             return new ResponseEntity(HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
@@ -134,10 +126,10 @@ public class CourseController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/deleteOwnerPerson", method = RequestMethod.POST)
-    public ResponseEntity deleteOwnerPerson(@RequestBody String str)  {
+    public ResponseEntity deleteOwnerPerson(@RequestBody String str) {
 
         try {
-            courseService.deleteOwnerPersonForCourse(getUser(str),getCourse(str));
+            courseService.deleteOwnerPersonForCourse(getUser(str), getCourse(str));
             return new ResponseEntity(HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
@@ -151,11 +143,11 @@ public class CourseController {
     public ResponseEntity deleteCourseSubject(@RequestBody String str) {
 
         try {
-            courseService.deleteSubjectFromCourse(getCourse(str),getSubject(str));
+            courseService.deleteSubjectFromCourse(getCourse(str), getSubject(str));
             return new ResponseEntity(HttpStatus.OK);
 
         } catch (IOException e) {
-          return new ResponseEntity(e,HttpStatus.BAD_REQUEST );
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -166,10 +158,10 @@ public class CourseController {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            JsonNode  node = mapper.readTree(str);
-            String email=mapper.convertValue(node.get("email"), String.class);
+            JsonNode node = mapper.readTree(str);
+            String email = mapper.convertValue(node.get("email"), String.class);
 
-            return new ResponseEntity(courseService.addContactPerson(email,getCourse(str)),HttpStatus.OK);
+            return new ResponseEntity(courseService.addContactPerson(email, getCourse(str)), HttpStatus.OK);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -178,16 +170,17 @@ public class CourseController {
 
 
     }
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/addOwnerPerson", method = RequestMethod.POST)
     public ResponseEntity addOnerContactPerson(@RequestBody String str) {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            JsonNode  node = mapper.readTree(str);
-            String email=mapper.convertValue(node.get("email"), String.class);
+            JsonNode node = mapper.readTree(str);
+            String email = mapper.convertValue(node.get("email"), String.class);
 
-            return new ResponseEntity(courseService.addOwnerPerson(email,getCourse(str)),HttpStatus.OK);
+            return new ResponseEntity(courseService.addOwnerPerson(email, getCourse(str)), HttpStatus.OK);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -209,6 +202,7 @@ public class CourseController {
         return mapper.convertValue(node.get("course"), CourseDTO.class);
 
     }
+
     private SubjectDTO getSubject(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);
