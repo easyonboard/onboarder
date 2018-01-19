@@ -90,21 +90,21 @@ export class CourseDetailComponent implements OnInit {
   }
 
   enrollUserToCourse(): any {
-    if (confirm("Are you sure you want to enroll on this course? ")) {
+
       const username = localStorage.getItem("userLogged");
       const idCourse = +this.route.snapshot.paramMap.get('id');
       this.courseService.enrollUserToCourse(idCourse, username).subscribe();
       this.isEnrolled = true;
-    }
+
   }
 
   unenrollUserFromCourse(): any {
-    if (confirm("Are you sure you want to unenroll from this course? ")) {
+
       const username = localStorage.getItem("userLogged");
       const idCourse = +this.route.snapshot.paramMap.get('id');
       this.courseService.unenrollUserFromCourse(idCourse, username).subscribe();
       this.isEnrolled = false;
-    }
+
   }
 
   selectSection(id: string) {
