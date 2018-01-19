@@ -65,7 +65,7 @@
     </table>
 
 
-    <button class="btn btn-info logOut" (click)="updateUser(name.value, email.value, pass.value,passII.value)" style="background:#841439">
+    <button class="btn btn-info" (click)="updateUser(name.value, email.value, pass.value,passII.value)" style="background:#841439">
       <span class="glyphicon  glyphicon-edit"></span> Edit profile
     </button>
   </div>
@@ -73,17 +73,14 @@
 
 <router-outlet>
 
-  <button class="btn btn-info back" (click)="goBack()"
-          style="  background-color:#841439; border:none; color: #ffffff; position: absolute;top:0; left: 0; margin-top:10px; margin-left: 15px; font-size: large;">
+  <button class="goBack" (click)="goBack()">
     <span class="glyphicon glyphicon-arrow-left"></span> Go back
   </button>
 
-  <button (click)="logout()" class="btn btn-info logOut"
-          style="position:absolute; top:0; right:0; margin-top: 15px; margin-right: 15px;  background-color:#841439; border:none; color: #ffffff; font-size: large;">
+  <button (click)="logout()" class="logOut">
     <span class="glyphicon glyphicon-log-out"></span> Log out
   </button>
-  <button class="btn btn-info edit" (click)="openModal('myModal')"
-          style="position:absolute; top:0; right:0; margin-top: 15px; margin-right: 120px;  background-color:#841439; border:none; color: #ffffff; font-size: large;">
+  <button class="buttonEdit" (click)="openModal('myModal')">
     <span class="glyphicon glyphicon-pencil"></span> Edit profile
   </button>
 

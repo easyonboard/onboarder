@@ -75,3 +75,37 @@ footer {
   float: right;
 }
 
+.goBack{
+  background-color:#841439;
+  border:none;
+  color: #ffffff;
+  position: absolute;
+  top:0;
+  left: 0;
+  margin-top:10px;
+  margin-left: 15px;
+  font-size: large;
+}
+
+.logOut{
+  position:absolute;
+  top:0;
+  right:0;
+  margin-top: 15px;
+  margin-right: 15px;
+  background-color:#841439;
+  border:none;
+  color: #ffffff;
+  font-size: large;
+}
+.buttonEdit{
+  position:absolute;
+  top:0;
+  right:0;
+  margin-top: 15px;
+  margin-right: 120px;
+  background-color:#841439;
+  border:none;
+  color: #ffffff;
+  font-size: large;
+}
