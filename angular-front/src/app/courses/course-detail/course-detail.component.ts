@@ -112,14 +112,10 @@ export class CourseDetailComponent implements OnInit {
     var allElements = this.document.getElementsByClassName("nav-link js-scroll-trigger");
 
     for (let pos = 0; pos < allElements.length; pos++) {
-      // allElements[pos].classList.remove("selectedSection");
-      // allElements[pos].classList.add("deselectedSection");
       allElements[pos].setAttribute("id", "");
 
     }
     var selectedElem = this.document.getElementsByName(id)[0];
-    // selectedElem.classList.remove("deselectedSection");
-    // selectedElem.classList.add("selectedSection");
     selectedElem.setAttribute("id", "selectedSection");
 
   }

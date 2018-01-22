@@ -22,8 +22,6 @@ public class MaterialController {
     @Autowired
     private MaterialService materialService;
 
-//    @Autowired
-//    private UserService userService;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/createMaterial", method = RequestMethod.POST)
