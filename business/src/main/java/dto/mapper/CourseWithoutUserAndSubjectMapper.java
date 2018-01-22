@@ -6,13 +6,13 @@ import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
-public interface CourseWithoutUserAndSubjectMapper extends AbstractMapper<Course,CourseDTO>{
+public interface CourseWithoutUserAndSubjectMapper extends AbstractMapper<Course, CourseDTO> {
 
-    CourseWithoutUserAndSubjectMapper INSTANCE=Mappers.getMapper(CourseWithoutUserAndSubjectMapper.class);
+    CourseWithoutUserAndSubjectMapper INSTANCE = Mappers.getMapper(CourseWithoutUserAndSubjectMapper.class);
 
 
     @Mappings({
-            @Mapping(target = "subjects",ignore = true),
+            @Mapping(target = "subjects", ignore = true),
             @Mapping(target = "contactPersons", ignore = true),
             @Mapping(target = "owners", ignore = true),
             @Mapping(target = "enrolledUsers", ignore = true)
@@ -20,7 +20,7 @@ public interface CourseWithoutUserAndSubjectMapper extends AbstractMapper<Course
     CourseDTO mapToDTO(Course entity);
 
     @Mappings({
-            @Mapping(target = "subjects",ignore = true),
+            @Mapping(target = "subjects", ignore = true),
             @Mapping(target = "contactPersons", ignore = true),
             @Mapping(target = "owners", ignore = true),
             @Mapping(target = "enrolledUsers", ignore = true)

@@ -25,7 +25,6 @@
 </div>
 
 <div class="right-div" *ngIf="searchBox.value.length>0">
-
   <div class="div-courses" *ngFor="let course of coursesSearched$ | async " (click)="search('first')">
 
     <div class="titleClass" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}">

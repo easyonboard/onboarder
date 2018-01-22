@@ -2,6 +2,8 @@ package controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dto.CourseDTO;
 import dto.SubjectDTO;
 import dto.UserDTO;
@@ -109,7 +111,7 @@ public class CourseController {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
-//    public ResponseEntity addMaterial(@RequestParam(name = "material") String mat, @RequestParam(name = "file") MultipartFile file) throws IOException {
+    //    public ResponseEntity addMaterial(@RequestParam(name = "material") String mat, @RequestParam(name = "file") MultipartFile file) throws IOException {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/deleteContactPerson", method = RequestMethod.POST)
     public ResponseEntity deleteContactPerson(@RequestBody String str) {
@@ -188,6 +190,19 @@ public class CourseController {
         }
 
 
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/courses/addCourse", method = RequestMethod.POST)
+    public ResponseEntity addCouse(@RequestBody String courseJson) {
+        final GsonBuilder gsonBuilder = new GsonBuilder();
+        final Gson gson = gsonBuilder.create();
+        CourseDTO courseDTO = gson.fromJson(courseJson, CourseDTO.class);
+        try {
+            return new ResponseEntity(courseService.addCourse(courseDTO), HttpStatus.OK);
+        } catch (InvalidDataException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
     }
 
     private UserDTO getUser(String str) throws IOException {

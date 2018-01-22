@@ -71,7 +71,8 @@
 
     <br><br><br>
 
-    <div class="titleDiv">{{course.titleCourse}}
+    <div class="titleDiv">
+      <label  *ngIf="isInEditingMode==false">{{course.titleCourse}}</label>
       <br/>
       <input type="text"  [(ngModel)]="titleEdited" name="title"  id="titleEdited"
              *ngIf="isInEditingMode==true"/>
@@ -88,7 +89,7 @@
       <p>
         <details>
           <summary>More details</summary>
-      <p class="textStyle">
+      <p class="textStyle" *ngIf="isInEditingMode==false">
         {{ course.overview }}
       </p>
       </details>

@@ -149,4 +149,10 @@ public class CourseService {
 
         return courseMapper.mapToDTO(persisted);
     }
+
+    public CourseDTO addCourse(CourseDTO courseDTO) throws InvalidDataException {
+        courseValidator.validateCourseData(courseDTO);
+        Course course = courseMapper.mapToEntity(courseDTO, new Course());
+        return courseMapper.mapToDTO(courseDAO.persistEntity(course));
+    }
 }

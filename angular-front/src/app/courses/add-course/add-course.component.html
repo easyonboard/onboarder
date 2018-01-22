@@ -22,7 +22,7 @@
           </td>
         </tr>
       </table>
-      <button (click)="incStep()" class="nextStepButton">Next</button>
+      <button (click)="incStep()" class="nextStepButton">Save</button>
     </div>
 
 
@@ -43,7 +43,7 @@
 
 
           <tbody>
-          <tr *ngFor="let  material of materialsUploadedByThisUser ">
+          <tr *ngFor="let  material of materialsUploadedByThisUser">
             <td><input type="checkbox" (click)="addMaterialToSelectedList(material)"/></td>
             <td>{{material.title}}</td>
             <td> {{material.description}}</td>
@@ -58,13 +58,6 @@
           </tbody>
         </table>
       </div>
-
-      <i class="fa fa-plus-square" id="addMaterialIcon" title="Add new material"
-         data-toggle="modal" data-target="#materialModal"></i>
-
-
-      <button (click)="decStep()" class="prevStepButton">Previous</button>
-      <button (click)="incStep()" class="nextStepButton">Next</button>
 
 
       <div class="modal fade" id="materialModal" role="dialog">
@@ -127,6 +120,11 @@
         </div>
       </div>
 
+      <button (click)="decStep()" class="prevStepButton">Previous</button>
+      <button (click)="incStep()" class="nextStepButton">Next</button>
+
+      <i class="fa fa-plus-square" id="openModalIcon" title="Add new material"
+         data-toggle="modal" data-target="#materialModal"></i>
 
     </div>
 

@@ -96,4 +96,10 @@ export class CourseService implements OnInit {
     return this.http.post<Course>(this.rootConst.SERVER_ADD_OWNER_PERSON, body, this.httpOptions);
 
   }
+
+  addCourse(course: Course):any {
+    debugger
+    let body = JSON.stringify(course);
+    return this.http.post<Course>(this.rootConst.SERVER_ADD_COURSE, body, this.httpOptions);
+  }
 }

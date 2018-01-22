@@ -10,6 +10,7 @@ import {Subject} from "../../domain/subject";
 import {NgSwitch} from '@angular/common';
 import {Course} from "../../domain/course";
 import {Observable} from "rxjs/Observable";
+import {CourseService} from "../../service/course.service";
 
 @Component({
   selector: 'app-add-course',
@@ -30,8 +31,9 @@ export class AddCourseComponent implements OnInit {
   public files: Array<File>;
   private currentStep: string;
   public materialsUploadedByThisUser: Material[];
+  private noErr: Boolean;
 
-  constructor(private materialService: MaterialService, @Inject(DOCUMENT) private document: any, private utilityService: UtilityService, private materialSevice: MaterialService) {
+  constructor(private materialService: MaterialService, @Inject(DOCUMENT) private document: any, private utilityService: UtilityService, private materialSevice: MaterialService, private courseService: CourseService) {
     this.selectedMaterials = new Array<Material>();
     this.files = new Array<File>();
     this.course = new Course();
@@ -61,6 +63,8 @@ export class AddCourseComponent implements OnInit {
     this.file = (<HTMLInputElement>document.getElementById("file")).files[0];
     console.log(this.material)
     console.log(this.file)
+    this.materialsUploadedByThisUser.push(this.material)
+    console.log(this.materialsUploadedByThisUser)
     this.materialService.addMaterial(this.material, this.file)
   }
 
@@ -87,7 +91,11 @@ export class AddCourseComponent implements OnInit {
   incStep() {
     switch (this.currentStep) {
       case ("one"):
-        this.currentStep = "two"
+        this.addCourse()
+        if (this.noErr == true) {
+          this.currentStep = "two"
+          console.log(this.course)
+        }
         break;
       case ("two"):
         this.currentStep = "three"
@@ -106,9 +114,23 @@ export class AddCourseComponent implements OnInit {
     }
   }
 
+  addCourse() {
+    debugger
+    this.courseService.addCourse(this.course).subscribe(course => {
+      this.noErr = true;
+      this.course = course;
+
+    }, err => {
+      this.noErr = false;
+      alert(err.error.message)
+
+    })
+  }
+
   allMaterialsUploadedByThisUser() {
     const username = localStorage.getItem("userLogged");
-    this.materialService.allMaterialsAddedByUser(username).subscribe(m=>this.materialsUploadedByThisUser = m);
+    this.materialService.allMaterialsAddedByUser(username).subscribe(m => this.materialsUploadedByThisUser = m);
+    console.log(this.materialsUploadedByThisUser);
 
   }
 

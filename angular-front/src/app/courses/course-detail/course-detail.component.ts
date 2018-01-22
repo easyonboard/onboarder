@@ -33,6 +33,7 @@ export class CourseDetailComponent implements OnInit {
   public overviewEdited: string;
   public titleEdited: string;
   private showListEmailsOwner: boolean;
+
   constructor(private route: ActivatedRoute, private userService: UserService, private utilityService: UtilityService, private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
   }
 
@@ -65,7 +66,7 @@ export class CourseDetailComponent implements OnInit {
   }
 
   search(term: string, ownersShow: boolean): void {
-    this.showListEmailsOwner=ownersShow;
+    this.showListEmailsOwner = ownersShow;
     this.searchTerms.next(term);
   }
 
@@ -111,13 +112,15 @@ export class CourseDetailComponent implements OnInit {
     var allElements = this.document.getElementsByClassName("nav-link js-scroll-trigger");
 
     for (let pos = 0; pos < allElements.length; pos++) {
-      allElements[pos].classList.remove("selectedSection");
-      allElements[pos].classList.add("deselectedSection");
+      // allElements[pos].classList.remove("selectedSection");
+      // allElements[pos].classList.add("deselectedSection");
+      allElements[pos].setAttribute("id", "");
 
     }
     var selectedElem = this.document.getElementsByName(id)[0];
-    selectedElem.classList.remove("deselectedSection");
-    selectedElem.classList.add("selectedSection");
+    // selectedElem.classList.remove("deselectedSection");
+    // selectedElem.classList.add("selectedSection");
+    selectedElem.setAttribute("id", "selectedSection");
 
   }
 
@@ -178,18 +181,13 @@ export class CourseDetailComponent implements OnInit {
     var allElements = this.document.getElementsByClassName("nav-link js-scroll-trigger");
 
     for (let pos = 0; pos < allElements.length; pos++) {
-      allElements[pos].classList.remove("selectedSection");
-      allElements[pos].classList.add("deselectedSection");
+      allElements[pos].setAttribute("id", "");
     }
-
-
-    this.document.getElementsByName(sectionId)[0].classList.remove("deselectedSection");
-    this.document.getElementsByName(sectionId)[0].classList.add("selectedSection");
+    this.document.getElementsByName(sectionId)[0].setAttribute("id", "selectedSection");
     if (this.prevSectionId != null && this.prevSectionId != sectionId) {
-      this.document.getElementsByName(this.prevSectionId)[0].classList.remove("selectedSection");
-      this.document.getElementsByName(this.prevSectionId)[0].classList.add("deselectedSection");
+      this.document.getElementsByName(this.prevSectionId)[0].setAttribute("id", "")
+      this.prevSectionId = sectionId;
     }
-    this.prevSectionId = sectionId;
   }
 
 }

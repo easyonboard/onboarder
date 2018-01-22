@@ -81,10 +81,10 @@ input[type~="submit"] {
   font-weight: bold;
 }
 
-#addMaterialIcon {
-  margin-top: 20px;
-  font-size: 25px;
-  float: right;
+#openModalIcon {
+  margin-top: 30px;
+  font-size: 35px;
+  margin-left: 85%;
 }
 
 .materialModal {

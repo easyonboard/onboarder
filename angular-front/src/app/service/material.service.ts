@@ -4,6 +4,7 @@ import {Material} from "../domain/material";
 import {RootConst} from "../util/RootConst";
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Observable";
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class MaterialService implements OnInit {

@@ -163,10 +163,10 @@ hr.hrStyle {
 }
 
 .tableStyle {
-  padding-left: 250px;
+  padding-left: 400px;
   padding-right: 100px;
   padding-top: 10px;
-  width: 600px;
+  width: 500px;
   font-size: 20px;
 }
 
@@ -241,15 +241,8 @@ hr.hrStyle {
   font-size:20px;
 }
 
-.selectedSection{
-  background-color:#841439 !important;
-  color:#ffffff  !important;
-}
-.deselectedSection{
-  background-color:#dddddd !important;
-  color:#000000 !important;
+#selectedSection{
+  background-color:#841439 ;
+  color:#ffffff ;
 }
 
-.table{
-  width: 800px;
-}
