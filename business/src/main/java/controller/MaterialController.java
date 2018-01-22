@@ -3,6 +3,7 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.MaterialDTO;
+import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +47,7 @@ public class MaterialController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "material/uploadedMaterial", method = RequestMethod.GET)
-    public ResponseEntity allMaterialsFromUser(@RequestParam(value = "username") String username) {
+    public ResponseEntity allMaterialsFromUser(@RequestParam(value = "username") String username) throws UserNotFoundException {
         List<MaterialDTO> materials = materialService.materialUploadedByUser(username);
         materials.stream().forEach(m->{m.setFileMaterial(null);
         m.setContainedBySubjects(null);});

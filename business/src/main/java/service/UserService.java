@@ -13,6 +13,7 @@ import validator.UserValidator;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for {@link UserDTO}
@@ -31,10 +32,11 @@ public class UserService {
     private static final String USER_NOT_FOUND_ERROR = "User not found";
     public UserDTO findUserByUsername(String username) throws UserNotFoundException {
 
-        User entity=userDAO.findUserByUsername(username);
-        if(entity==null)
+        Optional<User> entity=userDAO.findUserByUsername(username);
+        if(!entity.isPresent()) {
             throw new UserNotFoundException(USER_NOT_FOUND_ERROR);
-        return userMapper.mapToDTO(entity);
+        }
+        return userMapper.mapToDTO(entity.get());
     }
 
 
@@ -51,14 +53,13 @@ public class UserService {
 
     public void updateUser(UserDTO userUpdated) throws InvalidDataException {
 
-        User user = userDAO.findUserByUsername(userUpdated.getUsername());
-        if (user != null) {
+        Optional<User> user = userDAO.findUserByUsername(userUpdated.getUsername());
+        if (user.isPresent()) {
 
             if (userUpdated.getPassword() != null) {
                 userUpdated.setPassword(encrypt(userUpdated.getPassword()));
             }
-
-            User entity = userMapper.mapToEntity(userUpdated, user);
+            User entity = userMapper.mapToEntity(userUpdated, user.get());
             userValidator.validateUserData(userMapper.mapToDTO(entity));
             userDAO.persistEntity(entity);
 

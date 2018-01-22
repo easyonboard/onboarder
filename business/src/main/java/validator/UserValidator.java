@@ -42,7 +42,7 @@ public class UserValidator {
     public void validateUsername(String username) throws InvalidDataException {
         if (username.length() < MIN_NUMBER_CHARACTERS)
             throw new InvalidDataException(USERNAME_LENGTH_ERROR);
-        if (userDAO.findUserByUsername(username)!=null)
+        if (userDAO.findUserByUsername(username).isPresent())
             throw new InvalidDataException(USERNAME_EXISTS_ERROR);
     }
 

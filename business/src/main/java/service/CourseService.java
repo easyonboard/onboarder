@@ -13,11 +13,14 @@ import entity.Subject;
 import entity.User;
 import exception.CourseNotFoundException;
 import exception.InvalidDataException;
+import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import validator.CourseValidator;
 
+import javax.persistence.NoResultException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for {@link CourseDTO}
@@ -39,16 +42,19 @@ public class CourseService {
     @Autowired
     private SubjectDAO subjectDAO;
 
-    private static final String COURSE_NOT_FOUND="Course not found";
+    private static final String COURSE_NOT_FOUND = "Course not found";
     private CourseMapper courseMapper = CourseMapper.INSTANCE;
 
 
+    public void enrollUserToCourse(String username, Integer idCourse) throws UserNotFoundException {
 
-    public void enrollUserToCourse(String username, Integer idCourse) {
-        User userEntity = userDAO.findUserByUsername(username);
-        Course courseEntity = courseDAO.findEntity(idCourse);
-        enrollDAO.enrollUserToCourse(userEntity, courseEntity);
-
+        Optional<User> userEntity = userDAO.findUserByUsername(username);
+        if (userEntity.isPresent()) {
+            Course courseEntity = courseDAO.findEntity(idCourse);
+            enrollDAO.enrollUserToCourse(userEntity.get(), courseEntity);
+        } else {
+            throw new UserNotFoundException("User  not  found");
+        }
     }
 
     public List<CourseDTO> getAllCourses() {
@@ -57,7 +63,7 @@ public class CourseService {
 
     public CourseDTO getCourseById(Integer id) throws CourseNotFoundException {
         Course entity = courseDAO.findEntity(id);
-        if(entity==null)
+        if (entity == null)
             throw new CourseNotFoundException(COURSE_NOT_FOUND);
         return courseMapper.mapToDTO(entity);
     }
@@ -66,32 +72,42 @@ public class CourseService {
         return courseMapper.entitiesToDTOs(courseDAO.searchByOverview(overview));
     }
 
-    public boolean userIsEnrolledOnCourse(String username, Integer idCourse) {
-        User userEntity = userDAO.findUserByUsername(username);
-        Course courseEntity = courseDAO.findEntity(idCourse);
-        return (userEntity.getEnrolledCourses().contains(courseEntity));
+    public boolean userIsEnrolledOnCourse(String username, Integer idCourse) throws UserNotFoundException {
+        Optional<User> userEntity = userDAO.findUserByUsername(username);
+        if (userEntity.isPresent()) {
+            Course courseEntity = courseDAO.findEntity(idCourse);
+            return (userEntity.get().getEnrolledCourses().contains(courseEntity));
+        } else {
+            throw new UserNotFoundException("User  not  found");
+        }
     }
 
-    public void unenrollUserToCourse(String username, Integer idCourse) {
-        User userEntity = userDAO.findUserByUsername(username);
-        Course courseEntity = courseDAO.findEntity(idCourse);
-        enrollDAO.unenrollUserToCourse(userEntity, courseEntity);
+    public void unenrollUserToCourse(String username, Integer idCourse) throws UserNotFoundException {
+
+        Optional<User> userEntity = userDAO.findUserByUsername(username);
+        if (userEntity.isPresent()) {
+            Course courseEntity = courseDAO.findEntity(idCourse);
+            enrollDAO.unenrollUserToCourse(userEntity.get(), courseEntity);
+        } else {
+            throw new UserNotFoundException("User not found");
+        }
+
     }
 
     public void updateCourse(CourseDTO course) throws InvalidDataException {
 
-        if(course.getTitleCourse()==""){
+        if (course.getTitleCourse() == "") {
             course.setTitleCourse(null);
         }
-        Course courseEntity=courseMapper.mapToEntity(course,courseDAO.findEntity(course.getIdCourse()));
+        Course courseEntity = courseMapper.mapToEntity(course, courseDAO.findEntity(course.getIdCourse()));
         courseValidator.validateCourseData(courseMapper.mapToDTO(courseEntity));
         courseDAO.persistEntity(courseEntity);
     }
 
     public void deleteContactPersonForCourse(UserDTO user, CourseDTO course) {
 
-        Course courseEntity=courseDAO.findEntity(course.getIdCourse());
-        User userEntity=userDAO.findEntity(user.getIdUser());
+        Course courseEntity = courseDAO.findEntity(course.getIdCourse());
+        User userEntity = userDAO.findEntity(user.getIdUser());
 
 
         courseEntity.getContactPersons().remove(userEntity);
@@ -103,8 +119,8 @@ public class CourseService {
     }
 
     public void deleteOwnerPersonForCourse(UserDTO user, CourseDTO course) {
-        Course courseEntity=courseDAO.findEntity(course.getIdCourse());
-        User userEntity=userDAO.findEntity(user.getIdUser());
+        Course courseEntity = courseDAO.findEntity(course.getIdCourse());
+        User userEntity = userDAO.findEntity(user.getIdUser());
 
 
         courseEntity.getOwners().remove(userEntity);
@@ -115,8 +131,8 @@ public class CourseService {
     }
 
     public void deleteSubjectFromCourse(CourseDTO courseDTO, SubjectDTO subjectDTO) {
-        Course courseEntity=courseDAO.findEntity(courseDTO.getIdCourse());
-        Subject subjectEntity=subjectDAO.findEntity(subjectDTO.getIdSubject());
+        Course courseEntity = courseDAO.findEntity(courseDTO.getIdCourse());
+        Subject subjectEntity = subjectDAO.findEntity(subjectDTO.getIdSubject());
 
         courseEntity.getSubjects().remove(subjectEntity);
         subjectEntity.getContainedByCourses().remove(courseEntity);
@@ -125,29 +141,37 @@ public class CourseService {
         subjectDAO.persistEntity(subjectEntity);
     }
 
-    public CourseDTO addContactPerson(String email, CourseDTO course) {
+    public CourseDTO addContactPerson(String email, CourseDTO course) throws UserNotFoundException {
 
-        User userEntity=userDAO.findUserByEmail(email);
-        Course courseEntity=courseDAO.findEntity(course.getIdCourse());
+        Optional<User> userEntity = userDAO.findUserByEmail(email);
+        if(userEntity.isPresent()) {
+            Course courseEntity = courseDAO.findEntity(course.getIdCourse());
 
-        courseEntity.getContactPersons().add(userEntity);
-        userEntity.getContactForCourses().add(courseEntity);
-        userDAO.persistEntity(userEntity);
-        Course persisted=courseDAO.persistEntity(courseEntity);
+            courseEntity.getContactPersons().add(userEntity.get());
+            userEntity.get().getContactForCourses().add(courseEntity);
+            userDAO.persistEntity(userEntity.get());
+            Course persisted = courseDAO.persistEntity(courseEntity);
 
-        return courseMapper.mapToDTO(persisted);
+            return courseMapper.mapToDTO(persisted);
+        }else {
+            throw new UserNotFoundException("User not found!");
+        }
     }
 
-    public CourseDTO addOwnerPerson(String email, CourseDTO course) {
-        User userEntity=userDAO.findUserByEmail(email);
-        Course courseEntity=courseDAO.findEntity(course.getIdCourse());
+    public CourseDTO addOwnerPerson(String email, CourseDTO course) throws UserNotFoundException {
+        Optional<User> userEntity = userDAO.findUserByEmail(email);
+        if(userEntity.isPresent()) {
+            Course courseEntity = courseDAO.findEntity(course.getIdCourse());
 
-        courseEntity.getOwners().add(userEntity);
-        userEntity.getOwnerForCourses().add(courseEntity);
-        userDAO.persistEntity(userEntity);
-        Course persisted=courseDAO.persistEntity(courseEntity);
+            courseEntity.getOwners().add(userEntity.get());
+            userEntity.get().getOwnerForCourses().add(courseEntity);
+            userDAO.persistEntity(userEntity.get());
+            Course persisted = courseDAO.persistEntity(courseEntity);
 
-        return courseMapper.mapToDTO(persisted);
+            return courseMapper.mapToDTO(persisted);
+        }else {
+            throw new UserNotFoundException("User not found!");
+        }
     }
 
     public CourseDTO addCourse(CourseDTO courseDTO) throws InvalidDataException {

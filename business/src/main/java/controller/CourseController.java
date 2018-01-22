@@ -9,6 +9,7 @@ import dto.SubjectDTO;
 import dto.UserDTO;
 import exception.CourseNotFoundException;
 import exception.InvalidDataException;
+import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,20 +70,20 @@ public class CourseController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/enrollUserOnCourse", method = RequestMethod.POST)
-    public ResponseEntity enrollToCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) {
+    public ResponseEntity enrollToCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) throws UserNotFoundException {
         courseService.enrollUserToCourse(username, idCourse);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/isEnrolledOnCourse", method = RequestMethod.POST)
-    public ResponseEntity<Boolean> isEnrolledOnCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) {
+    public ResponseEntity<Boolean> isEnrolledOnCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) throws UserNotFoundException {
         return new ResponseEntity<Boolean>(courseService.userIsEnrolledOnCourse(username, idCourse), HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/unenrollUserFromCourse", method = RequestMethod.POST)
-    public ResponseEntity unenrollFromCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) {
+    public ResponseEntity unenrollFromCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) throws UserNotFoundException {
         courseService.unenrollUserToCourse(username, idCourse);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -156,7 +157,7 @@ public class CourseController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/addContactPerson", method = RequestMethod.POST)
-    public ResponseEntity addCourseContactPerson(@RequestBody String str) {
+    public ResponseEntity addCourseContactPerson(@RequestBody String str) throws UserNotFoundException {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
@@ -175,7 +176,7 @@ public class CourseController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/addOwnerPerson", method = RequestMethod.POST)
-    public ResponseEntity addOnerContactPerson(@RequestBody String str) {
+    public ResponseEntity addOnerContactPerson(@RequestBody String str) throws UserNotFoundException {
         ObjectMapper mapper = new ObjectMapper();
 
         try {

@@ -3,10 +3,10 @@ package dao;
 import entity.User;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserDAO extends AbstractDAO<User> {
@@ -19,25 +19,20 @@ public class UserDAO extends AbstractDAO<User> {
 
     /**
      * Identify a user by username
-     * @param  username String
+     *
+     * @param username String
      * @return User
      */
-    public User findUserByUsername(String username) {
+    public Optional<User> findUserByUsername(String username) {
         TypedQuery<User> query = this.em.createNamedQuery(User.FIND_USER_BY_USERNAME, User.class);
         query.setParameter("username", username);
-        try {
-
-            User user = query.getSingleResult();
-            return user;
-
-        } catch (NoResultException exception) {
-            return null;
-
-        }
+        Optional<User> firstUser = query.getResultList().stream().findFirst();
+        return firstUser;
     }
 
     /**
      * Method used for searching users to add in contact or owner List for a course
+     *
      * @param email
      * @return List of String
      */
@@ -51,20 +46,14 @@ public class UserDAO extends AbstractDAO<User> {
 
     /**
      * Identify a user by email
-     * @param  email the user email
+     *
+     * @param email the user email
      * @return User
      */
-    public User findUserByEmail(String email) {
+    public Optional<User> findUserByEmail(String email) {
         TypedQuery<User> query = this.em.createNamedQuery(User.FIND_USER_BY_EMAIL, User.class);
         query.setParameter("email", email);
-        try {
-
-            User user = query.getSingleResult();
-            return user;
-
-        } catch (NoResultException exception) {
-            return null;
-
-        }
+        Optional<User> firstUser = query.getResultList().stream().findFirst();
+        return firstUser;
     }
 }
