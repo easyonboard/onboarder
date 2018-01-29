@@ -2,5 +2,5 @@ rootProject.name = 'msg-courses-project'
 include ':business'
 include ':persistence'
 include ':controller'
-include 'app'
+include ':app'
 
