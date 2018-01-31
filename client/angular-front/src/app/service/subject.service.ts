@@ -3,6 +3,7 @@ import {Course} from "../domain/course";
 import {Subject} from "../domain/subject";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {RootConst} from "../util/RootConst";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class SubjectService {
@@ -18,7 +19,7 @@ export class SubjectService {
   addSubject(subject: Subject, course:Course): any {
     debugger
     let body = JSON.stringify({subject:subject,course:course});
-    return this.http.post<Course>(this.rootConst.SERVER_ADD_SUBJECT, body, this.httpOptions);
+    return this.http.post<Subject>(this.rootConst.SERVER_ADD_SUBJECT, body, this.httpOptions);
   }
 
 }

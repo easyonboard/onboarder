@@ -4,7 +4,8 @@ import {Material} from "../domain/material";
 import {RootConst} from "../util/RootConst";
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Observable";
-import { of } from 'rxjs/observable/of';
+import {of} from 'rxjs/observable/of';
+import {Subject} from "../domain/subject";
 
 @Injectable()
 export class MaterialService implements OnInit {
@@ -17,10 +18,12 @@ export class MaterialService implements OnInit {
   constructor(private http: HttpClient) {
   }
 
-  addMaterial(material: Material, file: File) {
+  addMaterial(material: Material, file: File, idSubject: number) {
+    debugger
     var formData = new FormData();
     formData.append('material', JSON.stringify(material))
     formData.append('file', file);
+    formData.append('idSubject', JSON.stringify(idSubject));
 
     var request = new XMLHttpRequest();
     request.open('POST', `${this.addMaterialURL}`);
@@ -45,4 +48,9 @@ export class MaterialService implements OnInit {
   }
 
 
+  addMaterialsToSubject(idSubject: number, materialsForCurrentSubject: Array<Material>, files: Array<File>) {
+    for (var index = 0; index < materialsForCurrentSubject.length; index++) {
+      this.addMaterial(materialsForCurrentSubject[index], files[index], idSubject);
+    }
+  }
 }

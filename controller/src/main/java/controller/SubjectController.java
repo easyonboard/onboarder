@@ -27,9 +27,8 @@ public class SubjectController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/subject/addSubject", method = RequestMethod.POST)
-    public ResponseEntity addCouse(@RequestBody String subjectAndCourseJSON) {
+    public ResponseEntity addSubject(@RequestBody String subjectAndCourseJSON) {
         ObjectMapper mapper = new ObjectMapper();
-
         try {
             JsonNode node = mapper.readTree(subjectAndCourseJSON);
             SubjectDTO subjectDTO = mapper.convertValue(node.get("subject"), SubjectDTO.class);

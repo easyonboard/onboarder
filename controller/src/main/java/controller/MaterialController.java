@@ -15,6 +15,7 @@ import service.MaterialService;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MaterialController {
@@ -25,14 +26,15 @@ public class MaterialController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/createMaterial", method = RequestMethod.POST)
-    public ResponseEntity addMaterial(@RequestParam(name = "material") String mat, @RequestParam(name = "file") MultipartFile file) throws IOException {
+    public ResponseEntity addMaterial(@RequestParam(name = "material") String mat, @RequestParam(name = "file") Optional<MultipartFile> file, @RequestParam(name="idSubject") String idSubject) throws IOException {
         final GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
         MaterialDTO material = gson.fromJson(mat, MaterialDTO.class);
-        material.setFileMaterial(file.getBytes());
-        materialService.createMaterial(material);
+        material.setFileMaterial(file.get().getBytes());
+        materialService.createMaterial(material,Integer.parseInt(idSubject));
         return null;
     }
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "courses/material", method = RequestMethod.GET, produces = "application/pdf")

@@ -14,6 +14,7 @@ import {CourseService} from "../../service/course.service";
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import {SubjectService} from "../../service/subject.service";
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-add-course',
@@ -25,7 +26,7 @@ export class AddCourseComponent implements OnInit {
   public subject: Subject
   public materialTypeLink: MaterialType.LINK
   public materialTypeFile: MaterialType.FILE
-  private material: Material = new Material();
+  private material: Material;
   public selectedMaterialType: string;
   private rootConst: RootConst = new RootConst();
   public file: File;
@@ -42,6 +43,8 @@ export class AddCourseComponent implements OnInit {
     this.course = new Course();
     this.subject = new Subject();
     this.materialsForCurrentSubject = new Array<Material>();
+    this.material = new Material();
+    this.material.materialType= this.materialTypeLink
     this.saved = false;
   }
 
@@ -66,11 +69,16 @@ export class AddCourseComponent implements OnInit {
   addMaterial(): void {
     debugger
     this.file = (<HTMLInputElement>document.getElementById("file")).files[0];
-    console.log(this.material);
-    this.materialService.addMaterial(this.material, this.file)
-    console.log(this.file);
+    // console.log(this.material);
+    // this.materialService.addMaterial(this.material, this.file)
+    // console.log(this.file);
     this.materialsForCurrentSubject.push(this.material)
-    this.files.push(this.file);
+    if (isUndefined(this.file)) {
+      this.files.push(null);
+    }else {
+      this.files.push(this.file);
+    }
+    console.log(this.material)
     this.file = null;
     var fileInput = <HTMLInputElement>document.getElementById("file");
     fileInput.innerHTML = null;
@@ -103,6 +111,7 @@ export class AddCourseComponent implements OnInit {
 
 
   addCourse() {
+    debugger
     this.courseService.addCourse(this.course).subscribe(course => {
       this.course = course;
       this.saved = true;
@@ -141,6 +150,10 @@ export class AddCourseComponent implements OnInit {
     this.subjectService.addSubject(this.subject,this.course).subscribe(subject => {
       this.subject = subject;
       console.log(this.subject)
+      this.materialService.addMaterialsToSubject(this.subject.idSubject, this.materialsForCurrentSubject, this.files);
+
+      this.materialsForCurrentSubject = new Array<Material>();
+      this.files= null;
     }, err => {
       alert(err.error.message)
     });

@@ -1,6 +1,7 @@
 package service;
 
 import dao.MaterialDAO;
+import dao.SubjectDAO;
 import dao.UserDAO;
 import dto.MaterialDTO;
 import dto.mapper.MaterialMapper;
@@ -26,11 +27,26 @@ public class MaterialService {
     @Autowired
     private UserDAO userDAO;
 
+    @Autowired
+    private SubjectDAO subjectDAO;
+
     private MaterialMapper materialMapper = MaterialMapper.INSTANCE;
 
-    public void createMaterial(MaterialDTO materialDTO) {
+    public void createMaterial(MaterialDTO materialDTO, Integer idSubject) {
         Material  material = materialMapper.mapToNewEntity(materialDTO);
-        materialDAO.persistEntity(material);
+        List<Subject> subjects = material.getContainedBySubjects();
+        if (null==subjects){
+            subjects= new ArrayList<>();
+        }
+        Subject subjectEntity = subjectDAO.findEntity(idSubject);
+        subjects.add(subjectEntity);
+        material.setContainedBySubjects(subjects);
+
+        material = materialDAO.persistEntity(material);
+        List<Material> materials = subjectEntity.getMaterials();
+        materials.add(material);
+        subjectEntity.setMaterials(materials);
+        subjectDAO.persistEntity(subjectEntity);
     }
 
     public MaterialDTO getMaterialById(Integer id) {
