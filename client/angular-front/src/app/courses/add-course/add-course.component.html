@@ -82,7 +82,7 @@
                       <span class="input-group-addon" style="width: 135px"><b>Materials</b></span>
                       <i class="fa fa-plus-circle fa-2x" aria-hidden="true" title="Add material"
                          style="width: 300px; margin-left: 25px" data-toggle="modal" data-target="#materialModal"
-                         (click)="setMaterialTypeToLink()"></i>
+                         ></i>
                     </div>
                   </div>
 
@@ -167,7 +167,7 @@
 
                   <br> <br>
 
-                  <tr id="addLink">
+                  <tr id="addLink" style="visibility: hidden">
                     <td>Link</td>
                     <td><input type="text" id="link" [(ngModel)]="material.link" name="link"/></td>
                   </tr>

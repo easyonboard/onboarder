@@ -30,7 +30,9 @@ public class MaterialController {
         final GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
         MaterialDTO material = gson.fromJson(mat, MaterialDTO.class);
-        material.setFileMaterial(file.get().getBytes());
+        if(file.isPresent()) {
+            material.setFileMaterial(file.get().getBytes());
+        }
         materialService.createMaterial(material,Integer.parseInt(idSubject));
         return null;
     }

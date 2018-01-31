@@ -83,6 +83,7 @@ export class AddCourseComponent implements OnInit {
     var fileInput = <HTMLInputElement>document.getElementById("file");
     fileInput.innerHTML = null;
     this.material = new Material();
+    this.material.materialType= this.materialTypeLink
   }
 
   closeAddMaterialModal(): void {
@@ -143,7 +144,7 @@ export class AddCourseComponent implements OnInit {
 
   setMaterialTypeToLink(): void {
     (<HTMLSelectElement>document.getElementById("selectedMaterialType")).selectedIndex = 0;
-    this.printMaterialType()
+    // this.printMaterialType()
   }
 
   addSubject(): void {
