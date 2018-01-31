@@ -23,14 +23,15 @@ export class RootConst {
   public SERVER_SUBJECT_URL2 = '&idSubject=';
   public SERVER_SUBJECT_URL = this.WEB_SERVICE_ENDPOINT + 'courses/subject?id=';
   public SERVER_DELETE_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'deleteCourseSubject';
+  public SERVER_ADD_SUBJECT=this.WEB_SERVICE_ENDPOINT+"subject/addSubject" ;
 
 
   public SERVER_FIND_MATERIAL_BY_ID = this.SERVER_COURSES_URL + '/material?id=';
   public SERVER_MATERIALS_UPLOADED_BY_USE = this.WEB_SERVICE_ENDPOINT + "/material/uploadedMaterial?username=";
+
+
+
   public SERVER_ADD_MATERIAL = this.WEB_SERVICE_ENDPOINT + 'createMaterial';
-
-
-
   public FRONT_REDIRECT_LOGIN_SUCCESS_URL = 'courses';
   public FRONT_DETAILED_COURSE = '/courses/detailedCourse';
   public FRONT_DETAILED_SUBJECT = "/subject";

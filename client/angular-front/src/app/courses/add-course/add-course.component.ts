@@ -11,6 +11,9 @@ import {NgSwitch} from '@angular/common';
 import {Course} from "../../domain/course";
 import {Observable} from "rxjs/Observable";
 import {CourseService} from "../../service/course.service";
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/catch';
+import {SubjectService} from "../../service/subject.service";
 
 @Component({
   selector: 'app-add-course',
@@ -19,26 +22,27 @@ import {CourseService} from "../../service/course.service";
 })
 export class AddCourseComponent implements OnInit {
   public course: Course;
+  public subject: Subject
   public materialTypeLink: MaterialType.LINK
   public materialTypeFile: MaterialType.FILE
   private material: Material = new Material();
   public selectedMaterialType: string;
   private rootConst: RootConst = new RootConst();
-  public addMaterialURL = this.rootConst.SERVER_ADD_MATERIAL;
   public file: File;
-  public subjects: Subject[];
-  public selectedMaterials: Array<Material>;
+  public subjects: Array<Subject>;
   public files: Array<File>;
   private currentStep: string;
-  public materialsUploadedByThisUser: Material[];
-  private noErr: Boolean;
+  private materialsForCurrentSubject: Array<Material>
 
-  constructor(private materialService: MaterialService, @Inject(DOCUMENT) private document: any, private utilityService: UtilityService, private materialSevice: MaterialService, private courseService: CourseService) {
-    this.selectedMaterials = new Array<Material>();
+  private noErr: Boolean;
+  public saved: Boolean
+
+  constructor(private materialService: MaterialService, @Inject(DOCUMENT) private document: any, private utilityService: UtilityService, private materialSevice: MaterialService, private subjectService: SubjectService, private courseService: CourseService) {
     this.files = new Array<File>();
     this.course = new Course();
-    this.allMaterialsUploadedByThisUser();
-
+    this.subject = new Subject();
+    this.materialsForCurrentSubject = new Array<Material>();
+    this.saved = false;
   }
 
   printMaterialType(): void {
@@ -59,28 +63,25 @@ export class AddCourseComponent implements OnInit {
   }
 
 
-  createMaterial(): void {
-    this.file = (<HTMLInputElement>document.getElementById("file")).files[0];
-    console.log(this.material)
-    console.log(this.file)
-    this.materialsUploadedByThisUser.push(this.material)
-    console.log(this.materialsUploadedByThisUser)
-    this.materialService.addMaterial(this.material, this.file)
-  }
-
-
   addMaterial(): void {
+    debugger
     this.file = (<HTMLInputElement>document.getElementById("file")).files[0];
     console.log(this.material);
+    this.materialService.addMaterial(this.material, this.file)
     console.log(this.file);
-    this.selectedMaterials.push(this.material);
+    this.materialsForCurrentSubject.push(this.material)
     this.files.push(this.file);
+    this.file = null;
+    var fileInput = <HTMLInputElement>document.getElementById("file");
+    fileInput.innerHTML = null;
+    this.material = new Material();
+  }
 
+  closeAddMaterialModal(): void {
     this.file = null;
     this.material = new Material();
-
-    console.log(this.selectedMaterials);
-    console.log(this.files);
+    var fileInput = <HTMLInputElement>document.getElementById("file");
+    fileInput.innerHTML = '';
 
   }
 
@@ -90,12 +91,9 @@ export class AddCourseComponent implements OnInit {
 
   incStep() {
     switch (this.currentStep) {
-      case ("one"):
-        this.addCourse()
-        if (this.noErr == true) {
-          this.currentStep = "two"
-          console.log(this.course)
-        }
+      case ('one'):
+        this.currentStep = 'two'
+        this.saved = false;
         break;
       case ("two"):
         this.currentStep = "three"
@@ -103,55 +101,49 @@ export class AddCourseComponent implements OnInit {
     }
   }
 
-  decStep() {
-    switch (this.currentStep) {
-      case ("two"):
-        this.currentStep = "one"
-        break;
-      case ("three"):
-        this.currentStep = "two"
-        break;
-    }
-  }
 
   addCourse() {
-    debugger
     this.courseService.addCourse(this.course).subscribe(course => {
-      this.noErr = true;
       this.course = course;
-
+      this.saved = true;
+      this.incStep();
+      console.log(this.course)
     }, err => {
-      this.noErr = false;
       alert(err.error.message)
+    });
 
-    })
   }
 
-  allMaterialsUploadedByThisUser() {
-    const username = localStorage.getItem("userLogged");
-    this.materialService.allMaterialsAddedByUser(username).subscribe(m => this.materialsUploadedByThisUser = m);
-    console.log(this.materialsUploadedByThisUser);
 
+  downloadFile(i: number): void {
+    debugger
+    var binaryData = [];
+    binaryData.push(this.files[i]);
+    var fileURL = window.URL.createObjectURL(new Blob(binaryData, {type: 'application/pdf'}))
+    window.open(fileURL);
+  }
+
+  newSubject(): void {
+    this.subject = new Subject()
+    this.files = new Array<File>();
   }
 
   ngOnInit() {
     this.currentStep = "one";
-    <HTMLOptionElement>this.document.getElementById("valueLink").select();
-    console.log(this.materialsUploadedByThisUser);
   }
 
-
-  downloadFile(idMaterial: number, titleMaterial: string): void {
-    var file: Blob
-    this.materialSevice.getFileWithId(idMaterial, titleMaterial).subscribe(url => window.open(url));
+  setMaterialTypeToLink(): void {
+    (<HTMLSelectElement>document.getElementById("selectedMaterialType")).selectedIndex = 0;
+    this.printMaterialType()
   }
 
-  addMaterialToSelectedList(selMaterial: Material): void {
-    var position = this.selectedMaterials.indexOf(selMaterial);
-    if (position < 0) {
-      this.selectedMaterials.push(selMaterial);
-    } else {
-      this.selectedMaterials.splice(position, 1);
-    }
+  addSubject(): void {
+    this.subjectService.addSubject(this.subject,this.course).subscribe(subject => {
+      this.subject = subject;
+      console.log(this.subject)
+    }, err => {
+      alert(err.error.message)
+    });
+
   }
 }

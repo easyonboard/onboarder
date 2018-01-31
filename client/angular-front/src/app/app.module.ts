@@ -13,6 +13,7 @@ import {UtilityService} from './service/utility.service';
 import {MaterialService} from "./service/material.service";
 import {AddCourseComponent} from "./courses/add-course/add-course.component";
 import {SubjectDetailComponent} from './subject-detail/subject-detail.component';
+import {SubjectService} from "./service/subject.service";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import {SubjectDetailComponent} from './subject-detail/subject-detail.component'
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [CourseService, UserService, UtilityService, MaterialService],
+  providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

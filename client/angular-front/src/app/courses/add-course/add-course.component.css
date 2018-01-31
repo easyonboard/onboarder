@@ -123,14 +123,16 @@ input[type~="submit"] {
 .separator {
   margin-left: -5px;
   width: 90%;
+  margin-bottom: 30px;
 }
 
-#materialTableContainer{
-  width: 85%;       /* table width will be 99% of this*/
-  height: 320px;    /* must be greater than tbody*/
+#materialTableContainer {
+  width: 85%; /* table width will be 99% of this*/
+  height: 320px; /* must be greater than tbody*/
   overflow: auto;
   margin: 0 auto;
 }
+
 #materialTableContainer #materials {
   margin-top: 30px;
   border: solid 3px #841439;
@@ -143,18 +145,40 @@ input[type~="submit"] {
   max-width: 85%;
 }
 
-#materialTableContainer #materials>tbody{
+#materialTableContainer #materials > tbody {
   overflow: auto;
   height: 380px;
   max-width: 85%;
   overflow-x: hidden;
 }
 
-thead>tr>th{
-  border-bottom:  3px solid #841439;
+thead > tr > th {
+  border-bottom: 3px solid #841439;
 }
 
+.row {
+  margin-bottom: 15px;
+}
 
+.modalTitle {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 20px;
+}
 
+#materialsDiv {
+  border-radius: 12px;
+  padding: 10px;
+  border: #841439 solid 1px;
+  width: 700px;
+  height: 176px;
+  overflow-y: auto;
+}
 
-
+.container-fluid .row .input-group-addon {
+  border-radius: 10px;
+  text-align: left;
+  opacity: 1;
+  background-color: #cccccc;
+}

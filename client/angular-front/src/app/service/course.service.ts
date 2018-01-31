@@ -49,8 +49,6 @@ export class CourseService implements OnInit {
     return this.http.post(`${this.enrolleUserOnCourse}${idCourse}`, username);
   }
 
-  ngOnInit(): void {
-  }
 
   unenrollUserFromCourse(idCourse: number, username: string): Observable<any> {
     return this.http.post(`${this.unenrolleUserOnCourse}${idCourse}`, username);
@@ -98,8 +96,10 @@ export class CourseService implements OnInit {
   }
 
   addCourse(course: Course):any {
-    debugger
     let body = JSON.stringify(course);
     return this.http.post<Course>(this.rootConst.SERVER_ADD_COURSE, body, this.httpOptions);
+  }
+
+  ngOnInit(): void {
   }
 }
