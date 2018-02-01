@@ -5,7 +5,7 @@
 #addComponent {
   margin: auto;
   width: 1350px;
-  height: 700px;
+  height: 800px;
   margin-top: 80px;
   margin-bottom: 55px;
   border-radius: 12px;
@@ -13,6 +13,7 @@
   padding-top: 30px;
   align-items: center;
   border: #841439 solid 4px;
+  box-shadow: 0 6px 10px 6px #cccccc inset;
   position: relative;
 }
 
@@ -23,6 +24,7 @@
   border-radius: 12px;
   padding-left: 50px;
   padding-top: 30px;
+
 }
 
 #courseTable td, #materialTable td {
@@ -181,4 +183,43 @@ thead > tr > th {
   text-align: left;
   opacity: 1;
   background-color: #cccccc;
+}
+
+#addedSubjects {
+  margin-top: 30px;
+  width: 1150px;
+  height: 510px;
+  border-radius: 10px;
+  border: 3px solid #6b233b;
+  box-shadow: 0 4px 6px 4px #cccccc inset;
+  overflow-y: auto;
+}
+
+#addSubjectIcon {
+  margin-left: 1130px;
+}
+
+#noSubjectsMsg {
+  text-align: center;
+  color: #888888;
+  font-size: 18px;
+  text-shadow: #8c8b8b;
+  height: 90px;
+  line-height: 470px;
+}
+
+.displaySubject {
+  border-radius: 10px;
+  border: 1px solid #841439;
+  box-shadow: 0 2px 4px 4px #cccccc inset;
+  width: 1060px;
+  height: 130px;
+  margin-top: 25px;
+  padding: 20px;
+  border-collapse: collapse;
+
+}
+
+.displaySubject tr td {
+  padding: 6px;
 }

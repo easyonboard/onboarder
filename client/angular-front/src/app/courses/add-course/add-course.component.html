@@ -22,10 +22,20 @@
             <textarea id="courseOverview" name="Overview" [(ngModel)]="course.overview"></textarea>
           </td>
         </tr>
+
+
+        <tr>
+          <td><label>Contact persons</label></td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td><label>Owners</label></td>
+          <td></td>
+        </tr>
       </table>
 
       <button (click)="addCourse()" class="nextStepButton" *ngIf="saved===false">Save</button>
-      <button (click)="incStep()" class="nextStepButton" *ngIf="saved===true">Next</button>
     </div>
 
     <!--<button (click)="decStep()" class="prevStepButton">Previous</button>-->
@@ -36,11 +46,65 @@
 
 
     <div *ngSwitchCase="'two'" class="stepDiv">
-      <div class="pageTitle"> Add subjects for course</div>
+      <div class="pageTitle"> Subjects for this course</div>
       <hr class="separator">
 
-      <i class="fa fa-plus-circle fa-2x" aria-hidden="true" title="Add subject" data-toggle="modal"
+
+      <i class="fa fa-plus-circle fa-3x" aria-hidden="true" title="Add subject" data-toggle="modal" id="addSubjectIcon"
          data-target="#subjectModal" (click)="newSubject()"></i>
+
+      <div id="addedSubjects">
+        <ul *ngFor="let sub of subjects;let i= index">
+
+          <table class="displaySubject">
+            <span class="badge  progress-bar-success progress-bar-striped"
+                  style="font-size: 18px; margin-left: 3px; margin-top: 2px">{{i+1}}</span>
+
+            <tr>
+              <td>
+                <label>Name : </label>
+              </td>
+              <td style="font-weight: normal">
+                {{sub.name}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Number of materials : </label>
+              </td>
+              <td style="font-weight: normal">
+                {{lastIndexMaterialForSubject[i]-firstIndexMaterialForSubject[i]+1}}
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <label> Number of days: </label>
+              </td>
+              <td style="font-weight: normal">
+                {{sub.numberOfDays}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Description: </label>
+              </td>
+              <td style="font-weight: normal">
+                {{sub.description.substring(0,100)}} ...
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td style="float: right" (click)="getSubjectById(i)" data-toggle="modal" data-target="#subjectModal"><a>Click
+                here for more details</a></td>
+            </tr>
+          </table>
+        </ul>
+        <div *ngIf="subjects.length===0" id="noSubjectsMsg">
+          No subjects
+        </div>
+
+      </div>
 
       <div class="modal fade" id="subjectModal" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-lg">
@@ -82,7 +146,7 @@
                       <span class="input-group-addon" style="width: 135px"><b>Materials</b></span>
                       <i class="fa fa-plus-circle fa-2x" aria-hidden="true" title="Add material"
                          style="width: 300px; margin-left: 25px" data-toggle="modal" data-target="#materialModal"
-                         ></i>
+                      ></i>
                     </div>
                   </div>
 
@@ -96,8 +160,10 @@
                       </div>
                       <br><br>
 
-                      <div class="row" *ngFor="let  material of materialsForCurrentSubject; let i=index"
+                      <div class="row"
+                           *ngFor="let  material of materialsForCurrentSubject.slice(firstIndexMaterialForSubject[index],lastIndexMaterialForSubject[index]); let i=index"
                            title="Description: {{material.description}}" style="margin-bottom: 10px">
+                        <div></div>
                         <div class="col-md-3" style="margin-right: 25px">{{material.title.substring(0,50)}}</div>
                         <div class="col-md-4" style="margin-right: 30px">{{material.materialType}}</div>
 
@@ -118,7 +184,7 @@
             </div>
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" (click)="addSubject()" data-dismiss="modal"><i
+              <button type="button" class="btn btn-default" (click)="addSubject()" data-dismiss="modal" *ngIf="onViewSubject==false"><i
                 class="glyphicon glyphicon-floppy-disk"></i>Save
               </button>
               <button type="button" class="btn btn-default" data-dismiss="modal"><i

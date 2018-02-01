@@ -16,6 +16,7 @@ import 'rxjs/add/operator/catch';
 import {SubjectService} from "../../service/subject.service";
 import {isUndefined} from "util";
 
+
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
@@ -34,18 +35,32 @@ export class AddCourseComponent implements OnInit {
   public files: Array<File>;
   private currentStep: string;
   private materialsForCurrentSubject: Array<Material>
-
-  private noErr: Boolean;
   public saved: Boolean
+  private subjectIndex:number;
+
+  private materialsForAllSubjectsFromCourse:Array<Material>;
+  private filesForAllSubjectFromCourse:Array<File>;
+
+  public firstIndexMaterialForSubject:Array<number>;
+  public lastIndexMaterialForSubject:Array<number>;
+  public onViewSubject:boolean;
 
   constructor(private materialService: MaterialService, @Inject(DOCUMENT) private document: any, private utilityService: UtilityService, private materialSevice: MaterialService, private subjectService: SubjectService, private courseService: CourseService) {
     this.files = new Array<File>();
     this.course = new Course();
     this.subject = new Subject();
     this.materialsForCurrentSubject = new Array<Material>();
+    this.subjects= new Array<Subject>();
     this.material = new Material();
     this.material.materialType= this.materialTypeLink
     this.saved = false;
+    this.subjectIndex =0
+    this.firstIndexMaterialForSubject = new Array<number>();
+    this.lastIndexMaterialForSubject = new Array<number>();
+    this.onViewSubject = false;
+
+    this.materialsForAllSubjectsFromCourse = new Array<Material>();
+    this.filesForAllSubjectFromCourse = new Array<File>();
   }
 
   printMaterialType(): void {
@@ -69,10 +84,10 @@ export class AddCourseComponent implements OnInit {
   addMaterial(): void {
     debugger
     this.file = (<HTMLInputElement>document.getElementById("file")).files[0];
-    // console.log(this.material);
-    // this.materialService.addMaterial(this.material, this.file)
-    // console.log(this.file);
     this.materialsForCurrentSubject.push(this.material)
+
+    var lastIndex = this.lastIndexMaterialForSubject.length-1;
+    this.lastIndexMaterialForSubject[lastIndex]= this.lastIndexMaterialForSubject[lastIndex]+1
     if (isUndefined(this.file)) {
       this.files.push(null);
     }else {
@@ -134,11 +149,17 @@ export class AddCourseComponent implements OnInit {
   }
 
   newSubject(): void {
+    this.onViewSubject= false;
     this.subject = new Subject()
+    this.subjectIndex++;
+    this.firstIndexMaterialForSubject.push(this.materialsForCurrentSubject.length);
+    this.lastIndexMaterialForSubject.push(this.materialsForCurrentSubject.length-1);
     this.files = new Array<File>();
+    this.materialsForCurrentSubject = new Array<Material>();
   }
 
   ngOnInit() {
+    // this.currentStep = "two";
     this.currentStep = "one";
   }
 
@@ -151,13 +172,33 @@ export class AddCourseComponent implements OnInit {
     this.subjectService.addSubject(this.subject,this.course).subscribe(subject => {
       this.subject = subject;
       console.log(this.subject)
+      this.subjects.push(this.subject)
       this.materialService.addMaterialsToSubject(this.subject.idSubject, this.materialsForCurrentSubject, this.files);
 
+      this.materialsForAllSubjectsFromCourse=this.materialsForAllSubjectsFromCourse.concat(this.materialsForCurrentSubject);
       this.materialsForCurrentSubject = new Array<Material>();
+
+      this.filesForAllSubjectFromCourse=this.filesForAllSubjectFromCourse.concat(this.files);
       this.files= null;
     }, err => {
       alert(err.error.message)
     });
+
+  }
+
+  getSubjectById(pos: number) {
+    this.onViewSubject = true;
+    this.subject= this.subjects[pos]
+    this.files= this.filesForAllSubjectFromCourse.slice(this.firstIndexMaterialForSubject[pos],this.lastIndexMaterialForSubject[pos]+1);
+    this.materialsForCurrentSubject= this.materialsForAllSubjectsFromCourse.slice(this.firstIndexMaterialForSubject[pos],this.lastIndexMaterialForSubject[pos]+1)
+
+    console.log(this.materialsForAllSubjectsFromCourse)
+    console.log(this.filesForAllSubjectFromCourse)
+
+    console.log(this.firstIndexMaterialForSubject[pos])
+    console.log(this.lastIndexMaterialForSubject[pos])
+    console.log(this.materialsForCurrentSubject)
+    console.log(this.files)
 
   }
 }
