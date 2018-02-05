@@ -28,8 +28,15 @@
 }
 
 #courseTable td, #materialTable td {
-  padding-top: 10px;
   padding-left: 50px;
+}
+
+#materialTable td {
+  padding-top: 10px;
+}
+
+#courseTable td {
+  padding-top: 50px;
 }
 
 .modal-body {
@@ -200,6 +207,15 @@ thead > tr > th {
 }
 
 #noSubjectsMsg {
+  text-align: center;
+  color: #888888;
+  font-size: 18px;
+  text-shadow: #8c8b8b;
+  height: 90px;
+  line-height: 470px;
+}
+
+#addCourseMessage{
   text-align: center;
   color: #888888;
   font-size: 18px;

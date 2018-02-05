@@ -67,6 +67,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
     this.userService.login({username, password} as UserDTO).subscribe(res => {
         if (res.username.length > 0) {
           localStorage.setItem("userLogged", res.username);
+          localStorage.setItem("userLoggedId", res.idUser.toString());
           this.currentComponentElement = this.elemRef.nativeElement.parentElement;
           if (this.logoutButton !== null && this.backButton !== null) {
             this.currentComponentElement.appendChild(this.backButton);

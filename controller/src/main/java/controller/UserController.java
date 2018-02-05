@@ -67,9 +67,16 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/userEmails", method = RequestMethod.GET)
     public ResponseEntity<List<String>> searchArticlesByOverview(@RequestParam(value = "email") String email) {
-
         List<String> searchEmail = userService.getUsersEmails(email);
         return new ResponseEntity<>(searchEmail, HttpStatus.OK);
+
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/allUsers", method = RequestMethod.GET)
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        List<UserDTO> users = userService.getAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
 
     }
 }

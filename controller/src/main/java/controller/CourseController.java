@@ -196,15 +196,26 @@ public class CourseController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/addCourse", method = RequestMethod.POST)
     public ResponseEntity addCouse(@RequestBody String courseJson) {
-        final GsonBuilder gsonBuilder = new GsonBuilder();
-        final Gson gson = gsonBuilder.create();
-        CourseDTO courseDTO = gson.fromJson(courseJson, CourseDTO.class);
+//        final GsonBuilder gsonBuilder = new GsonBuilder();
+//        final Gson gson = gsonBuilder.create();
+//        CourseDTO courseDTO = gson.fromJson(courseJson, CourseDTO.class);
+        ObjectMapper mapper = new ObjectMapper();
         try {
-            return new ResponseEntity(courseService.addCourse(courseDTO), HttpStatus.OK);
+            JsonNode node = null;
+            node = mapper.readTree(courseJson);
+            CourseDTO courseDTO = mapper.convertValue(node.get("course"), CourseDTO.class);
+            List<Integer> ownersIds = mapper.convertValue(node.get("ownersIds"), List.class);
+            List<Integer> contactPersonsId = mapper.convertValue(node.get("contactPersonsId"), List.class);
+
+            return new ResponseEntity(courseService.addCourse(courseDTO, ownersIds, contactPersonsId), HttpStatus.OK);
         } catch (InvalidDataException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        } catch (IOException e) {
+//            e.printStackTrace();
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
+
 
     private UserDTO getUser(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

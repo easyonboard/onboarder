@@ -14,6 +14,7 @@ import {MaterialService} from "./service/material.service";
 import {AddCourseComponent} from "./courses/add-course/add-course.component";
 import {SubjectDetailComponent} from './subject-detail/subject-detail.component';
 import {SubjectService} from "./service/subject.service";
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {SubjectService} from "./service/subject.service";
     ReactiveFormsModule,
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MultiselectDropdownModule
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService],
   bootstrap: [AppComponent]

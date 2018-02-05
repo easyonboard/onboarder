@@ -37,7 +37,6 @@ public class UserDAO extends AbstractDAO<User> {
      * @return List of String
      */
     public List<String> getUsersEmails(String email) {
-
         Query query = em.createQuery("Select u.email from User u where u.email LIKE :g");
         query.setParameter("g", "%" + email + "%");
 
@@ -55,5 +54,10 @@ public class UserDAO extends AbstractDAO<User> {
         query.setParameter("email", email);
         Optional<User> firstUser = query.getResultList().stream().findFirst();
         return firstUser;
+    }
+
+    public List<User> getAllUsers() {
+        Query query = em.createQuery("Select u from User u ");
+        return query.getResultList();
     }
 }

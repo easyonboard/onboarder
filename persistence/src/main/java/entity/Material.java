@@ -4,6 +4,7 @@ import entity.enums.MaterialType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class Material implements Serializable {
     private String title;
 
     @Column
+    @Size(max = 2500)
     private String description;
 
 

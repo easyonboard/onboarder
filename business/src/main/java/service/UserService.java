@@ -73,4 +73,9 @@ public class UserService {
     public List<String> getUsersEmails(String email) {
         return userDAO.getUsersEmails(email);
     }
+
+    public List<UserDTO> getAllUsers() {
+        List<User> allUsersFromDb = userDAO.getAllUsers();
+        return userMapper.entitiesToDTOs(allUsersFromDb);
+    }
 }

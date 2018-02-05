@@ -95,8 +95,8 @@ export class CourseService implements OnInit {
 
   }
 
-  addCourse(course: Course):any {
-    let body = JSON.stringify(course);
+  addCourse(course: Course, ownersIds: number[], contactPersonsIds: number[]):any {
+    let body = JSON.stringify({course:course, ownersIds:ownersIds, contactPersonsId:contactPersonsIds});
     return this.http.post<Course>(this.rootConst.SERVER_ADD_COURSE, body, this.httpOptions);
   }
 

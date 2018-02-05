@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import validator.CourseValidator;
 
 import javax.persistence.NoResultException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -174,9 +175,18 @@ public class CourseService {
         }
     }
 
-    public CourseDTO addCourse(CourseDTO courseDTO) throws InvalidDataException {
+    public CourseDTO addCourse(CourseDTO courseDTO, List<Integer> ownersIds, List<Integer> contactPersonsId) throws InvalidDataException {
         courseValidator.validateCourseData(courseDTO);
         Course course = courseMapper.mapToEntity(courseDTO, new Course());
+        List<User> owners = new ArrayList<>();
+        ownersIds.forEach(ownerId->owners.add(userDAO.findEntity(ownerId)));
+
+        List<User> constantPerson = new ArrayList<>();
+        contactPersonsId.forEach(cpId->constantPerson.add(userDAO.findEntity(cpId)));
+
+        course.setOwners(owners);
+        course.setContactPersons(constantPerson);
+
         return courseMapper.mapToDTO(courseDAO.persistEntity(course));
     }
 }

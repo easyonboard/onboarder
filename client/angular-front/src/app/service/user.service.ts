@@ -14,6 +14,7 @@ export class UserService {
   };
 
   private searchEmails: string = this.rootConst.SERVER_USERS_EMAIL;
+  private allUsers: string= this.rootConst.SERVER_ALL_USERS;
 
   constructor(private http: HttpClient) {
     this.message = "";
@@ -48,4 +49,7 @@ export class UserService {
 
   }
 
+  getAllUsers():Observable<UserDTO[]> {
+    return this.http.get<UserDTO[]>(`${this.allUsers}`);
+  }
 }

@@ -5,7 +5,7 @@
       <div class="pageTitle"> Add course</div>
       <hr class="separator">
 
-      <table id="courseTable">
+      <table id="courseTable" cellspacing="50">
         <tr>
           <td>
             <label>Course title</label>
@@ -26,23 +26,23 @@
 
         <tr>
           <td><label>Contact persons</label></td>
-          <td></td>
+          <td>
+            <ss-multiselect-dropdown [options]="usersOptions" [(ngModel)]="contactPersonsIds"></ss-multiselect-dropdown>
+          </td>
         </tr>
 
         <tr>
           <td><label>Owners</label></td>
-          <td></td>
+          <td>
+            <ss-multiselect-dropdown [options]="usersOptions" [(ngModel)]="ownersIds"></ss-multiselect-dropdown>
+          </td>
+
+
         </tr>
       </table>
 
       <button (click)="addCourse()" class="nextStepButton" *ngIf="saved===false">Save</button>
     </div>
-
-    <!--<button (click)="decStep()" class="prevStepButton">Previous</button>-->
-    <!--<button (click)="incStep()" class="nextStepButton">Next</button>-->
-
-    <!--<i class="fa fa-plus-square" id="openModalIcon" title="Add new material"-->
-    <!--data-toggle="modal" data-target="#materialModal"></i>-->
 
 
     <div *ngSwitchCase="'two'" class="stepDiv">
@@ -184,7 +184,8 @@
             </div>
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" (click)="addSubject()" data-dismiss="modal" *ngIf="onViewSubject==false"><i
+              <button type="button" class="btn btn-default" (click)="addSubject()" data-dismiss="modal"
+                      *ngIf="onViewSubject==false"><i
                 class="glyphicon glyphicon-floppy-disk"></i>Save
               </button>
               <button type="button" class="btn btn-default" data-dismiss="modal"><i
@@ -257,102 +258,18 @@
           </div>
 
         </div>
-        <button (click)="incStep()" class="nextStepButton">Next</button>
+      </div>
+      <button (click)="incStep()" class="nextStepButton">Next</button>
+
+    </div>
+
+
+    <div *ngSwitchCase="'three'" class="stepDiv">
+      <div id="addCourseMessage">
+        Succes!
       </div>
 
-      <!--<div *ngSwitchCase="'three'" class="stepDiv">-->
-      <!--<div class="pageTitle"> Materials</div>-->
-      <!--<hr class="separator">-->
-      <!--<div id="materialTableContainer">-->
-
-      <!--&lt;!&ndash;<table id="materials">&ndash;&gt;-->
-      <!--<table>-->
-      <!--<thead>-->
-      <!--<tr>-->
-      <!--<td></td>-->
-      <!--<th>Title</th>-->
-      <!--<th>Description</th>-->
-      <!--<th>-</th>-->
-      <!--</tr>-->
-      <!--</thead>-->
-
-
-      <!--<tbody>-->
-      <!--<tr *ngFor="let  material of materialsForCurrentSubject">-->
-      <!--<td>{{material.title}}</td>-->
-      <!--<td> {{material.description}}</td>-->
-      <!--<td *ngIf="material.materialType === 'LINK'">-->
-      <!--<a href="{{material.link}}" target="_blank"> {{material.title}}</a>-->
-      <!--</td>-->
-      <!--<td *ngIf="material.materialType === 'FILE'">-->
-      <!--<a class="glyphicon glyphicon-download" title="Download source" download="name.txt"-->
-      <!--(click)="downloadFile(material)"> </a>-->
-      <!--</td>-->
-      <!--</tr>-->
-      <!--</tbody>-->
-      <!--</table>-->
-      <!--</div>-->
-
-
-      <!--&lt;!&ndash;<div class="modal fade" id="materialModal" role="dialog">&ndash;&gt;-->
-      <!--&lt;!&ndash;<div class="modal-dialog modal-lg">&ndash;&gt;-->
-
-      <!--&lt;!&ndash;<div class="modal-content">&ndash;&gt;-->
-      <!--&lt;!&ndash;<div class="modal-body">&ndash;&gt;-->
-      <!--&lt;!&ndash;<form #form enctype="multipart/form-data" (ngSubmit)="createMaterial(form)" id="addMaterialForm"&ndash;&gt;-->
-      <!--&lt;!&ndash;class="form-horizontal" role="form">&ndash;&gt;-->
-      <!--&lt;!&ndash;<table id="materialTable">&ndash;&gt;-->
-      <!--&lt;!&ndash;<tr>&ndash;&gt;-->
-      <!--&lt;!&ndash;<td>Title</td>&ndash;&gt;-->
-      <!--&lt;!&ndash;<td><input type="text" id="title" [(ngModel)]="material.title" name="title"/></td>&ndash;&gt;-->
-      <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-
-      <!--&lt;!&ndash;<tr>&ndash;&gt;-->
-      <!--&lt;!&ndash;<td>Description</td>&ndash;&gt;-->
-      <!--&lt;!&ndash;<td><textarea id="description" [(ngModel)]="material.description" name="description"></textarea>&ndash;&gt;-->
-      <!--&lt;!&ndash;</td>&ndash;&gt;-->
-      <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-
-
-      <!--&lt;!&ndash;<tr>&ndash;&gt;-->
-      <!--&lt;!&ndash;<td>Material type</td>&ndash;&gt;-->
-      <!--&lt;!&ndash;<td>&ndash;&gt;-->
-      <!--&lt;!&ndash;<select (change)="printMaterialType()" id="selectedMaterialType"&ndash;&gt;-->
-      <!--&lt;!&ndash;[(ngModel)]="material.materialType"&ndash;&gt;-->
-      <!--&lt;!&ndash;name="materialType">&ndash;&gt;-->
-      <!--&lt;!&ndash;<option value="LINK" id="valueLink">Link</option>&ndash;&gt;-->
-      <!--&lt;!&ndash;<option value="FILE" id="valueFile">File</option>&ndash;&gt;-->
-      <!--&lt;!&ndash;</select>&ndash;&gt;-->
-      <!--&lt;!&ndash;</td>&ndash;&gt;-->
-      <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-
-      <!--&lt;!&ndash;<br> <br>&ndash;&gt;-->
-
-      <!--&lt;!&ndash;<tr id="addLink">&ndash;&gt;-->
-      <!--&lt;!&ndash;<td>Link</td>&ndash;&gt;-->
-      <!--&lt;!&ndash;<td><input type="text" id="link" [(ngModel)]="material.link" name="link"/></td>&ndash;&gt;-->
-      <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-
-      <!--&lt;!&ndash;<tr id="addFile" style="visibility: hidden">&ndash;&gt;-->
-      <!--&lt;!&ndash;<input type="file" name="materialFile" id="file" [(ngModel)]="file" name=file value=""/>&ndash;&gt;-->
-      <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-      <!--&lt;!&ndash;</table>&ndash;&gt;-->
-      <!--&lt;!&ndash;<br> <br> <br>&ndash;&gt;-->
-      <!--&lt;!&ndash;&lt;!&ndash;<input type="submit" value="Save"/>&ndash;&gt;&ndash;&gt;-->
-      <!--&lt;!&ndash;<input type="button" (click)="addMaterial()"/>&ndash;&gt;-->
-
-      <!--&lt;!&ndash;</form>&ndash;&gt;-->
-      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-      <!--&lt;!&ndash;<div class="modal-footer">&ndash;&gt;-->
-      <!--&lt;!&ndash;<button type="button" class="btn btn-default"><i class="glyphicon glyphicon-floppy-disk"></i>Save</button>&ndash;&gt;-->
-      <!--&lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal"><i&ndash;&gt;-->
-      <!--&lt;!&ndash;class="glyphicon glyphicon-remove"></i>Close&ndash;&gt;-->
-      <!--&lt;!&ndash;</button>&ndash;&gt;-->
-      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-      <!--</div>-->
     </div>
   </div>
-</div>
 
+</div>
