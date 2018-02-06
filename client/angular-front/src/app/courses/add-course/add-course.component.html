@@ -68,14 +68,6 @@
                 {{sub.name}}
               </td>
             </tr>
-            <tr>
-              <td>
-                <label>Number of materials : </label>
-              </td>
-              <td style="font-weight: normal">
-                {{lastIndexMaterialForSubject[i]-firstIndexMaterialForSubject[i]+1}}
-              </td>
-            </tr>
 
             <tr>
               <td>
@@ -94,7 +86,12 @@
               </td>
             </tr>
             <tr>
-              <td></td>
+              <td>
+                <span class="input-group-addon" style="width: 135px; display: inline"><b>Materials</b></span>
+                <i class="fa fa-plus-circle fa-1x" aria-hidden="true" title="Add material"
+                   style="width: 300px; margin-left: 25px; display: inline" data-toggle="modal" data-target="#materialModal"
+                ></i>
+              </td>
               <td style="float: right" (click)="getSubjectById(i)" data-toggle="modal" data-target="#subjectModal"><a>Click
                 here for more details</a></td>
             </tr>
@@ -143,10 +140,10 @@
 
                   <div class="row">
                     <div class="input-group">
-                      <span class="input-group-addon" style="width: 135px"><b>Materials</b></span>
-                      <i class="fa fa-plus-circle fa-2x" aria-hidden="true" title="Add material"
-                         style="width: 300px; margin-left: 25px" data-toggle="modal" data-target="#materialModal"
-                      ></i>
+                      <!--<span class="input-group-addon" style="width: 135px"><b>Materials</b></span>-->
+                      <!--<i class="fa fa-plus-circle fa-2x" aria-hidden="true" title="Add material"-->
+                      <!--style="width: 300px; margin-left: 25px" data-toggle="modal" data-target="#materialModal"-->
+                      <!--&gt;</i>-->
                     </div>
                   </div>
 
@@ -161,7 +158,7 @@
                       <br><br>
 
                       <div class="row"
-                           *ngFor="let  material of materialsForCurrentSubject.slice(firstIndexMaterialForSubject[index],lastIndexMaterialForSubject[index]); let i=index"
+                           *ngFor="let  material of materialsForCurrentSubject; let i=index"
                            title="Description: {{material.description}}" style="margin-bottom: 10px">
                         <div></div>
                         <div class="col-md-3" style="margin-right: 25px">{{material.title.substring(0,50)}}</div>
@@ -173,7 +170,7 @@
                             {{material.title}}</a>
                           <a *ngIf="material.materialType === 'FILE'" class="glyphicon glyphicon-download"
                              title="Download source" download="name.txt"
-                             (click)="downloadFile(i)"> </a>
+                             (click)="downloadFile(material.idMaterial)"> </a>
                         </div>
 
                       </div>
@@ -188,7 +185,7 @@
                       *ngIf="onViewSubject==false"><i
                 class="glyphicon glyphicon-floppy-disk"></i>Save
               </button>
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i
+              <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeSubjectModal()"><i
                 class="glyphicon glyphicon-remove"></i>Close
               </button>
             </div>

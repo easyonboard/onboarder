@@ -14,6 +14,7 @@ export class MaterialService implements OnInit {
   private addMaterialURL = this.rootConst.SERVER_ADD_MATERIAL;
   private findMaterialById = this.rootConst.SERVER_FIND_MATERIAL_BY_ID;
   private allMaterialsUploadedByThisUser = this.rootConst.SERVER_MATERIALS_UPLOADED_BY_USE;
+  private getMaterialsFromSubject:string= this.rootConst.SERVER_MATERIALS_FROM_SUBJECT;
 
   constructor(private http: HttpClient) {
   }
@@ -35,7 +36,7 @@ export class MaterialService implements OnInit {
 
   }
 
-  getFileWithId(idMaterial: number, tiltleMaterial: string): any {
+  getFileWithId(idMaterial: number): any {
     return this.http.get(`${this.findMaterialById}${idMaterial}`, {responseType: 'arraybuffer'}).subscribe(
       (response) => {
         var file = new Blob([response], {type: 'application/pdf'});
@@ -44,13 +45,18 @@ export class MaterialService implements OnInit {
       });
   }
 
+  addMaterialsToSubject(idSubject: number, materialForCurrentSubject: Material, file: File) {
+    // for (var index = 0; index < materialsForCurrentSubject.length; index++) {
+    //   this.addMaterial(materialsForCurrentSubject[index], files[index], idSubject);
+    // }
+    this.addMaterial(materialForCurrentSubject, file, idSubject);
+
+  }
+
   ngOnInit(): void {
   }
 
-
-  addMaterialsToSubject(idSubject: number, materialsForCurrentSubject: Array<Material>, files: Array<File>) {
-    for (var index = 0; index < materialsForCurrentSubject.length; index++) {
-      this.addMaterial(materialsForCurrentSubject[index], files[index], idSubject);
-    }
+  getMaterialsFromSubjectId(idSubject: number) {
+    return this.http.get<Material[]>(`${this.getMaterialsFromSubject}${idSubject}`);
   }
 }

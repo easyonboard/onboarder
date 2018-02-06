@@ -41,20 +41,14 @@ export class AddCourseComponent implements OnInit {
   private subjectIndex: number;
 
   public subjects: Array<Subject>;
-  public files: Array<File>;
-  private materialsForAllSubjectsFromCourse: Array<Material>;
-  private filesForAllSubjectFromCourse: Array<File>;
-  public firstIndexMaterialForSubject: Array<number>;
-  public lastIndexMaterialForSubject: Array<number>;
 
   public onViewSubject: boolean;
 
   public usersOptions: IMultiSelectOption[];
   public ownersIds: number[]
-  public contactPersonsIds:number[]
+  public contactPersonsIds: number[]
 
   constructor(private materialService: MaterialService, @Inject(DOCUMENT) private document: any, private utilityService: UtilityService, private materialSevice: MaterialService, private subjectService: SubjectService, private courseService: CourseService, private userService: UserService) {
-    this.files = new Array<File>();
     this.course = new Course();
     this.subject = new Subject();
     this.materialsForCurrentSubject = new Array<Material>();
@@ -63,22 +57,19 @@ export class AddCourseComponent implements OnInit {
     this.material.materialType = this.materialTypeLink
     this.saved = false;
     this.subjectIndex = 0
-    this.firstIndexMaterialForSubject = new Array<number>();
-    this.lastIndexMaterialForSubject = new Array<number>();
+
     this.onViewSubject = false;
 
-    this.ownersIds=[]
-    this.contactPersonsIds=[]
+    this.ownersIds = []
+    this.contactPersonsIds = []
 
-    this.materialsForAllSubjectsFromCourse = new Array<Material>();
-    this.filesForAllSubjectFromCourse = new Array<File>();
-    var userArrayObjects:Array<UserDTO> = new Array<UserDTO>();
+    var userArrayObjects: Array<UserDTO> = new Array<UserDTO>();
     this.userService.getAllUsers().subscribe(us => {
       userArrayObjects = userArrayObjects.concat(us);
-      this.usersOptions=[]
+      this.usersOptions = []
       userArrayObjects.forEach(u => this.usersOptions.push({id: u.idUser, name: u.name + ", email:  " + u.email}))
-      this.contactPersonsIds.push( Number(localStorage.getItem("userLoggedId")));
-      this.ownersIds.push( Number(localStorage.getItem("userLoggedId")));
+      this.contactPersonsIds.push(Number(localStorage.getItem("userLoggedId")));
+      this.ownersIds.push(Number(localStorage.getItem("userLoggedId")));
     });
   }
 
@@ -115,19 +106,16 @@ export class AddCourseComponent implements OnInit {
     this.file = (<HTMLInputElement>document.getElementById("file")).files[0];
     this.materialsForCurrentSubject.push(this.material)
 
-    var lastIndex = this.lastIndexMaterialForSubject.length - 1;
-    this.lastIndexMaterialForSubject[lastIndex] = this.lastIndexMaterialForSubject[lastIndex] + 1
-    if (isUndefined(this.file)) {
-      this.files.push(null);
-    } else {
-      this.files.push(this.file);
-    }
+    this.materialService.addMaterial(this.material, this.file, this.subject.idSubject);
+    this.materialsForCurrentSubject = new Array<Material>();
+
+
     this.file = null;
     var fileInput = <HTMLInputElement>document.getElementById("file");
     fileInput.innerHTML = null;
     this.material = new Material();
     this.material.materialType = this.materialTypeLink
-    console.log(this.materialsForCurrentSubject)
+
   }
 
   closeAddMaterialModal(): void {
@@ -139,20 +127,13 @@ export class AddCourseComponent implements OnInit {
   }
 
   downloadFile(i: number): void {
-    debugger
-    var binaryData = [];
-    binaryData.push(this.files[i]);
-    var fileURL = window.URL.createObjectURL(new Blob(binaryData, {type: 'application/pdf'}))
-    window.open(fileURL);
+    this.materialService.getFileWithId(i);
   }
 
   newSubject(): void {
     this.onViewSubject = false;
     this.subject = new Subject()
     this.subjectIndex++;
-    this.firstIndexMaterialForSubject.push(this.materialsForCurrentSubject.length);
-    this.lastIndexMaterialForSubject.push(this.materialsForCurrentSubject.length - 1);
-    this.files = new Array<File>();
     this.materialsForCurrentSubject = new Array<Material>();
   }
 
@@ -164,23 +145,19 @@ export class AddCourseComponent implements OnInit {
     this.subjectService.addSubject(this.subject, this.course).subscribe(subject => {
       this.subject = subject;
       this.subjects.push(this.subject)
-      this.materialService.addMaterialsToSubject(this.subject.idSubject, this.materialsForCurrentSubject, this.files);
-
-      this.materialsForAllSubjectsFromCourse = this.materialsForAllSubjectsFromCourse.concat(this.materialsForCurrentSubject);
-      this.materialsForCurrentSubject = new Array<Material>();
-
-      this.filesForAllSubjectFromCourse = this.filesForAllSubjectFromCourse.concat(this.files);
-      this.files = null;
     }, err => {
       alert(err.error.message)
     });
   }
 
+
   getSubjectById(pos: number) {
     this.onViewSubject = true;
     this.subject = this.subjects[pos]
-    this.files = this.filesForAllSubjectFromCourse.slice(this.firstIndexMaterialForSubject[pos], this.lastIndexMaterialForSubject[pos] + 1);
-    this.materialsForCurrentSubject = this.materialsForAllSubjectsFromCourse.slice(this.firstIndexMaterialForSubject[pos], this.lastIndexMaterialForSubject[pos] + 1)
+    this.materialService.getMaterialsFromSubjectId(this.subject.idSubject).subscribe(materials => {
+      this.materialsForCurrentSubject = materials;
+      console.log(materials)
+    })
   }
 
   getCurrentStep(): string {
@@ -204,4 +181,7 @@ export class AddCourseComponent implements OnInit {
     this.currentStep = "one";
   }
 
+  closeSubjectModal() {
+    this.materialsForCurrentSubject= new Array<Material>();
+  }
 }

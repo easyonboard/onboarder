@@ -72,4 +72,9 @@ public class MaterialService {
             throw  new UserNotFoundException("User not found!");
         }
     }
+
+    public List<MaterialDTO> getMaterialBySubjectId(Integer subjectId) {
+        Subject subject= subjectDAO.findEntity(subjectId);
+        return materialMapper.entitiesToDTOs(materialDAO.getMaterialsBySubject(subject));
+    }
 }

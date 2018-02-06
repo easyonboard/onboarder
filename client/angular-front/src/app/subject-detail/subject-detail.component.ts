@@ -31,6 +31,6 @@ export class SubjectDetailComponent implements OnInit {
 
   downloadFile(idMaterial: number, titleMaterial: string): void {
     var file: Blob;
-    this.materialSevice.getFileWithId(idMaterial, titleMaterial).subscribe(url => window.open(url));
+    this.materialSevice.getFileWithId(idMaterial).subscribe(url => window.open(url));
   }
 }
