@@ -4,33 +4,33 @@
     <br/>
     <div class="materialDiv">
 
-
+      <ul *ngIf="material.materialType === 'LINK'">
         <div class="materialTitle">{{material.title}}
         </div>
 
-      <br/>
+        <br/>
         <div class="aboutTheMaterial">
           {{material.description}}
         </div>
-      <p class="linkStyle">Link: </p>
-      <hr class="separator">
-        <ul *ngIf="material.materialType === 'LINK'">
-          <a href="{{material.link}}" target="_blank" class="linkStyle"> {{material.title}}</a>
+        <p class="linkStyle">Link: </p>
+        <hr class="separator">
 
-        </ul>
-        <ul *ngIf="material.materialType === 'FILE'">
-          <div class="materialTitle">{{material.title}}
-          </div>
+        <a href="{{material.link}}" target="_blank" class="linkStyle"> {{material.title}}</a>
+      </ul>
 
-          <div class="aboutTheMaterial">
-            {{material.description}}
-          </div>
-          <p class="linkStyle"> File: </p>
-          <hr class="separator">
-          <a class="glyphicon glyphicon-download" title="Download source" download="name.txt"
-             (click)="downloadFile(material.idMaterial)"> </a>
+      <ul *ngIf="material.materialType === 'FILE'">
+        <div class="materialTitle">{{material.title}}
+        </div>
 
-        </ul>
+        <div class="aboutTheMaterial">
+          {{material.description}}
+        </div>
+        <p class="linkStyle"> File: </p>
+        <hr class="separator">
+        <a class="glyphicon glyphicon-download" title="Download source" download="name.txt"
+           (click)="downloadFile(material.idMaterial)"> </a>
+
+      </ul>
       <br/>
     </div>
   </ul>
