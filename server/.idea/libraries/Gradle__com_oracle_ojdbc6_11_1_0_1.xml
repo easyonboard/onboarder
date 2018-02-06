@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.oracle:ojdbc6:11.1.0.1">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/Could not find com.oracle:ojdbc6:11.1.0.1." />
+      <root url="jar://$MAVEN_REPOSITORY$/com/oracle/ojdbc6/11.1.0.1/ojdbc6-11.1.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
