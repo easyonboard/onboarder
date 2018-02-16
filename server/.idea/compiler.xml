@@ -6,6 +6,8 @@
       <module name="app_test" target="1.8" />
       <module name="business_main" target="1.8" />
       <module name="business_test" target="1.8" />
+      <module name="common_main" target="1.8" />
+      <module name="common_test" target="1.8" />
       <module name="controller_main" target="1.8" />
       <module name="controller_test" target="1.8" />
       <module name="msg-courses-project_main" target="1.8" />

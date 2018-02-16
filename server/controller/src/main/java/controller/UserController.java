@@ -18,9 +18,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    private static final String CROSS_ORIGIN_STRING = "http://172.20.192.1:4200";
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
     public ResponseEntity login(@RequestBody UserDTO user) {
 
@@ -36,7 +37,7 @@ public class UserController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins =CROSS_ORIGIN_STRING)
     @RequestMapping(value = "/user/addUser", method = RequestMethod.POST)
     public ResponseEntity addUser(@RequestBody UserDTO user) {
 
@@ -46,14 +47,11 @@ public class UserController {
         } catch (InvalidDataException exception) {
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
         }
-
-
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
     @RequestMapping(value = "/user/updateUser", method = RequestMethod.POST)
     public ResponseEntity updateUser(@RequestBody UserDTO user) {
-
         try {
             userService.updateUser(user);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -64,19 +62,17 @@ public class UserController {
 
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
     @RequestMapping(value = "/userEmails", method = RequestMethod.GET)
     public ResponseEntity<List<String>> searchArticlesByOverview(@RequestParam(value = "email") String email) {
         List<String> searchEmail = userService.getUsersEmails(email);
         return new ResponseEntity<>(searchEmail, HttpStatus.OK);
-
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
     @RequestMapping(value = "/allUsers", method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         List<UserDTO> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
-
     }
 }

@@ -25,8 +25,11 @@ public class MaterialController {
     @Autowired
     private MaterialService materialService;
 
+    private static final String CROSS_ORIGIN_STRING = "http://172.20.192.1:4200";
 
-    @CrossOrigin(origins = "http://localhost:4200")
+
+
+    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
     @RequestMapping(value = "/createMaterial", method = RequestMethod.POST)
     public ResponseEntity addMaterial(@RequestParam(name = "material") String mat, @RequestParam(name = "file") Optional<MultipartFile> file, @RequestParam(name = "idSubject") String idSubject) throws IOException {
         final GsonBuilder gsonBuilder = new GsonBuilder();
@@ -40,7 +43,7 @@ public class MaterialController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
     @RequestMapping(value = "courses/material", method = RequestMethod.GET, produces = "application/pdf")
     public @ResponseBody
     byte[] getMaterialById(@RequestParam(value = "id") Integer id, HttpServletResponse response) {
@@ -50,7 +53,7 @@ public class MaterialController {
         return materialDTO.getFileMaterial();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
     @RequestMapping(value = "/materials", method = RequestMethod.GET)
     public @ResponseBody
     List<MaterialDTO> getMaterialBySubject(@RequestParam(value = "idSubject") Integer id, HttpServletResponse response) {
@@ -58,7 +61,7 @@ public class MaterialController {
         return materials;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
     @RequestMapping(value = "material/uploadedMaterial", method = RequestMethod.GET)
     public ResponseEntity allMaterialsFromUser(@RequestParam(value = "username") String username) throws UserNotFoundException {
         List<MaterialDTO> materials = materialService.materialUploadedByUser(username);
