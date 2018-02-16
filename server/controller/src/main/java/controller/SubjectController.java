@@ -25,10 +25,9 @@ public class SubjectController {
     @Autowired
     private SubjectService subjectService;
 
-    private static final String CROSS_ORIGIN_STRING = "http://172.20.192.1:4200";
 
 
-    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/subject/addSubject", method = RequestMethod.POST)
     public ResponseEntity addSubject(@RequestBody String subjectAndCourseJSON) {
         ObjectMapper mapper = new ObjectMapper();

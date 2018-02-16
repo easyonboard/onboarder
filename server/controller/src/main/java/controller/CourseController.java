@@ -30,17 +30,13 @@ public class CourseController {
     @Autowired
     private SubjectService subjectService;
 
-    private static final String CROSS_ORIGIN_STRING = "http://172.20.192.1:4200";
 
-
-    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/courses", method = RequestMethod.GET)
     public ResponseEntity<List<CourseDTO>> allArticles(HttpServletRequest request) {
         return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
-
-
-    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/courses/course", method = RequestMethod.GET)
     public ResponseEntity<List<CourseDTO>> searchArticlesByOverview(@RequestParam(value = "overview") String overview) {
 
@@ -55,7 +51,7 @@ public class CourseController {
 
     }
 
-    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "courses/detailedCourse", method = RequestMethod.GET)
 
     public ResponseEntity getDetails(@RequestParam(value = "id") Integer id) {
@@ -70,27 +66,27 @@ public class CourseController {
     }
 
 
-    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/courses/enrollUserOnCourse", method = RequestMethod.POST)
     public ResponseEntity enrollToCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) throws UserNotFoundException {
         courseService.enrollUserToCourse(username, idCourse);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/courses/isEnrolledOnCourse", method = RequestMethod.POST)
     public ResponseEntity<Boolean> isEnrolledOnCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) throws UserNotFoundException {
         return new ResponseEntity<Boolean>(courseService.userIsEnrolledOnCourse(username, idCourse), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/courses/unenrollUserFromCourse", method = RequestMethod.POST)
     public ResponseEntity unenrollFromCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) throws UserNotFoundException {
         courseService.unenrollUserToCourse(username, idCourse);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/courses/updateCourse", method = RequestMethod.POST)
     public ResponseEntity updateCourse(@RequestBody CourseDTO course) {
 
@@ -103,7 +99,7 @@ public class CourseController {
 
     }
 
-    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "courses/subject", method = RequestMethod.GET)
     public ResponseEntity getDetails(@RequestParam(value = "id") Integer id, @RequestParam(value = "idSubject") Integer idSubject) {
 
@@ -115,7 +111,8 @@ public class CourseController {
     }
 
     //    public ResponseEntity addMaterial(@RequestParam(name = "material") String mat, @RequestParam(name = "file") MultipartFile file) throws IOException {
-    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
+
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/deleteContactPerson", method = RequestMethod.POST)
     public ResponseEntity deleteContactPerson(@RequestBody String str) {
 
@@ -129,7 +126,7 @@ public class CourseController {
     }
 
 
-    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/deleteOwnerPerson", method = RequestMethod.POST)
     public ResponseEntity deleteOwnerPerson(@RequestBody String str) {
 
@@ -143,7 +140,7 @@ public class CourseController {
     }
 
 
-    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/deleteCourseSubject", method = RequestMethod.POST)
     public ResponseEntity deleteCourseSubject(@RequestBody String str) {
 
@@ -157,7 +154,7 @@ public class CourseController {
     }
 
 
-    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/addContactPerson", method = RequestMethod.POST)
     public ResponseEntity addCourseContactPerson(@RequestBody String str) throws UserNotFoundException {
         ObjectMapper mapper = new ObjectMapper();
@@ -176,7 +173,7 @@ public class CourseController {
 
     }
 
-    @CrossOrigin(origins =CROSS_ORIGIN_STRING)
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/addOwnerPerson", method = RequestMethod.POST)
     public ResponseEntity addOnerContactPerson(@RequestBody String str) throws UserNotFoundException {
         ObjectMapper mapper = new ObjectMapper();
@@ -195,7 +192,7 @@ public class CourseController {
 
     }
 
-    @CrossOrigin(origins = CROSS_ORIGIN_STRING)
+    @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/courses/addCourse", method = RequestMethod.POST)
     public ResponseEntity addCouse(@RequestBody String courseJson) {
 //        final GsonBuilder gsonBuilder = new GsonBuilder();
