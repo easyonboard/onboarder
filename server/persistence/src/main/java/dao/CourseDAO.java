@@ -23,7 +23,6 @@ public class CourseDAO extends AbstractDAO<Course> {
         CriteriaBuilder cb = this.getCriteriaBuilder();
         CriteriaQuery<Course> criteriaQuery = cb.createQuery(Course.class);
         Root<Course> rootUser = criteriaQuery.from(Course.class);
-
         criteriaQuery.select(rootUser);
         return (List<Course>) this.executeCriteriaQuery(criteriaQuery);
     }
