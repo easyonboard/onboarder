@@ -120,6 +120,7 @@ input[text], button {
   overflow: auto;
 
 }
+
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto;
@@ -127,7 +128,6 @@ input[text], button {
   border: 1px solid #888;
   width: 500px;
 }
-
 
 /* The Close Button */
 .close {
@@ -166,9 +166,11 @@ input[text], button {
   font-weight: bold;
 }
 
-#sorter{
+#sorter {
   border-spacing: 10px;
   border-collapse: separate;
 }
 
-
+mat-spinner svg  circle{
+  stroke: #6d6c6c;
+}

@@ -8,7 +8,6 @@ import {RootConst} from "../util/RootConst";
 import {Location} from '@angular/common';
 import {UtilityService} from "../service/utility.service";
 import {UserService} from "../service/user.service";
-
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -21,8 +20,11 @@ export class CoursesComponent implements OnInit {
   coursesSearched$: Observable<Course[]>;
   public successMessage: string;
   private searchTerms = new Subject<string>();
+  public coursesListEmpty:boolean;
 
-  constructor(private courseService: CourseService, private location: Location, private userService: UserService, private utilityService: UtilityService) {}
+  constructor(private courseService: CourseService, private location: Location, private userService: UserService, private utilityService: UtilityService) {
+    this.coursesListEmpty = true;
+  }
 
   ngOnInit(): void {
     this.message = "";
@@ -36,11 +38,12 @@ export class CoursesComponent implements OnInit {
   }
 
   getCourses(): void {
-    this.courseService.findCourses().subscribe(courses => this.courses = courses);
+    this.courseService.findCourses().subscribe(courses => {this.courses = courses, this.coursesListEmpty= false});
   }
 
   search(term: string): void {
     this.searchTerms.next(term);
+
   }
 
   openModal(id: string) {

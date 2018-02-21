@@ -22,9 +22,12 @@
     </tr>
   </table>
 
+
 </div>
 
 <div class="right-div" *ngIf="searchBox.value.length>0">
+
+  <mat-spinner strokeWidth="10%" [diameter]="100" *ngIf="coursesListEmpty==true" style="margin-top: 150px;left: 35%; font-size: large;"></mat-spinner>
   <div class="div-courses" *ngFor="let course of coursesSearched$ | async " (click)="search('first')">
 
     <div class="titleClass" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}">
@@ -47,6 +50,7 @@
 
 
 <div class="right-div" *ngIf="searchBox.value.length<=0">
+  <mat-spinner strokeWidth="10%" [diameter]="100" *ngIf="coursesListEmpty==true" style="margin-top: 150px;left: 35%; font-size: large;"></mat-spinner>
   <div class="div-courses" *ngFor="let cc of courses ">
 
     <div class="titleClass" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{cc.idCourse}}">
