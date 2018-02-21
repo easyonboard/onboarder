@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/business/business.iml" filepath="$PROJECT_DIR$/.idea/modules/business/business.iml" group="business" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/business/business_main.iml" filepath="$PROJECT_DIR$/.idea/modules/business/business_main.iml" group="business" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/business/business_test.iml" filepath="$PROJECT_DIR$/.idea/modules/business/business_test.iml" group="business" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client.iml" filepath="$PROJECT_DIR$/.idea/modules/client.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/controller/controller.iml" filepath="$PROJECT_DIR$/.idea/modules/controller/controller.iml" group="controller" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/controller/controller_main.iml" filepath="$PROJECT_DIR$/.idea/modules/controller/controller_main.iml" group="controller" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/controller/controller_test.iml" filepath="$PROJECT_DIR$/.idea/modules/controller/controller_test.iml" group="controller" />

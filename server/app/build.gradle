@@ -31,5 +31,5 @@ dependencies {
     // https://mvnrepository.com/artifact/xml-apis/xml-apis
     compile group: 'xml-apis', name: 'xml-apis', version: '1.4.01'
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    compile files("./ojdbc6.jar")
+    compile files("ojdbc6.jar")
 }

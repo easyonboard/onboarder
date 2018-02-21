@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -27,7 +27,6 @@
     "angular-2-dropdown-multiselect": "^1.6.3",
     "angular-inviewport": "^0.2.3",
     "angular-scroll": "^1.0.2",
-    "angular2-bootstrap-confirm": "^1.0.4",
     "angular2-http-file-upload": "^1.0.6",
     "bootbox": "^4.4.0",
     "bootstrap": "^4.0.0",
@@ -42,7 +41,7 @@
     "zone.js": "^0.8.20"
   },
   "devDependencies": {
-    "@angular/cli": "1.5.4",
+    "@angular/cli": "^1.5.4",
     "@angular/compiler-cli": "^5.2.3",
     "@angular/language-service": "^5.2.3",
     "@types/jasmine": "~2.5.53",
