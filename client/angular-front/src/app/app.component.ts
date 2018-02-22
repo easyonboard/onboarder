@@ -16,6 +16,7 @@ export class AppComponent {
   private rootConst: RootConst;
   public message:string;
   public successMessage:string;
+  public username: String;
 
   constructor(private location: Location, private router: Router, private elemRef: ElementRef,private utilityService:UtilityService, private userService: UserService) {
     this.rootConst = new RootConst();
@@ -36,10 +37,9 @@ export class AppComponent {
   }
 
   logout(): void {
-
     if (confirm("Do you really want to logout?")) {
       localStorage.removeItem("userLogged");
-      location.replace(this.rootConst.FRONT_LOGIN_PAGE);
+      this.redirectToLoginPage()
     }
   }
   openModal(id:string){
@@ -82,5 +82,17 @@ export class AppComponent {
 
     }
 
+  }
+
+  userIsLogged():boolean {
+    this.username = localStorage.getItem("userLogged");
+    if (this.username!==null){
+      return true;
+    }
+    return false;
+  }
+
+  redirectToLoginPage():void {
+    location.replace(this.rootConst.FRONT_LOGIN_PAGE);
   }
 }

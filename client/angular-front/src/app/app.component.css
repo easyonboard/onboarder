@@ -87,7 +87,7 @@ footer {
   font-size: large;
 }
 
-.logOut{
+.logOut, .logIn{
   position:absolute;
   top:0;
   right:0;
@@ -98,7 +98,7 @@ footer {
   color: #ffffff;
   font-size: large;
 }
-.buttonEdit{
+.loggedUserButton{
   position:absolute;
   top:0;
   right:0;

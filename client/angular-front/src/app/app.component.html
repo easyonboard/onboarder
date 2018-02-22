@@ -8,6 +8,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <div class="headerDiv">
+
 </div>
 
 
@@ -22,8 +23,9 @@
 
 <div id="myModal" class="modal">
 
-  <!-- Modal content -->
   <div class="modal-content">
+
+
     <div class="alert alert-danger" [hidden]="message.length==0">
       {{message}}
     </div>
@@ -64,31 +66,52 @@
     </table>
 
 
-    <button class="btn btn-info" (click)="updateUser(name.value, email.value, pass.value,passII.value)" style="background:#841439">
+    <button class="btn btn-info" (click)="updateUser(name.value, email.value, pass.value,passII.value)"
+            style="background:#841439">
       <span class="glyphicon  glyphicon-edit"></span> Edit profile
     </button>
   </div>
-  </div>
+</div>
 
 <router-outlet>
+
 
   <button class="goBack" (click)="goBack()">
     <span class="glyphicon glyphicon-arrow-left"></span> Go back
   </button>
 
-  <button (click)="logout()" class="logOut">
+
+  <button (click)="logout()" *ngIf="userIsLogged()==true" class="logOut">
     <span class="glyphicon glyphicon-log-out"></span> Log out
   </button>
-  <button class="buttonEdit" (click)="openModal('myModal')">
-    <span class="glyphicon glyphicon-pencil"></span> Edit profile
-  </button>
 
+  <button (click)="redirectToLoginPage()" *ngIf="userIsLogged()==false" class="logIn">
+    <i class="fa fa-sign-in"
+       style="margin-right: 8px"></i> Log in
+  </button>
+  <ul class="dropdown loggedUserButton">
+
+    <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown" style="color: white"><i
+      class="fa fa-user-circle-o"
+      style="margin-right: 8px"></i>{{username}}<span class="caret" style="margin-left: 3px"></span>
+    </a>
+    <ul class="dropdown-menu" style="margin-top: 18px">
+      <ul>
+        <a (click)="openModal('myModal')">
+          <span class="glyphicon glyphicon-pencil"></span>
+          Edit profile
+        </a>
+      </ul>
+
+    </ul>
+  </ul>
 
 </router-outlet>
 <div class="footerDiv">
   <footer>
     <div class="social">
-      <a href="https://www.facebook.com/msg.systems.romania/" target="_blank"> <i class="fa fa-facebook-square" id="facebookIcon">   </i> </a>
+      <a href="https://www.facebook.com/msg.systems.romania/" target="_blank"> <i class="fa fa-facebook-square"
+                                                                                  id="facebookIcon">   </i> </a>
       <a href="https://github.com/easyonboard/onboarder" target="_blank"> <i class="fa fa-git-square" id="gitIcon">
           </i> </a>
       <a> <i class="fa fa-youtube-square" id="youtubeIcon">   </i> </a>

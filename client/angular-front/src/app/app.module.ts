@@ -16,7 +16,7 @@ import {SubjectDetailComponent} from './subject-detail/subject-detail.component'
 import {SubjectService} from "./service/subject.service";
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import {MatProgressSpinnerModule} from "@angular/material";
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +33,8 @@ import {MatProgressSpinnerModule} from "@angular/material";
     HttpClientModule,
     AppRoutingModule,
     MultiselectDropdownModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService],
   bootstrap: [AppComponent]

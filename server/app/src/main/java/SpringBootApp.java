@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+
 @EntityScan(basePackages = {"entity"})
 @ComponentScan(basePackages = {"controller", "dao", "service", "validator", "utilityService"})
 @SpringBootApplication

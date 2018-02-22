@@ -20,14 +20,16 @@ export class LoginComponent implements OnInit, AfterContentInit {
   private currentComponentElement: HTMLElement;
   private backButton: Element;
   private logoutButton: Element;
-  private profileButton: Element;
+  private loginButton: Element;
+  private userButton: Element;
   private userNotfound: string;
+
   constructor(private userService: UserService, private router: Router, private elemRef: ElementRef) {
     this.option = false;
   }
 
   ngOnInit() {
-    this.userNotfound="";
+    this.userNotfound = "";
     this.message = "Welcome back!";
     this.messageSignIn = "Sign Up for Free";
     this.rootConst = new RootConst();
@@ -36,25 +38,35 @@ export class LoginComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit() {
     this.currentComponentElement = this.elemRef.nativeElement.previousElementSibling;
-    this.backButton = this.currentComponentElement.getElementsByClassName("back").item(0);
+    this.backButton = this.currentComponentElement.getElementsByClassName("goBack").item(0);
     this.logoutButton = this.currentComponentElement.getElementsByClassName("logOut").item(0);
-    this.profileButton = this.currentComponentElement.getElementsByClassName("edit").item(0);
+    this.loginButton = this.currentComponentElement.getElementsByClassName("logIn").item(0);
+    this.userButton = this.currentComponentElement.getElementsByClassName("loggedUserButton").item(0);
     var footer = this.currentComponentElement.parentElement.getElementsByClassName("footerDiv").item(0)
-    console.log(footer)
-    if (this.logoutButton !== null && this.backButton !== null) {
-      this.currentComponentElement.removeChild(this.backButton);
-      this.currentComponentElement.removeChild(this.logoutButton);
-      this.currentComponentElement.removeChild(this.profileButton);
-      this.currentComponentElement.parentElement.removeChild(footer);
 
+    debugger
+    if (this.logoutButton !== null) {
+      this.currentComponentElement.removeChild(this.logoutButton);
+    }
+    if (this.userButton != null) {
+      this.currentComponentElement.removeChild(this.userButton);
+    }
+    if (this.loginButton != null) {
+      this.currentComponentElement.removeChild(this.loginButton);
+    }
+    if (this.backButton != null) {
+      this.currentComponentElement.removeChild(this.backButton);
+    }
+    if (footer != null) {
+      this.currentComponentElement.parentElement.removeChild(footer);
     }
   }
 
   createNewAccount(option: boolean): void {
-    if(true===option) {
+    if (true === option) {
       document.getElementById("signUp").style.backgroundColor = "#841439";
       document.getElementById("login").style.background = "#d3d3d3";
-    }else {
+    } else {
       document.getElementById("signUp").style.backgroundColor = "#d3d3d3";
       document.getElementById("login").style.backgroundColor = "#841439";
     }
@@ -69,17 +81,21 @@ export class LoginComponent implements OnInit, AfterContentInit {
           localStorage.setItem("userLogged", res.username);
           localStorage.setItem("userLoggedId", res.idUser.toString());
           this.currentComponentElement = this.elemRef.nativeElement.parentElement;
-          if (this.logoutButton !== null && this.backButton !== null) {
+          if (this.userButton != null) {
+            this.currentComponentElement.appendChild(this.userButton);
+          }
+          if (this.loginButton != null) {
+            this.currentComponentElement.appendChild(this.loginButton);
+          }
+          if (this.backButton != null) {
             this.currentComponentElement.appendChild(this.backButton);
-            this.currentComponentElement.appendChild(this.logoutButton);
-            this.currentComponentElement.appendChild(this.profileButton);
           }
           this.router.navigateByUrl(this.rootConst.FRONT_REDIRECT_LOGIN_SUCCESS_URL);
         }
       },
       err => {
         if (err.status == 403) {
-          this.userNotfound =  "Username or password wrong! Please try again.";
+          this.userNotfound = "Username or password wrong! Please try again.";
         }
         console.log(err);
       });
@@ -94,7 +110,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
     passwordII = passwordII.trim();
     if (password != passwordII) {
       this.errorMessage = "Password does not match";
-      return ;
+      return;
     }
 
     else {
