@@ -1,5 +1,6 @@
 package controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -88,14 +89,20 @@ public class CourseController {
 
     @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/courses/updateCourse", method = RequestMethod.POST)
-    public ResponseEntity updateCourse(@RequestBody CourseDTO course) {
+    public ResponseEntity updateCourse( @RequestBody String courseJson) {
 
+        ObjectMapper mapper = new ObjectMapper();
         try {
-            courseService.updateCourse(course);
+            JsonNode node= mapper.readTree(courseJson);
+            CourseDTO course = getCourse(courseJson);
+
+            List<Integer> ownersIds = mapper.convertValue(node.get("ownersIds"), List.class);
+            List<Integer> contactPersonsId = mapper.convertValue(node.get("contactPersonsId"), List.class);
+            courseService.updateCourse(course, ownersIds, contactPersonsId);
             return new ResponseEntity(HttpStatus.OK);
-        } catch (InvalidDataException e) {
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
-        }
+        } catch (InvalidDataException  | IOException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);}
+
 
     }
 
@@ -154,43 +161,43 @@ public class CourseController {
     }
 
 
-    @CrossOrigin(origins="http://localhost:4200")
-    @RequestMapping(value = "/addContactPerson", method = RequestMethod.POST)
-    public ResponseEntity addCourseContactPerson(@RequestBody String str) throws UserNotFoundException {
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            JsonNode node = mapper.readTree(str);
-            String email = mapper.convertValue(node.get("email"), String.class);
-
-            return new ResponseEntity(courseService.addContactPerson(email, getCourse(str)), HttpStatus.OK);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
-        }
-
-
-    }
-
-    @CrossOrigin(origins="http://localhost:4200")
-    @RequestMapping(value = "/addOwnerPerson", method = RequestMethod.POST)
-    public ResponseEntity addOnerContactPerson(@RequestBody String str) throws UserNotFoundException {
-        ObjectMapper mapper = new ObjectMapper();
-
-        try {
-            JsonNode node = mapper.readTree(str);
-            String email = mapper.convertValue(node.get("email"), String.class);
-
-            return new ResponseEntity(courseService.addOwnerPerson(email, getCourse(str)), HttpStatus.OK);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
-        }
-
-
-    }
+//    @CrossOrigin(origins="http://localhost:4200")
+//    @RequestMapping(value = "/addContactPerson", method = RequestMethod.POST)
+//    public ResponseEntity addCourseContactPerson(@RequestBody String str) throws UserNotFoundException {
+//        ObjectMapper mapper = new ObjectMapper();
+//
+//        try {
+//            JsonNode node = mapper.readTree(str);
+//            String email = mapper.convertValue(node.get("email"), String.class);
+//
+//            return new ResponseEntity(courseService.addContactPerson(email, getCourse(str)), HttpStatus.OK);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+//        }
+//
+//
+//    }
+//
+//    @CrossOrigin(origins="http://localhost:4200")
+//    @RequestMapping(value = "/addOwnerPerson", method = RequestMethod.POST)
+//    public ResponseEntity addOnerContactPerson(@RequestBody String str) throws UserNotFoundException {
+//        ObjectMapper mapper = new ObjectMapper();
+//
+//        try {
+//            JsonNode node = mapper.readTree(str);
+//            String email = mapper.convertValue(node.get("email"), String.class);
+//
+//            return new ResponseEntity(courseService.addOwnerPerson(email, getCourse(str)), HttpStatus.OK);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+//        }
+//
+//
+//    }
 
     @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/courses/addCourse", method = RequestMethod.POST)

@@ -55,8 +55,8 @@ export class CourseService implements OnInit {
 
   }
 
-  editCourse(id: number, titleEdited: string, overviewEdited: string): Observable<any> {
-    let body = JSON.stringify({idCourse: id, titleCourse: titleEdited, overview: overviewEdited});
+  editCourse(course:Course,  contactPersonsIds: number[], ownersIds: number[]): Observable<any> {
+    let body = JSON.stringify({course: course, contactPersonsId:contactPersonsIds, ownersIds: ownersIds});
     return this.http.post<Course>(this.rootConst.SERVER_COURSES_URL + "/updateCourse", body, this.httpOptions);
   }
 

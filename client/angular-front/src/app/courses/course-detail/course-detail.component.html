@@ -9,7 +9,7 @@
 
 <div class="left-buttons">
   <button id="editCourseSubmitButton" class="glyphicon glyphicon-edit" *ngIf="isInEditingMode == true"
-          (click)="editCourse(titleEdited,overviewEdited)"> Edit
+          (click)="editCourse(titleEdited,overviewEdited, contactPersonsIds, ownersIds)"> Edit
   </button>
 
   <button id="cancelEditing" class="glyphicon glyphicon-remove-sign" *ngIf="isInEditingMode == true"
@@ -125,7 +125,7 @@
                 <p class="descriptionAndCommitmentStyle">Commitment: <span></span> {{subject.numberOfDays}} Days</p>
                 <hr class="separator">
                 <br/>
-                <a
+                <a *ngIf="isEnrolled==true"
                   routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}/{{rootConst.FRONT_DETAILED_SUBJECT}}/{{subject.idSubject}}">Click
                   to see more</a>
               </div>
@@ -165,18 +165,21 @@
           </table>
 
 
-          <input type="text" #searchEmails (keyup)="search(searchEmails.value, true)" class="inputText"
-                 *ngIf="isInEditingMode==true" placeholder="Search user by email" >
+          <!--<input type="text" #searchEmails (keyup)="search(searchEmails.value, true)" class="inputText"-->
+                 <!--*ngIf="isInEditingMode==true" placeholder="Search user by email" >-->
 
 
-          <div *ngIf="isInEditingMode==true && showListEmailsOwner==true">
-            <div  *ngFor="let email of filteredOptions$ | async ">
-              <div class="emailDiv" (click)="selectedEmailForOwner(email)">
-                {{email}}
-              </div>
+          <!--<div *ngIf="isInEditingMode==true && showListEmailsOwner==true">-->
+            <!--<div  *ngFor="let email of filteredOptions$ | async ">-->
+              <!--<div class="emailDiv" (click)="selectedEmailForOwner(email)">-->
+                <!--{{email}}-->
+              <!--</div>-->
 
 
-            </div>
+            <!--</div>-->
+          <!--</div>-->
+          <div *ngIf="isInEditingMode==true">
+          <ss-multiselect-dropdown [options]="userEmails" [(ngModel)]="ownersIds"></ss-multiselect-dropdown>
           </div>
         </div>
       </details>
@@ -208,16 +211,8 @@
             </tbody>
           </table>
 
-          <input type="text" #searchEmails2 (keyup)="search(searchEmails2.value, false)" class="inputText" placeholder="Search user by email"
-                 *ngIf="isInEditingMode==true">
-
-          <div *ngIf="isInEditingMode==true && showListEmailsOwner==false">
-            <div *ngFor="let email of filteredOptions$ | async ">
-              <div class="emailDiv" (click)="selectedEmail(email)">
-                {{email}}
-              </div>
-
-            </div>
+          <div *ngIf="isInEditingMode==true">
+            <ss-multiselect-dropdown [options]="userEmails" [(ngModel)]="contactPersonsIds"></ss-multiselect-dropdown>
           </div>
         </div>
       </details>

@@ -30,18 +30,6 @@ public class UserDAO extends AbstractDAO<User> {
         return firstUser;
     }
 
-    /**
-     * Method used for searching users to add in contact or owner List for a course
-     *
-     * @param email
-     * @return List of String
-     */
-    public List<String> getUsersEmails(String email) {
-        Query query = em.createQuery("Select u.email from User u where u.email LIKE :g");
-        query.setParameter("g", "%" + email + "%");
-
-        return query.getResultList();
-    }
 
     /**
      * Identify a user by email
@@ -60,4 +48,5 @@ public class UserDAO extends AbstractDAO<User> {
         Query query = em.createQuery("Select u from User u ");
         return query.getResultList();
     }
+
 }

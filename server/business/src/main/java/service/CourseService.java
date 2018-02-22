@@ -22,6 +22,7 @@ import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service for {@link CourseDTO}
@@ -95,12 +96,34 @@ public class CourseService {
 
     }
 
-    public void updateCourse(CourseDTO course) throws InvalidDataException {
+    public void updateCourse(CourseDTO course, List<Integer> ownersIds, List<Integer> contactPersonsId) throws InvalidDataException {
 
         if (course.getTitleCourse() == "") {
             course.setTitleCourse(null);
         }
+
         Course courseEntity = courseMapper.mapToEntity(course, courseDAO.findEntity(course.getIdCourse()));
+        if(contactPersonsId!=null && contactPersonsId.size()>0){
+            List<User> contanctPerson = new ArrayList<>();
+            contactPersonsId.forEach(id->contanctPerson.add(userDAO.findEntity(id)));
+            for(int i=0;i<contanctPerson.size();i++) {
+                if (!courseEntity.getContactPersons().contains(contanctPerson.get(i))) {
+                    courseEntity.getContactPersons().add(contanctPerson.get(i));
+                }
+            }
+        }
+
+
+        if(ownersIds!=null && ownersIds.size()>0){
+            List<User> owners = new ArrayList<>();
+            ownersIds.forEach(id->owners.add(userDAO.findEntity(id)));
+            for(int i=0;i<owners.size();i++) {
+                if (!courseEntity.getOwners().contains(owners.get(i))) {
+                    courseEntity.getOwners().add(owners.get(i));
+                }
+            }
+        }
+
         courseValidator.validateCourseData(courseMapper.mapToDTO(courseEntity));
         courseDAO.persistEntity(courseEntity);
     }

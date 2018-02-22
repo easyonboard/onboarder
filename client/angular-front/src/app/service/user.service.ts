@@ -13,8 +13,8 @@ export class UserService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  private searchEmails: string = this.rootConst.SERVER_USERS_EMAIL;
   private allUsers: string= this.rootConst.SERVER_ALL_USERS;
+
 
   constructor(private http: HttpClient) {
     this.message = "";
@@ -42,14 +42,9 @@ export class UserService {
     return this.http.post<UserDTO>(this.rootConst.SERVER_UPDATE_USER, body, this.httpOptions);
   }
 
-  getAllUserEmails(term: string): Observable<string[]> {
-    if (!term.trim())
-      return;
-    return this.http.get<string[]>(`${this.searchEmails}${term}`);
-
-  }
 
   getAllUsers():Observable<UserDTO[]> {
     return this.http.get<UserDTO[]>(`${this.allUsers}`);
   }
+
 }

@@ -35,6 +35,7 @@ export class AddCourseComponent implements OnInit {
   private rootConst: RootConst = new RootConst();
   public file: File;
 
+
   private currentStep: string;
   private materialsForCurrentSubject: Array<Material>
   public saved: Boolean
@@ -56,7 +57,7 @@ export class AddCourseComponent implements OnInit {
     this.material = new Material();
     this.material.materialType = this.materialTypeLink
     this.saved = false;
-    this.subjectIndex = 0
+    this.subjectIndex = 0;
 
     this.onViewSubject = false;
 
@@ -66,7 +67,7 @@ export class AddCourseComponent implements OnInit {
     var userArrayObjects: Array<UserDTO> = new Array<UserDTO>();
     this.userService.getAllUsers().subscribe(us => {
       userArrayObjects = userArrayObjects.concat(us);
-      this.usersOptions = []
+      this.usersOptions = [];
       userArrayObjects.forEach(u => this.usersOptions.push({id: u.idUser, name: u.name + ", email:  " + u.email}))
       this.contactPersonsIds.push(Number(localStorage.getItem("userLoggedId")));
       this.ownersIds.push(Number(localStorage.getItem("userLoggedId")));

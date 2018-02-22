@@ -11,6 +11,7 @@ import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import {UserService} from "../../service/user.service";
 import {debounceTime, switchMap, distinctUntilChanged} from "rxjs/operators";
+import {IMultiSelectOption} from "angular-2-dropdown-multiselect";
 
 @Component({
   selector: 'app-course-detail',
@@ -27,12 +28,15 @@ export class CourseDetailComponent implements OnInit {
   private modalMessage: string;
   private errorMessage: string;
   private courseFound: boolean;
-  filteredOptions$: Observable<string[]>;
   private prevSectionId: string;
-  private searchTerms = new Subject<string>();
   public overviewEdited: string;
   public titleEdited: string;
-  private showListEmailsOwner: boolean;
+  public userEmails:IMultiSelectOption[];
+  public ownersIds: number[];
+  public contactPersonsIds: number[];
+  public editedCourse:Course;
+
+
 
   constructor(private route: ActivatedRoute, private userService: UserService, private utilityService: UtilityService, private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
   }
@@ -65,22 +69,22 @@ export class CourseDetailComponent implements OnInit {
     this.utilityService.openModal(id);
   }
 
-  search(term: string, ownersShow: boolean): void {
-    this.showListEmailsOwner = ownersShow;
-    this.searchTerms.next(term);
-  }
 
   ngOnInit() {
     this.errorMessage = "";
     this.isInEditingMode = false;
     this.rootConst = new RootConst();
+    this.userEmails = [];
+    this.editedCourse=new Course();
     this.getCourse();
+    var userArrayObjects: Array<UserDTO> = new Array<UserDTO>();
+    this.userService.getAllUsers().subscribe(us => {
+      userArrayObjects = userArrayObjects.concat(us);
+      this.userEmails = [];
+      userArrayObjects.forEach(u => this.userEmails.push({id: u.idUser, name: u.name + ", email:  " + u.email}))
 
-    this.filteredOptions$ = this.searchTerms.pipe(
-      debounceTime(100),
-      // ignore new term if same as previous term
-      distinctUntilChanged(),
-      switchMap((term: string) => this.userService.getAllUserEmails(term)));
+    });
+
     this.isUserEnrollOnThisCourse();
   }
 
@@ -132,7 +136,11 @@ export class CourseDetailComponent implements OnInit {
     debugger;
     this.overviewEdited = this.overviewEdited.trim();
     this.titleEdited = this.titleEdited.trim();
-    this.courseService.editCourse(this.course.idCourse, this.titleEdited, this.overviewEdited).subscribe(res => {
+    this.editedCourse.idCourse=this.course.idCourse;
+    this.editedCourse.titleCourse=this.titleEdited;
+    this.editedCourse.overview=this.overviewEdited;
+
+    this.courseService.editCourse(this.editedCourse, this.contactPersonsIds,this.ownersIds).subscribe(res => {
         this.modalMessage = "Operatia a fost realizata cu success!";
         this.openModal('editSuccessful');
         this.exitEditingMode();
@@ -151,26 +159,16 @@ export class CourseDetailComponent implements OnInit {
 
   deleteContactPerson(contactPerson: UserDTO) {
     this.courseService.deleteContactPerson(contactPerson, this.course).subscribe();
+    this.getCourse();
   }
 
   deleteOwnerPerson(contactPerson: UserDTO) {
     this.courseService.deleteOwnerPerson(contactPerson, this.course).subscribe();
+    this.getCourse();
   }
 
   deleteSubjectFromCourse(subject: number) {
     this.courseService.deleteSubjectFromCourse(subject, this.course).subscribe();
-  }
-
-  selectedEmail(email: string) {
-    this.courseService.addContactPerson(email, this.course).subscribe(res => {
-      this.getCourse();
-    });
-  }
-
-  selectedEmailForOwner(email: string) {
-    this.courseService.addOwnerPerson(email, this.course).subscribe(res => {
-      this.getCourse();
-    });
   }
 
   onHoverSection(sectionId: string) {

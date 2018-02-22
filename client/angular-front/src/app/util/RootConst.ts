@@ -13,7 +13,6 @@ export class RootConst {
   public SERVER_UNENROLLE_USER_ON_COURSE = this.SERVER_COURSES_URL + '/unenrollUserFromCourse?idCourse=';
   public SERVER_ADD_USER = this.WEB_SERVICE_ENDPOINT + 'user/addUser';
   public SERVER_UPDATE_USER = this.WEB_SERVICE_ENDPOINT + "/user/updateUser";
-  public SERVER_USERS_EMAIL = this.WEB_SERVICE_ENDPOINT + 'userEmails?email=';
   public SERVER_AUTHENTIFICATION = this.WEB_SERVICE_ENDPOINT + "/auth";
   public SERVER_DELETE_CONTACT_PERSON = this.WEB_SERVICE_ENDPOINT + 'deleteContactPerson';
   public SERVER_DELETE_OWNER_PERSON = this.WEB_SERVICE_ENDPOINT + 'deleteOwnerPerson';
@@ -43,5 +42,6 @@ export class RootConst {
   public FRONT_RATINGS_REVIEW_SECTION = 'ratingsReview';
   public FRONT_LOGIN_PAGE = '';
   public SERVER_ADD_COURSE = this.SERVER_COURSES_URL + "/addCourse";
+
 
 }
