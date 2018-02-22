@@ -22,7 +22,7 @@ export class CoursesComponent implements OnInit {
   private searchTerms = new Subject<string>();
   public coursesListEmpty:boolean;
 
-  constructor(private courseService: CourseService, private location: Location, private userService: UserService, private utilityService: UtilityService) {
+  constructor(private courseService: CourseService) {
     this.coursesListEmpty = true;
   }
 
@@ -44,13 +44,5 @@ export class CoursesComponent implements OnInit {
   search(term: string): void {
     this.searchTerms.next(term);
 
-  }
-
-  openModal(id: string) {
-    this.utilityService.openModal(id);
-  }
-
-  closeModal(id: string) {
-    this.utilityService.closeModal(id);
   }
 }

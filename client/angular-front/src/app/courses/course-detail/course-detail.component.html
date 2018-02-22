@@ -7,6 +7,17 @@
 </div>
 
 
+<div class="modal" id="eroorEditing">
+  <div class="modal-content">
+    <button class="close" id="closeModal" (click)="closeModal('eroorEditing')">Close</button>
+    <br/>
+    <div class="alert-danger" style="width: 100px; height: 25px ">
+    {{errorMessage}}
+  </div>
+  </div>
+</div>
+
+
 <div class="left-buttons">
   <button id="editCourseSubmitButton" class="glyphicon glyphicon-edit" *ngIf="isInEditingMode == true"
           (click)="editCourse(titleEdited,overviewEdited, contactPersonsIds, ownersIds)"> Edit
@@ -164,20 +175,6 @@
 
           </table>
 
-
-          <!--<input type="text" #searchEmails (keyup)="search(searchEmails.value, true)" class="inputText"-->
-                 <!--*ngIf="isInEditingMode==true" placeholder="Search user by email" >-->
-
-
-          <!--<div *ngIf="isInEditingMode==true && showListEmailsOwner==true">-->
-            <!--<div  *ngFor="let email of filteredOptions$ | async ">-->
-              <!--<div class="emailDiv" (click)="selectedEmailForOwner(email)">-->
-                <!--{{email}}-->
-              <!--</div>-->
-
-
-            <!--</div>-->
-          <!--</div>-->
           <div *ngIf="isInEditingMode==true">
           <ss-multiselect-dropdown [options]="userEmails" [(ngModel)]="ownersIds"></ss-multiselect-dropdown>
           </div>
@@ -212,7 +209,7 @@
           </table>
 
           <div *ngIf="isInEditingMode==true">
-            <ss-multiselect-dropdown [options]="userEmails" [(ngModel)]="contactPersonsIds"></ss-multiselect-dropdown>
+            <ss-multiselect-dropdown [options]="userEmails"[(ngModel)]="contactPersonsIds"></ss-multiselect-dropdown>
           </div>
         </div>
       </details>

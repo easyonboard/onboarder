@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, Input} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {CourseService} from "../../service/course.service";
 import {Course} from "../../domain/course";
@@ -7,10 +7,7 @@ import {DOCUMENT} from "@angular/common";
 import {UtilityService} from "../../service/utility.service";
 import {MaterialService} from "../../service/material.service";
 import {UserDTO} from "../../domain/user";
-import {Subject} from "rxjs/Subject";
-import {Observable} from "rxjs/Observable";
 import {UserService} from "../../service/user.service";
-import {debounceTime, switchMap, distinctUntilChanged} from "rxjs/operators";
 import {IMultiSelectOption} from "angular-2-dropdown-multiselect";
 
 @Component({
@@ -31,11 +28,10 @@ export class CourseDetailComponent implements OnInit {
   private prevSectionId: string;
   public overviewEdited: string;
   public titleEdited: string;
-  public userEmails:IMultiSelectOption[];
+  public userEmails: IMultiSelectOption[];
   public ownersIds: number[];
   public contactPersonsIds: number[];
-  public editedCourse:Course;
-
+  public editedCourse: Course;
 
 
   constructor(private route: ActivatedRoute, private userService: UserService, private utilityService: UtilityService, private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
@@ -75,7 +71,7 @@ export class CourseDetailComponent implements OnInit {
     this.isInEditingMode = false;
     this.rootConst = new RootConst();
     this.userEmails = [];
-    this.editedCourse=new Course();
+    this.editedCourse = new Course();
     this.getCourse();
     var userArrayObjects: Array<UserDTO> = new Array<UserDTO>();
     this.userService.getAllUsers().subscribe(us => {
@@ -96,19 +92,19 @@ export class CourseDetailComponent implements OnInit {
 
   enrollUserToCourse(): any {
 
-      const username = localStorage.getItem("userLogged");
-      const idCourse = +this.route.snapshot.paramMap.get('id');
-      this.courseService.enrollUserToCourse(idCourse, username).subscribe();
-      this.isEnrolled = true;
+    const username = localStorage.getItem("userLogged");
+    const idCourse = +this.route.snapshot.paramMap.get('id');
+    this.courseService.enrollUserToCourse(idCourse, username).subscribe();
+    this.isEnrolled = true;
 
   }
 
   unenrollUserFromCourse(): any {
 
-      const username = localStorage.getItem("userLogged");
-      const idCourse = +this.route.snapshot.paramMap.get('id');
-      this.courseService.unenrollUserFromCourse(idCourse, username).subscribe();
-      this.isEnrolled = false;
+    const username = localStorage.getItem("userLogged");
+    const idCourse = +this.route.snapshot.paramMap.get('id');
+    this.courseService.unenrollUserFromCourse(idCourse, username).subscribe();
+    this.isEnrolled = false;
 
   }
 
@@ -136,11 +132,11 @@ export class CourseDetailComponent implements OnInit {
     debugger;
     this.overviewEdited = this.overviewEdited.trim();
     this.titleEdited = this.titleEdited.trim();
-    this.editedCourse.idCourse=this.course.idCourse;
-    this.editedCourse.titleCourse=this.titleEdited;
-    this.editedCourse.overview=this.overviewEdited;
+    this.editedCourse.idCourse = this.course.idCourse;
+    this.editedCourse.titleCourse = this.titleEdited;
+    this.editedCourse.overview = this.overviewEdited;
 
-    this.courseService.editCourse(this.editedCourse, this.contactPersonsIds,this.ownersIds).subscribe(res => {
+    this.courseService.editCourse(this.editedCourse, this.contactPersonsIds, this.ownersIds).subscribe(res => {
         this.modalMessage = "Operatia a fost realizata cu success!";
         this.openModal('editSuccessful');
         this.exitEditingMode();
@@ -149,6 +145,9 @@ export class CourseDetailComponent implements OnInit {
       },
       err => {
         this.errorMessage = err.error.message;
+
+
+        this.openModal("eroorEditing");
       });
   }
 

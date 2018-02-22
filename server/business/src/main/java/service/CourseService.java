@@ -45,6 +45,9 @@ public class CourseService {
     private SubjectDAO subjectDAO;
 
     private static final String COURSE_NOT_FOUND = "Course not found";
+    private static final String USER_EXISTS1="User ";
+    private static final String USER_EXISTS2=" already exists!";
+    private static final String TITLE_NULL=" Title can not be empty! ";
     private CourseMapper courseMapper = CourseMapper.INSTANCE;
 
 
@@ -99,8 +102,10 @@ public class CourseService {
     public void updateCourse(CourseDTO course, List<Integer> ownersIds, List<Integer> contactPersonsId) throws InvalidDataException {
 
         if (course.getTitleCourse() == "") {
-            course.setTitleCourse(null);
+          throw new InvalidDataException(TITLE_NULL);
         }
+
+
 
         Course courseEntity = courseMapper.mapToEntity(course, courseDAO.findEntity(course.getIdCourse()));
         if(contactPersonsId!=null && contactPersonsId.size()>0){
@@ -109,6 +114,9 @@ public class CourseService {
             for(int i=0;i<contanctPerson.size();i++) {
                 if (!courseEntity.getContactPersons().contains(contanctPerson.get(i))) {
                     courseEntity.getContactPersons().add(contanctPerson.get(i));
+                }
+                else{
+                    throw new InvalidDataException(USER_EXISTS1+ contanctPerson.get(i).getEmail()+USER_EXISTS2);
                 }
             }
         }
@@ -120,6 +128,10 @@ public class CourseService {
             for(int i=0;i<owners.size();i++) {
                 if (!courseEntity.getOwners().contains(owners.get(i))) {
                     courseEntity.getOwners().add(owners.get(i));
+
+                }
+                else{
+                    throw new InvalidDataException(USER_EXISTS1+ owners.get(i).getEmail()+USER_EXISTS2);
                 }
             }
         }
@@ -163,39 +175,6 @@ public class CourseService {
 
         courseDAO.persistEntity(courseEntity);
         subjectDAO.persistEntity(subjectEntity);
-    }
-
-    public CourseDTO addContactPerson(String email, CourseDTO course) throws UserNotFoundException {
-
-        Optional<User> userEntity = userDAO.findUserByEmail(email);
-        if(userEntity.isPresent()) {
-            Course courseEntity = courseDAO.findEntity(course.getIdCourse());
-
-            courseEntity.getContactPersons().add(userEntity.get());
-            userEntity.get().getContactForCourses().add(courseEntity);
-            userDAO.persistEntity(userEntity.get());
-            Course persisted = courseDAO.persistEntity(courseEntity);
-
-            return courseMapper.mapToDTO(persisted);
-        }else {
-            throw new UserNotFoundException("User not found!");
-        }
-    }
-
-    public CourseDTO addOwnerPerson(String email, CourseDTO course) throws UserNotFoundException {
-        Optional<User> userEntity = userDAO.findUserByEmail(email);
-        if(userEntity.isPresent()) {
-            Course courseEntity = courseDAO.findEntity(course.getIdCourse());
-
-            courseEntity.getOwners().add(userEntity.get());
-            userEntity.get().getOwnerForCourses().add(courseEntity);
-            userDAO.persistEntity(userEntity.get());
-            Course persisted = courseDAO.persistEntity(courseEntity);
-
-            return courseMapper.mapToDTO(persisted);
-        }else {
-            throw new UserNotFoundException("User not found!");
-        }
     }
 
     public CourseDTO addCourse(CourseDTO courseDTO, List<Integer> ownersIds, List<Integer> contactPersonsId) throws InvalidDataException {

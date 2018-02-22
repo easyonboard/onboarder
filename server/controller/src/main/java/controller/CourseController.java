@@ -117,8 +117,6 @@ public class CourseController {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
-    //    public ResponseEntity addMaterial(@RequestParam(name = "material") String mat, @RequestParam(name = "file") MultipartFile file) throws IOException {
-
     @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/deleteContactPerson", method = RequestMethod.POST)
     public ResponseEntity deleteContactPerson(@RequestBody String str) {
@@ -159,45 +157,6 @@ public class CourseController {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
-
-
-//    @CrossOrigin(origins="http://localhost:4200")
-//    @RequestMapping(value = "/addContactPerson", method = RequestMethod.POST)
-//    public ResponseEntity addCourseContactPerson(@RequestBody String str) throws UserNotFoundException {
-//        ObjectMapper mapper = new ObjectMapper();
-//
-//        try {
-//            JsonNode node = mapper.readTree(str);
-//            String email = mapper.convertValue(node.get("email"), String.class);
-//
-//            return new ResponseEntity(courseService.addContactPerson(email, getCourse(str)), HttpStatus.OK);
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
-//        }
-//
-//
-//    }
-//
-//    @CrossOrigin(origins="http://localhost:4200")
-//    @RequestMapping(value = "/addOwnerPerson", method = RequestMethod.POST)
-//    public ResponseEntity addOnerContactPerson(@RequestBody String str) throws UserNotFoundException {
-//        ObjectMapper mapper = new ObjectMapper();
-//
-//        try {
-//            JsonNode node = mapper.readTree(str);
-//            String email = mapper.convertValue(node.get("email"), String.class);
-//
-//            return new ResponseEntity(courseService.addOwnerPerson(email, getCourse(str)), HttpStatus.OK);
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
-//        }
-//
-//
-//    }
 
     @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/courses/addCourse", method = RequestMethod.POST)
