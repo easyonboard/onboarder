@@ -3,6 +3,7 @@ package dao;
 import entity.Course;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -25,6 +26,23 @@ public class CourseDAO extends AbstractDAO<Course> {
         criteriaQuery.select(cb.construct(Course.class, rootCourse.get("idCourse"), rootCourse.get("titleCourse"),
                 rootCourse.get("overview")));
         return (List<Course>) this.executeCriteriaQuery(criteriaQuery);
+    }
+
+    public List<Course> coursesFromPage(Integer pageNumber, Integer numberOfObjectsPerPage) {
+        CriteriaBuilder cb = this.getCriteriaBuilder();
+        CriteriaQuery<Course> criteriaQuery = cb.createQuery(Course.class);
+        Root<Course> rootCourse = criteriaQuery.from(Course.class);
+
+
+        criteriaQuery.select(cb.construct(Course.class, rootCourse.get("idCourse"), rootCourse.get("titleCourse"),
+                rootCourse.get("overview"))).orderBy(cb.asc(rootCourse.get("idCourse")));
+        TypedQuery<Course> query = this.getEm().createQuery(criteriaQuery);
+        query.setMaxResults(numberOfObjectsPerPage);
+        query.setFirstResult(pageNumber * numberOfObjectsPerPage);
+
+        return (List<Course>) query.getResultList();
+
+//        return (List<Course>) this.executeCriteriaQuery(criteriaQuery);
     }
 
     /**

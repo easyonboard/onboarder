@@ -43,6 +43,9 @@ public abstract class AbstractDAO<E> {
         this.em = em;
     }
 
+    protected EntityManager getEm() {
+        return this.em;
+    }
 
     public CriteriaBuilder getCriteriaBuilder() {
         return em.getCriteriaBuilder();

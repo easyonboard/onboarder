@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import validator.CourseValidator;
 
 import javax.persistence.NoResultException;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,9 +46,9 @@ public class CourseService {
     private SubjectDAO subjectDAO;
 
     private static final String COURSE_NOT_FOUND = "Course not found";
-    private static final String USER_EXISTS1="User ";
-    private static final String USER_EXISTS2=" already exists!";
-    private static final String TITLE_NULL=" Title can not be empty! ";
+    private static final String USER_EXISTS1 = "User ";
+    private static final String USER_EXISTS2 = " already exists!";
+    private static final String TITLE_NULL = " Title can not be empty! ";
     private CourseMapper courseMapper = CourseMapper.INSTANCE;
 
 
@@ -66,6 +67,10 @@ public class CourseService {
         return courseMapper.entitiesToDTOs(courseDAO.allCourses());
     }
 
+    public List<CourseDTO> getCoursesFromPage(Integer pageNumber, Integer numerbOfObjectPerPage) {
+        return courseMapper.entitiesToDTOs(courseDAO.coursesFromPage(pageNumber, numerbOfObjectPerPage));
+    }
+
     public CourseDTO getCourseById(Integer id) throws CourseNotFoundException {
         Course entity = courseDAO.findEntity(id);
         if (entity == null)
@@ -76,6 +81,7 @@ public class CourseService {
     public List<CourseDTO> searchByOverview(String overview) {
         return courseMapper.entitiesToDTOs(courseDAO.searchByOverview(overview));
     }
+
 
     public boolean userIsEnrolledOnCourse(String username, Integer idCourse) throws UserNotFoundException {
         Optional<User> userEntity = userDAO.findUserByUsername(username);
@@ -102,36 +108,33 @@ public class CourseService {
     public void updateCourse(CourseDTO course, List<Integer> ownersIds, List<Integer> contactPersonsId) throws InvalidDataException {
 
         if (course.getTitleCourse() == "") {
-          throw new InvalidDataException(TITLE_NULL);
+            throw new InvalidDataException(TITLE_NULL);
         }
 
 
-
         Course courseEntity = courseMapper.mapToEntity(course, courseDAO.findEntity(course.getIdCourse()));
-        if(contactPersonsId!=null && contactPersonsId.size()>0){
+        if (contactPersonsId != null && contactPersonsId.size() > 0) {
             List<User> contanctPerson = new ArrayList<>();
-            contactPersonsId.forEach(id->contanctPerson.add(userDAO.findEntity(id)));
-            for(int i=0;i<contanctPerson.size();i++) {
+            contactPersonsId.forEach(id -> contanctPerson.add(userDAO.findEntity(id)));
+            for (int i = 0; i < contanctPerson.size(); i++) {
                 if (!courseEntity.getContactPersons().contains(contanctPerson.get(i))) {
                     courseEntity.getContactPersons().add(contanctPerson.get(i));
-                }
-                else{
-                    throw new InvalidDataException(USER_EXISTS1+ contanctPerson.get(i).getEmail()+USER_EXISTS2);
+                } else {
+                    throw new InvalidDataException(USER_EXISTS1 + contanctPerson.get(i).getEmail() + USER_EXISTS2);
                 }
             }
         }
 
 
-        if(ownersIds!=null && ownersIds.size()>0){
+        if (ownersIds != null && ownersIds.size() > 0) {
             List<User> owners = new ArrayList<>();
-            ownersIds.forEach(id->owners.add(userDAO.findEntity(id)));
-            for(int i=0;i<owners.size();i++) {
+            ownersIds.forEach(id -> owners.add(userDAO.findEntity(id)));
+            for (int i = 0; i < owners.size(); i++) {
                 if (!courseEntity.getOwners().contains(owners.get(i))) {
                     courseEntity.getOwners().add(owners.get(i));
 
-                }
-                else{
-                    throw new InvalidDataException(USER_EXISTS1+ owners.get(i).getEmail()+USER_EXISTS2);
+                } else {
+                    throw new InvalidDataException(USER_EXISTS1 + owners.get(i).getEmail() + USER_EXISTS2);
                 }
             }
         }
@@ -181,14 +184,16 @@ public class CourseService {
         courseValidator.validateCourseData(courseDTO);
         Course course = courseMapper.mapToEntity(courseDTO, new Course());
         List<User> owners = new ArrayList<>();
-        ownersIds.forEach(ownerId->owners.add(userDAO.findEntity(ownerId)));
+        ownersIds.forEach(ownerId -> owners.add(userDAO.findEntity(ownerId)));
 
         List<User> constantPerson = new ArrayList<>();
-        contactPersonsId.forEach(cpId->constantPerson.add(userDAO.findEntity(cpId)));
+        contactPersonsId.forEach(cpId -> constantPerson.add(userDAO.findEntity(cpId)));
 
         course.setOwners(owners);
         course.setContactPersons(constantPerson);
 
         return courseMapper.mapToDTO(courseDAO.persistEntity(course));
     }
+
+
 }

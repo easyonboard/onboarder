@@ -34,9 +34,18 @@ public class CourseController {
 
     @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/courses", method = RequestMethod.GET)
-    public ResponseEntity<List<CourseDTO>> allArticles(HttpServletRequest request) {
+    public ResponseEntity<List<CourseDTO>> allCourses(HttpServletRequest request) {
         return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
+
+    @CrossOrigin(origins="http://localhost:4200")
+    @RequestMapping(value = "/coursesFromPage", method = RequestMethod.GET)
+    public ResponseEntity<List<CourseDTO>> coursesFromPage(@RequestParam(value = "pageNumber") Integer pageNumber, @RequestParam(value = "numberOfObjectsPerPage") Integer numberOfObjectsPerPage) {
+        return new ResponseEntity<>(courseService.getCoursesFromPage(pageNumber,numberOfObjectsPerPage), HttpStatus.OK);
+    }
+
+
+
     @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/courses/course", method = RequestMethod.GET)
     public ResponseEntity<List<CourseDTO>> searchArticlesByOverview(@RequestParam(value = "overview") String overview) {

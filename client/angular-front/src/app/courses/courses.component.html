@@ -25,10 +25,10 @@
 
 </div>
 
-<div class="right-div" *ngIf="searchBox.value.length>0">
+<div  class="right-div" *ngIf="searchBox.value.length>0" detect-scroll (onScroll)="handleScroll($event)">
 
   <mat-spinner strokeWidth="10%" [diameter]="100" *ngIf="coursesListEmpty==true" style="margin-top: 150px;left: 35%; font-size: large;"></mat-spinner>
-  <div class="div-courses" *ngFor="let course of coursesSearched$ | async " (click)="search('first')">
+  <div  class="div-courses" *ngFor="let course of coursesSearched$ | async " (click)="search('first')">
 
     <div class="titleClass" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}">
       {{course.titleCourse}}
@@ -49,10 +49,11 @@
 </div>
 
 
-<div class="right-div" *ngIf="searchBox.value.length<=0">
+<div class="right-div" *ngIf="searchBox.value.length<=0"  detect-scroll (onScroll)="handleScroll($event)">
   <mat-spinner strokeWidth="10%" [diameter]="100" *ngIf="coursesListEmpty==true" style="margin-top: 150px;left: 35%; font-size: large;"></mat-spinner>
   <div class="div-courses" *ngFor="let cc of courses ">
 
+    <span>{{cc.idCourse}}</span>
     <div class="titleClass" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{cc.idCourse}}">
       {{cc.titleCourse}}
     </div>
@@ -60,7 +61,9 @@
     <br/>
 
 
-    <div class="description">
+
+
+    <div class="description" >
       {{cc.overview.substring(0,350)}}...
     </div>
 

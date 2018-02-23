@@ -8,6 +8,9 @@ import {RootConst} from "../util/RootConst";
 import {Location} from '@angular/common';
 import {UtilityService} from "../service/utility.service";
 import {UserService} from "../service/user.service";
+import {ScrollEvent} from "ngx-scroll-event";
+import {Const} from "../util/Const";
+
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -20,16 +23,22 @@ export class CoursesComponent implements OnInit {
   coursesSearched$: Observable<Course[]>;
   public successMessage: string;
   private searchTerms = new Subject<string>();
-  public coursesListEmpty:boolean;
+  public coursesListEmpty: boolean;
+  private pageNumber: number;
+  private searchPageNumber: number;
 
   constructor(private courseService: CourseService) {
+    this.pageNumber = 0;
+    this.searchPageNumber = 0;
     this.coursesListEmpty = true;
+    this.courses = [];
   }
 
   ngOnInit(): void {
+    this.pageNumber = 0;
     this.message = "";
     this.successMessage = "";
-    this.getCourses();
+    this.getCoursesFromPage();
     this.coursesSearched$ = this.searchTerms.pipe(
       debounceTime(300),
       // ignore new term if same as previous term
@@ -37,12 +46,23 @@ export class CoursesComponent implements OnInit {
       switchMap((term: string) => this.courseService.searchCourses(term)));
   }
 
-  getCourses(): void {
-    this.courseService.findCourses().subscribe(courses => {this.courses = courses, this.coursesListEmpty= false});
+  getCoursesFromPage(): void {
+    this.courseService.getCoursesByPageNumberAndNumberOfObjectsPerPage(this.pageNumber, Const.NUMBER_OF_OBJECTS_PER_PAGE).subscribe(courses => {
+      this.courses = this.courses.concat(courses), this.coursesListEmpty = false
+    });
   }
 
   search(term: string): void {
     this.searchTerms.next(term);
 
+  }
+
+  handleScroll(event: ScrollEvent): any {
+    if (event.isReachingBottom) {
+
+      this.pageNumber++;
+      console.log(`the user is reaching the bottom`);
+      this.getCoursesFromPage();
+    }
   }
 }

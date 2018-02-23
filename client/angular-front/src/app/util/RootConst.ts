@@ -4,7 +4,10 @@ export class RootConst {
 
   public SERVER_COURSES_URL = this.WEB_SERVICE_ENDPOINT + 'courses';
   public SERVER_COURSE_OVERVIEW = this.SERVER_COURSES_URL + '/course?overview=';
+
   public SERVER_DETAILED_COURSE = this.SERVER_COURSES_URL + '/detailedCourse?id=';
+  public SERVER_COURSES_BY_PAGE_NUMBER_URL= this.SERVER_COURSES_URL+"FromPage/?pageNumber=";
+  public SERVER_COURSES_NUMBER_OF_OBJECT_PER_PAGE="&numberOfObjectsPerPage="
 
 
   public SERVER_TEST_IF_USER_IS_ENROLLED = this.SERVER_COURSES_URL + '/isEnrolledOnCourse?idCourse=';
@@ -28,9 +31,9 @@ export class RootConst {
   public SERVER_ADD_SUBJECT = this.WEB_SERVICE_ENDPOINT + "subject/addSubject";
   public SERVER_FIND_MATERIAL_BY_ID = this.SERVER_COURSES_URL + '/material?id=';
   public SERVER_MATERIALS_UPLOADED_BY_USE = this.WEB_SERVICE_ENDPOINT + "/material/uploadedMaterial?username=";
+
+
   public SERVER_MATERIALS_FROM_SUBJECT= this.WEB_SERVICE_ENDPOINT+"materials?idSubject=";
-
-
   public SERVER_ADD_MATERIAL = this.WEB_SERVICE_ENDPOINT + 'createMaterial';
   public FRONT_REDIRECT_LOGIN_SUCCESS_URL = 'courses';
   public FRONT_DETAILED_COURSE = '/courses/detailedCourse';
