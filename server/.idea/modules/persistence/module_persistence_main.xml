@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_persistence_main" default="compile.module.persistence_main">
+  <dirname property="module.persistence_main.basedir" file="${ant.file.module_persistence_main}"/>
+  
+  <property name="module.jdk.home.persistence_main" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.persistence_main" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.persistence_main" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.persistence_main" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="persistence_main.output.dir" value="${module.persistence_main.basedir}/../../../persistence/out/production/classes"/>
+  <property name="persistence_main.testoutput.dir" value="${module.persistence_main.basedir}/../../../persistence/out/production/classes"/>
+  
+  <path id="persistence_main.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="persistence_main.module.production.classpath">
+    <path refid="${module.jdk.classpath.persistence_main}"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_javax.validation:validation-api:2.0.0.final.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-aop:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-jdbc:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.hibernate:hibernate-entitymanager:5.0.12.final.classpath"/>
+    <path refid="library.gradle:_org.hibernate:hibernate-core:5.0.12.final.classpath"/>
+    <path refid="library.gradle:_javax.transaction:javax.transaction-api:1.2.classpath"/>
+    <path refid="library.gradle:_org.springframework.data:spring-data-jpa:1.11.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-aspects:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-autoconfigure:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-logging:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-context:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-aop:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-orm:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-jdbc:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.data:spring-data-commons:1.13.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-tx:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-beans:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-expression:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-core:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.yaml:snakeyaml:1.17.classpath"/>
+    <path refid="library.gradle:_org.aspectj:aspectjweaver:1.8.11.classpath"/>
+    <path refid="library.gradle:_org.apache.tomcat:tomcat-jdbc:8.5.23.classpath"/>
+    <path refid="library.gradle:_org.hibernate.common:hibernate-commons-annotations:5.0.1.final.classpath"/>
+    <path refid="library.gradle:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.gradle:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.gradle:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.gradle:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.gradle:_org.jboss:jandex:2.0.0.final.classpath"/>
+    <path refid="library.gradle:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.gradle:_org.slf4j:jcl-over-slf4j:1.7.25.classpath"/>
+    <path refid="library.gradle:_ch.qos.logback:logback-classic:1.1.11.classpath"/>
+    <path refid="library.gradle:_org.slf4j:jul-to-slf4j:1.7.25.classpath"/>
+    <path refid="library.gradle:_org.slf4j:log4j-over-slf4j:1.7.25.classpath"/>
+    <path refid="library.gradle:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.gradle:_org.apache.tomcat:tomcat-juli:8.5.23.classpath"/>
+    <path refid="library.gradle:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.gradle:_ch.qos.logback:logback-core:1.1.11.classpath"/>
+    <path refid="library.gradle:_commons-logging:commons-logging:1.2.classpath"/>
+  </path>
+  
+  <path id="persistence_main.runtime.production.module.classpath">
+    <pathelement location="${persistence_main.output.dir}"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_javax.validation:validation-api:2.0.0.final.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-aop:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-jdbc:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.hibernate:hibernate-entitymanager:5.0.12.final.classpath"/>
+    <path refid="library.gradle:_org.hibernate:hibernate-core:5.0.12.final.classpath"/>
+    <path refid="library.gradle:_javax.transaction:javax.transaction-api:1.2.classpath"/>
+    <path refid="library.gradle:_org.springframework.data:spring-data-jpa:1.11.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-aspects:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-autoconfigure:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-logging:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-context:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-aop:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-orm:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-jdbc:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.data:spring-data-commons:1.13.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-tx:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-beans:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-expression:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-core:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.yaml:snakeyaml:1.17.classpath"/>
+    <path refid="library.gradle:_org.aspectj:aspectjweaver:1.8.11.classpath"/>
+    <path refid="library.gradle:_org.apache.tomcat:tomcat-jdbc:8.5.23.classpath"/>
+    <path refid="library.gradle:_org.hibernate.common:hibernate-commons-annotations:5.0.1.final.classpath"/>
+    <path refid="library.gradle:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.gradle:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.gradle:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.gradle:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.gradle:_org.jboss:jandex:2.0.0.final.classpath"/>
+    <path refid="library.gradle:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.gradle:_org.slf4j:jcl-over-slf4j:1.7.25.classpath"/>
+    <path refid="library.gradle:_ch.qos.logback:logback-classic:1.1.11.classpath"/>
+    <path refid="library.gradle:_org.slf4j:jul-to-slf4j:1.7.25.classpath"/>
+    <path refid="library.gradle:_org.slf4j:log4j-over-slf4j:1.7.25.classpath"/>
+    <path refid="library.gradle:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.gradle:_org.apache.tomcat:tomcat-juli:8.5.23.classpath"/>
+    <path refid="library.gradle:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.gradle:_ch.qos.logback:logback-core:1.1.11.classpath"/>
+    <path refid="library.gradle:_commons-logging:commons-logging:1.2.classpath"/>
+  </path>
+  
+  <path id="persistence_main.module.classpath">
+    <path refid="${module.jdk.classpath.persistence_main}"/>
+    <pathelement location="${persistence_main.output.dir}"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_javax.validation:validation-api:2.0.0.final.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-aop:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-jdbc:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.hibernate:hibernate-entitymanager:5.0.12.final.classpath"/>
+    <path refid="library.gradle:_org.hibernate:hibernate-core:5.0.12.final.classpath"/>
+    <path refid="library.gradle:_javax.transaction:javax.transaction-api:1.2.classpath"/>
+    <path refid="library.gradle:_org.springframework.data:spring-data-jpa:1.11.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-aspects:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-autoconfigure:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-logging:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-context:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-aop:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-orm:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-jdbc:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.data:spring-data-commons:1.13.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-tx:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-beans:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-expression:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-core:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.yaml:snakeyaml:1.17.classpath"/>
+    <path refid="library.gradle:_org.aspectj:aspectjweaver:1.8.11.classpath"/>
+    <path refid="library.gradle:_org.apache.tomcat:tomcat-jdbc:8.5.23.classpath"/>
+    <path refid="library.gradle:_org.hibernate.common:hibernate-commons-annotations:5.0.1.final.classpath"/>
+    <path refid="library.gradle:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.gradle:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.gradle:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.gradle:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.gradle:_org.jboss:jandex:2.0.0.final.classpath"/>
+    <path refid="library.gradle:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.gradle:_org.slf4j:jcl-over-slf4j:1.7.25.classpath"/>
+    <path refid="library.gradle:_ch.qos.logback:logback-classic:1.1.11.classpath"/>
+    <path refid="library.gradle:_org.slf4j:jul-to-slf4j:1.7.25.classpath"/>
+    <path refid="library.gradle:_org.slf4j:log4j-over-slf4j:1.7.25.classpath"/>
+    <path refid="library.gradle:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.gradle:_org.apache.tomcat:tomcat-juli:8.5.23.classpath"/>
+    <path refid="library.gradle:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.gradle:_ch.qos.logback:logback-core:1.1.11.classpath"/>
+    <path refid="library.gradle:_commons-logging:commons-logging:1.2.classpath"/>
+  </path>
+  
+  <path id="persistence_main.runtime.module.classpath">
+    <pathelement location="${persistence_main.output.dir}"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_javax.validation:validation-api:2.0.0.final.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-aop:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-jdbc:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.hibernate:hibernate-entitymanager:5.0.12.final.classpath"/>
+    <path refid="library.gradle:_org.hibernate:hibernate-core:5.0.12.final.classpath"/>
+    <path refid="library.gradle:_javax.transaction:javax.transaction-api:1.2.classpath"/>
+    <path refid="library.gradle:_org.springframework.data:spring-data-jpa:1.11.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-aspects:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-autoconfigure:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.boot:spring-boot-starter-logging:1.5.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-context:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-aop:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-orm:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-jdbc:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework.data:spring-data-commons:1.13.8.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-tx:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-beans:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-expression:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.springframework:spring-core:4.3.12.release.classpath"/>
+    <path refid="library.gradle:_org.yaml:snakeyaml:1.17.classpath"/>
+    <path refid="library.gradle:_org.aspectj:aspectjweaver:1.8.11.classpath"/>
+    <path refid="library.gradle:_org.apache.tomcat:tomcat-jdbc:8.5.23.classpath"/>
+    <path refid="library.gradle:_org.hibernate.common:hibernate-commons-annotations:5.0.1.final.classpath"/>
+    <path refid="library.gradle:_org.jboss.logging:jboss-logging:3.3.0.final.classpath"/>
+    <path refid="library.gradle:_org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.final.classpath"/>
+    <path refid="library.gradle:_org.javassist:javassist:3.18.1-ga.classpath"/>
+    <path refid="library.gradle:_antlr:antlr:2.7.7.classpath"/>
+    <path refid="library.gradle:_org.jboss:jandex:2.0.0.final.classpath"/>
+    <path refid="library.gradle:_dom4j:dom4j:1.6.1.classpath"/>
+    <path refid="library.gradle:_org.slf4j:jcl-over-slf4j:1.7.25.classpath"/>
+    <path refid="library.gradle:_ch.qos.logback:logback-classic:1.1.11.classpath"/>
+    <path refid="library.gradle:_org.slf4j:jul-to-slf4j:1.7.25.classpath"/>
+    <path refid="library.gradle:_org.slf4j:log4j-over-slf4j:1.7.25.classpath"/>
+    <path refid="library.gradle:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.gradle:_org.apache.tomcat:tomcat-juli:8.5.23.classpath"/>
+    <path refid="library.gradle:_xml-apis:xml-apis:1.0.b2.classpath"/>
+    <path refid="library.gradle:_ch.qos.logback:logback-core:1.1.11.classpath"/>
+    <path refid="library.gradle:_commons-logging:commons-logging:1.2.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.persistence_main">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.persistence_main">
+    <patternset refid="excluded.from.module.persistence_main"/>
+  </patternset>
+  
+  <path id="persistence_main.module.sourcepath">
+    <dirset dir="${module.persistence_main.basedir}/../../../persistence/src/main">
+      <include name="java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.persistence_main" depends="compile.module.persistence_main.production,compile.module.persistence_main.tests" description="Compile module persistence_main"/>
+  
+  <target name="compile.module.persistence_main.production" depends="register.custom.compilers" description="Compile module persistence_main; production classes">
+    <mkdir dir="${persistence_main.output.dir}"/>
+    <javac2 destdir="${persistence_main.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.persistence_main}/javac">
+      <compilerarg line="${compiler.args.persistence_main}"/>
+      <bootclasspath refid="persistence_main.module.bootclasspath"/>
+      <classpath refid="persistence_main.module.production.classpath"/>
+      <src refid="persistence_main.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.persistence_main"/>
+    </javac2>
+    
+    <copy todir="${persistence_main.output.dir}">
+      <fileset dir="${module.persistence_main.basedir}/../../../persistence/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.persistence_main.tests" depends="register.custom.compilers,compile.module.persistence_main.production" description="compile module persistence_main; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.persistence_main" description="cleanup module">
+    <delete dir="${persistence_main.output.dir}"/>
+    <delete dir="${persistence_main.testoutput.dir}"/>
+  </target>
+</project>

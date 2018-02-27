@@ -50,6 +50,7 @@ article.app.iws
 gradle/
 gradlew
 gradlew.bat
+msg-courses-project.properties
 
 # compiled output
 /dist
