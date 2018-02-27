@@ -41,6 +41,7 @@ export class AddCourseComponent implements OnInit {
   public subjects: Array<Subject>;
 
   public onViewSubject: boolean;
+  private materialErrorMessage: String;
 
   public usersOptions: IMultiSelectOption[];
   public ownersIds: number[]
@@ -103,16 +104,46 @@ export class AddCourseComponent implements OnInit {
     debugger
     this.file = (<HTMLInputElement>document.getElementById("file")).files[0];
     this.materialsForCurrentSubject.push(this.material);
+    if(this.material.title==null || this.material.title.length<5){
+      this.materialErrorMessage="Title too short!";
+      return;
+    }
+    if(this.material.description==null|| this.material.description.length<20){
+      this.materialErrorMessage="Description too short!"
+      return;
+    }
+    if(this.material.materialType==null){
+      this.materialErrorMessage="Material type not chose";
+      return;
 
-    this.materialService.addMaterial(this.material, this.file, this.subject.idSubject);
-    this.materialsForCurrentSubject = new Array<Material>();
+    }
+    if(this.material.materialType.toString()=="LINK" )
+      if(this.material.link==undefined || this.material.link.length<5){
+      this.materialErrorMessage="Link must have at least 6 characters";
+      return;
+    }
+    if(this.material.materialType.toString()=="FILE" && this.file==null){
+
+      this.materialErrorMessage="File not uploaded";
+      return ;
+    }
 
 
-    this.file = null;
-    var fileInput = <HTMLInputElement>document.getElementById("file");
-    fileInput.innerHTML = null;
-    this.material = new Material();
-    this.material.materialType = this.materialTypeLink
+    else{
+      this.materialErrorMessage='';
+      this.materialService.addMaterial(this.material, this.file, this.subject.idSubject);
+
+      this.materialsForCurrentSubject = new Array<Material>();
+
+
+      this.file = null;
+      var fileInput = <HTMLInputElement>document.getElementById("file");
+      fileInput.innerHTML = null;
+      this.material = new Material();
+      this.material.materialType = this.materialTypeLink
+    }
+
+
 
   }
 
@@ -187,6 +218,7 @@ export class AddCourseComponent implements OnInit {
 
   ngOnInit() {
     this.currentStep = "one";
+    this.materialErrorMessage='';
   }
 
   closeSubjectModal() {

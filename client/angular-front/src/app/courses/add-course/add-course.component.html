@@ -200,10 +200,15 @@
 
           <div class="modal-content">
             <div class="modal-body">
+
               <div class="modalTitle"> Add material for subject</div>
               <hr class="separator">
+              <div class="alert-danger" *ngIf="materialErrorMessage.length>0">
+                 {{materialErrorMessage}}
+              </div>
               <form #form enctype="multipart/form-data" id="addMaterialForm"
                     class="form-horizontal" role="form">
+
                 <table id="materialTable">
                   <tr>
                     <td>Title</td>
@@ -245,7 +250,7 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" (click)="addMaterial()" data-dismiss="modal"><i
+              <button type="button" class="btn btn-default" (click)="addMaterial()" ><i
                 class="glyphicon glyphicon-floppy-disk"></i>Save
               </button>
               <button type="button" class="btn btn-default" data-dismiss="modal"><i
