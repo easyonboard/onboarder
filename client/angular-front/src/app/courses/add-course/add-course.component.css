@@ -217,13 +217,29 @@ thead > tr > th {
 
 #addCourseMessage{
   text-align: center;
-  color: #888888;
+  color: #ffffff;
+  background: #841439;
   font-size: 18px;
+  font-weight: bolder;
   text-shadow: #8c8b8b;
   height: 90px;
-  line-height: 470px;
+  width: 1080px;
+  padding: 30px;
 }
 
+#backToCourses{
+  text-align: center;
+  color: #ffffff;
+  background: #841439;
+  font-size: 18px;
+  font-weight: bolder;
+  text-shadow: #8c8b8b;
+  height: 90px;
+  width: 1080px;
+  float: bottom;
+  padding: 30px;
+
+}
 .displaySubject {
   border-radius: 10px;
   border: 1px solid #841439;

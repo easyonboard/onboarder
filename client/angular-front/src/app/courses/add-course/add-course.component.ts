@@ -102,7 +102,7 @@ export class AddCourseComponent implements OnInit {
   addMaterial(): void {
     debugger
     this.file = (<HTMLInputElement>document.getElementById("file")).files[0];
-    this.materialsForCurrentSubject.push(this.material)
+    this.materialsForCurrentSubject.push(this.material);
 
     this.materialService.addMaterial(this.material, this.file, this.subject.idSubject);
     this.materialsForCurrentSubject = new Array<Material>();
