@@ -61,7 +61,7 @@ msg-courses-project.properties
 /node_modules
 
 # IDEs and editors
-/.idea
+/server/.idea
 .project
 .classpath
 .c9/
