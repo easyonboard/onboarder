@@ -7,14 +7,11 @@ import {RootConst} from "../../util/RootConst";
 import 'rxjs/Rx';
 import {UtilityService} from "../../service/utility.service";
 import {Subject} from "../../domain/subject";
-import {NgSwitch} from '@angular/common';
 import {Course} from "../../domain/course";
-import {Observable} from "rxjs/Observable";
 import {CourseService} from "../../service/course.service";
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import {SubjectService} from "../../service/subject.service";
-import {isUndefined} from "util";
 import {IMultiSelectOption} from 'angular-2-dropdown-multiselect';
 import {UserService} from "../../service/user.service";
 import {UserDTO} from "../../domain/user";
@@ -172,6 +169,16 @@ export class AddCourseComponent implements OnInit {
         this.saved = false;
         break;
       case ("two"):
+        if(this.subjects.length<1) {
+          alert("Add at least one subject!");
+          break;
+        }
+        // if(this.materialsForCurrentSubject.length<1)
+        // {
+        //   alert("Add at least one material!");
+        //   break;
+        //
+        // }
         this.currentStep = "three"
         break;
     }

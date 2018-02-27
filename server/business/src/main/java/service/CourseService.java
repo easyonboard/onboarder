@@ -182,6 +182,9 @@ public class CourseService {
 
     public CourseDTO addCourse(CourseDTO courseDTO, List<Integer> ownersIds, List<Integer> contactPersonsId) throws InvalidDataException {
         courseValidator.validateCourseData(courseDTO);
+        courseValidator.validateContactPersons(contactPersonsId);
+        courseValidator.validateOwners(ownersIds);
+
         Course course = courseMapper.mapToEntity(courseDTO, new Course());
         List<User> owners = new ArrayList<>();
         ownersIds.forEach(ownerId -> owners.add(userDAO.findEntity(ownerId)));

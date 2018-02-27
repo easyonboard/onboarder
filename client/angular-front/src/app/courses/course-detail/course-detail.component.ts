@@ -147,7 +147,7 @@ export class CourseDetailComponent implements OnInit {
         this.errorMessage = err.error.message;
 
 
-        this.openModal("eroorEditing");
+        this.openModal("errorEditing");
       });
   }
 

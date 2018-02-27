@@ -3,6 +3,7 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.MaterialDTO;
+import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,11 @@ public class MaterialController {
         if (file.isPresent()) {
             material.setFileMaterial(file.get().getBytes());
         }
-        materialService.createMaterial(material, Integer.parseInt(idSubject));
+        try {
+            materialService.createMaterial(material, Integer.parseInt(idSubject));
+        } catch (InvalidDataException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
         return null;
     }
 

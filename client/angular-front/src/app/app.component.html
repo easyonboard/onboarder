@@ -91,13 +91,13 @@
   </button>
   <ul class="dropdown loggedUserButton">
 
-    <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown" style="color: white"><i
+    <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown" style="color: white; cursor: pointer; "><i
       class="fa fa-user-circle-o"
       style="margin-right: 8px"></i>{{username}}<span class="caret" style="margin-left: 3px"></span>
     </a>
     <ul class="dropdown-menu" style="margin-top: 18px">
       <ul>
-        <a (click)="openModal('myModal')">
+        <a (click)="openModal('myModal')" style="cursor: pointer;">
           <span class="glyphicon glyphicon-pencil"></span>
           Edit profile
         </a>

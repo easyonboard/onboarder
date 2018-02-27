@@ -9,9 +9,11 @@ import entity.Course;
 import entity.Material;
 import entity.Subject;
 import entity.User;
+import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import validator.MaterialValidator;
 
 import java.util.*;
 
@@ -30,13 +32,17 @@ public class MaterialService {
     @Autowired
     private SubjectDAO subjectDAO;
 
+    @Autowired
+    private MaterialValidator materialValidator;
+
     private MaterialMapper materialMapper = MaterialMapper.INSTANCE;
 
-    public void createMaterial(MaterialDTO materialDTO, Integer idSubject) {
-        Material  material = materialMapper.mapToNewEntity(materialDTO);
+    public void createMaterial(MaterialDTO materialDTO, Integer idSubject) throws InvalidDataException {
+        materialValidator.validateMaterial(materialDTO);
+        Material material = materialMapper.mapToNewEntity(materialDTO);
         List<Subject> subjects = material.getContainedBySubjects();
-        if (null==subjects){
-            subjects= new ArrayList<>();
+        if (null == subjects) {
+            subjects = new ArrayList<>();
         }
         Subject subjectEntity = subjectDAO.findEntity(idSubject);
         subjects.add(subjectEntity);
@@ -54,27 +60,26 @@ public class MaterialService {
     }
 
     /**
-     *
      * @param username String
      * @return List of Materials uploaded by the user
      */
     public List<MaterialDTO> materialUploadedByUser(String username) throws UserNotFoundException {
-        Optional<User> user =userDAO.findUserByUsername(username);
+        Optional<User> user = userDAO.findUserByUsername(username);
 
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             List<Course> ownerForCourses = user.get().getOwnerForCourses();
             Set<Subject> subjectsWhereUserIdOwner = new HashSet<>();
             Set<Material> materials = new HashSet<>();
             ownerForCourses.stream().forEach(course -> subjectsWhereUserIdOwner.addAll(course.getSubjects()));
             subjectsWhereUserIdOwner.stream().forEach(subject -> materials.addAll(subject.getMaterials()));
             return materialMapper.entitiesToDTOs(new ArrayList<>(materials));
-        }else {
-            throw  new UserNotFoundException("User not found!");
+        } else {
+            throw new UserNotFoundException("User not found!");
         }
     }
 
     public List<MaterialDTO> getMaterialBySubjectId(Integer subjectId) {
-        Subject subject= subjectDAO.findEntity(subjectId);
+        Subject subject = subjectDAO.findEntity(subjectId);
         return materialMapper.entitiesToDTOs(materialDAO.getMaterialsBySubject(subject));
     }
 }
