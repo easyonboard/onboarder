@@ -9,6 +9,7 @@ import dto.CourseDTO;
 import dto.SubjectDTO;
 import dto.UserDTO;
 import exception.CourseNotFoundException;
+import exception.DeleteCourseException;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,6 +140,19 @@ public class CourseController {
 
     }
 
+
+    @CrossOrigin(origins="http://localhost:4200")
+    @RequestMapping(value = "/courses/deleteCourse", method = RequestMethod.POST)
+    public ResponseEntity deleteCourse(@RequestBody CourseDTO course){
+
+        try {
+            courseService.deleteCourse(course);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (CourseNotFoundException | DeleteCourseException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
+
+    }
 
     @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/deleteOwnerPerson", method = RequestMethod.POST)

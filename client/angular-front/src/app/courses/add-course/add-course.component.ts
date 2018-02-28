@@ -29,7 +29,7 @@ export class AddCourseComponent implements OnInit {
   public materialTypeFile: MaterialType.FILE
   private material: Material;
   public selectedMaterialType: string;
-  private rootConst: RootConst = new RootConst();
+  public rootConst: RootConst = new RootConst();
   public file: File;
 
 

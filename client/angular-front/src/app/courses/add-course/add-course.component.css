@@ -236,7 +236,7 @@ thead > tr > th {
   text-shadow: #8c8b8b;
   height: 90px;
   width: 1080px;
-  float: bottom;
+  margin-top: 500px;
   padding: 30px;
 
 }

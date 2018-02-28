@@ -32,11 +32,18 @@
 
     <div class="titleClass" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}">
       {{course.titleCourse}}
+
       <hr class="separator">
     </div>
     <br/>
+    <br/>
+
     <div class="description">
       {{course.overview.substring(0,150)}} ...
+      <br/>
+      <div class="deleteCourseDiv">
+        <button (click)="deleteCourses(course.idCourse)" id="buttonDeleteCourses">Delete</button>
+      </div>
       <div class="details">
         <a routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}">Click for more details</a>
       </div>
@@ -66,7 +73,12 @@
     <div class="description" >
       {{cc.overview.substring(0,350)}}...
     </div>
+    <br/>
+    <br/>
 
+    <div class="deleteCourseDiv">
+      <button (click)="deleteCourses(cc.idCourse)" id="buttonDeleteCourses">Delete</button>
+    </div>
     <div class="details">
       <a routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{cc.idCourse}}">Click for more details</a>
     </div>
@@ -76,4 +88,11 @@
 
   <br/>
 
+</div>
+<div class="modal" id="delete">
+  <div class="modal-content">
+    <button class="close" id="closeModalButton" (click)="utilityService.closeModal('delete')">Close</button>
+    <br/>
+    {{messageDeleteCourse}}
+  </div>
 </div>

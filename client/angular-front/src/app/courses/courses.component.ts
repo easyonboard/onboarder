@@ -1,15 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {Course} from "../domain/course";
-import {CourseService} from "../service/course.service";
-import {Subject} from "rxjs/Subject";
+import {Course} from '../domain/course';
+import {CourseService} from '../service/course.service';
+import {Subject} from 'rxjs/Subject';
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
-import {Observable} from "rxjs/Observable";
-import {RootConst} from "../util/RootConst";
-import {Location} from '@angular/common';
-import {UtilityService} from "../service/utility.service";
-import {UserService} from "../service/user.service";
-import {ScrollEvent} from "ngx-scroll-event";
-import {Const} from "../util/Const";
+import {Observable} from 'rxjs/Observable';
+import {RootConst} from '../util/RootConst';
+import {ScrollEvent} from 'ngx-scroll-event';
+import {Const} from '../util/Const';
+import {UtilityService} from '../service/utility.service';
 
 @Component({
   selector: 'app-courses',
@@ -26,8 +24,9 @@ export class CoursesComponent implements OnInit {
   public coursesListEmpty: boolean;
   private pageNumber: number;
   private searchPageNumber: number;
+  public messageDeleteCourse: String;
 
-  constructor(private courseService: CourseService) {
+  constructor(private courseService: CourseService, public utilityService: UtilityService) {
     this.pageNumber = 0;
     this.searchPageNumber = 0;
     this.coursesListEmpty = true;
@@ -64,5 +63,18 @@ export class CoursesComponent implements OnInit {
       console.log(`the user is reaching the bottom`);
       this.getCoursesFromPage();
     }
+  }
+  deleteCourses(idCourse: number) {
+    this.courseService.deleteCourse(idCourse).subscribe(res => {
+        this.messageDeleteCourse = 'Course Deleted!';
+        this.utilityService.openModal('delete');
+        this.getCoursesFromPage();
+      },
+      err => {
+        this.messageDeleteCourse = err.error.message;
+
+
+        this.utilityService.openModal('delete');
+      });
   }
 }

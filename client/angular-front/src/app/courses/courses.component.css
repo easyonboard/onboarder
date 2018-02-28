@@ -163,14 +163,30 @@ input[text], button {
   bottom: 0;
   right: 10px;
   bottom: 10px;
+
   font-weight: bold;
 }
 
+.deleteCourseDiv{
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  bottom: 10px;
+  font-weight: bold;
+}
 #sorter {
   border-spacing: 10px;
   border-collapse: separate;
 }
 
+#buttonDeleteCourses{
+  margin-left: 10px;
+  background: white;
+  color:#6d6c6c;
+  border:none;
+
+
+}
 mat-spinner svg  circle{
   stroke: #6d6c6c;
 }

@@ -20,7 +20,7 @@ export class RootConst {
   public SERVER_DELETE_CONTACT_PERSON = this.WEB_SERVICE_ENDPOINT + 'deleteContactPerson';
   public SERVER_DELETE_OWNER_PERSON = this.WEB_SERVICE_ENDPOINT + 'deleteOwnerPerson';
   public SERVER_ADD_CONTACT_PERSON = this.WEB_SERVICE_ENDPOINT + 'addContactPerson';
-
+  public SERVER_DELETE_COURSE=this.WEB_SERVICE_ENDPOINT+'courses/deleteCourse';
 
   public SERVER_ADD_OWNER_PERSON = this.WEB_SERVICE_ENDPOINT + 'addOwnerPerson';
   public SERVER_SUBJECT_URL2 = '&idSubject=';

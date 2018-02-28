@@ -1,11 +1,11 @@
 import {Injectable, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Course} from "../domain/course";
-import {Observable} from "rxjs/Observable";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Course} from '../domain/course';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import {Subject} from "../domain/subject";
-import {UserDTO} from "../domain/user";
-import {RootConst} from "../util/RootConst";
+import {Subject} from '../domain/subject';
+import {UserDTO} from '../domain/user';
+import {RootConst} from '../util/RootConst';
 
 @Injectable()
 export class CourseService implements OnInit {
@@ -31,7 +31,7 @@ export class CourseService implements OnInit {
   constructor(private http: HttpClient) {
   }
 
-  getCoursesByPageNumberAndNumberOfObjectsPerPage(pageNumber: number, numberOfObjectsPerPageUrl:number) {
+  getCoursesByPageNumberAndNumberOfObjectsPerPage(pageNumber: number, numberOfObjectsPerPageUrl: number) {
     return this.http.get<Course[]>(`${this.coursesByPageNumberUrl}${pageNumber}${this.numberOfObjectsPerPageUrl}${numberOfObjectsPerPageUrl}`);
   }
 
@@ -46,7 +46,7 @@ export class CourseService implements OnInit {
   }
 
   isUserEnrollOnThisCourse(idCourse: number, username: String): Observable<Boolean> {
-    return this.http.post<Boolean>(`${this.testIfUserIsEnroll}${idCourse}`, username)
+    return this.http.post<Boolean>(`${this.testIfUserIsEnroll}${idCourse}`, username);
   }
 
   enrollUserToCourse(idCourse: number, username: String): Observable<any> {
@@ -59,9 +59,9 @@ export class CourseService implements OnInit {
 
   }
 
-  editCourse(course:Course,  contactPersonsIds: number[], ownersIds: number[]): Observable<any> {
-    let body = JSON.stringify({course: course, contactPersonsId:contactPersonsIds, ownersIds: ownersIds});
-    return this.http.post<Course>(this.rootConst.SERVER_COURSES_URL + "/updateCourse", body, this.httpOptions);
+  editCourse(course: Course, contactPersonsIds: number[], ownersIds: number[]): Observable<any> {
+    let body = JSON.stringify({course: course, contactPersonsId: contactPersonsIds, ownersIds: ownersIds});
+    return this.http.post<Course>(this.rootConst.SERVER_COURSES_URL + '/updateCourse', body, this.httpOptions);
   }
 
   getSubject(id: number, idSubject: number): Observable<Subject> {
@@ -82,7 +82,7 @@ export class CourseService implements OnInit {
   deleteSubjectFromCourse(subject: number, course: Course) {
 
     let body = JSON.stringify({subject: subject, course: course});
-    return this.http.post<Course>(this.rootConst.SERVER_DELETE_SUBJECT, body, this.httpOptions)
+    return this.http.post<Course>(this.rootConst.SERVER_DELETE_SUBJECT, body, this.httpOptions);
   }
 
   addContactPerson(email: string, course: Course): Observable<Course> {
@@ -99,10 +99,16 @@ export class CourseService implements OnInit {
 
   }
 
-  addCourse(course: Course, ownersIds: number[], contactPersonsIds: number[]):any {
-    let body = JSON.stringify({course:course, ownersIds:ownersIds, contactPersonsId:contactPersonsIds});
+  addCourse(course: Course, ownersIds: number[], contactPersonsIds: number[]): any {
+    let body = JSON.stringify({course: course, ownersIds: ownersIds, contactPersonsId: contactPersonsIds});
     return this.http.post<Course>(this.rootConst.SERVER_ADD_COURSE, body, this.httpOptions);
   }
+
+  deleteCourse(idCourse): Observable<any> {
+    const body = JSON.stringify({idCourse: idCourse});
+    return this.http.post<Course>(this.rootConst.SERVER_DELETE_COURSE, body, this.httpOptions);
+  }
+
 
   ngOnInit(): void {
   }
