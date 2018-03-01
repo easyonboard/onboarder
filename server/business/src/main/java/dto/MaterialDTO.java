@@ -15,7 +15,7 @@ public class MaterialDTO {
     @JsonProperty("material.fileMaterial")
     private byte[] fileMaterial;
 
-    private List<SubjectDTO> containedBySubjects;
+    private SubjectDTO subject;
 
     private String title;
 
@@ -53,14 +53,12 @@ public class MaterialDTO {
         this.fileMaterial = fileMaterial;
     }
 
-
-
-    public List<SubjectDTO> getContainedBySubjects() {
-        return containedBySubjects;
+    public SubjectDTO getSubject() {
+        return subject;
     }
 
-    public void setContainedBySubjects(List<SubjectDTO> containedBySubjects) {
-        this.containedBySubjects = containedBySubjects;
+    public void setSubject(SubjectDTO subject) {
+        this.subject = subject;
     }
 
     public String getTitle() {

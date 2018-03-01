@@ -13,13 +13,13 @@ public interface SubjectWithoutCoursesAndMaterialsMapper extends AbstractMapper<
 
     @Mappings({
             @Mapping(target = "materials",ignore = true),
-            @Mapping(target = "containedByCourses", ignore = true),
+            @Mapping(target = "containedByCourse", ignore = true),
     })
     SubjectDTO mapToDTO(Subject entity);
 
     @Mappings({
             @Mapping(target = "materials",ignore = true),
-            @Mapping(target = "containedByCourses", ignore = true),
+            @Mapping(target = "containedByCourse", ignore = true),
     })
     Subject mapToEntity(SubjectDTO subjectDTO, @MappingTarget Subject subject);
 }

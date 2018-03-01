@@ -5,7 +5,7 @@ import java.util.List;
 public class SubjectDTO {
     private int idSubject;
 
-    private List<CourseDTO> containedByCourses;
+    private CourseDTO containedByCourse;
 
     private List<MaterialDTO> materials;
 
@@ -23,12 +23,12 @@ public class SubjectDTO {
         this.idSubject = idSubject;
     }
 
-    public List<CourseDTO> getContainedByCourses() {
-        return containedByCourses;
+    public CourseDTO getContainedByCourse() {
+        return containedByCourse;
     }
 
-    public void setContainedByCourses(List<CourseDTO> containedByCourses) {
-        this.containedByCourses = containedByCourses;
+    public void setContainedByCourse(CourseDTO containedByCourse) {
+        this.containedByCourse = containedByCourse;
     }
 
     public List<MaterialDTO> getMaterials() {

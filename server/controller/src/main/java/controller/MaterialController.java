@@ -69,7 +69,6 @@ public class MaterialController {
         List<MaterialDTO> materials = materialService.materialUploadedByUser(username);
         materials.stream().forEach(m -> {
             m.setFileMaterial(null);
-            m.setContainedBySubjects(null);
         });
         return new ResponseEntity<>(materials, HttpStatus.OK);
     }

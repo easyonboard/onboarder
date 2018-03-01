@@ -52,6 +52,8 @@ footer {
   margin: auto;
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
+  align-content: center;
+  align-items: center;
   width: 75%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */

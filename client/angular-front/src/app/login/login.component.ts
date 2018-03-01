@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit, AfterContentInit {
     this.userButton = this.currentComponentElement.getElementsByClassName("loggedUserButton").item(0);
     var footer = this.currentComponentElement.parentElement.getElementsByClassName("footerDiv").item(0)
 
-    debugger
     if (this.logoutButton !== null) {
       this.currentComponentElement.removeChild(this.logoutButton);
     }

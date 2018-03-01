@@ -203,8 +203,6 @@ public class CourseController {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
-
-
     private UserDTO getUser(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);

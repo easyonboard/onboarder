@@ -40,13 +40,9 @@ public class MaterialService {
     public void createMaterial(MaterialDTO materialDTO, Integer idSubject) throws InvalidDataException {
         materialValidator.validateMaterial(materialDTO);
         Material material = materialMapper.mapToNewEntity(materialDTO);
-        List<Subject> subjects = material.getContainedBySubjects();
-        if (null == subjects) {
-            subjects = new ArrayList<>();
-        }
+
         Subject subjectEntity = subjectDAO.findEntity(idSubject);
-        subjects.add(subjectEntity);
-        material.setContainedBySubjects(subjects);
+        material.setSubject(subjectEntity);
 
         material = materialDAO.persistEntity(material);
         List<Material> materials = subjectEntity.getMaterials();

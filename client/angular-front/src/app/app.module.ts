@@ -18,6 +18,8 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import {MatProgressSpinnerModule} from "@angular/material";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ScrollEventModule} from 'ngx-scroll-event';
+import {NgProgressService} from "ng2-progressbar";
+import { NgProgressModule } from 'ng2-progressbar';
 
 @NgModule({
   declarations: [
@@ -37,9 +39,10 @@ import {ScrollEventModule} from 'ngx-scroll-event';
     MultiselectDropdownModule,
     MatProgressSpinnerModule,
     BrowserAnimationsModule,
-    ScrollEventModule
+    ScrollEventModule,
+    NgProgressModule
   ],
-  providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService],
+  providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, NgProgressService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

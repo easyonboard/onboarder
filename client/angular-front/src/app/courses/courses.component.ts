@@ -66,9 +66,12 @@ export class CoursesComponent implements OnInit {
   }
   deleteCourses(idCourse: number) {
     this.courseService.deleteCourse(idCourse).subscribe(res => {
+        this.pageNumber = 0;
+        this.courses = [];
+        this.getCoursesFromPage();
         this.messageDeleteCourse = 'Course Deleted!';
         this.utilityService.openModal('delete');
-        this.getCoursesFromPage();
+
       },
       err => {
         this.messageDeleteCourse = err.error.message;

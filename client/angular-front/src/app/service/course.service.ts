@@ -108,8 +108,6 @@ export class CourseService implements OnInit {
     const body = JSON.stringify({idCourse: idCourse});
     return this.http.post<Course>(this.rootConst.SERVER_DELETE_COURSE, body, this.httpOptions);
   }
-
-
   ngOnInit(): void {
   }
 

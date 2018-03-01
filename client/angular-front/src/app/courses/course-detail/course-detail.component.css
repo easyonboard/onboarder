@@ -245,4 +245,16 @@ hr.hrStyle {
   background-color:#841439 ;
   color:#ffffff ;
 }
+.buttonFinished{
+  margin-left: 10px;
+  background: white;
+  font-family: "Comic Sans MS";
+  color:#6b233b;
+  align-self: center;
+  font-weight: bolder;
+  border:none;
 
+
+
+
+}

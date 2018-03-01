@@ -9,6 +9,9 @@ import {MaterialService} from "../../service/material.service";
 import {UserDTO} from "../../domain/user";
 import {UserService} from "../../service/user.service";
 import {IMultiSelectOption} from "angular-2-dropdown-multiselect";
+import {NgProgressService} from "ng2-progressbar";
+import {Subject} from '../../domain/subject';
+
 
 @Component({
   selector: 'app-course-detail',
@@ -34,7 +37,7 @@ export class CourseDetailComponent implements OnInit {
   public editedCourse: Course;
 
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private utilityService: UtilityService, private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private utilityService: UtilityService, private courseService: CourseService, private  pService: NgProgressService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
   }
 
   getCourse(): void {
@@ -73,6 +76,8 @@ export class CourseDetailComponent implements OnInit {
     this.userEmails = [];
     this.editedCourse = new Course();
     this.getCourse();
+    this.pService.start();
+    this.pService.set(0.5);
     var userArrayObjects: Array<UserDTO> = new Array<UserDTO>();
     this.userService.getAllUsers().subscribe(us => {
       userArrayObjects = userArrayObjects.concat(us);
@@ -129,7 +134,6 @@ export class CourseDetailComponent implements OnInit {
   }
 
   editCourse() {
-    debugger;
     this.overviewEdited = this.overviewEdited.trim();
     this.titleEdited = this.titleEdited.trim();
     this.editedCourse.idCourse = this.course.idCourse;
@@ -137,7 +141,7 @@ export class CourseDetailComponent implements OnInit {
     this.editedCourse.overview = this.overviewEdited;
 
     this.courseService.editCourse(this.editedCourse, this.contactPersonsIds, this.ownersIds).subscribe(res => {
-        this.modalMessage = "Operatia a fost realizata cu success!";
+        this.modalMessage = 'Course edited! ';
         this.openModal('editSuccessful');
         this.exitEditingMode();
         this.getCourse();

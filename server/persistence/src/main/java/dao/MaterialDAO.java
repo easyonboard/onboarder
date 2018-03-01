@@ -27,7 +27,7 @@ public class MaterialDAO extends AbstractDAO<Material> {
 //
 //        List<Material> courses = this.executeCriteriaQuery(criteriaQuery);
 //        return courses;
-        Query query = em.createQuery("SELECT DISTINCT (m) FROM Material  m WHERE :sub MEMBER OF m.containedBySubjects");
+        Query query = em.createQuery("SELECT m FROM Material  m WHERE m.subject=:sub");
 
         query.setParameter("sub", subject);
 

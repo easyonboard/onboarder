@@ -20,7 +20,7 @@ public class Course implements Serializable {
     @Column
     private String overview;
 
-    @ManyToMany(cascade = CascadeType.ALL,targetEntity = Subject.class)
+    @OneToMany(cascade = CascadeType.ALL,targetEntity = Subject.class)
     @JoinTable(name="course_subject",joinColumns = @JoinColumn(name = "idCourse"), inverseJoinColumns = @JoinColumn(name = "idSubject"))
     private List<Subject> subjects;
 

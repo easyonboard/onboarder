@@ -25,8 +25,8 @@ public class Material implements Serializable {
     @Column
     private byte[] fileMaterial;
 
-    @ManyToMany(mappedBy = "materials")
-    private List<Subject> containedBySubjects;
+    @ManyToOne
+    private Subject subject;
 
     @Column
     private String title;
@@ -48,12 +48,12 @@ public class Material implements Serializable {
         this.materialType = materialType;
     }
 
-    public List<Subject> getContainedBySubjects() {
-        return containedBySubjects;
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setContainedBySubjects(List<Subject> containedBySubjects) {
-        this.containedBySubjects = containedBySubjects;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public String getLink() {

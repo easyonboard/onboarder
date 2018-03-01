@@ -44,9 +44,8 @@ public class SubjectService {
         subjectValidator.validateSubject(subjectDTO);
         Subject subject =subjectMapper.mapToNewEntity(subjectDTO);
         Course course = courseDAO.findEntity(courseDTO.getIdCourse());
-        List<Course> courses = new ArrayList<>();
-        courses.add(course);
-        subject.setContainedByCourses(courses);
+
+        subject.setContainedByCourse(course);
         List<Subject> subjects = course.getSubjects();
         subjects.add(subject);
         course.setSubjects(subjects);

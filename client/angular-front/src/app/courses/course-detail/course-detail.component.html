@@ -85,6 +85,9 @@
     <div class="titleDiv">
       <label  *ngIf="isInEditingMode==false">{{course.titleCourse}}</label>
       <br/>
+      <ng-progress [minimum]="0.6" [maximum]="0.6" [showSpinner]='false' [direction]="'leftToRightIncreased'"
+                   [color]="'red'" [trickleSpeed]="250" [thick]="true" [ease]="'linear'"
+      ></ng-progress>
       <input type="text"  [(ngModel)]="titleEdited" name="title"  id="titleEdited"
              *ngIf="isInEditingMode==true"/>
     </div>

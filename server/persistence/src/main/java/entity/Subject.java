@@ -12,10 +12,10 @@ public class Subject implements Serializable {
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private int idSubject;
 
-    @ManyToMany(mappedBy = "subjects", targetEntity = Course.class)
-    private List<Course> containedByCourses;
+    @ManyToOne
+    private Course containedByCourse;
 
-    @ManyToMany(cascade = CascadeType.ALL, targetEntity = Material.class)
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Material.class)
     @JoinTable(name="subject_material",joinColumns = @JoinColumn(name = "idSubject"), inverseJoinColumns = @JoinColumn(name = "idMaterial"))
     private List<Material> materials;
 
@@ -38,13 +38,6 @@ public class Subject implements Serializable {
     }
 
 
-    public List<Course> getContainedByCourses() {
-        return containedByCourses;
-    }
-
-    public void setContainedByCourses(List<Course> containedByCourses) {
-        this.containedByCourses = containedByCourses;
-    }
 
     public List<Material> getMaterials() {
         return materials;
@@ -77,5 +70,13 @@ public class Subject implements Serializable {
 
     public void setNumberOfDays(int numberOfDays) {
         this.numberOfDays = numberOfDays;
+    }
+
+    public Course getContainedByCourse() {
+        return containedByCourse;
+    }
+
+    public void setContainedByCourse(Course containedByCourse) {
+        this.containedByCourse = containedByCourse;
     }
 }

@@ -1,6 +1,9 @@
 package service;
 
-import dao.*;
+import dao.CourseDAO;
+import dao.EnrollDAO;
+import dao.SubjectDAO;
+import dao.UserDAO;
 import dto.CourseDTO;
 import dto.SubjectDTO;
 import dto.UserDTO;
@@ -17,12 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import validator.CourseValidator;
 
-import javax.persistence.NoResultException;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Service for {@link CourseDTO}
@@ -44,14 +44,12 @@ public class CourseService {
     @Autowired
     private SubjectDAO subjectDAO;
 
-    @Autowired
-    private MaterialDAO materialDAO;
 
     private static final String COURSE_NOT_FOUND = "Course not found";
     private static final String USER_EXISTS1 = "User ";
     private static final String USER_EXISTS2 = " already exists!";
     private static final String TITLE_NULL = " Title can not be empty! ";
-    private static final String DELETE_COURSE_EXCEPTION="Can not delete course! Course has enrolled users.";
+    private static final String DELETE_COURSE_EXCEPTION = "Can not delete course! Course has enrolled users.";
     private CourseMapper courseMapper = CourseMapper.INSTANCE;
 
 
@@ -177,8 +175,6 @@ public class CourseService {
         Subject subjectEntity = subjectDAO.findEntity(subjectDTO.getIdSubject());
 
         courseEntity.getSubjects().remove(subjectEntity);
-        subjectEntity.getContainedByCourses().remove(courseEntity);
-
         courseDAO.persistEntity(courseEntity);
         subjectDAO.persistEntity(subjectEntity);
     }
@@ -203,27 +199,28 @@ public class CourseService {
 
 
     public void deleteCourse(CourseDTO course) throws CourseNotFoundException, DeleteCourseException {
-        Course courseEntity=courseDAO.findEntity(course.getIdCourse());
-        if(courseEntity==null)
+        Course courseEntity = courseDAO.findEntity(course.getIdCourse());
+        if (courseEntity == null)
             throw new CourseNotFoundException(COURSE_NOT_FOUND);
-        if(courseEntity.getEnrolledUsers()!=null && courseEntity.getEnrolledUsers().size()>0 ){
+        if (courseEntity.getEnrolledUsers() != null && courseEntity.getEnrolledUsers().size() > 0) {
             throw new DeleteCourseException(DELETE_COURSE_EXCEPTION);
         }
         courseEntity.setContactPersons(null);
         courseEntity.setOwners(null);
-        List<Subject> subjects=courseEntity.getSubjects();
-        if(subjects!=null){
-            for(int i=0;i<subjects.size();i++){
+        List<Subject> subjects = courseEntity.getSubjects();
+        if (subjects != null) {
+            for (int i = 0; i < subjects.size(); i++) {
 
-                List<Material> materials=subjects.get(i).getMaterials();
-                if(materials!=null)
-                for(int j=0;j<materials.size();j++){
-                    materialDAO.deleteEntity(materials.get(j));
-                }
 
-                subjectDAO.deleteEntity(subjects.get(i));
+                List<Material> materials = subjects.get(i).getMaterials();
+                if (materials != null)
+                    for (int j = 0; j < materials.size(); j++) {
+                    }
+
+
             }
         }
         courseDAO.deleteEntity(courseEntity);
     }
+
 }
