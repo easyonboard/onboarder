@@ -43,6 +43,7 @@ public class EnrollDAO {
         }
         User_Subject user_subject=new User_Subject();
         user_subject.setUser(user);
+        user_subject.setCourse(course);
         user_subject.setSubject(subjectDAO.getFirstSubjectFromCourse(course));
         user_subject.setStatus(false);
         user_subjectDAO.persistEntity(user_subject);

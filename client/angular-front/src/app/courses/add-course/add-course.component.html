@@ -36,8 +36,25 @@
           <td>
             <ss-multiselect-dropdown [options]="usersOptions" [(ngModel)]="ownersIds"></ss-multiselect-dropdown>
           </td>
+        </tr>
 
-
+        <tr>
+          <td><label>Keywords </label></td>
+          <td>
+            <mat-form-field class="keyword-list">
+              <mat-chip-list #chipList>
+                <mat-chip *ngFor="let keyword of keywords" [selectable]="true"
+                          [removable]="true" (remove)="removeKeyword(keyword)">
+                  {{keyword}}
+                  <mat-icon matChipRemove *ngIf="true"><i class="fa fa-times" aria-hidden="true"></i></mat-icon>
+                </mat-chip>
+                <input [matChipInputFor]="chipList"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="true"
+                       (matChipInputTokenEnd)="addKeyword($event)"/>
+              </mat-chip-list>
+            </mat-form-field>
+          </td>
         </tr>
       </table>
 

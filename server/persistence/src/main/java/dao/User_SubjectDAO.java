@@ -1,10 +1,12 @@
 package dao;
 
 import entity.Course;
+import entity.Subject;
 import entity.User;
 import entity.User_Subject;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -17,10 +19,9 @@ public class User_SubjectDAO extends AbstractDAO<User_Subject> {
     }
 
 
+    public List<User_Subject> getSubjectsCompletedByUser(User user, Course course) {
 
-    public List<User_Subject> getSubjectsCompletedByUser(User user, Course course){
-
-        Query query=em.createQuery("select us from User_Subject us where us.user=:user and us.course=:course and us.status=1 ");
+        Query query = em.createQuery("select us from User_Subject us where us.user=:user and us.course=:course and us.status=1 ");
         query.setParameter("user", user);
         query.setParameter("course", course);
         return query.getResultList();
@@ -29,12 +30,25 @@ public class User_SubjectDAO extends AbstractDAO<User_Subject> {
 
 
     @Transactional
-    public void deleteEntriesWhenUnenroll(User user, Course course){
+    public void deleteEntriesWhenUnenroll(User user, Course course) {
 
-        Query query=em. createQuery("delete  from User_Subject us where us.course= :course and us.user= :user");
+        Query query = em.createQuery("delete  from User_Subject us where us.course= :course and us.user= :user");
         query.setParameter("user", user);
         query.setParameter("course", course);
         query.executeUpdate();
+    }
 
+    public User_Subject findEntityByUserAndSubject(User user, Subject subject) {
+
+
+        Query query = em.createQuery("select us from User_Subject us where us.user=:user and us.subject=:subject");
+        query.setParameter("user", user);
+        query.setParameter("subject", subject);
+
+        try {
+            return (User_Subject) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

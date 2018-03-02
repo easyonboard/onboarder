@@ -1,10 +1,7 @@
 package controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import dto.CourseDTO;
 import dto.SubjectDTO;
 import dto.UserDTO;
@@ -33,21 +30,20 @@ public class CourseController {
     private SubjectService subjectService;
 
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses", method = RequestMethod.GET)
     public ResponseEntity<List<CourseDTO>> allCourses(HttpServletRequest request) {
         return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/coursesFromPage", method = RequestMethod.GET)
     public ResponseEntity<List<CourseDTO>> coursesFromPage(@RequestParam(value = "pageNumber") Integer pageNumber, @RequestParam(value = "numberOfObjectsPerPage") Integer numberOfObjectsPerPage) {
-        return new ResponseEntity<>(courseService.getCoursesFromPage(pageNumber,numberOfObjectsPerPage), HttpStatus.OK);
+        return new ResponseEntity<>(courseService.getCoursesFromPage(pageNumber, numberOfObjectsPerPage), HttpStatus.OK);
     }
 
 
-
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/course", method = RequestMethod.GET)
     public ResponseEntity<List<CourseDTO>> searchArticlesByOverview(@RequestParam(value = "overview") String overview) {
 
@@ -62,7 +58,7 @@ public class CourseController {
 
     }
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "courses/detailedCourse", method = RequestMethod.GET)
 
     public ResponseEntity getDetails(@RequestParam(value = "id") Integer id) {
@@ -77,46 +73,47 @@ public class CourseController {
     }
 
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/enrollUserOnCourse", method = RequestMethod.POST)
     public ResponseEntity enrollToCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) throws UserNotFoundException {
         courseService.enrollUserToCourse(username, idCourse);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/isEnrolledOnCourse", method = RequestMethod.POST)
     public ResponseEntity<Boolean> isEnrolledOnCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) throws UserNotFoundException {
         return new ResponseEntity<Boolean>(courseService.userIsEnrolledOnCourse(username, idCourse), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/unenrollUserFromCourse", method = RequestMethod.POST)
     public ResponseEntity unenrollFromCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) throws UserNotFoundException {
         courseService.unenrollUserToCourse(username, idCourse);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/updateCourse", method = RequestMethod.POST)
-    public ResponseEntity updateCourse( @RequestBody String courseJson) {
+    public ResponseEntity updateCourse(@RequestBody String courseJson) {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
-            JsonNode node= mapper.readTree(courseJson);
+            JsonNode node = mapper.readTree(courseJson);
             CourseDTO course = getCourse(courseJson);
 
             List<Integer> ownersIds = mapper.convertValue(node.get("ownersIds"), List.class);
             List<Integer> contactPersonsId = mapper.convertValue(node.get("contactPersonsId"), List.class);
             courseService.updateCourse(course, ownersIds, contactPersonsId);
             return new ResponseEntity(HttpStatus.OK);
-        } catch (InvalidDataException  | IOException e) {
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);}
+        } catch (InvalidDataException | IOException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
 
 
     }
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "courses/subject", method = RequestMethod.GET)
     public ResponseEntity getDetails(@RequestParam(value = "id") Integer id, @RequestParam(value = "idSubject") Integer idSubject) {
 
@@ -127,7 +124,7 @@ public class CourseController {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/deleteContactPerson", method = RequestMethod.POST)
     public ResponseEntity deleteContactPerson(@RequestBody String str) {
 
@@ -141,9 +138,9 @@ public class CourseController {
     }
 
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/deleteCourse", method = RequestMethod.POST)
-    public ResponseEntity deleteCourse(@RequestBody CourseDTO course){
+    public ResponseEntity deleteCourse(@RequestBody CourseDTO course) {
 
         try {
             courseService.deleteCourse(course);
@@ -154,7 +151,7 @@ public class CourseController {
 
     }
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/deleteOwnerPerson", method = RequestMethod.POST)
     public ResponseEntity deleteOwnerPerson(@RequestBody String str) {
 
@@ -168,7 +165,7 @@ public class CourseController {
     }
 
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/deleteCourseSubject", method = RequestMethod.POST)
     public ResponseEntity deleteCourseSubject(@RequestBody String str) {
 
@@ -181,12 +178,9 @@ public class CourseController {
         }
     }
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/addCourse", method = RequestMethod.POST)
     public ResponseEntity addCouse(@RequestBody String courseJson) {
-//        final GsonBuilder gsonBuilder = new GsonBuilder();
-//        final Gson gson = gsonBuilder.create();
-//        CourseDTO courseDTO = gson.fromJson(courseJson, CourseDTO.class);
         ObjectMapper mapper = new ObjectMapper();
         try {
             JsonNode node = null;
@@ -199,24 +193,46 @@ public class CourseController {
         } catch (InvalidDataException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {
-//            e.printStackTrace();
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
 
 
-
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/progress", method = RequestMethod.POST)
     public ResponseEntity<Integer> getProgress(@RequestBody String str) {
         try {
-            return new ResponseEntity<>(courseService.calculateProgress(getUser(str), getCourse(str)), HttpStatus.OK) ;
+            return new ResponseEntity<>(courseService.calculateProgress(getUser(str), getCourse(str)), HttpStatus.OK);
         } catch (IOException e) {
-           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         }
 
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/markAsFinished", method = RequestMethod.POST)
+    public ResponseEntity markAsFinished(@RequestBody String str) {
+        try{
+
+            subjectService.markAsFinished(getSubject(str), getUser(str));
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/subjectStatus", method = RequestMethod.POST)
+    public ResponseEntity getStatusForSubject(@RequestBody String str){
+
+        try {
+            return new ResponseEntity(courseService.getStatusForSubject(getUser(str), getCourse(str)),HttpStatus.OK);
+        } catch (IOException e) {
+           return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
 
     private UserDTO getUser(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

@@ -119,7 +119,6 @@ input[type~="text"], select {
 
 }
 
-
 .modal-content {
   background-color: #fefefe;
   margin: 15% auto;
@@ -151,7 +150,7 @@ input[type~="text"], select {
   box-shadow: 4px 7px #888888;
 }
 
-#editCourseSubmitButton:hover,#cancelEditing:hover {
+#editCourseSubmitButton:hover, #cancelEditing:hover {
   background-color: #6b233b;
   color: white;
 }
@@ -234,27 +233,30 @@ hr.hrStyle {
   background: #c4c3c3;
 }
 
-#closeModalButton{
+#closeModalButton {
   font-size: 15px;
 }
-#titleEdited{
-  font-size:20px;
+
+#titleEdited {
+  font-size: 20px;
 }
 
-#selectedSection{
-  background-color:#841439 ;
-  color:#ffffff ;
+#selectedSection {
+  background-color: #841439;
+  color: #ffffff;
 }
-.buttonFinished{
+
+.buttonFinished {
   margin-left: 10px;
   background: white;
   font-family: "Comic Sans MS";
-  color:#6b233b;
+  color: #6b233b;
   align-self: center;
   font-weight: bolder;
-  border:none;
+  border: none;
+}
 
-
-
-
+mat-chip{
+  margin-top: 15px;
+  margin-left: 52px;
 }

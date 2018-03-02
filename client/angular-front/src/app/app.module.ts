@@ -15,10 +15,9 @@ import {AddCourseComponent} from "./courses/add-course/add-course.component";
 import {SubjectDetailComponent} from './subject-detail/subject-detail.component';
 import {SubjectService} from "./service/subject.service";
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
-import {MatProgressSpinnerModule} from "@angular/material";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ScrollEventModule} from 'ngx-scroll-event';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule,MatChipsModule, MatIconModule, MatFormFieldModule,MatProgressBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -36,10 +35,13 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     HttpClientModule,
     AppRoutingModule,
     MultiselectDropdownModule,
-    MatProgressSpinnerModule,
     BrowserAnimationsModule,
     ScrollEventModule,
-    MatProgressBarModule
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatChipsModule,
+    MatIconModule,
+    MatFormFieldModule
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService],
   bootstrap: [AppComponent]

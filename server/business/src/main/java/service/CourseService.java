@@ -228,4 +228,19 @@ public class CourseService {
             return 0;
         }
     }
+
+    public List<Boolean> getStatusForSubject(UserDTO user, CourseDTO course) {
+        List<Boolean> statusSubjects=new ArrayList<>();
+        User userEntity=userDAO.findUserByUsername(user.getUsername()).get();
+        List<Subject> allSubjects=courseDAO.findEntity(course.getIdCourse()).getSubjects();
+        for(int i=0;i<allSubjects.size();i++){
+            if(user_subjectDAO.findEntityByUserAndSubject(userEntity, allSubjects.get(i))!=null)
+                statusSubjects.add(true);
+            else{
+                statusSubjects.add(false);
+            }
+        }
+        return statusSubjects;
+
+    }
 }

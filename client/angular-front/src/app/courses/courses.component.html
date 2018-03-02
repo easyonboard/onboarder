@@ -35,6 +35,13 @@
 
       <hr class="separator">
     </div>
+
+    <mat-chip-list #chipList *ngIf="course.keywords!=null" class="keyword-list">
+      <mat-chip *ngFor="let keyword of course.keywords.split(' ')">{{keyword}}</mat-chip>
+    </mat-chip-list>
+
+
+
     <br/>
     <br/>
 
@@ -63,12 +70,14 @@
     <span>{{cc.idCourse}}</span>
     <div class="titleClass" routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{cc.idCourse}}">
       {{cc.titleCourse}}
+      <hr class="separator">
     </div>
-    <hr class="separator">
+
+    <mat-chip-list class="mat-chip-list" *ngIf="cc.keywords!=null">
+      <mat-chip *ngFor="let keyword of cc.keywords.split(' ')">{{keyword}}</mat-chip>
+    </mat-chip-list>
+
     <br/>
-
-
-
 
     <div class="description" >
       {{cc.overview.substring(0,350)}}...

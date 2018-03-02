@@ -15,7 +15,7 @@ repositories {
 }
 
 ext {
-    mapstructVersion = "1.2.0.CR1"
+    mapstructVersion = "1.2.0.Final"
 }
 
 dependencies {
@@ -28,7 +28,7 @@ dependencies {
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.1.7.Final'
     compile 'org.mapstruct:mapstruct-jdk8:1.2.0.Final'
     apt 'org.mapstruct:mapstruct-processor:1.2.0.Final'
-    compile 'org.mapstruct:mapstruct-processor:1.1.0.Final'
+    compile 'org.mapstruct:mapstruct-processor:1.2.0.Final'
     compile group: 'com.google.guava', name: 'guava', version: '11.0'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '1.5.7.RELEASE'
 

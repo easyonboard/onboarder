@@ -9,6 +9,7 @@ import {MaterialService} from '../../service/material.service';
 import {UserDTO} from '../../domain/user';
 import {UserService} from '../../service/user.service';
 import {IMultiSelectOption} from 'angular-2-dropdown-multiselect';
+import {SubjectService} from '../../service/subject.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class CourseDetailComponent implements OnInit {
   public rootConst: RootConst;
   private fragment: string;
   private isEnrolled: Boolean;
+  public  hasFinishedPreviousSubjects: Boolean[];
   public isInEditingMode: Boolean;
   private modalMessage: string;
   private errorMessage: string;
@@ -37,7 +39,7 @@ export class CourseDetailComponent implements OnInit {
   private user: UserDTO;
 
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private utilityService: UtilityService, private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
+  constructor(private route: ActivatedRoute, private subjectService: SubjectService,  private userService: UserService, private utilityService: UtilityService, private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
   }
 
   getCourse(): void {
@@ -85,6 +87,7 @@ getProgress() {
     this.course.idCourse = +this.route.snapshot.paramMap.get('id');
     this.getCourse();
     this.getProgress();
+    this.getStatusSubjects();
     var userArrayObjects: Array<UserDTO> = new Array<UserDTO>();
     this.userService.getAllUsers().subscribe(us => {
       userArrayObjects = userArrayObjects.concat(us);
@@ -194,6 +197,10 @@ getProgress() {
     }
   }
 
+  private getStatusSubjects() {
+
+    this.subjectService.getStatusSubjects(this.course, this.user).subscribe(res=>this.hasFinishedPreviousSubjects=res);
+  }
 }
 
 

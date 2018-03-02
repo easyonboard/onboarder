@@ -238,8 +238,8 @@ thead > tr > th {
   width: 1080px;
   margin-top: 500px;
   padding: 30px;
-
 }
+
 .displaySubject {
   border-radius: 10px;
   border: 1px solid #841439;
@@ -249,9 +249,11 @@ thead > tr > th {
   margin-top: 25px;
   padding: 20px;
   border-collapse: collapse;
-
 }
 
 .displaySubject tr td {
   padding: 6px;
+}
+.keyword-list {
+  width: 80%;
 }

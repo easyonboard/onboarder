@@ -26,10 +26,11 @@ export class RootConst {
   public SERVER_SUBJECT_URL = this.WEB_SERVICE_ENDPOINT + 'courses/subject?id=';
   public SERVER_DELETE_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'deleteCourseSubject';
   public WEB_SERVER_PROGRESS = this.WEB_SERVICE_ENDPOINT + 'progress';
-
+  public WEB_SERVICE_MARK_AS_FINISHED=this.WEB_SERVICE_ENDPOINT + 'markAsFinished'
   public SERVER_ADD_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'subject/addSubject';
   public SERVER_FIND_MATERIAL_BY_ID = this.SERVER_COURSES_URL + '/material?id=';
-  public SERVER_MATERIALS_UPLOADED_BY_USE = this.WEB_SERVICE_ENDPOINT + '/material/uploadedMaterial?username=';
+  public SERVER_MATERIALS_UPLOADED_BY_USE = this.WEB_SERVICE_ENDPOINT + '/material/uploadedMaterial?username='
+  public WEB_SERVICE_SUBJECT_STATUS=this.WEB_SERVICE_ENDPOINT+ 'subjectStatus';
 
 
   public SERVER_MATERIALS_FROM_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'materials?idSubject=';

@@ -4,6 +4,7 @@ import entity.Course;
 import entity.Subject;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 @Service
@@ -32,5 +33,18 @@ public class SubjectDAO  extends AbstractDAO<Subject> {
         Query query=em.createQuery("select s from Subject s where containedByCourse=:course and position=1");
         query.setParameter("course", course);
         return (Subject) query.getSingleResult();
+    }
+
+    public Subject findNextSubject(Subject subjectEntity) {
+
+        Query query = em.createQuery("select s from Subject s where s.position=:position and s.containedByCourse=:course");
+        query.setParameter("position", subjectEntity.getPosition() + 1);
+        query.setParameter("course", subjectEntity.getContainedByCourse());
+        try {
+            return (Subject) query.getSingleResult();
+        }catch (NoResultException e){
+            return null;
+
+        }
     }
 }

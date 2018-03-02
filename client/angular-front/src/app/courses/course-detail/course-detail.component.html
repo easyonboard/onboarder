@@ -69,6 +69,10 @@
   </div>
 
   <div id="courseDetails" data-target="#mainDiv">
+    <mat-chip-list class="mat-chip-list" *ngIf="course.keywords!=null" >
+      <mat-chip *ngFor="let keyword of course.keywords.split(' ')">{{keyword}}</mat-chip>
+    </mat-chip-list>
+
     <button id="enrollButton" *ngIf="isEnrolled == false" (click)="enrollUserToCourse()"><span
       class="glyphicon glyphicon-check"></span> Enroll
     </button>
@@ -89,6 +93,8 @@
       <mat-progress-bar mode="determinate" value="{{progress}}" color="warn" *ngIf="isEnrolled==true"></mat-progress-bar>
       <input type="text"  [(ngModel)]="titleEdited" name="title"  id="titleEdited"
              *ngIf="isInEditingMode==true"/>
+
+
     </div>
 
     <hr class="hrStyle"/>
@@ -121,7 +127,7 @@
         <div class="tableStyleSyllabus">
           <table class="table table-inverse">
             <tbody>
-            <tr *ngFor="let  subject of course.subjects ">
+            <tr *ngFor="let  subject of course.subjects let booleanIndex=index" >
               <div class="subjectDiv">
                 <div class="subjectTitle">{{subject.name}}
                   <button (click)="deleteSubjectFromCourse(subject.idSubject)" class="close"
@@ -138,7 +144,7 @@
                 <p class="descriptionAndCommitmentStyle">Commitment: <span></span> {{subject.numberOfDays}} Days</p>
                 <hr class="separator">
                 <br/>
-                <a *ngIf="isEnrolled==true"
+                <a *ngIf="isEnrolled==true && hasFinishedPreviousSubjects[booleanIndex]==true"
                   routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}/{{rootConst.FRONT_DETAILED_SUBJECT}}/{{subject.idSubject}}">Click
                   to see more</a>
               </div>

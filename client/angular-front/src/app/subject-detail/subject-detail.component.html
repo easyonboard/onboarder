@@ -1,5 +1,11 @@
 <div class="defaultDiv">
 
+
+  <div class="subjectTitle">
+    Subject: {{subject.name}}
+
+  </div>
+
   <ul *ngFor="let  material of subject.materials ">
     <br/>
     <div class="materialDiv">
@@ -34,6 +40,12 @@
       <br/>
     </div>
   </ul>
+
+  <div id="finish">
+
+    <button class="buttonFinished" (click)="markAsFinish(subject)">Subject Finished</button>
+
+  </div>
 
 
 </div>
