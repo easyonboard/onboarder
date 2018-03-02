@@ -2,6 +2,7 @@ package dao;
 
 import entity.Course;
 import entity.User;
+import entity.User_Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,11 @@ public class EnrollDAO {
     @Autowired
     private CourseDAO courseDAO;
 
+    @Autowired
+    private SubjectDAO subjectDAO;
+
+    @Autowired
+    private User_SubjectDAO user_subjectDAO;
     /**
      *
      * @param user the user who will be enrolled
@@ -35,6 +41,12 @@ public class EnrollDAO {
 
             courseDAO.persistEntity(course);
         }
+        User_Subject user_subject=new User_Subject();
+        user_subject.setUser(user);
+        user_subject.setSubject(subjectDAO.getFirstSubjectFromCourse(course));
+        user_subject.setStatus(false);
+        user_subjectDAO.persistEntity(user_subject);
+
     }
 
     /**
@@ -44,6 +56,7 @@ public class EnrollDAO {
      */
     public void unenrollUserToCourse(User user, Course course) {
         List<Course> enrolledCourses = user.getEnrolledCourses();
+        user_subjectDAO.deleteEntriesWhenUnenroll(user, course);
         if (enrolledCourses.contains(course)) {
             enrolledCourses.remove(enrolledCourses.indexOf(course));
             user.setEnrolledCourses(enrolledCourses);

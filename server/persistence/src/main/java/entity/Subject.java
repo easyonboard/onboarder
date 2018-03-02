@@ -31,6 +31,9 @@ public class Subject implements Serializable {
     @Column
     private int numberOfDays;
 
+    @Column
+    private int position;
+
 
 
     public int getIdSubject() {
@@ -78,5 +81,13 @@ public class Subject implements Serializable {
 
     public void setContainedByCourse(Course containedByCourse) {
         this.containedByCourse = containedByCourse;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }

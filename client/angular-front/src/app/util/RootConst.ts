@@ -25,7 +25,7 @@ export class RootConst {
   public SERVER_SUBJECT_URL2 = '&idSubject=';
   public SERVER_SUBJECT_URL = this.WEB_SERVICE_ENDPOINT + 'courses/subject?id=';
   public SERVER_DELETE_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'deleteCourseSubject';
-
+  public WEB_SERVER_PROGRESS = this.WEB_SERVICE_ENDPOINT + 'progress';
 
   public SERVER_ADD_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'subject/addSubject';
   public SERVER_FIND_MATERIAL_BY_ID = this.SERVER_COURSES_URL + '/material?id=';

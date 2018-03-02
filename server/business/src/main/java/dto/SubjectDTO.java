@@ -19,6 +19,8 @@ public class SubjectDTO {
 
     private int numberOfDays;
 
+    private int position;
+
     public void setIdSubject(int idSubject) {
         this.idSubject = idSubject;
     }
@@ -61,5 +63,13 @@ public class SubjectDTO {
 
     public void setNumberOfDays(int numberOfDays) {
         this.numberOfDays = numberOfDays;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }

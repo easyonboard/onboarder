@@ -1,5 +1,6 @@
 package dao;
 
+import entity.User_Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

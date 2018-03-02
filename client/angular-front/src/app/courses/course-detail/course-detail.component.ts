@@ -1,16 +1,14 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {CourseService} from "../../service/course.service";
-import {Course} from "../../domain/course";
-import {RootConst} from "../../util/RootConst";
-import {DOCUMENT} from "@angular/common";
-import {UtilityService} from "../../service/utility.service";
-import {MaterialService} from "../../service/material.service";
-import {UserDTO} from "../../domain/user";
-import {UserService} from "../../service/user.service";
-import {IMultiSelectOption} from "angular-2-dropdown-multiselect";
-import {NgProgressService} from "ng2-progressbar";
-import {Subject} from '../../domain/subject';
+import {ActivatedRoute} from '@angular/router';
+import {CourseService} from '../../service/course.service';
+import {Course} from '../../domain/course';
+import {RootConst} from '../../util/RootConst';
+import {DOCUMENT} from '@angular/common';
+import {UtilityService} from '../../service/utility.service';
+import {MaterialService} from '../../service/material.service';
+import {UserDTO} from '../../domain/user';
+import {UserService} from '../../service/user.service';
+import {IMultiSelectOption} from 'angular-2-dropdown-multiselect';
 
 
 @Component({
@@ -35,9 +33,11 @@ export class CourseDetailComponent implements OnInit {
   public ownersIds: number[];
   public contactPersonsIds: number[];
   public editedCourse: Course;
+  public progress: number;
+  private user: UserDTO;
 
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private utilityService: UtilityService, private courseService: CourseService, private  pService: NgProgressService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private utilityService: UtilityService, private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
   }
 
   getCourse(): void {
@@ -68,16 +68,23 @@ export class CourseDetailComponent implements OnInit {
     this.utilityService.openModal(id);
   }
 
+getProgress() {
+  this.userService.getProgress(this.course, this.user).subscribe(progress => { this.progress = progress });
 
+  }
   ngOnInit() {
-    this.errorMessage = "";
+
+    this.user = new UserDTO();
+    this.user.username = localStorage.getItem("userLogged");
+    this.errorMessage = '';
     this.isInEditingMode = false;
     this.rootConst = new RootConst();
     this.userEmails = [];
     this.editedCourse = new Course();
+    this.course = new Course();
+    this.course.idCourse = +this.route.snapshot.paramMap.get('id');
     this.getCourse();
-    this.pService.start();
-    this.pService.set(0.5);
+    this.getProgress();
     var userArrayObjects: Array<UserDTO> = new Array<UserDTO>();
     this.userService.getAllUsers().subscribe(us => {
       userArrayObjects = userArrayObjects.concat(us);

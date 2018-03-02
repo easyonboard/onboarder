@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {UserDTO} from "../domain/user";
 import {RootConst} from "../util/RootConst";
+import {Course} from '../domain/course';
 
 @Injectable()
 export class UserService {
@@ -43,8 +44,14 @@ export class UserService {
   }
 
 
-  getAllUsers():Observable<UserDTO[]> {
+  getAllUsers(): Observable<UserDTO[]> {
     return this.http.get<UserDTO[]>(`${this.allUsers}`);
   }
+
+  getProgress(course: Course, user: UserDTO): Observable<number> {
+    const body = JSON.stringify({user: user, course: course });
+    return this.http.post<number>(this.rootConst.WEB_SERVER_PROGRESS, body, this.httpOptions);
+
+}
 
 }

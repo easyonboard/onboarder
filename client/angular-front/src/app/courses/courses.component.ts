@@ -26,6 +26,7 @@ export class CoursesComponent implements OnInit {
   private searchPageNumber: number;
   public messageDeleteCourse: String;
 
+
   constructor(private courseService: CourseService, public utilityService: UtilityService) {
     this.pageNumber = 0;
     this.searchPageNumber = 0;
@@ -35,8 +36,8 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this.pageNumber = 0;
-    this.message = "";
-    this.successMessage = "";
+    this.message = '';
+    this.successMessage = '';
     this.getCoursesFromPage();
     this.coursesSearched$ = this.searchTerms.pipe(
       debounceTime(300),
@@ -47,7 +48,7 @@ export class CoursesComponent implements OnInit {
 
   getCoursesFromPage(): void {
     this.courseService.getCoursesByPageNumberAndNumberOfObjectsPerPage(this.pageNumber, Const.NUMBER_OF_OBJECTS_PER_PAGE).subscribe(courses => {
-      this.courses = this.courses.concat(courses), this.coursesListEmpty = false
+      this.courses = this.courses.concat(courses), this.coursesListEmpty = false;
     });
   }
 
@@ -64,6 +65,7 @@ export class CoursesComponent implements OnInit {
       this.getCoursesFromPage();
     }
   }
+
   deleteCourses(idCourse: number) {
     this.courseService.deleteCourse(idCourse).subscribe(res => {
         this.pageNumber = 0;

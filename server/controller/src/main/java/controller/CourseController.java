@@ -203,6 +203,21 @@ public class CourseController {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
+
+
+
+    @CrossOrigin(origins="http://localhost:4200")
+    @RequestMapping(value = "/progress", method = RequestMethod.POST)
+    public ResponseEntity<Integer> getProgress(@RequestBody String str) {
+        try {
+            return new ResponseEntity<>(courseService.calculateProgress(getUser(str), getCourse(str)), HttpStatus.OK) ;
+        } catch (IOException e) {
+           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        }
+
+    }
+
     private UserDTO getUser(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);

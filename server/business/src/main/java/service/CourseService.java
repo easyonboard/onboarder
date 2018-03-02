@@ -1,15 +1,11 @@
 package service;
 
-import dao.CourseDAO;
-import dao.EnrollDAO;
-import dao.SubjectDAO;
-import dao.UserDAO;
+import dao.*;
 import dto.CourseDTO;
 import dto.SubjectDTO;
 import dto.UserDTO;
 import dto.mapper.CourseMapper;
 import entity.Course;
-import entity.Material;
 import entity.Subject;
 import entity.User;
 import exception.CourseNotFoundException;
@@ -44,6 +40,8 @@ public class CourseService {
     @Autowired
     private SubjectDAO subjectDAO;
 
+    @Autowired
+    private User_SubjectDAO user_subjectDAO;
 
     private static final String COURSE_NOT_FOUND = "Course not found";
     private static final String USER_EXISTS1 = "User ";
@@ -207,20 +205,27 @@ public class CourseService {
         }
         courseEntity.setContactPersons(null);
         courseEntity.setOwners(null);
-        List<Subject> subjects = courseEntity.getSubjects();
-        if (subjects != null) {
-            for (int i = 0; i < subjects.size(); i++) {
-
-
-                List<Material> materials = subjects.get(i).getMaterials();
-                if (materials != null)
-                    for (int j = 0; j < materials.size(); j++) {
-                    }
-
-
-            }
-        }
         courseDAO.deleteEntity(courseEntity);
     }
 
+    public Integer calculateProgress(UserDTO user, CourseDTO course) {
+        int totalNumberOfSubjects = 0;
+        Course courseEntity=courseDAO.findEntity(course.getIdCourse());
+        int numberOfSubjectsCompletedByUser;
+        if (courseEntity.getSubjects() != null) {
+            totalNumberOfSubjects = courseEntity.getSubjects().size();
+        }
+        try {
+            numberOfSubjectsCompletedByUser = user_subjectDAO.getSubjectsCompletedByUser(userDAO.findUserByUsername(user.getUsername()).get(),courseEntity ).size();
+        } catch (NullPointerException nullPointerException) {
+
+            numberOfSubjectsCompletedByUser = 0;
+        }
+
+        try {
+            return new Integer ((int)(((double)numberOfSubjectsCompletedByUser / totalNumberOfSubjects)*100));
+        } catch (IllegalArgumentException arg) {
+            return 0;
+        }
+    }
 }
