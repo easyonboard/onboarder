@@ -20,6 +20,9 @@ public class Course implements Serializable {
     @Column
     private String overview;
 
+    @Column
+    private String keywords;
+
     @OneToMany(cascade = CascadeType.ALL,targetEntity = Subject.class)
     @JoinTable(name="course_subject",joinColumns = @JoinColumn(name = "idCourse"), inverseJoinColumns = @JoinColumn(name = "idSubject"))
     private List<Subject> subjects;
@@ -39,10 +42,11 @@ public class Course implements Serializable {
     public Course() {
     }
 
-    public Course(Integer id,String titleCourse,String overview) {
+    public Course(Integer id,String titleCourse,String overview, String keywords) {
         this.idCourse = id;
         this.overview = overview;
         this.titleCourse=titleCourse;
+        this.keywords= keywords;
     }
 
     public Integer getIdCourse() {
@@ -63,6 +67,14 @@ public class Course implements Serializable {
 
     public void setOverview(String overview) {
         this.overview = overview;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 
     public List<Subject> getSubjects() {

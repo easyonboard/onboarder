@@ -24,7 +24,7 @@ public class CourseDAO extends AbstractDAO<Course> {
         CriteriaQuery<Course> criteriaQuery = cb.createQuery(Course.class);
         Root<Course> rootCourse = criteriaQuery.from(Course.class);
         criteriaQuery.select(cb.construct(Course.class, rootCourse.get("idCourse"), rootCourse.get("titleCourse"),
-                rootCourse.get("overview")));
+                rootCourse.get("overview"),rootCourse.get("keywords")));
         return (List<Course>) this.executeCriteriaQuery(criteriaQuery);
     }
 
@@ -35,7 +35,7 @@ public class CourseDAO extends AbstractDAO<Course> {
 
 
         criteriaQuery.select(cb.construct(Course.class, rootCourse.get("idCourse"), rootCourse.get("titleCourse"),
-                rootCourse.get("overview"))).orderBy(cb.asc(rootCourse.get("idCourse")));
+                rootCourse.get("overview"),rootCourse.get("keywords"))).orderBy(cb.asc(rootCourse.get("idCourse")));
         TypedQuery<Course> query = this.getEm().createQuery(criteriaQuery);
         query.setMaxResults(numberOfObjectsPerPage);
         query.setFirstResult(pageNumber * numberOfObjectsPerPage);
@@ -54,7 +54,7 @@ public class CourseDAO extends AbstractDAO<Course> {
         CriteriaQuery<Course> criteriaQuery = cb.createQuery(Course.class);
         Root<Course> rootCourse = criteriaQuery.from(Course.class);
         criteriaQuery.select(cb.construct(Course.class,
-                rootCourse.get("idCourse"), rootCourse.get("titleCourse"), rootCourse.get("overview"))).where(cb.like(cb.upper(rootCourse.get("overview")), "%" + overview.toUpperCase() + "%"));
+                rootCourse.get("idCourse"), rootCourse.get("titleCourse"), rootCourse.get("overview"),rootCourse.get("keywords"))).where(cb.like(cb.upper(rootCourse.get("overview")), "%" + overview.toUpperCase() + "%"));
         List<Course> courses = this.executeCriteriaQuery(criteriaQuery);
         return courses;
     }

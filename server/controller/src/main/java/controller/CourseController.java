@@ -184,9 +184,6 @@ public class CourseController {
     @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/courses/addCourse", method = RequestMethod.POST)
     public ResponseEntity addCouse(@RequestBody String courseJson) {
-//        final GsonBuilder gsonBuilder = new GsonBuilder();
-//        final Gson gson = gsonBuilder.create();
-//        CourseDTO courseDTO = gson.fromJson(courseJson, CourseDTO.class);
         ObjectMapper mapper = new ObjectMapper();
         try {
             JsonNode node = null;
@@ -199,7 +196,6 @@ public class CourseController {
         } catch (InvalidDataException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {
-//            e.printStackTrace();
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }

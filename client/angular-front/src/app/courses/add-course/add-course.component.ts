@@ -15,6 +15,8 @@ import {SubjectService} from "../../service/subject.service";
 import {IMultiSelectOption} from 'angular-2-dropdown-multiselect';
 import {UserService} from "../../service/user.service";
 import {UserDTO} from "../../domain/user";
+import {MatChipInputEvent} from "@angular/material";
+import {ENTER, COMMA, SPACE} from '@angular/cdk/keycodes';
 
 
 @Component({
@@ -47,7 +49,14 @@ export class AddCourseComponent implements OnInit {
   public ownersIds: number[]
   public contactPersonsIds: number[]
 
+  public keywords: String[];
+
+  public inputKeyword:any;
+  // Enter, comma, space
+  separatorKeysCodes = [ENTER, COMMA, SPACE];
+
   constructor(private materialService: MaterialService, @Inject(DOCUMENT) private document: any, private utilityService: UtilityService, private materialSevice: MaterialService, private subjectService: SubjectService, private courseService: CourseService, private userService: UserService) {
+    this.keywords = []
     this.course = new Course();
     this.subject = new Subject();
     this.materialsForCurrentSubject = new Array<Material>();
@@ -73,6 +82,8 @@ export class AddCourseComponent implements OnInit {
   }
 
   addCourse() {
+    debugger
+    this.course.keywords = this.keywords.join(' ');
     this.courseService.addCourse(this.course, this.ownersIds, this.contactPersonsIds).subscribe(course => {
       this.course = course;
       this.saved = true;
@@ -215,13 +226,37 @@ export class AddCourseComponent implements OnInit {
     }
   }
 
+  addKeyword(event: MatChipInputEvent): void {
+    this.inputKeyword = event.input;
+    let value = event.value;
+    if ((value || '').trim() && this.keywords.length < 4) {
+      this.keywords.push(value.trim());
+      if (this.inputKeyword) {
+        this.inputKeyword.value = '';
+      }
+      if (this.keywords.length == 4) {
+        this.inputKeyword.hidden = true
+      }
+    }
+  }
 
-  ngOnInit() {
-    this.currentStep = "one";
-    this.materialErrorMessage='';
+  removeKeyword(keyword: any): void {
+    debugger
+    let index = this.keywords.indexOf(keyword);
+    if (index >= 0) {
+      this.keywords.splice(index, 1);
+      if (this.inputKeyword.hidden == true) {
+        this.inputKeyword.hidden = false
+      }
+    }
   }
 
   closeSubjectModal() {
     this.materialsForCurrentSubject= new Array<Material>();
+  }
+
+  ngOnInit() {
+    this.currentStep = "one";
+    this.materialErrorMessage='';
   }
 }
