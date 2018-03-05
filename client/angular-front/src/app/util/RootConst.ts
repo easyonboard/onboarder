@@ -16,6 +16,9 @@ export class RootConst {
   public SERVER_UNENROLLE_USER_ON_COURSE = this.SERVER_COURSES_URL + '/unenrollUserFromCourse?idCourse=';
   public SERVER_ADD_USER = this.WEB_SERVICE_ENDPOINT + 'user/addUser';
   public SERVER_UPDATE_USER = this.WEB_SERVICE_ENDPOINT + '/user/updateUser';
+  public SERVER_USER_COURSES =this.WEB_SERVICE_ENDPOINT+"/user/courses?username=" ;
+
+
   public SERVER_AUTHENTIFICATION = this.WEB_SERVICE_ENDPOINT + '/auth';
   public SERVER_DELETE_CONTACT_PERSON = this.WEB_SERVICE_ENDPOINT + 'deleteContactPerson';
   public SERVER_DELETE_OWNER_PERSON = this.WEB_SERVICE_ENDPOINT + 'deleteOwnerPerson';
@@ -25,6 +28,7 @@ export class RootConst {
   public SERVER_SUBJECT_URL2 = '&idSubject=';
   public SERVER_SUBJECT_URL = this.WEB_SERVICE_ENDPOINT + 'courses/subject?id=';
   public SERVER_DELETE_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'deleteCourseSubject';
+
   public WEB_SERVER_PROGRESS = this.WEB_SERVICE_ENDPOINT + 'progress';
   public WEB_SERVICE_MARK_AS_FINISHED=this.WEB_SERVICE_ENDPOINT + 'markAsFinished'
   public SERVER_ADD_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'subject/addSubject';

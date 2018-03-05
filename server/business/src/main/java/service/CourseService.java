@@ -229,6 +229,11 @@ public class CourseService {
         }
     }
 
+    public List<CourseDTO> getCoursesForUser(String username) {
+        return courseMapper.entitiesToDTOs(userDAO.getcoursesForUser(username));
+    }
+
+
     public List<Boolean> getStatusForSubject(UserDTO user, CourseDTO course) {
         List<Boolean> statusSubjects=new ArrayList<>();
         User userEntity=userDAO.findUserByUsername(user.getUsername()).get();

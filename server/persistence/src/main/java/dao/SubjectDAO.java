@@ -28,8 +28,6 @@ public class SubjectDAO  extends AbstractDAO<Subject> {
     }
 
     public Subject getFirstSubjectFromCourse(Course course){
-
-
         Query query=em.createQuery("select s from Subject s where containedByCourse=:course and position=1");
         query.setParameter("course", course);
         return (Subject) query.getSingleResult();

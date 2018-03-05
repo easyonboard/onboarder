@@ -90,7 +90,7 @@
       <label  *ngIf="isInEditingMode==false">{{course.titleCourse}}</label>
       <br/>
 
-      <mat-progress-bar mode="determinate" value="{{progress}}" color="warn" *ngIf="isEnrolled==true"></mat-progress-bar>
+      <mat-progress-bar mode="determinate" value="{{progress}}" color="warn" *ngIf="isEnrolled==true && isInEditingMode==false"></mat-progress-bar>
       <input type="text"  [(ngModel)]="titleEdited" name="title"  id="titleEdited"
              *ngIf="isInEditingMode==true"/>
 

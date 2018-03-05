@@ -3,21 +3,26 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {CoursesComponent} from './courses/courses.component';
-import {CourseService} from "./service/course.service";
-import {HttpClientModule} from "@angular/common/http";
-import {CourseDetailComponent} from "./courses/course-detail/course-detail.component";
+import {CourseService} from './service/course.service';
+import {HttpClientModule} from '@angular/common/http';
+import {CourseDetailComponent} from './courses/course-detail/course-detail.component';
 import {AppRoutingModule} from './/app-routing.module';
-import {UserService} from "./service/user.service";
-import {LoginComponent} from "./login/login.component";
+import {UserService} from './service/user.service';
+import {LoginComponent} from './login/login.component';
 import {UtilityService} from './service/utility.service';
-import {MaterialService} from "./service/material.service";
-import {AddCourseComponent} from "./courses/add-course/add-course.component";
+import {MaterialService} from './service/material.service';
+import {AddCourseComponent} from './courses/add-course/add-course.component';
 import {SubjectDetailComponent} from './subject-detail/subject-detail.component';
-import {SubjectService} from "./service/subject.service";
-import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import {SubjectService} from './service/subject.service';
+import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ScrollEventModule} from 'ngx-scroll-event';
-import {MatProgressSpinnerModule,MatChipsModule, MatIconModule, MatFormFieldModule,MatProgressBarModule } from '@angular/material';
+import {DialogEnrolledCoursesForUser} from './app.component';
+
+import {
+  MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
+  MatDialogModule, MatGridListModule, MatCardModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -26,7 +31,8 @@ import {MatProgressSpinnerModule,MatChipsModule, MatIconModule, MatFormFieldModu
     LoginComponent,
     CourseDetailComponent,
     AddCourseComponent,
-    SubjectDetailComponent
+    SubjectDetailComponent,
+    DialogEnrolledCoursesForUser
   ],
   imports: [
     FormsModule,
@@ -41,9 +47,16 @@ import {MatProgressSpinnerModule,MatChipsModule, MatIconModule, MatFormFieldModu
     MatProgressBarModule,
     MatChipsModule,
     MatIconModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialogModule,
+    MatGridListModule,
+    MatCardModule
+  ],
+  entryComponents: [
+    DialogEnrolledCoursesForUser
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

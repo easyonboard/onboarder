@@ -1,10 +1,12 @@
 package dao;
 
+import entity.Course;
 import entity.User;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,4 +51,10 @@ public class UserDAO extends AbstractDAO<User> {
         return query.getResultList();
     }
 
+    public List<Course> getcoursesForUser(String username) {
+        String queryString = "select u.enrolledCourses from User u where u.username=:username";
+        Query query = this.em.createQuery(queryString);
+        query.setParameter("username", username);
+        return query.getResultList();
+    }
 }
