@@ -120,10 +120,10 @@ export class DialogEnrolledCoursesForUser implements OnInit {
   public str: string = 'asta e';
   private rootConst: RootConst;
   private user: UserDTO;
-  public progresses:Number[]
+  public progresses:Map<Course, Number>
 
   constructor(private courseService: CourseService, private userService: UserService) {
-    this.progresses=[]
+    this.progresses= new Map<Course, Number>()
     this.rootConst = new RootConst();
   }
 
@@ -134,9 +134,11 @@ export class DialogEnrolledCoursesForUser implements OnInit {
       this.courseService.getEnrolledCoursesForUser(username).subscribe(courses => {
         this.enrolledCourses = courses;
         this.enrolledCourses.forEach(c=>this.userService.getProgress(c, this.user).subscribe(progress => {
-          this.progresses.push(progress)
+          this.progresses.set(c, progress)
+          console.log(this.progresses)
         }));
       });
+
     }
   }
 
