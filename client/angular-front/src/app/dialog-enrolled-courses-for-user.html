@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Your courses</h2>
+<mat-dialog-content disableClose="false" style="height:550px">
+
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let course of enrolledCourses;let i= index" style="border: 3px solid #841439; border-radius: 7px; margin-left: 5px; margin-bottom: 5px">
+      <mat-card style="width: 390px; height: 160px" (click)="openPageCourseDetails(course.idCourse)">
+        <label style="font-size:22px ">{{course.titleCourse}}</label>
+        <mat-progress-bar mode="determinate"  value="{{progresses[i]}}"  color="warn"></mat-progress-bar>
+        <br>
+        <p>{{course.overview.substring(0,150)}} ... </p>
+      </mat-card>
+
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-dialog-content>
+

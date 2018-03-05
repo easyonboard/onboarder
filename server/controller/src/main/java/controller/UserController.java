@@ -1,6 +1,8 @@
 package controller;
 
+import dto.CourseDTO;
 import dto.UserDTO;
+import entity.Course;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +68,7 @@ public class UserController {
         List<UserDTO> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
 
 
 }

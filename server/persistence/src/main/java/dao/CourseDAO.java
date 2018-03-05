@@ -58,5 +58,4 @@ public class CourseDAO extends AbstractDAO<Course> {
         List<Course> courses = this.executeCriteriaQuery(criteriaQuery);
         return courses;
     }
-
 }

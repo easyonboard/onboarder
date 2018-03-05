@@ -210,6 +210,15 @@ public class CourseController {
 
     }
 
+    @CrossOrigin(origins="http://localhost:4200")
+    @RequestMapping(value = "/user/courses", method = RequestMethod.GET)
+    public ResponseEntity<List<CourseDTO>> getUserCourses(@RequestParam(value = "username") String username) {
+        List<CourseDTO> courses = courseService.getCoursesForUser(username);
+        return new ResponseEntity<>(courses, HttpStatus.OK);
+    }
+
+
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/markAsFinished", method = RequestMethod.POST)
     public ResponseEntity markAsFinished(@RequestBody String str) {

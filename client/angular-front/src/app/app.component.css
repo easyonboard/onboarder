@@ -111,3 +111,14 @@ footer {
   color: #ffffff;
   font-size: large;
 }
+.separator {
+  border-top: 1px solid #8c8b8b;
+}
+ .dropdown-menu-item{
+   cursor: pointer;
+   font-size: 18px;
+ }
+
+ .dropdown-menu-item:hover{
+   color: #2975cc;
+ }
