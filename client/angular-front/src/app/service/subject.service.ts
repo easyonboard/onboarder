@@ -23,10 +23,10 @@ export class SubjectService {
     return this.http.post<Subject>(this.rootConst.SERVER_ADD_SUBJECT, body, this.httpOptions);
   }
 
-  markAsFinish(subject: Subject, user: UserDTO): any {
+  markAsFinish(subject: Subject, user: UserDTO): Observable<Boolean> {
 
     const body = JSON.stringify({subject: subject, user: user});
-    return this.http.post(this.rootConst.WEB_SERVICE_MARK_AS_FINISHED, body, this.httpOptions);
+    return this.http.post<Boolean>(this.rootConst.WEB_SERVICE_MARK_AS_FINISHED, body, this.httpOptions);
 
 
   }
@@ -37,4 +37,10 @@ export class SubjectService {
     return this.http.post<Boolean[]>(this.rootConst.WEB_SERVICE_SUBJECT_STATUS, body, this.httpOptions);
 
   }
+  isSubjectFinished(subject: Subject, user: UserDTO ): Observable<Boolean>{
+
+    const body=JSON.stringify({subject: subject, user:user});
+    return this.http.post<Boolean>(this.rootConst.WEB_SERVER_GET_STATUS, body, this.httpOptions);
+
+}
 }

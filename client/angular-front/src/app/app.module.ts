@@ -17,7 +17,10 @@ import {SubjectService} from "./service/subject.service";
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ScrollEventModule} from 'ngx-scroll-event';
-import {MatProgressSpinnerModule,MatChipsModule, MatIconModule, MatFormFieldModule,MatProgressBarModule } from '@angular/material';
+import {
+  MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
+  MatTooltipModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,7 @@ import {MatProgressSpinnerModule,MatChipsModule, MatIconModule, MatFormFieldModu
     ScrollEventModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatTooltipModule,
     MatChipsModule,
     MatIconModule,
     MatFormFieldModule

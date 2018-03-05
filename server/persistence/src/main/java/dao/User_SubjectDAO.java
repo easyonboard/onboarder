@@ -1,5 +1,6 @@
 package dao;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import entity.Course;
 import entity.Subject;
 import entity.User;
@@ -50,5 +51,18 @@ public class User_SubjectDAO extends AbstractDAO<User_Subject> {
         } catch (NoResultException e) {
             return null;
         }
+    }
+
+    public boolean isSubjectFinished(User userEntity, Subject subjectEntity) {
+    Query query=em.createQuery("select us.status from User_Subject us where us.user= :user and us.subject= :subject");
+    query.setParameter("user", userEntity);
+    query.setParameter("subject", subjectEntity);
+    try {
+        return (Boolean)query.getSingleResult();
+    }catch (NoResultException e){
+        return  false;
+    }
+
+
     }
 }

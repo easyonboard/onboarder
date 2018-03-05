@@ -126,7 +126,6 @@ input[type~="text"], select {
   border: 1px solid #888;
   width: 500px;
 }
-
 #editCourseSubmitButton {
   background-color: #841439;
   color: #eee;

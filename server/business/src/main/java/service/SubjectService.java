@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.UserDataHandler;
 import validator.SubjectValidator;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,22 +72,26 @@ public class SubjectService {
         Subject subjectEntity=subjectDAO.findEntity(subject.getIdSubject());
 
         User_Subject user_subject=user_subjectDAO.findEntityByUserAndSubject(userEntity,subjectEntity);
+
+
         user_subject.setStatus(true);
         user_subjectDAO.persistEntity(user_subject);
-
         Subject newSubject=subjectDAO.findNextSubject(subjectEntity);
-        if(newSubject!=null){
-            User_Subject newUserSubject=new User_Subject();
-            newUserSubject.setStatus(false);
-            newUserSubject.setSubject(newSubject);
-            newUserSubject.setCourse(subjectEntity.getContainedByCourse());
-            newUserSubject.setUser(userEntity);
-            user_subjectDAO.persistEntity(newUserSubject);
+        if(newSubject!=null ){
+            if(user_subjectDAO.findEntityByUserAndSubject(userEntity, newSubject)==null) {
+                User_Subject newUserSubject = new User_Subject();
+                newUserSubject.setStatus(false);
+                newUserSubject.setSubject(newSubject);
+                newUserSubject.setCourse(subjectEntity.getContainedByCourse());
+                newUserSubject.setUser(userEntity);
+                user_subjectDAO.persistEntity(newUserSubject);
+
+            }
             return true;
         }
+
         else{
             return false;
         }
-
     }
 }

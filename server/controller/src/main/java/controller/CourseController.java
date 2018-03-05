@@ -215,8 +215,8 @@ public class CourseController {
     public ResponseEntity markAsFinished(@RequestBody String str) {
         try{
 
-            subjectService.markAsFinished(getSubject(str), getUser(str));
-            return new ResponseEntity(HttpStatus.OK);
+          boolean hasAnotherSubject=subjectService.markAsFinished(getSubject(str), getUser(str));
+            return new ResponseEntity(hasAnotherSubject, HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -229,6 +229,18 @@ public class CourseController {
             return new ResponseEntity(courseService.getStatusForSubject(getUser(str), getCourse(str)),HttpStatus.OK);
         } catch (IOException e) {
            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/isSubjectFinished", method = RequestMethod.POST)
+    public ResponseEntity is(@RequestBody String str){
+
+        try {
+            return new ResponseEntity(courseService.isSubjectFinished(getUser(str), getSubject(str)),HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
     }

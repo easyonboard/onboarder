@@ -31,7 +31,7 @@ export class RootConst {
   public SERVER_FIND_MATERIAL_BY_ID = this.SERVER_COURSES_URL + '/material?id=';
   public SERVER_MATERIALS_UPLOADED_BY_USE = this.WEB_SERVICE_ENDPOINT + '/material/uploadedMaterial?username='
   public WEB_SERVICE_SUBJECT_STATUS=this.WEB_SERVICE_ENDPOINT+ 'subjectStatus';
-
+  public WEB_SERVER_GET_STATUS=this.WEB_SERVICE_ENDPOINT+'isSubjectFinished';
 
   public SERVER_MATERIALS_FROM_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'materials?idSubject=';
   public SERVER_ADD_MATERIAL = this.WEB_SERVICE_ENDPOINT + 'createMaterial';

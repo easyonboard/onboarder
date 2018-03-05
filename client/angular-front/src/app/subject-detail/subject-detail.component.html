@@ -41,9 +41,9 @@
     </div>
   </ul>
 
-  <div id="finish">
+  <div id="finish" *ngIf="!isSubjectFinished">
 
-    <button class="buttonFinished" (click)="markAsFinish(subject)">Subject Finished</button>
+    <button class="buttonFinished"  (click)="markAsFinish(subject)">Finish Subject</button>
 
   </div>
 
@@ -53,3 +53,10 @@
 <br/><br/>
 <br/>
 
+<div class="modal" id="subjectFinished">
+  <div class="modal-content">
+    <button class="close" id="closeModalButton"  (click)="utilityService.closeModal('subjectFinished')">Close</button>
+    <br/>
+    {{modalMessage}}
+  </div>
+</div>

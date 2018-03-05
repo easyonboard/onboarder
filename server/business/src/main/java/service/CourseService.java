@@ -243,4 +243,10 @@ public class CourseService {
         return statusSubjects;
 
     }
+
+    public boolean isSubjectFinished(UserDTO user, SubjectDTO subject) {
+        User userEntity=userDAO.findUserByUsername(user.getUsername()).get();
+        Subject subjectEntity=subjectDAO.findEntity(subject.getIdSubject());
+        return user_subjectDAO.isSubjectFinished(userEntity, subjectEntity);
+    }
 }
