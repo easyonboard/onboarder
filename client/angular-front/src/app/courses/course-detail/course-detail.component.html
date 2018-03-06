@@ -9,11 +9,11 @@
 
 <div class="modal" id="errorEditing">
   <div class="modal-content">
-    <button class="close" id="closeModal"(click)="closeModal('errorEditing')">Close</button>
+    <button class="close" id="closeModal" (click)="closeModal('errorEditing')">Close</button>
     <br/>
     <div class="alert-danger">
-    {{errorMessage}}
-  </div>
+      {{errorMessage}}
+    </div>
   </div>
 </div>
 
@@ -69,8 +69,10 @@
   </div>
 
   <div id="courseDetails" data-target="#mainDiv">
-    <mat-chip-list class="mat-chip-list" *ngIf="course.keywords!=null" >
-      <mat-chip (click)="searchByKeyword(keyword)" *ngFor="let keyword of course.keywords.split(' ')" [selectable]="selectable">{{keyword}}</mat-chip>
+    <mat-chip-list class="mat-chip-list" *ngIf="course.keywords!=null">
+      <mat-chip (click)="searchByKeyword(keyword)" *ngFor="let keyword of course.keywords.split(' ')"
+                [selectable]="selectable">{{keyword}}
+      </mat-chip>
     </mat-chip-list>
 
     <button id="enrollButton" *ngIf="isEnrolled == false" (click)="enrollUserToCourse()"><span
@@ -87,12 +89,13 @@
     <br><br><br>
 
     <div class="titleDiv">
-      <label  *ngIf="isInEditingMode==false">{{course.titleCourse}}</label>
+      <label *ngIf="isInEditingMode==false">{{course.titleCourse}}</label>
       <br/>
 
-      <span matTooltip="{{progress}}"> <mat-progress-bar mode="determinate" value="{{progress}}"  color="warn" *ngIf="isEnrolled==true && isInEditingMode==false"></mat-progress-bar>
-      </span>
-      <input type="text"  [(ngModel)]="titleEdited" name="title"  id="titleEdited"
+      <!--<span matTooltip="{{progress}}">-->
+        <mat-progress-bar mode="determinate" value="{{progress}}" title="Progress: {{progress}}%" *ngIf="isEnrolled==true && isInEditingMode==false"></mat-progress-bar>
+      <!--</span>-->
+      <input type="text" [(ngModel)]="titleEdited" name="title" id="titleEdited"
              *ngIf="isInEditingMode==true"/>
 
 
@@ -128,7 +131,7 @@
         <div class="tableStyleSyllabus">
           <table class="table table-inverse">
             <tbody>
-            <tr *ngFor="let  subject of course.subjects let booleanIndex=index" >
+            <tr *ngFor="let  subject of course.subjects let booleanIndex=index">
               <div class="subjectDiv">
                 <div class="subjectTitle">{{subject.name}}
                   <button (click)="deleteSubjectFromCourse(subject.idSubject)" class="close"
@@ -146,7 +149,7 @@
                 <hr class="separator">
                 <br/>
                 <a *ngIf="isEnrolled==true && hasFinishedPreviousSubjects[booleanIndex]==true"
-                  routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}/{{rootConst.FRONT_DETAILED_SUBJECT}}/{{subject.idSubject}}">Click
+                   routerLink="{{rootConst.FRONT_DETAILED_COURSE }}/{{course.idCourse}}/{{rootConst.FRONT_DETAILED_SUBJECT}}/{{subject.idSubject}}">Click
                   to see more</a>
               </div>
               <br/>
@@ -185,7 +188,7 @@
           </table>
 
           <div *ngIf="isInEditingMode==true">
-          <ss-multiselect-dropdown [options]="userEmails" [(ngModel)]="ownersIds"></ss-multiselect-dropdown>
+            <ss-multiselect-dropdown [options]="userEmails" [(ngModel)]="ownersIds"></ss-multiselect-dropdown>
           </div>
         </div>
       </details>
@@ -218,7 +221,7 @@
           </table>
 
           <div *ngIf="isInEditingMode==true">
-            <ss-multiselect-dropdown [options]="userEmails"[(ngModel)]="contactPersonsIds"></ss-multiselect-dropdown>
+            <ss-multiselect-dropdown [options]="userEmails" [(ngModel)]="contactPersonsIds"></ss-multiselect-dropdown>
           </div>
         </div>
       </details>

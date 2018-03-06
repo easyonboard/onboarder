@@ -87,7 +87,7 @@
   width: 500px;
   text-align: center;
   text-decoration: double;
-  text-decoration-color: #841439;;
+  text-decoration-color: #841439;
 }
 
 section {
@@ -241,7 +241,6 @@ hr.hrStyle {
   font-size: 20px;
 }
 
-
 #selectedSection {
   background-color: #841439;
   color: #ffffff;
@@ -261,11 +260,23 @@ mat-chip {
   margin-top: 15px;
   margin-left: 52px;
   border: 2px solid #dcdbdb;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 mat-chip:hover {
-  border: 2px solid #cccccc;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: 2px solid #bababa;
 }
 
+.mat-chip:not(.mat-basic-chip) {
+  background: #e4e4e4;
+  color: #4d4d4d;
+  font-weight: bold;
+}
+
+
+.mat-progress-bar {
+  height: 15px;
+  border-radius: 5px;
+  border: 1.5px solid #0e0008;
+
+}
