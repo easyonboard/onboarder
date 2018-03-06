@@ -90,6 +90,7 @@ export class CourseDetailComponent implements OnInit {
     const idCourse = +this.route.snapshot.paramMap.get('id');
     this.courseService.enrollUserToCourse(idCourse, username).subscribe();
     this.isEnrolled = true;
+    this.getStatusSubjects();
 
   }
 

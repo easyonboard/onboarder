@@ -1,6 +1,5 @@
 package dao;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import entity.Course;
 import entity.Subject;
 import entity.User;

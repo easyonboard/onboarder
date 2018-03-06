@@ -28,6 +28,7 @@ export class CoursesComponent implements OnInit {
 
 
   constructor(private courseService: CourseService, public utilityService: UtilityService) {
+
     this.pageNumber = 0;
     this.searchPageNumber = 0;
     this.coursesListEmpty = true;
@@ -40,8 +41,11 @@ export class CoursesComponent implements OnInit {
 
   getCoursesFromPage(): void {
     this.courseService.getCoursesByPageNumberAndNumberOfObjectsPerPage(this.pageNumber, Const.NUMBER_OF_OBJECTS_PER_PAGE).subscribe(courses => {
-      this.courses = this.courses.concat(courses), this.coursesListEmpty = false;
-    });
+        this.courses = this.courses.concat(courses), this.coursesListEmpty = false;
+      },
+      err => {
+        setTimeout(() => this.getCoursesFromPage(), 10000);
+      });
   }
 
   private filterCoursesByKeyword(keyword: string) {
