@@ -75,8 +75,9 @@
 
   <div class="headerDiv">
 
-    <button id="goBack" (click)="goBack()">
-      <span class="glyphicon glyphicon-arrow-left"></span> Go back
+    <button (click)="redirectToCoursePage()" title="Home" id="homePage">
+      <i class="fa fa-home"
+         style="margin-right: 8px"></i>
     </button>
 
     <button id="logOut" (click)="logout()" *ngIf="userIsLogged()==true">
@@ -112,10 +113,7 @@
       </ul>
     </ul>
 
-    <button (click)="redirectToCoursePage()" title="Home" id="homePage">
-      <i class="fa fa-home"
-         style="margin-right: 8px"></i>
-    </button>
+
   </div>
 </router-outlet>
 

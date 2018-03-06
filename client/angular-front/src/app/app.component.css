@@ -80,16 +80,16 @@ footer {
   float: right;
 }
 
-#goBack{
+#homePage{
   background-color:#841439;
   border:none;
-  color: #ffffff;
   position: absolute;
   top:0;
   left: 0;
-  margin-top:10px;
+  margin-top:5px;
   margin-left: 15px;
-  font-size: large;
+  font-size: xx-large;
+  color: #ffffff;
 }
 
 
@@ -98,13 +98,12 @@ footer {
   top:0;
   right:0;
   margin-top: 15px;
-  margin-right: 325px;
+  margin-right: 270px;
   background-color:#841439;
   border:none;
   color: #ffffff;
   font-size: large;
 }
-
 
 #logOut, #logIn{
   position:absolute;
@@ -122,7 +121,7 @@ footer {
   top:0;
   right:0;
   margin-top: 15px;
-  margin-right: 190px;
+  margin-right: 130px;
   background-color:#841439;
   border:none;
   color: #ffffff;
@@ -140,14 +139,3 @@ footer {
    color: #2975cc;
  }
 
- #homePage{
-   position:absolute;
-   top:0;
-   right:0;
-   margin-top: 2px;
-   margin-right: 110px;
-   background-color:#841439;
-   border:none;
-   color: #ffffff;
-   font-size: xx-large;
- }
