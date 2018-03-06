@@ -67,7 +67,7 @@ public class SubjectService {
         return subjectMapper.mapToDTO(subjectDAO.persistEntity(subject));
     }
 
-    public boolean markAsFinished(SubjectDTO subject, UserDTO user) {
+    public int markAsFinished(SubjectDTO subject, UserDTO user) {
         User userEntity=userDAO.findUserByUsername(user.getUsername()).get();
         Subject subjectEntity=subjectDAO.findEntity(subject.getIdSubject());
 
@@ -87,11 +87,11 @@ public class SubjectService {
                 user_subjectDAO.persistEntity(newUserSubject);
 
             }
-            return true;
+            return newSubject.getIdSubject();
         }
 
         else{
-            return false;
+            return 0;
         }
     }
 }

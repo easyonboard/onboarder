@@ -226,7 +226,7 @@ public class CourseController {
     public ResponseEntity markAsFinished(@RequestBody String str) {
         try {
 
-            boolean hasAnotherSubject = subjectService.markAsFinished(getSubject(str), getUser(str));
+            int hasAnotherSubject = subjectService.markAsFinished(getSubject(str), getUser(str));
             return new ResponseEntity(hasAnotherSubject, HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);

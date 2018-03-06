@@ -58,5 +58,8 @@
     <button class="close" id="closeModalButton"  (click)="utilityService.closeModal('subjectFinished')">Close</button>
     <br/>
     {{modalMessage}}
+    <div *ngIf="hasAnotherSubject==true">
+      <a href="http://localhost:4200/courses/detailedCourse/{{courseId}}/subject/{{nextSubjectID}}">Go to next subject!</a>
+    </div>
   </div>
 </div>
