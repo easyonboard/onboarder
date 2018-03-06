@@ -80,7 +80,7 @@ footer {
   float: right;
 }
 
-.goBack{
+#goBack{
   background-color:#841439;
   border:none;
   color: #ffffff;
@@ -92,7 +92,7 @@ footer {
   font-size: large;
 }
 
-.logOut, .logIn{
+#logOut, #logIn{
   position:absolute;
   top:0;
   right:0;
@@ -103,12 +103,12 @@ footer {
   color: #ffffff;
   font-size: large;
 }
-.loggedUserButton{
+#loggedUserButton{
   position:absolute;
   top:0;
   right:0;
   margin-top: 15px;
-  margin-right: 120px;
+  margin-right: 190px;
   background-color:#841439;
   border:none;
   color: #ffffff;
@@ -124,4 +124,16 @@ footer {
 
  .dropdown-menu-item:hover{
    color: #2975cc;
+ }
+
+ #homePage{
+   position:absolute;
+   top:0;
+   right:0;
+   margin-top: 2px;
+   margin-right: 110px;
+   background-color:#841439;
+   border:none;
+   color: #ffffff;
+   font-size: xx-large;
  }

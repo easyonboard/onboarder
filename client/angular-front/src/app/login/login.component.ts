@@ -3,6 +3,7 @@ import {UserService} from "../service/user.service";
 import {UserDTO} from "../domain/user";
 import {RootConst} from "../util/RootConst";
 import {Router} from "@angular/router";
+import index from '@angular/cli/lib/cli';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +19,9 @@ export class LoginComponent implements OnInit, AfterContentInit {
   private errorMessage: string;
   public rootConst: RootConst;
   private currentComponentElement: HTMLElement;
-  private backButton: Element;
-  private logoutButton: Element;
-  private loginButton: Element;
-  private userButton: Element;
   private userNotfound: string;
+  private headerDiv:NodeListOf<Element>;
+  private footerDiv:Element;
 
   constructor(private userService: UserService, private router: Router, private elemRef: ElementRef) {
     this.option = false;
@@ -38,26 +37,15 @@ export class LoginComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit() {
     this.currentComponentElement = this.elemRef.nativeElement.previousElementSibling;
-    this.backButton = this.currentComponentElement.getElementsByClassName("goBack").item(0);
-    this.logoutButton = this.currentComponentElement.getElementsByClassName("logOut").item(0);
-    this.loginButton = this.currentComponentElement.getElementsByClassName("logIn").item(0);
-    this.userButton = this.currentComponentElement.getElementsByClassName("loggedUserButton").item(0);
-    var footer = this.currentComponentElement.parentElement.getElementsByClassName("footerDiv").item(0)
+    this.footerDiv = this.currentComponentElement.parentElement.getElementsByClassName("footerDiv").item(0)
 
-    if (this.logoutButton !== null) {
-      this.currentComponentElement.removeChild(this.logoutButton);
+    this.headerDiv= this.currentComponentElement.getElementsByClassName("headerDiv");
+    for(let index=0; index<this.headerDiv.length;index++){
+      (<HTMLElement>this.headerDiv.item(index)).style.visibility="hidden";
     }
-    if (this.userButton != null) {
-      this.currentComponentElement.removeChild(this.userButton);
-    }
-    if (this.loginButton != null) {
-      this.currentComponentElement.removeChild(this.loginButton);
-    }
-    if (this.backButton != null) {
-      this.currentComponentElement.removeChild(this.backButton);
-    }
-    if (footer != null) {
-      this.currentComponentElement.parentElement.removeChild(footer);
+
+    if (this.footerDiv != null) {
+      (<HTMLElement>this.footerDiv).style.visibility="hidden";
     }
   }
 
@@ -79,15 +67,13 @@ export class LoginComponent implements OnInit, AfterContentInit {
         if (res.username.length > 0) {
           localStorage.setItem("userLogged", res.username);
           localStorage.setItem("userLoggedId", res.idUser.toString());
-          this.currentComponentElement = this.elemRef.nativeElement.parentElement;
-          if (this.userButton != null) {
-            this.currentComponentElement.appendChild(this.userButton);
+          console.log(this.headerDiv)
+          debugger
+          for(let index=0; index<this.headerDiv.length;index++){
+            (<HTMLElement>this.headerDiv.item(index)).style.visibility="visible";
           }
-          if (this.loginButton != null) {
-            this.currentComponentElement.appendChild(this.loginButton);
-          }
-          if (this.backButton != null) {
-            this.currentComponentElement.appendChild(this.backButton);
+          if (this.footerDiv != null) {
+            (<HTMLElement>this.footerDiv).style.visibility="visible";
           }
           this.router.navigateByUrl(this.rootConst.FRONT_COURSES_PAGE);
         }
@@ -115,10 +101,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
     else {
       this.userService.addUser({name, username, email, password} as UserDTO).subscribe(
         res => {
-
-          this.option = false;
-
-        },
+          this.option = false;        },
         err => {
           this.errorMessage = err.error.message;
         });
