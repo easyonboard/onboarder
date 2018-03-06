@@ -47,6 +47,10 @@ export class AppComponent {
     }
   }
 
+  redirectToAddCourse(): void {
+    location.replace(this.rootConst.FRONT_ADD_COURSE);
+  }
+
   openModal(id: string) {
     this.utilityService.openModal(id);
   }
@@ -123,10 +127,10 @@ export class DialogEnrolledCoursesForUser implements OnInit {
   public str: string = 'asta e';
   private rootConst: RootConst;
   private user: UserDTO;
-  public progresses:Map<Course, Number>
+  public progresses: Map<Course, Number>
 
   constructor(private courseService: CourseService, private userService: UserService) {
-    this.progresses= new Map<Course, Number>()
+    this.progresses = new Map<Course, Number>()
     this.rootConst = new RootConst();
   }
 
@@ -136,7 +140,7 @@ export class DialogEnrolledCoursesForUser implements OnInit {
     if (username != null && username != '') {
       this.courseService.getEnrolledCoursesForUser(username).subscribe(courses => {
         this.enrolledCourses = courses;
-        this.enrolledCourses.forEach(c=>this.userService.getProgress(c, this.user).subscribe(progress => {
+        this.enrolledCourses.forEach(c => this.userService.getProgress(c, this.user).subscribe(progress => {
           this.progresses.set(c, progress)
           console.log(this.progresses)
         }));
@@ -149,7 +153,7 @@ export class DialogEnrolledCoursesForUser implements OnInit {
     window.location.href = this.rootConst.FRONT_DETAILED_COURSE + '/' + courseId;
   }
 
-  getProgress(course: Course): any{
+  getProgress(course: Course): any {
     this.userService.getProgress(course, this.user).mapTo(progress => {
       return progress;
     });

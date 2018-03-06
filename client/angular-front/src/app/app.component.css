@@ -92,6 +92,20 @@ footer {
   font-size: large;
 }
 
+
+#addCourse{
+  position:absolute;
+  top:0;
+  right:0;
+  margin-top: 15px;
+  margin-right: 325px;
+  background-color:#841439;
+  border:none;
+  color: #ffffff;
+  font-size: large;
+}
+
+
 #logOut, #logIn{
   position:absolute;
   top:0;

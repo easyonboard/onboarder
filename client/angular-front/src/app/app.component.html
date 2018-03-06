@@ -88,6 +88,12 @@
          style="margin-right: 8px"></i> Log in
     </button>
 
+    <button id="addCourse" (click)="redirectToAddCourse()"> <i class="fa fa-plus-circle"></i>
+      Add Course
+    </button>
+
+
+
     <ul class="dropdown" id="loggedUserButton">
       <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown"
          style="color: white; cursor: pointer; "><i

@@ -45,6 +45,7 @@ export class RootConst {
 
 
   public FRONT_COURSES_PAGE = '/courses';
+  public FRONT_ADD_COURSE = this.FRONT_COURSES_PAGE + '/addCourse';
   public FRONT_COURSES_PAGE_SEARCH_BY_KEYWORD = '/courses?keyword=';
   public FRONT_DETAILED_COURSE = this.FRONT_COURSES_PAGE + '/detailedCourse';
   public FRONT_DETAILED_SUBJECT = '/subject';
