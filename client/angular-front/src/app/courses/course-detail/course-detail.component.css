@@ -126,6 +126,7 @@ input[type~="text"], select {
   border: 1px solid #888;
   width: 500px;
 }
+
 #editCourseSubmitButton {
   background-color: #841439;
   color: #eee;
@@ -255,7 +256,15 @@ hr.hrStyle {
   border: none;
 }
 
-mat-chip{
+mat-chip {
   margin-top: 15px;
   margin-left: 52px;
+  border: 2px solid #dcdbdb;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+mat-chip:hover {
+  border: 2px solid #cccccc;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+

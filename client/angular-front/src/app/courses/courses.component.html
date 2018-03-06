@@ -37,7 +37,7 @@
     </div>
 
     <mat-chip-list #chipList *ngIf="course.keywords!=null" class="keyword-list">
-      <mat-chip (click)="searchByKeyword(keyword)" *ngFor="let keyword of course.keywords.split(' ')">{{keyword}}</mat-chip>
+      <mat-chip (click)="searchByKeyword(keyword)" *ngFor="let keyword of course.keywords.split(' ')" [selectable]="selectable">{{keyword}}</mat-chip>
     </mat-chip-list>
 
 
@@ -74,7 +74,7 @@
     </div>
 
     <mat-chip-list class="mat-chip-list" *ngIf="cc.keywords!=null">
-      <mat-chip (click)="searchByKeyword(keyword)" *ngFor="let keyword of cc.keywords.split(' ')">{{keyword}}</mat-chip>
+      <mat-chip (click)="searchByKeyword(keyword)" *ngFor="let keyword of cc.keywords.split(' ')" [selectable]="selectable">{{keyword}}</mat-chip>
     </mat-chip-list>
 
     <br/>
