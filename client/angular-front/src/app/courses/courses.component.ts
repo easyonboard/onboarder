@@ -44,6 +44,7 @@ export class CoursesComponent implements OnInit {
         this.courses = this.courses.concat(courses), this.coursesListEmpty = false;
       },
       err => {
+        if(err.statusText=="Unknown Error")
         setTimeout(() => this.getCoursesFromPage(), 10000);
       });
   }
@@ -51,7 +52,11 @@ export class CoursesComponent implements OnInit {
   private filterCoursesByKeyword(keyword: string) {
     this.courseService.filterCoursesKeywordPageNumberAndNumberOfObjectsPerPage(keyword).subscribe(courses => {
       this.courses = this.courses.concat(courses), this.coursesListEmpty = false;
-    });
+    },
+      err => {
+        if(err.statusText=="Unknown Error")
+        setTimeout(() => this.filterCoursesByKeyword(keyword), 10000);
+      });
   }
 
   search(term: string): void {
