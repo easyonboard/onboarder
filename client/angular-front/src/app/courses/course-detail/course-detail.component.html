@@ -70,7 +70,7 @@
 
   <div id="courseDetails" data-target="#mainDiv">
     <mat-chip-list class="mat-chip-list" *ngIf="course.keywords!=null" >
-      <mat-chip *ngFor="let keyword of course.keywords.split(' ')">{{keyword}}</mat-chip>
+      <mat-chip (click)="searchByKeyword(keyword)" *ngFor="let keyword of course.keywords.split(' ')" >{{keyword}}</mat-chip>
     </mat-chip-list>
 
     <button id="enrollButton" *ngIf="isEnrolled == false" (click)="enrollUserToCourse()"><span

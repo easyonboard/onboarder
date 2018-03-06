@@ -254,4 +254,8 @@ public class CourseService {
         Subject subjectEntity=subjectDAO.findEntity(subject.getIdSubject());
         return user_subjectDAO.isSubjectFinished(userEntity, subjectEntity);
     }
+
+    public List<CourseDTO> filterByKeyword(String keyword) {
+        return courseMapper.entitiesToDTOs(courseDAO.filterByKeyword(keyword));
+    }
 }

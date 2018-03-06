@@ -10,6 +10,7 @@ import {UserDTO} from '../../domain/user';
 import {UserService} from '../../service/user.service';
 import {IMultiSelectOption} from 'angular-2-dropdown-multiselect';
 import {SubjectService} from '../../service/subject.service';
+import {CoursesComponent} from '../courses.component';
 
 
 @Component({
@@ -39,7 +40,8 @@ export class CourseDetailComponent implements OnInit {
   private user: UserDTO;
 
 
-  constructor(private route: ActivatedRoute, private subjectService: SubjectService, private userService: UserService, private utilityService: UtilityService, private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
+  constructor(private route: ActivatedRoute, private subjectService: SubjectService, private userService: UserService, private utilityService: UtilityService, private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any,
+              ) {
   }
 
   getCourse(): void {
@@ -179,8 +181,11 @@ export class CourseDetailComponent implements OnInit {
     this.subjectService.getStatusSubjects(this.course, this.user).subscribe(res => this.hasFinishedPreviousSubjects = res);
   }
 
-  ngOnInit() {
+  searchByKeyword(keyword:string){
+     location.href = this.rootConst.FRONT_COURSES_PAGE_SEARCH_BY_KEYWORD+keyword
+  }
 
+  ngOnInit() {
     this.user = new UserDTO();
     this.user.username = localStorage.getItem('userLogged');
     this.errorMessage = '';
@@ -198,9 +203,7 @@ export class CourseDetailComponent implements OnInit {
       userArrayObjects = userArrayObjects.concat(us);
       this.userEmails = [];
       userArrayObjects.forEach(u => this.userEmails.push({id: u.idUser, name: u.name + ', email:  ' + u.email}));
-
     });
-
     this.isUserEnrollOnThisCourse();
   }
 

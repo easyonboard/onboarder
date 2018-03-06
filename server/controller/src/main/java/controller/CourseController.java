@@ -32,8 +32,11 @@ public class CourseController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses", method = RequestMethod.GET)
-    public ResponseEntity<List<CourseDTO>> allCourses(HttpServletRequest request) {
-        return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
+    public ResponseEntity<List<CourseDTO>> allCourses(@RequestParam(value = "keyword", required = false) String keyword) {
+        if (keyword!=null && keyword.length()>0){
+            return new ResponseEntity<>(courseService.filterByKeyword(keyword), HttpStatus.OK);
+        }
+            return new ResponseEntity<>(courseService.getAllCourses(), HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -210,7 +213,7 @@ public class CourseController {
 
     }
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/courses", method = RequestMethod.GET)
     public ResponseEntity<List<CourseDTO>> getUserCourses(@RequestParam(value = "username") String username) {
         List<CourseDTO> courses = courseService.getCoursesForUser(username);
@@ -218,41 +221,43 @@ public class CourseController {
     }
 
 
-
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/markAsFinished", method = RequestMethod.POST)
     public ResponseEntity markAsFinished(@RequestBody String str) {
-        try{
+        try {
 
-          boolean hasAnotherSubject=subjectService.markAsFinished(getSubject(str), getUser(str));
+            boolean hasAnotherSubject = subjectService.markAsFinished(getSubject(str), getUser(str));
             return new ResponseEntity(hasAnotherSubject, HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/subjectStatus", method = RequestMethod.POST)
-    public ResponseEntity getStatusForSubject(@RequestBody String str){
+    public ResponseEntity getStatusForSubject(@RequestBody String str) {
 
         try {
-            return new ResponseEntity(courseService.getStatusForSubject(getUser(str), getCourse(str)),HttpStatus.OK);
+            return new ResponseEntity(courseService.getStatusForSubject(getUser(str), getCourse(str)), HttpStatus.OK);
         } catch (IOException e) {
-           return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/isSubjectFinished", method = RequestMethod.POST)
-    public ResponseEntity is(@RequestBody String str){
+    public ResponseEntity is(@RequestBody String str) {
 
         try {
-            return new ResponseEntity(courseService.isSubjectFinished(getUser(str), getSubject(str)),HttpStatus.OK);
+            return new ResponseEntity(courseService.isSubjectFinished(getUser(str), getSubject(str)), HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
     }
+
+
 
 
     private UserDTO getUser(String str) throws IOException {

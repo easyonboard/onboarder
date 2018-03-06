@@ -115,4 +115,9 @@ export class CourseService implements OnInit {
   getEnrolledCoursesForUser(username: string):Observable<Course[]> {
     return this.http.get<Course[]>(`${this.rootConst.SERVER_USER_COURSES}${username}`);
   }
+
+  filterCoursesKeywordPageNumberAndNumberOfObjectsPerPage(keyword: string) {
+    return this.http.get<Course[]>(`${this.rootConst.SERVER_FILTER_COURSES_BY_KEYWORD}${keyword}`);
+
+  }
 }

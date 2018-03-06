@@ -34,20 +34,18 @@ export class CoursesComponent implements OnInit {
     this.courses = [];
   }
 
-  ngOnInit(): void {
-    this.pageNumber = 0;
-    this.message = '';
-    this.successMessage = '';
-    this.getCoursesFromPage();
-    this.coursesSearched$ = this.searchTerms.pipe(
-      debounceTime(300),
-      // ignore new term if same as previous term
-      distinctUntilChanged(),
-      switchMap((term: string) => this.courseService.searchCourses(term)));
+  setCourseList(courses: Course[]) {
+    this.courses = courses;
   }
 
   getCoursesFromPage(): void {
     this.courseService.getCoursesByPageNumberAndNumberOfObjectsPerPage(this.pageNumber, Const.NUMBER_OF_OBJECTS_PER_PAGE).subscribe(courses => {
+      this.courses = this.courses.concat(courses), this.coursesListEmpty = false;
+    });
+  }
+
+  private filterCoursesByKeyword(keyword: string) {
+    this.courseService.filterCoursesKeywordPageNumberAndNumberOfObjectsPerPage(keyword).subscribe(courses => {
       this.courses = this.courses.concat(courses), this.coursesListEmpty = false;
     });
   }
@@ -62,7 +60,11 @@ export class CoursesComponent implements OnInit {
 
       this.pageNumber++;
       console.log(`the user is reaching the bottom`);
-      this.getCoursesFromPage();
+      // this.getCoursesFromPage();
+      var keyword = new URL(window.location.href).searchParams.get('keyword');
+      if (keyword == null) {
+        this.getCoursesFromPage();
+      }
     }
   }
 
@@ -82,4 +84,28 @@ export class CoursesComponent implements OnInit {
         this.utilityService.openModal('delete');
       });
   }
+
+  searchByKeyword(keyword:string){
+    location.href = this.rootConst.FRONT_COURSES_PAGE_SEARCH_BY_KEYWORD+keyword
+  }
+
+  ngOnInit(): void {
+    this.pageNumber = 0;
+    this.message = '';
+    this.successMessage = '';
+    debugger;
+    var keyword = new URL(window.location.href).searchParams.get('keyword');
+    if (keyword == null) {
+      this.getCoursesFromPage();
+    } else {
+      this.filterCoursesByKeyword(keyword);
+    }
+    this.coursesSearched$ = this.searchTerms.pipe(
+      debounceTime(300),
+      // ignore new term if same as previous term
+      distinctUntilChanged(),
+      switchMap((term: string) => this.courseService.searchCourses(term)));
+  }
+
+
 }

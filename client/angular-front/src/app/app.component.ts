@@ -34,7 +34,7 @@ export class AppComponent {
       return;
     }
     if (location.href.includes(this.rootConst.FRONT_DETAILED_COURSE)) {
-      this.router.navigateByUrl(this.rootConst.FRONT_REDIRECT_LOGIN_SUCCESS_URL);
+      this.router.navigateByUrl(this.rootConst.FRONT_COURSES_PAGE);
       return;
     }
     this.location.back();
@@ -151,6 +151,7 @@ export class DialogEnrolledCoursesForUser implements OnInit {
       return progress;
     });
   }
+
 
   ngOnInit(): void {
     this.user = new UserDTO();
