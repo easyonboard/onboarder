@@ -117,7 +117,21 @@ input[type~="submit"] {
   position: absolute;
   bottom: 8px;
   right: 16px;
+  background-color: white;
+  color: #841439;
+  border-radius: 5px;
+  font-weight: lighter;
+  font-size: large;
+  border: solid 1.5px #841439;
+  box-shadow: 0 4px 6px 4px #cccccc ;
+
 }
+.nextStepButton:hover {
+  background-color: #6b233b;
+  color: white;
+  transform: scale(1.1)
+}
+
 
 .prevStepButton {
   position: absolute;
