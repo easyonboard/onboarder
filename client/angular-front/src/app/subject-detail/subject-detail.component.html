@@ -1,3 +1,6 @@
+<head>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+</head>
 <div class="defaultDiv">
 
 
@@ -55,11 +58,23 @@
 
 <div class="modal" id="subjectFinished">
   <div class="modal-content">
-    <button class="close" id="closeModalButton"  (click)="utilityService.closeModal('subjectFinished')">Close</button>
+
     <br/>
+    <span class="fa fa-check" *ngIf="!hasAnotherSubject">
+
+
+    </span>
     {{modalMessage}}
+    <br/>
+    <br/>
+    <button class="close" id="closeModalButton"  (click)="utilityService.closeModal('subjectFinished')"><span class="	fa fa-times-circle-o"></span> Close</button>
     <div *ngIf="hasAnotherSubject==true">
-      <a href="http://localhost:4200/courses/detailedCourse/{{courseId}}/subject/{{nextSubjectID}}">Go to next subject!</a>
+   <button class="GoToNext"> <a href="http://localhost:4200/courses/detailedCourse/{{courseId}}/subject/{{nextSubjectID}}"><span class="	fa fa-mail-forward"></span>Go to next subject!</a>
+
+   </button>
     </div>
-  </div>
+    <div *ngIf="hasAnotherSubject==false">
+     <button class="GoToNext" ></button> <a href="http://localhost:4200/courses/detailedCourse/{{courseId}}">Go back!</a>
+    </div>
+</div>
 </div>

@@ -26,6 +26,7 @@ export class SubjectDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.subject = new Subject();
     this.courseId = +this.route.snapshot.paramMap.get('id');
     this.subject.idSubject = +this.route.snapshot.paramMap.get('idSubject');
@@ -48,7 +49,7 @@ export class SubjectDetailComponent implements OnInit {
   markAsFinish(subject: Subject) {
     this.subjectService.markAsFinish(subject, this.user).subscribe(resp => {
       if (resp != 0) {
-        this.nextSubjectID = resp;
+        this.nextSubjectID=resp;
         this.hasAnotherSubject = true;
         this.isSubjectFinished = true;
         console.log(this.hasAnotherSubject);

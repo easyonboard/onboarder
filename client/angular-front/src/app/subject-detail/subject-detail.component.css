@@ -65,7 +65,15 @@
   background-color: #841439;
   color: white
 }
-
+.GoToNext{
+  font-size: 1.5rem;
+  margin-left: 5px;
+  font-weight: 700;
+  text-shadow: 0 1px 0 #fff;
+  padding-left: 10px;
+  border: none;
+  background-color: white;
+}
 
 .modal {
   margin: auto;
@@ -79,8 +87,19 @@
 
 .modal-content {
   background-color: #fefefe;
+  font-size: 20px;
   margin: 15% auto;
   padding: 15px;
   border: 1px solid #888;
   width: 500px;
+
+}
+
+.divmessage{
+  color: #841439;
+  background-color: #0e0008;
+}
+a{
+  color: #841439;
+  align-self: center;
 }
