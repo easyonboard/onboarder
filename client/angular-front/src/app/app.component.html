@@ -9,10 +9,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<div class="headerDiv">
-
-</div>
-
 
 <div class="modal" id="myCustom">
 
@@ -77,43 +73,46 @@
 
 <router-outlet>
 
+  <div class="headerDiv">
 
-  <button class="goBack" (click)="goBack()">
-    <span class="glyphicon glyphicon-arrow-left"></span> Go back
-  </button>
+    <button id="goBack" (click)="goBack()">
+      <span class="glyphicon glyphicon-arrow-left"></span> Go back
+    </button>
 
+    <button id="logOut" (click)="logout()" *ngIf="userIsLogged()==true">
+      <span class="glyphicon glyphicon-log-out"></span> Log out
+    </button>
 
-  <button (click)="logout()" *ngIf="userIsLogged()==true" class="logOut">
-    <span class="glyphicon glyphicon-log-out"></span> Log out
-  </button>
+    <button id="logIn" (click)="redirectToLoginPage()" *ngIf="userIsLogged()==false">
+      <i class="fa fa-sign-in"
+         style="margin-right: 8px"></i> Log in
+    </button>
 
-  <button (click)="redirectToLoginPage()" *ngIf="userIsLogged()==false" class="logIn">
-    <i class="fa fa-sign-in"
-       style="margin-right: 8px"></i> Log in
-  </button>
-  <ul class="dropdown loggedUserButton">
+    <ul class="dropdown" id="loggedUserButton">
+      <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown"
+         style="color: white; cursor: pointer; "><i
+        class="fa fa-user-circle-o"
+        style="margin-right: 8px"></i>{{username}}<span class="caret" style="margin-left: 3px"></span>
+      </a>
+      <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
+        <li><a (click)="openModal('myModal')" class="dropdown-menu-item">
+          <span class="glyphicon glyphicon-pencil"></span>
+          Edit profile
+        </a></li>
+        <li class="divider"></li>
+        <li><a mat-button (click)="openDialog()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a>
+        </li>
 
-    <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown"
-       style="color: white; cursor: pointer; "><i
-      class="fa fa-user-circle-o"
-      style="margin-right: 8px"></i>{{username}}<span class="caret" style="margin-left: 3px"></span>
-    </a>
-    <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
-      <li><a (click)="openModal('myModal')" class="dropdown-menu-item">
-        <span class="glyphicon glyphicon-pencil"></span>
-        Edit profile
-      </a></li>
-      <li class="divider"></li>
-      <!--<li><a class="dropdown-menu-item">-->
-        <!--<i class="fa fa-book"></i>-->
-        <!--View courses-->
-      <!--</a></li>-->
-      <li><a mat-button (click)="openDialog()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a></li>
-
+      </ul>
     </ul>
-  </ul>
 
+    <button (click)="redirectToCoursePage()" title="Home" id="homePage">
+      <i class="fa fa-home"
+         style="margin-right: 8px"></i>
+    </button>
+  </div>
 </router-outlet>
+
 <div class="footerDiv">
   <footer>
     <div class="social">
