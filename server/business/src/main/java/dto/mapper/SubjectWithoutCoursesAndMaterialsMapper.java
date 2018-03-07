@@ -1,8 +1,6 @@
 package dto.mapper;
 
-import dto.CourseDTO;
 import dto.SubjectDTO;
-import entity.Course;
 import entity.Subject;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
