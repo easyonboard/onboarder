@@ -108,16 +108,23 @@ export class CourseService implements OnInit {
     const body = JSON.stringify({idCourse: idCourse});
     return this.http.post<Course>(this.rootConst.SERVER_DELETE_COURSE, body, this.httpOptions);
   }
+
   ngOnInit(): void {
   }
 
 
-  getEnrolledCoursesForUser(username: string):Observable<Course[]> {
+  getEnrolledCoursesForUser(username: string): Observable<Course[]> {
     return this.http.get<Course[]>(`${this.rootConst.SERVER_USER_COURSES}${username}`);
   }
 
   filterCoursesKeywordPageNumberAndNumberOfObjectsPerPage(keyword: string) {
     return this.http.get<Course[]>(`${this.rootConst.SERVER_FILTER_COURSES_BY_KEYWORD}${keyword}`);
+
+  }
+
+  getRatingCourse(course: Course): Observable<number> {
+    const body = JSON.stringify({course: course});
+    return this.http.post<number>(this.rootConst.WEB_SERVICE_RATING, body, this.httpOptions);
 
   }
 }

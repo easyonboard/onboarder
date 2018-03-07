@@ -17,7 +17,7 @@ import {SubjectService} from './service/subject.service';
 import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ScrollEventModule} from 'ngx-scroll-event';
-
+import { StarRatingModule } from 'angular-star-rating';
 import {DialogEnrolledCoursesForUser} from './app.component';
 
 import {
@@ -53,7 +53,8 @@ import {
     MatFormFieldModule,
     MatDialogModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    StarRatingModule
   ],
   entryComponents: [
     DialogEnrolledCoursesForUser

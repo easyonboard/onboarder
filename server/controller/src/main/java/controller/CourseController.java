@@ -247,7 +247,7 @@ public class CourseController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/isSubjectFinished", method = RequestMethod.POST)
-    public ResponseEntity is(@RequestBody String str) {
+    public ResponseEntity isSubjectFinished(@RequestBody String str) {
 
         try {
             return new ResponseEntity(courseService.isSubjectFinished(getUser(str), getSubject(str)), HttpStatus.OK);

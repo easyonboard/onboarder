@@ -280,3 +280,31 @@ mat-chip:hover {
   border: 1.5px solid #0e0008;
 
 }
+
+.x-star-rating{
+
+  font-family: 'Ionicons';
+  display: inline-flex;
+  font-size: 40px;
+
+}
+.star::after{
+  content: '\f3ae';
+  color:#777;
+}
+.starhalf::after{
+  content: '\f3ad';
+  color: #fd0;
+}
+
+.starfull::after{
+  content:"\f2fc";
+  color:#fd0;
+}
+
+.displayRating{
+  color: #6b233b;
+  display: inline-flex;
+  font-size: 30px;
+  font-weight: bold;
+}

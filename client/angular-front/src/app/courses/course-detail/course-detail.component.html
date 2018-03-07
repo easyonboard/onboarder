@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
 <div class="modal" id="editSuccessful">
   <div class="modal-content">
     <button class="close" id="closeModalButton" (click)="closeModal('editSuccessful')">Close</button>
@@ -230,6 +232,18 @@
     <section id="{{ rootConst.FRONT_RATINGS_REVIEW_SECTION}}" class="sectionStyle"
              (mouseover)="onHoverSection(rootConst.FRONT_RATINGS_REVIEW_SECTION)">
       <p class="sectionTitle"> Ratings</p>
+      <div>
+        Ratingul general al cursului: <div class="displayRating"> {{rating}}</div>
+        <br/>
+        <div class="x-star-rating">
+          <div class="star" id="id1"></div>
+          <div class="star" id="id2"></div>
+          <div class="star" id="id3"></div>
+          <div class="star" id="id4"></div>
+          <div class="star" id="id5"></div>
+        </div>
+        <br/>
+      </div>
       <details>
         <summary>More details</summary>
 

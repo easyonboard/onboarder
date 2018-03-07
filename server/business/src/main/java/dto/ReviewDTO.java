@@ -11,9 +11,9 @@ public class ReviewDTO {
 
     private String message;
 
-    private int grade;
+    private int rating;
 
-    private int points;
+    private int pointsFromUsers;
 
     public int getIdReview() {
         return idReview;
@@ -48,11 +48,19 @@ public class ReviewDTO {
         this.message = message;
     }
 
-    public int getGrade() {
-        return grade;
+    public int getRating() {
+        return rating;
     }
 
-    public void setGrade(int grade) {
-        this.grade = grade;
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public int getPointsFromUsers() {
+        return pointsFromUsers;
+    }
+
+    public void setPointsFromUsers(int pointsFromUsers) {
+        this.pointsFromUsers = pointsFromUsers;
     }
 }

@@ -10,7 +10,6 @@ import {UserDTO} from '../../domain/user';
 import {UserService} from '../../service/user.service';
 import {IMultiSelectOption} from 'angular-2-dropdown-multiselect';
 import {SubjectService} from '../../service/subject.service';
-import {CoursesComponent} from '../courses.component';
 
 
 @Component({
@@ -38,10 +37,11 @@ export class CourseDetailComponent implements OnInit {
   public editedCourse: Course;
   public progress: number;
   private user: UserDTO;
+  public rating: number;
 
 
-  constructor(private route: ActivatedRoute, private subjectService: SubjectService, private userService: UserService, private utilityService: UtilityService, private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any,
-              ) {
+  constructor(private route: ActivatedRoute, private subjectService: SubjectService, private userService: UserService, private utilityService: UtilityService,
+              private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
   }
 
   getCourse(): void {
@@ -100,7 +100,7 @@ export class CourseDetailComponent implements OnInit {
     const idCourse = +this.route.snapshot.paramMap.get('id');
     this.courseService.unenrollUserFromCourse(idCourse, username).subscribe();
     this.isEnrolled = false;
-    this.progress=0;
+    this.progress = 0;
 
   }
 
@@ -183,8 +183,37 @@ export class CourseDetailComponent implements OnInit {
     this.subjectService.getStatusSubjects(this.course, this.user).subscribe(res => this.hasFinishedPreviousSubjects = res);
   }
 
-  searchByKeyword(keyword:string){
-     location.href = this.rootConst.FRONT_COURSES_PAGE_SEARCH_BY_KEYWORD+keyword
+  searchByKeyword(keyword: string) {
+    location.href = this.rootConst.FRONT_COURSES_PAGE_SEARCH_BY_KEYWORD + keyword
+  }
+
+  getRatingCourse() {
+
+    this.courseService.getRatingCourse(this.course).subscribe(res => {
+        this.rating = res,
+          this.displayStars(res)
+      }
+    );
+  }
+
+  displayStars(rating: number) {
+
+    for (let i = 1; i < 6; i++) {
+      const id = 'id' + i;
+      var star = document.getElementById(id);
+      if (rating >= i) {
+        star.className = 'starfull';
+      }
+      if (rating > i - 1 && rating < i) {
+        star.className = 'starhalf';
+        continue;
+      }
+      if (i >= Math.ceil(rating)) {
+        star.className = 'star';
+
+      }
+
+    }
   }
 
   ngOnInit() {
@@ -200,6 +229,9 @@ export class CourseDetailComponent implements OnInit {
     this.getCourse();
     this.getProgress();
     this.getStatusSubjects();
+    this.getRatingCourse();
+
+
     var userArrayObjects: Array<UserDTO> = new Array<UserDTO>();
     this.userService.getAllUsers().subscribe(us => {
       userArrayObjects = userArrayObjects.concat(us);

@@ -6,6 +6,7 @@ import dto.SubjectDTO;
 import dto.UserDTO;
 import dto.mapper.CourseMapper;
 import entity.Course;
+import entity.Review;
 import entity.Subject;
 import entity.User;
 import exception.CourseNotFoundException;
@@ -42,6 +43,9 @@ public class CourseService {
 
     @Autowired
     private User_SubjectDAO user_subjectDAO;
+
+    @Autowired
+    private ReviewDAO reviewDAO;
 
     private static final String COURSE_NOT_FOUND = "Course not found";
     private static final String USER_EXISTS1 = "User ";
@@ -210,20 +214,20 @@ public class CourseService {
 
     public Integer calculateProgress(UserDTO user, CourseDTO course) {
         int totalNumberOfSubjects = 0;
-        Course courseEntity=courseDAO.findEntity(course.getIdCourse());
+        Course courseEntity = courseDAO.findEntity(course.getIdCourse());
         int numberOfSubjectsCompletedByUser;
         if (courseEntity.getSubjects() != null) {
             totalNumberOfSubjects = courseEntity.getSubjects().size();
         }
         try {
-            numberOfSubjectsCompletedByUser = user_subjectDAO.getSubjectsCompletedByUser(userDAO.findUserByUsername(user.getUsername()).get(),courseEntity ).size();
+            numberOfSubjectsCompletedByUser = user_subjectDAO.getSubjectsCompletedByUser(userDAO.findUserByUsername(user.getUsername()).get(), courseEntity).size();
         } catch (NullPointerException nullPointerException) {
 
             numberOfSubjectsCompletedByUser = 0;
         }
 
         try {
-            return new Integer ((int)(((double)numberOfSubjectsCompletedByUser / totalNumberOfSubjects)*100));
+            return new Integer((int) (((double) numberOfSubjectsCompletedByUser / totalNumberOfSubjects) * 100));
         } catch (IllegalArgumentException arg) {
             return 0;
         }
@@ -235,13 +239,13 @@ public class CourseService {
 
 
     public List<Boolean> getStatusForSubject(UserDTO user, CourseDTO course) {
-        List<Boolean> statusSubjects=new ArrayList<>();
-        User userEntity=userDAO.findUserByUsername(user.getUsername()).get();
-        List<Subject> allSubjects=courseDAO.findEntity(course.getIdCourse()).getSubjects();
-        for(int i=0;i<allSubjects.size();i++){
-            if(user_subjectDAO.findEntityByUserAndSubject(userEntity, allSubjects.get(i))!=null)
+        List<Boolean> statusSubjects = new ArrayList<>();
+        User userEntity = userDAO.findUserByUsername(user.getUsername()).get();
+        List<Subject> allSubjects = courseDAO.findEntity(course.getIdCourse()).getSubjects();
+        for (int i = 0; i < allSubjects.size(); i++) {
+            if (user_subjectDAO.findEntityByUserAndSubject(userEntity, allSubjects.get(i)) != null)
                 statusSubjects.add(true);
-            else{
+            else {
                 statusSubjects.add(false);
             }
         }
@@ -250,12 +254,28 @@ public class CourseService {
     }
 
     public boolean isSubjectFinished(UserDTO user, SubjectDTO subject) {
-        User userEntity=userDAO.findUserByUsername(user.getUsername()).get();
-        Subject subjectEntity=subjectDAO.findEntity(subject.getIdSubject());
+        User userEntity = userDAO.findUserByUsername(user.getUsername()).get();
+        Subject subjectEntity = subjectDAO.findEntity(subject.getIdSubject());
         return user_subjectDAO.isSubjectFinished(userEntity, subjectEntity);
     }
 
     public List<CourseDTO> filterByKeyword(String keyword) {
         return courseMapper.entitiesToDTOs(courseDAO.filterByKeyword(keyword));
+    }
+
+    public Double getGeneralRating(CourseDTO course) {
+        Course courseEntity = courseDAO.findEntity(course.getIdCourse());
+        double total=0.0;
+        List<Review> allreviewsForCourse = reviewDAO.findReviewsByCourse(courseEntity);
+        if(allreviewsForCourse!=null) {
+            if(allreviewsForCourse.size()==0){
+                return 0.0;
+            }
+            for (int i = 0; i < allreviewsForCourse.size(); i++){
+                total+=allreviewsForCourse.get(i).getRating();
+            }
+            return total/allreviewsForCourse.size();
+        }
+      return 0.0;
     }
 }

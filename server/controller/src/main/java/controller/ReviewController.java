@@ -11,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import service.CourseService;
 import service.ReviewService;
 
 import java.io.IOException;
@@ -25,6 +23,8 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
+    @Autowired
+    private CourseService courseService;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/course/addReview", method = RequestMethod.POST)
@@ -32,12 +32,20 @@ public class ReviewController {
 
         try {
             reviewService.addReview(getUser(str), getCourse(str),getReview(str));
-            return  new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity(HttpStatus.OK);
         } catch (UserNotFoundException | CourseNotFoundException | IOException e) {
             return new ResponseEntity(e,HttpStatus.BAD_REQUEST);
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/generalRating", method = RequestMethod.POST)
+    public ResponseEntity getGeneralRatingCourse(@RequestBody String str) {
+        try {
+            return new ResponseEntity(courseService.getGeneralRating(getCourse(str)), HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity(e,HttpStatus.BAD_REQUEST);
+        }
+    }
 
     private UserDTO getUser(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
