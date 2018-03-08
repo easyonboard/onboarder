@@ -72,12 +72,24 @@
   background-color: #f7f7f7;
   color: #841439;
   position: absolute;
-  right: 180px;
+  right: 330px;
   height: 48px;
   width: 150px;
   font-size: large;
   font-weight: bolder;
   border: none;
+}
+
+#addReviewButton {
+  background-color: #f7f7f7;
+  color: #841439;
+  position: absolute;
+  right: 180px;
+  height: 48px;
+  width: 150px;
+  border: none;
+  font-size: large;
+  font-weight: bolder;
 }
 
 .titleDiv {
@@ -273,7 +285,6 @@ mat-chip:hover {
   font-weight: bold;
 }
 
-
 .mat-progress-bar {
   height: 15px;
   border-radius: 5px;
@@ -281,49 +292,58 @@ mat-chip:hover {
 
 }
 
-.x-star-rating{
+.x-star-rating {
 
   font-family: 'Ionicons';
   display: inline-flex;
   font-size: 40px;
 
 }
-.starempty::after{
+
+.starempty::after {
   content: '\f3ae';
-  color:#777;
+  color: #777;
 }
-.starhalf::after{
+
+.starhalf::after {
   content: '\f3ad';
   color: #fd0;
 }
 
-.starfull::after{
-  content:"\f2fc";
-  color:#fd0;
+.starfull::after {
+  content: "\f2fc";
+  color: #fd0;
 }
 
-.displayRating{
+.displayRating {
   color: #6b233b;
   display: inline-flex;
   font-size: 20px;
   font-weight: bold;
 }
 
-.ratingGeneral{
+.ratingGeneral {
   font-size: 20px;
 }
 
-#closeModalReview{
+#closeModalReview {
   font-size: 15px;
 }
 
-#stars{
+#stars {
   float: left;
 }
 
-.buttonAddReview {
+#buttonAddReview {
 
-  margin-right: 10px;
-
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  color: white;
+  background-color: #5e1f32;
+  border: 2px solid #5e1f32;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
+

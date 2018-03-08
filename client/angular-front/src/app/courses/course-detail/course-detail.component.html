@@ -2,7 +2,7 @@
 
 <div class="modal" id="editSuccessful">
   <div class="modal-content">
-    <button class="close" id="closeModalButton" (click)="closeModal('editSuccessful')">Close</button>
+    <button class="close" id="closeModalButton" (click)="closeModal('editSuccessful')" data-dismiss="editSuccessful">Close</button>
     <br/>
     {{modalMessage}}
   </div>
@@ -24,16 +24,7 @@
     <button class="close" id="closeModalReview" (click)="closeModal('addReview')">Close</button>
     <br/>
     <table>
-      <tr>
-        <td style="padding: 10px">
-          <label class="ion-compose">
-            Write a review
-          </label></td>
-        <td><textarea class="form-control" rows="10" style="width: 300px" name="Review message"
-                      [(ngModel)]="review.message"
-                      required> </textarea>
-        </td>
-      </tr>
+
       <tr>
         <td style="padding: 10px">
           <label class="ion-android-star">Rate </label></td>
@@ -45,9 +36,19 @@
           </star-rating-comp>
         </td>
       </tr>
+      <tr>
+        <td style="padding: 10px">
+          <label class="ion-compose">
+            Write a review
+          </label></td>
+        <td><textarea class="form-control" rows="10" style="width: 300px" name="Review message"
+                      [(ngModel)]="review.message"required> </textarea>
+        </td>
+      </tr>
     </table>
     <br/>
-    <button (click)="addReview()" class="buttonAddReview">Add review</button>
+    <br/>
+    <button (click)="addReview()" id="buttonAddReview"  >Add review</button>
   </div>
 </div>
 
@@ -115,6 +116,9 @@
 
     <button id="alreadyEnrolled" *ngIf="isEnrolled == true" (click)="unenrollUserFromCourse()"><span
       class="	glyphicon glyphicon-ok"></span> Unenroll
+    </button>
+  <button id="addReviewButton" (click)="openModal('addReview')"> <span class="ion-plus-circled"></span>
+    Add review
     </button>
 
     <button id="editCourse" (click)="editCourseMode()"><span class="glyphicon glyphicon-edit"> </span> Edit Course
@@ -279,9 +283,6 @@
     <section id="{{ rootConst.FRONT_RATINGS_REVIEW_SECTION}}" class="sectionStyle"
              (mouseover)="onHoverSection(rootConst.FRONT_RATINGS_REVIEW_SECTION)">
       <p class="sectionTitle"> Ratings</p>
-      <button class="addReviewButton" (click)="openModal('addReview')">
-        Adauga un review
-      </button>
 
       <details>
         <summary>View user reviews</summary>

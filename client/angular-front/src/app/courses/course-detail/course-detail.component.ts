@@ -223,7 +223,6 @@ export class CourseDetailComponent implements OnInit {
         star.className = 'starempty';
 
       }
-
     }
   }
 
