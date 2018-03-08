@@ -42,6 +42,7 @@ export class CourseDetailComponent implements OnInit {
   private user: UserDTO;
   public rating: number;
   public review: Review;
+  public courseReviews: Review[];
 
 
   onClick = ($event: OnClickEvent) => {
@@ -240,6 +241,7 @@ export class CourseDetailComponent implements OnInit {
     this.getProgress();
     this.getStatusSubjects();
     this.getRatingCourse();
+    this.reviewService.getCoursesReviews(this.course).subscribe(resp => this.courseReviews = resp);
 
 
     var userArrayObjects: Array<UserDTO> = new Array<UserDTO>();

@@ -47,11 +47,14 @@ public class ReviewController {
         }
     }
 
-    private UserDTO getUser(String str) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.readTree(str);
-        return mapper.convertValue(node.get("user"), UserDTO.class);
+    //
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/allReviews", method = RequestMethod.POST)
+    public ResponseEntity getAllReviews(@RequestBody CourseDTO course){
+        return new ResponseEntity(reviewService.getAllReviews(course), HttpStatus.OK);
     }
+
+
 
     private CourseDTO getCourse(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();

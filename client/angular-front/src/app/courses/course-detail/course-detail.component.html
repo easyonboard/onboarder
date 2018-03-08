@@ -286,36 +286,17 @@
 
       <details>
         <summary>View user reviews</summary>
-
-        <p class="textStyle"> The only against is that don't use all HTML5 aspects, and responsive unit.
-
-          In another hand, this course is one of the easiest to learn Angular, and have a lot of concepts and technics
-          that's normally hard to understand, beeing very enjoyable to learn, missing only the file system technics and
-          e-mail support.
-
-          The instructor have a very nice description for teaching and he's not a blind men who loves Angular, he have
-          the courage to say the agains, becuase he know the issues, he not only alert, but also try to work around it
-          and teach it how.</p>
-
-        <p class="textStyle">Parabéns ao professor Muppala. Apesar do sotaque indiano ele fala pausadamente, o que
-          facilita que pessoas que não dominam completamente o inglês entendam o que ele diz. Minha única observação até
-          agora é a necessidade de atualizar o curso com as versões mais recentes das ferramentas utilizadas. É um ótimo
-          curso.</p>
-
-        <p class="textStyle">
-          The second of 5 courses in the specialization. The 5 courses are 5 small shining gems: all extraordinarily
-          well structured, up to date and to the point. The whole series is a complete overhaul of the material from an
-          earlier specialization. The material has been updated and restructured. In this case the material moves from
-          AngularJS to Angular(2). I took the old courseseries, but even then the new series was worthwhile for me.
-        </p>
-        <p class="textStyle">
-          This is a fantastic course and covers a LOT of ground with Angular. To do the course justice you need to spend
-          quite a bit of time on it, so a commitment is required to get through it all. I fine the lecturer very
-          thorough and knowledgeable and he does a great job of explaining every step along the way. Highly recommended.
-        </p>
-        <p class="textStyle">Nice course by professor - Jogesh. I am beginners in angular 2, once i have completed this
-          course i feel like intermediate and i got confident like i am ok with angualar 2. Once again i thank to great
-          master jogesh for this course.</p>
+        <table class="table table-hover">
+<tr *ngFor="let review of courseReviews">
+<td>{{review.user.username}}</td>
+  <td>
+    <star-rating-comp     id="stars" [starType]="'svg'" [rating]="review.rating"></star-rating-comp>
+    <br/>
+  <br/>
+  {{review.message}}
+  </td>
+</tr>
+        </table>
       </details>
     </section>
   </div>

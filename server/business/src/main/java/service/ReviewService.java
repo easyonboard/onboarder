@@ -15,6 +15,7 @@ import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -51,4 +52,9 @@ public class ReviewService {
 
     }
 
+    public List<ReviewDTO> getAllReviews(CourseDTO course) {
+
+        return reviewMapper.entitiesToDTOs(reviewDAO.findReviewsByCourse(courseDAO.findEntity(course.getIdCourse())));
+
+    }
 }
