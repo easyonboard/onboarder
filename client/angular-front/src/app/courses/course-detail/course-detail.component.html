@@ -19,6 +19,38 @@
   </div>
 </div>
 
+<div class="modal" id="addReview">
+  <div class="modal-content">
+    <button class="close" id="closeModalReview" (click)="closeModal('addReview')">Close</button>
+    <br/>
+    <table>
+      <tr>
+        <td style="padding: 10px">
+          <label class="ion-compose">
+            Write a review
+          </label></td>
+        <td><textarea class="form-control" rows="10" style="width: 300px" name="Review message"
+                      [(ngModel)]="review.message"
+                      required> </textarea>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 10px">
+          <label class="ion-android-star">Rate </label></td>
+        <td>
+          <star-rating-comp   [starType]="'svg'"
+                              [hoverEnabled]="true"
+                              id="stars"
+                              (onClick)="onClick($event)">
+          </star-rating-comp>
+        </td>
+      </tr>
+    </table>
+    <br/>
+    <button (click)="addReview()" class="buttonAddReview">Add review</button>
+  </div>
+</div>
+
 
 <div class="left-buttons">
   <button id="editCourseSubmitButton" class="glyphicon glyphicon-edit" *ngIf="isInEditingMode == true"
@@ -93,9 +125,24 @@
     <div class="titleDiv">
       <label *ngIf="isInEditingMode==false">{{course.titleCourse}}</label>
       <br/>
+      <div class="ratingGeneral">
+        Ratingul general al cursului:
+        <div class="displayRating"> {{rating}}</div>
+        <br/>
+        <div class="x-star-rating">
+          <div class="starempty" id="id1"></div>
+          <div class="starempty" id="id2"></div>
+          <div class="starempty" id="id3"></div>
+          <div class="starempty" id="id4"></div>
+          <div class="starempty" id="id5"></div>
+        </div>
+        <br/>
+      </div>
 
+      <br/>
       <!--<span matTooltip="{{progress}}">-->
-        <mat-progress-bar mode="determinate" value="{{progress}}" title="Progress: {{progress}}%" *ngIf="isEnrolled==true && isInEditingMode==false"></mat-progress-bar>
+      <mat-progress-bar mode="determinate" value="{{progress}}" title="Progress: {{progress}}%"
+                        *ngIf="isEnrolled==true && isInEditingMode==false"></mat-progress-bar>
       <!--</span>-->
       <input type="text" [(ngModel)]="titleEdited" name="title" id="titleEdited"
              *ngIf="isInEditingMode==true"/>
@@ -232,20 +279,12 @@
     <section id="{{ rootConst.FRONT_RATINGS_REVIEW_SECTION}}" class="sectionStyle"
              (mouseover)="onHoverSection(rootConst.FRONT_RATINGS_REVIEW_SECTION)">
       <p class="sectionTitle"> Ratings</p>
-      <div>
-        Ratingul general al cursului: <div class="displayRating"> {{rating}}</div>
-        <br/>
-        <div class="x-star-rating">
-          <div class="star" id="id1"></div>
-          <div class="star" id="id2"></div>
-          <div class="star" id="id3"></div>
-          <div class="star" id="id4"></div>
-          <div class="star" id="id5"></div>
-        </div>
-        <br/>
-      </div>
+      <button class="addReviewButton" (click)="openModal('addReview')">
+        Adauga un review
+      </button>
+
       <details>
-        <summary>More details</summary>
+        <summary>View user reviews</summary>
 
         <p class="textStyle"> The only against is that don't use all HTML5 aspects, and responsive unit.
 

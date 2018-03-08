@@ -25,6 +25,7 @@ import {
   MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule
 
 } from '@angular/material';
+import {ReviewService} from "./service/review.service";
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import {
   entryComponents: [
     DialogEnrolledCoursesForUser
   ],
-  providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService],
+  providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

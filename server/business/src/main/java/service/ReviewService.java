@@ -33,15 +33,15 @@ public class ReviewService {
     @Autowired
     private CourseDAO courseDAO;
 
-    public void addReview(UserDTO user, CourseDTO course, ReviewDTO review) throws UserNotFoundException, CourseNotFoundException {
+    public void addReview(ReviewDTO review) throws UserNotFoundException, CourseNotFoundException {
         Review reviewEntity = new Review();
         reviewMapper.mapToEntity(review, reviewEntity);
-        Optional<User> optionalUser = userDAO.findUserByUsername(user.getUsername());
+        Optional<User> optionalUser = userDAO.findUserByUsername(review.getUser().getUsername());
         User userEntity;
         if (optionalUser.isPresent())
             userEntity = optionalUser.get();
         else throw new UserNotFoundException(USER_NOT_FOUND_ERROR);
-        Course courseEntity = courseDAO.findEntity(course.getIdCourse());
+        Course courseEntity = courseDAO.findEntity(review.getCourse().getIdCourse());
         if(courseEntity==null)
             throw new CourseNotFoundException(COURSE_NOT_FOUND_ERROR);
         reviewEntity.setCourse(courseEntity);

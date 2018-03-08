@@ -288,7 +288,7 @@ mat-chip:hover {
   font-size: 40px;
 
 }
-.star::after{
+.starempty::after{
   content: '\f3ae';
   color:#777;
 }
@@ -305,6 +305,25 @@ mat-chip:hover {
 .displayRating{
   color: #6b233b;
   display: inline-flex;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
+}
+
+.ratingGeneral{
+  font-size: 20px;
+}
+
+#closeModalReview{
+  font-size: 15px;
+}
+
+#stars{
+  float: left;
+}
+
+.buttonAddReview {
+
+  margin-right: 10px;
+
+
 }

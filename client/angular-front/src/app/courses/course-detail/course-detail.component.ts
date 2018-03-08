@@ -10,6 +10,9 @@ import {UserDTO} from '../../domain/user';
 import {UserService} from '../../service/user.service';
 import {IMultiSelectOption} from 'angular-2-dropdown-multiselect';
 import {SubjectService} from '../../service/subject.service';
+import {Review} from "../../domain/review";
+import {OnClickEvent} from "angular-star-rating";
+import {ReviewService} from "../../service/review.service";
 
 
 @Component({
@@ -38,10 +41,18 @@ export class CourseDetailComponent implements OnInit {
   public progress: number;
   private user: UserDTO;
   public rating: number;
+  public review: Review;
 
 
-  constructor(private route: ActivatedRoute, private subjectService: SubjectService, private userService: UserService, private utilityService: UtilityService,
+  onClick = ($event: OnClickEvent) => {
+    this.review.rating = $event.rating;
+    console.log(this.review.rating + "review rated");
+  };
+
+
+  constructor(private route: ActivatedRoute, private subjectService: SubjectService, private userService: UserService, private utilityService: UtilityService, private reviewService: ReviewService,
               private courseService: CourseService, private materialSevice: MaterialService, @Inject(DOCUMENT) private document: any) {
+    this.review = new Review();
   }
 
   getCourse(): void {
@@ -209,7 +220,7 @@ export class CourseDetailComponent implements OnInit {
         continue;
       }
       if (i >= Math.ceil(rating)) {
-        star.className = 'star';
+        star.className = 'starempty';
 
       }
 
@@ -241,6 +252,14 @@ export class CourseDetailComponent implements OnInit {
     this.isUserEnrollOnThisCourse();
   }
 
+  addReview() {
+
+    console.log(this.review.message);
+    console.log(this.review.rating);
+    this.review.user = this.user;
+    this.review.course = this.course;
+    this.reviewService.addReview(this.review).subscribe();
+  }
 }
 
 

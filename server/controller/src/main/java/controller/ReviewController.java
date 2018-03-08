@@ -28,12 +28,12 @@ public class ReviewController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/course/addReview", method = RequestMethod.POST)
-    public ResponseEntity addReview(@RequestParam String str){
+    public ResponseEntity addReview(@RequestBody ReviewDTO review){
 
         try {
-            reviewService.addReview(getUser(str), getCourse(str),getReview(str));
+            reviewService.addReview(review);
             return new ResponseEntity(HttpStatus.OK);
-        } catch (UserNotFoundException | CourseNotFoundException | IOException e) {
+        } catch (UserNotFoundException | CourseNotFoundException  e) {
             return new ResponseEntity(e,HttpStatus.BAD_REQUEST);
         }
     }
