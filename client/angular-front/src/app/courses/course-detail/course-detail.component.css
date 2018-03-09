@@ -332,6 +332,7 @@ mat-chip:hover {
 
 #stars {
   float: left;
+  color: yellow;
 }
 
 #buttonAddReview {
@@ -345,5 +346,20 @@ mat-chip:hover {
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
+}
+
+#thumbsUp{
+  color: #6475ab;
+  font-size: 30px;
+  background-color: white;
+  border: none;
+
+}
+
+#thumbsDown{
+  color: #6475ab;
+  font-size: 30px;
+  background-color: white;
+  border: none;
 }
 

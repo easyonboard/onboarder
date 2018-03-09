@@ -286,17 +286,34 @@
 
       <details>
         <summary>View user reviews</summary>
-        <table class="table table-hover">
+        <table class="table">
 <tr *ngFor="let review of courseReviews">
-<td>{{review.user.username}}</td>
-  <td>
-    <star-rating-comp     id="stars" [starType]="'svg'" [rating]="review.rating"></star-rating-comp>
-    <br/>
+<td>
   <br/>
+  <br/>
+  <br/>
+  {{review.user.username}}
+<br/>
+  <br>
+  <button class="fa fa fa-thumbs-o-up" id="thumbsUp"></button>
+  <button class="fa fa-thumbs-down" id="thumbsDown"></button>
+</td>
+  <td>
+
+    <star-rating-comp   id="stars" [starType]="'svg'" [rating]="review.rating" [readOnly]="true" [staticColor]="'ok'"></star-rating-comp>
+
+  <br/>
+    <hr>
+    <br/>
   {{review.message}}
+    <br/>
+    <br/>
+    <hr>
+   Points from users: {{review.pointsFromUsers}}
   </td>
 </tr>
         </table>
+
       </details>
     </section>
   </div>

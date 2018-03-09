@@ -241,7 +241,7 @@ export class CourseDetailComponent implements OnInit {
     this.getProgress();
     this.getStatusSubjects();
     this.getRatingCourse();
-    this.reviewService.getCoursesReviews(this.course).subscribe(resp => this.courseReviews = resp);
+    this.getReviews();
 
 
     var userArrayObjects: Array<UserDTO> = new Array<UserDTO>();
@@ -253,6 +253,10 @@ export class CourseDetailComponent implements OnInit {
     this.isUserEnrollOnThisCourse();
   }
 
+  getReviews() {
+    this.reviewService.getCoursesReviews(this.course).subscribe(resp => this.courseReviews = resp);
+  }
+
   addReview() {
 
     console.log(this.review.message);
@@ -260,6 +264,9 @@ export class CourseDetailComponent implements OnInit {
     this.review.user = this.user;
     this.review.course = this.course;
     this.reviewService.addReview(this.review).subscribe();
+    this.closeModal("addReview");
+    this.getRatingCourse();
+    this.getReviews();
   }
 }
 
