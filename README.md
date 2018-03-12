@@ -1,6 +1,23 @@
 # onboarder
 website for easing employee onboardnig in projects/workplace
 
+Installation requirements:
+* Oracle 11g Express Edition
+  * download link: http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html
+* Gradle
+  * version: 4.3.1
+  * link: 
+     * download:  https://gradle.org/releases/
+     * how to install: https://gradle.org/install/
+* Java 8
+  * http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+  
+* Node 
+  * download link: https://nodejs.org/en/
+       
+ 
+
+
  Runnig Server Application:
 
 * From Intellij:
