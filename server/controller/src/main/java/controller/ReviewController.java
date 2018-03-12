@@ -56,6 +56,11 @@ public class ReviewController {
         return new ResponseEntity(reviewService.getAllReviews(course), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/voteUp", method = RequestMethod.POST)
+    public ResponseEntity voteUp(@RequestBody ReviewDTO review){
+        return new ResponseEntity(reviewService.voteUp(review), HttpStatus.OK);
+    }
 
 
     private CourseDTO getCourse(String str) throws IOException {

@@ -5,7 +5,6 @@ import dao.ReviewDAO;
 import dao.UserDAO;
 import dto.CourseDTO;
 import dto.ReviewDTO;
-import dto.UserDTO;
 import dto.mapper.ReviewMapper;
 import entity.Course;
 import entity.Review;
@@ -56,5 +55,12 @@ public class ReviewService {
 
         return reviewMapper.entitiesToDTOs(reviewDAO.findReviewsByCourse(courseDAO.findEntity(course.getIdCourse())));
 
+    }
+
+    public Review voteUp(ReviewDTO review) {
+        Review reviewEntity=reviewDAO.findEntity(review.getIdReview());
+        reviewEntity.setPointsFromUsers(reviewEntity.getPointsFromUsers()+1);
+        reviewDAO.persistEntity(reviewEntity);
+        return reviewEntity;
     }
 }

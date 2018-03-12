@@ -268,6 +268,11 @@ export class CourseDetailComponent implements OnInit {
     this.getRatingCourse();
     this.getReviews();
   }
+
+  voteUp(review: Review) {
+    this.reviewService.voteUp(review).subscribe();
+
+  }
 }
 
 

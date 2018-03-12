@@ -25,4 +25,9 @@ export class ReviewService {
     const body = JSON.stringify(course);
     return this.http.post<Review[]>(this.rootConst.WEB_SERVICE_ALL_REVIEWS, body, this.httpOptions);
   }
+
+  voteUp(review: Review): any {
+    const body = JSON.stringify(review);
+    return this.http.post(this.rootConst.VOTEUP, body, this.httpOptions);
+  }
 }

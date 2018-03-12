@@ -19,6 +19,7 @@ export class RootConst {
   public SERVER_ADD_USER = this.WEB_SERVICE_ENDPOINT + 'user/addUser';
   public SERVER_UPDATE_USER = this.WEB_SERVICE_ENDPOINT + '/user/updateUser';
   public SERVER_USER_COURSES = this.WEB_SERVICE_ENDPOINT + '/user/courses?username=';
+  public VOTEUP = this.WEB_SERVICE_ENDPOINT + 'voteUp';
 
 
   public SERVER_AUTHENTIFICATION = this.WEB_SERVICE_ENDPOINT + '/auth';
@@ -44,7 +45,7 @@ export class RootConst {
   public SERVER_ADD_MATERIAL = this.WEB_SERVICE_ENDPOINT + 'createMaterial';
   public WEB_SERVICE_RATING = this.WEB_SERVICE_ENDPOINT + 'generalRating';
   public WEB_SERVICE_ADD_REVIEW = this.WEB_SERVICE_ENDPOINT + 'course/addReview';
-  public WEB_SERVICE_ALL_REVIEWS=this.WEB_SERVICE_ENDPOINT + 'allReviews';
+  public WEB_SERVICE_ALL_REVIEWS = this.WEB_SERVICE_ENDPOINT + 'allReviews';
 
   public FRONT_COURSES_PAGE = '/courses';
   public FRONT_ADD_COURSE = this.FRONT_COURSES_PAGE + '/addCourse';
