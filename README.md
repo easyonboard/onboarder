@@ -5,7 +5,7 @@ Installation requirements:
 * Oracle 11g Express Edition
   * download link: http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html
 * SQL Developer
- * http://www.oracle.com/technetwork/developer-tools/sql-developer/downloads/index.html
+  * http://www.oracle.com/technetwork/developer-tools/sql-developer/downloads/index.html
 * Gradle
   * version: 4.3.1
   * link: 
