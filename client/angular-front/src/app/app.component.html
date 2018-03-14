@@ -89,7 +89,7 @@
          style="margin-right: 8px"></i> Log in
     </button>
 
-    <button id="addCourse" (click)="redirectToAddCourse()"> <i class="fa fa-plus-circle"></i>
+    <button id="addCourse"  *ngIf="userIsLogged()==true" (click)="redirectToAddCourse()"> <i class="fa fa-plus-circle"></i>
       Add Course
     </button>
 
