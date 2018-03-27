@@ -87,11 +87,22 @@ footer {
   top:0;
   left: 0;
   margin-top:5px;
-  margin-left: 15px;
+  margin-left: 2%;
   font-size: xx-large;
   color: #ffffff;
 }
 
+#generalInfo{
+  background-color:#841439;
+  border:none;
+  position: absolute;
+  top:0;
+  left: 0px;
+  margin-top:12px;
+  margin-left: 5%;
+  font-size: x-large;
+  color: #ffffff;
+}
 
 #addCourse{
   position:absolute;
@@ -138,4 +149,3 @@ footer {
  .dropdown-menu-item:hover{
    color: #2975cc;
  }
-
