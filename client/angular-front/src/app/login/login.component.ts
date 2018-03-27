@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
           if (this.footerDiv != null) {
             (<HTMLElement>this.footerDiv).style.visibility="visible";
           }
-          this.router.navigateByUrl(this.rootConst.FRONT_COURSES_PAGE);
+          this.router.navigateByUrl(this.rootConst.FRONT_INFOS_PAGE);
         }
       },
       err => {

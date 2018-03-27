@@ -7,6 +7,7 @@ import {LoginComponent} from "./login/login.component";
 import {AddCourseComponent} from "./courses/add-course/add-course.component";
 import {SubjectDetailComponent} from "./subject-detail/subject-detail.component";
 import {StarRatingModule} from 'angular-star-rating';
+import {GeneralInfosComponent} from './general-infos/general-infos.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'courses/addCourse', component: AddCourseComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: '', component: LoginComponent},
+  {path:"infos", component:GeneralInfosComponent},
   {path: 'courses/detailedCourse/:id/subject/:idSubject', component: SubjectDetailComponent}
 ];
 

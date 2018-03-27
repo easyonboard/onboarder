@@ -1,6 +1,5 @@
 package controller;
 
-import ch.qos.logback.core.pattern.util.RegularEscapeUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.CourseDTO;

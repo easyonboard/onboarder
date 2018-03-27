@@ -1,7 +1,6 @@
 package validator;
 
 import dto.CourseDTO;
-import dto.UserDTO;
 import exception.InvalidDataException;
 import org.springframework.stereotype.Service;
 

@@ -76,8 +76,11 @@
   <div class="headerDiv">
 
     <button (click)="redirectToCoursePage()" title="Home" id="homePage">
-      <i class="fa fa-home"
-         style="margin-right: 8px"></i>
+      <i class="fa fa-home" style="margin-right: 8px"></i>
+    </button>
+
+    <button (click)="redirectToGeneralInfosPage()" id="generalInfo" title="General informations">
+      <i class="fa fa-info" style="margin-right: 10%"></i>
     </button>
 
     <button id="logOut" (click)="logout()" *ngIf="userIsLogged()==true">
@@ -89,10 +92,9 @@
          style="margin-right: 8px"></i> Log in
     </button>
 
-    <button id="addCourse" (click)="redirectToAddCourse()"> <i class="fa fa-plus-circle"></i>
+    <button id="addCourse" (click)="redirectToAddCourse()"><i class="fa fa-plus-circle"></i>
       Add Course
     </button>
-
 
 
     <ul class="dropdown" id="loggedUserButton">

@@ -56,5 +56,6 @@ export class RootConst {
   public FRONT_CONTACT_PERSON_SECTION = 'contactPerson';
   public FRONT_RATINGS_REVIEW_SECTION = 'ratingsReview';
   public FRONT_LOGIN_PAGE = '';
+  public FRONT_INFOS_PAGE='/infos';
 
 }
