@@ -15,11 +15,8 @@ import entity.User_Subject;
 import exception.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.UserDataHandler;
 import validator.SubjectValidator;
 
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
