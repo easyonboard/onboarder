@@ -1,20 +1,20 @@
 package entity;
 
 
-import javax.validation.constraints.NotNull;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
-@NamedQueries({@NamedQuery( name = User.FIND_USER_BY_USERNAME, query = "select u from User u where u.username=:username"),
-               @NamedQuery( name = User.FIND_USER_BY_EMAIL, query = "select u from User u where u.email=:email")})
+
+@NamedQueries({@NamedQuery(name = User.FIND_USER_BY_USERNAME, query = "select u from User u where u.username=:username"),
+        @NamedQuery(name = User.FIND_USER_BY_EMAIL, query = "select u from User u where u.email=:email")})
 @Entity
 @Table(name = "app_user")
 public class User implements Serializable {
 
-    public static final String FIND_USER_BY_USERNAME="User.findUSerByUsername";
-    public static final String FIND_USER_BY_EMAIL="User.findUSerByEmail";
+    public static final String FIND_USER_BY_USERNAME = "User.findUSerByUsername";
+    public static final String FIND_USER_BY_EMAIL = "User.findUSerByEmail";
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idUser;
@@ -41,7 +41,7 @@ public class User implements Serializable {
     @ManyToOne
     private Role role;
 
-    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "contactPersons", targetEntity = Course.class)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "contactPersons", targetEntity = Course.class)
     private List<Course> contactForCourses;
 
     @ManyToMany(mappedBy = "owners", targetEntity = Course.class)
@@ -50,7 +50,8 @@ public class User implements Serializable {
     @ManyToMany(mappedBy = "enrolledUsers", targetEntity = Course.class)
     private List<Course> enrolledCourses;
 
-
+    @OneToOne(mappedBy = "buddyUser", targetEntity = UserInformation.class)
+    private UserInformation buddyUser;
 
 
     public int getIdUser() {
@@ -119,5 +120,13 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public UserInformation getBuddyUser() {
+        return buddyUser;
+    }
+
+    public void setBuddyUser(UserInformation buddyUser) {
+        this.buddyUser = buddyUser;
     }
 }
