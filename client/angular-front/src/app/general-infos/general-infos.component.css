@@ -1,0 +1,24 @@
+#mainDiv {
+  height: 90%;
+  width: 92%;
+  margin-top: 4%;
+  margin-left: 3%;
+  border-radius: 12px;
+  padding-left: 50px;
+  padding-top: 50px;
+  align-items: center;
+  border: #841439 solid 4px;
+  box-shadow: 0 6px 10px 6px #cccccc inset;
+}
+
+#generalInformationTitle{
+  margin-bottom: 2%;
+}
+/*a:hover{*/
+  /*cursor: pointer;*/
+/*}*/
+
+.links{
+  margin-left: 1%;
+  font-size: large;
+}

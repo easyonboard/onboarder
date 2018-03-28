@@ -12,16 +12,14 @@ import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import service.CourseService;
 import service.SubjectService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
-@Controller
+@RestController
 public class CourseController {
     @Autowired
     private CourseService courseService;
@@ -31,7 +29,7 @@ public class CourseController {
 
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/courses", method = RequestMethod.GET)
+    @GetMapping(value = "/courses")
     public ResponseEntity<List<CourseDTO>> allCourses(@RequestParam(value = "keyword", required = false) String keyword) {
         if (keyword!=null && keyword.length()>0){
             return new ResponseEntity<>(courseService.filterByKeyword(keyword), HttpStatus.OK);
