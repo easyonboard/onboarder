@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppComponent} from './app.component';
+import {AppComponent, DialogNewEmployees} from './app.component';
 import {CoursesComponent} from './courses/courses.component';
 import {CourseService} from './service/course.service';
 import {HttpClientModule} from '@angular/common/http';
@@ -22,7 +22,7 @@ import {DialogEnrolledCoursesForUser} from './app.component';
 
 import {
   MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
-  MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatListModule
+  MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatListModule, MatButtonModule
 
 } from '@angular/material';
 import {ReviewService} from "./service/review.service";
@@ -37,7 +37,9 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
     AddCourseComponent,
     SubjectDetailComponent,
     DialogEnrolledCoursesForUser,
-    GeneralInfosComponent
+    GeneralInfosComponent,
+    DialogNewEmployees
+
   ],
   imports: [
     FormsModule,
@@ -53,6 +55,7 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
     MatTooltipModule,
     MatChipsModule,
     MatIconModule,
+    MatButtonModule,
     MatFormFieldModule,
     MatDialogModule,
     MatGridListModule,
@@ -61,7 +64,8 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
     MatListModule
   ],
   entryComponents: [
-    DialogEnrolledCoursesForUser
+    DialogEnrolledCoursesForUser,
+    DialogNewEmployees
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService],
   bootstrap: [AppComponent]

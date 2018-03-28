@@ -92,16 +92,30 @@ footer {
   color: #ffffff;
 }
 
-#generalInfo{
-  background-color:#841439;
-  border:none;
+
+#generalInfo {
+  background-color: #841439;
+  border: none;
   position: absolute;
-  top:0;
+  top: 0;
   left: 0px;
-  margin-top:12px;
+  margin-top: 12px;
   margin-left: 5%;
   font-size: x-large;
   color: #ffffff;
+}
+
+.viewNewEmployeeList{
+  position:absolute;
+  top:0;
+  right:0;
+  margin-top: 15px;
+  margin-right: 400px;
+  background-color:#841439;
+  border:none;
+  color: #ffffff;
+  font-size: large;
+
 }
 
 #addCourse{
