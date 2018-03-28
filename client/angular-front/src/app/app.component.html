@@ -76,8 +76,11 @@
   <div class="headerDiv">
 
     <button (click)="redirectToCoursePage()" title="Home" id="homePage">
-      <i class="fa fa-home"
-         style="margin-right: 8px"></i>
+      <i class="fa fa-home" style="margin-right: 8px"></i>
+    </button>
+
+    <button (click)="redirectToGeneralInfosPage()" id="generalInfo" title="General informations">
+      <i class="fa fa-info" style="margin-right: 10%"></i>
     </button>
 
     <button id="logOut" (click)="logout()" *ngIf="userIsLogged()==true">
@@ -95,7 +98,6 @@
 
     <button class="viewNewEmployeeList" (click)="openModalNewEmployee()" > <i class="material-icons">supervisor_account</i> New Employees
     </button>
-
 
 
     <ul class="dropdown" id="loggedUserButton">

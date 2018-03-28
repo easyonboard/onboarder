@@ -126,6 +126,10 @@ export class AppComponent {
   redirectToCoursePage() {
     location.replace(this.rootConst.FRONT_COURSES_PAGE);
   }
+
+  redirectToGeneralInfosPage() {
+    location.replace(this.rootConst.FRONT_INFOS_PAGE);
+  }
 }
 
 @Component({

@@ -2,7 +2,6 @@ package service;
 
 import com.google.common.hash.Hashing;
 import dao.UserDAO;
-import dto.CourseDTO;
 import dto.UserDTO;
 import dto.mapper.UserMapper;
 import entity.User;

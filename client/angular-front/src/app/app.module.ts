@@ -22,10 +22,11 @@ import {DialogEnrolledCoursesForUser} from './app.component';
 
 import {
   MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
-  MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule
+  MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatListModule, MatButtonModule
 
 } from '@angular/material';
 import {ReviewService} from "./service/review.service";
+import { GeneralInfosComponent } from './general-infos/general-infos.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,9 @@ import {ReviewService} from "./service/review.service";
     AddCourseComponent,
     SubjectDetailComponent,
     DialogEnrolledCoursesForUser,
-    DialogNewEmployees
+    DialogNewEmployees,
+    GeneralInfosComponent
+
   ],
   imports: [
     FormsModule,
@@ -56,7 +59,9 @@ import {ReviewService} from "./service/review.service";
     MatDialogModule,
     MatGridListModule,
     MatCardModule,
-    StarRatingModule
+    MatButtonModule,
+    StarRatingModule,
+    MatListModule
   ],
   entryComponents: [
     DialogEnrolledCoursesForUser,
