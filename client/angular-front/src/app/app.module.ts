@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppComponent} from './app.component';
+import {AppComponent, DialogNewEmployees} from './app.component';
 import {CoursesComponent} from './courses/courses.component';
 import {CourseService} from './service/course.service';
 import {HttpClientModule} from '@angular/common/http';
@@ -35,7 +35,8 @@ import {ReviewService} from "./service/review.service";
     CourseDetailComponent,
     AddCourseComponent,
     SubjectDetailComponent,
-    DialogEnrolledCoursesForUser
+    DialogEnrolledCoursesForUser,
+    DialogNewEmployees
   ],
   imports: [
     FormsModule,
@@ -58,7 +59,8 @@ import {ReviewService} from "./service/review.service";
     StarRatingModule
   ],
   entryComponents: [
-    DialogEnrolledCoursesForUser
+    DialogEnrolledCoursesForUser,
+    DialogNewEmployees
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService],
   bootstrap: [AppComponent]
