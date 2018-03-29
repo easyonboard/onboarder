@@ -37,10 +37,6 @@ public class User implements Serializable {
     @NotNull
     private String email;
 
-    @OneToOne
-    @JoinColumn(name = "idUserInfo")
-    private UserInfo userInfo;
-
     @ManyToOne
     private Role role;
 
