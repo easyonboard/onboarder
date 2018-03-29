@@ -1,12 +1,12 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppComponent, DialogNewEmployees} from './app.component';
+import {AppComponent, DialogEnrolledCoursesForUser, DialogNewEmployees} from './app.component';
 import {CoursesComponent} from './courses/courses.component';
 import {CourseService} from './service/course.service';
 import {HttpClientModule} from '@angular/common/http';
 import {CourseDetailComponent} from './courses/course-detail/course-detail.component';
-import {AppRoutingModule} from './/app-routing.module';
+import {AppRoutingModule} from './app-routing.module';
 import {UserService} from './service/user.service';
 import {LoginComponent} from './login/login.component';
 import {UtilityService} from './service/utility.service';
@@ -17,17 +17,17 @@ import {SubjectService} from './service/subject.service';
 import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ScrollEventModule} from 'ngx-scroll-event';
-import { StarRatingModule } from 'angular-star-rating';
-import {DialogEnrolledCoursesForUser} from './app.component';
+import {StarRatingModule} from 'angular-star-rating';
 
 import {
   MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
-  MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatListModule, MatButtonModule
+  MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule
 
 } from '@angular/material';
-import {ReviewService} from "./service/review.service";
-import { GeneralInfosComponent } from './general-infos/general-infos.component';
-
+import {ReviewService} from './service/review.service';
+import {UserInfoFormularComponent} from './user-info-formular/user-info-formular.component';
+import {UserInformationService} from './service/user-information.service';
+import { GeneralInfosComponent } from './general-infos/general-infos.component' ;
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,10 +37,11 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
     AddCourseComponent,
     SubjectDetailComponent,
     DialogEnrolledCoursesForUser,
-    DialogNewEmployees,
-    GeneralInfosComponent
 
-  ],
+ UserInfoFormularComponent,
+    GeneralInfosComponent,
+    DialogNewEmployees],
+
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -60,7 +61,6 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
     MatDialogModule,
     MatGridListModule,
     MatCardModule,
-    MatButtonModule,
     StarRatingModule,
     MatListModule
   ],
@@ -68,7 +68,7 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
     DialogEnrolledCoursesForUser,
     DialogNewEmployees
   ],
-  providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService],
+  providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService, UserInformationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

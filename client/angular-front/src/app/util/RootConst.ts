@@ -19,6 +19,7 @@ export class RootConst {
   public SERVER_ADD_USER = this.WEB_SERVICE_ENDPOINT + 'user/addUser';
   public SERVER_UPDATE_USER = this.WEB_SERVICE_ENDPOINT + '/user/updateUser';
   public SERVER_USER_COURSES = this.WEB_SERVICE_ENDPOINT + '/user/courses?username=';
+  public SERVER_USER_USERNAME = this.WEB_SERVICE_ENDPOINT + '/user/'
   public VOTEUP = this.WEB_SERVICE_ENDPOINT + 'voteUp';
 
 
@@ -61,4 +62,5 @@ export class RootConst {
   public FRONT_LOGIN_PAGE = '';
   public FRONT_INFOS_PAGE='/infos';
 
+  public SERVER_ADD_USER_INFO_URL = this.WEB_SERVICE_ENDPOINT + '/info';
 }

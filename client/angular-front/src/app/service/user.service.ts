@@ -1,11 +1,15 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import {Observable} from "rxjs/Observable";
-import {UserDTO} from "../domain/user";
-import {RootConst} from "../util/RootConst";
+import {Observable} from 'rxjs/Observable';
+import {UserDTO} from '../domain/user';
+import {RootConst} from '../util/RootConst';
 import {Course} from '../domain/course';
-import {Userinfo} from "../domain/userinfo";
+
+import {of} from 'rxjs/observable/of';
+import {tap} from 'rxjs/operators';
+import {UserInformationDTO} from "../domain/userinformation";
+
 
 @Injectable()
 export class UserService {
@@ -19,7 +23,7 @@ export class UserService {
 
 
   constructor(private http: HttpClient) {
-    this.message = "";
+    this.message = '';
   }
 
   login(user: UserDTO): Observable<UserDTO> {
@@ -55,8 +59,15 @@ export class UserService {
 
   }
 
-  getNewUsers(): Observable<Userinfo[]> {
-    return this.http.get<Userinfo[]>(this.rootConst.WEB_SERVER_NEWUSERS);
+
+
+  getUserByUsername(term: string): Observable<UserDTO[]> {
+    if (!term.trim()) {
+      // if not search term, return empty hero array.
+      return of([]);
+    }
+    return this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_USERNAME + term)
+      .pipe(tap(_ => console.log(`found heroes matching "${term}"`)));
 
   }
 }

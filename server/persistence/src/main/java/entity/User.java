@@ -1,20 +1,20 @@
 package entity;
 
 
-import javax.validation.constraints.NotNull;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
-@NamedQueries({@NamedQuery( name = User.FIND_USER_BY_USERNAME, query = "select u from User u where u.username=:username"),
-               @NamedQuery( name = User.FIND_USER_BY_EMAIL, query = "select u from User u where u.email=:email")})
+
+@NamedQueries({@NamedQuery(name = User.FIND_USER_BY_USERNAME, query = "select u from User u where u.username=:username"),
+        @NamedQuery(name = User.FIND_USER_BY_EMAIL, query = "select u from User u where u.email=:email")})
 @Entity
 @Table(name = "app_user")
 public class User implements Serializable {
 
-    public static final String FIND_USER_BY_USERNAME="User.findUSerByUsername";
-    public static final String FIND_USER_BY_EMAIL="User.findUSerByEmail";
+    public static final String FIND_USER_BY_USERNAME = "User.findUSerByUsername";
+    public static final String FIND_USER_BY_EMAIL = "User.findUSerByEmail";
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idUser;
@@ -37,10 +37,6 @@ public class User implements Serializable {
     @NotNull
     private String email;
 
-    @OneToOne
-    @JoinColumn(name = "idUserInfo")
-    private UserInfo userInfo;
-
     @ManyToOne
     private Role role;
 
@@ -52,8 +48,6 @@ public class User implements Serializable {
 
     @ManyToMany(mappedBy = "enrolledUsers", targetEntity = Course.class)
     private List<Course> enrolledCourses;
-
-
 
 
     public int getIdUser() {
@@ -124,11 +118,5 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
-    }
 
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
-    }
 }
