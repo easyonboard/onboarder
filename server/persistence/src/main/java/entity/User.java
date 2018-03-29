@@ -50,7 +50,7 @@ public class User implements Serializable {
     private List<Course> enrolledCourses;
 
     @OneToOne(mappedBy = "buddyUser", targetEntity = UserInformation.class)
-    private UserInformation buddyUser;
+    private UserInformation userInfo;
 
 
     public int getIdUser() {
@@ -121,11 +121,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public UserInformation getBuddyUser() {
-        return buddyUser;
+    public UserInformation getUserInfo() {
+        return userInfo;
     }
 
-    public void setBuddyUser(UserInformation buddyUser) {
-        this.buddyUser = buddyUser;
+    public void setUserInfo(UserInformation userInfo) {
+        this.userInfo = userInfo;
     }
 }
