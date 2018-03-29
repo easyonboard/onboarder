@@ -93,7 +93,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/{name}", method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> getUserByName(@PathVariable("name") String name) {
-           List<UserDTO> users = userService.findUserByName(name);
+           List<UserDTO> users = userService.searchByName(name);
             return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

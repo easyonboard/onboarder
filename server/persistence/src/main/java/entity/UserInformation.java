@@ -11,7 +11,6 @@ public class UserInformation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idUser;
-
     @Column
     private String team;
     @Column
@@ -22,7 +21,7 @@ public class UserInformation implements Serializable {
     private String project;
     @Column
     private Date startDate;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_buddy_id")
     private User buddyUser;
 
