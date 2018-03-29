@@ -37,11 +37,14 @@ public class User implements Serializable {
     @NotNull
     private String email;
 
+    @OneToOne
+    @JoinColumn(name = "idUserInfo")
+    private UserInfo userInfo;
 
     @ManyToOne
     private Role role;
 
-    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "contactPersons", targetEntity = Course.class)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "contactPersons", targetEntity = Course.class)
     private List<Course> contactForCourses;
 
     @ManyToMany(mappedBy = "owners", targetEntity = Course.class)
