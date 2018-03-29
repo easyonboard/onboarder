@@ -32,4 +32,7 @@ export class GeneralInfosComponent implements OnInit {
 
   }
 
+  get infosKeys(){
+    return  Array.from(this.infos.keys());
+  }
 }
