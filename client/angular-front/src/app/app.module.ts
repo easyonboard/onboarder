@@ -55,6 +55,7 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
     MatTooltipModule,
     MatChipsModule,
     MatIconModule,
+    MatButtonModule,
     MatFormFieldModule,
     MatDialogModule,
     MatGridListModule,
