@@ -112,9 +112,23 @@ export class AppComponent {
     });
   }
 
+  openModalNewEmployee() {
+    const dialogForNewEmployees = this.dialog.open(DialogNewEmployees, {
+      height: '650px',
+      width: '900px',
+
+
+    });
+
+
+  }
 
   redirectToCoursePage() {
     location.replace(this.rootConst.FRONT_COURSES_PAGE);
+  }
+
+  redirectToGeneralInfosPage() {
+    location.replace(this.rootConst.FRONT_INFOS_PAGE);
   }
 }
 
@@ -166,4 +180,32 @@ export class DialogEnrolledCoursesForUser implements OnInit {
     this.getEnrolledCoursesForUser();
 
   }
+}
+
+@Component({
+  selector: 'dialog-new-employees',
+  templateUrl: 'dialog-new-employees.html',
+})
+export class DialogNewEmployees implements OnInit {
+  private mailSent: boolean;
+  public newEmployees: UserDTO[];
+  private testUser: UserDTO;
+  private testUser2: UserDTO;
+
+  constructor(private userService: UserService) {
+  }
+
+  ngOnInit(): void {
+    this.mailSent = false;
+    this.newEmployees=[];
+    this.testUser = new UserDTO();
+    this.testUser.name = "Doe John 1";
+    this.testUser2 = new UserDTO();
+    this.testUser2.name = "Doe John 2";
+
+    this.newEmployees.push(this.testUser);
+    this.newEmployees.push(this.testUser2);
+  }
+
+
 }

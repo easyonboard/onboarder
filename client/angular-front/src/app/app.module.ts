@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppComponent, DialogEnrolledCoursesForUser} from './app.component';
+import {AppComponent} from './app.component';
 import {CoursesComponent} from './courses/courses.component';
 import {CourseService} from './service/course.service';
 import {HttpClientModule} from '@angular/common/http';
@@ -20,20 +20,14 @@ import {ScrollEventModule} from 'ngx-scroll-event';
 import {StarRatingModule} from 'angular-star-rating';
 
 import {
-  MatCardModule,
-  MatChipsModule,
-  MatDialogModule,
-  MatFormFieldModule,
-  MatGridListModule,
-  MatIconModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatTooltipModule
+  MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
+  MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule
+
 } from '@angular/material';
-import {ReviewService} from './service/review.service';
+import {ReviewService} from "./service/review.service";
 import {UserInfoFormularComponent} from './user-info-formular/user-info-formular.component';
 import {UserInformationService} from './service/user-information.service';
-
+import { GeneralInfosComponent } from './general-infos/general-infos.component
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,8 +37,9 @@ import {UserInformationService} from './service/user-information.service';
     AddCourseComponent,
     SubjectDetailComponent,
     DialogEnrolledCoursesForUser,
-    UserInfoFormularComponent
-  ],
+ UserInfoFormularComponent,
+    GeneralInfosComponent,
+    DialogNewEmployees],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -59,14 +54,17 @@ import {UserInformationService} from './service/user-information.service';
     MatTooltipModule,
     MatChipsModule,
     MatIconModule,
+    MatButtonModule,
     MatFormFieldModule,
     MatDialogModule,
     MatGridListModule,
     MatCardModule,
-    StarRatingModule
+    StarRatingModule,
+    MatListModule
   ],
   entryComponents: [
-    DialogEnrolledCoursesForUser
+    DialogEnrolledCoursesForUser,
+    DialogNewEmployees
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService, UserInformationService],
   bootstrap: [AppComponent]

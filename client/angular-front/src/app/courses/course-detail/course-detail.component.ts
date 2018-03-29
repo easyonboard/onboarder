@@ -215,6 +215,7 @@ export class CourseDetailComponent implements OnInit {
       var star = document.getElementById(id);
       if (rating >= i) {
         star.className = 'starfull';
+        continue;
       }
       if (rating > i - 1 && rating < i) {
         star.className = 'starhalf';
