@@ -1,11 +1,11 @@
 <h2 mat-dialog-title>New Employees</h2>
 <mat-dialog-content  style="height:550px">
-  <mat-card *ngFor="let user of newEmployees">
+  <mat-card *ngFor="let userinfo of newEmployees">
     <div *ngIf="mailSent">
-      <i  class="material-icons" style="padding: 10px">check_circle</i> {{user.name}}
+      <i  class="material-icons" style="padding: 10px">check_circle</i> {{userinfo.user.name}}
     </div>
     <div *ngIf="!mailSent">
-    <span *ngIf="!mailSent" class="glyphicon glyphicon-remove" style="padding: 10px"></span>{{user.name}}
+    <span *ngIf="!mailSent" class="glyphicon glyphicon-remove" style="padding: 10px"></span>{{userinfo.user.name}}
 
 
       <!--div for every field that is to be completed-->

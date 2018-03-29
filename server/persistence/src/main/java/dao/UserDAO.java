@@ -2,10 +2,13 @@ package dao;
 
 import entity.Course;
 import entity.User;
+import entity.UserInfo;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,5 +64,16 @@ public class UserDAO extends AbstractDAO<User> {
         Query query = this.em.createQuery(queryString);
         query.setParameter("username", username);
         return query.getResultList();
+    }
+
+    /**
+     *
+     * @return list of all users whose startingDate is greater than today
+     */
+    public List<UserInfo> getAllNewUsers(){
+        Query q = em.createQuery("select o from UserInfo o where o.startingDate > :today ");
+        Date date=new Date();
+        q.setParameter("today",date);
+       return q.getResultList();
     }
 }

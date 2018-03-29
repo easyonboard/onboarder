@@ -8,6 +8,7 @@ import {UserDTO} from './domain/user';
 import {MatDialog} from '@angular/material';
 import {Course} from './domain/course';
 import {CourseService} from './service/course.service';
+import {Userinfo} from "./domain/userinfo";
 
 @Component({
   selector: 'app-root',
@@ -188,22 +189,18 @@ export class DialogEnrolledCoursesForUser implements OnInit {
 })
 export class DialogNewEmployees implements OnInit {
   private mailSent: boolean;
-  public newEmployees: UserDTO[];
-  private testUser: UserDTO;
-  private testUser2: UserDTO;
+  public newEmployees: Userinfo[];
 
   constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
     this.mailSent = false;
-    this.newEmployees=[];
-    this.testUser = new UserDTO();
-    this.testUser.name = "Popescu Ionel";
-    this.testUser2 = new UserDTO();
-    this.testUser2.name = "Popescu Viorica";
-    this.newEmployees.push(this.testUser);
-    this.newEmployees.push(this.testUser2);
+    this.userService.getNewUsers().subscribe(newEmployees => {
+      this.newEmployees = newEmployees;
+      console.log(this.newEmployees);
+    });
+
   }
 
 

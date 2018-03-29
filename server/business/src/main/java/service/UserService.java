@@ -5,6 +5,7 @@ import dao.UserDAO;
 import dto.UserDTO;
 import dto.mapper.UserMapper;
 import entity.User;
+import entity.UserInfo;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,4 +72,7 @@ public class UserService {
         return userMapper.entitiesToDTOs(allUsersFromDb);
     }
 
+    public List<UserInfo> getAllNewUsers() {
+        return userDAO.getAllNewUsers();
+    }
 }

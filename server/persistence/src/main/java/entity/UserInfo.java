@@ -25,9 +25,6 @@ public class UserInfo implements Serializable {
     @Column
     private Date startingDate;
 
-    @OneToOne(cascade =  CascadeType.ALL, mappedBy = "userInfo")
-    private User user;
-
     public int getIdUserInfo() {
         return idUserInfo;
     }
@@ -83,12 +80,5 @@ public class UserInfo implements Serializable {
     public void setStartingDate(Date startingDate) {
         this.startingDate = startingDate;
     }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+    
 }

@@ -1,8 +1,10 @@
 package controller;
 
 import dto.UserDTO;
+import entity.UserInfo;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
+import org.apache.coyote.http11.upgrade.UpgradeServletInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,6 +71,17 @@ public class UserController {
         List<UserDTO> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
+
+
+    @CrossOrigin(origins="http://localhost:4200")
+    @RequestMapping(value = "/newUsers", method = RequestMethod.GET)
+    public ResponseEntity<List<UserInfo>> getAllNewUsers() {
+
+
+        return new ResponseEntity(userService.getAllNewUsers(), HttpStatus.OK);
+        }
+
 
 
 
