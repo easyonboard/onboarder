@@ -72,4 +72,9 @@ public class UserService {
         return userMapper.entitiesToDTOs(allUsersFromDb);
     }
 
+    public List<UserDTO> searchByName(String name){
+        userMapper.entitiesToDTOs(userDAO.searchByName(name));
+
+    }
+
 }

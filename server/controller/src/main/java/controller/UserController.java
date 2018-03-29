@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import service.UserInformationService;
 import service.UserService;
 
@@ -82,7 +79,7 @@ public class UserController {
      * or HTTP STATUS BAD REQUEST for exception
      */
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/allUsers", method = RequestMethod.POST)
+    @RequestMapping(value = "/info", method = RequestMethod.POST)
     public ResponseEntity addUserInformation(@RequestBody UserInformationDTO userInformationDTO) {
         try {
             userInformationService.addUser(userInformationDTO);
@@ -90,5 +87,13 @@ public class UserController {
         } catch (Exception e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/user/{name}", method = RequestMethod.GET)
+    public ResponseEntity<List<UserDTO>> getUserByName(@PathVariable("name") String name) {
+           List<UserDTO> users = userService.findUserByName(name);
+            return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

@@ -3,7 +3,6 @@ import {UserService} from '../service/user.service';
 import {UserDTO} from '../domain/user';
 import {RootConst} from '../util/RootConst';
 import {Router} from '@angular/router';
-import index from '@angular/cli/lib/cli';
 
 @Component({
   selector: 'app-login',

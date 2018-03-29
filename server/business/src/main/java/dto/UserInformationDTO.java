@@ -4,19 +4,19 @@ import java.util.Date;
 
 public class UserInformationDTO {
 
-    private int idUser;
+    private int id;
     private String team;
     private String building;
     private String store;
     private Date startDate;
     private UserDTO buddyUser;
 
-    public int getIdUser() {
-        return idUser;
+    public int getId() {
+        return id;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTeam() {
