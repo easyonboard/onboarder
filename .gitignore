@@ -17,6 +17,7 @@ workspace.xml
 *.zip
 *.tar.gz
 *.rar
+*.jar
 
 server/*/build/
 
