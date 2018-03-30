@@ -92,6 +92,18 @@ footer {
   color: #ffffff;
 }
 
+.viewNewEmployeeList {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 15px;
+  margin-right: 400px;
+  background-color: #841439;
+  border: none;
+  color: #ffffff;
+  font-size: large;
+}
+
 
 #generalInfo {
   background-color: #841439;
@@ -103,6 +115,7 @@ footer {
   margin-left: 5%;
   font-size: x-large;
   color: #ffffff;
+
 }
 
 .viewNewEmployeeList{

@@ -1,8 +1,10 @@
+
+
 export class UserDTO {
   idUser: number;
-  email:string;
+  email: string;
   name: string;
-  username:string;
-  password:string;
+  username: string;
+  password: string;
 
 }

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class UtilityService {
@@ -7,16 +7,16 @@ export class UtilityService {
   }
 
   openModal(id: string): void {
-    var modal = document.getElementById(id);
+    let modal = document.getElementById(id);
 
-    modal.style.display = "block";
+    modal.style.display = 'block';
 
   }
 
   closeModal(myModal: string): void {
 
-    var modal = document.getElementById(myModal);
-    modal.style.display = "none";
+    let modal = document.getElementById(myModal);
+    modal.style.display = 'none';
 
   }
 

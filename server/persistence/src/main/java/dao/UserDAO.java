@@ -62,4 +62,11 @@ public class UserDAO extends AbstractDAO<User> {
         query.setParameter("username", username);
         return query.getResultList();
     }
+
+
+    public List<User> searchByUsername(String name){
+
+        return null;
+
+    }
 }

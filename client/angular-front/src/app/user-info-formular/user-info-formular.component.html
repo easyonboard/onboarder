@@ -1,0 +1,36 @@
+<div class="container">
+
+  <h1>New Employee Information</h1>
+
+  <form class="tab-content">
+    <div class="form-group">
+      <label for="Team">Team</label>
+      <input #Team type="text" placeholder="Team" class="form-control" id="Team"/>
+    </div>
+
+    <div>
+      <label for="Building">Building</label>
+      <input #Building type="text" placeholder="Building" class="form-control" id="Building"/>
+    </div>
+    <div>
+      <label for="Store">Store</label>
+      <input #Store type="text" placeholder="Store" class="form-control" id="Store"/>
+    </div>
+    <div>
+      <label for="Buddy">Buddy</label>
+      <input #Buddy type="text" placeholder="Buddy" class="form-control" id="Buddy"/>
+    </div>
+    <input #searchBox id="search-box" (keyup)="search(searchBox.value)"/>
+    <ul class="search-result">
+    <li *ngFor="let hero of users$ | async" >
+       <p>{{hero.email}}</p>
+    </li>
+    </ul>
+    <div>
+      <button id="addInfo" class="btn btn-success"
+              (click)="addUserInformation(Team.value,Building.value,Store.value, Buddy.value)">Add Info
+      </button>
+
+    </div>
+  </form>
+</div> <!-- container -->
