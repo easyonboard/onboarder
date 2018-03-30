@@ -1,5 +1,5 @@
-import {UserDTO} from "./user";
-import {Course} from "./course";
+import {UserDTO} from './user';
+import {Course} from './course';
 
 export class Review {
   idReview: number;
