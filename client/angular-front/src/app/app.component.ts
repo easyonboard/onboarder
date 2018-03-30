@@ -8,8 +8,8 @@ import { UserDTO } from './domain/user';
 import { MatDialog } from '@angular/material';
 import { Course } from './domain/course';
 import { CourseService } from './service/course.service';
-import {UserInformationDTO} from "./domain/userinformation";
-import {UserInformationService} from "./service/user-information.service";
+import { UserInformationDTO } from './domain/userinformation';
+import { UserInformationService } from './service/user-information.service';
 
 @Component({
   selector: 'app-root',
@@ -150,7 +150,6 @@ export class DialogEnrolledCoursesForUser implements OnInit {
     this.rootConst = new RootConst();
   }
 
-
   getEnrolledCoursesForUser() {
     let username = localStorage.getItem('userLogged');
     if (username != null && username !== '') {
@@ -175,12 +174,10 @@ export class DialogEnrolledCoursesForUser implements OnInit {
     });
   }
 
-
   ngOnInit(): void {
     this.user = new UserDTO();
     this.user.username = localStorage.getItem('userLogged');
     this.getEnrolledCoursesForUser();
-
   }
 }
 
@@ -198,10 +195,7 @@ export class DialogNewEmployees implements OnInit {
   ngOnInit(): void {
     this.mailSent = false;
     this.newEmployees = [];
-    this.testUser = new UserDTO();
-    this.testUser.name = 'Doe John 1';
-    this.testUser2 = new UserDTO();
-    this.testUser2.name = 'Doe John 2';
+
     this.userInformationService.getNewUsers().subscribe(newEmployees => {
       this.newEmployees = newEmployees;
       console.log(this.newEmployees);
