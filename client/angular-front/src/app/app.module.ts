@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppComponent, DialogEnrolledCoursesForUser, DialogNewEmployees} from './app.component';
+import {AppComponent, DialogEnrolledCoursesForUser, DialogNewEmployees } from './app.component';
 import {CoursesComponent} from './courses/courses.component';
 import {CourseService} from './service/course.service';
 import {HttpClientModule} from '@angular/common/http';
@@ -24,10 +24,10 @@ import {
   MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule
 
 } from '@angular/material';
-import {ReviewService} from './service/review.service';
-import {UserInfoFormularComponent} from './user-info-formular/user-info-formular.component';
-import {UserInformationService} from './service/user-information.service';
-import { GeneralInfosComponent } from './general-infos/general-infos.component' ;
+import { ReviewService } from './service/review.service';
+import { UserInfoFormularComponent } from './user-info-formular/user-info-formular.component';
+import { UserInformationService } from './service/user-information.service';
+import { GeneralInfosComponent } from './general-infos/general-infos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,11 +37,10 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component' 
     AddCourseComponent,
     SubjectDetailComponent,
     DialogEnrolledCoursesForUser,
-
- UserInfoFormularComponent,
+    UserInfoFormularComponent,
     GeneralInfosComponent,
-    DialogNewEmployees],
-
+    DialogNewEmployees
+  ],
   imports: [
     FormsModule,
     ReactiveFormsModule,

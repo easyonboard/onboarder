@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ElementRef, OnInit,} from '@angular/core';
+import {AfterContentInit, Component, ElementRef, OnInit} from '@angular/core';
 import {UserService} from '../service/user.service';
 import {UserDTO} from '../domain/user';
 import {RootConst} from '../util/RootConst';
@@ -94,8 +94,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
     if (password !== passwordII) {
       this.errorMessage = 'Password does not match';
       return;
-    }
-    else {
+    } else {
       this.userService.addUser({name, username, email, password} as UserDTO).subscribe(
         res => {
           this.option = false;

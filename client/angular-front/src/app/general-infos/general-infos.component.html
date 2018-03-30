@@ -1,7 +1,7 @@
 <div id="mainDiv">
 
   <i class="fa fa-info-circle fa-3x" aria-hidden="true" id="generalInformationTitle"> General informations</i>
-  <mat-list *ngFor="let info of infos.keys(); let pos=index">
+  <mat-list *ngFor="let info of infosKeys; let pos=index">
     <mat-list-item>
       <label>{{pos+1}}</label>.
       <a target="_blank" href="{{info}}" class="links"><label>{{infos.get(info)}}</label></a>

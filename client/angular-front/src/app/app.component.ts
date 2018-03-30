@@ -1,15 +1,15 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
-import {Location} from '@angular/common';
-import {Router} from '@angular/router';
-import {RootConst} from './util/RootConst';
-import {UserService} from './service/user.service';
-import {UtilityService} from './service/utility.service';
-import {UserDTO} from './domain/user';
-import {MatDialog} from '@angular/material';
-import {Course} from './domain/course';
-import {CourseService} from './service/course.service';
-import {UserInformationDTO} from "./domain/userinformation";
-import {UserInformationService} from "./service/user-information.service";
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+import { RootConst } from './util/RootConst';
+import { UserService } from './service/user.service';
+import { UtilityService } from './service/utility.service';
+import { UserDTO } from './domain/user';
+import { MatDialog } from '@angular/material';
+import { Course } from './domain/course';
+import { CourseService } from './service/course.service';
+import { UserInformationDTO } from './domain/userinformation';
+import { UserInformationService } from './service/user-information.service';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +24,8 @@ export class AppComponent {
   public successMessage: string;
   public username: String;
 
-  constructor(private location: Location, private router: Router, private elemRef: ElementRef, private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog) {
+  constructor(private location: Location, private router: Router, private elemRef: ElementRef,
+    private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog) {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
@@ -68,19 +69,22 @@ export class AppComponent {
     passwordII = passwordII.trim();
 
 
-    if (password != '' && (password != passwordII || password.length < 6)) {
+    if (password !== '' && (password !== passwordII || password.length < 6)) {
       this.message = 'Password not matching or does not have 6 characters';
       return;
-    }
-    else {
-      var username = localStorage.getItem('userLogged');
-      if (name == '')
+    } else {
+      let username = localStorage.getItem('userLogged');
+
+      if (name === '') {
         name = null;
-      if (email == '')
+      }
+      if (email === '') {
         email = null;
-      if (password == '')
+      }
+      if (password === '') {
         password = null;
-      this.userService.updateUser({name, username, email, password} as UserDTO).subscribe(
+      }
+      this.userService.updateUser({ name, username, email, password } as UserDTO).subscribe(
         res => {
           this.utilityService.closeModal('myModal');
           this.successMessage = 'Operatia a fost realizata cu success!';
@@ -118,11 +122,7 @@ export class AppComponent {
     const dialogForNewEmployees = this.dialog.open(DialogNewEmployees, {
       height: '650px',
       width: '900px',
-
-
     });
-
-
   }
 
   redirectToCoursePage() {
@@ -135,30 +135,29 @@ export class AppComponent {
 }
 
 @Component({
-  selector: 'dialog-enrolled-courses-for-user',
-  templateUrl: 'dialog-enrolled-courses-for-user.html',
+  selector: 'app-dialog-enrolled-courses-for-user',
+  templateUrl: './app.dialog-enrolled-courses-for-user.html',
 })
 export class DialogEnrolledCoursesForUser implements OnInit {
   public enrolledCourses: Course[];
-  public str: string = 'asta e';
+  public str = 'asta e';
   private rootConst: RootConst;
   private user: UserDTO;
-  public progresses: Map<Course, Number>
+  public progresses: Map<Course, Number>;
 
   constructor(private courseService: CourseService, private userService: UserService) {
-    this.progresses = new Map<Course, Number>()
+    this.progresses = new Map<Course, Number>();
     this.rootConst = new RootConst();
   }
 
-
   getEnrolledCoursesForUser() {
     let username = localStorage.getItem('userLogged');
-    if (username != null && username != '') {
+    if (username != null && username !== '') {
       this.courseService.getEnrolledCoursesForUser(username).subscribe(courses => {
         this.enrolledCourses = courses;
         this.enrolledCourses.forEach(c => this.userService.getProgress(c, this.user).subscribe(progress => {
-          this.progresses.set(c, progress)
-          console.log(this.progresses)
+          this.progresses.set(c, progress);
+          console.log(this.progresses);
         }));
       });
 
@@ -175,18 +174,16 @@ export class DialogEnrolledCoursesForUser implements OnInit {
     });
   }
 
-
   ngOnInit(): void {
     this.user = new UserDTO();
     this.user.username = localStorage.getItem('userLogged');
     this.getEnrolledCoursesForUser();
-
   }
 }
 
 @Component({
-  selector: 'dialog-new-employees',
-  templateUrl: 'dialog-new-employees.html',
+  selector: 'app-dialog-new-employees',
+  templateUrl: './app.dialog-new-employees.html',
 })
 export class DialogNewEmployees implements OnInit {
   private mailSent: boolean;
@@ -197,6 +194,8 @@ export class DialogNewEmployees implements OnInit {
 
   ngOnInit(): void {
     this.mailSent = false;
+    this.newEmployees = [];
+
     this.userInformationService.getNewUsers().subscribe(newEmployees => {
       this.newEmployees = newEmployees;
       console.log(this.newEmployees);
@@ -211,6 +210,5 @@ export class DialogNewEmployees implements OnInit {
   openCheckList(user: UserDTO) {
   console.log(user);
   }
-
 
 }
