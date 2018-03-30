@@ -204,5 +204,13 @@ export class DialogNewEmployees implements OnInit {
 
   }
 
+  openFormular() {
+
+  }
+
+  openCheckList(user: UserDTO) {
+  console.log(user);
+  }
+
 
 }
