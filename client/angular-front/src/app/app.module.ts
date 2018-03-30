@@ -6,7 +6,7 @@ import {CoursesComponent} from './courses/courses.component';
 import {CourseService} from './service/course.service';
 import {HttpClientModule} from '@angular/common/http';
 import {CourseDetailComponent} from './courses/course-detail/course-detail.component';
-import {AppRoutingModule} from './/app-routing.module';
+import {AppRoutingModule} from './app-routing.module';
 import {UserService} from './service/user.service';
 import {LoginComponent} from './login/login.component';
 import {UtilityService} from './service/utility.service';
@@ -28,7 +28,6 @@ import { ReviewService } from './service/review.service';
 import { UserInfoFormularComponent } from './user-info-formular/user-info-formular.component';
 import { UserInformationService } from './service/user-information.service';
 import { GeneralInfosComponent } from './general-infos/general-infos.component';
-
 @NgModule({
   declarations: [
     AppComponent,

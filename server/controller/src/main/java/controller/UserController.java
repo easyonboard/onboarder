@@ -1,6 +1,7 @@
 package controller;
 
 import dto.UserDTO;
+import dto.UserInformationDTO;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,14 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+
+    @CrossOrigin(origins="http://localhost:4200")
+    @RequestMapping(value = "/newUsers", method = RequestMethod.GET)
+    public ResponseEntity<List<UserInformationDTO>> getAllNewUsers() {
+
+
+        return new ResponseEntity(userService.getAllNewUsers(), HttpStatus.OK);
+        }
     /**
      * Method used for adding/updating the user information, represented by the info the user needs to know
      * for his first day.
@@ -97,4 +106,5 @@ public class UserController {
 //           List<UserDTO> users = userService.searchByName(name);
 //            return new ResponseEntity<>(users, HttpStatus.OK);
 //    }
+
 }

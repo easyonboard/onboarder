@@ -5,8 +5,11 @@ import {Observable} from 'rxjs/Observable';
 import {UserDTO} from '../domain/user';
 import {RootConst} from '../util/RootConst';
 import {Course} from '../domain/course';
+
 import {of} from 'rxjs/observable/of';
 import {tap} from 'rxjs/operators';
+import {UserInformationDTO} from "../domain/userinformation";
+
 
 @Injectable()
 export class UserService {
@@ -56,6 +59,8 @@ export class UserService {
 
   }
 
+
+
   getUserByUsername(term: string): Observable<UserDTO[]> {
     if (!term.trim()) {
       // if not search term, return empty hero array.
@@ -63,5 +68,6 @@ export class UserService {
     }
     return this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_USERNAME + term)
       .pipe(tap(_ => console.log(`found heroes matching "${term}"`)));
+
   }
 }

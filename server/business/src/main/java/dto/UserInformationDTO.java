@@ -4,24 +4,20 @@ import java.util.Date;
 
 public class UserInformationDTO {
 
-    private int idUser;
+    private int idUserInformation;
     private String team;
     private String building;
     private String store;
     private String project;
     private Date startDate;
     private UserDTO buddyUser;
+    private UserDTO userAccount;
+    private boolean mailSent;
 
     public UserInformationDTO() {
     }
 
-    public int getIdUser() {
-        return idUser;
-    }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
 
     public String getTeam() {
         return team;
@@ -69,5 +65,29 @@ public class UserInformationDTO {
 
     public void setProject(String project) {
         this.project = project;
+    }
+
+    public int getIdUserInformation() {
+        return idUserInformation;
+    }
+
+    public void setIdUserInformation(int idUserInformation) {
+        this.idUserInformation = idUserInformation;
+    }
+
+    public UserDTO getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserDTO userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public boolean isMailSent() {
+        return mailSent;
+    }
+
+    public void setMailSent(boolean mailSent) {
+        this.mailSent = mailSent;
     }
 }

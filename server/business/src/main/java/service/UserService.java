@@ -2,7 +2,10 @@ package service;
 
 import com.google.common.hash.Hashing;
 import dao.UserDAO;
+import dao.UserInformationDAO;
 import dto.UserDTO;
+import dto.UserInformationDTO;
+import dto.mapper.UserInformationMapper;
 import dto.mapper.UserMapper;
 import entity.User;
 import exception.InvalidDataException;
@@ -27,7 +30,12 @@ public class UserService {
     @Autowired
     private UserValidator userValidator;
 
+    @Autowired
+    private UserInformationDAO userInformationDAO;
+
     private UserMapper userMapper = UserMapper.INSTANCE;
+
+    private UserInformationMapper userInformationMapper = UserInformationMapper.INSTANCE;
 
     private static final String USER_NOT_FOUND_ERROR = "User not found";
     public UserDTO findUserByUsername(String username) throws UserNotFoundException {
@@ -69,6 +77,11 @@ public class UserService {
     public List<UserDTO> getAllUsers() {
         List<User> allUsersFromDb = userDAO.getAllUsers();
         return userMapper.entitiesToDTOs(allUsersFromDb);
+    }
+
+
+    public List<UserInformationDTO> getAllNewUsers() {
+        return userInformationMapper.entitiesToDTOs(userInformationDAO.getAllNewUsers());
     }
 
 //    public List<UserDTO> searchByName(String name){

@@ -10,7 +10,7 @@ public class UserInformation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int idUser;
+    private int idUserInformation;
     @Column
     private String team;
     @Column
@@ -21,9 +21,18 @@ public class UserInformation implements Serializable {
     private String project;
     @Column
     private Date startDate;
+
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_buddy_id")
     private User buddyUser;
+
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_account")
+    private User userAccount;
+
+    @Column(columnDefinition="NUMBER(1)")
+    private boolean mailSent;
 
     public UserInformation() {
     }
@@ -37,9 +46,7 @@ public class UserInformation implements Serializable {
         this.buddyUser = userBuddy;
     }
 
-    public int getIdUser() {
-        return idUser;
-    }
+
 
     public String getTeam() {
         return team;
@@ -61,9 +68,7 @@ public class UserInformation implements Serializable {
         return startDate;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
+
 
     public void setTeam(String team) {
         this.team = team;
@@ -91,5 +96,29 @@ public class UserInformation implements Serializable {
 
     public void setBuddyUser(User buddyUser) {
         this.buddyUser = buddyUser;
+    }
+
+    public int getIdUserInformation() {
+        return idUserInformation;
+    }
+
+    public void setIdUserInformation(int idUserInformation) {
+        this.idUserInformation = idUserInformation;
+    }
+
+    public User getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(User userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public boolean isMailSent() {
+        return mailSent;
+    }
+
+    public void setMailSent(boolean mailSent) {
+        this.mailSent = mailSent;
     }
 }
