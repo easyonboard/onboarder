@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { RootConst } from './util/RootConst';
 import { UserService } from './service/user.service';
 import { UtilityService } from './service/utility.service';
-import { UserDTO } from './domain/user';
+import { UserDTO, UserInfoDTO } from './domain/user';
 import { MatDialog } from '@angular/material';
 import { Course } from './domain/course';
 import { CourseService } from './service/course.service';
@@ -14,8 +14,7 @@ import { UserInformationService } from './service/user-information.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'
-  ]
+  styleUrls: ['./app.component.css']
 })
 
 export class AppComponent {
@@ -84,6 +83,7 @@ export class AppComponent {
       if (password === '') {
         password = null;
       }
+
       this.userService.updateUser({ name, username, email, password } as UserDTO).subscribe(
         res => {
           this.utilityService.closeModal('myModal');
@@ -96,7 +96,6 @@ export class AppComponent {
         });
 
     }
-
   }
 
   userIsLogged(): boolean {
@@ -120,6 +119,13 @@ export class AppComponent {
 
   openModalNewEmployee() {
     const dialogForNewEmployees = this.dialog.open(DialogNewEmployees, {
+      height: '650px',
+      width: '900px',
+    });
+  }
+
+  openModalAddNewUser() {
+    const dialogAddNewUser = this.dialog.open(DialogAddNewUser, {
       height: '650px',
       width: '900px',
     });
@@ -160,7 +166,6 @@ export class DialogEnrolledCoursesForUser implements OnInit {
           console.log(this.progresses);
         }));
       });
-
     }
   }
 
@@ -183,7 +188,7 @@ export class DialogEnrolledCoursesForUser implements OnInit {
 
 @Component({
   selector: 'app-dialog-new-employees',
-  templateUrl: './app.dialog-new-employees.html',
+  templateUrl: './app.dialog-new-employees.html'
 })
 export class DialogNewEmployees implements OnInit {
   private mailSent: boolean;
@@ -200,6 +205,33 @@ export class DialogNewEmployees implements OnInit {
       this.newEmployees = newEmployees;
       console.log(this.newEmployees);
     });
+  }
+}
 
+@Component({
+  selector: 'app-add-new-user',
+  templateUrl: './app.dialog-add-new-user.html'
+})
+export class DialogAddNewUser implements OnInit {
+  public firstName: string;
+  public lastName: string;
+
+  public user = new UserDTO;
+  public userInfo = new UserInfoDTO;
+
+  constructor(private userService: UserService) {
+  }
+
+  ngOnInit(): void {
+
+  }
+
+  addUser(): void {
+    this.user.username = 'testtest';
+    this.user.password = 'testtest';
+    this.user.email = 'test@yahoo.com';
+
+    console.log(this.user.name);
+    this.userService.addUser(this.user);
   }
 }

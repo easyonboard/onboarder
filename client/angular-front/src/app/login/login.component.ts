@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit, AfterContentInit {
     this.message = 'Welcome back!';
     this.messageSignIn = 'Sign Up for Free';
     this.rootConst = new RootConst();
-
   }
 
   ngAfterContentInit() {
@@ -102,7 +101,6 @@ export class LoginComponent implements OnInit, AfterContentInit {
         err => {
           this.errorMessage = err.error.message;
         });
-
     }
   }
 }

@@ -16,7 +16,7 @@ public class UserInformation implements Serializable {
     @Column
     private String building;
     @Column
-    private String store;
+    private String floor;
     @Column
     private String project;
     @Column
@@ -39,7 +39,7 @@ public class UserInformation implements Serializable {
     public UserInformation(String team, String building, String store, String project, Date startDate, User userBuddy) {
         this.team = team;
         this.building = building;
-        this.store = store;
+        this.floor = store;
         this.project = project;
         this.startDate = startDate;
         this.buddyUser = userBuddy;
@@ -53,8 +53,8 @@ public class UserInformation implements Serializable {
         return building;
     }
 
-    public String getStore() {
-        return store;
+    public String getFloor() {
+        return floor;
     }
 
     public String getProject() {
@@ -73,8 +73,8 @@ public class UserInformation implements Serializable {
         this.building = building;
     }
 
-    public void setStore(String store) {
-        this.store = store;
+    public void setFloor(String floor) {
+        this.floor = floor;
     }
 
     public void setProject(String project) {

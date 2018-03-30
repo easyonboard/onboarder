@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppComponent, DialogEnrolledCoursesForUser, DialogNewEmployees } from './app.component';
+import {AppComponent, DialogEnrolledCoursesForUser, DialogNewEmployees, DialogAddNewUser } from './app.component';
 import {CoursesComponent} from './courses/courses.component';
 import {CourseService} from './service/course.service';
 import {HttpClientModule} from '@angular/common/http';
@@ -25,9 +25,10 @@ import {
 
 } from '@angular/material';
 import { ReviewService } from './service/review.service';
-import { UserInfoFormularComponent } from './user-info-formular/user-info-formular.component';
+import { UserInfoFormularComponent } from './users/user-info-formular/user-info-formular.component';
 import { UserInformationService } from './service/user-information.service';
 import { GeneralInfosComponent } from './general-infos/general-infos.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
     DialogEnrolledCoursesForUser,
     UserInfoFormularComponent,
     GeneralInfosComponent,
-    DialogNewEmployees
+    DialogNewEmployees,
+    DialogAddNewUser
   ],
   imports: [
     FormsModule,
@@ -65,7 +67,8 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
   ],
   entryComponents: [
     DialogEnrolledCoursesForUser,
-    DialogNewEmployees
+    DialogNewEmployees,
+    DialogAddNewUser
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService, UserInformationService],
   bootstrap: [AppComponent]
