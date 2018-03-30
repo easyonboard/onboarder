@@ -1,15 +1,15 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { Router } from '@angular/router';
-import { RootConst } from './util/RootConst';
-import { UserService } from './service/user.service';
-import { UtilityService } from './service/utility.service';
-import { UserDTO } from './domain/user';
-import { MatDialog } from '@angular/material';
-import { Course } from './domain/course';
-import { CourseService } from './service/course.service';
-import { UserInformationDTO } from './domain/userinformation';
-import { UserInformationService } from './service/user-information.service';
+import {Component, ElementRef, Inject, OnInit, Optional} from '@angular/core';
+import {Location} from '@angular/common';
+import {Router} from '@angular/router';
+import {RootConst} from './util/RootConst';
+import {UserService} from './service/user.service';
+import {UtilityService} from './service/utility.service';
+import {UserDTO} from './domain/user';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {Course} from './domain/course';
+import {CourseService} from './service/course.service';
+import {UserInformationDTO} from './domain/userinformation';
+import {UserInformationService} from './service/user-information.service';
 
 @Component({
   selector: 'app-root',
@@ -25,22 +25,10 @@ export class AppComponent {
   public username: String;
 
   constructor(private location: Location, private router: Router, private elemRef: ElementRef,
-    private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog) {
+              private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog) {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
-  }
-
-  goBack(): void {
-    if (location.href.includes('subject')) {
-      this.location.back();
-      return;
-    }
-    if (location.href.includes(this.rootConst.FRONT_DETAILED_COURSE)) {
-      this.router.navigateByUrl(this.rootConst.FRONT_COURSES_PAGE);
-      return;
-    }
-    this.location.back();
   }
 
   logout(): void {
@@ -84,7 +72,7 @@ export class AppComponent {
       if (password === '') {
         password = null;
       }
-      this.userService.updateUser({ name, username, email, password } as UserDTO).subscribe(
+      this.userService.updateUser({name, username, email, password} as UserDTO).subscribe(
         res => {
           this.utilityService.closeModal('myModal');
           this.successMessage = 'Operatia a fost realizata cu success!';
@@ -119,7 +107,7 @@ export class AppComponent {
   }
 
   openModalNewEmployee() {
-    const dialogForNewEmployees = this.dialog.open(DialogNewEmployees, {
+    this.dialog.open(DialogNewEmployees, {
       height: '650px',
       width: '900px',
     });
@@ -189,7 +177,7 @@ export class DialogNewEmployees implements OnInit {
   private mailSent: boolean;
   public newEmployees: UserInformationDTO[];
 
-  constructor(private userInformationService: UserInformationService) {
+  constructor(private userInformationService: UserInformationService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -205,10 +193,46 @@ export class DialogNewEmployees implements OnInit {
 
   openFormular() {
 
+    // metoda care ar pputea fi folosita pentru a adauga informatiile suplimentare despre user-ul nou
   }
 
   openCheckList(user: UserDTO) {
-  console.log(user);
+    console.log(user);
+    this.dialog.open(DialogCheckListUser, {
+      height: '650px',
+      width: '900px',
+      data: user
+    });
   }
+
+}
+
+@Component({
+  selector: 'app-dialog-check-list-user',
+  templateUrl: './app.dialog-checkList.html',
+})
+export class DialogCheckListUser implements OnInit {
+  private dialogTitle: string;
+  private checkList: Map<string, boolean>;
+
+
+
+  constructor(@Optional() @Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService) {
+  }
+
+  ngOnInit() {
+    this.dialogTitle = 'Check list for ' + this.user.name;
+
+    this.userService.getCheckListForUser(this.user).subscribe(resp => {
+      this.checkList = resp;
+    });
+    this.checkList = new Map<string, boolean>();
+    //test map
+    this.checkList.set('Parola initiala', true).set('Laptop', true).set('buddy', false);
+
+
+  }
+
+
 
 }

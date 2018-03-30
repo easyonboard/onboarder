@@ -8,7 +8,6 @@ import {Course} from '../domain/course';
 
 import {of} from 'rxjs/observable/of';
 import {tap} from 'rxjs/operators';
-import {UserInformationDTO} from "../domain/userinformation";
 
 
 @Injectable()
@@ -60,7 +59,6 @@ export class UserService {
   }
 
 
-
   getUserByUsername(term: string): Observable<UserDTO[]> {
     if (!term.trim()) {
       // if not search term, return empty hero array.
@@ -68,6 +66,12 @@ export class UserService {
     }
     return this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_USERNAME + term)
       .pipe(tap(_ => console.log(`found heroes matching "${term}"`)));
+
+  }
+
+  getCheckListForUser(user: UserDTO): Observable<Map<string, boolean>> {
+    const body = JSON.stringify(user);
+    return this.http.post<Map<string, boolean>>(this.rootConst.WEB_SERVER_CHECKLIST, body, this.httpOptions);
 
   }
 }

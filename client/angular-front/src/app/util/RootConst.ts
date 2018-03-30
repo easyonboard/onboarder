@@ -48,6 +48,7 @@ export class RootConst {
   public WEB_SERVICE_ADD_REVIEW = this.WEB_SERVICE_ENDPOINT + 'course/addReview';
   public WEB_SERVICE_ALL_REVIEWS = this.WEB_SERVICE_ENDPOINT + 'allReviews';
   public WEB_SERVER_NEWUSERS = this.WEB_SERVICE_ENDPOINT + 'newUsers';
+  public WEB_SERVER_CHECKLIST = this.WEB_SERVICE_ENDPOINT + 'checkList';
 
   public FRONT_COURSES_PAGE = '/courses';
   public FRONT_ADD_COURSE = this.FRONT_COURSES_PAGE + '/addCourse';
@@ -60,7 +61,7 @@ export class RootConst {
   public FRONT_CONTACT_PERSON_SECTION = 'contactPerson';
   public FRONT_RATINGS_REVIEW_SECTION = 'ratingsReview';
   public FRONT_LOGIN_PAGE = '';
-  public FRONT_INFOS_PAGE='/infos';
+  public FRONT_INFOS_PAGE = '/infos';
 
   public SERVER_ADD_USER_INFO_URL = this.WEB_SERVICE_ENDPOINT + '/info';
 }
