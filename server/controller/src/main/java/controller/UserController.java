@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import service.UserService;
+import sun.rmi.runtime.Log;
 
 import java.util.List;
 
@@ -45,13 +46,14 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/addUser", method = RequestMethod.POST)
     public ResponseEntity addUser(@RequestBody UserDTO user) {
-
+        System.out.print("test\n" + user.toString() + "\n");
         try {
             userService.addUser(user);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (InvalidDataException exception) {
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
         }
+
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -77,8 +79,6 @@ public class UserController {
     @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/newUsers", method = RequestMethod.GET)
     public ResponseEntity<List<UserInformationDTO>> getAllNewUsers() {
-
-
         return new ResponseEntity(userService.getAllNewUsers(), HttpStatus.OK);
         }
     /**

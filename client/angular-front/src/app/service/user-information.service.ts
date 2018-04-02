@@ -21,7 +21,6 @@ export class UserInformationService {
     return this.http.post<UserInformationDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }
 
-
   getNewUsers(): Observable<UserInformationDTO[]> {
     return this.http.get<UserInformationDTO[]>(this.rootConst.WEB_SERVER_NEWUSERS);
   }

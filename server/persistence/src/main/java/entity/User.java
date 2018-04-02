@@ -1,6 +1,5 @@
 package entity;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,7 +21,6 @@ public class User implements Serializable {
     @NotNull
     @Column
     private String name;
-
 
     @NotNull
     @Size(min = 6)

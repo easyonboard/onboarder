@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Add a new user</h2>
+<mat-dialog-content style="height:550px">
+    <form class="new-user">
+        <div class="form-group">
+            <label for="FirstName">First Name</label>
+            <input #FirstName type="text" [(ngModel)]="user.name" [ngModelOptions]="{standalone: true}" placeholder="FirstName" class="form-control" id="FirstName" />
+        </div>
+        <div class="form-group">
+            <label for="LastName">Last Name</label>
+            <input #LastName type="text" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" placeholder="LastName" class="form-control" id="LastName" />
+        </div>
+        <!-- <div class="form-group">
+            <label for="Role">Role</label>
+            <input #Role type="text" [(ngModel)]="user.role" [ngModelOptions]="{standalone: true}" placeholder="EMPLOYEE" class="form-control" id="Role" />
+        </div> -->
+        <div class="form-group">
+            <label for="Team">Team</label>
+            <input #Team type="text" [(ngModel)]="userInfo.team" [ngModelOptions]="{standalone: true}" placeholder="Team" class="form-control" id="Team" />
+        </div>
+        <div>
+            <label for="Building">Building</label>
+            <input #Building type="text" [(ngModel)]="userInfo.building" [ngModelOptions]="{standalone: true}" placeholder="Building" class="form-control" id="Building" />
+        </div>
+        <div>
+            <label for="Floor">Floor</label>
+            <input #Store type="text" [(ngModel)]="userInfo.floor" [ngModelOptions]="{standalone: true}" placeholder="Floor" class="form-control" id="Floor" />
+        </div>
+        <div>
+            <label for="Buddy">Buddy</label>
+            <input #Buddy type="text" [(ngModel)]="userInfo.buddy" [ngModelOptions]="{standalone: true}" placeholder="Buddy" class="form-control" id="Buddy" />
+        </div>
+
+        <div>
+            <button id="addUser" class="btn btn-success" (click)="addUser()">Add User
+          </button>
+
+        </div>
+    </form>
+</mat-dialog-content>
