@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {UserInformationService} from '../service/user-information.service';
-import {UserInformationDTO} from '../domain/userinformation';
-import {UserService} from '../service/user.service';
+import {UserInformationService} from '../../service/user-information.service';
+import {UserInformationDTO} from '../../domain/userinformation';
+import {UserService} from '../../service/user.service';
 import {Observable} from 'rxjs/Observable';
-import {UserDTO} from '../domain/user';
+import {UserDTO} from '../../domain/user';
 import {Subject} from 'rxjs/Subject';
 
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
@@ -51,6 +51,4 @@ export class UserInfoFormularComponent implements OnInit {
     buddy.trim();
     this.userInformationService.addUserInformation({building, store, team} as UserInformationDTO).subscribe();
   }
-
-
 }
