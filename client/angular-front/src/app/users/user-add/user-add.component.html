@@ -1,19 +1,34 @@
 <h2 mat-dialog-title>Add a new user</h2>
-<mat-dialog-content style="height:550px">
-    <form class="new-user">
-        <div class="form-group">
+<mat-dialog-content style="height:600px">
+    <form>
+        <div>
             <label for="FirstName">First Name</label>
-            <input #FirstName type="text" [(ngModel)]="user.name" [ngModelOptions]="{standalone: true}" placeholder="FirstName" class="form-control" id="FirstName" />
+            <input #FirstName type="text" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder="FirstName" class="form-control" id="FirstName" />
         </div>
-        <div class="form-group">
+        <div>
             <label for="LastName">Last Name</label>
             <input #LastName type="text" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" placeholder="LastName" class="form-control" id="LastName" />
         </div>
-        <!-- <div class="form-group">
-            <label for="Role">Role</label>
-            <input #Role type="text" [(ngModel)]="user.role" [ngModelOptions]="{standalone: true}" placeholder="EMPLOYEE" class="form-control" id="Role" />
-        </div> -->
+
+        <br>
+        <div>
+            <label>USERNAME: {{ firstName }}{{ lastName }}</label>
+        </div>
+        <br>
+
+        <div>
+            <label for="Email">Email address</label>
+            <input #Email type="text" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}" placeholder="user@email" class="form-control" id="Email" />
+        </div>
         <div class="form-group">
+            <label>Role</label>
+            <mat-select placeholder="Select role" [(value)]="user.role">
+                <mat-option *ngFor="let role of roles" [value]="role.value">
+                    {{ role.viewValue }}
+                </mat-option>
+            </mat-select>
+        </div>
+        <div class>
             <label for="Team">Team</label>
             <input #Team type="text" [(ngModel)]="userInfo.team" [ngModelOptions]="{standalone: true}" placeholder="Team" class="form-control" id="Team" />
         </div>
@@ -27,13 +42,16 @@
         </div>
         <div>
             <label for="Buddy">Buddy</label>
-            <input #Buddy type="text" [(ngModel)]="userInfo.buddy" [ngModelOptions]="{standalone: true}" placeholder="Buddy" class="form-control" id="Buddy" />
+            <mat-select placeholder="Select buddy" [(value)]="userInfo.buddy">
+                <mat-option *ngFor="let employee of employees" [value]="employee.value">
+                    {{ employee.viewValue }}
+                </mat-option>
+            </mat-select>
         </div>
 
         <div>
             <button id="addUser" class="btn btn-success" (click)="addUser()">Add User
-          </button>
-
+            </button>
         </div>
     </form>
 </mat-dialog-content>

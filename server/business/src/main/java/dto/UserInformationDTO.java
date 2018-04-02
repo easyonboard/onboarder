@@ -35,11 +35,11 @@ public class UserInformationDTO {
         this.building = building;
     }
 
-    public String getStore() {
+    public String getFloor() {
         return store;
     }
 
-    public void setStore(String store) {
+    public void setFloor(String store) {
         this.store = store;
     }
 

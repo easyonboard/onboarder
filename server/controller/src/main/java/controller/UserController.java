@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import service.UserService;
-import sun.rmi.runtime.Log;
 
 import java.util.List;
 
@@ -40,20 +39,40 @@ public class UserController {
         } catch (UserNotFoundException exception) {
             return new ResponseEntity(exception, HttpStatus.FORBIDDEN);
         }
-
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/addUser", method = RequestMethod.POST)
     public ResponseEntity addUser(@RequestBody UserDTO user) {
-        System.out.print("test\n" + user.toString() + "\n");
         try {
-            userService.addUser(user);
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUsername(user.getUsername());
+            userDTO.setPassword(user.getPassword());
+            userDTO.setEmail(user.getEmail());
+            userDTO.setName(user.getName());
+
+            userService.addUser(userDTO);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (InvalidDataException exception) {
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
         }
+    }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/user/addUserInfo", method = RequestMethod.POST)
+    public ResponseEntity addUserInfo(@RequestBody UserInformationDTO userInfo) {
+        try {
+            UserInformationDTO userInfoDTO = new UserInformationDTO();
+            userInfoDTO.setTeam(userInfo.getTeam());
+            userInfoDTO.setBuilding(userInfo.getBuilding());
+            userInfoDTO.setFloor(userInfo.getFloor());
+            userInfoDTO.setBuddyUser(userInfo.getBuddyUser());
+
+            userService.addUserInfo(userInfoDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

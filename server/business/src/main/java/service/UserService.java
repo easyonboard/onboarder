@@ -8,6 +8,7 @@ import dto.UserInformationDTO;
 import dto.mapper.UserInformationMapper;
 import dto.mapper.UserMapper;
 import entity.User;
+import entity.UserInformation;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,10 @@ public class UserService {
         userValidator.validateUserData(user);
         user.setPassword(encrypt(user.getPassword()));
         userDAO.persistEntity(userMapper.mapToNewEntity(user));
+    }
+
+    public void addUserInfo(UserInformationDTO userInfo) {
+        userInformationDAO.persistEntity(userInformationMapper.mapToNewEntity(userInfo));
     }
 
     public String encrypt(String initString) {

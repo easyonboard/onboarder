@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
 import {UserService} from './service/user.service';
 import {UtilityService} from './service/utility.service';
-import {UserDTO} from './domain/user';
+import {UserDTO, UserInfoDTO} from './domain/user';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {Course} from './domain/course';
 import {CourseService} from './service/course.service';
@@ -115,8 +115,8 @@ export class AppComponent {
 
   openModalAddNewUser() {
     const dialogAddNewUser = this.dialog.open(DialogAddNewUser, {
-      height: '650px',
-      width: '900px',
+      height: '700px',
+      width: '600px',
     });
   }
 
@@ -198,8 +198,8 @@ export class DialogNewEmployees implements OnInit {
 }
 
 @Component({
-  selector: 'app-add-new-user',
-  templateUrl: './app.dialog-add-new-user.html'
+  selector: 'app-user-add',
+  templateUrl: './users/user-add/user-add.component.html'
 })
 export class DialogAddNewUser implements OnInit {
   public firstName: string;
@@ -207,6 +207,18 @@ export class DialogAddNewUser implements OnInit {
 
   public user = new UserDTO;
   public userInfo = new UserInfoDTO;
+
+  roles = [
+    {value: 'role-0', viewValue: 'Admin'},
+    {value: 'role-1', viewValue: 'Employee'},
+    {value: 'role-2', viewValue: 'Abteilunsleiter'}
+  ];
+
+  employees = [
+    {value: 'employee-0', viewValue: 'ONE'},
+    {value: 'employee-1', viewValue: 'TWO'},
+    {value: 'employee-2', viewValue: 'DREI'}
+  ];
 
   constructor(private userService: UserService) {
   }
@@ -216,28 +228,13 @@ export class DialogAddNewUser implements OnInit {
   }
 
   addUser(): void {
-    this.user.username = 'testtest';
-    this.user.password = 'testtest';
-    this.user.email = 'test@yahoo.com';
+    this.user.username = this.firstName + this.lastName;
+    this.user.password = 'test';
+    this.user.name = this.firstName + ' ' + this.lastName;
 
-    console.log(this.user.name);
-    this.userService.addUser(this.user);
+    this.userService.addUser(this.user).subscribe();
+    //this.userService.addUserInfo(this.userInfo).subscribe();
   }
-
-  openFormular() {
-
-    // metoda care ar pputea fi folosita pentru a adauga informatiile suplimentare despre user-ul nou
-  }
-
-  openCheckList(user: UserDTO) {
-    console.log(user);
-    this.dialog.open(DialogCheckListUser, {
-      height: '650px',
-      width: '900px',
-      data: user
-    });
-  }
-
 }
 
 @Component({
@@ -247,8 +244,6 @@ export class DialogAddNewUser implements OnInit {
 export class DialogCheckListUser implements OnInit {
   private dialogTitle: string;
   private checkList: Map<string, boolean>;
-
-
 
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService) {
   }
@@ -262,10 +257,5 @@ export class DialogCheckListUser implements OnInit {
     this.checkList = new Map<string, boolean>();
     //test map
     this.checkList.set('Parola initiala', true).set('Laptop', true).set('buddy', false);
-
-
   }
-
-
-
 }
