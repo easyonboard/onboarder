@@ -1,3 +1,3 @@
-export enum MaterialType{
-  LINK,FILE
+export enum MaterialType {
+  LINK, FILE
 }

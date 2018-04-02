@@ -1,6 +1,7 @@
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
 <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
 <head></head>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -8,123 +9,128 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <div class="modal" id="myCustom">
 
-  <div class="modal-content">
-    <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
-    <br/>
-    {{successMessage}}
-  </div>
+    <div class="modal-content">
+        <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
+        <br/> {{successMessage}}
+    </div>
 </div>
 
 <div id="myModal" class="modal">
 
-  <div class="modal-content">
+    <div class="modal-content">
 
 
-    <div class="alert alert-danger" [hidden]="message.length==0">
-      {{message}}
-    </div>
-    <button class="close" (click)="closeModal('myModal')">Close</button>
-    <br/>
-    <br/><br/>
+        <div class="alert alert-danger" [hidden]="message.length==0">
+            {{message}}
+        </div>
+        <button class="close" (click)="closeModal('myModal')">Close</button>
+        <br/>
+        <br/><br/>
 
 
-    <table class="table">
-      <tr>
-        <td><label>Name</label></td>
-        <td><input #name type="text" placeholder="Name"/></td>
-      </tr>
+        <table class="table">
+            <tr>
+                <td><label>Name</label></td>
+                <td><input #name type="text" placeholder="Name" /></td>
+            </tr>
 
-      <tr>
-        <td><label>Email </label></td>
+            <tr>
+                <td><label>Email </label></td>
 
-        <td><input #email type="email" ng-model="string" placeholder="Email" required/>
-        </td>
+                <td><input #email type="email" ng-model="string" placeholder="Email" required/>
+                </td>
 
-      </tr>
+            </tr>
 
-      <tr>
+            <tr>
 
-        <td><label>Password </label></td>
+                <td><label>Password </label></td>
 
-        <td><input #pass type="password" placeholder="Password"/></td>
+                <td><input #pass type="password" placeholder="Password" /></td>
 
-      </tr>
-      <tr>
-        <td><label>Repeat Password </label>
-        </td>
-        <td>
-          <input #passII type="password" placeholder="Repeat password"/>
-        </td>
-      </tr>
+            </tr>
+            <tr>
+                <td><label>Repeat Password </label>
+                </td>
+                <td>
+                    <input #passII type="password" placeholder="Repeat password" />
+                </td>
+            </tr>
 
-    </table>
+        </table>
 
 
-    <button class="btn btn-info" (click)="updateUser(name.value, email.value, pass.value,passII.value)"
-            style="background:#841439; border:none">
+        <button class="btn btn-info" (click)="updateUser(name.value, email.value, pass.value,passII.value)" style="background:#841439; border:none">
       <span class="glyphicon  glyphicon-edit"></span> Edit profile
     </button>
-  </div>
+    </div>
 </div>
 
 <router-outlet>
 
-  <div class="headerDiv">
+    <div class="headerDiv">
 
-    <button (click)="redirectToCoursePage()" title="Home" id="homePage">
-      <i class="fa fa-home"
-         style="margin-right: 8px"></i>
+        <button (click)="redirectToCoursePage()" title="Home" id="homePage">
+      <i class="fa fa-home" style="margin-right: 8px"></i>
     </button>
 
-    <button id="logOut" (click)="logout()" *ngIf="userIsLogged()==true">
+        <button (click)="redirectToGeneralInfosPage()" id="generalInfo" title="General informations">
+      <i class="fa fa-info" style="margin-right: 10%"></i>
+    </button>
+
+        <button id="logOut" (click)="logout()" *ngIf="userIsLogged()==true">
       <span class="glyphicon glyphicon-log-out"></span> Log out
     </button>
 
-    <button id="logIn" (click)="redirectToLoginPage()" *ngIf="userIsLogged()==false">
+        <button id="logIn" (click)="redirectToLoginPage()" *ngIf="userIsLogged()==false">
       <i class="fa fa-sign-in"
          style="margin-right: 8px"></i> Log in
     </button>
 
-    <button id="addCourse" (click)="redirectToAddCourse()"> <i class="fa fa-plus-circle"></i>
+        <button id="addCourse" *ngIf="userIsLogged()==true" (click)="redirectToAddCourse()"> <i class="fa fa-plus-circle"></i>
       Add Course
     </button>
 
+        <button class="addNewUser" (click)="openModalAddNewUser()" title="Add New User"> <i class="material-icons">supervisor_account</i> Add User
+    </button>
 
+        <button class="viewNewEmployeeList" (click)="openModalNewEmployee()" title="New Employees List"> <i class="material-icons">supervisor_account</i> New Employees
+    </button>
 
-    <ul class="dropdown" id="loggedUserButton">
-      <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown"
-         style="color: white; cursor: pointer; "><i
+        <ul class="dropdown" id="loggedUserButton">
+            <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown" style="color: white; cursor: pointer; "><i
         class="fa fa-user-circle-o"
         style="margin-right: 8px"></i>{{username}}<span class="caret" style="margin-left: 3px"></span>
       </a>
-      <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
-        <li><a (click)="openModal('myModal')" class="dropdown-menu-item">
-          <span class="glyphicon glyphicon-pencil"></span>
-          Edit profile
-        </a></li>
-        <li class="divider"></li>
-        <li><a mat-button (click)="openDialog()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a>
-        </li>
+            <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
+                <li>
+                    <a (click)="openModal('myModal')" class="dropdown-menu-item">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit profile
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li><a mat-button (click)="openDialog()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a>
+                </li>
 
-      </ul>
-    </ul>
+            </ul>
+        </ul>
 
 
-  </div>
+
+    </div>
 </router-outlet>
 
 <div class="footerDiv">
-  <footer>
-    <div class="social">
-      <a href="https://www.facebook.com/msg.systems.romania/" target="_blank"> <i class="fa fa-facebook-square"
-                                                                                  id="facebookIcon">   </i> </a>
-      <a href="https://github.com/easyonboard/onboarder" target="_blank"> <i class="fa fa-git-square" id="gitIcon">
+    <footer>
+        <div class="social">
+            <a href="https://www.facebook.com/msg.systems.romania/" target="_blank"> <i class="fa fa-facebook-square" id="facebookIcon">   </i> </a>
+            <a href="https://github.com/easyonboard/onboarder" target="_blank"> <i class="fa fa-git-square" id="gitIcon">
           </i> </a>
-      <a> <i class="fa fa-youtube-square" id="youtubeIcon">   </i> </a>
-    </div>
-  </footer>
+            <a> <i class="fa fa-youtube-square" id="youtubeIcon">   </i> </a>
+        </div>
+    </footer>
 </div>

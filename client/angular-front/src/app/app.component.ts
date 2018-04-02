@@ -1,19 +1,21 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, Optional} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
 import {UserService} from './service/user.service';
 import {UtilityService} from './service/utility.service';
-import {UserDTO} from './domain/user';
-import {MatDialog} from '@angular/material';
+import {UserDTO, UserInfoDTO} from './domain/user';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {Course} from './domain/course';
 import {CourseService} from './service/course.service';
+import {UserInformationDTO} from './domain/userinformation';
+import {UserInformationService} from './service/user-information.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'
-  ]
+  styleUrls: ['./app.component.css']
 })
 
 export class AppComponent {
@@ -22,22 +24,11 @@ export class AppComponent {
   public successMessage: string;
   public username: String;
 
-  constructor(private location: Location, private router: Router, private elemRef: ElementRef, private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog) {
+  constructor(private location: Location, private router: Router, private elemRef: ElementRef,
+              private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog) {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
-  }
-
-  goBack(): void {
-    if (location.href.includes('subject')) {
-      this.location.back();
-      return;
-    }
-    if (location.href.includes(this.rootConst.FRONT_DETAILED_COURSE)) {
-      this.router.navigateByUrl(this.rootConst.FRONT_COURSES_PAGE);
-      return;
-    }
-    this.location.back();
   }
 
   logout(): void {
@@ -66,19 +57,23 @@ export class AppComponent {
     passwordII = passwordII.trim();
 
 
-    if (password != '' && (password != passwordII || password.length < 6)) {
+    if (password !== '' && (password !== passwordII || password.length < 6)) {
       this.message = 'Password not matching or does not have 6 characters';
       return;
-    }
-    else {
-      var username = localStorage.getItem('userLogged');
-      if (name == '')
+    } else {
+      let username = localStorage.getItem('userLogged');
+
+      if (name === '') {
         name = null;
-      if (email == '')
+      }
+      if (email === '') {
         email = null;
-      if (password == '')
+      }
+      if (password === '') {
         password = null;
-      this.userService.updateUser({name, username, email, password} as UserDTO).subscribe(
+      }
+
+      this.userService.updateUser({ name, username, email, password } as UserDTO).subscribe(
         res => {
           this.utilityService.closeModal('myModal');
           this.successMessage = 'Operatia a fost realizata cu success!';
@@ -90,7 +85,6 @@ export class AppComponent {
         });
 
     }
-
   }
 
   userIsLogged(): boolean {
@@ -112,40 +106,55 @@ export class AppComponent {
     });
   }
 
+  openModalNewEmployee() {
+    this.dialog.open(DialogNewEmployees, {
+      height: '650px',
+      width: '900px',
+    });
+  }
+
+  openModalAddNewUser() {
+    const dialogAddNewUser = this.dialog.open(DialogAddNewUser, {
+      height: '700px',
+      width: '600px',
+    });
+  }
 
   redirectToCoursePage() {
     location.replace(this.rootConst.FRONT_COURSES_PAGE);
   }
+
+  redirectToGeneralInfosPage() {
+    location.replace(this.rootConst.FRONT_INFOS_PAGE);
+  }
 }
 
 @Component({
-  selector: 'dialog-enrolled-courses-for-user',
-  templateUrl: 'dialog-enrolled-courses-for-user.html',
+  selector: 'app-dialog-enrolled-courses-for-user',
+  templateUrl: './app.dialog-enrolled-courses-for-user.html',
 })
 export class DialogEnrolledCoursesForUser implements OnInit {
   public enrolledCourses: Course[];
-  public str: string = 'asta e';
+  public str = 'asta e';
   private rootConst: RootConst;
   private user: UserDTO;
-  public progresses: Map<Course, Number>
+  public progresses: Map<Course, Number>;
 
   constructor(private courseService: CourseService, private userService: UserService) {
-    this.progresses = new Map<Course, Number>()
+    this.progresses = new Map<Course, Number>();
     this.rootConst = new RootConst();
   }
 
-
   getEnrolledCoursesForUser() {
     let username = localStorage.getItem('userLogged');
-    if (username != null && username != '') {
+    if (username != null && username !== '') {
       this.courseService.getEnrolledCoursesForUser(username).subscribe(courses => {
         this.enrolledCourses = courses;
         this.enrolledCourses.forEach(c => this.userService.getProgress(c, this.user).subscribe(progress => {
-          this.progresses.set(c, progress)
-          console.log(this.progresses)
+          this.progresses.set(c, progress);
+          console.log(this.progresses);
         }));
       });
-
     }
   }
 
@@ -159,11 +168,94 @@ export class DialogEnrolledCoursesForUser implements OnInit {
     });
   }
 
-
   ngOnInit(): void {
     this.user = new UserDTO();
     this.user.username = localStorage.getItem('userLogged');
     this.getEnrolledCoursesForUser();
+  }
+}
 
+@Component({
+  selector: 'app-dialog-new-employees',
+  templateUrl: './app.dialog-new-employees.html'
+})
+export class DialogNewEmployees implements OnInit {
+  private mailSent: boolean;
+  public newEmployees: UserInformationDTO[];
+
+  constructor(private userInformationService: UserInformationService, private dialog: MatDialog) {
+  }
+
+  ngOnInit(): void {
+    this.mailSent = false;
+    this.newEmployees = [];
+
+    this.userInformationService.getNewUsers().subscribe(newEmployees => {
+      this.newEmployees = newEmployees;
+      console.log(this.newEmployees);
+    });
+  }
+}
+
+@Component({
+  selector: 'app-user-add',
+  templateUrl: './users/user-add/user-add.component.html'
+})
+export class DialogAddNewUser implements OnInit {
+  public firstName: string;
+  public lastName: string;
+
+  public user = new UserDTO;
+  public userInfo = new UserInfoDTO;
+
+  roles = [
+    {value: 'role-0', viewValue: 'Admin'},
+    {value: 'role-1', viewValue: 'Employee'},
+    {value: 'role-2', viewValue: 'Abteilunsleiter'}
+  ];
+
+  employees = [
+    {value: 'employee-0', viewValue: 'ONE'},
+    {value: 'employee-1', viewValue: 'TWO'},
+    {value: 'employee-2', viewValue: 'DREI'}
+  ];
+
+  constructor(private userService: UserService) {
+  }
+
+  ngOnInit(): void {
+
+  }
+
+  addUser(): void {
+    this.user.username = this.firstName + this.lastName;
+    this.user.password = 'test';
+    this.user.name = this.firstName + ' ' + this.lastName;
+
+    this.userService.addUser(this.user).subscribe();
+    //this.userService.addUserInfo(this.userInfo).subscribe();
+  }
+}
+
+@Component({
+  selector: 'app-dialog-check-list-user',
+  templateUrl: './app.dialog-checkList.html',
+})
+export class DialogCheckListUser implements OnInit {
+  private dialogTitle: string;
+  private checkList: Map<string, boolean>;
+
+  constructor(@Optional() @Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService) {
+  }
+
+  ngOnInit() {
+    this.dialogTitle = 'Check list for ' + this.user.name;
+
+    this.userService.getCheckListForUser(this.user).subscribe(resp => {
+      this.checkList = resp;
+    });
+    this.checkList = new Map<string, boolean>();
+    //test map
+    this.checkList.set('Parola initiala', true).set('Laptop', true).set('buddy', false);
   }
 }

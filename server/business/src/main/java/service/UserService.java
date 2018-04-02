@@ -2,10 +2,13 @@ package service;
 
 import com.google.common.hash.Hashing;
 import dao.UserDAO;
-import dto.CourseDTO;
+import dao.UserInformationDAO;
 import dto.UserDTO;
+import dto.UserInformationDTO;
+import dto.mapper.UserInformationMapper;
 import dto.mapper.UserMapper;
 import entity.User;
+import entity.UserInformation;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +31,12 @@ public class UserService {
     @Autowired
     private UserValidator userValidator;
 
+    @Autowired
+    private UserInformationDAO userInformationDAO;
+
     private UserMapper userMapper = UserMapper.INSTANCE;
+
+    private UserInformationMapper userInformationMapper = UserInformationMapper.INSTANCE;
 
     private static final String USER_NOT_FOUND_ERROR = "User not found";
     public UserDTO findUserByUsername(String username) throws UserNotFoundException {
@@ -46,6 +54,10 @@ public class UserService {
         userValidator.validateUserData(user);
         user.setPassword(encrypt(user.getPassword()));
         userDAO.persistEntity(userMapper.mapToNewEntity(user));
+    }
+
+    public void addUserInfo(UserInformationDTO userInfo) {
+        userInformationDAO.persistEntity(userInformationMapper.mapToNewEntity(userInfo));
     }
 
     public String encrypt(String initString) {
@@ -71,5 +83,15 @@ public class UserService {
         List<User> allUsersFromDb = userDAO.getAllUsers();
         return userMapper.entitiesToDTOs(allUsersFromDb);
     }
+
+
+    public List<UserInformationDTO> getAllNewUsers() {
+        return userInformationMapper.entitiesToDTOs(userInformationDAO.getAllNewUsers());
+    }
+
+//    public List<UserDTO> searchByName(String name){
+////        userMapper.entitiesToDTOs(userDAO.searchByName(name));
+//return null;
+//    }
 
 }

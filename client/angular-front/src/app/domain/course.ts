@@ -1,5 +1,5 @@
-import {UserDTO} from './user';
-import {Subject} from './subject';
+import { UserDTO } from './user';
+import { Subject } from './subject';
 
 export class Course {
   idCourse: number;
@@ -8,5 +8,5 @@ export class Course {
   subjects: Subject;
   contactPersons: UserDTO;
   owners: UserDTO;
-  keywords:string;
+  keywords: string;
 }

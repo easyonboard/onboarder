@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +31,12 @@ public class UserDAO extends AbstractDAO<User> {
         return firstUser;
     }
 
+    public User userByUsername(String username) {
+        TypedQuery<User> query = this.em.createNamedQuery(User.FIND_USER_BY_USERNAME, User.class);
+        query.setParameter("username", username);
+        User firstUser = query.getResultList().stream().findFirst().get();
+        return firstUser;
+    }
 
     /**
      * Identify a user by email
@@ -56,5 +61,12 @@ public class UserDAO extends AbstractDAO<User> {
         Query query = this.em.createQuery(queryString);
         query.setParameter("username", username);
         return query.getResultList();
+    }
+
+
+    public List<User> searchByUsername(String name){
+
+        return null;
+
     }
 }
