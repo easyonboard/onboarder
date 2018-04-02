@@ -49,6 +49,7 @@ export class RootConst {
   public WEB_SERVICE_ALL_REVIEWS = this.WEB_SERVICE_ENDPOINT + 'allReviews';
   public WEB_SERVER_NEWUSERS = this.WEB_SERVICE_ENDPOINT + 'newUsers';
   public WEB_SERVER_CHECKLIST = this.WEB_SERVICE_ENDPOINT + 'checkList';
+  public WEB_SERVER_SAVE_CHECKLIST=this.WEB_SERVICE_ENDPOINT+'save';
 
   public FRONT_COURSES_PAGE = '/courses';
   public FRONT_ADD_COURSE = this.FRONT_COURSES_PAGE + '/addCourse';

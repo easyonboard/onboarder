@@ -107,4 +107,13 @@ public class UserController {
 //            return new ResponseEntity<>(users, HttpStatus.OK);
 //    }
 
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/checkList", method = RequestMethod.POST)
+    public ResponseEntity getCheckList(@RequestBody UserDTO user){
+        return new ResponseEntity(userService.getCheckList(user), HttpStatus.OK);
+    }
+
+
+
 }

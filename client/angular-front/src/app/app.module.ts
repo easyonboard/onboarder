@@ -21,7 +21,8 @@ import {StarRatingModule} from 'angular-star-rating';
 
 import {
   MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
-  MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule
+  MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule,
+  MatCheckboxModule
 
 } from '@angular/material';
 import { ReviewService } from './service/review.service';
@@ -63,7 +64,8 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
     MatCardModule,
     StarRatingModule,
     MatListModule,
-    MatTableModule
+    MatTableModule,
+    MatCheckboxModule
   ],
   entryComponents: [
     DialogEnrolledCoursesForUser,

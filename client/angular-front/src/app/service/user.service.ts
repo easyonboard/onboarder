@@ -74,4 +74,9 @@ export class UserService {
     return this.http.post<Map<string, boolean>>(this.rootConst.WEB_SERVER_CHECKLIST, body, this.httpOptions);
 
   }
+
+  saveCheckList(user: UserDTO, checkList: Map<string, boolean>): Observable<Map<string, boolean>> {
+    const body = JSON.stringify({user: user, checkList: checkList});
+    return this.http.post<Map<string, boolean>>(this.rootConst.WEB_SERVER_SAVE_CHECKLIST, body, this.httpOptions);
+  }
 }

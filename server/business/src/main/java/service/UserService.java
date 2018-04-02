@@ -11,11 +11,13 @@ import entity.User;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -82,6 +84,10 @@ public class UserService {
 
     public List<UserInformationDTO> getAllNewUsers() {
         return userInformationMapper.entitiesToDTOs(userInformationDAO.getAllNewUsers());
+    }
+
+    public Map getCheckList(UserDTO userDTO) {
+        return userDAO.getCheckListForUser(userDAO.findEntity(userDTO.getIdUser()));
     }
 
 //    public List<UserDTO> searchByName(String name){

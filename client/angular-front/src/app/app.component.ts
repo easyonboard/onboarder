@@ -10,6 +10,7 @@ import {Course} from './domain/course';
 import {CourseService} from './service/course.service';
 import {UserInformationDTO} from './domain/userinformation';
 import {UserInformationService} from './service/user-information.service';
+import {CheckListProperties} from "./util/CheckListProperties";
 
 @Component({
   selector: 'app-root',
@@ -214,7 +215,7 @@ export class DialogNewEmployees implements OnInit {
 export class DialogCheckListUser implements OnInit {
   private dialogTitle: string;
   private checkList: Map<string, boolean>;
-
+  private checkListProperties: CheckListProperties;
 
 
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService) {
@@ -222,17 +223,30 @@ export class DialogCheckListUser implements OnInit {
 
   ngOnInit() {
     this.dialogTitle = 'Check list for ' + this.user.name;
-
-    this.userService.getCheckListForUser(this.user).subscribe(resp => {
-      this.checkList = resp;
-    });
     this.checkList = new Map<string, boolean>();
-    //test map
-    this.checkList.set('Parola initiala', true).set('Laptop', true).set('buddy', false);
+    this.checkListProperties = new CheckListProperties();
+    this.userService.getCheckListForUser(this.user).subscribe(
+      data => {
 
+        Object.keys(data).forEach(key => {
+          this.checkList.set(key, data[key]);
+
+        });
+      });
+
+
+    console.log(this.checkList);
+  }
+
+  onCheck(key: string) {
+    console.log(key);
+    this.checkList.set(key, !this.checkList.get(key));
+    console.log(this.checkList);
 
   }
 
-
+  saveStatus() {
+    this.userService.saveCheckList(this.user, this.checkList);
+  }
 
 }
