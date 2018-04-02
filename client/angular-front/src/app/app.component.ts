@@ -196,6 +196,19 @@ export class DialogNewEmployees implements OnInit {
       console.log(this.newEmployees);
     });
   }
+  openFormular() {
+
+    // metoda care ar pputea fi folosita pentru a adauga informatiile suplimentare despre user-ul nou
+  }
+
+  openCheckList(user: UserDTO) {
+    console.log(user);
+    this.dialog.open(DialogCheckListUser, {
+      height: '650px',
+      width: '900px',
+      data: user
+    });
+  }
 }
 
 @Component({
@@ -207,7 +220,7 @@ export class DialogAddNewUser implements OnInit {
   public lastName: string;
 
   public user = new UserDTO;
-  public userInfo = new UserInfoDTO;
+  public userInfo = new UserInformationDTO();
 
   constructor(private userService: UserService) {
   }
@@ -225,19 +238,7 @@ export class DialogAddNewUser implements OnInit {
     this.userService.addUser(this.user);
   }
 
-  openFormular() {
 
-    // metoda care ar pputea fi folosita pentru a adauga informatiile suplimentare despre user-ul nou
-  }
-
-  openCheckList(user: UserDTO) {
-    console.log(user);
-    this.dialog.open(DialogCheckListUser, {
-      height: '650px',
-      width: '900px',
-      data: user
-    });
-  }
 
 }
 
