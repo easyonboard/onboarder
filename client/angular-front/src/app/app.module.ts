@@ -42,7 +42,7 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
     UserInfoFormularComponent,
     GeneralInfosComponent,
     DialogNewEmployees,
-    DialogCheckListUser
+    DialogCheckListUser,
     DialogAddNewUser
   ],
   imports: [
