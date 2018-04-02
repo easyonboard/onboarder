@@ -1,4 +1,4 @@
-
+import { RoleDTO } from './role';
 
 export class UserDTO {
   idUser: number;
@@ -6,7 +6,7 @@ export class UserDTO {
   name: string;
   username: string;
   password: string;
-  role: string;
+  role: RoleDTO;
 }
 
 export class UserInfoDTO {

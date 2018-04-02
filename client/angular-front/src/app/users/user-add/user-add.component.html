@@ -22,8 +22,8 @@
         </div>
         <div class="form-group">
             <label>Role</label>
-            <mat-select placeholder="Select role" [(value)]="user.role">
-                <mat-option *ngFor="let role of roles" [value]="role.value">
+            <mat-select placeholder="Select role" [(value)]="type">
+                <mat-option *ngFor="let role of roles" [value]="role">
                     {{ role.viewValue }}
                 </mat-option>
             </mat-select>

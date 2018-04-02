@@ -1,7 +1,9 @@
 package controller;
 
+import dto.RoleDTO;
 import dto.UserDTO;
 import dto.UserInformationDTO;
+import entity.enums.RoleType;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,7 @@ public class UserController {
             userDTO.setPassword(user.getPassword());
             userDTO.setEmail(user.getEmail());
             userDTO.setName(user.getName());
+            userDTO.setRole(user.getRole());
 
             userService.addUser(userDTO);
             return new ResponseEntity<>(HttpStatus.OK);

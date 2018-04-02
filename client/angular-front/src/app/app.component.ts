@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject, OnInit, Optional} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, Optional, Input} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
@@ -10,6 +10,7 @@ import {Course} from './domain/course';
 import {CourseService} from './service/course.service';
 import {UserInformationDTO} from './domain/userinformation';
 import {UserInformationService} from './service/user-information.service';
+import { RoleDTO, RoleType } from './domain/role';
 
 
 @Component({
@@ -204,14 +205,16 @@ export class DialogNewEmployees implements OnInit {
 export class DialogAddNewUser implements OnInit {
   public firstName: string;
   public lastName: string;
+  public roleType: string;
 
   public user = new UserDTO;
   public userInfo = new UserInfoDTO;
+  public role = new RoleDTO;
 
   roles = [
-    {value: 'role-0', viewValue: 'Admin'},
-    {value: 'role-1', viewValue: 'Employee'},
-    {value: 'role-2', viewValue: 'Abteilunsleiter'}
+    {value: 'role-0', viewValue: RoleType.ROLE_ABTEILUNGSLEITER},
+    {value: 'role-1', viewValue: RoleType.ROLE_HR},
+    {value: 'role-2', viewValue: RoleType.ROLE_USER}
   ];
 
   employees = [
@@ -231,7 +234,10 @@ export class DialogAddNewUser implements OnInit {
     this.user.username = this.firstName + this.lastName;
     this.user.password = 'test';
     this.user.name = this.firstName + ' ' + this.lastName;
+    this.role.roleType = RoleType[this.roleType];
+    this.user.role = this.role;
 
+    console.log(this.user.role);
     this.userService.addUser(this.user).subscribe();
     //this.userService.addUserInfo(this.userInfo).subscribe();
   }
