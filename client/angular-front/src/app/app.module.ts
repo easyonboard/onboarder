@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppComponent, DialogEnrolledCoursesForUser, DialogNewEmployees, DialogAddNewUser } from './app.component';
+import {AppComponent, DialogCheckListUser, DialogEnrolledCoursesForUser, DialogAddNewUser,  DialogNewEmployees} from './app.component';
 import {CoursesComponent} from './courses/courses.component';
 import {CourseService} from './service/course.service';
 import {HttpClientModule} from '@angular/common/http';
@@ -21,7 +21,7 @@ import {StarRatingModule} from 'angular-star-rating';
 
 import {
   MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
-  MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule
+  MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule
 
 } from '@angular/material';
 import { ReviewService } from './service/review.service';
@@ -41,6 +41,7 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
     UserInfoFormularComponent,
     GeneralInfosComponent,
     DialogNewEmployees,
+    DialogCheckListUser
     DialogAddNewUser
   ],
   imports: [
@@ -63,11 +64,13 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
     MatGridListModule,
     MatCardModule,
     StarRatingModule,
-    MatListModule
+    MatListModule,
+    MatTableModule
   ],
   entryComponents: [
     DialogEnrolledCoursesForUser,
     DialogNewEmployees,
+    DialogCheckListUser,
     DialogAddNewUser
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService, UserInformationService],
