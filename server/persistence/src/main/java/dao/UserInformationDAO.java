@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.Query;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserInformationDAO extends AbstractDAO<UserInformation> {
@@ -26,5 +27,6 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         q.setParameter("today", date);
         return q.getResultList();
     }
+
 
 }

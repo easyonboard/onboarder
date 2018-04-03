@@ -1,9 +1,12 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "USER_INFORMATION")
 public class UserInformation implements Serializable {
@@ -33,7 +36,10 @@ public class UserInformation implements Serializable {
     @Column(columnDefinition="NUMBER(1)")
     private boolean mailSent;
 
+
+
     public UserInformation() {
+
     }
 
     public UserInformation(String team, String building, String store, String project, Date startDate, User userBuddy) {
@@ -116,4 +122,5 @@ public class UserInformation implements Serializable {
     public void setMailSent(boolean mailSent) {
         this.mailSent = mailSent;
     }
+
 }

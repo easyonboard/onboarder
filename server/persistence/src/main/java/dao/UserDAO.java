@@ -1,14 +1,19 @@
 package dao;
 
+import entity.CheckList;
 import entity.Course;
 import entity.User;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -67,11 +72,45 @@ public class UserDAO extends AbstractDAO<User> {
 
 
     public List<User> searchByUsername(String username) {
+    public List<User> searchByUsername(String name) {
 
         String queryString = "select u from User u where u.username LIKE :username";
         Query query = this.em.createQuery(queryString);
         query.setParameter("username", "%"+ username + "%");
         return query.getResultList();
 
+    }
+
+    /**
+     * returns map of checklist properties and values for a particular user
+     */
+    public Map<String, Boolean> getCheckListMapForUser(User user) {
+        String queryString = "select cl from CheckList cl where cl.userAccount=:user";
+        Query query = em.createQuery(queryString);
+        query.setParameter("user", user);
+        try {
+            CheckList checkList = (CheckList) query.getSingleResult();
+            Map checkListMap = new HashMap();
+            Field fields[] = checkList.getClass().getDeclaredFields();
+            boolean value = false;
+            String attribute;
+            for (int i = 2; i < fields.length; i++) {
+
+                attribute = fields[i].getName();
+                try {
+                    fields[i].setAccessible(true);
+                    value = (boolean) fields[i].get(checkList);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                checkListMap.put(attribute, value);
+            }
+
+            return checkListMap;
+        }catch(NoResultException e){
+
+            return null;
+
+        }
     }
 }

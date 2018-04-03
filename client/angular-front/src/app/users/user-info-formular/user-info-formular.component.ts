@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserInformationService} from '../../service/user-information.service';
-import {UserInformationDTO} from '../../domain/userinformation';
 import {UserService} from '../../service/user.service';
 import {Observable} from 'rxjs/Observable';
-import {UserDTO} from '../../domain/user';
+import {UserDTO, UserInformationDTO} from '../../domain/user';
 import {Subject} from 'rxjs/Subject';
 
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
@@ -43,14 +42,14 @@ export class UserInfoFormularComponent implements OnInit {
   }
 
   addUserInformation(team: string, building: string,
-                     store: string,
+                     floor: string,
                      buddy: string): void {
 
     team.trim();
     building.trim();
-    store.trim();
+    floor.trim();
     buddy.trim();
-    this.userInformationService.addUserInformation({building, store, team} as UserInformationDTO).subscribe();
+    this.userInformationService.addUserInformation({building, floor, team} as UserInformationDTO).subscribe();
   }
 
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
-import {UserDTO, UserInfoDTO} from '../domain/user';
+import {UserDTO, UserInformationDTO} from '../domain/user';
 import {RootConst} from '../util/RootConst';
 import {Course} from '../domain/course';
 
@@ -30,11 +30,11 @@ export class UserService {
   }
 
   addUser(user: UserDTO) {
-    let body = JSON.stringify({username: user.username, password: user.password, email: user.email, name: user.name, role: user.role});
+    let body = JSON.stringify(user);
     return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }
 
-  addUserInfo(userInfo: UserInfoDTO) {
+  addUserInfo(userInfo: UserInformationDTO) {
     let body = JSON.stringify({team: userInfo.team, building: userInfo.building, floor: userInfo.floor, buddy: userInfo.buddy});
     return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER_INFO, body, this.httpOptions);
   }
@@ -89,5 +89,10 @@ export class UserService {
     const body = JSON.stringify(user);
     return this.http.post<Map<string, boolean>>(this.rootConst.WEB_SERVER_CHECKLIST, body, this.httpOptions);
 
+  }
+
+  saveCheckList(user: UserDTO, checkList: Map<string, boolean>): Observable<Map<string, boolean>> {
+    const body = JSON.stringify({user: user, checkList: Array.from(checkList.entries())});
+    return this.http.post<Map<string, boolean>>(this.rootConst.WEB_SERVER_SAVE_CHECKLIST, body, this.httpOptions);
   }
 }

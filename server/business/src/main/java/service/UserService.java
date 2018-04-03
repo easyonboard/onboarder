@@ -16,6 +16,7 @@ import validator.UserValidator;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -49,11 +50,12 @@ public class UserService {
     }
 
 
-    public void addUser(UserDTO user) throws InvalidDataException {
-        userValidator.validateUsername(user.getUsername());
-        userValidator.validateUserData(user);
-        user.setPassword(encrypt(user.getPassword()));
-        userDAO.persistEntity(userMapper.mapToNewEntity(user));
+    public void addUser(UserDTO userDTO) throws InvalidDataException {
+        userValidator.validateUsername(userDTO.getUsername());
+        userValidator.validateUserData(userDTO);
+        userDTO.setPassword(encrypt(userDTO.getPassword()));
+        User user = new User();
+        userDAO.persistEntity(userMapper.mapToEntity(userDTO, user));
     }
 
     public void addUserInfo(UserInformationDTO userInfo) {
@@ -92,5 +94,20 @@ public class UserService {
     public List<UserDTO> searchByUsername(String name) {
         return userMapper.entitiesToDTOs(userDAO.searchByUsername(name));
     }
+    public Map getCheckList(UserDTO userDTO) {
+        return userDAO.getCheckListMapForUser(userDAO.findEntity(userDTO.getIdUser()));
+    }
+
+    public Map saveCheckListForUser(UserDTO user, UserInformation userInformation) {
+        User userEntity = userDAO.findEntity(user.getIdUser());
+        // Map<String, Boolean> checkList=userDAO.getCheckListForUser(userEntity);
+        return null;
+
+    }
+
+//    public List<UserDTO> searchByName(String name){
+////        userMapper.entitiesToDTOs(userDAO.searchByName(name));
+//return null;
+//    }
 
 }

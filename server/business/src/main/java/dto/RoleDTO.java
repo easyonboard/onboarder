@@ -5,7 +5,6 @@ import entity.enums.RoleType;
 public class RoleDTO {
 
     private int idRole;
-
     private RoleType role;
 
     public int getIdRole() {
