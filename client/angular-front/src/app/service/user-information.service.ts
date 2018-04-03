@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {UserInformationDTO} from '../domain/userinformation';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {RootConst} from '../util/RootConst';
+import {UserInformationDTO} from "../domain/user";
 
 @Injectable()
 export class UserInformationService {
@@ -17,7 +17,7 @@ export class UserInformationService {
   }
 
   addUserInformation(userInfo: UserInformationDTO): Observable<UserInformationDTO> {
-    let body = JSON.stringify({building: userInfo.building, store: userInfo.store, team: userInfo.team, buddy: userInfo.buddy});
+    let body = JSON.stringify({building: userInfo.building, store: userInfo.floor, team: userInfo.team, buddy: userInfo.buddy});
     return this.http.post<UserInformationDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }
 

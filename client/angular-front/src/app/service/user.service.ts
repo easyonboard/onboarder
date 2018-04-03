@@ -2,13 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
-import {UserDTO} from '../domain/user';
+import {UserDTO, UserInformationDTO} from '../domain/user';
 import {RootConst} from '../util/RootConst';
 import {Course} from '../domain/course';
 
 import {of} from 'rxjs/observable/of';
 import {tap} from 'rxjs/operators';
-import {UserInformationDTO} from '../domain/userinformation';
 
 @Injectable()
 export class UserService {
@@ -31,12 +30,13 @@ export class UserService {
   }
 
   addUser(user: UserDTO) {
-    console.log('from service POST: ' + JSON.stringify({username: user.username, password: user.password,
-      email: user.email, name: user.name}));
+    let body = JSON.stringify({username: user.username, password: user.password, email: user.email, name: user.name, role: user.role});
+    return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
+  }
 
-    return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER,
-        JSON.stringify({username: user.username, password: user.password,
-        email: user.email, name: user.name}), this.httpOptions);
+  addUserInfo(userInfo: UserInformationDTO) {
+    let body = JSON.stringify({team: userInfo.team, building: userInfo.building, floor: userInfo.floor, buddy: userInfo.buddy});
+    return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER_INFO, body, this.httpOptions);
   }
 
   updateUser(userDTO: UserDTO): any {

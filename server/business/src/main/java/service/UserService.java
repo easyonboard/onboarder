@@ -58,6 +58,10 @@ public class UserService {
         userDAO.persistEntity(userMapper.mapToNewEntity(user));
     }
 
+    public void addUserInfo(UserInformationDTO userInfo) {
+        userInformationDAO.persistEntity(userInformationMapper.mapToNewEntity(userInfo));
+    }
+
     public String encrypt(String initString) {
         return Hashing.sha256().hashString(initString, StandardCharsets.UTF_8).toString();
     }

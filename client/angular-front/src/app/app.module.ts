@@ -22,13 +22,13 @@ import {StarRatingModule} from 'angular-star-rating';
 import {
   MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
   MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule,
-  MatCheckboxModule
-
-} from '@angular/material';
+  MatCheckboxModule,
+  MatSelectModule, MatOptionModule} from '@angular/material';
 import { ReviewService } from './service/review.service';
 import { UserInfoFormularComponent } from './users/user-info-formular/user-info-formular.component';
 import { UserInformationService } from './service/user-information.service';
 import { GeneralInfosComponent } from './general-infos/general-infos.component';
+import { UserAddComponent } from './users/user-add/user-add.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,8 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
     GeneralInfosComponent,
     DialogNewEmployees,
     DialogCheckListUser,
-    DialogAddNewUser
+    DialogAddNewUser,
+    UserAddComponent
   ],
   imports: [
     FormsModule,
@@ -67,7 +68,9 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
     StarRatingModule,
     MatListModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule,
+    MatOptionModule
   ],
   entryComponents: [
     DialogEnrolledCoursesForUser,

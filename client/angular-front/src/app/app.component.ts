@@ -1,16 +1,19 @@
-import {ChangeDetectorRef, Component, DoCheck, ElementRef, Inject, OnInit} from '@angular/core';
+
+import {Component, ElementRef, Inject, OnInit, Optional, Input} from '@angular/core';
+
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
 import {UserService} from './service/user.service';
 import {UtilityService} from './service/utility.service';
-import {UserDTO} from './domain/user';
+import {UserDTO, UserInformationDTO} from './domain/user';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {Course} from './domain/course';
 import {CourseService} from './service/course.service';
-import {UserInformationDTO} from './domain/userinformation';
 import {UserInformationService} from './service/user-information.service';
 import {CheckListProperties} from "./util/CheckListProperties";
+import {RoleType, RoleDTO} from "./domain/role";
+
 
 
 @Component({
@@ -116,8 +119,8 @@ export class AppComponent {
 
   openModalAddNewUser() {
     const dialogAddNewUser = this.dialog.open(DialogAddNewUser, {
-      height: '650px',
-      width: '900px',
+      height: '700px',
+      width: '600px',
     });
   }
 
@@ -213,15 +216,30 @@ export class DialogNewEmployees implements OnInit {
 }
 
 @Component({
-  selector: 'app-add-new-user',
-  templateUrl: './app.dialog-add-new-user.html'
+  selector: 'app-user-add',
+  templateUrl: './users/user-add/user-add.component.html'
 })
 export class DialogAddNewUser implements OnInit {
   public firstName: string;
   public lastName: string;
+  public roleType: string;
 
   public user = new UserDTO;
-  public userInfo = new UserInformationDTO();
+
+  public userInfo = new UserInformationDTO;
+  public role = new RoleDTO;
+
+  roles = [
+    {value: 'role-0', viewValue: RoleType.ROLE_ABTEILUNGSLEITER},
+    {value: 'role-1', viewValue: RoleType.ROLE_HR},
+    {value: 'role-2', viewValue: RoleType.ROLE_USER}
+  ];
+
+  employees = [
+    {value: 'employee-0', viewValue: 'ONE'},
+    {value: 'employee-1', viewValue: 'TWO'},
+    {value: 'employee-2', viewValue: 'DREI'}
+  ];
 
   constructor(private userService: UserService) {
   }
@@ -231,15 +249,16 @@ export class DialogAddNewUser implements OnInit {
   }
 
   addUser(): void {
-    this.user.username = 'testtest';
-    this.user.password = 'testtest';
-    this.user.email = 'test@yahoo.com';
+    this.user.username = this.firstName + this.lastName;
+    this.user.password = 'test';
+    this.user.name = this.firstName + ' ' + this.lastName;
+    this.role.roleType = RoleType[this.roleType];
+    this.user.role = this.role;
 
-    console.log(this.user.name);
-    this.userService.addUser(this.user);
+    console.log(this.user.role);
+    this.userService.addUser(this.user).subscribe();
+    //this.userService.addUserInfo(this.userInfo).subscribe();
   }
-
-
 }
 
 @Component({
@@ -252,8 +271,7 @@ export class DialogCheckListUser implements OnInit {
   private checkListProperties: CheckListProperties;
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService, private changeRef: ChangeDetectorRef) {
-  }
+  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService) {}
 
   ngOnInit() {
     this.dialogTitle = 'Check list for ' + this.user.name;
@@ -268,8 +286,6 @@ export class DialogCheckListUser implements OnInit {
         });
       });
   }
-
-
 
   get checkListKeys() {
     return Array.from(this.checkList.keys());
