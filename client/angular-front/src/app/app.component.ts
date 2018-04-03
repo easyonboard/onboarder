@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject, OnInit, Optional, Input} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, Optional} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
@@ -10,7 +10,8 @@ import {Course} from './domain/course';
 import {CourseService} from './service/course.service';
 import {UserInformationDTO} from './domain/userinformation';
 import {UserInformationService} from './service/user-information.service';
-import { RoleDTO, RoleType } from './domain/role';
+import {RoleDTO, RoleType} from './domain/role';
+import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
 
 
 @Component({
@@ -74,7 +75,7 @@ export class AppComponent {
         password = null;
       }
 
-      this.userService.updateUser({ name, username, email, password } as UserDTO).subscribe(
+      this.userService.updateUser({name, username, email, password} as UserDTO).subscribe(
         res => {
           this.utilityService.closeModal('myModal');
           this.successMessage = 'Operatia a fost realizata cu success!';
@@ -120,6 +121,7 @@ export class AppComponent {
       width: '600px',
     });
   }
+
 
   redirectToCoursePage() {
     location.replace(this.rootConst.FRONT_COURSES_PAGE);
@@ -196,6 +198,14 @@ export class DialogNewEmployees implements OnInit {
       console.log(this.newEmployees);
     });
   }
+
+  openUserInfoModal() {
+    this.dialog.open(UserInfoFormularComponent, {
+      height: '650px',
+      width: '900px',
+    });
+  }
+
 }
 
 @Component({

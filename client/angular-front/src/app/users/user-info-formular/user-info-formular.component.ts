@@ -51,4 +51,5 @@ export class UserInfoFormularComponent implements OnInit {
     buddy.trim();
     this.userInformationService.addUserInformation({building, store, team} as UserInformationDTO).subscribe();
   }
+
 }

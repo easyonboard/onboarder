@@ -1,9 +1,7 @@
 package controller;
 
-import dto.RoleDTO;
 import dto.UserDTO;
 import dto.UserInformationDTO;
-import entity.enums.RoleType;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,11 +96,12 @@ public class UserController {
     }
 
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/newUsers", method = RequestMethod.GET)
     public ResponseEntity<List<UserInformationDTO>> getAllNewUsers() {
+        List<UserInformationDTO> asd = userService.getAllNewUsers();
         return new ResponseEntity(userService.getAllNewUsers(), HttpStatus.OK);
-        }
+    }
     /**
      * Method used for adding/updating the user information, represented by the info the user needs to know
      * for his first day.
