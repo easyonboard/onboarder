@@ -1,9 +1,10 @@
 package controller;
 
-import dto.RoleDTO;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.UserDTO;
 import dto.UserInformationDTO;
-import entity.enums.RoleType;
 import exception.InvalidDataException;
 import exception.RoleNameNotFoundException;
 import exception.UserNotFoundException;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import service.RoleService;
 import service.UserService;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -140,5 +143,41 @@ public class UserController {
 //           List<UserDTO> users = userService.searchByName(name);
 //            return new ResponseEntity<>(users, HttpStatus.OK);
 //    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/checkList", method = RequestMethod.POST)
+    public ResponseEntity getCheckList(@RequestBody UserDTO user){
+        return new ResponseEntity(userService.getCheckList(user), HttpStatus.OK);
+    }
+
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/saveCheckList", method = RequestMethod.POST)
+    public ResponseEntity saveCheckList(@RequestBody String str){
+        try {
+
+            getCheckListMsp(str);
+            return null;
+           // return new ResponseEntity(userService.saveCheckListForUser(getUser(str),, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+
+    }
+
+    private UserDTO getUser(String str) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(str);
+        return mapper.convertValue(node.get("user"), UserDTO.class);
+    }
+    private ArrayList getCheckListMsp(String str) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(str);
+        return mapper.convertValue(node.get("checkList"), ArrayList.class);
+    }
+
 
 }

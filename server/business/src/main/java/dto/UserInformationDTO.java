@@ -1,6 +1,7 @@
 package dto;
 
 import java.util.Date;
+import java.util.Map;
 
 public class UserInformationDTO {
 
@@ -16,8 +17,6 @@ public class UserInformationDTO {
 
     public UserInformationDTO() {
     }
-
-
 
     public String getTeam() {
         return team;
@@ -90,4 +89,5 @@ public class UserInformationDTO {
     public void setMailSent(boolean mailSent) {
         this.mailSent = mailSent;
     }
+
 }

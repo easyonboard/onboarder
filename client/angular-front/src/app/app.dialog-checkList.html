@@ -2,8 +2,17 @@
 <mat-dialog-content style="height:550px">
 
 
-    <mat-table [dataSource]="checkList">
+  <table class="table">
+    <tr *ngFor="let key of checkListKeys">
+      <td> {{checkListProperties.getValueMap(key)}}</td>
+      <td>
+        <mat-checkbox [checked]="checkList.get(key)" (change)="onCheck(key)">
+      </mat-checkbox>
 
-
-    </mat-table>
-  </mat-dialog-content>
+      </td>
+    </tr>
+  </table>
+  <mat-card-actions>
+    <button mat-button (click)="saveStatus()" title="Update check list for user">Save</button>
+  </mat-card-actions>
+</mat-dialog-content>

@@ -17,6 +17,7 @@ import validator.UserValidator;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -42,8 +43,8 @@ public class UserService {
 
     public UserDTO findUserByUsername(String username) throws UserNotFoundException {
 
-        Optional<User> entity=userDAO.findUserByUsername(username);
-        if(!entity.isPresent()) {
+        Optional<User> entity = userDAO.findUserByUsername(username);
+        if (!entity.isPresent()) {
             throw new UserNotFoundException(USER_NOT_FOUND_ERROR);
         }
         return userMapper.mapToDTO(entity.get());
@@ -89,6 +90,17 @@ public class UserService {
 
     public List<UserInformationDTO> getAllNewUsers() {
         return userInformationMapper.entitiesToDTOs(userInformationDAO.getAllNewUsers());
+    }
+
+    public Map getCheckList(UserDTO userDTO) {
+        return userDAO.getCheckListMapForUser(userDAO.findEntity(userDTO.getIdUser()));
+    }
+
+    public Map saveCheckListForUser(UserDTO user, UserInformation userInformation) {
+        User userEntity = userDAO.findEntity(user.getIdUser());
+        // Map<String, Boolean> checkList=userDAO.getCheckListForUser(userEntity);
+        return null;
+
     }
 
 //    public List<UserDTO> searchByName(String name){
