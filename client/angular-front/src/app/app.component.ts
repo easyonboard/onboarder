@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject, OnInit, Optional, Input} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
@@ -9,8 +9,8 @@ import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {Course} from './domain/course';
 import {CourseService} from './service/course.service';
 import {UserInformationService} from './service/user-information.service';
-import {CheckListProperties} from "./util/CheckListProperties";
-import {RoleType, RoleDTO} from "./domain/role";
+import {CheckListProperties} from './util/CheckListProperties';
+import {RoleDTO, RoleType} from './domain/role';
 import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
 
 @Component({
@@ -198,17 +198,7 @@ export class DialogNewEmployees implements OnInit {
     });
   }
 
-  openUserInfoModal() {
-    this.dialog.open(UserInfoFormularComponent, {
-      height: '650px',
-      width: '900px',
-    });
-  }
-
-}
-
   openFormular() {
-
     // metoda care ar pputea fi folosita pentru a adauga informatiile suplimentare despre user-ul nou
   }
 
@@ -220,7 +210,16 @@ export class DialogNewEmployees implements OnInit {
       data: user
     });
   }
+
+  openUserInfoModal() {
+    this.dialog.open(UserInfoFormularComponent, {
+      height: '650px',
+      width: '900px',
+    });
+  }
+
 }
+
 
 @Component({
   selector: 'app-user-add',
@@ -264,7 +263,7 @@ export class DialogAddNewUser implements OnInit {
 
     console.log(this.user.role);
     this.userService.addUser(this.user).subscribe();
-    //this.userService.addUserInfo(this.userInfo).subscribe();
+    // this.userService.addUserInfo(this.userInfo).subscribe();
   }
 }
 
@@ -278,7 +277,8 @@ export class DialogCheckListUser implements OnInit {
   private checkListProperties: CheckListProperties;
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService) {}
+  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService) {
+  }
 
   ngOnInit() {
     this.dialogTitle = 'Check list for ' + this.user.name;
@@ -303,7 +303,7 @@ export class DialogCheckListUser implements OnInit {
   }
 
   saveStatus() {
-    this.userService.saveCheckList(this.user, this.checkList).subscribe(    data => {
+    this.userService.saveCheckList(this.user, this.checkList).subscribe(data => {
       Object.keys(data).forEach(key => {
         this.checkList.set(key, data[key]);
 

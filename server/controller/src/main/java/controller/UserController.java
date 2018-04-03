@@ -3,8 +3,10 @@ package controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dto.RoleDTO;
 import dto.UserDTO;
 import dto.UserInformationDTO;
+import entity.enums.RoleType;
 import exception.InvalidDataException;
 import exception.RoleNameNotFoundException;
 import exception.UserNotFoundException;

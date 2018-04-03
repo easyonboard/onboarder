@@ -8,6 +8,7 @@ import dto.UserInformationDTO;
 import dto.mapper.UserInformationMapper;
 import dto.mapper.UserMapper;
 import entity.User;
+import entity.UserInformation;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
