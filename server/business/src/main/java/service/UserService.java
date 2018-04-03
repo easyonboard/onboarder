@@ -39,6 +39,7 @@ public class UserService {
     private UserInformationMapper userInformationMapper = UserInformationMapper.INSTANCE;
 
     private static final String USER_NOT_FOUND_ERROR = "User not found";
+
     public UserDTO findUserByUsername(String username) throws UserNotFoundException {
 
         Optional<User> entity=userDAO.findUserByUsername(username);
@@ -49,11 +50,12 @@ public class UserService {
     }
 
 
-    public void addUser(UserDTO user) throws InvalidDataException {
-        userValidator.validateUsername(user.getUsername());
-        userValidator.validateUserData(user);
-        user.setPassword(encrypt(user.getPassword()));
-        userDAO.persistEntity(userMapper.mapToNewEntity(user));
+    public void addUser(UserDTO userDTO) throws InvalidDataException {
+        userValidator.validateUsername(userDTO.getUsername());
+        userValidator.validateUserData(userDTO);
+        userDTO.setPassword(encrypt(userDTO.getPassword()));
+        User user = new User();
+        userDAO.persistEntity(userMapper.mapToEntity(userDTO, user));
     }
 
     public void addUserInfo(UserInformationDTO userInfo) {

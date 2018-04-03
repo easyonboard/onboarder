@@ -5,6 +5,7 @@ import dto.UserDTO;
 import dto.UserInformationDTO;
 import entity.enums.RoleType;
 import exception.InvalidDataException;
+import exception.RoleNameNotFoundException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import service.RoleService;
 import service.UserService;
 
 import java.util.List;
@@ -23,6 +25,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
 
 //    @Autowired
 //    private UserInformationService userInformationService;
@@ -52,7 +56,15 @@ public class UserController {
             userDTO.setPassword(user.getPassword());
             userDTO.setEmail(user.getEmail());
             userDTO.setName(user.getName());
-            userDTO.setRole(user.getRole());
+
+            RoleDTO roleDTO = null;
+            try {
+                roleDTO = roleService.findRoleById(RoleType.ROLE_ADMIN.getRoleTypeId());
+            } catch (RoleNameNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            userDTO.setRole(roleDTO);
 
             userService.addUser(userDTO);
             return new ResponseEntity<>(HttpStatus.OK);

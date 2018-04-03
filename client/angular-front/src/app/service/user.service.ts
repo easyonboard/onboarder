@@ -31,7 +31,7 @@ export class UserService {
   }
 
   addUser(user: UserDTO) {
-    let body = JSON.stringify({username: user.username, password: user.password, email: user.email, name: user.name, role: user.role});
+    let body = JSON.stringify(user);
     return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }
 
