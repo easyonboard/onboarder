@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject, OnInit, Optional} from '@angular/core';
+import {ChangeDetectorRef, Component, DoCheck, ElementRef, Inject, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
@@ -74,7 +74,7 @@ export class AppComponent {
         password = null;
       }
 
-      this.userService.updateUser({ name, username, email, password } as UserDTO).subscribe(
+      this.userService.updateUser({name, username, email, password} as UserDTO).subscribe(
         res => {
           this.utilityService.closeModal('myModal');
           this.successMessage = 'Operatia a fost realizata cu success!';
@@ -196,6 +196,7 @@ export class DialogNewEmployees implements OnInit {
       console.log(this.newEmployees);
     });
   }
+
   openFormular() {
 
     // metoda care ar pputea fi folosita pentru a adauga informatiile suplimentare despre user-ul nou
@@ -239,7 +240,6 @@ export class DialogAddNewUser implements OnInit {
   }
 
 
-
 }
 
 @Component({
@@ -252,7 +252,7 @@ export class DialogCheckListUser implements OnInit {
   private checkListProperties: CheckListProperties;
 
 
-  constructor(@Optional() @Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService, private changeRef: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -267,20 +267,25 @@ export class DialogCheckListUser implements OnInit {
 
         });
       });
+  }
 
 
-    console.log(this.checkList);
+
+  get checkListKeys() {
+    return Array.from(this.checkList.keys());
   }
 
   onCheck(key: string) {
-    console.log(key);
     this.checkList.set(key, !this.checkList.get(key));
-    console.log(this.checkList);
-
   }
 
   saveStatus() {
-    this.userService.saveCheckList(this.user, this.checkList);
+    this.userService.saveCheckList(this.user, this.checkList).subscribe(    data => {
+      Object.keys(data).forEach(key => {
+        this.checkList.set(key, data[key]);
+
+      });
+    });
   }
 
 }

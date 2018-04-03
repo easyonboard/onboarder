@@ -8,10 +8,10 @@ import dto.UserInformationDTO;
 import dto.mapper.UserInformationMapper;
 import dto.mapper.UserMapper;
 import entity.User;
+import entity.UserInformation;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
 
@@ -40,10 +40,11 @@ public class UserService {
     private UserInformationMapper userInformationMapper = UserInformationMapper.INSTANCE;
 
     private static final String USER_NOT_FOUND_ERROR = "User not found";
+
     public UserDTO findUserByUsername(String username) throws UserNotFoundException {
 
-        Optional<User> entity=userDAO.findUserByUsername(username);
-        if(!entity.isPresent()) {
+        Optional<User> entity = userDAO.findUserByUsername(username);
+        if (!entity.isPresent()) {
             throw new UserNotFoundException(USER_NOT_FOUND_ERROR);
         }
         return userMapper.mapToDTO(entity.get());
@@ -87,7 +88,14 @@ public class UserService {
     }
 
     public Map getCheckList(UserDTO userDTO) {
-        return userDAO.getCheckListForUser(userDAO.findEntity(userDTO.getIdUser()));
+        return userDAO.getCheckListMapForUser(userDAO.findEntity(userDTO.getIdUser()));
+    }
+
+    public Map saveCheckListForUser(UserDTO user, UserInformation userInformation) {
+        User userEntity = userDAO.findEntity(user.getIdUser());
+        // Map<String, Boolean> checkList=userDAO.getCheckListForUser(userEntity);
+        return null;
+
     }
 
 //    public List<UserDTO> searchByName(String name){

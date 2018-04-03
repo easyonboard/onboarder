@@ -1,7 +1,10 @@
 package controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.UserDTO;
 import dto.UserInformationDTO;
+import entity.UserInformation;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import service.UserService;
 import sun.rmi.runtime.Log;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class UserController {
@@ -114,6 +121,33 @@ public class UserController {
         return new ResponseEntity(userService.getCheckList(user), HttpStatus.OK);
     }
 
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/saveCheckList", method = RequestMethod.POST)
+    public ResponseEntity saveCheckList(@RequestBody String str){
+        try {
+
+            getCheckListMsp(str);
+            return null;
+           // return new ResponseEntity(userService.saveCheckListForUser(getUser(str),, HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+
+    }
+
+    private UserDTO getUser(String str) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(str);
+        return mapper.convertValue(node.get("user"), UserDTO.class);
+    }
+    private ArrayList getCheckListMsp(String str) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(str);
+        return mapper.convertValue(node.get("checkList"), ArrayList.class);
+    }
 
 
 }
