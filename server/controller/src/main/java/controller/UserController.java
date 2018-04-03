@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import service.UserService;
 
 import java.util.List;
@@ -121,11 +118,11 @@ public class UserController {
 //    }
 //
 //
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    @RequestMapping(value = "/user/{name}", method = RequestMethod.GET)
-//    public ResponseEntity<List<UserDTO>> getUserByName(@PathVariable("name") String name) {
-//           List<UserDTO> users = userService.searchByName(name);
-//            return new ResponseEntity<>(users, HttpStatus.OK);
-//    }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ResponseEntity<List<UserDTO>> getUserByName(@RequestParam(value = "username") String name) {
+           List<UserDTO> users = userService.searchByUsername(name);
+            return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 
 }

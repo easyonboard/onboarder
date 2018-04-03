@@ -44,18 +44,18 @@ export class CoursesComponent implements OnInit {
         this.courses = this.courses.concat(courses), this.coursesListEmpty = false;
       },
       err => {
-        if(err.statusText=="Unknown Error")
-        setTimeout(() => this.getCoursesFromPage(), 10000);
+        if (err.statusText == 'Unknown Error')
+          setTimeout(() => this.getCoursesFromPage(), 10000);
       });
   }
 
   private filterCoursesByKeyword(keyword: string) {
     this.courseService.filterCoursesKeywordPageNumberAndNumberOfObjectsPerPage(keyword).subscribe(courses => {
-      this.courses = this.courses.concat(courses), this.coursesListEmpty = false;
-    },
+        this.courses = this.courses.concat(courses), this.coursesListEmpty = false;
+      },
       err => {
-        if(err.statusText=="Unknown Error")
-        setTimeout(() => this.filterCoursesByKeyword(keyword), 10000);
+        if (err.statusText == 'Unknown Error')
+          setTimeout(() => this.filterCoursesByKeyword(keyword), 10000);
       });
   }
 
@@ -94,8 +94,8 @@ export class CoursesComponent implements OnInit {
       });
   }
 
-  searchByKeyword(keyword:string){
-    location.href = this.rootConst.FRONT_COURSES_PAGE_SEARCH_BY_KEYWORD+keyword
+  searchByKeyword(keyword: string) {
+    location.href = this.rootConst.FRONT_COURSES_PAGE_SEARCH_BY_KEYWORD + keyword;
   }
 
   ngOnInit(): void {

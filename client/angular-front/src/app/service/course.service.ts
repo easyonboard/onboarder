@@ -1,11 +1,11 @@
-import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Course } from '../domain/course';
-import { Observable } from 'rxjs/Observable';
+import {Injectable, OnInit} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Course} from '../domain/course';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { Subject } from '../domain/subject';
-import { UserDTO } from '../domain/user';
-import { RootConst } from '../util/RootConst';
+import {Subject} from '../domain/subject';
+import {UserDTO} from '../domain/user';
+import {RootConst} from '../util/RootConst';
 
 @Injectable()
 export class CourseService implements OnInit {
@@ -24,7 +24,7 @@ export class CourseService implements OnInit {
   private detailedSubject2 = this.rootConst.SERVER_SUBJECT_URL2;
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
   constructor(private http: HttpClient) {
@@ -58,7 +58,7 @@ export class CourseService implements OnInit {
   }
 
   editCourse(course: Course, contactPersonsIds: number[], ownersIds: number[]): Observable<any> {
-    let body = JSON.stringify({ course: course, contactPersonsId: contactPersonsIds, ownersIds: ownersIds });
+    let body = JSON.stringify({course: course, contactPersonsId: contactPersonsIds, ownersIds: ownersIds});
     return this.http.post<Course>(this.rootConst.SERVER_COURSES_URL + '/updateCourse', body, this.httpOptions);
   }
 
@@ -67,37 +67,37 @@ export class CourseService implements OnInit {
   }
 
   deleteContactPerson(contactPerson: UserDTO, course: Course) {
-    let body = JSON.stringify({ user: contactPerson, course: course });
+    let body = JSON.stringify({user: contactPerson, course: course});
     return this.http.post<Course>(this.rootConst.SERVER_DELETE_CONTACT_PERSON, body, this.httpOptions);
   }
 
   deleteOwnerPerson(contactPerson: UserDTO, course: Course) {
-    let body = JSON.stringify({ user: contactPerson, course: course });
+    let body = JSON.stringify({user: contactPerson, course: course});
     return this.http.post<Course>(this.rootConst.SERVER_DELETE_OWNER_PERSON, body, this.httpOptions);
   }
 
   deleteSubjectFromCourse(subject: number, course: Course) {
-    let body = JSON.stringify({ subject: subject, course: course });
+    let body = JSON.stringify({subject: subject, course: course});
     return this.http.post<Course>(this.rootConst.SERVER_DELETE_SUBJECT, body, this.httpOptions);
   }
 
   addContactPerson(email: string, course: Course): Observable<Course> {
-    let body = JSON.stringify({ email: email, course: course });
+    let body = JSON.stringify({email: email, course: course});
     return this.http.post<Course>(this.rootConst.SERVER_ADD_CONTACT_PERSON, body, this.httpOptions);
   }
 
   addOwnerPerson(email: string, course: Course): Observable<Course> {
-    let body = JSON.stringify({ email: email, course: course });
+    let body = JSON.stringify({email: email, course: course});
     return this.http.post<Course>(this.rootConst.SERVER_ADD_OWNER_PERSON, body, this.httpOptions);
   }
 
   addCourse(course: Course, ownersIds: number[], contactPersonsIds: number[]): any {
-    let body = JSON.stringify({ course: course, ownersIds: ownersIds, contactPersonsId: contactPersonsIds });
+    let body = JSON.stringify({course: course, ownersIds: ownersIds, contactPersonsId: contactPersonsIds});
     return this.http.post<Course>(this.rootConst.SERVER_ADD_COURSE, body, this.httpOptions);
   }
 
   deleteCourse(idCourse): Observable<any> {
-    const body = JSON.stringify({ idCourse: idCourse });
+    const body = JSON.stringify({idCourse: idCourse});
     return this.http.post<Course>(this.rootConst.SERVER_DELETE_COURSE, body, this.httpOptions);
   }
 
@@ -113,7 +113,7 @@ export class CourseService implements OnInit {
   }
 
   getRatingCourse(course: Course): Observable<number> {
-    const body = JSON.stringify({ course: course });
+    const body = JSON.stringify({course: course});
     return this.http.post<number>(this.rootConst.WEB_SERVICE_RATING, body, this.httpOptions);
   }
 }

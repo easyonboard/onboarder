@@ -20,7 +20,7 @@ export class RootConst {
   public SERVER_ADD_USER_INFO = this.WEB_SERVICE_ENDPOINT + 'user/addUserInfo';
   public SERVER_UPDATE_USER = this.WEB_SERVICE_ENDPOINT + '/user/updateUser';
   public SERVER_USER_COURSES = this.WEB_SERVICE_ENDPOINT + '/user/courses?username=';
-  public SERVER_USER_USERNAME = this.WEB_SERVICE_ENDPOINT + '/user/';
+  public SERVER_USER_USERNAME = this.WEB_SERVICE_ENDPOINT + '/user?username=';
   public VOTEUP = this.WEB_SERVICE_ENDPOINT + 'voteUp';
 
 

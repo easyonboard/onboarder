@@ -7,6 +7,7 @@ import {UserDTO} from '../../domain/user';
 import {Subject} from 'rxjs/Subject';
 
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
+import {log} from 'util';
 
 @Component({
   selector: 'app-user-info-formular',
@@ -26,19 +27,19 @@ export class UserInfoFormularComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Inainte de pipe');
+    console.log('---------------> Inainte de pipe');
+
+
     this.users$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
-
       // ignore new term if same as previous term
       distinctUntilChanged(),
-
       // switch to new search observable each time the term changes
-      switchMap((term: string) => this.userService.getUserByUsername(term)),
-    );
-    console.log('muie');
-    console.log(this.users$);
+      switchMap((term: string) => this.userService.searchUsers(term))
+    )
+    ;
+    console.log(' ---------------> dupa pipe');
   }
 
   addUserInformation(team: string, building: string,

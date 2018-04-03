@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,9 +66,12 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
 
-    public List<User> searchByUsername(String name){
+    public List<User> searchByUsername(String username) {
 
-        return null;
+        String queryString = "select u from User u where u.username LIKE :username";
+        Query query = this.em.createQuery(queryString);
+        query.setParameter("username", "%"+ username + "%");
+        return query.getResultList();
 
     }
 }
