@@ -116,5 +116,4 @@ public class User implements Serializable {
         this.email = email;
     }
 
-
 }

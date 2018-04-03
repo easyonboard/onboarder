@@ -232,7 +232,7 @@ export class DialogAddNewUser implements OnInit {
 
   addUser(): void {
     this.user.username = this.firstName + this.lastName;
-    this.user.password = 'test';
+    this.user.password = 'testpsw';
     this.user.name = this.firstName + ' ' + this.lastName;
     this.role.roleType = RoleType[this.roleType];
     this.user.role = this.role;
