@@ -1,14 +1,17 @@
 package service;
 
 import com.google.common.hash.Hashing;
+import dao.CheckListDAO;
 import dao.UserDAO;
 import dao.UserInformationDAO;
+import dto.CheckListDTO;
 import dto.UserDTO;
 import dto.UserInformationDTO;
+import dto.mapper.CheckListMapper;
 import dto.mapper.UserInformationMapper;
 import dto.mapper.UserMapper;
+import entity.CheckList;
 import entity.User;
-import entity.UserInformation;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +38,12 @@ public class UserService {
     @Autowired
     private UserInformationDAO userInformationDAO;
 
+    @Autowired
+    private CheckListDAO checkListDAO;
+
     private UserMapper userMapper = UserMapper.INSTANCE;
+
+    private CheckListMapper checkListMapper = CheckListMapper.INSTANCE;
 
     private UserInformationMapper userInformationMapper = UserInformationMapper.INSTANCE;
 
@@ -95,15 +103,17 @@ public class UserService {
     public List<UserDTO> searchByUsername(String name) {
         return userMapper.entitiesToDTOs(userDAO.searchByUsername(name));
     }
+
     public Map getCheckList(UserDTO userDTO) {
         return userDAO.getCheckListMapForUser(userDAO.findEntity(userDTO.getIdUser()));
     }
 
-    public Map saveCheckListForUser(UserDTO user, UserInformation userInformation) {
-        User userEntity = userDAO.findEntity(user.getIdUser());
-        // Map<String, Boolean> checkList=userDAO.getCheckListForUser(userEntity);
-        return null;
-
+    public void saveCheckListForUser(String user, CheckListDTO checkList) {
+        User userEntity = userDAO.findUserByUsername(user).get();
+        checkList.setUserAccount(userEntity);
+        CheckList checkListEntity = checkListDAO.findByUser(userEntity);
+        checkListMapper.mapToEntity(checkList, checkListEntity);
+        checkListDAO.persistEntity(checkListEntity);
     }
 
 //    public List<UserDTO> searchByName(String name){

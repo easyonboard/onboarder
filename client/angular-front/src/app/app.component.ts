@@ -12,6 +12,7 @@ import {UserInformationService} from './service/user-information.service';
 import {CheckListProperties} from './util/CheckListProperties';
 import {RoleDTO, RoleType} from './domain/role';
 import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
+import {TSMap} from "typescript-map";
 
 @Component({
   selector: 'app-root',
@@ -273,7 +274,7 @@ export class DialogAddNewUser implements OnInit {
 })
 export class DialogCheckListUser implements OnInit {
   private dialogTitle: string;
-  private checkList: Map<string, boolean>;
+  private checkList:  TSMap<string, boolean>;
   private checkListProperties: CheckListProperties;
 
 
@@ -282,7 +283,7 @@ export class DialogCheckListUser implements OnInit {
 
   ngOnInit() {
     this.dialogTitle = 'Check list for ' + this.user.name;
-    this.checkList = new Map<string, boolean>();
+    this.checkList = new  TSMap<string, boolean>();
     this.checkListProperties = new CheckListProperties();
     this.userService.getCheckListForUser(this.user).subscribe(
       data => {
@@ -299,16 +300,14 @@ export class DialogCheckListUser implements OnInit {
   }
 
   onCheck(key: string) {
+
     this.checkList.set(key, !this.checkList.get(key));
+
   }
 
   saveStatus() {
-    this.userService.saveCheckList(this.user, this.checkList).subscribe(data => {
-      Object.keys(data).forEach(key => {
-        this.checkList.set(key, data[key]);
 
-      });
-    });
+    this.userService.saveCheckList(this.user.username, this.checkList).subscribe();
   }
 
 }
