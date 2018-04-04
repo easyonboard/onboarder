@@ -3,6 +3,7 @@ package controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dto.CheckListDTO;
 import dto.RoleDTO;
 import dto.UserDTO;
 import dto.UserInformationDTO;
@@ -15,15 +16,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import service.RoleService;
 import service.UserService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -161,10 +157,8 @@ public class UserController {
     @RequestMapping(value = "/saveCheckList", method = RequestMethod.POST)
     public ResponseEntity saveCheckList(@RequestBody String str){
         try {
-
-            getCheckListMsp(str);
-            return null;
-           // return new ResponseEntity(userService.saveCheckListForUser(getUser(str),, HttpStatus.OK);
+            userService.saveCheckListForUser(getUser(str),getCheckListMsp(str));
+            return new ResponseEntity(HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -172,15 +166,15 @@ public class UserController {
 
     }
 
-    private UserDTO getUser(String str) throws IOException {
+    private String getUser(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);
-        return mapper.convertValue(node.get("user"), UserDTO.class);
+        return mapper.convertValue(node.get("user"), String.class);
     }
-    private ArrayList getCheckListMsp(String str) throws IOException {
+    private CheckListDTO getCheckListMsp(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);
-        return mapper.convertValue(node.get("checkList"), ArrayList.class);
+        return mapper.convertValue(node.get("check"), CheckListDTO.class);
     }
 
 

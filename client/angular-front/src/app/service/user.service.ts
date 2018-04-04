@@ -8,11 +8,13 @@ import {Course} from '../domain/course';
 
 import {of} from 'rxjs/observable/of';
 import {tap} from 'rxjs/operators';
+import {TSMap} from "typescript-map";
 
 @Injectable()
 export class UserService {
   private rootConst: RootConst = new RootConst();
   public message: string;
+
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -35,7 +37,12 @@ export class UserService {
   }
 
   addUserInfo(userInfo: UserInformationDTO) {
-    let body = JSON.stringify({team: userInfo.team, building: userInfo.building, floor: userInfo.floor, buddy: userInfo.buddy});
+    let body = JSON.stringify({
+      team: userInfo.team,
+      building: userInfo.building,
+      floor: userInfo.floor,
+      buddy: userInfo.buddy
+    });
     return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER_INFO, body, this.httpOptions);
   }
 
@@ -91,8 +98,8 @@ export class UserService {
 
   }
 
-  saveCheckList(user: UserDTO, checkList: Map<string, boolean>): Observable<Map<string, boolean>> {
-    const body = JSON.stringify({user: user, checkList: Array.from(checkList.entries())});
+  saveCheckList(user: string, checkList:  TSMap<string, boolean>): Observable<Map<string, boolean>> {
+    const body = JSON.stringify({user: user, check: checkList.toJSON()});
     return this.http.post<Map<string, boolean>>(this.rootConst.WEB_SERVER_SAVE_CHECKLIST, body, this.httpOptions);
   }
 }
