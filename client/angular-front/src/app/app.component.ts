@@ -211,10 +211,11 @@ export class DialogNewEmployees implements OnInit {
     });
   }
 
-  openUserInfoModal() {
+  openUserInfoModal(user: UserDTO) {
     this.dialog.open(UserInfoFormularComponent, {
       height: '650px',
       width: '900px',
+      data: user
     });
   }
 

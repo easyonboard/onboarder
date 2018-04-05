@@ -1,12 +1,12 @@
 package dao;
 
+import entity.User;
 import entity.UserInformation;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UserInformationDAO extends AbstractDAO<UserInformation> {
@@ -18,7 +18,6 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
     }
 
     /**
-     *
      * @return list of all users whose startingDate is greater than today
      */
     public List<UserInformation> getAllNewUsers() {
@@ -28,5 +27,14 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         return q.getResultList();
     }
 
+    public UserInformation getUserInformationForUserAccount(User userAccount) {
+        Query q = em.createQuery("select o from UserInformation o where o.userAccount =:userAccount");
+        q.setParameter("userAccount", userAccount);
+        return (UserInformation) q.getSingleResult();
+    }
+
+    public UserInformation updateEntity(UserInformation entity) {
+        return em.merge(entity);
+    }
 
 }

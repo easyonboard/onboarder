@@ -1,6 +1,5 @@
 package dao;
 
-import entity.User_Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -43,6 +42,7 @@ public abstract class AbstractDAO<E> {
     public void setEm(EntityManager em) {
         this.em = em;
     }
+
 
     protected EntityManager getEm() {
         return this.em;

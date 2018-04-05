@@ -102,7 +102,6 @@ export class CoursesComponent implements OnInit {
     this.pageNumber = 0;
     this.message = '';
     this.successMessage = '';
-    debugger;
     var keyword = new URL(window.location.href).searchParams.get('keyword');
     if (keyword == null) {
       this.getCoursesFromPage();

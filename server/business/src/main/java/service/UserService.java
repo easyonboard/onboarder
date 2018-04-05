@@ -92,8 +92,8 @@ public class UserService {
         return userInformationMapper.entitiesToDTOs(userInformationDAO.getAllNewUsers());
     }
 
-    public List<UserDTO> searchByUsername(String name) {
-        return userMapper.entitiesToDTOs(userDAO.searchByUsername(name));
+    public List<UserDTO> searchByName(String name) {
+        return userMapper.entitiesToDTOs(userDAO.searchByName(name));
     }
     public Map getCheckList(UserDTO userDTO) {
         return userDAO.getCheckListMapForUser(userDAO.findEntity(userDTO.getIdUser()));

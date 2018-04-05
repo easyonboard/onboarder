@@ -35,7 +35,7 @@ export class UserService {
   }
 
   addUserInfo(userInfo: UserInformationDTO) {
-    let body = JSON.stringify({team: userInfo.team, building: userInfo.building, floor: userInfo.floor, buddy: userInfo.buddy});
+    let body = JSON.stringify({team: userInfo.team, building: userInfo.building, store: userInfo.store, buddyUser: userInfo.buddyUser});
     return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER_INFO, body, this.httpOptions);
   }
 
@@ -62,7 +62,7 @@ export class UserService {
         return;
       }
 
-      let users = this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_USERNAME + term);
+      let users = this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_NAME + term);
       console.log('dupa http');
       return users;
     }
@@ -81,7 +81,7 @@ export class UserService {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_USERNAME + term)
+    return this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_NAME + term)
       .pipe(tap(_ => console.log(`found heroes matching '${term}'`)));
   }
 

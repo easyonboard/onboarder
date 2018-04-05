@@ -1,4 +1,4 @@
-import { RoleDTO } from './role';
+import {RoleDTO} from './role';
 
 export class UserDTO {
   idUser: number;
@@ -10,11 +10,9 @@ export class UserDTO {
 }
 
 export class UserInformationDTO {
-  idUserInformation: number;
   team: string;
   building: string;
-  floor: string;
-  buddy: UserDTO;
+  store: string;
   project: string;
   buddyUser: UserDTO;
   userAccount: UserDTO;

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {UserInformationService} from '../../service/user-information.service';
 import {UserService} from '../../service/user.service';
 import {Observable} from 'rxjs/Observable';
@@ -6,7 +6,7 @@ import {UserDTO, UserInformationDTO} from '../../domain/user';
 import {Subject} from 'rxjs/Subject';
 
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
-import {log} from 'util';
+import {MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-user-info-formular',
@@ -15,10 +15,11 @@ import {log} from 'util';
 })
 export class UserInfoFormularComponent implements OnInit {
 
+  selectedBuddy: UserDTO;
   users$: Observable<UserDTO[]>;
   private searchTerms = new Subject<string>();
 
-  constructor(private userInformationService: UserInformationService, private userService: UserService) {
+  constructor(private userInformationService: UserInformationService, private userService: UserService, @Inject(MAT_DIALOG_DATA) public userAccount: UserDTO) {
   }
 
   search(term: string): void {
@@ -26,9 +27,8 @@ export class UserInfoFormularComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('---------------> Inainte de pipe');
-
-
+    this.selectedBuddy = new UserDTO();
+    this.selectedBuddy.name = '';
     this.users$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
@@ -38,18 +38,20 @@ export class UserInfoFormularComponent implements OnInit {
       switchMap((term: string) => this.userService.searchUsers(term))
     )
     ;
-    console.log(' ---------------> dupa pipe');
   }
 
   addUserInformation(team: string, building: string,
-                     floor: string,
-                     buddy: string): void {
+                     store: string, project: string,
+                     mailSent: boolean): void {
 
     team.trim();
     building.trim();
-    floor.trim();
-    buddy.trim();
-    this.userInformationService.addUserInformation({building, floor, team} as UserInformationDTO).subscribe();
+    store.trim();
+
+    let buddyUser = this.selectedBuddy;
+    let userAccount = this.userAccount;
+    let userInfo: UserInformationDTO = {team, building, store, project, buddyUser, userAccount, mailSent};
+    this.userInformationService.addUserInformation(userInfo).subscribe();
   }
 
 }

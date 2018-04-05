@@ -15,11 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import service.RoleService;
+import service.UserInformationService;
 import service.UserService;
 
 import java.io.IOException;
@@ -34,8 +31,8 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-//    @Autowired
-//    private UserInformationService userInformationService;
+    @Autowired
+    private UserInformationService userInformationService;
 
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -122,6 +119,7 @@ public class UserController {
         List<UserInformationDTO> asd = userService.getAllNewUsers();
         return new ResponseEntity(userService.getAllNewUsers(), HttpStatus.OK);
     }
+
     /**
      * Method used for adding/updating the user information, represented by the info the user needs to know
      * for his first day.
@@ -129,42 +127,42 @@ public class UserController {
      * @return HTTP STATUS OK for successfully adding the info,
      * or HTTP STATUS BAD REQUEST for exception
      */
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    @RequestMapping(value = "/info", method = RequestMethod.POST)
-//    public ResponseEntity addUserInformation(@RequestBody UserInformationDTO userInformationDTO) {
-//        try {
-//            userInformationService.addUser(userInformationDTO);
-//            return new ResponseEntity(HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
-//        }
-//    }
-//
-//
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/user/info", method = RequestMethod.PUT)
+    public ResponseEntity updateUserInformation(@RequestBody UserInformationDTO userInformationDTO) {
+        try {
+            userInformationService.updateUserInfo(userInformationDTO);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public ResponseEntity<List<UserDTO>> getUserByName(@RequestParam(value = "username") String name) {
-           List<UserDTO> users = userService.searchByUsername(name);
-            return new ResponseEntity<>(users, HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> getUserByName(@RequestParam(value = "name") String name) {
+        List<UserDTO> users = userService.searchByName(name);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/checkList", method = RequestMethod.POST)
-    public ResponseEntity getCheckList(@RequestBody UserDTO user){
+    public ResponseEntity getCheckList(@RequestBody UserDTO user) {
         return new ResponseEntity(userService.getCheckList(user), HttpStatus.OK);
     }
 
 
-
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/saveCheckList", method = RequestMethod.POST)
-    public ResponseEntity saveCheckList(@RequestBody String str){
+    public ResponseEntity saveCheckList(@RequestBody String str) {
         try {
 
             getCheckListMsp(str);
             return null;
-           // return new ResponseEntity(userService.saveCheckListForUser(getUser(str),, HttpStatus.OK);
+            // return new ResponseEntity(userService.saveCheckListForUser(getUser(str),, HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -172,11 +170,13 @@ public class UserController {
 
     }
 
+
     private UserDTO getUser(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);
         return mapper.convertValue(node.get("user"), UserDTO.class);
     }
+
     private ArrayList getCheckListMsp(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);

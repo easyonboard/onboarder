@@ -1,5 +1,4 @@
-<div class="container">
-
+<mat-dialog-content style="height:600px">
   <h1>New Employee Information</h1>
 
   <form class="tab-content">
@@ -12,25 +11,26 @@
       <input #Building type="text" placeholder="Building" class="form-control" id="Building"/>
     </div>
     <div>
-      <label for="Floor">Floor</label>
-      <input #Floor type="text" placeholder="Floor" class="form-control" id="Floor"/>
+      <label for="Store">Store</label>
+      <input #Store type="text" placeholder="Store" class="form-control" id="Store"/>
+    </div>
+
+    <div id="search-component">
+      <label for="search-box">Buddy </label>
+      <input #searchBox id="search-box" (keyup)="search(searchBox.value)" class="form-control"
+             placeholder="Type in here" value={{selectedBuddy.name}}/>
+      <ul class="search-result">
+        <li *ngFor="let buddy of users$ | async" (click)="selectedBuddy=buddy">
+          <span>{{buddy.name}}</span>
+        </li>
+      </ul>
     </div>
     <div>
-      <label for="Buddy">Buddy</label>
-      <input #Buddy type="text" placeholder="Buddy" class="form-control" id="Buddy"/>
-    </div>
-    <input #searchBox id="search-box" (keyup)="search(searchBox.value)" placeholder="Type in here"/>
-    <ul class="search-result">
-      <li *ngFor="let hero of users$ | async">
-        <p>{{hero.name}}</p>
-      </li>
-    </ul>
-    <div>
-      <button id="addInfo" class="btn btn-success"
-              (click)="addUserInformation(Team.value,Building.value,Floor.value, Buddy.value)">Add Info
+      <button id="addInfo" class="btn btn-success" style="background-color: #841439;"
+              (click)="addUserInformation(Team.value,Building.value,Store.value)">Add Info
       </button>
 
     </div>
   </form>
-</div>
+</mat-dialog-content>
 <!-- container -->

@@ -69,11 +69,11 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
 
-    public List<User> searchByUsername(String username) {
+    public List<User> searchByName(String name) {
 
-        String queryString = "select u from User u where u.username LIKE :username";
+        String queryString = "select u from User u where u.name LIKE :name";
         Query query = this.em.createQuery(queryString);
-        query.setParameter("username", "%" + username + "%");
+        query.setParameter("name", "%" + name + "%");
         return query.getResultList();
 
     }
