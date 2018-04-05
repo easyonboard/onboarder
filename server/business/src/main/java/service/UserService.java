@@ -110,7 +110,7 @@ public class UserService {
 
     public void saveCheckListForUser(String user, CheckListDTO checkList) {
         User userEntity = userDAO.findUserByUsername(user).get();
-        checkList.setUserAccount(userEntity);
+        checkList.setUserAccount(userMapper.mapToDTO(userEntity));
         CheckList checkListEntity = checkListDAO.findByUser(userEntity);
         checkListMapper.mapToEntity(checkList, checkListEntity);
         checkListDAO.persistEntity(checkListEntity);

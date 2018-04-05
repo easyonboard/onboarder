@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.*;
+import entity.CheckList;
 import entity.enums.RoleType;
 import exception.InvalidDataException;
 import exception.RoleNameNotFoundException;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import service.CheckListService;
 import service.RoleService;
 import service.UserService;
 
@@ -27,10 +29,11 @@ public class UserController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private CheckListService checkListService;
 
 //    @Autowired
 //    private UserInformationService userInformationService;
-
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
@@ -53,16 +56,20 @@ public class UserController {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            JsonNode node = null;
-            node = mapper.readTree(userJson);
+            JsonNode node = mapper.readTree(userJson);
             UserDTO userDTO = mapper.convertValue(node.get("user"), UserDTO.class);
             RoleType role = mapper.convertValue(node.get("role"), RoleType.class);
             RoleDTO roleDTO = new RoleDTO();
             roleDTO.setRole(role);
             roleDTO.setIdRole(role.getRoleTypeId());
-
             userDTO.setRole(roleDTO);
+
             userService.addUser(userDTO);
+
+            CheckListDTO checkListDTO = new CheckListDTO();
+            checkListDTO.setUserAccount(userDTO);
+            
+            checkListService.addCheckList(checkListDTO);
         } catch (InvalidDataException exception) {
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
         } catch (JsonProcessingException e) {
