@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
       this.errorMessage = 'Password does not match';
       return;
     } else {
-      this.userService.addUser({name, username, email, password} as UserDTO).subscribe(
+      this.userService.addUser({name, username, email, password} as UserDTO, null).subscribe(
         res => {
           this.option = false;
         },

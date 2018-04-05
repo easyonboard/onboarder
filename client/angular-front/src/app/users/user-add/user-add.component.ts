@@ -21,7 +21,6 @@ export class UserAddComponent implements OnInit {
 
   public roles = Object.keys(RoleType);
 
-
   employees = [
     {value: 'employee-0', viewValue: 'ONE'},
     {value: 'employee-1', viewValue: 'TWO'},
@@ -37,13 +36,11 @@ export class UserAddComponent implements OnInit {
 
   addUser(): void {
     this.user.username = this.firstName + this.lastName;
-    this.user.password = 'test';
+    this.user.password = 'testPassw';
     this.user.name = this.firstName + ' ' + this.lastName;
-    this.user.role = new RoleDTO();
-    this.user.role.roleType = this.selectedRole;
 
-    this.userService.addUser(this.user).subscribe();
-    //this.userService.addUserInfo(this.userInfo).subscribe();
+    this.userService.addUser(this.user, this.selectedRole).subscribe();
+    this.userService.addUserInfo(this.userInfo).subscribe();
   }
 
   selectValue(event: MatSelectChange) {

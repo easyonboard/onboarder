@@ -1,12 +1,10 @@
 package controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dto.CheckListDTO;
-import dto.RoleDTO;
-import dto.UserDTO;
-import dto.UserInformationDTO;
+import dto.*;
 import entity.enums.RoleType;
 import exception.InvalidDataException;
 import exception.RoleNameNotFoundException;
@@ -51,28 +49,29 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/addUser", method = RequestMethod.POST)
-    public ResponseEntity addUser(@RequestBody UserDTO user) {
-        try {
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUsername(user.getUsername());
-            userDTO.setPassword(user.getPassword());
-            userDTO.setEmail(user.getEmail());
-            userDTO.setName(user.getName());
+    public ResponseEntity addUser(@RequestBody  String userJson) {
+        ObjectMapper mapper = new ObjectMapper();
 
-            RoleDTO roleDTO = null;
-            try {
-                roleDTO = roleService.findRoleById(RoleType.ROLE_ADMIN.getRoleTypeId());
-            } catch (RoleNameNotFoundException e) {
-                e.printStackTrace();
-            }
+        try {
+            JsonNode node = null;
+            node = mapper.readTree(userJson);
+            UserDTO userDTO = mapper.convertValue(node.get("user"), UserDTO.class);
+            RoleType role = mapper.convertValue(node.get("role"), RoleType.class);
+            RoleDTO roleDTO = new RoleDTO();
+            roleDTO.setRole(role);
+            roleDTO.setIdRole(role.getRoleTypeId());
 
             userDTO.setRole(roleDTO);
-
             userService.addUser(userDTO);
-            return new ResponseEntity<>(HttpStatus.OK);
         } catch (InvalidDataException exception) {
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

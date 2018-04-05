@@ -8,7 +8,8 @@ import {Course} from '../domain/course';
 
 import {of} from 'rxjs/observable/of';
 import {tap} from 'rxjs/operators';
-import {TSMap} from "typescript-map";
+import {TSMap} from 'typescript-map';
+import { RoleDTO, RoleType } from '../domain/role';
 
 @Injectable()
 export class UserService {
@@ -31,9 +32,11 @@ export class UserService {
     return this.http.post<UserDTO>(this.rootConst.SERVER_AUTHENTIFICATION, body, this.httpOptions);
   }
 
-  addUser(user: UserDTO) {
-    console.log(user);
-    let body = JSON.stringify(user);
+  addUser(user: UserDTO, role: RoleType) {
+    console.log('user stuff ' + user.email + '\n');
+    console.log('role stuff ' + role + '\n');
+
+    let body = JSON.stringify({user: user, role: role});
     return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }
 
