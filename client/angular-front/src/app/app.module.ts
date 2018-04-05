@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppComponent, DialogCheckListUser, DialogEnrolledCoursesForUser, DialogAddNewUser,  DialogNewEmployees} from './app.component';
+import {AppComponent, DialogCheckListUser, DialogEnrolledCoursesForUser, DialogNewEmployees} from './app.component';
 import {CoursesComponent} from './courses/courses.component';
 import {CourseService} from './service/course.service';
 import {HttpClientModule} from '@angular/common/http';
@@ -43,7 +43,6 @@ import { UserAddComponent } from './users/user-add/user-add.component';
     GeneralInfosComponent,
     DialogNewEmployees,
     DialogCheckListUser,
-    DialogAddNewUser,
     UserAddComponent
   ],
   imports: [
@@ -76,7 +75,7 @@ import { UserAddComponent } from './users/user-add/user-add.component';
     DialogEnrolledCoursesForUser,
     DialogNewEmployees,
     DialogCheckListUser,
-    DialogAddNewUser
+    UserAddComponent
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService, UserInformationService],
   bootstrap: [AppComponent]
