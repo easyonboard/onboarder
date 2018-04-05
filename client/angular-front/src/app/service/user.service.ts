@@ -8,11 +8,14 @@ import {Course} from '../domain/course';
 
 import {of} from 'rxjs/observable/of';
 import {tap} from 'rxjs/operators';
+import {TSMap} from 'typescript-map';
+import { RoleDTO, RoleType } from '../domain/role';
 
 @Injectable()
 export class UserService {
   private rootConst: RootConst = new RootConst();
   public message: string;
+
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -29,8 +32,11 @@ export class UserService {
     return this.http.post<UserDTO>(this.rootConst.SERVER_AUTHENTIFICATION, body, this.httpOptions);
   }
 
-  addUser(user: UserDTO) {
-    let body = JSON.stringify(user);
+  addUser(user: UserDTO, role: RoleType) {
+    console.log('user stuff ' + user.email + '\n');
+    console.log('role stuff ' + role + '\n');
+
+    let body = JSON.stringify({user: user, role: role});
     return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }
 
@@ -91,8 +97,8 @@ export class UserService {
 
   }
 
-  saveCheckList(user: UserDTO, checkList: Map<string, boolean>): Observable<Map<string, boolean>> {
-    const body = JSON.stringify({user: user, checkList: Array.from(checkList.entries())});
+  saveCheckList(user: string, checkList:  TSMap<string, boolean>): Observable<Map<string, boolean>> {
+    const body = JSON.stringify({user: user, check: checkList.toJSON()});
     return this.http.post<Map<string, boolean>>(this.rootConst.WEB_SERVER_SAVE_CHECKLIST, body, this.httpOptions);
   }
 }

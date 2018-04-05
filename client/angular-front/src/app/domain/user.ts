@@ -6,7 +6,6 @@ export class UserDTO {
   name: string;
   username: string;
   password: string;
-  role: RoleDTO;
 }
 
 export class UserInformationDTO {
@@ -17,5 +16,4 @@ export class UserInformationDTO {
   buddyUser: UserDTO;
   userAccount: UserDTO;
   mailSent: boolean;
-
 }

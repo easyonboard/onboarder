@@ -34,7 +34,7 @@ public class UserInformation implements Serializable {
     private User userAccount;
 
     @Column(columnDefinition="NUMBER(1)")
-    private boolean mailSent;
+    private Boolean mailSent;
 
 
 
@@ -115,11 +115,11 @@ public class UserInformation implements Serializable {
         this.userAccount = userAccount;
     }
 
-    public boolean isMailSent() {
+    public Boolean isMailSent() {
         return mailSent;
     }
 
-    public void setMailSent(boolean mailSent) {
+    public void setMailSent(Boolean mailSent) {
         this.mailSent = mailSent;
     }
 
