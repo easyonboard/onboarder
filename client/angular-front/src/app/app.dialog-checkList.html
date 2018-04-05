@@ -6,13 +6,13 @@
     <tr *ngFor="let key of checkListKeys">
       <td> {{checkListProperties.getValueMap(key)}}</td>
       <td>
-        <mat-checkbox [checked]="checkList.get(key)" (change)="onCheck(key)">
+        <mat-checkbox [checked]="checkList.get(key)" (change)="onCheck(key)" color="primary">
       </mat-checkbox>
 
       </td>
     </tr>
   </table>
   <mat-card-actions>
-    <button mat-button (click)="saveStatus()" title="Update check list for user">Save</button>
+    <button mat-raised-button (click)="saveStatus()" color="primary" title="Update check list for user">Save</button>
   </mat-card-actions>
 </mat-dialog-content>
