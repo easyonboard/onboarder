@@ -5,6 +5,7 @@ import entity.UserInformation;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
