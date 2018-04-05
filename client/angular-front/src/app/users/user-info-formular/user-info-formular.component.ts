@@ -19,7 +19,9 @@ export class UserInfoFormularComponent implements OnInit {
   users$: Observable<UserDTO[]>;
   private searchTerms = new Subject<string>();
 
-  constructor(private userInformationService: UserInformationService, private userService: UserService, @Inject(MAT_DIALOG_DATA) public userAccount: UserDTO) {
+  constructor(private userInformationService: UserInformationService, private userService: UserService,
+              @Inject(MAT_DIALOG_DATA) public userAccount: UserDTO, @Inject(MAT_DIALOG_DATA) public idUserInformation: number) {
+    console.log(this.idUserInformation);
   }
 
   search(term: string): void {

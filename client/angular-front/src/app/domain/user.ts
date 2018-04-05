@@ -1,5 +1,3 @@
-import {RoleDTO} from './role';
-
 export class UserDTO {
   idUser: number;
   email: string;
@@ -9,6 +7,7 @@ export class UserDTO {
 }
 
 export class UserInformationDTO {
+  idUserInformation: number;
   team: string;
   building: string;
   store: string;
