@@ -21,6 +21,6 @@ public class UserInformationService {
         UserInformation userInformation = userInformationDAO
                 .getUserInformationForUserAccount(userMapper.mapToNewEntity(userInfo.getUserAccount()));
 
-        System.out.println(userInformationDAO.updateEntity(userInformation));
+        userInformationDAO.updateEntity(userInformation);
     }
 }

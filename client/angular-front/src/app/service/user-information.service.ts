@@ -17,11 +17,10 @@ export class UserInformationService {
   }
 
   addUserInformation(userInfo: UserInformationDTO): Observable<UserInformationDTO> {
-    console.log('=================>' + userInfo.buddyUser.name);
     console.log('=================>' + userInfo.store);
     let body = JSON.stringify({
-      building: userInfo.building, store: userInfo.store,
-      team: userInfo.team, buddyUser: userInfo.buddyUser, userAccount: userInfo.userAccount, mailSent: userInfo.mailSent
+      team: userInfo.team, building: userInfo.building, store: userInfo.store,
+      buddyUser: userInfo.buddyUser, userAccount: userInfo.userAccount, mailSent: userInfo.mailSent
     });
     return this.http.put<UserInformationDTO>(this.rootConst.SERVER_UPDATE_USER_INFO, body, this.httpOptions);
 

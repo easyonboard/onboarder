@@ -4,27 +4,24 @@ package controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dto.*;
-import entity.CheckList;
+import dto.CheckListDTO;
+import dto.RoleDTO;
+import dto.UserDTO;
+import dto.UserInformationDTO;
 import entity.enums.RoleType;
 import exception.InvalidDataException;
-import exception.RoleNameNotFoundException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import service.CheckListService;
 import service.RoleService;
 import service.UserInformationService;
 import service.UserService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -57,7 +54,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/addUser", method = RequestMethod.POST)
-    public ResponseEntity addUser(@RequestBody  String userJson) {
+    public ResponseEntity addUser(@RequestBody String userJson) {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
@@ -73,7 +70,7 @@ public class UserController {
 
             CheckListDTO checkListDTO = new CheckListDTO();
             checkListDTO.setUserAccount(userDTO);
-            
+
             checkListService.addCheckList(checkListDTO);
         } catch (InvalidDataException exception) {
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
@@ -169,21 +166,20 @@ public class UserController {
     @RequestMapping(value = "/saveCheckList", method = RequestMethod.POST)
     public ResponseEntity saveCheckList(@RequestBody String str) {
         try {
-            userService.saveCheckListForUser(getUser(str),getCheckListMsp(str));
+            userService.saveCheckListForUser(getUser(str), getCheckListMsp(str));
             return new ResponseEntity(HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-
-
     }
 
-    private UserDTO getUser(String str) throws IOException {
+    private String getUser(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);
         return mapper.convertValue(node.get("user"), String.class);
     }
-    private ArrayList getCheckListMsp(String str) throws IOException {
+
+    private CheckListDTO getCheckListMsp(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);
         return mapper.convertValue(node.get("check"), CheckListDTO.class);

@@ -2,6 +2,7 @@ package dao;
 
 import entity.User;
 import entity.UserInformation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
@@ -18,6 +19,9 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         return UserInformation.class;
     }
 
+    @Autowired
+    UserDAO userDAO;
+
     /**
      * @return list of all users whose startingDate is greater than today
      */
@@ -29,12 +33,18 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
     }
 
     public UserInformation getUserInformationForUserAccount(User userAccount) {
+        User userAccount2 = userDAO.userByUsername(userAccount.getUsername());
+
         Query q = em.createQuery("select o from UserInformation o where o.userAccount =:userAccount");
-        q.setParameter("userAccount", userAccount);
+        q.setParameter("userAccount", userAccount2);
         return (UserInformation) q.getSingleResult();
+
     }
 
+
+    @Transactional
     public UserInformation updateEntity(UserInformation entity) {
+
         return em.merge(entity);
     }
 
