@@ -12,6 +12,7 @@ import {UserInformationService} from './service/user-information.service';
 import {CheckListProperties} from './util/CheckListProperties';
 import {RoleDTO, RoleType} from './domain/role';
 import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
+import {UserAddComponent} from './users/user-add/user-add.component';
 import {TSMap} from "typescript-map";
 
 @Component({
@@ -116,7 +117,7 @@ export class AppComponent {
   }
 
   openModalAddNewUser() {
-    const dialogAddNewUser = this.dialog.open(DialogAddNewUser, {
+    const addUserComponent = this.dialog.open(UserAddComponent, {
       height: '700px',
       width: '600px',
     });
@@ -219,53 +220,6 @@ export class DialogNewEmployees implements OnInit {
     });
   }
 
-}
-
-
-@Component({
-  selector: 'app-user-add',
-  templateUrl: './users/user-add/user-add.component.html'
-})
-export class DialogAddNewUser implements OnInit {
-  public firstName: string;
-  public lastName: string;
-  public roleType: string;
-
-  public user = new UserDTO;
-
-  public userInfo = new UserInformationDTO;
-  public role = new RoleDTO;
-
-  roles = [
-    {value: 'role-0', viewValue: RoleType.ROLE_ABTEILUNGSLEITER},
-    {value: 'role-1', viewValue: RoleType.ROLE_HR},
-    {value: 'role-2', viewValue: RoleType.ROLE_USER}
-  ];
-
-  employees = [
-    {value: 'employee-0', viewValue: 'ONE'},
-    {value: 'employee-1', viewValue: 'TWO'},
-    {value: 'employee-2', viewValue: 'DREI'}
-  ];
-
-  constructor(private userService: UserService) {
-  }
-
-  ngOnInit(): void {
-
-  }
-
-  addUser(): void {
-    this.user.username = this.firstName + this.lastName;
-    this.user.password = 'testpsw';
-    this.user.name = this.firstName + ' ' + this.lastName;
-    this.role.roleType = RoleType[this.roleType];
-    this.user.role = this.role;
-
-    console.log(this.user.role);
-    this.userService.addUser(this.user).subscribe();
-    // this.userService.addUserInfo(this.userInfo).subscribe();
-  }
 }
 
 @Component({

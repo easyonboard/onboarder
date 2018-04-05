@@ -13,7 +13,7 @@ public class UserInformationDTO {
     private Date startDate;
     private UserDTO buddyUser;
     private UserDTO userAccount;
-    private boolean mailSent;
+    private Boolean mailSent;
 
     public UserInformationDTO() {
     }
@@ -82,11 +82,11 @@ public class UserInformationDTO {
         this.userAccount = userAccount;
     }
 
-    public boolean isMailSent() {
+    public Boolean isMailSent() {
         return mailSent;
     }
 
-    public void setMailSent(boolean mailSent) {
+    public void setMailSent(Boolean mailSent) {
         this.mailSent = mailSent;
     }
 
