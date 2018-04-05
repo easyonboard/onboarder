@@ -5,7 +5,7 @@ import {RootConst} from './util/RootConst';
 import {UserService} from './service/user.service';
 import {UtilityService} from './service/utility.service';
 import {UserDTO, UserInformationDTO} from './domain/user';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {Course} from './domain/course';
 import {CourseService} from './service/course.service';
 import {UserInformationService} from './service/user-information.service';
@@ -278,7 +278,7 @@ export class DialogCheckListUser implements OnInit {
   private checkListProperties: CheckListProperties;
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService, public dialogRef: MatDialogRef<DialogCheckListUser>) {
   }
 
   ngOnInit() {
@@ -310,4 +310,7 @@ export class DialogCheckListUser implements OnInit {
     this.userService.saveCheckList(this.user.username, this.checkList).subscribe();
   }
 
+  closeWindow(){
+    this.dialogRef.close('Closed!');
+  }
 }
