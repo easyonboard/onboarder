@@ -37,7 +37,6 @@ public class UserInformation implements Serializable {
     private Boolean mailSent;
 
 
-
     public UserInformation() {
 
     }

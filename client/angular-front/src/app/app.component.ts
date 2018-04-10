@@ -117,7 +117,7 @@ export class AppComponent {
 
   openModalAddNewUser() {
     const addUserComponent = this.dialog.open(UserAddComponent, {
-      height: '700px',
+      height: '850px',
       width: '600px',
     });
   }

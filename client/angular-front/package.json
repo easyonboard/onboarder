@@ -29,6 +29,7 @@
     "@types/web-animations-js": "^2.2.5",
     "angular-2-dropdown-multiselect": "^1.6.3",
     "angular-inviewport": "^0.2.3",
+    "angular-material-datepicker": "^1.0.2",
     "angular-scroll": "^1.0.2",
     "angular-star-rating": "^3.0.8",
     "angular2-http-file-upload": "^1.0.6",

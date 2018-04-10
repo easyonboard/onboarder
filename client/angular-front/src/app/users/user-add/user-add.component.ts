@@ -15,6 +15,8 @@ export class UserAddComponent implements OnInit {
   public roleType = RoleType;
   public selectedRole: RoleType;
 
+  public startDate: Date = new Date;
+
   public user = new UserDTO();
   public userInfo = new UserInformationDTO();
   public role: RoleDTO = new RoleDTO();
@@ -38,6 +40,8 @@ export class UserAddComponent implements OnInit {
     this.user.username = this.firstName + this.lastName;
     this.user.password = 'testPassw';
     this.user.name = this.firstName + ' ' + this.lastName;
+
+    console.log('date picker ' + this.startDate);
 
     this.userService.addUser(this.user, this.selectedRole).subscribe();
     this.userService.addUserInfo(this.userInfo).subscribe();

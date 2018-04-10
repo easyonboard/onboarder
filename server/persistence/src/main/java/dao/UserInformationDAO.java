@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 public class UserInformationDAO extends AbstractDAO<UserInformation> {
 
-
     @Override
     public Class<UserInformation> getEntityClass() {
         return UserInformation.class;
@@ -29,6 +28,7 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         Query q = em.createQuery("select o from UserInformation o where o.startDate > :today ");
         Date date = new Date();
         q.setParameter("today", date);
+
         return q.getResultList();
     }
 
@@ -37,10 +37,9 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
 
         Query q = em.createQuery("select o from UserInformation o where o.userAccount =:userAccount");
         q.setParameter("userAccount", userAccount2);
+
         return (UserInformation) q.getSingleResult();
-
     }
-
 
     @Transactional
     public UserInformation updateEntity(UserInformation entity) {

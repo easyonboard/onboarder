@@ -22,8 +22,7 @@ import {StarRatingModule} from 'angular-star-rating';
 import {
   MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
   MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule,
-  MatCheckboxModule,
-  MatSelectModule, MatOptionModule} from '@angular/material';
+  MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule} from '@angular/material';
 import { ReviewService } from './service/review.service';
 import { UserInfoFormularComponent } from './users/user-info-formular/user-info-formular.component';
 import { UserInformationService } from './service/user-information.service';
@@ -69,7 +68,9 @@ import { UserAddComponent } from './users/user-add/user-add.component';
     MatTableModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   entryComponents: [
     DialogEnrolledCoursesForUser,
