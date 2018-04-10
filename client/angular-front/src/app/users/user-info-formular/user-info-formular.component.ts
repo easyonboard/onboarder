@@ -16,16 +16,20 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 export class UserInfoFormularComponent implements OnInit {
 
   selectedBuddy: UserDTO;
+  show: boolean = true;
   users$: Observable<UserDTO[]>;
   private searchTerms = new Subject<string>();
 
   constructor(private userInformationService: UserInformationService, private userService: UserService,
-              @Inject(MAT_DIALOG_DATA) public userAccount: UserDTO, @Inject(MAT_DIALOG_DATA) public idUserInformation: number) {
-    console.log(this.idUserInformation);
+              @Inject(MAT_DIALOG_DATA) public userInformation: UserInformationDTO) {
   }
 
   search(term: string): void {
     this.searchTerms.next(term);
+  }
+
+  resetShow(): void {
+    this.show = true;
   }
 
   ngOnInit() {
@@ -42,16 +46,16 @@ export class UserInfoFormularComponent implements OnInit {
   }
 
   updateUserInformation(team: string, building: string,
-                     store: string, project: string,
-                     mailSent: boolean): void {
+                        store: string, project: string,
+                        mailSent: boolean): void {
 
     team.trim();
     building.trim();
     store.trim();
 
+    let idUserInformation = this.userInformation.idUserInformation;
     let buddyUser = this.selectedBuddy;
-    let userAccount = this.userAccount;
-    let idUserInformation: number;
+    let userAccount = this.userInformation.userAccount;
     let startDate: Date;
     let userInfo: UserInformationDTO = {idUserInformation, team, building, store, project, buddyUser, userAccount, mailSent, startDate};
     this.userInformationService.updateUserInformation(userInfo).subscribe();

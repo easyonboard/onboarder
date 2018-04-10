@@ -21,6 +21,11 @@ public class UserInformationService {
         UserInformation userInformation = userInformationDAO
                 .getUserInformationForUserAccount(userMapper.mapToNewEntity(userInfo.getUserAccount()));
 
+        userInformation.setTeam(userInfo.getTeam());
+        userInformation.setBuilding(userInfo.getBuilding());
+        userInformation.setFloor(userInfo.getFloor());
+        userInformation.setBuddyUser(userMapper.mapToNewEntity(userInfo.getBuddyUser()));
+
         userInformationDAO.updateEntity(userInformation);
     }
 }
