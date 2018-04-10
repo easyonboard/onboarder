@@ -52,7 +52,8 @@ export class UserInfoFormularComponent implements OnInit {
 
     let buddyUser = this.selectedBuddy;
     let userAccount = this.userAccount;
-    let userInfo: UserInformationDTO = {team, building, store, project, buddyUser, userAccount, mailSent};
+    let idUserInformation: number;
+    let userInfo: UserInformationDTO = {idUserInformation, team, building, store, project, buddyUser, userAccount, mailSent};
     this.userInformationService.addUserInformation(userInfo).subscribe();
   }
 
