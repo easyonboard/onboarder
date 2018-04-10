@@ -38,11 +38,10 @@ export class UserInfoFormularComponent implements OnInit {
       distinctUntilChanged(),
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.userService.searchUsers(term))
-    )
-    ;
+    );
   }
 
-  addUserInformation(team: string, building: string,
+  updateUserInformation(team: string, building: string,
                      store: string, project: string,
                      mailSent: boolean): void {
 
@@ -53,8 +52,9 @@ export class UserInfoFormularComponent implements OnInit {
     let buddyUser = this.selectedBuddy;
     let userAccount = this.userAccount;
     let idUserInformation: number;
-    let userInfo: UserInformationDTO = {idUserInformation, team, building, store, project, buddyUser, userAccount, mailSent};
-    this.userInformationService.addUserInformation(userInfo).subscribe();
+    let startDate: Date;
+    let userInfo: UserInformationDTO = {idUserInformation, team, building, store, project, buddyUser, userAccount, mailSent, startDate};
+    this.userInformationService.updateUserInformation(userInfo).subscribe();
   }
 
 }

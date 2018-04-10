@@ -1,35 +1,33 @@
 <mat-dialog-content style="height:600px">
-  <h1>New Employee Information</h1>
+    <h1>New Employee Information</h1>
 
-  <form class="tab-content">
-    <div class="form-group">
-      <label for="Team">Team</label>
-      <input #Team type="text" placeholder="Team" class="form-control" id="Team"/>
-    </div>
-    <div>
-      <label for="Building">Building</label>
-      <input #Building type="text" placeholder="Building" class="form-control" id="Building"/>
-    </div>
-    <div>
-      <label for="Store">Store</label>
-      <input #Store type="text" placeholder="Store" class="form-control" id="Store"/>
-    </div>
+    <form class="tab-content">
+        <div class="form-group">
+            <label for="Team">Team</label>
+            <input #Team type="text" placeholder="Team" class="form-control" id="Team" />
+        </div>
+        <div>
+            <label for="Building">Building</label>
+            <input #Building type="text" placeholder="Building" class="form-control" id="Building" />
+        </div>
+        <div>
+            <label for="Store">Store</label>
+            <input #Store type="text" placeholder="Store" class="form-control" id="Store" />
+        </div>
 
-    <div id="search-component">
-      <label for="search-box">Buddy </label>
-      <input #searchBox id="search-box" (keyup)="search(searchBox.value)" class="form-control"
-             placeholder="Type in here" value={{selectedBuddy.name}}/>
-      <ul class="search-result">
-        <li *ngFor="let buddy of users$ | async" (click)="selectedBuddy=buddy">
-          <span>{{buddy.name}}</span>
-        </li>
-      </ul>
-    </div>
-    <div>
-      <button id="addInfo" class="btn btn-success" style="background-color: #841439;"
-              (click)="addUserInformation(Team.value,Building.value,Store.value)">Add Info
+        <div id="search-component">
+            <label for="search-box">Buddy </label>
+            <input #searchBox id="search-box" (keyup)="search(searchBox.value)" class="form-control" placeholder="Type in here" value={{selectedBuddy.name}}/>
+            <ul class="search-result">
+                <li *ngFor="let buddy of users$ | async" (click)="selectedBuddy=buddy">
+                    <span>{{buddy.name}}</span>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <button id="addInfo" class="btn btn-success" style="background-color: #841439;" (click)="updateUserInformation(Team.value,Building.value,Store.value)">Add Info
       </button>
-    </div>
-  </form>
+        </div>
+    </form>
 </mat-dialog-content>
 <!-- container -->

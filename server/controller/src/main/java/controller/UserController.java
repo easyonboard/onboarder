@@ -92,6 +92,7 @@ public class UserController {
             userInfoDTO.setBuilding(userInfo.getBuilding());
             userInfoDTO.setFloor(userInfo.getFloor());
             userInfoDTO.setBuddyUser(userInfo.getBuddyUser());
+            userInfoDTO.setStartDate(userInfo.getStartDate());
 
             userService.addUserInfo(userInfoDTO);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -135,7 +136,7 @@ public class UserController {
      * or HTTP STATUS BAD REQUEST for exception
      */
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/user/info", method = RequestMethod.PUT)
+    @RequestMapping(value = "/user/updateUserInfo", method = RequestMethod.PUT)
     public ResponseEntity updateUserInformation(@RequestBody UserInformationDTO userInformationDTO) {
         try {
             userInformationService.updateUserInfo(userInformationDTO);

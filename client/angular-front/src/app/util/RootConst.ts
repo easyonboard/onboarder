@@ -18,11 +18,11 @@ export class RootConst {
   public SERVER_UNENROLLE_USER_ON_COURSE = this.SERVER_COURSES_URL + '/unenrollUserFromCourse?idCourse=';
   public SERVER_ADD_USER = this.WEB_SERVICE_ENDPOINT + 'user/addUser';
   public SERVER_ADD_USER_INFO = this.WEB_SERVICE_ENDPOINT + 'user/addUserInfo';
+  public SERVER_UPDATE_USER_INFO= this.WEB_SERVICE_ENDPOINT + '/user/updateUserInfo';
   public SERVER_UPDATE_USER = this.WEB_SERVICE_ENDPOINT + '/user/updateUser';
   public SERVER_USER_COURSES = this.WEB_SERVICE_ENDPOINT + '/user/courses?username=';
   public SERVER_USER_NAME = this.WEB_SERVICE_ENDPOINT + '/user?name=';
   public VOTEUP = this.WEB_SERVICE_ENDPOINT + 'voteUp';
-  public SERVER_UPDATE_USER_INFO= this.WEB_SERVICE_ENDPOINT + '/user/info';
 
 
   public SERVER_AUTHENTIFICATION = this.WEB_SERVICE_ENDPOINT + '/auth';

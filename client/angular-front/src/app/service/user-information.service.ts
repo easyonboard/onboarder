@@ -7,7 +7,6 @@ import {UserInformationDTO} from '../domain/user';
 @Injectable()
 export class UserInformationService {
 
-  private userInfoURL = 'http://localhost:4200/info';  // URL to web api
   private rootConst: RootConst = new RootConst();
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -17,13 +16,22 @@ export class UserInformationService {
   }
 
   addUserInformation(userInfo: UserInformationDTO): Observable<UserInformationDTO> {
+    let body = JSON.stringify({
+      team: userInfo.team, building: userInfo.building, store: userInfo.store, buddyUser: userInfo.buddyUser,
+      userAccount: userInfo.userAccount, mailSent: userInfo.mailSent, startDate: userInfo.startDate
+    });
+
+    return this.http.post<UserInformationDTO>(this.rootConst.SERVER_ADD_USER_INFO, body, this.httpOptions);
+  }
+
+  updateUserInformation(userInfo: UserInformationDTO): Observable<UserInformationDTO> {
     console.log('=================>' + userInfo.store);
     let body = JSON.stringify({
-      team: userInfo.team, building: userInfo.building, store: userInfo.store,
-      buddyUser: userInfo.buddyUser, userAccount: userInfo.userAccount, mailSent: userInfo.mailSent
+      team: userInfo.team, building: userInfo.building, store: userInfo.store, buddyUser: userInfo.buddyUser,
+      userAccount: userInfo.userAccount, mailSent: userInfo.mailSent, startDate: userInfo.startDate
     });
-    return this.http.put<UserInformationDTO>(this.rootConst.SERVER_UPDATE_USER_INFO, body, this.httpOptions);
 
+    return this.http.put<UserInformationDTO>(this.rootConst.SERVER_UPDATE_USER_INFO, body, this.httpOptions);
   }
 
   getNewUsers(): Observable<UserInformationDTO[]> {

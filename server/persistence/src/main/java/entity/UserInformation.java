@@ -36,9 +36,7 @@ public class UserInformation implements Serializable {
     @Column(columnDefinition="NUMBER(1)")
     private Boolean mailSent;
 
-
     public UserInformation() {
-
     }
 
     public UserInformation(String team, String building, String store, String project, Date startDate, User userBuddy) {

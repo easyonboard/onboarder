@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RoleDTO, RoleType} from '../../domain/role';
 import {UserDTO, UserInformationDTO} from '../../domain/user';
 import {UserService} from '../../service/user.service';
+import {UserInformationService} from '../../service/user-information.service';
 import {MatSelectChange} from '@angular/material';
 
 @Component({
@@ -15,8 +16,6 @@ export class UserAddComponent implements OnInit {
   public roleType = RoleType;
   public selectedRole: RoleType;
 
-  public startDate: Date = new Date;
-
   public user = new UserDTO();
   public userInfo = new UserInformationDTO();
   public role: RoleDTO = new RoleDTO();
@@ -29,7 +28,7 @@ export class UserAddComponent implements OnInit {
     {value: 'employee-2', viewValue: 'DREI'}
   ];
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private userInformationService: UserInformationService) {
   }
 
   ngOnInit(): void {
@@ -41,10 +40,8 @@ export class UserAddComponent implements OnInit {
     this.user.password = 'testPassw';
     this.user.name = this.firstName + ' ' + this.lastName;
 
-    console.log('date picker ' + this.startDate);
-
     this.userService.addUser(this.user, this.selectedRole).subscribe();
-    this.userService.addUserInfo(this.userInfo).subscribe();
+    this.userInformationService.addUserInformation(this.userInfo).subscribe();
   }
 
   selectValue(event: MatSelectChange) {

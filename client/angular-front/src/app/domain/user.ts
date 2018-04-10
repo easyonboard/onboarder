@@ -15,4 +15,5 @@ export class UserInformationDTO {
   buddyUser: UserDTO;
   userAccount: UserDTO;
   mailSent: boolean;
+  startDate: Date;
 }

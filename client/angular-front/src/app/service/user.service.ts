@@ -40,11 +40,6 @@ export class UserService {
     return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }
 
-  addUserInfo(userInfo: UserInformationDTO) {
-    let body = JSON.stringify({team: userInfo.team, building: userInfo.building, store: userInfo.store, buddyUser: userInfo.buddyUser});
-    return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER_INFO, body, this.httpOptions);
-  }
-
   updateUser(userDTO: UserDTO): any {
     let body = JSON.stringify({
       username: userDTO.username,
