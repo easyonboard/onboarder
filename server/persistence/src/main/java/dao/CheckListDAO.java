@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
 
-
 @Service
 public class CheckListDAO extends AbstractDAO<CheckList> {
     @Override

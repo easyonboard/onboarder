@@ -8,7 +8,8 @@ import {Course} from '../domain/course';
 
 import {of} from 'rxjs/observable/of';
 import {tap} from 'rxjs/operators';
-import {TSMap} from "typescript-map";
+import {TSMap} from 'typescript-map';
+import { RoleDTO, RoleType } from '../domain/role';
 
 @Injectable()
 export class UserService {
@@ -31,20 +32,12 @@ export class UserService {
     return this.http.post<UserDTO>(this.rootConst.SERVER_AUTHENTIFICATION, body, this.httpOptions);
   }
 
-  addUser(user: UserDTO) {
-    console.log(user);
-    let body = JSON.stringify(user);
-    return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
-  }
+  addUser(user: UserDTO, role: RoleType) {
+    console.log('user stuff ' + user.email + '\n');
+    console.log('role stuff ' + role + '\n');
 
-  addUserInfo(userInfo: UserInformationDTO) {
-    let body = JSON.stringify({
-      team: userInfo.team,
-      building: userInfo.building,
-      floor: userInfo.floor,
-      buddy: userInfo.buddy
-    });
-    return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER_INFO, body, this.httpOptions);
+    let body = JSON.stringify({user: user, role: role});
+    return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }
 
   updateUser(userDTO: UserDTO): any {
@@ -70,7 +63,7 @@ export class UserService {
         return;
       }
 
-      let users = this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_USERNAME + term);
+      let users = this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_NAME + term);
       console.log('dupa http');
       return users;
     }
@@ -89,7 +82,7 @@ export class UserService {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_USERNAME + term)
+    return this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_NAME + term)
       .pipe(tap(_ => console.log(`found heroes matching '${term}'`)));
   }
 

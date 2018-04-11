@@ -8,7 +8,9 @@
     <div *ngIf="userInfo.mailSent==false">
       <i class="material-icons" *ngIf="!mailSent" style="padding: 10px" title="Mail not sent">error_outline</i>{{userInfo.userAccount.name}}
       <br/>
-      <button mat-raised-button color="warn" (click)="openUserInfoModal()">Please fill in user data</button>
+
+      <button mat-button color="warn" (click)="openUserInfoModal(userInfo)">Please fill in user data</button>
+
 
     </div>
 

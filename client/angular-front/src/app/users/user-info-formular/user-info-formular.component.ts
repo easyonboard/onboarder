@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {UserInformationService} from '../../service/user-information.service';
 import {UserService} from '../../service/user.service';
 import {Observable} from 'rxjs/Observable';
@@ -6,7 +6,7 @@ import {UserDTO, UserInformationDTO} from '../../domain/user';
 import {Subject} from 'rxjs/Subject';
 
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
-import {log} from 'util';
+import {MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-user-info-formular',
@@ -15,20 +15,23 @@ import {log} from 'util';
 })
 export class UserInfoFormularComponent implements OnInit {
 
+  selectedBuddy: UserDTO;
+  show = true;
   users$: Observable<UserDTO[]>;
   private searchTerms = new Subject<string>();
 
-  constructor(private userInformationService: UserInformationService, private userService: UserService) {
+  constructor(private userInformationService: UserInformationService, private userService: UserService,
+              @Inject(MAT_DIALOG_DATA) public userInformation: UserInformationDTO) {
   }
 
   search(term: string): void {
     this.searchTerms.next(term);
+    this.show = true;
   }
 
   ngOnInit() {
-    console.log('---------------> Inainte de pipe');
-
-
+    this.selectedBuddy = new UserDTO();
+    this.selectedBuddy.name = '';
     this.users$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
@@ -36,20 +39,23 @@ export class UserInfoFormularComponent implements OnInit {
       distinctUntilChanged(),
       // switch to new search observable each time the term changes
       switchMap((term: string) => this.userService.searchUsers(term))
-    )
-    ;
-    console.log(' ---------------> dupa pipe');
+    );
   }
 
-  addUserInformation(team: string, building: string,
-                     floor: string,
-                     buddy: string): void {
+  updateUserInformation(team: string, building: string,
+                        store: string, project: string,
+                        mailSent: boolean): void {
 
     team.trim();
     building.trim();
-    floor.trim();
-    buddy.trim();
-    this.userInformationService.addUserInformation({building, floor, team} as UserInformationDTO).subscribe();
+    store.trim();
+
+    let idUserInformation = this.userInformation.idUserInformation;
+    let buddyUser = this.selectedBuddy;
+    let userAccount = this.userInformation.userAccount;
+    let startDate: Date;
+    let userInfo: UserInformationDTO = {idUserInformation, team, building, store, project, buddyUser, userAccount, mailSent, startDate};
+    this.userInformationService.updateUserInformation(userInfo).subscribe();
   }
 
 }

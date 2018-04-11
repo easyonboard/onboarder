@@ -1,6 +1,7 @@
 package controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.CheckListDTO;
@@ -9,14 +10,15 @@ import dto.UserDTO;
 import dto.UserInformationDTO;
 import entity.enums.RoleType;
 import exception.InvalidDataException;
-import exception.RoleNameNotFoundException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import service.CheckListService;
 import service.RoleService;
+import service.UserInformationService;
 import service.UserService;
 
 import java.io.IOException;
@@ -29,10 +31,11 @@ public class UserController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private CheckListService checkListService;
 
-//    @Autowired
-//    private UserInformationService userInformationService;
-
+    @Autowired
+    private UserInformationService userInformationService;
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
@@ -51,28 +54,33 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/addUser", method = RequestMethod.POST)
-    public ResponseEntity addUser(@RequestBody UserDTO user) {
+    public ResponseEntity addUser(@RequestBody String userJson) {
+        ObjectMapper mapper = new ObjectMapper();
+
         try {
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUsername(user.getUsername());
-            userDTO.setPassword(user.getPassword());
-            userDTO.setEmail(user.getEmail());
-            userDTO.setName(user.getName());
-
-            RoleDTO roleDTO = null;
-            try {
-                roleDTO = roleService.findRoleById(RoleType.ROLE_ADMIN.getRoleTypeId());
-            } catch (RoleNameNotFoundException e) {
-                e.printStackTrace();
-            }
-
+            JsonNode node = mapper.readTree(userJson);
+            UserDTO userDTO = mapper.convertValue(node.get("user"), UserDTO.class);
+            RoleType role = mapper.convertValue(node.get("role"), RoleType.class);
+            RoleDTO roleDTO = new RoleDTO();
+            roleDTO.setRole(role);
+            roleDTO.setIdRole(role.getRoleTypeId());
             userDTO.setRole(roleDTO);
 
             userService.addUser(userDTO);
-            return new ResponseEntity<>(HttpStatus.OK);
+
+            CheckListDTO checkListDTO = new CheckListDTO();
+            checkListDTO.setUserAccount(userDTO);
+
+            checkListService.addCheckList(checkListDTO);
         } catch (InvalidDataException exception) {
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -84,6 +92,7 @@ public class UserController {
             userInfoDTO.setBuilding(userInfo.getBuilding());
             userInfoDTO.setFloor(userInfo.getFloor());
             userInfoDTO.setBuddyUser(userInfo.getBuddyUser());
+            userInfoDTO.setStartDate(userInfo.getStartDate());
 
             userService.addUserInfo(userInfoDTO);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -118,6 +127,7 @@ public class UserController {
         List<UserInformationDTO> asd = userService.getAllNewUsers();
         return new ResponseEntity(userService.getAllNewUsers(), HttpStatus.OK);
     }
+
     /**
      * Method used for adding/updating the user information, represented by the info the user needs to know
      * for his first day.
@@ -125,45 +135,43 @@ public class UserController {
      * @return HTTP STATUS OK for successfully adding the info,
      * or HTTP STATUS BAD REQUEST for exception
      */
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    @RequestMapping(value = "/info", method = RequestMethod.POST)
-//    public ResponseEntity addUserInformation(@RequestBody UserInformationDTO userInformationDTO) {
-//        try {
-//            userInformationService.addUser(userInformationDTO);
-//            return new ResponseEntity(HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
-//        }
-//    }
-//
-//
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/user/updateUserInfo", method = RequestMethod.PUT)
+    public ResponseEntity updateUserInformation(@RequestBody UserInformationDTO userInformationDTO) {
+        try {
+            userInformationService.updateUserInfo(userInformationDTO);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public ResponseEntity<List<UserDTO>> getUserByName(@RequestParam(value = "username") String name) {
-           List<UserDTO> users = userService.searchByUsername(name);
-            return new ResponseEntity<>(users, HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> getUserByName(@RequestParam(value = "name") String name) {
+        List<UserDTO> users = userService.searchByName(name);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/checkList", method = RequestMethod.POST)
-    public ResponseEntity getCheckList(@RequestBody UserDTO user){
+    public ResponseEntity getCheckList(@RequestBody UserDTO user) {
         return new ResponseEntity(userService.getCheckList(user), HttpStatus.OK);
     }
 
 
-
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/saveCheckList", method = RequestMethod.POST)
-    public ResponseEntity saveCheckList(@RequestBody String str){
+    public ResponseEntity saveCheckList(@RequestBody String str) {
         try {
-            userService.saveCheckListForUser(getUser(str),getCheckListMsp(str));
+            userService.saveCheckListForUser(getUser(str), getCheckListMsp(str));
             return new ResponseEntity(HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-
-
     }
 
     private String getUser(String str) throws IOException {
@@ -171,6 +179,7 @@ public class UserController {
         JsonNode node = mapper.readTree(str);
         return mapper.convertValue(node.get("user"), String.class);
     }
+
     private CheckListDTO getCheckListMsp(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);

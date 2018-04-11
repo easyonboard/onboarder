@@ -100,8 +100,8 @@ public class UserService {
         return userInformationMapper.entitiesToDTOs(userInformationDAO.getAllNewUsers());
     }
 
-    public List<UserDTO> searchByUsername(String name) {
-        return userMapper.entitiesToDTOs(userDAO.searchByUsername(name));
+    public List<UserDTO> searchByName(String name) {
+        return userMapper.entitiesToDTOs(userDAO.searchByName(name));
     }
 
     public Map getCheckList(UserDTO userDTO) {
@@ -110,7 +110,7 @@ public class UserService {
 
     public void saveCheckListForUser(String user, CheckListDTO checkList) {
         User userEntity = userDAO.findUserByUsername(user).get();
-        checkList.setUserAccount(userEntity);
+        checkList.setUserAccount(userMapper.mapToDTO(userEntity));
         CheckList checkListEntity = checkListDAO.findByUser(userEntity);
         checkListMapper.mapToEntity(checkList, checkListEntity);
         checkListDAO.persistEntity(checkListEntity);

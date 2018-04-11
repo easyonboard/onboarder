@@ -7,7 +7,7 @@ import entity.User;
 public class CheckListDTO {
 
     private Integer idCheckList;
-    private User userAccount;
+    private UserDTO userAccount;
 
     private boolean initialPassword;
 
@@ -33,11 +33,11 @@ public class CheckListDTO {
         this.idCheckList = idCheckList;
     }
 
-    public User getUserAccount() {
+    public UserDTO getUserAccount() {
         return userAccount;
     }
 
-    public void setUserAccount(User userAccount) {
+    public void setUserAccount(UserDTO userAccount) {
         this.userAccount = userAccount;
     }
 

@@ -199,7 +199,6 @@ public class CourseService {
         return courseMapper.mapToDTO(courseDAO.persistEntity(course));
     }
 
-
     public void deleteCourse(CourseDTO course) throws CourseNotFoundException, DeleteCourseException {
         Course courseEntity = courseDAO.findEntity(course.getIdCourse());
         if (courseEntity == null)

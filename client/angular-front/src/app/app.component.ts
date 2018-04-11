@@ -10,10 +10,9 @@ import {Course} from './domain/course';
 import {CourseService} from './service/course.service';
 import {UserInformationService} from './service/user-information.service';
 import {CheckListProperties} from './util/CheckListProperties';
-import {RoleDTO, RoleType} from './domain/role';
 import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
 import {UserAddComponent} from './users/user-add/user-add.component';
-import {TSMap} from "typescript-map";
+import {TSMap} from 'typescript-map';
 
 @Component({
   selector: 'app-root',
@@ -118,7 +117,7 @@ export class AppComponent {
 
   openModalAddNewUser() {
     const addUserComponent = this.dialog.open(UserAddComponent, {
-      height: '700px',
+      height: '850px',
       width: '600px',
     });
   }
@@ -213,10 +212,12 @@ export class DialogNewEmployees implements OnInit {
     });
   }
 
-  openUserInfoModal() {
+  openUserInfoModal(userInformation: UserInformationDTO) {
     this.dialog.open(UserInfoFormularComponent, {
       height: '650px',
       width: '900px',
+      data: userInformation
+
     });
   }
 
@@ -228,7 +229,7 @@ export class DialogNewEmployees implements OnInit {
 })
 export class DialogCheckListUser implements OnInit {
   private dialogTitle: string;
-  private checkList:  TSMap<string, boolean>;
+  private checkList: TSMap<string, boolean>;
   private checkListProperties: CheckListProperties;
 
 
@@ -237,7 +238,7 @@ export class DialogCheckListUser implements OnInit {
 
   ngOnInit() {
     this.dialogTitle = 'Check list for ' + this.user.name;
-    this.checkList = new  TSMap<string, boolean>();
+    this.checkList = new TSMap<string, boolean>();
     this.checkListProperties = new CheckListProperties();
     this.userService.getCheckListForUser(this.user).subscribe(
       data => {

@@ -25,21 +25,18 @@ public class UserInformation implements Serializable {
     @Column
     private Date startDate;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_buddy_id")
     private User buddyUser;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_account")
     private User userAccount;
 
     @Column(columnDefinition="NUMBER(1)")
     private Boolean mailSent;
 
-
-
     public UserInformation() {
-
     }
 
     public UserInformation(String team, String building, String store, String project, Date startDate, User userBuddy) {
