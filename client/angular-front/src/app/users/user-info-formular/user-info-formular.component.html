@@ -20,7 +20,7 @@
       <input #searchBox id="search-box" (keyup)="search(searchBox.value)" class="form-control"
              placeholder="Type in here" value={{selectedBuddy.name}}/>
       <ul class="search-result" *ngIf="show">
-        <li *ngFor="let buddy of users$ | async" (click)="selectedBuddy=buddy;show = !show">
+        <li *ngFor="let buddy of users$ | async" (click)="selectedBuddy=buddy;show = false">
           <span>{{buddy.name}}</span>
         </li>
       </ul>

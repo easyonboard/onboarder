@@ -16,7 +16,7 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 export class UserInfoFormularComponent implements OnInit {
 
   selectedBuddy: UserDTO;
-  show: boolean = true;
+  show = true;
   users$: Observable<UserDTO[]>;
   private searchTerms = new Subject<string>();
 
@@ -26,9 +26,6 @@ export class UserInfoFormularComponent implements OnInit {
 
   search(term: string): void {
     this.searchTerms.next(term);
-  }
-
-  resetShow(): void {
     this.show = true;
   }
 
