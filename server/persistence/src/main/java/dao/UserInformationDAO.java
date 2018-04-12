@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserInformationDAO extends AbstractDAO<UserInformation> {
@@ -42,9 +43,18 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
     }
 
     @Transactional
-    public UserInformation updateEntity(UserInformation entity) {
+    public UserInformation updateUserInformation(UserInformation userInfo) {
+        UserInformation actualUserInfo = findEntity(userInfo.getIdUserInformation());
 
-        return em.merge(entity);
+        actualUserInfo.setTeam(userInfo.getTeam());
+        actualUserInfo.setBuilding(userInfo.getBuilding());
+        actualUserInfo.setFloor(userInfo.getFloor());
+
+        Optional<User> newUser = userDAO.findUserByUsername(userInfo.getBuddyUser().getUsername());
+
+        actualUserInfo.setBuddyUser(newUser.get());
+
+        return em.merge(actualUserInfo);
+
     }
-
 }
