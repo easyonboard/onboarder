@@ -1,11 +1,11 @@
-package utilityService;
+package controller;
 
+import dao.UserDAO;
 import dao.UserInformationDAO;
 import entity.User;
 import entity.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +27,9 @@ import java.util.logging.Logger;
 public class ScheduleEmailToNewEmployee {
     @Autowired
     private UserInformationDAO userInformationDAO;
+
+    @Autowired
+    private UserDAO userDAO;
 
     private final Logger LOGGER = Logger.getLogger(ScheduleEmailToNewEmployee.class.getName());
     private final List<String> mandatoryFieldsFromUserEntity = Arrays.asList("name", "username", "password", "email");
@@ -63,7 +66,17 @@ public class ScheduleEmailToNewEmployee {
                     String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", "aici", ui.getBuddyUser().getName(), ui.getFloor(), ui.getBuilding());
 
                     MailSender sender = new MailSender();
-                    sender.sendMail(user.getEmail(), "", "content");
+                    //sender.sendMail(user.getEmail(), "", emailBody);
+
+                    List<User> abteilungsleiters = userDAO.getAbteilungsleiters();
+                    for (User ab : abteilungsleiters) {
+                        if (ui.getBuddyUser().getUserAccount().getDepartment().equals(ab.getUserAccount().getDepartment())){
+                            //sender.sendMail(ab.getEmail(), "", emailBody);
+                            //sender.sendMail(ui.getBuddyUser().getEmail(), "", emailBody);
+                            sender.sendMail(user.getEmail(),ab.getEmail(), ui.getBuddyUser().getEmail(), "", emailBody);
+                            break;
+                        }
+                    }
 
                     LOGGER.info(emailBody);
                     LOGGER.info("An email has been send to " + user.getName() + " at " + Calendar.getInstance().getTime());
@@ -79,6 +92,10 @@ public class ScheduleEmailToNewEmployee {
         String email_body = bundle.getString("email_body");
         String formattedEmailBoddy = MessageFormat.format(email_body, name, startDate, s, aici, name1, floor, building);
         return formattedEmailBoddy;
+    }
+
+    public List<User> getAbteilungsleiters (){
+        return userDAO.getAbteilungsleiters();
     }
 
     public Date getNextWeekDate() {
