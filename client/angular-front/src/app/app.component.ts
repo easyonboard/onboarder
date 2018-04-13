@@ -13,6 +13,7 @@ import {CheckListProperties} from './util/CheckListProperties';
 import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
 import {UserAddComponent} from './users/user-add/user-add.component';
 import {TSMap} from 'typescript-map';
+import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 
 @Component({
   selector: 'app-root',
@@ -119,6 +120,13 @@ export class AppComponent {
     const addUserComponent = this.dialog.open(UserAddComponent, {
       height: '850px',
       width: '600px',
+    });
+  }
+
+  openModalEmployeesInDepartment() {
+    this.dialog.open(UsersInDepartmentListComponent, {
+      height: '650px',
+      width: '900px',
     });
   }
 
@@ -265,7 +273,7 @@ export class DialogCheckListUser implements OnInit {
     this.userService.saveCheckList(this.user.username, this.checkList).subscribe();
   }
 
-  closeWindow(){
+  closeWindow() {
     this.dialogRef.close('Closed!');
   }
 }

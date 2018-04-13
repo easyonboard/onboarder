@@ -157,14 +157,6 @@ public class UserController {
 
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/buddies", method = RequestMethod.GET)
-    public ResponseEntity<List<UserDTO>> getUnassignedBuddiesByName(@RequestParam(value = "name") String name) {
-        List<UserDTO> users = userService.searchUnassignedBuddies(name);
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-
-
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/checkList", method = RequestMethod.POST)
     public ResponseEntity getCheckList(@RequestBody UserDTO user) {
         return new ResponseEntity(userService.getCheckList(user), HttpStatus.OK);
@@ -194,5 +186,20 @@ public class UserController {
         return mapper.convertValue(node.get("check"), CheckListDTO.class);
     }
 
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/department", method = RequestMethod.GET)
+    public ResponseEntity<List<UserDTO>> getUsersInDepartment(@RequestParam(value = "department") String department) {
+        List<UserDTO> users = userService.getUsersInDepartment(department);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "user/department", method = RequestMethod.GET)
+    public ResponseEntity<String> getDepartmentForLoggedUser(@RequestParam(value = "username") String username) {
+        String depart = userService.getDepartmentForLoggedUser(username);
+        return new ResponseEntity<>(depart, HttpStatus.OK);
+    }
 
 }

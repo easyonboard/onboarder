@@ -20,14 +20,30 @@ import {ScrollEventModule} from 'ngx-scroll-event';
 import {StarRatingModule} from 'angular-star-rating';
 
 import {
-  MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
-  MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule,
-  MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule} from '@angular/material';
-import { ReviewService } from './service/review.service';
-import { UserInfoFormularComponent } from './users/user-info-formular/user-info-formular.component';
-import { UserInformationService } from './service/user-information.service';
-import { GeneralInfosComponent } from './general-infos/general-infos.component';
-import { UserAddComponent } from './users/user-add/user-add.component';
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatGridListModule,
+  MatIconModule,
+  MatListModule,
+  MatNativeDateModule,
+  MatOptionModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatSelectModule,
+  MatTableModule,
+  MatTooltipModule
+} from '@angular/material';
+import {ReviewService} from './service/review.service';
+import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
+import {UserInformationService} from './service/user-information.service';
+import {GeneralInfosComponent} from './general-infos/general-infos.component';
+import {UserAddComponent} from './users/user-add/user-add.component';
+import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +58,8 @@ import { UserAddComponent } from './users/user-add/user-add.component';
     GeneralInfosComponent,
     DialogNewEmployees,
     DialogCheckListUser,
-    UserAddComponent
+    UserAddComponent,
+    UsersInDepartmentListComponent
   ],
   imports: [
     FormsModule,
@@ -76,7 +93,8 @@ import { UserAddComponent } from './users/user-add/user-add.component';
     DialogEnrolledCoursesForUser,
     DialogNewEmployees,
     DialogCheckListUser,
-    UserAddComponent
+    UserAddComponent,
+    UsersInDepartmentListComponent
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService, UserInformationService],
   bootstrap: [AppComponent]

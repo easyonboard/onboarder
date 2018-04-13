@@ -1,0 +1,9 @@
+<mat-dialog-content style="height:600px">
+  <h1>Users in department</h1>
+  <ul class="search-result">
+    <li *ngFor="let user of employeesInDepartment">
+      <span>{{user.name}}</span>
+    </li>
+  </ul>
+</mat-dialog-content>
+<!-- container -->
