@@ -17,7 +17,7 @@ export class UserInformationService {
 
   addUserInformation(userInfo: UserInformationDTO): Observable<UserInformationDTO> {
     let body = JSON.stringify({
-      team: userInfo.team, building: userInfo.building, store: userInfo.store, buddyUser: userInfo.buddyUser,
+      team: userInfo.team, building: userInfo.building, floor: userInfo.floor, buddyUser: userInfo.buddyUser,
       userAccount: userInfo.userAccount, mailSent: userInfo.mailSent, startDate: userInfo.startDate
     });
 
