@@ -43,18 +43,18 @@ export class UserInfoFormularComponent implements OnInit {
   }
 
   updateUserInformation(team: string, building: string,
-                        store: string, project: string,
+                        floor: string, project: string,
                         mailSent: boolean): void {
 
     team.trim();
     building.trim();
-    store.trim();
+    floor.trim();
 
     let idUserInformation = this.userInformation.idUserInformation;
     let buddyUser = this.selectedBuddy;
     let userAccount = this.userInformation.userAccount;
     let startDate: Date;
-    let userInfo: UserInformationDTO = {idUserInformation, team, building, store, project, buddyUser, userAccount, mailSent, startDate};
+    let userInfo: UserInformationDTO = {idUserInformation, team, building, floor, project, buddyUser, userAccount, mailSent, startDate};
     this.userInformationService.updateUserInformation(userInfo).subscribe();
   }
 

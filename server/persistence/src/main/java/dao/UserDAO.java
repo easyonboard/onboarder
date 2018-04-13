@@ -3,12 +3,14 @@ package dao;
 import entity.CheckList;
 import entity.Course;
 import entity.User;
+import org.hibernate.SQLQuery;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,6 +77,16 @@ public class UserDAO extends AbstractDAO<User> {
         Query query = this.em.createQuery(queryString);
         query.setParameter("name", "%" + name + "%");
         return query.getResultList();
+
+    }
+
+    public List<User> searchUnassignedBuddies(String name) {
+        String queryString = "select u from app_user u where not exists (select null from user_information ui " +
+                "where ui.user_buddy_id = u.id_user) and u.name like :name";
+        Query query = this.em.createNativeQuery(queryString);
+        query.setParameter("name", "%" + name + "%");
+        BigDecimal val = (BigDecimal) query.getResultList();
+        return null;
 
     }
 

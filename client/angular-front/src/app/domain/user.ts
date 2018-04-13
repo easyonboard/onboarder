@@ -10,7 +10,7 @@ export class UserInformationDTO {
   idUserInformation: number;
   team: string;
   building: string;
-  store: string;
+  floor: string;
   project: string;
   buddyUser: UserDTO;
   userAccount: UserDTO;

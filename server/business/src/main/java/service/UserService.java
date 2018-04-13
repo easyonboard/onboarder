@@ -104,6 +104,12 @@ public class UserService {
         return userMapper.entitiesToDTOs(userDAO.searchByName(name));
     }
 
+    public List<UserDTO> searchUnassignedBuddies(String name) {
+        return userMapper.entitiesToDTOs(userDAO.searchUnassignedBuddies(name));
+    }
+
+
+
     public Map getCheckList(UserDTO userDTO) {
         return userDAO.getCheckListMapForUser(userDAO.findEntity(userDTO.getIdUser()));
     }
