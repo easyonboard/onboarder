@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
@@ -47,4 +48,16 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         return em.merge(entity);
     }
 
+    public List<UserInformation> usersWhoStartOnGivenDate(Date givenDate) {
+        Query q = em.createQuery("select o from UserInformation o where o.startDate = :givenDate ");
+        q.setParameter("givenDate", givenDate, TemporalType.DATE);
+
+        return q.getResultList();
+    }
+
+    @Transactional
+    public void setEmailSendFlag(UserInformation ui, boolean isMailSend) {
+        ui.setMailSent(isMailSend);
+        this.persistEntity(ui);
+    }
 }
