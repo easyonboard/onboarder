@@ -129,7 +129,7 @@ public class UserDAO extends AbstractDAO<User> {
             user = userOptional.get();
             String queryString = "select ui.department from UserInformation ui where ui.userAccount=:user";
             Query query = this.em.createQuery(queryString);
-            query.setParameter("userAccount", (user));
+            query.setParameter("user", user);
             DepartmentType departmentType = (DepartmentType) query.getSingleResult();
             return departmentType.toString();
         }

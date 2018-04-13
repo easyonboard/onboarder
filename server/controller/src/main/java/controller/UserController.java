@@ -199,7 +199,7 @@ public class UserController {
     @RequestMapping(value = "user/department", method = RequestMethod.GET)
     public ResponseEntity<String> getDepartmentForLoggedUser(@RequestParam(value = "username") String username) {
         String depart = userService.getDepartmentForLoggedUser(username);
-        return new ResponseEntity<>(depart, HttpStatus.OK);
+        return new ResponseEntity<String>(depart, HttpStatus.OK);
     }
 
 }

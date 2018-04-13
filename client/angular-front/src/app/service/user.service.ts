@@ -99,7 +99,7 @@ export class UserService {
   }
 
   getDepartmentForUsername(username: string): Observable<string> {
-    return this.http.get<string>(this.rootConst.SERVER_USERS_IN_DEPARTMENT + username);
+    return this.http.get<string>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
   }
 
 }
