@@ -61,11 +61,11 @@ export class LoginComponent implements OnInit, AfterContentInit {
   login(username: string, password: string): void {
     username = username.trim();
     password = password.trim();
-    this.userService.login({username, password} as UserDTO).subscribe(res => {
+    this.userService.login({username, password} as UserDTO).subscribe((res: UserDTO) => {
         if (res.username.length > 0) {
           localStorage.setItem('userLogged', res.username);
           localStorage.setItem('userLoggedId', res.idUser.toString());
-          console.log(this.headerDiv);
+          localStorage.setItem('userRole', res.role.role);
           for (let index = 0; index < this.headerDiv.length; index++) {
             (<HTMLElement>this.headerDiv.item(index)).style.visibility = 'visible';
           }

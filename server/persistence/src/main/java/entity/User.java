@@ -47,7 +47,6 @@ public class User implements Serializable {
     @ManyToMany(mappedBy = "enrolledUsers", targetEntity = Course.class)
     private List<Course> enrolledCourses;
 
-
     @OneToOne( mappedBy = "userAccount", targetEntity = UserInformation.class)
     public UserInformation userAccount;
 
