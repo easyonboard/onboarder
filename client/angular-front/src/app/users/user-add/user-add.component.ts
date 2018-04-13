@@ -40,8 +40,8 @@ export class UserAddComponent implements OnInit {
     this.user.password = 'testPassw';
     this.user.name = this.firstName + ' ' + this.lastName;
 
-    this.userService.addUser(this.user, this.selectedRole).subscribe();
-    this.userInformationService.addUserInformation(this.userInfo).subscribe();
+    this.userService.addUser(this.user, this.selectedRole, this.userInfo).subscribe();
+    //this.userInformationService.addUserInformation(this.userInfo).subscribe();
   }
 
   selectValue(event: MatSelectChange) {
