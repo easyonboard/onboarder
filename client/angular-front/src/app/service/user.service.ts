@@ -61,7 +61,7 @@ export class UserService {
         return;
       }
 
-      let users = this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_BUDDIES + term);
+      let users = this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_NAME + term);
       return users;
     }
     // in case term is undefined, we don't want to make a request to the server with a null param, so we return an empty observable
