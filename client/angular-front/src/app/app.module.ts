@@ -24,10 +24,11 @@ import {
   MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule,
   MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule} from '@angular/material';
 import { ReviewService } from './service/review.service';
-import { UserInfoFormularComponent } from './users/user-info-formular/user-info-formular.component';
 import { UserInformationService } from './service/user-information.service';
 import { GeneralInfosComponent } from './general-infos/general-infos.component';
 import { UserAddComponent } from './users/user-add/user-add.component';
+import { UserInfoFormularComponent } from './users/reusables/user-info-formular/user-info-formular.component';
+import { UserInfoUpdateComponent } from './users/user-info-update/user-info-update.component';
 
 @NgModule({
   declarations: [
@@ -38,11 +39,12 @@ import { UserAddComponent } from './users/user-add/user-add.component';
     AddCourseComponent,
     SubjectDetailComponent,
     DialogEnrolledCoursesForUser,
-    UserInfoFormularComponent,
     GeneralInfosComponent,
     DialogNewEmployees,
     DialogCheckListUser,
-    UserAddComponent
+    UserAddComponent,
+    UserInfoFormularComponent,
+    UserInfoUpdateComponent
   ],
   imports: [
     FormsModule,

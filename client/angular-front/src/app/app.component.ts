@@ -10,7 +10,7 @@ import {Course} from './domain/course';
 import {CourseService} from './service/course.service';
 import {UserInformationService} from './service/user-information.service';
 import {CheckListProperties} from './util/CheckListProperties';
-import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
+import {UserInfoFormularComponent} from './users/reusables/user-info-formular/user-info-formular.component';
 import {UserAddComponent} from './users/user-add/user-add.component';
 import {TSMap} from 'typescript-map';
 
