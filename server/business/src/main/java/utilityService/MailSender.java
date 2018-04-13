@@ -7,16 +7,16 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-class MailSender {
+public class MailSender {
     final String username;
     final String password;
     final Properties props;
 
-    public MailSender(String username, String password) {
-        this.username = username;
-        this.password = password;
+    public MailSender() {
+        this.username = "msgsystemsromaniacluj@gmail.com";
+        this.password = "msgSysRo";
         props = new Properties();
-        if (username.contains("google")){
+        if (username.contains("gmail")){
             props.put("mail.smtp.host", "smtp.gmail.com");
             props.put("mail.smtp.port", "587");
         }
@@ -55,7 +55,8 @@ class MailSender {
     }
 
     public static void main(String[] args) {
-        MailSender sender = new MailSender("senderMail","senderPassword");
+//        MailSender sender = new MailSender("senderMail","senderPassword");
+        MailSender sender = new MailSender();
         sender.sendMail("receiverMail","subject","content");
     }
 }
