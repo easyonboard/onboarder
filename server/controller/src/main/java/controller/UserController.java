@@ -66,10 +66,13 @@ public class UserController {
             RoleDTO roleDTO = new RoleDTO();
             roleDTO.setRole(role);
             roleDTO.setIdRole(role.getRoleTypeId());
-            userDTO.setRole(roleDTO);
 
+            userDTO.setRole(roleDTO);
             userService.addUser(userDTO);
-            //userInformationService.
+
+            userInformationDTO.setUserAccount(userDTO);
+            userInformationDTO.setMailSent(false);
+            userInformationService.addUserInfo(userInformationDTO);
 
             CheckListDTO checkListDTO = new CheckListDTO();
             checkListDTO.setUserAccount(userDTO);
@@ -85,24 +88,6 @@ public class UserController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-//    @CrossOrigin(origins = "http://localhost:4200")
-//    @RequestMapping(value = "/user/addUserInfo", method = RequestMethod.POST)
-//    public ResponseEntity addUserInfo(@RequestBody UserInformationDTO userInfo) {
-//        try {
-//            UserInformationDTO userInfoDTO = new UserInformationDTO();
-//            userInfoDTO.setTeam(userInfo.getTeam());
-//            userInfoDTO.setBuilding(userInfo.getBuilding());
-//            userInfoDTO.setFloor(userInfo.getFloor());
-//            userInfoDTO.setBuddyUser(userInfo.getBuddyUser());
-//            userInfoDTO.setStartDate(userInfo.getStartDate());
-//
-//            userService.addUserInfo(userInfoDTO);
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } catch (Exception exception) {
-//            return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
-//        }
-//    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/updateUser", method = RequestMethod.POST)

@@ -5,11 +5,9 @@ import entity.User;
 import entity.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import utilityService.MailSender;
 
 import java.lang.reflect.Field;
 import java.text.DateFormat;
@@ -60,7 +58,7 @@ public class ScheduleEmailToNewEmployee {
                     dateWithZeroTime = formatter.format(ui.getStartDate());
 
                     System.out.println(dateWithZeroTime);
-                    String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", "aici", ui.getBuddyUser().getName(), ui.getFloor(), ui.getBuilding());
+                    String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", "aici", ui.getBuddyUser().getName(), ui.getStore(), ui.getBuilding());
 
                     MailSender sender = new MailSender();
                     sender.sendMail(user.getEmail(), "", "content");

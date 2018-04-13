@@ -23,9 +23,13 @@ public class UserInformationService {
 
         userInformation.setTeam(userInfo.getTeam());
         userInformation.setBuilding(userInfo.getBuilding());
-        userInformation.setFloor(userInfo.getFloor());
+        userInformation.setStore(userInfo.getStore());
         userInformation.setBuddyUser(userMapper.mapToNewEntity(userInfo.getBuddyUser()));
 
         userInformationDAO.updateEntity(userInformation);
+    }
+
+    public void addUserInfo(UserInformationDTO userInfo) {
+        userInformationDAO.persistEntity(userInformationMapper.mapToNewEntity(userInfo));
     }
 }
