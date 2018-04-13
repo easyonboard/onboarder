@@ -21,21 +21,26 @@ import {TSMap} from 'typescript-map';
 })
 
 export class AppComponent {
+
   private rootConst: RootConst;
   public message: string;
   public successMessage: string;
   public username: String;
+  public role: string;
 
   constructor(private location: Location, private router: Router, private elemRef: ElementRef,
               private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog) {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
+
   }
 
   logout(): void {
     if (confirm('Do you really want to logout?')) {
       localStorage.removeItem('userLogged');
+      localStorage.removeItem('userLoggedId');
+      localStorage.removeItem('userRole');
       this.redirectToLoginPage();
     }
   }
@@ -97,6 +102,33 @@ export class AppComponent {
     return false;
   }
 
+  newEmployeesPopUp(): boolean {
+    this.role = localStorage.getItem('userRole');
+    if (!this.userIsLogged()) {
+      return false;
+    }
+    if (this.role === 'ROLE_ADMIN' || this.role === 'ROLE_ABTEILUNGSLEITER') {
+      return true;
+    }
+    else {
+      return false;
+    }
+    ;
+
+  }
+
+  newUserPopUp(): boolean {
+    this.role = localStorage.getItem('userRole');
+    if (!this.userIsLogged()) {
+      return false;
+    }
+    if (this.role === 'ROLE_HR' || this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN')
+      return true;
+    else {
+      return false;
+    }
+  }
+
   redirectToLoginPage(): void {
     location.replace(this.rootConst.FRONT_LOGIN_PAGE);
   }
@@ -138,7 +170,6 @@ export class AppComponent {
 })
 export class DialogEnrolledCoursesForUser implements OnInit {
   public enrolledCourses: Course[];
-  public str = 'asta e';
   private rootConst: RootConst;
   private user: UserDTO;
   public progresses: Map<Course, Number>;
@@ -165,15 +196,11 @@ export class DialogEnrolledCoursesForUser implements OnInit {
     window.location.href = this.rootConst.FRONT_DETAILED_COURSE + '/' + courseId;
   }
 
-  getProgress(course: Course): any {
-    this.userService.getProgress(course, this.user).mapTo(progress => {
-      return progress;
-    });
-  }
 
   ngOnInit(): void {
     this.user = new UserDTO();
     this.user.username = localStorage.getItem('userLogged');
+
     this.getEnrolledCoursesForUser();
   }
 }
@@ -197,10 +224,6 @@ export class DialogNewEmployees implements OnInit {
       this.newEmployees = newEmployees;
       console.log(this.newEmployees);
     });
-  }
-
-  openFormular() {
-    // metoda care ar pputea fi folosita pentru a adauga informatiile suplimentare despre user-ul nou
   }
 
   openCheckList(user: UserDTO) {
@@ -265,7 +288,7 @@ export class DialogCheckListUser implements OnInit {
     this.userService.saveCheckList(this.user.username, this.checkList).subscribe();
   }
 
-  closeWindow(){
+  closeWindow() {
     this.dialogRef.close('Closed!');
   }
 }
