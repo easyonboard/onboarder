@@ -5,9 +5,10 @@ import { Subject } from 'rxjs/Subject';
 import { UserInformationService } from '../../../service/user-information.service';
 import { UserService } from '../../../service/user.service';
 import { UserDTO, UserInformationDTO } from '../../../domain/user';
+import { DepartmentType } from '../../../domain/departmentType';
 
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
 
 @Component({
   selector: 'app-user-info-formular',
@@ -20,6 +21,9 @@ export class UserInfoFormularComponent implements OnInit {
   show = true;
   @Input()
   userInformation = new UserInformationDTO();
+
+  public departmentType = DepartmentType;
+  public departments = Object.keys(DepartmentType);
 
   public users$: Observable<UserDTO[]>;
   private searchTerms = new Subject<string>();
@@ -42,5 +46,9 @@ export class UserInfoFormularComponent implements OnInit {
   search(term: string): void {
     this.searchTerms.next(term);
     this.show = true;
+  }
+
+  selectValue(event: MatSelectChange) {
+    this.userInformation.department = event.value;
   }
 }
