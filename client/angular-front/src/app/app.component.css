@@ -1,192 +1,203 @@
 h1 {
-    color: #dcfbff;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 250%;
+  color: #dcfbff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
 }
 
 h2,
 h3 {
-    color: #444;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: lighter;
+  color: #444;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
 }
 
 body,
 input[text],
 button {
-    color: rgb(111, 125, 128);
-    font-family: Cambria, Georgia;
+  color: rgb(111, 125, 128);
+  font-family: Cambria, Georgia;
 }
 
 a {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 * {
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .headerDiv {
-    background-color: #841439;
-    color: #fff;
-    width: 100%;
-    height: 60px;
-    vertical-align: middle;
+  background-color: #841439;
+  color: #fff;
+  width: 100%;
+  height: 60px;
+  vertical-align: middle;
 }
 
 footer {
-    background-color: #DADADA;
-    height: 10px;
-    /*padding: 10px;*/
-    border-top: 1px solid #f7f7f7;
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    display: inline-table;
-    vertical-align: center;
+  background-color: #DADADA;
+  height: 10px;
+  /*padding: 10px;*/
+  border-top: 1px solid #f7f7f7;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  display: inline-table;
+  vertical-align: center;
 }
 
 .social #facebookIcon,
 #gitIcon,
 #youtubeIcon {
-    font-size: 20px;
-    color: #0e0008;
-    padding: 10px;
-    right: 0;
+  font-size: 20px;
+  color: #0e0008;
+  padding: 10px;
+  right: 0;
 }
 
 .modal {
-    margin: auto;
-    display: none;
-    /* Hidden by default */
-    position: fixed;
-    /* Stay in place */
-    align-content: center;
-    align-items: center;
-    width: 75%;
-    /* Full width */
-    height: 100%;
-    /* Full height */
-    overflow: auto;
-    /* Enable scroll if needed */
+  margin: auto;
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  align-content: center;
+  align-items: center;
+  width: 75%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
 }
-
 
 /* Modal Content/Box */
 
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    /* 15% from the top and centered */
-    padding: 15px;
-    border: 1px solid #888;
-    width: 500px;
-    /* Could be more or less, depending on screen size */
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 15px;
+  border: 1px solid #888;
+  width: 500px;
+  /* Could be more or less, depending on screen size */
 }
 
 .social a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .social {
-    float: right;
+  float: right;
 }
 
 #homePage {
-    background-color: #841439;
-    border: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-top: 5px;
-    margin-left: 2%;
-    font-size: xx-large;
-    color: #ffffff;
+  background-color: #841439;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 5px;
+  margin-left: 2%;
+  font-size: xx-large;
+  color: #ffffff;
 }
 
 .addNewUser {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 10px;
-    margin-right: 400px;
-    background-color: #841439;
-    border: none;
-    color: #ffffff;
-    font-size: large;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 400px;
+  background-color: #841439;
+  border: none;
+  color: #ffffff;
+  font-size: large;
 }
 
 .viewNewEmployeeList {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 10px;
-    margin-right: 520px;
-    background-color: #841439;
-    border: none;
-    color: #ffffff;
-    font-size: large;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 520px;
+  background-color: #841439;
+  border: none;
+  color: #ffffff;
+  font-size: large;
+}
+
+.viewEmployeesInDepartmentList {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 700px;
+  background-color: #841439;
+  border: none;
+  color: #ffffff;
+  font-size: large;
 }
 
 #generalInfo {
-    background-color: #841439;
-    border: none;
-    position: absolute;
-    top: 0;
-    left: 0px;
-    margin-top: 12px;
-    margin-left: 5%;
-    font-size: x-large;
-    color: #ffffff;
+  background-color: #841439;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0px;
+  margin-top: 12px;
+  margin-left: 5%;
+  font-size: x-large;
+  color: #ffffff;
 }
 
 #addCourse {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 15px;
-    margin-right: 270px;
-    background-color: #841439;
-    border: none;
-    color: #ffffff;
-    font-size: large;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 15px;
+  margin-right: 270px;
+  background-color: #841439;
+  border: none;
+  color: #ffffff;
+  font-size: large;
 }
 
 #logOut,
 #logIn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 15px;
-    margin-right: 15px;
-    background-color: #841439;
-    border: none;
-    color: #ffffff;
-    font-size: large;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 15px;
+  margin-right: 15px;
+  background-color: #841439;
+  border: none;
+  color: #ffffff;
+  font-size: large;
 }
 
 #loggedUserButton {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 15px;
-    margin-right: 130px;
-    background-color: #841439;
-    border: none;
-    color: #ffffff;
-    font-size: large;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 15px;
+  margin-right: 130px;
+  background-color: #841439;
+  border: none;
+  color: #ffffff;
+  font-size: large;
 }
 
 .separator {
-    border-top: 1px solid #8c8b8b;
+  border-top: 1px solid #8c8b8b;
 }
 
 .dropdown-menu-item {
-    cursor: pointer;
-    font-size: 18px;
+  cursor: pointer;
+  font-size: 18px;
 }
 
 .dropdown-menu-item:hover {
-    color: #2975cc;
+  color: #2975cc;
 }
