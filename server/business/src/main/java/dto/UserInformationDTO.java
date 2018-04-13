@@ -1,5 +1,7 @@
 package dto;
 
+import entity.enums.DepartmentType;
+
 import java.util.Date;
 import java.util.Map;
 
@@ -14,6 +16,7 @@ public class UserInformationDTO {
     private UserDTO buddyUser;
     private UserDTO userAccount;
     private Boolean mailSent;
+    private DepartmentType department;
 
     public UserInformationDTO() {
     }
@@ -90,4 +93,11 @@ public class UserInformationDTO {
         this.mailSent = mailSent;
     }
 
+    public DepartmentType getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(DepartmentType department) {
+        this.department = department;
+    }
 }
