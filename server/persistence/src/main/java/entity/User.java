@@ -47,8 +47,6 @@ public class User implements Serializable {
     @ManyToMany(mappedBy = "enrolledUsers", targetEntity = Course.class)
     private List<Course> enrolledCourses;
 
-    @OneToOne(mappedBy = "buddyUser", targetEntity = UserInformation.class)
-    public UserInformation userInformation;
 
     @OneToOne( mappedBy = "userAccount", targetEntity = UserInformation.class)
     public UserInformation userAccount;
@@ -122,13 +120,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public UserInformation getUserInformation() {
-        return userInformation;
-    }
 
-    public void setUserInformation(UserInformation userInformation) {
-        this.userInformation = userInformation;
-    }
 
     public UserInformation getUserAccount() {
         return userAccount;
