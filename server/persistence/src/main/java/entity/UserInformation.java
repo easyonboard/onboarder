@@ -1,6 +1,7 @@
 package entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import entity.enums.DepartmentType;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,11 +26,15 @@ public class UserInformation implements Serializable {
     @Column
     private Date startDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Column
+    @Enumerated(EnumType.STRING)
+    private DepartmentType department;
+
+    @ManyToOne (cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_buddy_id")
     private User buddyUser;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_account")
     private User userAccount;
 
@@ -120,4 +125,11 @@ public class UserInformation implements Serializable {
         this.mailSent = mailSent;
     }
 
+    public DepartmentType getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(DepartmentType department) {
+        this.department = department;
+    }
 }
