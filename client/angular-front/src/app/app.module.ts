@@ -46,7 +46,7 @@ import {CommonComponentsService} from './common/common-components.service';
     DialogCheckListUser,
     UserAddComponent,
     UserInfoFormularComponent,
-    UserInfoUpdateComponent
+    UserInfoUpdateComponent,
     ToDoListForBuddyComponent
   ],
   imports: [
@@ -82,7 +82,7 @@ import {CommonComponentsService} from './common/common-components.service';
     DialogNewEmployees,
     DialogCheckListUser,
     UserAddComponent,
-    UserInfoUpdateComponent
+    UserInfoUpdateComponent,
     ToDoListForBuddyComponent
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
