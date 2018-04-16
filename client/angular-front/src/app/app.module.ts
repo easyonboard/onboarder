@@ -29,6 +29,8 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
 import { UserAddComponent } from './users/user-add/user-add.component';
 import { UserInfoFormularComponent } from './users/reusables/user-info-formular/user-info-formular.component';
 import { UserInfoUpdateComponent } from './users/user-info-update/user-info-update.component';
+import {ToDoListForBuddyComponent} from './common/ToDoListForBuddy/toDoListForBuddy.component';
+import {CommonComponentsService} from './common/common-components.service';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { UserInfoUpdateComponent } from './users/user-info-update/user-info-upda
     UserAddComponent,
     UserInfoFormularComponent,
     UserInfoUpdateComponent
+    ToDoListForBuddyComponent
   ],
   imports: [
     FormsModule,
@@ -80,8 +83,10 @@ import { UserInfoUpdateComponent } from './users/user-info-update/user-info-upda
     DialogCheckListUser,
     UserAddComponent,
     UserInfoUpdateComponent
+    ToDoListForBuddyComponent
   ],
-  providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService, UserInformationService],
+  providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
+    UserInformationService, CommonComponentsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

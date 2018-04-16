@@ -1,0 +1,11 @@
+<div class="panel panel-primary" style="text-align: center; "><h2>TO DO List for Buddy</h2></div>
+<mat-dialog-content style="overflow: hidden">
+  <mat-list *ngFor="let toDo of toDoList; let pos=index">
+    <mat-list-item>
+      <button class="btn btn-primary" type="button">
+         <span class="badge">{{pos+1}}</span>
+      </button>
+      <h3 style="margin-left: 3%">{{toDo}}</h3>
+    </mat-list-item>
+  </mat-list>
+</mat-dialog-content>

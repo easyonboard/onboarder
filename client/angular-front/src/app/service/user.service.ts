@@ -52,16 +52,13 @@ export class UserService {
   }
 
   searchUsers(term: string): Observable<UserDTO[]> {
-    console.log('in search');
 
     if (term && term.length > 0) {
       if ((!term.trim())) {
-        console.log('------>' + term);
         return;
       }
 
       let users = this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_NAME + term);
-      console.log('dupa http');
       return users;
     }
     // in case term is undefined, we don't want to make a request to the server with a null param, so we return an empty observable
