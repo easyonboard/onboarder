@@ -116,8 +116,15 @@
                 <li><a mat-button (click)="openDialog()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a>
                 </li>
 
-            </ul>
-        </ul>
+        <li class="divider" *ngIf="isBuddy()===true"></li>
+        <li *ngIf="isBuddy()===true">
+          <a mat-button (click)="openToDoListForBuddy()" class="dropdown-menu-item">
+            <i class="fa fa-bars"> </i>Buddy TO DO List
+          </a>
+        </li>
+
+      </ul>
+    </ul>
 
 
 
