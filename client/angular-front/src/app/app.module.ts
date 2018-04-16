@@ -22,15 +22,15 @@ import {StarRatingModule} from 'angular-star-rating';
 import {
   MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
   MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule,
-  MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule
-} from '@angular/material';
-import {ReviewService} from './service/review.service';
-import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
-import {UserInformationService} from './service/user-information.service';
-import {GeneralInfosComponent} from './general-infos/general-infos.component';
-import {UserAddComponent} from './users/user-add/user-add.component';
-import {CommonComponentsService} from './common/common-components.service';
+  MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule} from '@angular/material';
+import { ReviewService } from './service/review.service';
+import { UserInformationService } from './service/user-information.service';
+import { GeneralInfosComponent } from './general-infos/general-infos.component';
+import { UserAddComponent } from './users/user-add/user-add.component';
+import { UserInfoFormularComponent } from './users/reusables/user-info-formular/user-info-formular.component';
+import { UserInfoUpdateComponent } from './users/user-info-update/user-info-update.component';
 import {ToDoListForBuddyComponent} from './common/ToDoListForBuddy/toDoListForBuddy.component';
+import {CommonComponentsService} from './common/common-components.service';
 
 @NgModule({
   declarations: [
@@ -41,11 +41,12 @@ import {ToDoListForBuddyComponent} from './common/ToDoListForBuddy/toDoListForBu
     AddCourseComponent,
     SubjectDetailComponent,
     DialogEnrolledCoursesForUser,
-    UserInfoFormularComponent,
     GeneralInfosComponent,
     DialogNewEmployees,
     DialogCheckListUser,
     UserAddComponent,
+    UserInfoFormularComponent,
+    UserInfoUpdateComponent,
     ToDoListForBuddyComponent
   ],
   imports: [
@@ -81,6 +82,7 @@ import {ToDoListForBuddyComponent} from './common/ToDoListForBuddy/toDoListForBu
     DialogNewEmployees,
     DialogCheckListUser,
     UserAddComponent,
+    UserInfoUpdateComponent,
     ToDoListForBuddyComponent
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,

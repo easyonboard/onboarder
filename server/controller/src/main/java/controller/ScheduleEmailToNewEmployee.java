@@ -63,7 +63,7 @@ public class ScheduleEmailToNewEmployee {
                     dateWithZeroTime = formatter.format(ui.getStartDate());
 
                     System.out.println(dateWithZeroTime);
-                    String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", "aici", ui.getBuddyUser().getName(), ui.getFloor(), ui.getBuilding());
+                    String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", "aici", ui.getBuddyUser().getName(), ui.getStore(), ui.getBuilding());
 
                     MailSender sender = new MailSender();
                     //sender.sendMail(user.getEmail(), "", emailBody);

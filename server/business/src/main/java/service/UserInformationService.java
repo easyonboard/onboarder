@@ -22,6 +22,10 @@ public class UserInformationService {
         UserInformation userInformation = userInformationDAO
                 .updateUserInformation(userInformationMapper.mapToNewEntity(userInfo));
 
+        userInformation.setTeam(userInfo.getTeam());
+        userInformation.setBuilding(userInfo.getBuilding());
+        userInformation.setStore(userInfo.getStore());
+        userInformation.setBuddyUser(userMapper.mapToNewEntity(userInfo.getBuddyUser()));
 
 //        UserInformation userInformation = userInformationDAO
 //                .getUserInformationForUserAccount(userMapper.mapToNewEntity(userInfo.getUserAccount()));
@@ -32,5 +36,9 @@ public class UserInformationService {
 //        userInformation.setBuddyUser(userMapper.mapToNewEntity(userInfo.getBuddyUser()));
 //
 //        userInformationDAO.updateEntity(userInformation);
+    }
+
+    public void addUserInfo(UserInformationDTO userInfo) {
+        userInformationDAO.persistEntity(userInformationMapper.mapToNewEntity(userInfo));
     }
 }

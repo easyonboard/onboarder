@@ -10,7 +10,7 @@ import {Course} from './domain/course';
 import {CourseService} from './service/course.service';
 import {UserInformationService} from './service/user-information.service';
 import {CheckListProperties} from './util/CheckListProperties';
-import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
+import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
 import {UserAddComponent} from './users/user-add/user-add.component';
 import {TSMap} from 'typescript-map';
 import {RoleType} from './domain/role';
@@ -247,11 +247,10 @@ export class DialogNewEmployees implements OnInit {
   }
 
   openUserInfoModal(userInformation: UserInformationDTO) {
-    this.dialog.open(UserInfoFormularComponent, {
+    this.dialog.open(UserInfoUpdateComponent, {
       height: '650px',
       width: '900px',
       data: userInformation
-
     });
   }
 
@@ -266,8 +265,8 @@ export class DialogCheckListUser implements OnInit {
   private checkList: TSMap<string, boolean>;
   private checkListProperties: CheckListProperties;
 
-
-  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService, public dialogRef: MatDialogRef<DialogCheckListUser>) {
+  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO,
+        private userService: UserService, public dialogRef: MatDialogRef<DialogCheckListUser>) {
   }
 
   ngOnInit() {

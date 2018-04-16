@@ -8,7 +8,7 @@ import { AddCourseComponent } from './courses/add-course/add-course.component';
 import { SubjectDetailComponent } from './subject-detail/subject-detail.component';
 import { StarRatingModule } from 'angular-star-rating';
 import { GeneralInfosComponent } from './general-infos/general-infos.component';
-import { UserInfoFormularComponent } from './users/user-info-formular/user-info-formular.component';
+import { UserInfoFormularComponent } from './users/reusables/user-info-formular/user-info-formular.component';
 
 const routes: Routes = [
   {path: 'courses/detailedCourse/:id', component: CourseDetailComponent},
