@@ -13,7 +13,6 @@ import {CheckListProperties} from './util/CheckListProperties';
 import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
 import {UserAddComponent} from './users/user-add/user-add.component';
 import {TSMap} from 'typescript-map';
-import {RoleType} from './domain/role';
 import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 
@@ -131,6 +130,18 @@ export class AppComponent {
     else {
       return false;
     }
+  }
+  usersByDepartment(): boolean {
+    this.role = localStorage.getItem('userRole');
+    if (!this.userIsLogged()) {
+      return false;
+    }
+    if (this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN')
+      return true;
+    else {
+      return false;
+    }
+
   }
 
   redirectToLoginPage(): void {
@@ -274,7 +285,7 @@ export class DialogCheckListUser implements OnInit {
   private checkListProperties: CheckListProperties;
 
   constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO,
-        private userService: UserService, public dialogRef: MatDialogRef<DialogCheckListUser>) {
+              private userService: UserService, public dialogRef: MatDialogRef<DialogCheckListUser>) {
   }
 
   ngOnInit() {

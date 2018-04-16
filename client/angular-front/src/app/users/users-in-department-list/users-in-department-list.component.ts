@@ -11,6 +11,7 @@ export class UsersInDepartmentListComponent implements OnInit {
 
   public employeesInDepartment: UserDTO[];
   private department = '';
+  panelOpenState: boolean = false;
 
 
   constructor(private userService: UserService) {

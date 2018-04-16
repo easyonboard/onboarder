@@ -22,7 +22,8 @@ import {StarRatingModule} from 'angular-star-rating';
 import {
   MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
   MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule,
-  MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule} from '@angular/material';
+  MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule, MatExpansionModule
+} from '@angular/material';
 import { ReviewService } from './service/review.service';
 import { UserInformationService } from './service/user-information.service';
 import { GeneralInfosComponent } from './general-infos/general-infos.component';
@@ -32,6 +33,7 @@ import { UserInfoUpdateComponent } from './users/user-info-update/user-info-upda
 import {ToDoListForBuddyComponent} from './common/ToDoListForBuddy/toDoListForBuddy.component';
 import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
+
 
 
 @NgModule({
@@ -78,7 +80,8 @@ UsersInDepartmentListComponent
     MatSelectModule,
     MatOptionModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatExpansionModule
   ],
   entryComponents: [
     DialogEnrolledCoursesForUser,
