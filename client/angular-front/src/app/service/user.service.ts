@@ -94,12 +94,12 @@ export class UserService {
     return this.http.post<Map<string, boolean>>(this.rootConst.WEB_SERVER_SAVE_CHECKLIST, body, this.httpOptions);
   }
 
-  getUsersInDepartment(department: string): Observable<UserDTO[]> {
-    return this.http.get<UserDTO[]>(this.rootConst.SERVER_USERS_IN_DEPARTMENT + department);
+  getUsersInDepartment(username: string): Observable<UserDTO[]> {
+    return this.http.get<UserDTO[]>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
   }
 
-  getDepartmentForUsername(username: string): Observable<string> {
-    return this.http.get<string>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
+  getDepartmentForUsername(username): Observable<any> {
+    return this.http.get<any>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
   }
 
 }

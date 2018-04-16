@@ -104,9 +104,12 @@ public class UserService {
         return userMapper.entitiesToDTOs(userDAO.searchByName(name));
     }
 
-    public List<UserDTO> getUsersInDepartment(String department) {
+
+    public List<UserDTO> getUsersInDepartmentForLoggedInUser(String username) {
+        String department = getDepartmentForLoggedUser(username);
         return userMapper.entitiesToDTOs(userDAO.getUsersInDepartment(department));
     }
+
 
     public String getDepartmentForLoggedUser(String username) {
         return userDAO.getDepartmentForLoggedUser(username);

@@ -188,18 +188,10 @@ public class UserController {
 
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/department", method = RequestMethod.GET)
-    public ResponseEntity<List<UserDTO>> getUsersInDepartment(@RequestParam(value = "department") String department) {
-        List<UserDTO> users = userService.getUsersInDepartment(department);
+    @RequestMapping(value = "user/department", method = RequestMethod.GET)
+    public ResponseEntity<List<UserDTO>> getUsersInDepartmentForLoggedInUser(@RequestParam(value = "username") String username) {
+        List<UserDTO> users = userService.getUsersInDepartmentForLoggedInUser(username);
+
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-
-
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "user/department", method = RequestMethod.GET)
-    public ResponseEntity<String> getDepartmentForLoggedUser(@RequestParam(value = "username") String username) {
-        String depart = userService.getDepartmentForLoggedUser(username);
-        return new ResponseEntity<String>(depart, HttpStatus.OK);
-    }
-
 }
