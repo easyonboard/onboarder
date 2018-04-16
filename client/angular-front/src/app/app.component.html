@@ -13,99 +13,92 @@
 
 <div class="modal" id="myCustom">
 
-  <div class="modal-content">
-    <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
-    <br/> {{successMessage}}
-  </div>
+    <div class="modal-content">
+        <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
+        <br/> {{successMessage}}
+    </div>
 </div>
 
 <div id="myModal" class="modal">
 
-  <div class="modal-content">
+    <div class="modal-content">
 
 
-    <div class="alert alert-danger" [hidden]="message.length==0">
-      {{message}}
-    </div>
-    <button class="close" (click)="closeModal('myModal')">Close</button>
-    <br/>
-    <br/><br/>
+        <div class="alert alert-danger" [hidden]="message.length==0">
+            {{message}}
+        </div>
+        <button class="close" (click)="closeModal('myModal')">Close</button>
+        <br/>
+        <br/><br/>
 
 
-    <table class="table">
-      <tr>
-        <td><label>Name</label></td>
-        <td><input #name type="text" placeholder="Name"/></td>
-      </tr>
+        <table class="table">
+            <tr>
+                <td><label>Name</label></td>
+                <td><input #name type="text" placeholder="Name" /></td>
+            </tr>
 
-      <tr>
-        <td><label>Email </label></td>
+            <tr>
+                <td><label>Email </label></td>
 
-        <td><input #email type="email" ng-model="string" placeholder="Email" required/>
-        </td>
+                <td><input #email type="email" ng-model="string" placeholder="Email" required/>
+                </td>
 
-      </tr>
+            </tr>
 
-      <tr>
+            <tr>
 
-        <td><label>Password </label></td>
+                <td><label>Password </label></td>
 
-        <td><input #pass type="password" placeholder="Password"/></td>
+                <td><input #pass type="password" placeholder="Password" /></td>
 
-      </tr>
-      <tr>
-        <td><label>Repeat Password </label>
-        </td>
-        <td>
-          <input #passII type="password" placeholder="Repeat password"/>
-        </td>
-      </tr>
+            </tr>
+            <tr>
+                <td><label>Repeat Password </label>
+                </td>
+                <td>
+                    <input #passII type="password" placeholder="Repeat password" />
+                </td>
+            </tr>
 
-    </table>
+        </table>
 
 
-    <button class="btn btn-info" (click)="updateUser(name.value, email.value, pass.value,passII.value)"
-            style="background:#841439; border:none">
+        <button class="btn btn-info" (click)="updateUser(name.value, email.value, pass.value,passII.value)" style="background:#841439; border:none">
       <span class="glyphicon  glyphicon-edit"></span> Edit profile
     </button>
-  </div>
+    </div>
 </div>
 
 <router-outlet>
 
-  <div class="headerDiv">
+    <div class="headerDiv">
 
-    <button (click)="redirectToCoursePage()" title="Home" id="homePage">
+        <button (click)="redirectToCoursePage()" title="Home" id="homePage">
       <i class="fa fa-home" style="margin-right: 8px"></i>
     </button>
 
-    <button (click)="redirectToGeneralInfosPage()" id="generalInfo" title="General informations">
+        <button (click)="redirectToGeneralInfosPage()" id="generalInfo" title="General informations">
       <i class="fa fa-info" style="margin-right: 10%"></i>
     </button>
 
-    <button id="logOut" (click)="logout()" *ngIf="userIsLogged()==true">
+        <button id="logOut" (click)="logout()" *ngIf="userIsLogged()==true">
       <span class="glyphicon glyphicon-log-out"></span> Log out
     </button>
 
-    <button id="logIn" (click)="redirectToLoginPage()" *ngIf="userIsLogged()==false">
+        <button id="logIn" (click)="redirectToLoginPage()" *ngIf="userIsLogged()==false">
       <i class="fa fa-sign-in"
          style="margin-right: 8px"></i> Log in
     </button>
 
-    <button id="addCourse" *ngIf="userIsLogged()==true" (click)="redirectToAddCourse()"><i
-      class="fa fa-plus-circle"></i>
+        <button id="addCourse" *ngIf="userIsLogged()==true" (click)="redirectToAddCourse()"> <i class="fa fa-plus-circle"></i>
       Add Course
     </button>
 
-        <button class="addNewUser" (click)="openModalAddNewUser()" title="Add New User"> <i class="material-icons">supervisor_account</i> Add User
+        <button class="addNewUser" (click)="openModalAddNewUser()" title="Add New User" *ngIf="newUserPopUp()"> <i class="material-icons" >supervisor_account</i> Add User
     </button>
 
-    <button class="viewNewEmployeeList" (click)="openModalNewEmployee()" title="New Employees List"><i
-      class="material-icons">supervisor_account</i> New Employees
-    </button>
-
-    <button class="viewEmployeesInDepartmentList" (click)="openModalEmployeesInDepartment()" title="Employees In Department List"><i
-      class="material-icons">supervisor_account</i> Employees in Department
+        <button class="viewNewEmployeeList" (click)="openModalNewEmployee()" title="New Employees List" *ngIf="newEmployeesPopUp()"> <i class="material-icons">supervisor_account</i> New Employees
     </button>
 
         <ul class="dropdown" id="loggedUserButton">
@@ -123,18 +116,19 @@
                 <li><a mat-button (click)="openDialog()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a>
                 </li>
 
-                <li class="divider" *ngIf="isBuddy()===true"></li>
-                <li *ngIf="isBuddy()===true">
-                    <a mat-button (click)="openToDoListForBuddy()" class="dropdown-menu-item">
-                        <i class="fa fa-bars"> </i>Buddy TO DO List
-                    </a>
-                </li>
+        <li class="divider" *ngIf="isBuddy()===true"></li>
+        <li *ngIf="isBuddy()===true">
+          <a mat-button (click)="openToDoListForBuddy()" class="dropdown-menu-item">
+            <i class="fa fa-bars"> </i>Buddy TO DO List
+          </a>
+        </li>
 
-            </ul>
-        </ul>
+      </ul>
+    </ul>
 
 
-  </div>
+
+    </div>
 </router-outlet>
 
 <div class="footerDiv">
