@@ -24,6 +24,7 @@ export class UserInfoUpdateComponent implements OnInit {
     this.childUserInfoFormularComponent.userInformation.team = this.userInformation.team;
     this.childUserInfoFormularComponent.userInformation.building = this.userInformation.building;
     this.childUserInfoFormularComponent.userInformation.store = this.userInformation.store;
+    this.childUserInfoFormularComponent.userInformation.project = this.userInformation.project;
     this.childUserInfoFormularComponent.userInformation.department = this.userInformation.department;
     this.childUserInfoFormularComponent.userInformation.buddyUser = this.userInformation.buddyUser;
     this.childUserInfoFormularComponent.userInformation.startDate = this.userInformation.startDate;
