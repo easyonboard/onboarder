@@ -43,7 +43,7 @@ export class UserAddComponent implements OnInit {
     this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe();
   }
 
-  selectValue(event: MatSelectChange) {
+  selectRoleValue(event: MatSelectChange) {
     this.selectedRole = event.value;
   }
 }

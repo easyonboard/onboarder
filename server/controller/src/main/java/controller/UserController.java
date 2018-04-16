@@ -8,6 +8,7 @@ import dto.CheckListDTO;
 import dto.RoleDTO;
 import dto.UserDTO;
 import dto.UserInformationDTO;
+import entity.enums.DepartmentType;
 import entity.enums.RoleType;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
@@ -72,6 +73,7 @@ public class UserController {
 
             userInformationDTO.setUserAccount(userDTO);
             userInformationDTO.setMailSent(false);
+            userInformationDTO.setDepartment(userInformationDTO.getDepartment());
             userInformationService.addUserInfo(userInformationDTO);
 
             CheckListDTO checkListDTO = new CheckListDTO();

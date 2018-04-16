@@ -78,7 +78,8 @@ import { UserInfoUpdateComponent } from './users/user-info-update/user-info-upda
     DialogEnrolledCoursesForUser,
     DialogNewEmployees,
     DialogCheckListUser,
-    UserAddComponent
+    UserAddComponent,
+    UserInfoUpdateComponent
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService, UserInformationService],
   bootstrap: [AppComponent]

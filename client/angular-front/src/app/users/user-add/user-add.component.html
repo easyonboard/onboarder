@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label>Role</label>
-                <mat-select placeholder="Select role" (selectionChange)="selectValue($event)">
+                <mat-select placeholder="Select role" (selectionChange)="selectRoleValue($event)">
                     <mat-option *ngFor="let roleValue of roles" [value]="roleValue">
                         {{roleType[roleValue]}}
                     </mat-option>

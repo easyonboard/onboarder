@@ -31,7 +31,10 @@ export class UserInfoFormularComponent implements OnInit {
   constructor(private userInformationService: UserInformationService, private userService: UserService) { }
 
   ngOnInit() {
-    this.userInformation.buddyUser = new UserDTO();
+    if (this.userInformation.buddyUser === undefined) {
+      this.userInformation.buddyUser = new UserDTO();
+      this.userInformation.buddyUser.name = ' ';
+    }
 
     this.users$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
