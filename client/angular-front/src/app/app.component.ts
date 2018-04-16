@@ -13,6 +13,8 @@ import {CheckListProperties} from './util/CheckListProperties';
 import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
 import {UserAddComponent} from './users/user-add/user-add.component';
 import {TSMap} from 'typescript-map';
+import {RoleType} from './domain/role';
+import {CommonComponentsService} from './common/common-components.service';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +31,8 @@ export class AppComponent {
   public role: string;
 
   constructor(private location: Location, private router: Router, private elemRef: ElementRef,
-              private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog) {
+              private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog,
+              private commonComponent: CommonComponentsService) {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
@@ -161,6 +164,14 @@ export class AppComponent {
 
   redirectToGeneralInfosPage() {
     location.replace(this.rootConst.FRONT_INFOS_PAGE);
+  }
+
+  isBuddy(): boolean {
+    return localStorage.getItem('userRole') === 'ROLE_BUDDY';
+  }
+
+  openToDoListForBuddy() {
+    this.commonComponent.openDialogWithToDOListForBuddy();
   }
 }
 

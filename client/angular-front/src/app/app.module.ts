@@ -22,12 +22,15 @@ import {StarRatingModule} from 'angular-star-rating';
 import {
   MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
   MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule,
-  MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule} from '@angular/material';
-import { ReviewService } from './service/review.service';
-import { UserInfoFormularComponent } from './users/user-info-formular/user-info-formular.component';
-import { UserInformationService } from './service/user-information.service';
-import { GeneralInfosComponent } from './general-infos/general-infos.component';
-import { UserAddComponent } from './users/user-add/user-add.component';
+  MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule
+} from '@angular/material';
+import {ReviewService} from './service/review.service';
+import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
+import {UserInformationService} from './service/user-information.service';
+import {GeneralInfosComponent} from './general-infos/general-infos.component';
+import {UserAddComponent} from './users/user-add/user-add.component';
+import {CommonComponentsService} from './common/common-components.service';
+import {ToDoListForBuddyComponent} from './common/ToDoListForBuddy/toDoListForBuddy.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import { UserAddComponent } from './users/user-add/user-add.component';
     GeneralInfosComponent,
     DialogNewEmployees,
     DialogCheckListUser,
-    UserAddComponent
+    UserAddComponent,
+    ToDoListForBuddyComponent
   ],
   imports: [
     FormsModule,
@@ -76,9 +80,11 @@ import { UserAddComponent } from './users/user-add/user-add.component';
     DialogEnrolledCoursesForUser,
     DialogNewEmployees,
     DialogCheckListUser,
-    UserAddComponent
+    UserAddComponent,
+    ToDoListForBuddyComponent
   ],
-  providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService, UserInformationService],
+  providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
+    UserInformationService, CommonComponentsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
