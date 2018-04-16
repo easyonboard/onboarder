@@ -10,9 +10,11 @@ import {Course} from './domain/course';
 import {CourseService} from './service/course.service';
 import {UserInformationService} from './service/user-information.service';
 import {CheckListProperties} from './util/CheckListProperties';
-import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
+import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
 import {UserAddComponent} from './users/user-add/user-add.component';
 import {TSMap} from 'typescript-map';
+import {RoleType} from './domain/role';
+import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 
 @Component({
@@ -22,21 +24,27 @@ import {UsersInDepartmentListComponent} from './users/users-in-department-list/u
 })
 
 export class AppComponent {
+
   private rootConst: RootConst;
   public message: string;
   public successMessage: string;
   public username: String;
+  public role: string;
 
   constructor(private location: Location, private router: Router, private elemRef: ElementRef,
-              private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog) {
+              private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog,
+              private commonComponent: CommonComponentsService) {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
+
   }
 
   logout(): void {
     if (confirm('Do you really want to logout?')) {
       localStorage.removeItem('userLogged');
+      localStorage.removeItem('userLoggedId');
+      localStorage.removeItem('userRole');
       this.redirectToLoginPage();
     }
   }
@@ -98,6 +106,33 @@ export class AppComponent {
     return false;
   }
 
+  newEmployeesPopUp(): boolean {
+    this.role = localStorage.getItem('userRole');
+    if (!this.userIsLogged()) {
+      return false;
+    }
+    if (this.role === 'ROLE_ADMIN' || this.role === 'ROLE_ABTEILUNGSLEITER') {
+      return true;
+    }
+    else {
+      return false;
+    }
+    ;
+
+  }
+
+  newUserPopUp(): boolean {
+    this.role = localStorage.getItem('userRole');
+    if (!this.userIsLogged()) {
+      return false;
+    }
+    if (this.role === 'ROLE_HR' || this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN')
+      return true;
+    else {
+      return false;
+    }
+  }
+
   redirectToLoginPage(): void {
     location.replace(this.rootConst.FRONT_LOGIN_PAGE);
   }
@@ -138,6 +173,14 @@ export class AppComponent {
   redirectToGeneralInfosPage() {
     location.replace(this.rootConst.FRONT_INFOS_PAGE);
   }
+
+  isBuddy(): boolean {
+    return localStorage.getItem('userRole') === 'ROLE_BUDDY';
+  }
+
+  openToDoListForBuddy() {
+    this.commonComponent.openDialogWithToDOListForBuddy();
+  }
 }
 
 @Component({
@@ -146,7 +189,6 @@ export class AppComponent {
 })
 export class DialogEnrolledCoursesForUser implements OnInit {
   public enrolledCourses: Course[];
-  public str = 'asta e';
   private rootConst: RootConst;
   private user: UserDTO;
   public progresses: Map<Course, Number>;
@@ -173,15 +215,11 @@ export class DialogEnrolledCoursesForUser implements OnInit {
     window.location.href = this.rootConst.FRONT_DETAILED_COURSE + '/' + courseId;
   }
 
-  getProgress(course: Course): any {
-    this.userService.getProgress(course, this.user).mapTo(progress => {
-      return progress;
-    });
-  }
 
   ngOnInit(): void {
     this.user = new UserDTO();
     this.user.username = localStorage.getItem('userLogged');
+
     this.getEnrolledCoursesForUser();
   }
 }
@@ -207,10 +245,6 @@ export class DialogNewEmployees implements OnInit {
     });
   }
 
-  openFormular() {
-    // metoda care ar pputea fi folosita pentru a adauga informatiile suplimentare despre user-ul nou
-  }
-
   openCheckList(user: UserDTO) {
     console.log(user);
     this.dialog.open(DialogCheckListUser, {
@@ -221,11 +255,10 @@ export class DialogNewEmployees implements OnInit {
   }
 
   openUserInfoModal(userInformation: UserInformationDTO) {
-    this.dialog.open(UserInfoFormularComponent, {
+    this.dialog.open(UserInfoUpdateComponent, {
       height: '650px',
       width: '900px',
       data: userInformation
-
     });
   }
 
@@ -240,8 +273,8 @@ export class DialogCheckListUser implements OnInit {
   private checkList: TSMap<string, boolean>;
   private checkListProperties: CheckListProperties;
 
-
-  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService, public dialogRef: MatDialogRef<DialogCheckListUser>) {
+  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO,
+        private userService: UserService, public dialogRef: MatDialogRef<DialogCheckListUser>) {
   }
 
   ngOnInit() {

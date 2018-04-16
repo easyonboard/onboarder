@@ -32,7 +32,7 @@ public class MailSender {
         props.put("mail.debug", "true");
     }
 
-    public void sendMail(String to, String subject, String content) {
+    public void sendMail(String to, String abteilungMail, String buddyMail, String subject, String content) {
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
@@ -47,6 +47,10 @@ public class MailSender {
                     InternetAddress.parse(to));
             message.setSubject(subject);
             message.setText(content);
+            message.setRecipients(Message.RecipientType.CC,
+                    InternetAddress.parse(abteilungMail));
+            message.setRecipients(Message.RecipientType.CC,
+                    InternetAddress.parse(buddyMail));
             Transport.send(message);
             System.out.println("Mail sent.");
         } catch (MessagingException e) {
@@ -54,10 +58,10 @@ public class MailSender {
         }
     }
 
-    public static void main(String[] args) {
-//        MailSender sender = new MailSender("senderMail","senderPassword");
-        MailSender sender = new MailSender();
-        sender.sendMail("receiverMail","subject","content");
-    }
+//    public static void main(String[] args) {
+////        MailSender sender = new MailSender("senderMail","senderPassword");
+//        MailSender sender = new MailSender();
+//        sender.sendMail("receiverMail","subject","content");
+//    }
 }
 

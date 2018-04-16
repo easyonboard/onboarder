@@ -32,11 +32,8 @@ export class UserService {
     return this.http.post<UserDTO>(this.rootConst.SERVER_AUTHENTIFICATION, body, this.httpOptions);
   }
 
-  addUser(user: UserDTO, role: RoleType) {
-    console.log('user stuff ' + user.email + '\n');
-    console.log('role stuff ' + role + '\n');
-
-    let body = JSON.stringify({user: user, role: role});
+  addUser(user: UserDTO, role: RoleType, userInfo: UserInformationDTO) {
+    let body = JSON.stringify({user: user, role: role, userInfo: userInfo});
     return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }
 

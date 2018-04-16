@@ -20,30 +20,19 @@ import {ScrollEventModule} from 'ngx-scroll-event';
 import {StarRatingModule} from 'angular-star-rating';
 
 import {
-  MatButtonModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatFormFieldModule,
-  MatGridListModule,
-  MatIconModule,
-  MatListModule,
-  MatNativeDateModule,
-  MatOptionModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatSelectModule,
-  MatTableModule,
-  MatTooltipModule
-} from '@angular/material';
-import {ReviewService} from './service/review.service';
-import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
-import {UserInformationService} from './service/user-information.service';
-import {GeneralInfosComponent} from './general-infos/general-infos.component';
-import {UserAddComponent} from './users/user-add/user-add.component';
+  MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
+  MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule,
+  MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule} from '@angular/material';
+import { ReviewService } from './service/review.service';
+import { UserInformationService } from './service/user-information.service';
+import { GeneralInfosComponent } from './general-infos/general-infos.component';
+import { UserAddComponent } from './users/user-add/user-add.component';
+import { UserInfoFormularComponent } from './users/reusables/user-info-formular/user-info-formular.component';
+import { UserInfoUpdateComponent } from './users/user-info-update/user-info-update.component';
+import {ToDoListForBuddyComponent} from './common/ToDoListForBuddy/toDoListForBuddy.component';
+import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
+
 
 @NgModule({
   declarations: [
@@ -54,12 +43,14 @@ import {UsersInDepartmentListComponent} from './users/users-in-department-list/u
     AddCourseComponent,
     SubjectDetailComponent,
     DialogEnrolledCoursesForUser,
-    UserInfoFormularComponent,
     GeneralInfosComponent,
     DialogNewEmployees,
     DialogCheckListUser,
     UserAddComponent,
-    UsersInDepartmentListComponent
+    UserInfoFormularComponent,
+    UserInfoUpdateComponent,
+    ToDoListForBuddyComponent,
+UsersInDepartmentListComponent
   ],
   imports: [
     FormsModule,
@@ -94,9 +85,13 @@ import {UsersInDepartmentListComponent} from './users/users-in-department-list/u
     DialogNewEmployees,
     DialogCheckListUser,
     UserAddComponent,
-    UsersInDepartmentListComponent
+UsersInDepartmentListComponent,
+UserInfoUpdateComponent,
+    ToDoListForBuddyComponent
+
   ],
-  providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService, UserInformationService],
+  providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
+    UserInformationService, CommonComponentsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

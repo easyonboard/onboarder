@@ -8,6 +8,7 @@ import dto.CheckListDTO;
 import dto.RoleDTO;
 import dto.UserDTO;
 import dto.UserInformationDTO;
+import entity.enums.DepartmentType;
 import entity.enums.RoleType;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
@@ -61,12 +62,19 @@ public class UserController {
             JsonNode node = mapper.readTree(userJson);
             UserDTO userDTO = mapper.convertValue(node.get("user"), UserDTO.class);
             RoleType role = mapper.convertValue(node.get("role"), RoleType.class);
+            UserInformationDTO userInformationDTO = mapper.convertValue(node.get("userInfo"), UserInformationDTO.class);
+
             RoleDTO roleDTO = new RoleDTO();
             roleDTO.setRole(role);
             roleDTO.setIdRole(role.getRoleTypeId());
-            userDTO.setRole(roleDTO);
 
+            userDTO.setRole(roleDTO);
             userService.addUser(userDTO);
+
+            userInformationDTO.setUserAccount(userDTO);
+            userInformationDTO.setMailSent(false);
+            userInformationDTO.setDepartment(userInformationDTO.getDepartment());
+            userInformationService.addUserInfo(userInformationDTO);
 
             CheckListDTO checkListDTO = new CheckListDTO();
             checkListDTO.setUserAccount(userDTO);
@@ -81,24 +89,6 @@ public class UserController {
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/user/addUserInfo", method = RequestMethod.POST)
-    public ResponseEntity addUserInfo(@RequestBody UserInformationDTO userInfo) {
-        try {
-            UserInformationDTO userInfoDTO = new UserInformationDTO();
-            userInfoDTO.setTeam(userInfo.getTeam());
-            userInfoDTO.setBuilding(userInfo.getBuilding());
-            userInfoDTO.setFloor(userInfo.getFloor());
-            userInfoDTO.setBuddyUser(userInfo.getBuddyUser());
-            userInfoDTO.setStartDate(userInfo.getStartDate());
-
-            userService.addUserInfo(userInfoDTO);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception exception) {
-            return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
-        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

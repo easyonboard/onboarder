@@ -22,6 +22,7 @@ import java.util.List;
 
 @Controller
 public class CourseController {
+
     @Autowired
     private CourseService courseService;
 

@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
         if (res.username.length > 0) {
           localStorage.setItem('userLogged', res.username);
           localStorage.setItem('userLoggedId', res.idUser.toString());
-          console.log(this.headerDiv);
+          localStorage.setItem('userRole', res.role.role);
           for (let index = 0; index < this.headerDiv.length; index++) {
             (<HTMLElement>this.headerDiv.item(index)).style.visibility = 'visible';
           }
@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
       this.errorMessage = 'Password does not match';
       return;
     } else {
-      this.userService.addUser({name, username, email, password} as UserDTO, null).subscribe(
+      this.userService.addUser({name, username, email, password} as UserDTO, null, null).subscribe(
         res => {
           this.option = false;
         },

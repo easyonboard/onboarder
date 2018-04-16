@@ -1,9 +1,12 @@
+import {RoleDTO} from './role';
+
 export class UserDTO {
   idUser: number;
   email: string;
   name: string;
   username: string;
   password: string;
+  role:RoleDTO;
 }
 
 export class UserInformationDTO {
@@ -16,4 +19,5 @@ export class UserInformationDTO {
   userAccount: UserDTO;
   mailSent: boolean;
   startDate: Date;
+  department: string;
 }

@@ -37,12 +37,16 @@ public class UserInformationDTO {
         this.building = building;
     }
 
-    public String getFloor() {
+    public String getStore() {
         return store;
     }
 
-    public void setFloor(String store) {
+    public void setStore(String store) {
         this.store = store;
+    }
+
+    public Boolean getMailSent() {
+        return mailSent;
     }
 
     public Date getStartDate() {

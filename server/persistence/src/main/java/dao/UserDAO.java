@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static entity.enums.RoleType.ROLE_ABTEILUNGSLEITER;
+
 @Service
 public class UserDAO extends AbstractDAO<User> {
 
@@ -66,6 +68,13 @@ public class UserDAO extends AbstractDAO<User> {
         String queryString = "select u.enrolledCourses from User u where u.username=:username";
         Query query = this.em.createQuery(queryString);
         query.setParameter("username", username);
+        return query.getResultList();
+    }
+
+    public List<User> getAbteilungsleiters() {
+        String queryString = "select u from User u where u.role.role=:role";
+        Query query = this.em.createQuery(queryString);
+        query.setParameter("role", ROLE_ABTEILUNGSLEITER);
         return query.getResultList();
     }
 

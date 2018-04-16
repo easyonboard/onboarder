@@ -97,8 +97,7 @@
       Add Course
     </button>
 
-    <button class="addNewUser" (click)="openModalAddNewUser()" title="Add New User"><i class="material-icons">supervisor_account</i>
-      Add User
+        <button class="addNewUser" (click)="openModalAddNewUser()" title="Add New User"> <i class="material-icons">supervisor_account</i> Add User
     </button>
 
     <button class="viewNewEmployeeList" (click)="openModalNewEmployee()" title="New Employees List"><i
@@ -109,37 +108,42 @@
       class="material-icons">supervisor_account</i> Employees in Department
     </button>
 
-    <ul class="dropdown" id="loggedUserButton">
-      <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown"
-         style="color: white; cursor: pointer; "><i
+        <ul class="dropdown" id="loggedUserButton">
+            <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown" style="color: white; cursor: pointer; "><i
         class="fa fa-user-circle-o"
         style="margin-right: 8px"></i>{{username}}<span class="caret" style="margin-left: 3px"></span>
       </a>
-      <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
-        <li>
-          <a (click)="openModal('myModal')" class="dropdown-menu-item">
-            <span class="glyphicon glyphicon-pencil"></span> Edit profile
-          </a>
-        </li>
-        <li class="divider"></li>
-        <li><a mat-button (click)="openDialog()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a>
-        </li>
+            <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
+                <li>
+                    <a (click)="openModal('myModal')" class="dropdown-menu-item">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit profile
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li><a mat-button (click)="openDialog()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a>
+                </li>
 
-      </ul>
-    </ul>
+                <li class="divider" *ngIf="isBuddy()===true"></li>
+                <li *ngIf="isBuddy()===true">
+                    <a mat-button (click)="openToDoListForBuddy()" class="dropdown-menu-item">
+                        <i class="fa fa-bars"> </i>Buddy TO DO List
+                    </a>
+                </li>
+
+            </ul>
+        </ul>
 
 
   </div>
 </router-outlet>
 
 <div class="footerDiv">
-  <footer>
-    <div class="social">
-      <a href="https://www.facebook.com/msg.systems.romania/" target="_blank"> <i class="fa fa-facebook-square"
-                                                                                  id="facebookIcon">   </i> </a>
-      <a href="https://github.com/easyonboard/onboarder" target="_blank"> <i class="fa fa-git-square" id="gitIcon">
+    <footer>
+        <div class="social">
+            <a href="https://www.facebook.com/msg.systems.romania/" target="_blank"> <i class="fa fa-facebook-square" id="facebookIcon">   </i> </a>
+            <a href="https://github.com/easyonboard/onboarder" target="_blank"> <i class="fa fa-git-square" id="gitIcon">
           </i> </a>
-      <a> <i class="fa fa-youtube-square" id="youtubeIcon">   </i> </a>
-    </div>
-  </footer>
+            <a> <i class="fa fa-youtube-square" id="youtubeIcon">   </i> </a>
+        </div>
+    </footer>
 </div>
