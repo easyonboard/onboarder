@@ -13,7 +13,7 @@
     </tr>
   </table>
   <mat-card-actions>
-    <button mat-raised-button (click)="saveStatus()" color="primary" title="Update check list for user">Save</button>
-    <!--<button mat-raised-button (click)="closeWindow()"  title="Close window">Close</button>-->
+    <button mat-raised-button (click)="saveStatus()" color="primary" title="Update check list for user" [mat-dialog-close]>Save</button>
+    <button mat-raised-button [mat-dialog-close]  title="Close window">Close</button>
   </mat-card-actions>
 </mat-dialog-content>
