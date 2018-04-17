@@ -32,7 +32,7 @@ export class UserService {
     return this.http.post<UserDTO>(this.rootConst.SERVER_AUTHENTIFICATION, body, this.httpOptions);
   }
 
-  addUser(user: UserDTO, role: RoleType) {
+  addUser(user: UserDTO, role: RoleType, userInfo: UserInformationDTO) {
     console.log('user stuff ' + user.email + '\n');
     console.log('role stuff ' + role + '\n');
 

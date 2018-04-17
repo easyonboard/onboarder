@@ -34,7 +34,8 @@ import {ToDoListForBuddyComponent} from './common/DialogToDoListForBuddy/dialog-
 import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
 import {DialogCheckListComponent} from './common/DialogCheckList/dialog-check-list.component';
 import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
-import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
+import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
+import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,8 @@ import {UsersInDepartmentListComponent} from "./users/users-in-department-list/u
     DialogEnrolledCoursesForUserComponent,
     DialogNewEmployeeComponent,
     ToDoListForBuddyComponent,
+    UserInfoFormularComponent,
+    UserInfoUpdateComponent,
     UsersInDepartmentListComponent
   ],
   imports: [
@@ -90,6 +93,8 @@ import {UsersInDepartmentListComponent} from "./users/users-in-department-list/u
     DialogNewEmployeeComponent,
     ToDoListForBuddyComponent,
     UserAddComponent,
+    UserInfoUpdateComponent,
+    UserInfoFormularComponent,
     UsersInDepartmentListComponent
 
   ],
