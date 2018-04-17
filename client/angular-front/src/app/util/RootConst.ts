@@ -23,6 +23,9 @@ export class RootConst {
   public SERVER_USER_COURSES = this.WEB_SERVICE_ENDPOINT + '/user/courses?username=';
   public SERVER_USER_NAME = this.WEB_SERVICE_ENDPOINT + '/user?name=';
   public SERVER_USER_BUDDIES = this.WEB_SERVICE_ENDPOINT + '/buddies?name=';
+  public SERVER_USERS_IN_DEPARTMENT = this.WEB_SERVICE_ENDPOINT + '/department?department=';
+ public SERVER_LOGGED_USER_DEPARTMENT = this.WEB_SERVICE_ENDPOINT + 'user/department?username=';
+
   public VOTEUP = this.WEB_SERVICE_ENDPOINT + 'voteUp';
 
 

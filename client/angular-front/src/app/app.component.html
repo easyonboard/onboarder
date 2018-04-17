@@ -95,10 +95,14 @@
       Add Course
     </button>
 
+
         <button class="addNewUser" (click)="openModalAddNewUser()" title="Add New User" *ngIf="newUserPopUp()"> <i class="material-icons" >supervisor_account</i> Add User
     </button>
 
         <button class="viewNewEmployeeList" (click)="openModalNewEmployee()" title="New Employees List" *ngIf="newEmployeesPopUp()"> <i class="material-icons">supervisor_account</i> New Employees
+        </button>
+    <button class="viewEmployeesInDepartmentList" (click)="openModalEmployeesInDepartment()" title="Employees In Department List"  *ngIf="usersByDepartment()"><i
+      class="material-icons">supervisor_account</i> Employees in Department
     </button>
 
         <ul class="dropdown" id="loggedUserButton">

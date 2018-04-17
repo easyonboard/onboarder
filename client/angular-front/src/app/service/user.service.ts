@@ -93,4 +93,12 @@ export class UserService {
     const body = JSON.stringify({user: user, check: checkList.toJSON()});
     return this.http.post<Map<string, boolean>>(this.rootConst.WEB_SERVER_SAVE_CHECKLIST, body, this.httpOptions);
   }
+
+  getUsersInDepartment(username: string): Observable<UserDTO[]> {
+        return this.http.get<UserDTO[]>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
+     }
+
+ getDepartmentForUsername(username): Observable<any> {
+        return this.http.get<any>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
+      }
 }

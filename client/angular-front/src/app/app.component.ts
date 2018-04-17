@@ -1,15 +1,16 @@
-import {Component, ElementRef, Inject, OnInit} from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
 import {UserService} from './service/user.service';
 import {UtilityService} from './service/utility.service';
-import {UserDTO, UserInformationDTO} from './domain/user';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {UserDTO} from './domain/user';
+import {MatDialog} from '@angular/material';
 import {UserAddComponent} from './users/user-add/user-add.component';
 import {CommonComponentsService} from './common/common-components.service';
 import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
 import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
+import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
 
 @Component({
   selector: 'app-root',
@@ -124,6 +125,19 @@ export class AppComponent {
     }
   }
 
+  usersByDepartment(): boolean {
+    this.role = localStorage.getItem('userRole');
+    if (!this.userIsLogged()) {
+      return false;
+    }
+    if (this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN')
+      return true;
+    else {
+      return false;
+    }
+
+  }
+
   redirectToLoginPage(): void {
     location.replace(this.rootConst.FRONT_LOGIN_PAGE);
   }
@@ -165,7 +179,12 @@ export class AppComponent {
   openToDoListForBuddy() {
     this.commonComponent.openDialogWithToDOListForBuddy();
   }
+
+  openModalEmployeesInDepartment() {
+    this.dialog.open(UsersInDepartmentListComponent, {
+      height: '650px',
+      width: '900px',
+    });
+  }
 }
-
-
 

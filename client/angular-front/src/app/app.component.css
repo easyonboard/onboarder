@@ -129,6 +129,18 @@ footer {
     font-size: large;
 }
 
+.viewEmployeesInDepartmentList {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 700px;
+  background-color: #841439;
+  border: none;
+  color: #ffffff;
+  font-size: large;
+}
+
 #generalInfo {
     background-color: #841439;
     border: none;

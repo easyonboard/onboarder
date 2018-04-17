@@ -22,7 +22,7 @@ import {StarRatingModule} from 'angular-star-rating';
 import {
   MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
   MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule,
-  MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule
+  MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule, MatExpansionModule
 } from '@angular/material';
 import {ReviewService} from './service/review.service';
 import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
@@ -34,6 +34,7 @@ import {ToDoListForBuddyComponent} from './common/DialogToDoListForBuddy/dialog-
 import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
 import {DialogCheckListComponent} from './common/DialogCheckList/dialog-check-list.component';
 import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
+import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-
     DialogCheckListComponent,
     DialogEnrolledCoursesForUserComponent,
     DialogNewEmployeeComponent,
-    ToDoListForBuddyComponent
+    ToDoListForBuddyComponent,
+    UsersInDepartmentListComponent
   ],
   imports: [
     FormsModule,
@@ -79,14 +81,17 @@ import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-
     MatSelectModule,
     MatOptionModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatExpansionModule
   ],
   entryComponents: [
     DialogCheckListComponent,
     DialogEnrolledCoursesForUserComponent,
     DialogNewEmployeeComponent,
     ToDoListForBuddyComponent,
-    UserAddComponent
+    UserAddComponent,
+    UsersInDepartmentListComponent
+
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
     UserInformationService, CommonComponentsService],
