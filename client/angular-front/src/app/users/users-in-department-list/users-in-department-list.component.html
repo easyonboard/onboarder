@@ -1,0 +1,21 @@
+<mat-dialog-content style="height:600px">
+  <h1>Users in department</h1>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false"
+                       *ngFor="let user of employeesInDepartment"
+                       style="padding: 10px;">
+    <mat-expansion-panel-header>
+      <mat-panel-title style="margin-left: 20px;">
+        <span> <i class="material-icons">account_box</i></span>
+        <label style="margin-left: 10px"></label> {{user.name}}
+      </mat-panel-title>
+
+    </mat-expansion-panel-header>
+    <ul>
+      <li><p style="margin-left: 50px;">Email: {{user.email}}</p></li>
+      <li><p style="margin-left: 50px;">Username : {{user.username}}</p></li>
+    </ul>
+  </mat-expansion-panel>
+
+</mat-dialog-content>
+<!-- container -->

@@ -19,5 +19,4 @@ export class UserInformationDTO {
   userAccount: UserDTO;
   mailSent: boolean;
   startDate: Date;
-  department: string;
 }

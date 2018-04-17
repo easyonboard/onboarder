@@ -32,8 +32,11 @@ export class UserService {
     return this.http.post<UserDTO>(this.rootConst.SERVER_AUTHENTIFICATION, body, this.httpOptions);
   }
 
-  addUser(user: UserDTO, role: RoleType, userInfo: UserInformationDTO) {
-    let body = JSON.stringify({user: user, role: role, userInfo: userInfo});
+  addUser(user: UserDTO, role: RoleType) {
+    console.log('user stuff ' + user.email + '\n');
+    console.log('role stuff ' + role + '\n');
+
+    let body = JSON.stringify({user: user, role: role});
     return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }
 
@@ -90,4 +93,12 @@ export class UserService {
     const body = JSON.stringify({user: user, check: checkList.toJSON()});
     return this.http.post<Map<string, boolean>>(this.rootConst.WEB_SERVER_SAVE_CHECKLIST, body, this.httpOptions);
   }
+
+  getUsersInDepartment(username: string): Observable<UserDTO[]> {
+        return this.http.get<UserDTO[]>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
+     }
+
+ getDepartmentForUsername(username): Observable<any> {
+        return this.http.get<any>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
+      }
 }

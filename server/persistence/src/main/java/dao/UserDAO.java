@@ -3,14 +3,13 @@ package dao;
 import entity.CheckList;
 import entity.Course;
 import entity.User;
-import org.hibernate.SQLQuery;
+import entity.enums.DepartmentType;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.lang.reflect.Field;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,14 +88,12 @@ public class UserDAO extends AbstractDAO<User> {
 
     }
 
-    public List<User> searchUnassignedBuddies(String name) {
-        String queryString = "select u from app_user u where not exists (select null from user_information ui " +
-                "where ui.user_buddy_id = u.id_user) and u.name like :name";
-        Query query = this.em.createNativeQuery(queryString);
-        query.setParameter("name", "%" + name + "%");
-        BigDecimal val = (BigDecimal) query.getResultList();
-        return null;
+    public List<User> getUsersInDepartment(String department) {
 
+        String queryString = "select ui.userAccount from UserInformation ui where ui.department=:department";
+        Query query = this.em.createQuery(queryString);
+        query.setParameter("department", DepartmentType.valueOf(department));
+        return query.getResultList();
     }
 
     /**
@@ -130,5 +127,21 @@ public class UserDAO extends AbstractDAO<User> {
             return null;
 
         }
+    }
+
+
+    public String getDepartmentForLoggedUser(String username) {
+
+        Optional<User> userOptional = findUserByUsername(username);
+        User user;
+        if (userOptional.isPresent()) {
+            user = userOptional.get();
+            String queryString = "select ui.department from UserInformation ui where ui.userAccount=:user";
+            Query query = this.em.createQuery(queryString);
+            query.setParameter("user", user);
+            DepartmentType departmentType = (DepartmentType) query.getSingleResult();
+            return departmentType.toString();
+        }
+        return null;
     }
 }

@@ -146,14 +146,6 @@ public class UserController {
 
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/buddies", method = RequestMethod.GET)
-    public ResponseEntity<List<UserDTO>> getUnassignedBuddiesByName(@RequestParam(value = "name") String name) {
-        List<UserDTO> users = userService.searchUnassignedBuddies(name);
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-
-
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/checkList", method = RequestMethod.POST)
     public ResponseEntity getCheckList(@RequestBody UserDTO user) {
         return new ResponseEntity(userService.getCheckList(user), HttpStatus.OK);
@@ -184,4 +176,11 @@ public class UserController {
     }
 
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "user/department", method = RequestMethod.GET)
+    public ResponseEntity<List<UserDTO>> getUsersInDepartmentForLoggedInUser(@RequestParam(value = "username") String username) {
+        List<UserDTO> users = userService.getUsersInDepartmentForLoggedInUser(username);
+
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 }

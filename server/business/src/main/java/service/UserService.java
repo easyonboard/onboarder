@@ -100,10 +100,16 @@ public class UserService {
         return userMapper.entitiesToDTOs(userDAO.searchByName(name));
     }
 
-    public List<UserDTO> searchUnassignedBuddies(String name) {
-        return userMapper.entitiesToDTOs(userDAO.searchUnassignedBuddies(name));
+
+    public List<UserDTO> getUsersInDepartmentForLoggedInUser(String username) {
+        String department = getDepartmentForLoggedUser(username);
+        return userMapper.entitiesToDTOs(userDAO.getUsersInDepartment(department));
     }
 
+
+    public String getDepartmentForLoggedUser(String username) {
+        return userDAO.getDepartmentForLoggedUser(username);
+    }
 
 
     public Map getCheckList(UserDTO userDTO) {

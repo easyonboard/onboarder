@@ -21,7 +21,6 @@ export class UserInfoUpdateComponent implements OnInit {
       private userInformationService: UserInformationService, private userService: UserService) { }
 
   ngOnInit() {
-    this.childUserInfoFormularComponent.userInformation.idUserInformation = this.userInformation.idUserInformation;
     this.childUserInfoFormularComponent.userInformation.team = this.userInformation.team;
     this.childUserInfoFormularComponent.userInformation.building = this.userInformation.building;
     this.childUserInfoFormularComponent.userInformation.floor = this.userInformation.floor;
