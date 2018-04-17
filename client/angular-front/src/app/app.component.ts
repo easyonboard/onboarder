@@ -11,6 +11,7 @@ import {CommonComponentsService} from './common/common-components.service';
 import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
 import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
 import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
+import {DialogDeleteUsersComponent} from "./common/DialogDeleteUsers/dialog-delete-users.component";
 
 @Component({
   selector: 'app-root',
@@ -139,12 +140,27 @@ export class AppComponent {
 
   }
 
+  modalDeleteUserPermission(): boolean {
+    this.role = localStorage.getItem('userRole');
+    if (!this.userIsLogged()) {
+      return false;
+    }
+    if (this.role === 'ROLE_HR' || this.role === 'ROLE_ADMIN') {
+      return true;
+    }
+    else {
+      return false;
+    }
+
+
+  }
+
   redirectToLoginPage(): void {
     location.replace(this.rootConst.FRONT_LOGIN_PAGE);
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(DialogEnrolledCoursesForUserComponent, {
+     this.dialog.open(DialogEnrolledCoursesForUserComponent, {
       height: '650px',
       width: '900px'
     });
@@ -158,7 +174,7 @@ export class AppComponent {
   }
 
   openModalAddNewUser() {
-    const addUserComponent = this.dialog.open(UserAddComponent, {
+    this.dialog.open(UserAddComponent, {
       height: '850px',
       width: '600px',
     });
@@ -186,5 +202,13 @@ export class AppComponent {
       height: '650px',
       width: '900px',
     });
+  }
+
+  modalDeleteUser() {
+    this.dialog.open(DialogDeleteUsersComponent, {
+      height: '650px',
+      width: '900px',
+    });
+
   }
 }
