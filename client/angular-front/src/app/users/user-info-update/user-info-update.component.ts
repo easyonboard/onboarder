@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 import { UserInformationService } from '../../service/user-information.service';
 import { UserService } from '../../service/user.service';
 
-import { UserInfoFormularComponent } from '../reusables/user-info-formular/user-info-formular.component';
+import { UserInfoFormularComponent } from '../user-info-formular/user-info-formular.component';
 import { UserDTO, UserInformationDTO } from '../../domain/user';
 
 @Component({
