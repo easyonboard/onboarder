@@ -1,20 +1,16 @@
-import {Component, ElementRef, Inject, OnInit} from '@angular/core';
+import {Component, ElementRef} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
 import {UserService} from './service/user.service';
 import {UtilityService} from './service/utility.service';
-import {UserDTO, UserInformationDTO} from './domain/user';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
-import {Course} from './domain/course';
-import {CourseService} from './service/course.service';
-import {UserInformationService} from './service/user-information.service';
-import {CheckListProperties} from './util/CheckListProperties';
-import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
+import {UserDTO} from './domain/user';
+import {MatDialog} from '@angular/material';
 import {UserAddComponent} from './users/user-add/user-add.component';
-import {TSMap} from 'typescript-map';
 import {CommonComponentsService} from './common/common-components.service';
-import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
+import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
+import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
+import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
 
 @Component({
   selector: 'app-root',
@@ -71,7 +67,7 @@ export class AppComponent {
       this.message = 'Password not matching or does not have 6 characters';
       return;
     } else {
-      let username = localStorage.getItem('userLogged');
+      const username = localStorage.getItem('userLogged');
 
       if (name === '') {
         name = null;
@@ -112,12 +108,9 @@ export class AppComponent {
     }
     if (this.role === 'ROLE_ADMIN' || this.role === 'ROLE_ABTEILUNGSLEITER') {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
-    ;
-
   }
 
   newUserPopUp(): boolean {
@@ -125,19 +118,21 @@ export class AppComponent {
     if (!this.userIsLogged()) {
       return false;
     }
-    if (this.role === 'ROLE_HR' || this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN')
+    if (this.role === 'ROLE_HR' || this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN') {
       return true;
-    else {
+    } else {
       return false;
     }
   }
+
   usersByDepartment(): boolean {
     this.role = localStorage.getItem('userRole');
     if (!this.userIsLogged()) {
       return false;
     }
-    if (this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN')
+    if (this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN') {
       return true;
+    }
     else {
       return false;
     }
@@ -149,14 +144,14 @@ export class AppComponent {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(DialogEnrolledCoursesForUser, {
+    const dialogRef = this.dialog.open(DialogEnrolledCoursesForUserComponent, {
       height: '650px',
       width: '900px'
     });
   }
 
   openModalNewEmployee() {
-    this.dialog.open(DialogNewEmployees, {
+    this.dialog.open(DialogNewEmployeeComponent, {
       height: '650px',
       width: '900px',
     });
@@ -166,13 +161,6 @@ export class AppComponent {
     const addUserComponent = this.dialog.open(UserAddComponent, {
       height: '850px',
       width: '600px',
-    });
-  }
-
-  openModalEmployeesInDepartment() {
-    this.dialog.open(UsersInDepartmentListComponent, {
-      height: '650px',
-      width: '900px',
     });
   }
 
@@ -192,132 +180,11 @@ export class AppComponent {
   openToDoListForBuddy() {
     this.commonComponent.openDialogWithToDOListForBuddy();
   }
-}
 
-@Component({
-  selector: 'app-dialog-enrolled-courses-for-user',
-  templateUrl: './app.dialog-enrolled-courses-for-user.html',
-})
-export class DialogEnrolledCoursesForUser implements OnInit {
-  public enrolledCourses: Course[];
-  private rootConst: RootConst;
-  private user: UserDTO;
-  public progresses: Map<Course, Number>;
-
-  constructor(private courseService: CourseService, private userService: UserService) {
-    this.progresses = new Map<Course, Number>();
-    this.rootConst = new RootConst();
-  }
-
-  getEnrolledCoursesForUser() {
-    let username = localStorage.getItem('userLogged');
-    if (username != null && username !== '') {
-      this.courseService.getEnrolledCoursesForUser(username).subscribe(courses => {
-        this.enrolledCourses = courses;
-        this.enrolledCourses.forEach(c => this.userService.getProgress(c, this.user).subscribe(progress => {
-          this.progresses.set(c, progress);
-          console.log(this.progresses);
-        }));
-      });
-    }
-  }
-
-  openPageCourseDetails(courseId: number) {
-    window.location.href = this.rootConst.FRONT_DETAILED_COURSE + '/' + courseId;
-  }
-
-
-  ngOnInit(): void {
-    this.user = new UserDTO();
-    this.user.username = localStorage.getItem('userLogged');
-
-    this.getEnrolledCoursesForUser();
-  }
-}
-
-@Component({
-  selector: 'app-dialog-new-employees',
-  templateUrl: './app.dialog-new-employees.html'
-})
-export class DialogNewEmployees implements OnInit {
-  private mailSent: boolean;
-  public newEmployees: UserInformationDTO[];
-
-  constructor(private userInformationService: UserInformationService, private dialog: MatDialog) {
-  }
-
-  ngOnInit(): void {
-    this.mailSent = false;
-    this.newEmployees = [];
-
-    this.userInformationService.getNewUsers().subscribe(newEmployees => {
-      this.newEmployees = newEmployees;
-      console.log(this.newEmployees);
-    });
-  }
-
-  openCheckList(user: UserDTO) {
-    console.log(user);
-    this.dialog.open(DialogCheckListUser, {
+  openModalEmployeesInDepartment() {
+    this.dialog.open(UsersInDepartmentListComponent, {
       height: '650px',
       width: '900px',
-      data: user
     });
-  }
-
-  openUserInfoModal(userInformation: UserInformationDTO) {
-    this.dialog.open(UserInfoUpdateComponent, {
-      height: '650px',
-      width: '900px',
-      data: userInformation
-    });
-  }
-
-}
-
-@Component({
-  selector: 'app-dialog-check-list-user',
-  templateUrl: './app.dialog-checkList.html',
-})
-export class DialogCheckListUser implements OnInit {
-  private dialogTitle: string;
-  private checkList: TSMap<string, boolean>;
-  private checkListProperties: CheckListProperties;
-
-  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO,
-              private userService: UserService, public dialogRef: MatDialogRef<DialogCheckListUser>) {
-  }
-
-  ngOnInit() {
-    this.dialogTitle = 'Check list for ' + this.user.name;
-    this.checkList = new TSMap<string, boolean>();
-    this.checkListProperties = new CheckListProperties();
-    this.userService.getCheckListForUser(this.user).subscribe(
-      data => {
-
-        Object.keys(data).forEach(key => {
-          this.checkList.set(key, data[key]);
-
-        });
-      });
-  }
-
-  get checkListKeys() {
-    return Array.from(this.checkList.keys());
-  }
-
-  onCheck(key: string) {
-
-    this.checkList.set(key, !this.checkList.get(key));
-
-  }
-
-  saveStatus() {
-
-    this.userService.saveCheckList(this.user.username, this.checkList).subscribe();
-  }
-
-  closeWindow() {
-    this.dialogRef.close('Closed!');
   }
 }

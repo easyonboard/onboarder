@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-todocomponntforbuddy',
-  templateUrl: './toDoListForBuddy.component.html'
+  templateUrl: './dialog-to-do-list-for-buddy.component.html'
 })
 export class ToDoListForBuddyComponent implements OnInit {
   toDoList: string[] = [];

@@ -20,8 +20,7 @@ export class UsersInDepartmentListComponent implements OnInit {
   ngOnInit() {
 
     let userLogged: string = localStorage.getItem('userLogged');
-    console.log('--->' + userLogged);
-    debugger;
+
     // console.log('inainte de get department');
     // this.userService.getDepartmentForUsername(userLogged).subscribe(value => {
     //   console.log('-------------->' + value);

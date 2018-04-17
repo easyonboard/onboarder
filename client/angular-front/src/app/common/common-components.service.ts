@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {ToDoListForBuddyComponent} from './ToDoListForBuddy/toDoListForBuddy.component';
+import {ToDoListForBuddyComponent} from './DialogToDoListForBuddy/dialog-to-do-list-for-buddy.component';
 
 @Injectable()
 export class CommonComponentsService {

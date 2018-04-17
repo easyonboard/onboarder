@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppComponent, DialogCheckListUser, DialogEnrolledCoursesForUser, DialogNewEmployees} from './app.component';
+import {AppComponent} from './app.component';
 import {CoursesComponent} from './courses/courses.component';
 import {CourseService} from './service/course.service';
 import {HttpClientModule} from '@angular/common/http';
@@ -24,16 +24,17 @@ import {
   MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule,
   MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule, MatExpansionModule
 } from '@angular/material';
-import { ReviewService } from './service/review.service';
-import { UserInformationService } from './service/user-information.service';
-import { GeneralInfosComponent } from './general-infos/general-infos.component';
-import { UserAddComponent } from './users/user-add/user-add.component';
-import { UserInfoFormularComponent } from './users/reusables/user-info-formular/user-info-formular.component';
-import { UserInfoUpdateComponent } from './users/user-info-update/user-info-update.component';
-import {ToDoListForBuddyComponent} from './common/ToDoListForBuddy/toDoListForBuddy.component';
+import {ReviewService} from './service/review.service';
+import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
+import {UserInformationService} from './service/user-information.service';
+import {GeneralInfosComponent} from './general-infos/general-infos.component';
+import {UserAddComponent} from './users/user-add/user-add.component';
 import {CommonComponentsService} from './common/common-components.service';
-import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
-
+import {ToDoListForBuddyComponent} from './common/DialogToDoListForBuddy/dialog-to-do-list-for-buddy.component';
+import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
+import {DialogCheckListComponent} from './common/DialogCheckList/dialog-check-list.component';
+import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
+import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
 
 
 @NgModule({
@@ -44,15 +45,16 @@ import {UsersInDepartmentListComponent} from './users/users-in-department-list/u
     CourseDetailComponent,
     AddCourseComponent,
     SubjectDetailComponent,
-    DialogEnrolledCoursesForUser,
-    GeneralInfosComponent,
-    DialogNewEmployees,
-    DialogCheckListUser,
-    UserAddComponent,
     UserInfoFormularComponent,
-    UserInfoUpdateComponent,
+    GeneralInfosComponent,
+    UserAddComponent,
+
+    //  dialogs
+    DialogCheckListComponent,
+    DialogEnrolledCoursesForUserComponent,
+    DialogNewEmployeeComponent,
     ToDoListForBuddyComponent,
-UsersInDepartmentListComponent
+    UsersInDepartmentListComponent
   ],
   imports: [
     FormsModule,
@@ -84,13 +86,12 @@ UsersInDepartmentListComponent
     MatExpansionModule
   ],
   entryComponents: [
-    DialogEnrolledCoursesForUser,
-    DialogNewEmployees,
-    DialogCheckListUser,
+    DialogCheckListComponent,
+    DialogEnrolledCoursesForUserComponent,
+    DialogNewEmployeeComponent,
+    ToDoListForBuddyComponent,
     UserAddComponent,
-UsersInDepartmentListComponent,
-UserInfoUpdateComponent,
-    ToDoListForBuddyComponent
+    UsersInDepartmentListComponent
 
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
