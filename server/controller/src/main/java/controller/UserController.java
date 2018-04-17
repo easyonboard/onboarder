@@ -184,4 +184,17 @@ public class UserController {
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "user/department", method = RequestMethod.GET)
+    public ResponseEntity removeUser(@RequestBody String  username){
+
+        try {
+            userService.deleteUser(username);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

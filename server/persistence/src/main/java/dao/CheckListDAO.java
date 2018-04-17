@@ -26,4 +26,6 @@ public class CheckListDAO extends AbstractDAO<CheckList> {
             return null;
         }
     }
+
+
 }

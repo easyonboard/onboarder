@@ -1,5 +1,6 @@
 package dao;
 
+import entity.CheckList;
 import entity.User;
 import entity.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,4 +72,12 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         ui.setMailSent(isMailSend);
         this.persistEntity(ui);
     }
+
+
+    public UserInformation findUserInformationByUser(User userEntity){
+        Query q=em.createQuery("select us from UserInformation us where us.userAccount=:userEntity");
+        q.setParameter("userEntity", userEntity);
+        return (UserInformation) q.getSingleResult();
+    }
+
 }
