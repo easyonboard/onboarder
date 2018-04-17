@@ -3,6 +3,10 @@
     <div style="height: 560px;">
         <form>
             <div>
+                <ng-container buddy-dropdown-directive></ng-container>
+            </div>
+
+            <div>
                 <label for="FirstName">First Name</label>
                 <input #FirstName type="text" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder="FirstName" class="form-control" id="FirstName" />
             </div>
@@ -21,42 +25,15 @@
             </div>
             <div class="form-group">
                 <label>Role</label>
-                <mat-select placeholder="Select role" (selectionChange)="selectValue($event)">
+                <mat-select placeholder="Select role" (selectionChange)="selectRoleValue($event)">
                     <mat-option *ngFor="let roleValue of roles" [value]="roleValue">
                         {{roleType[roleValue]}}
                     </mat-option>
                 </mat-select>
             </div>
-            <div class>
-                <label for="Team">Team</label>
-                <input #Team type="text" [(ngModel)]="userInfo.team" [ngModelOptions]="{standalone: true}" placeholder="Team" class="form-control" id="Team" />
-            </div>
-            <div>
-                <label for="Building">Building</label>
-                <input #Building type="text" [(ngModel)]="userInfo.building" [ngModelOptions]="{standalone: true}" placeholder="Building" class="form-control" id="Building" />
-            </div>
-            <div>
-                <label for="Floor">Floor</label>
-                <input #Store type="text" [(ngModel)]="userInfo.floor" [ngModelOptions]="{standalone: true}" placeholder="Floor" class="form-control" id="Floor" />
-            </div>
-            <div>
-                <label for="Buddy">Buddy</label>
-                <mat-select placeholder="Select buddy" [(value)]="userInfo.buddy">
-                    <mat-option *ngFor="let employee of employees" [value]="employee.value">
-                        {{ employee.viewValue }}
-                    </mat-option>
-                </mat-select>
-            </div>
+            <app-user-info-formular></app-user-info-formular>
         </form>
     </div>
-</div>
-
-<div>
-    <input [(ngModel)]="userInfo.startDate" matInput [matDatepicker]="picker" placeholder="Choose a date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <br>
-    <label class="hint-text">leave empty if the starting date is unknown</label>
-    <mat-datepicker #picker></mat-datepicker>
 </div>
 <br>
 <div>

@@ -10,7 +10,8 @@ import {UserAddComponent} from './users/user-add/user-add.component';
 import {CommonComponentsService} from './common/common-components.service';
 import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
 import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
-import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
+import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
+import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
 
 @Component({
   selector: 'app-root',
@@ -150,7 +151,7 @@ export class AppComponent {
   }
 
   openModalNewEmployee() {
-    this.dialog.open(DialogNewEmployeeComponent, {
+    this.dialog.open(UserInfoUpdateComponent, {
       height: '650px',
       width: '900px',
     });
