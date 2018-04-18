@@ -4,6 +4,7 @@ import dao.UserInformationDAO;
 import dto.UserInformationDTO;
 import dto.mapper.UserInformationMapper;
 import dto.mapper.UserMapper;
+import entity.User;
 import entity.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,21 @@ public class UserInformationService {
     }
 
     public void addUserInfo(UserInformationDTO userInfo) {
-        userInformationDAO.persistEntity(userInformationMapper.mapToNewEntity(userInfo));
+//        UserInformation userInformation = new UserInformation();
+//
+//        userInformation.setTeam(userInfo.getTeam());
+//        userInformation.setBuilding(userInfo.getBuilding());
+//        userInformation.setStore(userInfo.getStore());
+//        userInformation.setDepartment(userInfo.getDepartment());
+//        userInformation.setMailSent(userInfo.getMailSent());
+//        userInformation.setProject(userInfo.getProject());
+//        userInformation.setStartDate(userInfo.getStartDate());
+//
+//        User user = new User();
+//
+//        userInformation.setBuddyUser(userMapper.mapToEntity(userInfo.getBuddyUser(), user));
+//        userInformation.setUserAccount(userMapper.mapToEntity(userInfo.getUserAccount(), user));
+//
+//        userInformationDAO.persistEntity(userInformation);
     }
 }

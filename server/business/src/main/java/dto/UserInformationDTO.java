@@ -8,15 +8,17 @@ import java.util.Map;
 public class UserInformationDTO {
 
     private int idUserInformation;
+
     private String team;
     private String building;
     private String store;
     private String project;
     private Date startDate;
-    private UserDTO buddyUser;
-    private UserDTO userAccount;
     private Boolean mailSent;
     private DepartmentType department;
+
+    private UserDTO buddyUser;
+    private UserDTO userAccount;
 
     public UserInformationDTO() {
     }

@@ -16,7 +16,6 @@ public abstract class AbstractDAO<E> {
     @Autowired
     protected EntityManager em;
 
-
     public abstract Class<E> getEntityClass();
 
     @Transactional
@@ -31,18 +30,15 @@ public abstract class AbstractDAO<E> {
         em.remove(entity);
     }
 
-
     @Transactional
     public E findEntity(int id) {
         return em.find(getEntityClass(), id);
     }
 
-
     @PersistenceContext
     public void setEm(EntityManager em) {
         this.em = em;
     }
-
 
     protected EntityManager getEm() {
         return this.em;

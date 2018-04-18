@@ -11,6 +11,7 @@ import dto.UserInformationDTO;
 import entity.enums.DepartmentType;
 import entity.enums.RoleType;
 import exception.InvalidDataException;
+import exception.RoleNameNotFoundException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,26 +65,19 @@ public class UserController {
             RoleType role = mapper.convertValue(node.get("role"), RoleType.class);
             UserInformationDTO userInformationDTO = mapper.convertValue(node.get("userInfo"), UserInformationDTO.class);
 
-            RoleDTO roleDTO = new RoleDTO();
-            roleDTO.setRole(role);
-            roleDTO.setIdRole(role.getRoleTypeId());
-
+            RoleDTO roleDTO = roleService.findRoleById(role.getRoleTypeId());
             userDTO.setRole(roleDTO);
 
-            userInformationDTO.setUserAccount(userService.addUser(userDTO));
             userInformationDTO.setMailSent(false);
-            userInformationDTO.setDepartment(userInformationDTO.getDepartment());
-            userInformationService.addUserInfo(userInformationDTO);
+            userService.addUser(userDTO, userInformationDTO);
 
-            CheckListDTO checkListDTO = new CheckListDTO();
-            checkListDTO.setUserAccount(userDTO);
-
-            checkListService.addCheckList(checkListDTO);
         } catch (InvalidDataException exception) {
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (RoleNameNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -135,8 +129,7 @@ public class UserController {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
-
-
+    
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> getUserByName(@RequestParam(value = "name") String name) {

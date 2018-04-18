@@ -15,14 +15,14 @@ export class UserInformationService {
   constructor(private http: HttpClient) {
   }
 
-  addUserInformation(userInfo: UserInformationDTO): Observable<UserInformationDTO> {
-    let body = JSON.stringify({
-      team: userInfo.team, building: userInfo.building, floor: userInfo.floor, buddyUser: userInfo.buddyUser,
-      userAccount: userInfo.userAccount, mailSent: userInfo.mailSent, startDate: userInfo.startDate
-    });
+  // addUserInformation(userInfo: UserInformationDTO): Observable<UserInformationDTO> {
+  //   let body = JSON.stringify({
+  //     team: userInfo.team, building: userInfo.building, floor: userInfo.floor, buddyUser: userInfo.buddyUser,
+  //     userAccount: userInfo.userAccount, mailSent: userInfo.mailSent, startDate: userInfo.startDate
+  //   });
 
-    return this.http.post<UserInformationDTO>(this.rootConst.SERVER_ADD_USER_INFO, body, this.httpOptions);
-  }
+  //   return this.http.post<UserInformationDTO>(this.rootConst.SERVER_ADD_USER_INFO, body, this.httpOptions);
+  // }
 
   updateUserInformation(userInfo: UserInformationDTO): Observable<UserInformationDTO> {
     console.log('=================>' + userInfo.floor);

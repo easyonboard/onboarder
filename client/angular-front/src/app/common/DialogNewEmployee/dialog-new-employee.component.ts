@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material';
 import {UserInfoFormularComponent} from '../../users/user-info-formular/user-info-formular.component';
 import {UserInformationService} from '../../service/user-information.service';
 import {DialogCheckListComponent} from '../DialogCheckList/dialog-check-list.component';
+import {UserInfoUpdateComponent} from '../../users/user-info-update/user-info-update.component';
 
 @Component({
   selector: 'app-dialog-new-employee',
@@ -36,7 +37,7 @@ export class DialogNewEmployeeComponent implements OnInit {
   }
 
   openUserInfoModal(userInformation: UserInformationDTO) {
-    this.dialog.open(UserInfoFormularComponent, {
+    this.dialog.open(UserInfoUpdateComponent, {
       height: '650px',
       width: '900px',
       data: userInformation

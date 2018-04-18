@@ -151,7 +151,7 @@ export class AppComponent {
   }
 
   openModalNewEmployee() {
-    this.dialog.open(UserInfoUpdateComponent, {
+    this.dialog.open(DialogNewEmployeeComponent, {
       height: '650px',
       width: '900px',
     });

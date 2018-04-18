@@ -12,6 +12,7 @@ import dto.mapper.UserInformationMapper;
 import dto.mapper.UserMapper;
 import entity.CheckList;
 import entity.User;
+import entity.UserInformation;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,13 +59,32 @@ public class UserService {
         return userMapper.mapToDTO(entity.get());
     }
 
-
-    public UserDTO addUser(UserDTO userDTO) throws InvalidDataException {
+    public void addUser(UserDTO userDTO, UserInformationDTO userInformationDTO) throws InvalidDataException {
         userValidator.validateUsername(userDTO.getUsername());
         userValidator.validateUserData(userDTO);
         userDTO.setPassword(encrypt(userDTO.getPassword()));
+
         User user = new User();
-        return userMapper.mapToDTO(userDAO.persistEntity(userMapper.mapToEntity(userDTO, user)));
+        UserInformation userInformation = new UserInformation();
+        CheckList checkList = new CheckList();
+
+        User appUser = userDAO.persistEntity(userMapper.mapToEntity(userDTO, user));
+
+        userInformation.setTeam(userInformationDTO.getTeam());
+        userInformation.setBuilding(userInformationDTO.getBuilding());
+        userInformation.setStore(userInformationDTO.getStore());
+        userInformation.setDepartment(userInformationDTO.getDepartment());
+        userInformation.setMailSent(userInformationDTO.getMailSent());
+        userInformation.setProject(userInformationDTO.getProject());
+        userInformation.setStartDate(userInformationDTO.getStartDate());
+        userInformation.setUserAccount(appUser);
+
+//        userInformation.setBuddyUser(userMapper.mapToEntity(userInformationDTO.getBuddyUser(), user));
+
+        checkList.setUserAccount(appUser);
+
+        userInformationDAO.persistEntity(userInformation);
+        checkListDAO.persistEntity(checkList);
     }
 
     public String encrypt(String initString) {
