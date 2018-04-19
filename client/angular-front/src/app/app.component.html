@@ -101,9 +101,14 @@
 
         <button class="viewNewEmployeeList" (click)="openModalNewEmployee()" title="New Employees List" *ngIf="newEmployeesPopUp()"> <i class="material-icons">supervisor_account</i> New Employees
         </button>
+
+
     <button class="viewEmployeesInDepartmentList" (click)="openModalEmployeesInDepartment()" title="Employees In Department List"  *ngIf="usersByDepartment()"><i
       class="material-icons">supervisor_account</i> Employees in Department
     </button>
+
+      <button class="buttonDeleteUsers" (click)="modalDeleteUser()" title="Employees In Department List"  *ngIf="modalDeleteUserPermission()"><i class="material-icons">perm_data_setting</i>Remove users
+      </button>
 
         <ul class="dropdown" id="loggedUserButton">
             <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown" style="color: white; cursor: pointer; "><i

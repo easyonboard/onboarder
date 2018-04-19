@@ -1,10 +1,12 @@
 package dao;
 
+import entity.CheckList;
 import entity.User;
 import entity.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import javax.transaction.Transactional;
@@ -71,4 +73,15 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         ui.setMailSent(isMailSend);
         this.persistEntity(ui);
     }
+
+
+    public UserInformation findUserInformationByUser(User userEntity){
+        Query q=em.createQuery("select us from UserInformation us where us.userAccount=:userEntity");
+        q.setParameter("userEntity", userEntity);
+        try {return (UserInformation) q.getSingleResult();}
+        catch (NoResultException e){
+            return null;
+        }
+    }
+
 }

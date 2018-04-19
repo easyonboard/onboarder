@@ -12,6 +12,7 @@ import dto.mapper.UserInformationMapper;
 import dto.mapper.UserMapper;
 import entity.CheckList;
 import entity.User;
+import entity.UserInformation;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,6 +123,26 @@ public class UserService {
         CheckList checkListEntity = checkListDAO.findByUser(userEntity);
         checkListMapper.mapToEntity(checkList, checkListEntity);
         checkListDAO.persistEntity(checkListEntity);
+    }
+
+    public void deleteUser(String username) throws UserNotFoundException {
+
+        Optional<User> userOptional = userDAO.findUserByUsername(username);
+        if (userOptional.isPresent()) {
+            User userEntity = userOptional.get();
+
+            UserInformation userInformationEntity = userInformationDAO.findUserInformationByUser(userEntity);
+            if (userInformationEntity != null) {
+                userInformationDAO.deleteEntity(userInformationEntity);
+            }
+
+            CheckList checkListEntity = checkListDAO.findByUser(userEntity);
+            if (checkListEntity != null) {
+                checkListDAO.deleteEntity(checkListEntity);
+            }
+            userDAO.deleteEntity(userEntity);
+        } else throw new UserNotFoundException(USER_NOT_FOUND_ERROR);
+
     }
 
 //    public List<UserDTO> searchByName(String name){
