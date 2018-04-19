@@ -12,10 +12,10 @@ import dto.mapper.UserInformationMapper;
 import dto.mapper.UserMapper;
 import entity.CheckList;
 import entity.User;
+import entity.UserInformation;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
 
@@ -127,14 +127,21 @@ public class UserService {
 
     public void deleteUser(String username) throws UserNotFoundException {
 
-        Optional<User> userOptional=userDAO.findUserByUsername(username);
-        if(userOptional.isPresent()){
-            User userEntity=userOptional.get();
+        Optional<User> userOptional = userDAO.findUserByUsername(username);
+        if (userOptional.isPresent()) {
+            User userEntity = userOptional.get();
+
+            UserInformation userInformationEntity = userInformationDAO.findUserInformationByUser(userEntity);
+            if (userInformationEntity != null) {
+                userInformationDAO.deleteEntity(userInformationEntity);
+            }
+
+            CheckList checkListEntity = checkListDAO.findByUser(userEntity);
+            if (checkListEntity != null) {
+                checkListDAO.deleteEntity(checkListEntity);
+            }
             userDAO.deleteEntity(userEntity);
-            userInformationDAO.deleteEntity(userInformationDAO.findUserInformationByUser(userEntity));
-            checkListDAO.deleteEntity(checkListDAO.findByUser(userEntity));
-        }
-        else throw new UserNotFoundException(USER_NOT_FOUND_ERROR);
+        } else throw new UserNotFoundException(USER_NOT_FOUND_ERROR);
 
     }
 

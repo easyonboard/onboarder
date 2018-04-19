@@ -187,7 +187,7 @@ public class UserController {
 
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "user/department", method = RequestMethod.GET)
+    @RequestMapping(value = "user/removeUser", method = RequestMethod.POST)
     public ResponseEntity removeUser(@RequestBody String  username){
 
         try {

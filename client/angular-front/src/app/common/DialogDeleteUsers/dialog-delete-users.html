@@ -1,3 +1,22 @@
-<h2 mat-dialog-title>{{dialogDeleteUsers}}</h2>
+<h2 mat-dialog-title>New Employees</h2>
 <mat-dialog-content style="height:550px">
+  <mat-card *ngFor="let user of allUsers">
+
+    <span> <i class="material-icons">account_box</i></span>
+    <label style="margin-left: 10px"></label> {{user.name}}
+    <br/>
+
+
+    <span><i class="material-icons">mail_outline</i>
+</span>
+    <label style="margin-left: 10px"></label> {{user.email}}
+    <br/>
+    <br/>
+    <br/>
+    <button mat-raised-button (click)="remove(user.username)" title="Remove user">
+      Remove user {{user.name}}
+    </button>
+
+  </mat-card>
+  <br>
 </mat-dialog-content>
