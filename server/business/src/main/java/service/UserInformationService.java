@@ -39,22 +39,19 @@ public class UserInformationService {
 //        userInformationDAO.updateEntity(userInformation);
     }
 
-    public void addUserInfo(UserInformationDTO userInfo) {
-//        UserInformation userInformation = new UserInformation();
-//
-//        userInformation.setTeam(userInfo.getTeam());
-//        userInformation.setBuilding(userInfo.getBuilding());
-//        userInformation.setStore(userInfo.getStore());
-//        userInformation.setDepartment(userInfo.getDepartment());
-//        userInformation.setMailSent(userInfo.getMailSent());
-//        userInformation.setProject(userInfo.getProject());
-//        userInformation.setStartDate(userInfo.getStartDate());
-//
-//        User user = new User();
-//
-//        userInformation.setBuddyUser(userMapper.mapToEntity(userInfo.getBuddyUser(), user));
-//        userInformation.setUserAccount(userMapper.mapToEntity(userInfo.getUserAccount(), user));
-//
-//        userInformationDAO.persistEntity(userInformation);
+    public void addUserInfo(UserInformationDTO userInformationDTO, User appUser) {
+        UserInformation userInformation = new UserInformation();
+
+        userInformation.setTeam(userInformationDTO.getTeam());
+        userInformation.setBuilding(userInformationDTO.getBuilding());
+        userInformation.setStore(userInformationDTO.getStore());
+        userInformation.setDepartment(userInformationDTO.getDepartment());
+        userInformation.setMailSent(userInformationDTO.getMailSent());
+        userInformation.setProject(userInformationDTO.getProject());
+        userInformation.setStartDate(userInformationDTO.getStartDate());
+        userInformation.setUserAccount(appUser);
+
+        userInformationDAO.persistEntity(userInformation);
     }
+
 }

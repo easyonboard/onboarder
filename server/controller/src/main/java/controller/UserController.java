@@ -95,14 +95,12 @@ public class UserController {
         }
     }
 
-
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/allUsers", method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         List<UserDTO> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/newUsers", method = RequestMethod.GET)
@@ -129,7 +127,7 @@ public class UserController {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
-    
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> getUserByName(@RequestParam(value = "name") String name) {

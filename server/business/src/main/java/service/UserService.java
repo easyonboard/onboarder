@@ -42,6 +42,12 @@ public class UserService {
     @Autowired
     private CheckListDAO checkListDAO;
 
+    @Autowired
+    private UserInformationService userInformationService;
+
+    @Autowired
+    private CheckListService checkListService;
+
     private UserMapper userMapper = UserMapper.INSTANCE;
 
     private CheckListMapper checkListMapper = CheckListMapper.INSTANCE;
@@ -65,26 +71,11 @@ public class UserService {
         userDTO.setPassword(encrypt(userDTO.getPassword()));
 
         User user = new User();
-        UserInformation userInformation = new UserInformation();
-        CheckList checkList = new CheckList();
 
         User appUser = userDAO.persistEntity(userMapper.mapToEntity(userDTO, user));
 
-        userInformation.setTeam(userInformationDTO.getTeam());
-        userInformation.setBuilding(userInformationDTO.getBuilding());
-        userInformation.setStore(userInformationDTO.getStore());
-        userInformation.setDepartment(userInformationDTO.getDepartment());
-        userInformation.setMailSent(userInformationDTO.getMailSent());
-        userInformation.setProject(userInformationDTO.getProject());
-        userInformation.setStartDate(userInformationDTO.getStartDate());
-        userInformation.setUserAccount(appUser);
-
-//        userInformation.setBuddyUser(userMapper.mapToEntity(userInformationDTO.getBuddyUser(), user));
-
-        checkList.setUserAccount(appUser);
-
-        userInformationDAO.persistEntity(userInformation);
-        checkListDAO.persistEntity(checkList);
+        userInformationService.addUserInfo(userInformationDTO, appUser);
+        checkListService.addCheckList(userInformationDTO, appUser);
     }
 
     public String encrypt(String initString) {
