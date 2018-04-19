@@ -57,7 +57,7 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
 
         actualUserInfo.setBuddyUser(newUser.get());
 
-        return em.merge(actualUserInfo);
+        return em.merge(userInfo);
 
     }
 

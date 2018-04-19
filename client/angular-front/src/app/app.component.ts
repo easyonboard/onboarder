@@ -12,6 +12,8 @@ import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCour
 import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
 import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
 import {DialogDeleteUsersComponent} from "./common/DialogDeleteUsers/dialog-delete-users.component";
+import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
+
 
 @Component({
   selector: 'app-root',
@@ -167,7 +169,7 @@ export class AppComponent {
   }
 
   openModalNewEmployee() {
-    this.dialog.open(DialogNewEmployeeComponent, {
+    this.dialog.open(UserInfoUpdateComponent, {
       height: '650px',
       width: '900px',
     });

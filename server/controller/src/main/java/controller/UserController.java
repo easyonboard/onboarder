@@ -69,9 +69,8 @@ public class UserController {
             roleDTO.setIdRole(role.getRoleTypeId());
 
             userDTO.setRole(roleDTO);
-            userService.addUser(userDTO);
 
-            userInformationDTO.setUserAccount(userDTO);
+            userInformationDTO.setUserAccount(userService.addUser(userDTO));
             userInformationDTO.setMailSent(false);
             userInformationDTO.setDepartment(userInformationDTO.getDepartment());
             userInformationService.addUserInfo(userInformationDTO);
