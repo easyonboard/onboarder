@@ -2,14 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
-import {UserDTO, UserInformationDTO} from '../domain/user';
+import {UserDTO} from '../domain/user';
 import {RootConst} from '../util/RootConst';
 import {Course} from '../domain/course';
 
 import {of} from 'rxjs/observable/of';
 import {tap} from 'rxjs/operators';
 import {TSMap} from 'typescript-map';
-import { RoleDTO, RoleType } from '../domain/role';
+import {RoleType} from '../domain/role';
 
 @Injectable()
 export class UserService {
@@ -89,16 +89,22 @@ export class UserService {
 
   }
 
-  saveCheckList(user: string, checkList:  TSMap<string, boolean>): Observable<Map<string, boolean>> {
+  saveCheckList(user: string, checkList: TSMap<string, boolean>): Observable<Map<string, boolean>> {
     const body = JSON.stringify({user: user, check: checkList.toJSON()});
     return this.http.post<Map<string, boolean>>(this.rootConst.WEB_SERVER_SAVE_CHECKLIST, body, this.httpOptions);
   }
 
   getUsersInDepartment(username: string): Observable<UserDTO[]> {
-        return this.http.get<UserDTO[]>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
-     }
+    return this.http.get<UserDTO[]>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
+  }
 
- getDepartmentForUsername(username): Observable<any> {
-        return this.http.get<any>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
-      }
+  getDepartmentForUsername(username): Observable<any> {
+    return this.http.get<any>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
+  }
+
+  removeUser(username: String) {
+
+    return this.http.post(this.rootConst.REMOVE_USER, username, this.httpOptions);
+
+  }
 }

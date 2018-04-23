@@ -202,3 +202,18 @@ footer {
 .dropdown-menu-item:hover {
     color: #2975cc;
 }
+
+
+.buttonDeleteUsers{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 950px;
+  background-color: #841439;
+  border: none;
+  color: #ffffff;
+  font-size: large;
+
+
+}

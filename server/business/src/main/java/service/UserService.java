@@ -135,6 +135,26 @@ public class UserService {
         checkListDAO.persistEntity(checkListEntity);
     }
 
+    public void deleteUser(String username) throws UserNotFoundException {
+
+        Optional<User> userOptional = userDAO.findUserByUsername(username);
+        if (userOptional.isPresent()) {
+            User userEntity = userOptional.get();
+
+            UserInformation userInformationEntity = userInformationDAO.findUserInformationByUser(userEntity);
+            if (userInformationEntity != null) {
+                userInformationDAO.deleteEntity(userInformationEntity);
+            }
+
+            CheckList checkListEntity = checkListDAO.findByUser(userEntity);
+            if (checkListEntity != null) {
+                checkListDAO.deleteEntity(checkListEntity);
+            }
+            userDAO.deleteEntity(userEntity);
+        } else throw new UserNotFoundException(USER_NOT_FOUND_ERROR);
+
+    }
+
 //    public List<UserDTO> searchByName(String name){
 ////        userMapper.entitiesToDTOs(userDAO.searchByName(name));
 //return null;

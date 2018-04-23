@@ -10,8 +10,10 @@ import {UserAddComponent} from './users/user-add/user-add.component';
 import {CommonComponentsService} from './common/common-components.service';
 import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
 import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
-import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
+import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
+import {DialogDeleteUsersComponent} from "./common/DialogDeleteUsers/dialog-delete-users.component";
 import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
+
 
 @Component({
   selector: 'app-root',
@@ -131,11 +133,27 @@ export class AppComponent {
     if (!this.userIsLogged()) {
       return false;
     }
-    if (this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN')
+    if (this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN') {
       return true;
+    }
     else {
       return false;
     }
+
+  }
+
+  modalDeleteUserPermission(): boolean {
+    this.role = localStorage.getItem('userRole');
+    if (!this.userIsLogged()) {
+      return false;
+    }
+    if (this.role === 'ROLE_HR' || this.role === 'ROLE_ADMIN') {
+      return true;
+    }
+    else {
+      return false;
+    }
+
 
   }
 
@@ -144,7 +162,7 @@ export class AppComponent {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(DialogEnrolledCoursesForUserComponent, {
+     this.dialog.open(DialogEnrolledCoursesForUserComponent, {
       height: '650px',
       width: '900px'
     });
@@ -158,7 +176,7 @@ export class AppComponent {
   }
 
   openModalAddNewUser() {
-    const addUserComponent = this.dialog.open(UserAddComponent, {
+    this.dialog.open(UserAddComponent, {
       height: '850px',
       width: '600px',
     });
@@ -187,5 +205,12 @@ export class AppComponent {
       width: '900px',
     });
   }
-}
 
+  modalDeleteUser() {
+    this.dialog.open(DialogDeleteUsersComponent, {
+      height: '650px',
+      width: '900px',
+    });
+
+  }
+}
