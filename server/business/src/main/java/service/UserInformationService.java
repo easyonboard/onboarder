@@ -25,7 +25,7 @@ public class UserInformationService {
 
         userInformation.setTeam(userInfo.getTeam());
         userInformation.setBuilding(userInfo.getBuilding());
-        userInformation.setStore(userInfo.getStore());
+        userInformation.setFloor(userInfo.getFloor());
         userInformation.setBuddyUser(userMapper.mapToNewEntity(userInfo.getBuddyUser()));
 
 //        UserInformation userInformation = userInformationDAO
@@ -44,9 +44,9 @@ public class UserInformationService {
 
         userInformation.setTeam(userInformationDTO.getTeam());
         userInformation.setBuilding(userInformationDTO.getBuilding());
-        userInformation.setStore(userInformationDTO.getStore());
+        userInformation.setFloor(userInformationDTO.getFloor());
         userInformation.setDepartment(userInformationDTO.getDepartment());
-        userInformation.setMailSent(userInformationDTO.getMailSent());
+        //userInformation.setMailSent(userInformationDTO.getMailSent());
         userInformation.setProject(userInformationDTO.getProject());
         userInformation.setStartDate(userInformationDTO.getStartDate());
         userInformation.setUserAccount(appUser);

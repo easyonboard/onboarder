@@ -49,14 +49,15 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
 
         actualUserInfo.setTeam(userInfo.getTeam());
         actualUserInfo.setBuilding(userInfo.getBuilding());
-        actualUserInfo.setStore(userInfo.getStore());
+        actualUserInfo.setFloor(userInfo.getFloor());
 
-        Optional<User> newUser = userDAO.findUserByUsername(userInfo.getBuddyUser().getUsername());
-
-        actualUserInfo.setBuddyUser(newUser.get());
+        if (userInfo.getBuddyUser() != null)
+        {
+            Optional<User> newUser = userDAO.findUserByUsername(userInfo.getBuddyUser().getUsername());
+            actualUserInfo.setBuddyUser(newUser.get());
+        }
 
         return em.merge(userInfo);
-
     }
 
   public List<UserInformation> usersWhoStartOnGivenDate(Date givenDate) {
@@ -64,11 +65,5 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         q.setParameter("givenDate", givenDate, TemporalType.DATE);
 
         return q.getResultList();
-    }
-
-    @Transactional
-    public void setEmailSendFlag(UserInformation ui, boolean isMailSend) {
-        ui.setMailSent(isMailSend);
-        this.persistEntity(ui);
     }
 }

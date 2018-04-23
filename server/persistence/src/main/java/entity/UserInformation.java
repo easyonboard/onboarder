@@ -20,7 +20,7 @@ public class UserInformation implements Serializable {
     @Column
     private String building;
     @Column
-    private String store;
+    private String floor;
     @Column
     private String project;
     @Column
@@ -38,16 +38,13 @@ public class UserInformation implements Serializable {
     @JoinColumn(name = "user_account")
     private User userAccount;
 
-    @Column(columnDefinition="NUMBER(1)")
-    private Boolean mailSent;
-
     public UserInformation() {
     }
 
-    public UserInformation(String team, String building, String store, String project, Date startDate, User userBuddy) {
+    public UserInformation(String team, String building, String floor, String project, Date startDate, User userBuddy) {
         this.team = team;
         this.building = building;
-        this.store = store;
+        this.floor = floor;
         this.project = project;
         this.startDate = startDate;
         this.buddyUser = userBuddy;
@@ -61,8 +58,8 @@ public class UserInformation implements Serializable {
         return building;
     }
 
-    public String getStore() {
-        return store;
+    public String getFloor() {
+        return floor;
     }
 
     public String getProject() {
@@ -81,8 +78,8 @@ public class UserInformation implements Serializable {
         this.building = building;
     }
 
-    public void setStore(String floor) {
-        this.store = floor;
+    public void setFloor(String floor) {
+        this.floor = floor;
     }
 
     public void setProject(String project) {
@@ -115,14 +112,6 @@ public class UserInformation implements Serializable {
 
     public void setUserAccount(User userAccount) {
         this.userAccount = userAccount;
-    }
-
-    public Boolean isMailSent() {
-        return mailSent;
-    }
-
-    public void setMailSent(Boolean mailSent) {
-        this.mailSent = mailSent;
     }
 
     public DepartmentType getDepartment() {

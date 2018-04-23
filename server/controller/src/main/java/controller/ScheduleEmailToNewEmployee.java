@@ -21,7 +21,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.logging.Logger;
 
-
 //@Component
 @Controller
 public class ScheduleEmailToNewEmployee {
@@ -35,12 +34,11 @@ public class ScheduleEmailToNewEmployee {
     private final List<String> mandatoryFieldsFromUserEntity = Arrays.asList("name", "username", "password", "email");
     private final List<String> mandatoryFieldsFromUserInfoEntity = Arrays.asList("team", "building", "floor", "startDate");
 
-
     /**
      * try to send email for new employees on 7:00 every weekday
      */
 
-//    @Scheduled(cron = "0 0 * * * MON-FRI")
+    // @Scheduled(cron = "0 0 * * * MON-FRI")
     @RequestMapping(value = "/emailsch", method = RequestMethod.GET)
     public ResponseEntity reportCurrentTime() {
         List<UserInformation> usersInfoForUserWhoStartNextWeek = userInformationDAO.usersWhoStartOnGivenDate(getNextWeekDate());
@@ -48,22 +46,21 @@ public class ScheduleEmailToNewEmployee {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
         usersInfoForUserWhoStartNextWeek.stream()
-                .filter(userInformation -> !userInformation.isMailSent())
+                //.filter(userInformation -> !userInformation.isMailSent())
                 .filter(userInformation -> hasNotNullFields(mandatoryFieldsFromUserInfoEntity, userInformation))
                 .forEach(userInformation -> usersWhoStartNextWeek.add(userInformation.getUserAccount()));
-
 
         usersWhoStartNextWeek.stream()
                 .filter(user -> hasNotNullFields(mandatoryFieldsFromUserEntity, user))
                 .forEach(user -> {
                     UserInformation ui = findUserInfoByUser(usersInfoForUserWhoStartNextWeek, user).get();
-// TODO : call send email method here
+                    // TODO : call send email method here
 
                     String dateWithZeroTime = null;
                     dateWithZeroTime = formatter.format(ui.getStartDate());
 
                     System.out.println(dateWithZeroTime);
-                    String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", "aici", ui.getBuddyUser().getName(), ui.getStore(), ui.getBuilding());
+                    String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", "aici", ui.getBuddyUser().getName(), ui.getFloor(), ui.getBuilding());
 
                     MailSender sender = new MailSender();
                     //sender.sendMail(user.getEmail(), "", emailBody);
@@ -80,7 +77,7 @@ public class ScheduleEmailToNewEmployee {
 
                     LOGGER.info(emailBody);
                     LOGGER.info("An email has been send to " + user.getName() + " at " + Calendar.getInstance().getTime());
-                    userInformationDAO.setEmailSendFlag(ui, true);
+                    //userInformationDAO.setEmailSendFlag(ui, true);
                 });
 
 
