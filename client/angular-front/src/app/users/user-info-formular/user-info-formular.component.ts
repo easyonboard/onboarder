@@ -33,7 +33,7 @@ export class UserInfoFormularComponent implements OnInit {
   ngOnInit() {
     if (this.userInformation.buddyUser === undefined) {
       this.userInformation.buddyUser = new UserDTO();
-      this.userInformation.buddyUser.name = ' ';
+      this.userInformation.buddyUser.name = '';
     }
 
     this.users$ = this.searchTerms.pipe(

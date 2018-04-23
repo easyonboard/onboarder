@@ -23,7 +23,7 @@ public class CheckListService {
     public CheckListDTO addCheckList(UserInformationDTO userInformationDTO, User appUser) {
         CheckList checkList = new CheckList();
 
-        boolean hasBuddyAssigned = userInformationDTO.getBuddyUser() != null ? true : false;
+        boolean hasBuddyAssigned = userInformationDTO.getBuddyUser().getName().equals("") ? false : true;
         checkList.setHasBuddyAssigned(hasBuddyAssigned);
         checkList.setUserAccount(appUser);
 
