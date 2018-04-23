@@ -73,8 +73,9 @@ public class UserService {
         User user = new User();
 
         User appUser = userDAO.persistEntity(userMapper.mapToEntity(userDTO, user));
+        User buddyUser = userDAO.findEntity(userInformationDTO.getBuddyUser().getIdUser());
 
-        userInformationService.addUserInfo(userInformationDTO, appUser);
+        userInformationService.addUserInfo(userInformationDTO, appUser, buddyUser);
         checkListService.addCheckList(userInformationDTO, appUser);
     }
 

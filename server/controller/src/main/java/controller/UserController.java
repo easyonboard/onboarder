@@ -1,6 +1,5 @@
 package controller;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,7 +7,6 @@ import dto.CheckListDTO;
 import dto.RoleDTO;
 import dto.UserDTO;
 import dto.UserInformationDTO;
-import entity.enums.DepartmentType;
 import entity.enums.RoleType;
 import exception.InvalidDataException;
 import exception.RoleNameNotFoundException;

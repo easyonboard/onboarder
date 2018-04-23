@@ -39,7 +39,7 @@ public class UserInformationService {
 //        userInformationDAO.updateEntity(userInformation);
     }
 
-    public void addUserInfo(UserInformationDTO userInformationDTO, User appUser) {
+    public void addUserInfo(UserInformationDTO userInformationDTO, User appUser, User buddyUser) {
         UserInformation userInformation = new UserInformation();
 
         userInformation.setTeam(userInformationDTO.getTeam());
@@ -50,6 +50,7 @@ public class UserInformationService {
         userInformation.setProject(userInformationDTO.getProject());
         userInformation.setStartDate(userInformationDTO.getStartDate());
         userInformation.setUserAccount(appUser);
+        userInformation.setBuddyUser(buddyUser);
 
         userInformationDAO.persistEntity(userInformation);
     }
