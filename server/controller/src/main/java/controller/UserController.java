@@ -92,6 +92,14 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/user/updateUserPassword", method = RequestMethod.POST)
+    public ResponseEntity updateUserPassword(@RequestBody UserDTO user) {
+        userService.updateUserPassword(user.getUsername(), user.getPassword());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/allUsers", method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         List<UserDTO> users = userService.getAllUsers();
@@ -174,7 +182,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "user/removeUser", method = RequestMethod.POST)
-    public ResponseEntity removeUser(@RequestBody String  username){
+    public ResponseEntity removeUser(@RequestBody String username) {
 
         try {
             userService.deleteUser(username);

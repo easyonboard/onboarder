@@ -22,7 +22,8 @@ import {StarRatingModule} from 'angular-star-rating';
 import {
   MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
   MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule,
-  MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule, MatExpansionModule
+  MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule, MatExpansionModule,
+  MatSnackBarModule, MatInputModule
 } from '@angular/material';
 import {ReviewService} from './service/review.service';
 import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
@@ -37,6 +38,7 @@ import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 import {DialogDeleteUsersComponent} from './common/DialogDeleteUsers/dialog-delete-users.component';
 import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
+import {DialogEditProfileComponent} from './common/DialogEditProfile/dialog-edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update
     DialogDeleteUsersComponent,
     UserInfoFormularComponent,
     UserInfoUpdateComponent,
-    UsersInDepartmentListComponent
+    UsersInDepartmentListComponent,
+    DialogEditProfileComponent
   ],
   imports: [
     FormsModule,
@@ -87,7 +90,9 @@ import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update
     MatOptionModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSnackBarModule,
+    MatInputModule
   ],
   entryComponents: [
     DialogCheckListComponent,
@@ -98,7 +103,9 @@ import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update
     UsersInDepartmentListComponent,
     DialogDeleteUsersComponent,
     UserInfoUpdateComponent,
-    UserInfoFormularComponent
+    UserInfoFormularComponent,
+    DialogEditProfileComponent
+
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
     UserInformationService, CommonComponentsService],

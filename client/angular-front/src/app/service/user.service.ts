@@ -28,7 +28,7 @@ export class UserService {
   }
 
   login(user: UserDTO): Observable<UserDTO> {
-    let body = JSON.stringify({username: user.username, password: user.password});
+    const body = JSON.stringify({username: user.username, password: user.password});
     return this.http.post<UserDTO>(this.rootConst.SERVER_AUTHENTIFICATION, body, this.httpOptions);
   }
 
@@ -40,8 +40,16 @@ export class UserService {
     return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }
 
+  updatePassword(username: string, password: string) {
+    const body = JSON.stringify({
+      username: username,
+      password: password,
+    });
+    return this.http.post<UserDTO>(this.rootConst.SERVER_UPDATE_USER_PASSWORD, body, this.httpOptions);
+  }
+
   updateUser(userDTO: UserDTO): any {
-    let body = JSON.stringify({
+    const body = JSON.stringify({
       username: userDTO.username,
       password: userDTO.password,
       email: userDTO.email,
@@ -61,7 +69,7 @@ export class UserService {
         return;
       }
 
-      let users = this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_NAME + term);
+      const users = this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_NAME + term);
       return users;
     }
     // in case term is undefined, we don't want to make a request to the server with a null param, so we return an empty observable

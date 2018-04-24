@@ -151,6 +151,17 @@ public class UserService {
 
     }
 
+    public void updateUserPassword(String username, String password) {
+        Optional<User> userOptional = userDAO.findUserByUsername(username);
+        if (userOptional.isPresent()) {
+            User user= userOptional.get();
+            if (password != null) {
+                user.setPassword(encrypt(password));
+            }
+            userDAO.persistEntity(user);
+        }
+    }
+
 //    public List<UserDTO> searchByName(String name){
 ////        userMapper.entitiesToDTOs(userDAO.searchByName(name));
 //return null;
