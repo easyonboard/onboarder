@@ -46,7 +46,6 @@ public class UserInformationService {
         userInformation.setBuilding(userInformationDTO.getBuilding());
         userInformation.setFloor(userInformationDTO.getFloor());
         userInformation.setDepartment(userInformationDTO.getDepartment());
-        //userInformation.setMailSent(userInformationDTO.getMailSent());
         userInformation.setProject(userInformationDTO.getProject());
         userInformation.setStartDate(userInformationDTO.getStartDate());
         userInformation.setUserAccount(appUser);

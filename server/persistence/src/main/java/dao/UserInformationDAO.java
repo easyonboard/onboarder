@@ -69,11 +69,6 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         return q.getResultList();
     }
 
-//    @Transactional
-//    public void setEmailSendFlag(UserInformation ui, boolean isMailSend) {
-//        ui.setMailSent(isMailSend);
-//        this.persistEntity(ui);
-//    }
 
 
     public UserInformation findUserInformationByUser(User userEntity){

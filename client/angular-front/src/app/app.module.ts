@@ -34,8 +34,8 @@ import {ToDoListForBuddyComponent} from './common/DialogToDoListForBuddy/dialog-
 import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
 import {DialogCheckListComponent} from './common/DialogCheckList/dialog-check-list.component';
 import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
-import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
-import {DialogDeleteUsersComponent} from "./common/DialogDeleteUsers/dialog-delete-users.component";
+import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
+import {DialogDeleteUsersComponent} from './common/DialogDeleteUsers/dialog-delete-users.component';
 import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
 
 @NgModule({
@@ -55,7 +55,7 @@ import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update
     DialogEnrolledCoursesForUserComponent,
     DialogNewEmployeeComponent,
     ToDoListForBuddyComponent,
-    DialogDeleteUsersComponent
+    DialogDeleteUsersComponent,
     UserInfoFormularComponent,
     UserInfoUpdateComponent,
     UsersInDepartmentListComponent
@@ -96,7 +96,7 @@ import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update
     ToDoListForBuddyComponent,
     UserAddComponent,
     UsersInDepartmentListComponent,
-    DialogDeleteUsersComponent
+    DialogDeleteUsersComponent,
     UserInfoUpdateComponent,
     UserInfoFormularComponent,
 

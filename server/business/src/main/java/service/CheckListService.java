@@ -32,8 +32,15 @@ public class CheckListService {
         return checkListMapper.mapToDTO(checkListDAO.persistEntity(checkList));
     }
 
-    public CheckList findByUser(User userEntity) {
-        return checkListDAO.findByUser(userEntity);
+    public CheckListDTO findByUser(User userEntity) {
+        return checkListMapper.mapToDTO(checkListDAO.findByUser(userEntity));
     }
 
+    public boolean isMailSentToUser(User userEntityt) {
+        return this.findByUser(userEntityt).isMailSent();
+    }
+
+    public void setValue(User user, String fieldValue, boolean value) {
+        checkListDAO.setValue(user,fieldValue,value);
+    }
 }
