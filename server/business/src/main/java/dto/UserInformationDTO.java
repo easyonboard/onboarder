@@ -14,6 +14,7 @@ public class UserInformationDTO {
     private String project;
     private Date startDate;
     private DepartmentType department;
+    private int mailSent;
 
     private UserDTO buddyUser;
     private UserDTO userAccount;
@@ -91,5 +92,13 @@ public class UserInformationDTO {
 
     public void setDepartment(DepartmentType department) {
         this.department = department;
+    }
+
+    public int getMailSent() {
+        return mailSent;
+    }
+
+    public void setMailSent(int mailSent) {
+        this.mailSent = mailSent;
     }
 }

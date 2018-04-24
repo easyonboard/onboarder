@@ -1,7 +1,6 @@
 package service;
 
 import dao.CheckListDAO;
-
 import dto.CheckListDTO;
 import dto.UserInformationDTO;
 import dto.mapper.CheckListMapper;

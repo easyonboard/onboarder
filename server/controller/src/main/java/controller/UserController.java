@@ -66,9 +66,7 @@ public class UserController {
             RoleDTO roleDTO = roleService.findRoleById(role.getRoleTypeId());
             userDTO.setRole(roleDTO);
 
-            //userInformationDTO.setMailSent(false);
             userService.addUser(userDTO, userInformationDTO);
-
         } catch (InvalidDataException exception) {
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
         } catch (JsonProcessingException e) {
@@ -103,7 +101,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/newUsers", method = RequestMethod.GET)
     public ResponseEntity<List<UserInformationDTO>> getAllNewUsers() {
-        List<UserInformationDTO> asd = userService.getAllNewUsers();
+        //List<UserInformationDTO> asd = userService.getAllNewUsers();
         return new ResponseEntity(userService.getAllNewUsers(), HttpStatus.OK);
     }
 

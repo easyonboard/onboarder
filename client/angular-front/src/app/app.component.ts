@@ -10,10 +10,9 @@ import {UserAddComponent} from './users/user-add/user-add.component';
 import {CommonComponentsService} from './common/common-components.service';
 import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
 import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
-import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
-import {DialogDeleteUsersComponent} from "./common/DialogDeleteUsers/dialog-delete-users.component";
+import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
+import {DialogDeleteUsersComponent} from './common/DialogDeleteUsers/dialog-delete-users.component';
 import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
-
 
 @Component({
   selector: 'app-root',
@@ -135,8 +134,7 @@ export class AppComponent {
     }
     if (this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN') {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
 
@@ -149,11 +147,9 @@ export class AppComponent {
     }
     if (this.role === 'ROLE_HR' || this.role === 'ROLE_ADMIN') {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
-
 
   }
 
@@ -181,7 +177,6 @@ export class AppComponent {
       width: '600px',
     });
   }
-
 
   redirectToCoursePage() {
     location.replace(this.rootConst.FRONT_COURSES_PAGE);

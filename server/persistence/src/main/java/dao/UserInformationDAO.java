@@ -1,6 +1,5 @@
 package dao;
 
-import entity.CheckList;
 import entity.User;
 import entity.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +51,7 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         actualUserInfo.setTeam(userInfo.getTeam());
         actualUserInfo.setBuilding(userInfo.getBuilding());
         actualUserInfo.setFloor(userInfo.getFloor());
+        actualUserInfo.setMailSent(userInfo.getMailSent());
 
         if (userInfo.getBuddyUser() != null)
         {

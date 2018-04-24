@@ -16,7 +16,6 @@ export class UserInformationService {
   }
 
   updateUserInformation(userInfo: UserInformationDTO): Observable<UserInformationDTO> {
-    console.log('=================>' + userInfo.floor);
     let body = JSON.stringify({
       idUserInformation: userInfo.idUserInformation,
       team: userInfo.team, building: userInfo.building, floor: userInfo.floor, buddyUser: userInfo.buddyUser,
