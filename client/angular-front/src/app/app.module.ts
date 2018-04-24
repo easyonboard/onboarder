@@ -55,7 +55,7 @@ import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update
     DialogEnrolledCoursesForUserComponent,
     DialogNewEmployeeComponent,
     ToDoListForBuddyComponent,
-    DialogDeleteUsersComponent
+    DialogDeleteUsersComponent,
     UserInfoFormularComponent,
     UserInfoUpdateComponent,
     UsersInDepartmentListComponent
@@ -96,11 +96,9 @@ import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update
     ToDoListForBuddyComponent,
     UserAddComponent,
     UsersInDepartmentListComponent,
-    DialogDeleteUsersComponent
+    DialogDeleteUsersComponent,
     UserInfoUpdateComponent,
-    UserInfoFormularComponent,
-
-
+    UserInfoFormularComponent
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
     UserInformationService, CommonComponentsService],

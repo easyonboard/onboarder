@@ -10,8 +10,6 @@ import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.Null;
-
 @Service
 public class CheckListService {
 
