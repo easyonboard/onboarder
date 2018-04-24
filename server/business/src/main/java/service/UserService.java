@@ -66,12 +66,11 @@ public class UserService {
     }
 
     public void addUser(UserDTO userDTO, UserInformationDTO userInformationDTO) throws InvalidDataException {
+        userDTO.setPassword(encrypt(userDTO.getUsername()));
         userValidator.validateUsername(userDTO.getUsername());
         userValidator.validateUserData(userDTO);
-        userDTO.setPassword(encrypt(userDTO.getPassword()));
 
         User user = new User();
-
         User appUser = userDAO.persistEntity(userMapper.mapToEntity(userDTO, user));
         User buddyUser = userDAO.findEntity(userInformationDTO.getBuddyUser().getIdUser());
 
@@ -94,7 +93,6 @@ public class UserService {
             User entity = userMapper.mapToEntity(userUpdated, user.get());
             userValidator.validateUserData(userMapper.mapToDTO(entity));
             userDAO.persistEntity(entity);
-
         }
     }
 

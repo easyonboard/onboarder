@@ -24,20 +24,15 @@ export class UserAddComponent implements OnInit {
   public selectedRole: RoleType;
 
   public user = new UserDTO();
-  public role: RoleDTO = new RoleDTO();
-
   public roles = Object.keys(RoleType);
 
-  constructor(private userService: UserService, private userInformationService: UserInformationService) {
-  }
+  constructor(private userService: UserService, private userInformationService: UserInformationService) { }
 
   ngOnInit(): void {
-
   }
 
   addUser(): void {
     this.user.username = this.firstName + this.lastName;
-    this.user.password = 'testPassw';
     this.user.name = this.firstName + ' ' + this.lastName;
 
     this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe();

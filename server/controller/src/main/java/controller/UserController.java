@@ -65,8 +65,6 @@ public class UserController {
 
             RoleDTO roleDTO = roleService.findRoleById(role.getRoleTypeId());
             userDTO.setRole(roleDTO);
-
-            //userInformationDTO.setMailSent(false);
             userService.addUser(userDTO, userInformationDTO);
 
         } catch (InvalidDataException exception) {
