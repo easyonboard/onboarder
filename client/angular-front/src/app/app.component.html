@@ -41,7 +41,7 @@
     </button>
 
 
-    <ul class="dropdown" id="userManagmentDropDown">
+    <ul class="dropdown" id="userManagmentDropDown" *ngIf="userManagementPermission()">
       <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown"
          style="color: white; cursor: pointer; ">
         <i class="fa fa-user-circle-o" style="margin-right: 8px"> </i>
@@ -50,7 +50,7 @@
       </a>
       <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
         <li>
-          <a class="dropdown-menu-item" (click)="openModalAddNewUser()" title="Add New User" *ngIf="newUserPopUp()">
+          <a class="dropdown-menu-item" (click)="openModalAddNewUser()" title="Add New User" *ngIf="addUserPermission()">
             <i class="fa fa-user-plus"></i> Add User
           </a>
         </li>
@@ -59,7 +59,7 @@
 
         <li>
           <a class="dropdown-menu-item" (click)="openModalNewEmployee()" title="New Employees List"
-             *ngIf="newEmployeesPopUp()"><i class="material-icons">supervisor_account</i> New Employees
+             *ngIf="newEmployeesPermission()"><i class="material-icons">supervisor_account</i> New Employees
           </a>
         </li>
 
@@ -67,7 +67,7 @@
 
         <li>
           <a class="dropdown-menu-item" (click)="openModalEmployeesInDepartment()"
-             title="Employees In Department List" *ngIf="usersByDepartment()">
+             title="Employees In Department List" *ngIf="viewUsersByDepartmentPermission()">
             <i class="fa fa-users"></i> Employees in Department
           </a>
         </li>
@@ -76,7 +76,7 @@
 
         <li>
           <a class="dropdown-menu-item" (click)="modalDeleteUser()" title="Employees In Department List"
-             *ngIf="modalDeleteUserPermission()"><i class="fa fa-user-times"></i>Remove users
+             *ngIf="deleteUserPermission()"><i class="fa fa-user-times"></i>Remove users
           </a>
         </li>
       </ul>
@@ -95,7 +95,7 @@
           </a>
         </li>
         <li class="divider"></li>
-        <li><a mat-button (click)="openDialog()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a>
+        <li><a mat-button (click)="openDialogCoursesForUser()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a>
         </li>
 
         <li class="divider" *ngIf="isBuddy()===true"></li>

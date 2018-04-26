@@ -51,7 +51,6 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         actualUserInfo.setTeam(userInfo.getTeam());
         actualUserInfo.setBuilding(userInfo.getBuilding());
         actualUserInfo.setFloor(userInfo.getFloor());
-        actualUserInfo.setMailSent(userInfo.getMailSent());
 
         if (userInfo.getBuddyUser() != null)
         {
@@ -72,8 +71,8 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
 
 
     public UserInformation findUserInformationByUser(User userEntity){
-        Query q=em.createQuery("select us from UserInformation us where us.userAccount=:userAccount");
-        q.setParameter("userAccount", userEntity);
+        Query q=em.createQuery("select us from UserInformation us where us.userAccount=:userEntity");
+        q.setParameter("userEntity", userEntity);
         try {return (UserInformation) q.getSingleResult();}
         catch (NoResultException e){
             return null;

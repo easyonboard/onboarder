@@ -25,8 +25,6 @@ public class UserInformation implements Serializable {
     private String project;
     @Column
     private Date startDate;
-    @Column
-    private Integer mailSent;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -50,7 +48,6 @@ public class UserInformation implements Serializable {
         this.project = project;
         this.startDate = startDate;
         this.buddyUser = userBuddy;
-        this.mailSent = mailSent;
     }
 
     public String getTeam() {
@@ -93,13 +90,6 @@ public class UserInformation implements Serializable {
         this.startDate = startDate;
     }
 
-    public Integer getMailSent() {
-        return mailSent;
-    }
-
-    public void setMailSent(Integer mailSent) {
-        this.mailSent = mailSent;
-    }
 
     public User getBuddyUser() {
         return buddyUser;
