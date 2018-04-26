@@ -22,8 +22,6 @@ export class UserInfoUpdateComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('user name is null ');
-
     this.childUserInfoFormularComponent.userInformation.idUserInformation = this.userInformation.idUserInformation;
     this.childUserInfoFormularComponent.userInformation.team = this.userInformation.team;
     this.childUserInfoFormularComponent.userInformation.building = this.userInformation.building;

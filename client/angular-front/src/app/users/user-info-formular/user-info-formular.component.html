@@ -17,7 +17,7 @@
 
 <div class="form-group">
     <label>Department</label>
-    <mat-select placeholder="Select department" (selectionChange)="selectValue($event)">
+    <mat-select placeholder="Select department" (selectionChange)="selectValue($event)" value={{userInformation.department}}>
         <mat-option *ngFor="let departmentValue of departments" [value]="departmentValue">
             {{departmentType[departmentValue]}}
         </mat-option>
