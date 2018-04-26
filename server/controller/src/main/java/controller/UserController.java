@@ -197,4 +197,13 @@ public class UserController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "getUserInformation", method = RequestMethod.POST)
+    public ResponseEntity getUserInformationForUser(@RequestBody String  username) {
+
+    return new ResponseEntity(userService.getUserInformationForUser(username), HttpStatus.OK);
+    }
+
 }

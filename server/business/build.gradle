@@ -36,6 +36,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.sun.mail/javax.mail
     compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.0'
+    compile group: 'org.apache.poi', name: 'poi', version: '3.7'
 
 
 }

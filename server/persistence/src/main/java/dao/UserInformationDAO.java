@@ -76,8 +76,8 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
 
 
     public UserInformation findUserInformationByUser(User userEntity){
-        Query q=em.createQuery("select us from UserInformation us where us.userAccount=:userEntity");
-        q.setParameter("userEntity", userEntity);
+        Query q=em.createQuery("select us from UserInformation us where us.userAccount=:userAccount");
+        q.setParameter("userAccount", userEntity);
         try {return (UserInformation) q.getSingleResult();}
         catch (NoResultException e){
             return null;

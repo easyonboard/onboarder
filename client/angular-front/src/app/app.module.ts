@@ -36,6 +36,7 @@ import {DialogCheckListComponent} from './common/DialogCheckList/dialog-check-li
 import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
 import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
 import {DialogDeleteUsersComponent} from "./common/DialogDeleteUsers/dialog-delete-users.component";
+import {ExcelService} from "./service/excel.service";
 
 
 @NgModule({
@@ -98,7 +99,7 @@ import {DialogDeleteUsersComponent} from "./common/DialogDeleteUsers/dialog-dele
 
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
-    UserInformationService, CommonComponentsService],
+    UserInformationService, CommonComponentsService, ExcelService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

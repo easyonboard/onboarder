@@ -6,7 +6,7 @@ export class UserDTO {
   name: string;
   username: string;
   password: string;
-  role:RoleDTO;
+  role: RoleDTO;
 }
 
 export class UserInformationDTO {
@@ -19,4 +19,13 @@ export class UserInformationDTO {
   userAccount: UserDTO;
   mailSent: boolean;
   startDate: Date;
+}
+
+export class UserDetailsToExport{
+  name: string;
+  email: string;
+  username: string;
+  startDate: string;
+  team: string;
+
 }
