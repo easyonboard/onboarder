@@ -17,7 +17,7 @@ export class UserInfoUpdateComponent implements OnInit {
   @ViewChild(UserInfoFormularComponent)
   private childUserInfoFormularComponent: UserInfoFormularComponent;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private userInformation: UserInformationDTO,
+  constructor(@Inject(MAT_DIALOG_DATA) public userInformation: UserInformationDTO,
               private userInformationService: UserInformationService, private userService: UserService) {
   }
 

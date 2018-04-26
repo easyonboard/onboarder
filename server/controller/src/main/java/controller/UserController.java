@@ -98,7 +98,6 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/allUsers", method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> getAllUsers() {
@@ -109,7 +108,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/newUsers", method = RequestMethod.GET)
     public ResponseEntity<List<UserInformationDTO>> getAllNewUsers() {
-        //List<UserInformationDTO> asd = userService.getAllNewUsers();
+        List<UserInformationDTO> asd = userService.getAllNewUsers();
         return new ResponseEntity(userService.getAllNewUsers(), HttpStatus.OK);
     }
 
@@ -139,13 +138,11 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/checkList", method = RequestMethod.POST)
     public ResponseEntity getCheckList(@RequestBody UserDTO user) {
         return new ResponseEntity(userService.getCheckList(user), HttpStatus.OK);
     }
-
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/saveCheckList", method = RequestMethod.POST)
@@ -170,7 +167,6 @@ public class UserController {
         return mapper.convertValue(node.get("check"), CheckListDTO.class);
     }
 
-
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "user/department", method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> getUsersInDepartmentForLoggedInUser(@RequestParam(value = "username") String username) {
@@ -178,7 +174,6 @@ public class UserController {
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "user/removeUser", method = RequestMethod.POST)
@@ -191,7 +186,6 @@ public class UserController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
-
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "getUserInformation", method = RequestMethod.POST)
