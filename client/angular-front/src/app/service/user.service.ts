@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
-import {UserDTO} from '../domain/user';
+import {UserDTO, UserInformationDTO} from '../domain/user';
 import {RootConst} from '../util/RootConst';
 import {Course} from '../domain/course';
 
@@ -32,7 +32,7 @@ export class UserService {
     return this.http.post<UserDTO>(this.rootConst.SERVER_AUTHENTIFICATION, body, this.httpOptions);
   }
 
-  addUser(user: UserDTO, role: RoleType) {
+  addUser(user: UserDTO, role: RoleType, userInfo: UserInformationDTO) {
     console.log('user stuff ' + user.email + '\n');
     console.log('role stuff ' + role + '\n');
 

@@ -1,12 +1,14 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {UserInformationService} from '../../service/user-information.service';
-import {UserService} from '../../service/user.service';
-import {Observable} from 'rxjs/Observable';
-import {UserDTO, UserInformationDTO} from '../../domain/user';
-import {Subject} from 'rxjs/Subject';
+import { Component, OnInit, Input, Inject, ContentChild } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
-import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import { UserInformationService } from '../../service/user-information.service';
+import { UserService } from '../../service/user.service';
+import { UserDTO, UserInformationDTO } from '../../domain/user';
+import { DepartmentType } from '../../domain/departmentType';
+
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
 
 @Component({
   selector: 'app-user-info-formular',
@@ -15,23 +17,25 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 })
 export class UserInfoFormularComponent implements OnInit {
 
-  selectedBuddy: UserDTO;
+  @Input()
   show = true;
-  users$: Observable<UserDTO[]>;
+  @Input()
+  userInformation = new UserInformationDTO();
+
+  public departmentType = DepartmentType;
+  public departments = Object.keys(DepartmentType);
+
+  public users$: Observable<UserDTO[]>;
   private searchTerms = new Subject<string>();
 
-  constructor(private userInformationService: UserInformationService, private userService: UserService,
-              @Inject(MAT_DIALOG_DATA) public userInformation: UserInformationDTO) {
-  }
-
-  search(term: string): void {
-    this.searchTerms.next(term);
-    this.show = true;
-  }
+  constructor(private userInformationService: UserInformationService, private userService: UserService) { }
 
   ngOnInit() {
-    this.selectedBuddy = new UserDTO();
-    this.selectedBuddy.name = '';
+    if (this.userInformation.buddyUser === undefined) {
+      this.userInformation.buddyUser = new UserDTO();
+      this.userInformation.buddyUser.name = ' ';
+    }
+
     this.users$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
@@ -42,20 +46,12 @@ export class UserInfoFormularComponent implements OnInit {
     );
   }
 
-  updateUserInformation(team: string, building: string,
-                        floor: string, project: string,
-                        mailSent: boolean): void {
-
-    team.trim();
-    building.trim();
-    floor.trim();
-
-    let idUserInformation = this.userInformation.idUserInformation;
-    let buddyUser = this.selectedBuddy;
-    let userAccount = this.userInformation.userAccount;
-    let startDate: Date;
-    let userInfo: UserInformationDTO = {idUserInformation, team, building, floor, project, buddyUser, userAccount, mailSent, startDate};
-    this.userInformationService.updateUserInformation(userInfo).subscribe();
+  search(term: string): void {
+    this.searchTerms.next(term);
+    this.show = true;
   }
 
+  selectValue(event: MatSelectChange) {
+    this.userInformation.department = event.value;
+  }
 }

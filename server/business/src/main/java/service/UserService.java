@@ -61,12 +61,12 @@ public class UserService {
     }
 
 
-    public void addUser(UserDTO userDTO) throws InvalidDataException {
+    public UserDTO addUser(UserDTO userDTO) throws InvalidDataException {
         userValidator.validateUsername(userDTO.getUsername());
         userValidator.validateUserData(userDTO);
         userDTO.setPassword(encrypt(userDTO.getPassword()));
         User user = new User();
-        userDAO.persistEntity(userMapper.mapToEntity(userDTO, user));
+        return userMapper.mapToDTO(userDAO.persistEntity(userMapper.mapToEntity(userDTO, user)));
     }
 
     public String encrypt(String initString) {

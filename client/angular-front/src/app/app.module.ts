@@ -36,8 +36,10 @@ import {DialogCheckListComponent} from './common/DialogCheckList/dialog-check-li
 import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
 import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
 import {DialogDeleteUsersComponent} from "./common/DialogDeleteUsers/dialog-delete-users.component";
+
 import {ExcelService} from "./service/excel.service";
 
+import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
 
 @NgModule({
   declarations: [
@@ -56,8 +58,10 @@ import {ExcelService} from "./service/excel.service";
     DialogEnrolledCoursesForUserComponent,
     DialogNewEmployeeComponent,
     ToDoListForBuddyComponent,
-    UsersInDepartmentListComponent,
-    DialogDeleteUsersComponent
+    DialogDeleteUsersComponent,
+    UserInfoFormularComponent,
+    UserInfoUpdateComponent,
+    UsersInDepartmentListComponent
   ],
   imports: [
     FormsModule,
@@ -95,7 +99,10 @@ import {ExcelService} from "./service/excel.service";
     ToDoListForBuddyComponent,
     UserAddComponent,
     UsersInDepartmentListComponent,
-    DialogDeleteUsersComponent
+    DialogDeleteUsersComponent,
+    UserInfoUpdateComponent,
+    UserInfoFormularComponent,
+
 
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,

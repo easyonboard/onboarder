@@ -1,4 +1,5 @@
 import {RoleDTO} from './role';
+import { DepartmentType } from './departmentType';
 
 export class UserDTO {
   idUser: number;
@@ -15,6 +16,7 @@ export class UserInformationDTO {
   building: string;
   floor: string;
   project: string;
+  department: DepartmentType;
   buddyUser: UserDTO;
   userAccount: UserDTO;
   mailSent: boolean;
