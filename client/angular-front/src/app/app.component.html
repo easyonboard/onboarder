@@ -72,20 +72,62 @@
             </ul>
         </ul>
 
-        <ul class="dropdown" id="loggedUserButton">
-            <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown" style="color: white; cursor: pointer; "><i
+    <ul class="dropdown" id="userManagmentDropDown" *ngIf="userManagementPermission()">
+      <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown"
+         style="color: white; cursor: pointer; ">
+        <i class="fa fa-user-circle-o" style="margin-right: 8px"> </i>
+        User management
+        <span class="caret" style="margin-left: 3px"></span>
+      </a>
+      <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
+        <li>
+          <a class="dropdown-menu-item" (click)="openModalAddNewUser()" title="Add New User" *ngIf="addUserPermission()">
+            <i class="fa fa-user-plus"></i> Add User
+          </a>
+        </li>
+
+        <li class="divider"></li>
+
+        <li>
+          <a class="dropdown-menu-item" (click)="openModalNewEmployee()" title="New Employees List"
+             *ngIf="newEmployeesPermission()"><i class="material-icons">supervisor_account</i> New Employees
+          </a>
+        </li>
+
+        <li class="divider"></li>
+
+        <li>
+          <a class="dropdown-menu-item" (click)="openModalEmployeesInDepartment()"
+             title="Employees In Department List" *ngIf="viewUsersByDepartmentPermission()">
+            <i class="fa fa-users"></i> Employees in Department
+          </a>
+        </li>
+
+        <li class="divider"></li>
+
+        <li>
+          <a class="dropdown-menu-item" (click)="modalDeleteUser()" title="Employees In Department List"
+             *ngIf="deleteUserPermission()"><i class="fa fa-user-times"></i>Remove users
+          </a>
+        </li>
+      </ul>
+    </ul>
+
+    <ul class="dropdown" id="loggedUserButton">
+      <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown"
+         style="color: white; cursor: pointer; "><i
         class="fa fa-user-circle-o"
         style="margin-right: 8px"></i>{{username}}<span class="caret" style="margin-left: 3px"></span>
       </a>
-            <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
-                <li>
-                    <a (click)="openEditProfileDialog()" class="dropdown-menu-item">
-                        <span class="glyphicon glyphicon-pencil"></span> Change password
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li><a mat-button (click)="openDialog()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a>
-                </li>
+      <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
+        <li>
+          <a (click)="openEditProfileDialog()" class="dropdown-menu-item">
+            <span class="glyphicon glyphicon-pencil"></span> Change password
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li><a mat-button (click)="openDialogCoursesForUser()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a>
+        </li>
 
                 <li class="divider" *ngIf="isBuddy()===true"></li>
                 <li *ngIf="isBuddy()===true">

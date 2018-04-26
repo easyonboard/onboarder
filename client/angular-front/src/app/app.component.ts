@@ -63,7 +63,7 @@ export class AppComponent {
     return false;
   }
 
-  newEmployeesPopUp(): boolean {
+  newEmployeesPermission(): boolean {
     this.role = localStorage.getItem('userRole');
     if (!this.userIsLogged()) {
       return false;
@@ -75,7 +75,7 @@ export class AppComponent {
     }
   }
 
-  newUserPopUp(): boolean {
+  addUserPermission(): boolean {
     this.role = localStorage.getItem('userRole');
     if (!this.userIsLogged()) {
       return false;
@@ -87,7 +87,7 @@ export class AppComponent {
     }
   }
 
-  usersByDepartment(): boolean {
+  viewUsersByDepartmentPermission(): boolean {
     this.role = localStorage.getItem('userRole');
     if (!this.userIsLogged()) {
       return false;
@@ -100,7 +100,7 @@ export class AppComponent {
 
   }
 
-  modalDeleteUserPermission(): boolean {
+  deleteUserPermission(): boolean {
     this.role = localStorage.getItem('userRole');
     if (!this.userIsLogged()) {
       return false;
@@ -118,25 +118,16 @@ export class AppComponent {
     location.replace(this.rootConst.FRONT_LOGIN_PAGE);
   }
 
-  openDialog() {
-    this.dialog.open(DialogEnrolledCoursesForUserComponent, {
-      height: '650px',
-      width: '900px'
-    });
+  openDialogCoursesForUser() {
+    this.commonComponent.openDialogCoursesForUser();
   }
 
   openModalNewEmployee() {
-    this.dialog.open(DialogNewEmployeeComponent, {
-      height: '650px',
-      width: '900px',
-    });
+    this.commonComponent.openModalNewEmployee();
   }
 
   openModalAddNewUser() {
-    this.dialog.open(UserAddComponent, {
-      height: '850px',
-      width: '600px',
-    });
+    this.commonComponent.openModalAddNewUser();
   }
 
 
@@ -164,13 +155,14 @@ export class AppComponent {
   }
 
   modalDeleteUser() {
-    this.dialog.open(DialogDeleteUsersComponent, {
-      height: '650px',
-      width: '900px',
-    });
+    this.commonComponent.modalDeleteUser();
   }
 
   openEditProfileDialog() {
     this.commonComponent.openEditProfileDialog();
+  }
+
+  userManagementPermission(): boolean {
+    return this.addUserPermission() || this.newEmployeesPermission() || this.deleteUserPermission() || this.viewUsersByDepartmentPermission();
   }
 }
