@@ -22,13 +22,20 @@ export class UserInfoUpdateComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('user name is null ');
+
     this.childUserInfoFormularComponent.userInformation.idUserInformation = this.userInformation.idUserInformation;
     this.childUserInfoFormularComponent.userInformation.team = this.userInformation.team;
     this.childUserInfoFormularComponent.userInformation.building = this.userInformation.building;
     this.childUserInfoFormularComponent.userInformation.floor = this.userInformation.floor;
     this.childUserInfoFormularComponent.userInformation.project = this.userInformation.project;
     this.childUserInfoFormularComponent.userInformation.department = this.userInformation.department;
-    this.childUserInfoFormularComponent.userInformation.buddyUser = this.userInformation.buddyUser;
+    if (this.userInformation.buddyUser !== null) {
+      this.childUserInfoFormularComponent.userInformation.buddyUser = this.userInformation.buddyUser;
+    } else {
+      this.childUserInfoFormularComponent.userInformation.buddyUser = new UserDTO();
+      this.childUserInfoFormularComponent.userInformation.buddyUser.name = '';
+    }
     this.childUserInfoFormularComponent.userInformation.startDate = this.userInformation.startDate;
   }
 

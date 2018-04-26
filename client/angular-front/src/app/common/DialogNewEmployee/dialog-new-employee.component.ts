@@ -23,7 +23,6 @@ export class DialogNewEmployeeComponent implements OnInit {
 
     this.userInformationService.getNewUsers().subscribe(newEmployees => {
       this.newEmployees = newEmployees;
-      console.log(this.newEmployees[1].mailSent);
       console.log(this.newEmployees);
     });
   }

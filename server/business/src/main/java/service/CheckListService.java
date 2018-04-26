@@ -33,8 +33,8 @@ public class CheckListService {
         return checkListMapper.mapToDTO(checkListDAO.findByUser(userEntity));
     }
 
-    public boolean isMailSentToUser(User userEntityt) {
-        return this.findByUser(userEntityt).isMailSent();
+    public boolean isMailSentToUser(User userEntity) {
+        return this.findByUser(userEntity).isMailSent();
     }
 
     public void setValue(User user, String fieldValue, boolean value) {

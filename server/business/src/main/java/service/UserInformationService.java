@@ -50,7 +50,11 @@ public class UserInformationService {
         userInformation.setProject(userInformationDTO.getProject());
         userInformation.setStartDate(userInformationDTO.getStartDate());
         userInformation.setUserAccount(appUser);
-        userInformation.setBuddyUser(buddyUser);
+
+        if (buddyUser != null)
+        {
+            userInformation.setBuddyUser(buddyUser);
+        }
 
         userInformationDAO.persistEntity(userInformation);
     }
