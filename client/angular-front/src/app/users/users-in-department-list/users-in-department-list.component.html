@@ -3,7 +3,7 @@
   <button mat-raised-button title="Export Excel" (click)="export()"> <i class="material-icons">file_download</i> Download user details</button>
   <mat-expansion-panel (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false"
-                       *ngFor="let user of employeesInDepartment"
+                       *ngFor="let user of userDetails"
                        style="padding: 10px;">
     <mat-expansion-panel-header>
       <mat-panel-title style="margin-left: 20px;">
@@ -15,6 +15,9 @@
     <ul>
       <li><p style="margin-left: 50px;">Email: {{user.email}}</p></li>
       <li><p style="margin-left: 50px;">Username : {{user.username}}</p></li>
+      <li><p style="margin-left: 50px;">Project : {{user.project}}</p></li>
+      <li><p style="margin-left: 50px;">Team : {{user.team}}</p></li>
+      <li><p style="margin-left: 50px;">Start date : {{user.startDate}}</p></li>
     </ul>
   </mat-expansion-panel>
 

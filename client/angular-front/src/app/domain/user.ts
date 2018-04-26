@@ -29,5 +29,6 @@ export class UserDetailsToExport{
   username: string;
   startDate: string;
   team: string;
+  project: string;
 
 }

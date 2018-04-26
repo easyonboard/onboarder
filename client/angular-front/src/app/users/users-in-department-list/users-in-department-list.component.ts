@@ -68,6 +68,7 @@ export class UsersInDepartmentListComponent implements OnInit {
         userInfo.team = user.team;
         const myDate = new Date(user.startDate).toDateString();
         userInfo.startDate = myDate;
+        userInfo.project = user.project;
       });
     });
 
