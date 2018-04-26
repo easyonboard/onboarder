@@ -17,7 +17,7 @@ export class UserInfoUpdateComponent implements OnInit {
   @ViewChild(UserInfoFormularComponent)
   private childUserInfoFormularComponent: UserInfoFormularComponent;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private userInformation: UserInformationDTO,
+  constructor(@Inject(MAT_DIALOG_DATA) public userInformation: UserInformationDTO,
               private userInformationService: UserInformationService, private userService: UserService) {
   }
 
@@ -28,12 +28,7 @@ export class UserInfoUpdateComponent implements OnInit {
     this.childUserInfoFormularComponent.userInformation.floor = this.userInformation.floor;
     this.childUserInfoFormularComponent.userInformation.project = this.userInformation.project;
     this.childUserInfoFormularComponent.userInformation.department = this.userInformation.department;
-    if (this.userInformation.buddyUser !== null) {
-      this.childUserInfoFormularComponent.userInformation.buddyUser = this.userInformation.buddyUser;
-    } else {
-      this.childUserInfoFormularComponent.userInformation.buddyUser = new UserDTO();
-      this.childUserInfoFormularComponent.userInformation.buddyUser.name = '';
-    }
+    this.childUserInfoFormularComponent.userInformation.buddyUser = this.userInformation.buddyUser;
     this.childUserInfoFormularComponent.userInformation.startDate = this.userInformation.startDate;
   }
 

@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>New Employee Information</h2>
+<h2 mat-dialog-title>Information for {{userInformation.userAccount.name}} (team: {{userInformation.team }})</h2>
 <div mat-dialog-content style="height:550px">
-    <app-user-info-formular></app-user-info-formular>
-    <br>
-    <br>
-    <button id="addInfo" class="btn-add-user" (click)="updateUserInformation()">Add Info
-    </button>
+  <app-user-info-formular></app-user-info-formular>
+  <br>
+  <br>
+  <button id="addInfo" class="btn-add-user" (click)="updateUserInformation()">Add Info
+  </button>
 </div>
