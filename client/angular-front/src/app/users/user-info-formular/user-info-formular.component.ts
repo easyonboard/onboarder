@@ -1,14 +1,14 @@
-import { Component, OnInit, Input, Inject, ContentChild } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import {Component, OnInit, Input, Inject, ContentChild} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
 
-import { UserInformationService } from '../../service/user-information.service';
-import { UserService } from '../../service/user.service';
-import { UserDTO, UserInformationDTO } from '../../domain/user';
-import { DepartmentType } from '../../domain/departmentType';
+import {UserInformationService} from '../../service/user-information.service';
+import {UserService} from '../../service/user.service';
+import {UserDTO, UserInformationDTO} from '../../domain/user';
+import {DepartmentType} from '../../domain/departmentType';
 
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
+import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
+import {MAT_DIALOG_DATA, MatSelectChange} from '@angular/material';
 
 @Component({
   selector: 'app-user-info-formular',
@@ -16,7 +16,7 @@ import { MAT_DIALOG_DATA, MatSelectChange } from '@angular/material';
   styleUrls: ['./user-info-formular.component.css']
 })
 export class UserInfoFormularComponent implements OnInit {
-
+  public today: Date;
   @Input()
   show = true;
   @Input()
@@ -28,9 +28,11 @@ export class UserInfoFormularComponent implements OnInit {
   public users$: Observable<UserDTO[]>;
   private searchTerms = new Subject<string>();
 
-  constructor(private userInformationService: UserInformationService, private userService: UserService) { }
+  constructor(private userInformationService: UserInformationService, private userService: UserService) {
+  }
 
   ngOnInit() {
+    this.today = new Date(Date.now());
     if (this.userInformation.buddyUser === undefined) {
       this.userInformation.buddyUser = new UserDTO();
       this.userInformation.buddyUser.name = '';
@@ -53,5 +55,9 @@ export class UserInfoFormularComponent implements OnInit {
 
   selectValue(event: MatSelectChange) {
     this.userInformation.department = event.value;
+  }
+
+  getDate(): Date {
+    return new Date(this.userInformation.startDate);
   }
 }

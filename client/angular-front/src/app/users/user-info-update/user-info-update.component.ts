@@ -37,12 +37,6 @@ export class UserInfoUpdateComponent implements OnInit {
       value => alert('yes!'),
       error => alert('No!')
     );
-    //   mes => {
-    //     alert('Alles ok!!');
-    //   }, error2 => {
-    //     alert('Ein Problem');
-    //   }
-    // );
   }
 
 }
