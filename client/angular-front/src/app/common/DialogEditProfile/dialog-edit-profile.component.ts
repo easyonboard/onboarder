@@ -23,7 +23,9 @@ export class DialogEditProfileComponent implements OnInit {
     password = password.trim();
     passwordII = passwordII.trim();
 
-    if (password !== '' && (password !== passwordII || password.length < 6)) {
+    if (password === '' || passwordII === '') {
+      this.snackBarMessagePopup('Password can not be null');
+    } else if (password !== '' && (password !== passwordII || password.length < 6)) {
       this.snackBarMessagePopup('Password not matching or does not have 6 characters');
       return;
     } else {

@@ -13,66 +13,90 @@
 
 <div class="modal" id="myCustom">
 
-    <div class="modal-content">
-        <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
-        <br/> {{successMessage}}
-    </div>
+  <div class="modal-content">
+    <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
+    <br/> {{successMessage}}
+  </div>
 </div>
 
 <router-outlet>
 
-    <div class="headerDiv">
+  <div class="headerDiv">
 
-        <button (click)="redirectToCoursePage()" title="Home" id="homePage">
+    <button (click)="redirectToCoursePage()" title="Home" id="homePage">
       <i class="fa fa-home" style="margin-right: 8px"></i>
     </button>
 
-        <button (click)="redirectToGeneralInfosPage()" id="generalInfo" title="General informations">
+    <button (click)="redirectToGeneralInfosPage()" id="generalInfo" title="General informations">
       <i class="fa fa-info" style="margin-right: 10%"></i>
     </button>
 
-        <button id="logOut" (click)="logout()" *ngIf="userIsLogged()==true">
+    <button id="logOut" (click)="logout()" *ngIf="userIsLogged()==true">
       <span class="glyphicon glyphicon-log-out"></span> Log out
     </button>
 
-        <button id="logIn" (click)="redirectToLoginPage()" *ngIf="userIsLogged()==false">
+    <button id="logIn" (click)="redirectToLoginPage()" *ngIf="userIsLogged()==false">
       <i class="fa fa-sign-in"
          style="margin-right: 8px"></i> Log in
     </button>
 
-        <button id="addCourse" *ngIf="userIsLogged()==true" (click)="redirectToAddCourse()"> <i class="fa fa-plus-circle"></i>
-      Add Course
-    </button>
 
+    <ul class="dropdown" id="userManagmentDropDown">
+      <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown"
+         style="color: white; cursor: pointer; ">
+        <i class="fa fa-user-circle-o" style="margin-right: 8px"> </i>
+        User management
+        <span class="caret" style="margin-left: 3px"></span>
+      </a>
+      <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
+        <li>
+          <a class="dropdown-menu-item" (click)="openModalAddNewUser()" title="Add New User" *ngIf="newUserPopUp()">
+            <i class="fa fa-user-plus"></i> Add User
+          </a>
+        </li>
 
-        <button class="addNewUser" (click)="openModalAddNewUser()" title="Add New User" *ngIf="newUserPopUp()"> <i class="material-icons" >supervisor_account</i> Add User
-    </button>
+        <li class="divider"></li>
 
-        <button class="viewNewEmployeeList" (click)="openModalNewEmployee()" title="New Employees List" *ngIf="newEmployeesPopUp()"> <i class="material-icons">supervisor_account</i> New Employees
-        </button>
+        <li>
+          <a class="dropdown-menu-item" (click)="openModalNewEmployee()" title="New Employees List"
+             *ngIf="newEmployeesPopUp()"><i class="material-icons">supervisor_account</i> New Employees
+          </a>
+        </li>
 
+        <li class="divider"></li>
 
-    <button class="viewEmployeesInDepartmentList" (click)="openModalEmployeesInDepartment()" title="Employees In Department List"  *ngIf="usersByDepartment()"><i
-      class="material-icons">supervisor_account</i> Employees in Department
-    </button>
+        <li>
+          <a class="dropdown-menu-item" (click)="openModalEmployeesInDepartment()"
+             title="Employees In Department List" *ngIf="usersByDepartment()">
+            <i class="fa fa-users"></i> Employees in Department
+          </a>
+        </li>
 
-      <button class="buttonDeleteUsers" (click)="modalDeleteUser()" title="Employees In Department List"  *ngIf="modalDeleteUserPermission()"><i class="material-icons">perm_data_setting</i>Remove users
-      </button>
+        <li class="divider"></li>
 
-        <ul class="dropdown" id="loggedUserButton">
-            <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown" style="color: white; cursor: pointer; "><i
+        <li>
+          <a class="dropdown-menu-item" (click)="modalDeleteUser()" title="Employees In Department List"
+             *ngIf="modalDeleteUserPermission()"><i class="fa fa-user-times"></i>Remove users
+          </a>
+        </li>
+      </ul>
+    </ul>
+
+    <ul class="dropdown" id="loggedUserButton">
+      <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown"
+         style="color: white; cursor: pointer; "><i
         class="fa fa-user-circle-o"
         style="margin-right: 8px"></i>{{username}}<span class="caret" style="margin-left: 3px"></span>
       </a>
-            <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
-                <li>
-                    <a (click)="openEditProfileDialog()" class="dropdown-menu-item">
-                        <span class="glyphicon glyphicon-pencil"></span> Change password
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li><a mat-button (click)="openDialog()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a>
-                </li>
+      <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
+        <li>
+          <a (click)="openEditProfileDialog()" class="dropdown-menu-item">
+            <span class="glyphicon glyphicon-pencil"></span> Change password
+          </a>
+        </li>
+        <li class="divider"></li>
+        <li><a mat-button (click)="openDialog()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a>
+        </li>
 
         <li class="divider" *ngIf="isBuddy()===true"></li>
         <li *ngIf="isBuddy()===true">
@@ -85,17 +109,17 @@
     </ul>
 
 
-
-    </div>
+  </div>
 </router-outlet>
 
 <div class="footerDiv">
-    <footer>
-        <div class="social">
-            <a href="https://www.facebook.com/msg.systems.romania/" target="_blank"> <i class="fa fa-facebook-square" id="facebookIcon">   </i> </a>
-            <a href="https://github.com/easyonboard/onboarder" target="_blank"> <i class="fa fa-git-square" id="gitIcon">
+  <footer>
+    <div class="social">
+      <a href="https://www.facebook.com/msg.systems.romania/" target="_blank"> <i class="fa fa-facebook-square"
+                                                                                  id="facebookIcon">   </i> </a>
+      <a href="https://github.com/easyonboard/onboarder" target="_blank"> <i class="fa fa-git-square" id="gitIcon">
           </i> </a>
-            <a> <i class="fa fa-youtube-square" id="youtubeIcon">   </i> </a>
-        </div>
-    </footer>
+      <a> <i class="fa fa-youtube-square" id="youtubeIcon">   </i> </a>
+    </div>
+  </footer>
 </div>

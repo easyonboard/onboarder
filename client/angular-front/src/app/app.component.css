@@ -105,41 +105,41 @@ footer {
     color: #ffffff;
 }
 
-.addNewUser {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 10px;
-    margin-right: 400px;
-    background-color: #841439;
-    border: none;
-    color: #ffffff;
-    font-size: large;
-}
+/*.addNewUser {*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*right: 0;*/
+    /*margin-top: 10px;*/
+    /*margin-right: 400px;*/
+    /*background-color: #841439;*/
+    /*border: none;*/
+    /*color: #ffffff;*/
+    /*font-size: large;*/
+/*}*/
 
-.viewNewEmployeeList {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 10px;
-    margin-right: 520px;
-    background-color: #841439;
-    border: none;
-    color: #ffffff;
-    font-size: large;
-}
+/*.viewNewEmployeeList {*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*right: 0;*/
+    /*margin-top: 10px;*/
+    /*margin-right: 520px;*/
+    /*background-color: #841439;*/
+    /*border: none;*/
+    /*color: #ffffff;*/
+    /*font-size: large;*/
+/*}*/
 
-.viewEmployeesInDepartmentList {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin-top: 10px;
-  margin-right: 700px;
-  background-color: #841439;
-  border: none;
-  color: #ffffff;
-  font-size: large;
-}
+/*.viewEmployeesInDepartmentList {*/
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*right: 0;*/
+  /*margin-top: 10px;*/
+  /*margin-right: 700px;*/
+  /*background-color: #841439;*/
+  /*border: none;*/
+  /*color: #ffffff;*/
+  /*font-size: large;*/
+/*}*/
 
 #generalInfo {
     background-color: #841439;
@@ -214,6 +214,16 @@ footer {
   border: none;
   color: #ffffff;
   font-size: large;
+}
 
-
+#userManagmentDropDown{
+  position: absolute;
+  top: 0;
+  right: 8%;
+  margin-top: 15px;
+  margin-right: 130px;
+  background-color: #841439;
+  border: none;
+  color: #ffffff;
+  font-size: large;
 }
