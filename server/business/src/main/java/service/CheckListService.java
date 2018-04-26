@@ -1,8 +1,8 @@
 package service;
 
 import dao.CheckListDAO;
-
 import dto.CheckListDTO;
+import dto.UserInformationDTO;
 import dto.mapper.CheckListMapper;
 import entity.CheckList;
 import entity.User;
@@ -17,14 +17,27 @@ public class CheckListService {
 
     private CheckListMapper checkListMapper = CheckListMapper.INSTANCE;
 
-    public CheckListDTO addCheckList(CheckListDTO checkListDTO) {
-        CheckList checkList = checkListMapper.mapToEntity(checkListDTO, new CheckList());
+    public CheckListDTO addCheckList(UserInformationDTO userInformationDTO, User appUser) {
+        CheckList checkList = new CheckList();
+
+        boolean hasBuddyAssigned = userInformationDTO.getBuddyUser().getName().equals("") ? false : true;
+        checkList.setHasBuddyAssigned(hasBuddyAssigned);
+        checkList.setUserAccount(appUser);
+
+        checkListDAO.persistEntity(checkList);
 
         return checkListMapper.mapToDTO(checkListDAO.persistEntity(checkList));
     }
 
-    public CheckList findByUser(User userEntity) {
-        return checkListDAO.findByUser(userEntity);
+    public CheckListDTO findByUser(User userEntity) {
+        return checkListMapper.mapToDTO(checkListDAO.findByUser(userEntity));
     }
 
+    public boolean isMailSentToUser(User userEntityt) {
+        return this.findByUser(userEntityt).isMailSent();
+    }
+
+    public void setValue(User user, String fieldValue, boolean value) {
+        checkListDAO.setValue(user,fieldValue,value);
+    }
 }

@@ -3,20 +3,21 @@ package dto;
 import entity.enums.DepartmentType;
 
 import java.util.Date;
-import java.util.Map;
 
 public class UserInformationDTO {
 
     private int idUserInformation;
+
     private String team;
     private String building;
-    private String store;
+    private String floor;
     private String project;
     private Date startDate;
+    private DepartmentType department;
+    private int mailSent;
+
     private UserDTO buddyUser;
     private UserDTO userAccount;
-    private Boolean mailSent;
-    private DepartmentType department;
 
     public UserInformationDTO() {
     }
@@ -37,16 +38,12 @@ public class UserInformationDTO {
         this.building = building;
     }
 
-    public String getStore() {
-        return store;
+    public String getFloor() {
+        return floor;
     }
 
-    public void setStore(String store) {
-        this.store = store;
-    }
-
-    public Boolean getMailSent() {
-        return mailSent;
+    public void setFloor(String floor) {
+        this.floor = floor;
     }
 
     public Date getStartDate() {
@@ -89,19 +86,19 @@ public class UserInformationDTO {
         this.userAccount = userAccount;
     }
 
-    public Boolean isMailSent() {
-        return mailSent;
-    }
-
-    public void setMailSent(Boolean mailSent) {
-        this.mailSent = mailSent;
-    }
-
     public DepartmentType getDepartment() {
         return department;
     }
 
     public void setDepartment(DepartmentType department) {
         this.department = department;
+    }
+
+    public int getMailSent() {
+        return mailSent;
+    }
+
+    public void setMailSent(int mailSent) {
+        this.mailSent = mailSent;
     }
 }

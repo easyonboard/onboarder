@@ -1,6 +1,5 @@
 package dao;
 
-import entity.CheckList;
 import entity.User;
 import entity.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,14 +50,16 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
 
         actualUserInfo.setTeam(userInfo.getTeam());
         actualUserInfo.setBuilding(userInfo.getBuilding());
-        actualUserInfo.setStore(userInfo.getStore());
+        actualUserInfo.setFloor(userInfo.getFloor());
+        actualUserInfo.setMailSent(userInfo.getMailSent());
 
-        Optional<User> newUser = userDAO.findUserByUsername(userInfo.getBuddyUser().getUsername());
-
-        actualUserInfo.setBuddyUser(newUser.get());
+        if (userInfo.getBuddyUser() != null)
+        {
+            Optional<User> newUser = userDAO.findUserByUsername(userInfo.getBuddyUser().getUsername());
+            actualUserInfo.setBuddyUser(newUser.get());
+        }
 
         return em.merge(userInfo);
-
     }
 
   public List<UserInformation> usersWhoStartOnGivenDate(Date givenDate) {
@@ -68,11 +69,6 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         return q.getResultList();
     }
 
-    @Transactional
-    public void setEmailSendFlag(UserInformation ui, boolean isMailSend) {
-        ui.setMailSent(isMailSend);
-        this.persistEntity(ui);
-    }
 
 
     public UserInformation findUserInformationByUser(User userEntity){

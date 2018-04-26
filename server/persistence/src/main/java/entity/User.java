@@ -14,6 +14,7 @@ public class User implements Serializable {
 
     public static final String FIND_USER_BY_USERNAME = "User.findUSerByUsername";
     public static final String FIND_USER_BY_EMAIL = "User.findUSerByEmail";
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idUser;
@@ -38,6 +39,9 @@ public class User implements Serializable {
     @ManyToOne
     private Role role;
 
+    @OneToOne( mappedBy = "userAccount", targetEntity = UserInformation.class)
+    public UserInformation userAccount;
+
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "contactPersons", targetEntity = Course.class)
     private List<Course> contactForCourses;
 
@@ -47,12 +51,12 @@ public class User implements Serializable {
     @ManyToMany(mappedBy = "enrolledUsers", targetEntity = Course.class)
     private List<Course> enrolledCourses;
 
-    @OneToOne( mappedBy = "userAccount", targetEntity = UserInformation.class)
-    public UserInformation userAccount;
-
-
     public int getIdUser() {
         return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     public String getName() {

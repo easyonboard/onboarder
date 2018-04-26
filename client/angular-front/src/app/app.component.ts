@@ -10,9 +10,8 @@ import {UserAddComponent} from './users/user-add/user-add.component';
 import {CommonComponentsService} from './common/common-components.service';
 import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
 import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
-import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
-import {DialogDeleteUsersComponent} from "./common/DialogDeleteUsers/dialog-delete-users.component";
-import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
+import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
+import {DialogDeleteUsersComponent} from './common/DialogDeleteUsers/dialog-delete-users.component';
 
 
 @Component({
@@ -51,49 +50,9 @@ export class AppComponent {
     location.replace(this.rootConst.FRONT_ADD_COURSE);
   }
 
-  openModal(id: string) {
-    this.utilityService.openModal(id);
-  }
 
   closeModal(id: string) {
     this.utilityService.closeModal(id);
-  }
-
-  updateUser(name: string, email: string, password: string, passwordII: string): void {
-    name = name.trim();
-    email = email.trim();
-    password = password.trim();
-    passwordII = passwordII.trim();
-
-
-    if (password !== '' && (password !== passwordII || password.length < 6)) {
-      this.message = 'Password not matching or does not have 6 characters';
-      return;
-    } else {
-      const username = localStorage.getItem('userLogged');
-
-      if (name === '') {
-        name = null;
-      }
-      if (email === '') {
-        email = null;
-      }
-      if (password === '') {
-        password = null;
-      }
-
-      this.userService.updateUser({name, username, email, password} as UserDTO).subscribe(
-        res => {
-          this.utilityService.closeModal('myModal');
-          this.successMessage = 'Operatia a fost realizata cu success!';
-          this.utilityService.openModal('myCustom');
-          this.message = '';
-        },
-        err => {
-          this.message = err.error.message;
-        });
-
-    }
   }
 
   userIsLogged(): boolean {
@@ -135,8 +94,7 @@ export class AppComponent {
     }
     if (this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN') {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
 
@@ -149,8 +107,7 @@ export class AppComponent {
     }
     if (this.role === 'ROLE_HR' || this.role === 'ROLE_ADMIN') {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
 
@@ -162,14 +119,14 @@ export class AppComponent {
   }
 
   openDialog() {
-     this.dialog.open(DialogEnrolledCoursesForUserComponent, {
+    this.dialog.open(DialogEnrolledCoursesForUserComponent, {
       height: '650px',
       width: '900px'
     });
   }
 
   openModalNewEmployee() {
-    this.dialog.open(UserInfoUpdateComponent, {
+    this.dialog.open(DialogNewEmployeeComponent, {
       height: '650px',
       width: '900px',
     });
@@ -211,6 +168,9 @@ export class AppComponent {
       height: '650px',
       width: '900px',
     });
+  }
 
+  openEditProfileDialog() {
+    this.commonComponent.openEditProfileDialog();
   }
 }

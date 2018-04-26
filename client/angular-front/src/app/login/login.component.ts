@@ -3,6 +3,8 @@ import {UserService} from '../service/user.service';
 import {UserDTO} from '../domain/user';
 import {RootConst} from '../util/RootConst';
 import {Router} from '@angular/router';
+import {CommonComponentsService} from '../common/common-components.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +24,8 @@ export class LoginComponent implements OnInit, AfterContentInit {
   private headerDiv: NodeListOf<Element>;
   private footerDiv: Element;
 
-  constructor(private userService: UserService, private router: Router, private elemRef: ElementRef) {
+  constructor(private userService: UserService, private router: Router, private elemRef: ElementRef,
+              private commonService: CommonComponentsService, private snackBar: MatSnackBar) {
     this.option = false;
   }
 
@@ -73,6 +76,13 @@ export class LoginComponent implements OnInit, AfterContentInit {
             (<HTMLElement>this.footerDiv).style.visibility = 'visible';
           }
           this.router.navigateByUrl(this.rootConst.FRONT_INFOS_PAGE);
+          if (username === password) {
+            this.router.navigateByUrl(this.rootConst.FRONT_INFOS_PAGE);
+            this.snackBar.open('Please change your password', null, {
+              duration: 4000
+            });
+            this.commonService.openEditProfileDialog();
+          }
         }
       },
       err => {

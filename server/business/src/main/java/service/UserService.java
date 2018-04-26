@@ -43,6 +43,12 @@ public class UserService {
     @Autowired
     private CheckListDAO checkListDAO;
 
+    @Autowired
+    private UserInformationService userInformationService;
+
+    @Autowired
+    private CheckListService checkListService;
+
     private UserMapper userMapper = UserMapper.INSTANCE;
 
     private CheckListMapper checkListMapper = CheckListMapper.INSTANCE;
@@ -60,13 +66,17 @@ public class UserService {
         return userMapper.mapToDTO(entity.get());
     }
 
-
-    public UserDTO addUser(UserDTO userDTO) throws InvalidDataException {
+    public void addUser(UserDTO userDTO, UserInformationDTO userInformationDTO) throws InvalidDataException {
+        userDTO.setPassword(encrypt(userDTO.getUsername()));
         userValidator.validateUsername(userDTO.getUsername());
         userValidator.validateUserData(userDTO);
-        userDTO.setPassword(encrypt(userDTO.getPassword()));
+
         User user = new User();
-        return userMapper.mapToDTO(userDAO.persistEntity(userMapper.mapToEntity(userDTO, user)));
+        User appUser = userDAO.persistEntity(userMapper.mapToEntity(userDTO, user));
+        User buddyUser = userDAO.findEntity(userInformationDTO.getBuddyUser().getIdUser());
+
+        userInformationService.addUserInfo(userInformationDTO, appUser, buddyUser);
+        checkListService.addCheckList(userInformationDTO, appUser);
     }
 
     public String encrypt(String initString) {
@@ -84,7 +94,6 @@ public class UserService {
             User entity = userMapper.mapToEntity(userUpdated, user.get());
             userValidator.validateUserData(userMapper.mapToDTO(entity));
             userDAO.persistEntity(entity);
-
         }
     }
 
@@ -93,8 +102,8 @@ public class UserService {
         return userMapper.entitiesToDTOs(allUsersFromDb);
     }
 
-
     public List<UserInformationDTO> getAllNewUsers() {
+        List<UserInformation> list = userInformationDAO.getAllNewUsers();
         return userInformationMapper.entitiesToDTOs(userInformationDAO.getAllNewUsers());
     }
 
@@ -102,17 +111,14 @@ public class UserService {
         return userMapper.entitiesToDTOs(userDAO.searchByName(name));
     }
 
-
     public List<UserDTO> getUsersInDepartmentForLoggedInUser(String username) {
         String department = getDepartmentForLoggedUser(username);
         return userMapper.entitiesToDTOs(userDAO.getUsersInDepartment(department));
     }
 
-
     public String getDepartmentForLoggedUser(String username) {
         return userDAO.getDepartmentForLoggedUser(username);
     }
-
 
     public Map getCheckList(UserDTO userDTO) {
         return userDAO.getCheckListMapForUser(userDAO.findEntity(userDTO.getIdUser()));
@@ -146,8 +152,20 @@ public class UserService {
 
     }
 
+
     public UserInformationDTO getUserInformationForUser(String username) {
        return userInformationMapper.mapToDTO(userInformationDAO.findUserInformationByUser(userDAO.findUserByUsername(username).get()));
+
+    public void updateUserPassword(String username, String password) {
+        Optional<User> userOptional = userDAO.findUserByUsername(username);
+        if (userOptional.isPresent()) {
+            User user= userOptional.get();
+            if (password != null) {
+                user.setPassword(encrypt(password));
+            }
+            userDAO.persistEntity(user);
+        }
+
     }
 
 //    public List<UserDTO> searchByName(String name){

@@ -3,29 +3,23 @@ package dto;
 import java.util.List;
 
 public class UserDTO {
+
     private Integer idUser;
-
     private String name;
-
     private String username;
-
     private String password;
-
     private String email;
-
     private RoleDTO role;
 
     private List<CourseDTO> contactForCourses;
-
     private List<CourseDTO> ownerForCourses;
-
     private List<CourseDTO> enrolledCourses;
 
-    public int getIdUser() {
+    public Integer getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(Integer idUser) {
         this.idUser = idUser;
     }
 

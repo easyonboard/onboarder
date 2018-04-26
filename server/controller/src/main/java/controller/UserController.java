@@ -1,6 +1,5 @@
 package controller;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,9 +7,9 @@ import dto.CheckListDTO;
 import dto.RoleDTO;
 import dto.UserDTO;
 import dto.UserInformationDTO;
-import entity.enums.DepartmentType;
 import entity.enums.RoleType;
 import exception.InvalidDataException;
+import exception.RoleNameNotFoundException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,26 +63,17 @@ public class UserController {
             RoleType role = mapper.convertValue(node.get("role"), RoleType.class);
             UserInformationDTO userInformationDTO = mapper.convertValue(node.get("userInfo"), UserInformationDTO.class);
 
-            RoleDTO roleDTO = new RoleDTO();
-            roleDTO.setRole(role);
-            roleDTO.setIdRole(role.getRoleTypeId());
-
+            RoleDTO roleDTO = roleService.findRoleById(role.getRoleTypeId());
             userDTO.setRole(roleDTO);
 
-            userInformationDTO.setUserAccount(userService.addUser(userDTO));
-            userInformationDTO.setMailSent(false);
-            userInformationDTO.setDepartment(userInformationDTO.getDepartment());
-            userInformationService.addUserInfo(userInformationDTO);
-
-            CheckListDTO checkListDTO = new CheckListDTO();
-            checkListDTO.setUserAccount(userDTO);
-
-            checkListService.addCheckList(checkListDTO);
+            userService.addUser(userDTO, userInformationDTO);
         } catch (InvalidDataException exception) {
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (RoleNameNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -101,6 +91,13 @@ public class UserController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/user/updateUserPassword", method = RequestMethod.POST)
+    public ResponseEntity updateUserPassword(@RequestBody UserDTO user) {
+        userService.updateUserPassword(user.getUsername(), user.getPassword());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/allUsers", method = RequestMethod.GET)
@@ -109,11 +106,10 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/newUsers", method = RequestMethod.GET)
     public ResponseEntity<List<UserInformationDTO>> getAllNewUsers() {
-        List<UserInformationDTO> asd = userService.getAllNewUsers();
+        //List<UserInformationDTO> asd = userService.getAllNewUsers();
         return new ResponseEntity(userService.getAllNewUsers(), HttpStatus.OK);
     }
 
@@ -135,7 +131,6 @@ public class UserController {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
-
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user", method = RequestMethod.GET)
@@ -187,7 +182,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "user/removeUser", method = RequestMethod.POST)
-    public ResponseEntity removeUser(@RequestBody String  username){
+    public ResponseEntity removeUser(@RequestBody String username) {
 
         try {
             userService.deleteUser(username);
