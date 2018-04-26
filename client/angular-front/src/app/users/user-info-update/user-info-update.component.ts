@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import {Component, OnInit, ViewChild, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material';
 
-import { UserInformationService } from '../../service/user-information.service';
-import { UserService } from '../../service/user.service';
+import {UserInformationService} from '../../service/user-information.service';
+import {UserService} from '../../service/user.service';
 
-import { UserInfoFormularComponent } from '../user-info-formular/user-info-formular.component';
-import { UserDTO, UserInformationDTO } from '../../domain/user';
+import {UserInfoFormularComponent} from '../user-info-formular/user-info-formular.component';
+import {UserDTO, UserInformationDTO} from '../../domain/user';
 
 @Component({
   selector: 'app-user-info-update',
@@ -18,7 +18,8 @@ export class UserInfoUpdateComponent implements OnInit {
   private childUserInfoFormularComponent: UserInfoFormularComponent;
 
   constructor(@Inject(MAT_DIALOG_DATA) private userInformation: UserInformationDTO,
-      private userInformationService: UserInformationService, private userService: UserService) { }
+              private userInformationService: UserInformationService, private userService: UserService) {
+  }
 
   ngOnInit() {
     this.childUserInfoFormularComponent.userInformation.idUserInformation = this.userInformation.idUserInformation;
@@ -32,7 +33,16 @@ export class UserInfoUpdateComponent implements OnInit {
   }
 
   updateUserInformation(): void {
-      this.userInformationService.updateUserInformation(this.childUserInfoFormularComponent.userInformation).subscribe();
+    this.userInformationService.updateUserInformation(this.childUserInfoFormularComponent.userInformation).subscribe(
+      value => alert('yes!'),
+      error => alert('No!')
+    );
+    //   mes => {
+    //     alert('Alles ok!!');
+    //   }, error2 => {
+    //     alert('Ein Problem');
+    //   }
+    // );
   }
 
 }

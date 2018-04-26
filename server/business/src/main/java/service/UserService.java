@@ -154,12 +154,13 @@ public class UserService {
 
 
     public UserInformationDTO getUserInformationForUser(String username) {
-       return userInformationMapper.mapToDTO(userInformationDAO.findUserInformationByUser(userDAO.findUserByUsername(username).get()));
+        return userInformationMapper.mapToDTO(userInformationDAO.findUserInformationByUser(userDAO.findUserByUsername(username).get()));
+    }
 
     public void updateUserPassword(String username, String password) {
         Optional<User> userOptional = userDAO.findUserByUsername(username);
         if (userOptional.isPresent()) {
-            User user= userOptional.get();
+            User user = userOptional.get();
             if (password != null) {
                 user.setPassword(encrypt(password));
             }
