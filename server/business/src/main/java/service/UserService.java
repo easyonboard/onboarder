@@ -16,6 +16,7 @@ import entity.UserInformation;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
 
@@ -151,6 +152,10 @@ public class UserService {
 
     }
 
+
+    public UserInformationDTO getUserInformationForUser(String username) {
+       return userInformationMapper.mapToDTO(userInformationDAO.findUserInformationByUser(userDAO.findUserByUsername(username).get()));
+
     public void updateUserPassword(String username, String password) {
         Optional<User> userOptional = userDAO.findUserByUsername(username);
         if (userOptional.isPresent()) {
@@ -160,6 +165,7 @@ public class UserService {
             }
             userDAO.persistEntity(user);
         }
+
     }
 
 //    public List<UserDTO> searchByName(String name){

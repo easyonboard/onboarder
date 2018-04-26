@@ -73,4 +73,5 @@ export class RootConst {
 
   public SERVER_ADD_USER_INFO_URL = this.WEB_SERVICE_ENDPOINT + '/info';
   public REMOVE_USER = this.WEB_SERVICE_ENDPOINT + 'user/removeUser';
+  WEB_SERVER_USERINFORMATION= this.WEB_SERVICE_ENDPOINT + 'getUserInformation';
 }

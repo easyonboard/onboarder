@@ -1,5 +1,6 @@
 <mat-dialog-content style="height:600px">
   <h1>Users in department</h1>
+  <button mat-raised-button title="Export Excel" (click)="export()"> <i class="material-icons">file_download</i> Download user details</button>
   <mat-expansion-panel (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false"
                        *ngFor="let user of employeesInDepartment"

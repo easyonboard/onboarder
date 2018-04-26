@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {RootConst} from '../util/RootConst';
-import {UserInformationDTO} from '../domain/user';
+import {UserDTO, UserInformationDTO} from '../domain/user';
 
 @Injectable()
 export class UserInformationService {
@@ -29,4 +29,9 @@ export class UserInformationService {
     return this.http.get<UserInformationDTO[]>(this.rootConst.WEB_SERVER_NEWUSERS);
   }
 
+  getUserInformation(user: string): Observable<UserInformationDTO> {
+
+    return this.http.post<UserInformationDTO>(this.rootConst.WEB_SERVER_USERINFORMATION, user, this.httpOptions);
+
+  }
 }
