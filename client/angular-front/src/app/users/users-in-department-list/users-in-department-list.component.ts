@@ -80,7 +80,7 @@ export class UsersInDepartmentListComponent implements OnInit {
 
   searchByName() {
     if (this.searchValue !== '' && this.searchValue !== null) {
-      this.userDetails = this.userDetails.filter(user => user.name.toLowerCase().includes(this.searchValue.toLowerCase()));
+      this.userDetails = this.allUserDetails.filter(user => user.name.toLowerCase().includes(this.searchValue.toLowerCase()));
     } else {
       this.userDetails = this.allUserDetails;
     }

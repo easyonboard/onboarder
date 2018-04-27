@@ -19,6 +19,7 @@ export class CommonComponentsService {
       width: '900px'
     });
   }
+
   openModalNewEmployee() {
     this.dialog.open(DialogNewEmployeeComponent, {
       height: '650px',

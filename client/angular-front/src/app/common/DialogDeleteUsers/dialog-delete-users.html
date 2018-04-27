@@ -1,6 +1,14 @@
 <h2 mat-dialog-title>Delete Employee</h2>
-<mat-dialog-content style="height:550px">
-  <mat-card *ngFor="let user of allUsers">
+
+<mat-dialog-content>
+  <mat-form-field style="float: right;">
+    <input matInput type="search" placeholder="Search by name" (input)="searchByName()" [(ngModel)]="searchValue">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-content style="height:550px; overflow: initial">
+  <mat-card *ngFor="let user of filteredUsers">
 
     <span> <i class="material-icons">account_box</i></span>
     <label style="margin-left: 10px"></label> {{user.name}}

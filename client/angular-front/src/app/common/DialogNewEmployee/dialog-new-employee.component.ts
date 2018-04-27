@@ -13,6 +13,8 @@ import {UserInfoUpdateComponent} from '../../users/user-info-update/user-info-up
 export class DialogNewEmployeeComponent implements OnInit {
   private mailSent: boolean;
   public newEmployees: UserInformationDTO[];
+  public allNewEmployees: UserInformationDTO[];
+  public searchValue = '';
 
   constructor(private userInformationService: UserInformationService, private dialog: MatDialog) {
   }
@@ -22,9 +24,8 @@ export class DialogNewEmployeeComponent implements OnInit {
     this.newEmployees = [];
 
     this.userInformationService.getNewUsers().subscribe(newEmployees => {
+      this.allNewEmployees = newEmployees;
       this.newEmployees = newEmployees;
-      console.log(this.newEmployees[1].mailSent);
-      console.log(this.newEmployees);
     });
   }
 
@@ -43,6 +44,14 @@ export class DialogNewEmployeeComponent implements OnInit {
       width: '900px',
       data: userInformation
     });
+  }
+
+  searchByName() {
+    if (this.searchValue !== '' && this.searchValue !== null) {
+      this.newEmployees = this.allNewEmployees.filter(user => user.userAccount.name.toLowerCase().includes(this.searchValue.toLowerCase()));
+    } else {
+      this.newEmployees = this.allNewEmployees;
+    }
   }
 
 }
