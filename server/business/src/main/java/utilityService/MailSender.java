@@ -58,6 +58,30 @@ public class MailSender {
         }
     }
 
+    public void sendMail(String to, String personInCC,  String subject, String content) {
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(to));
+            message.setSubject(subject);
+            message.setText(content);
+            message.setRecipients(Message.RecipientType.CC,
+                    InternetAddress.parse(personInCC));
+            Transport.send(message);
+            System.out.println("Mail sent.");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 //    public static void main(String[] args) {
