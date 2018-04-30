@@ -22,7 +22,7 @@ export class CommonComponentsService {
 
   openModalNewEmployee() {
     this.dialog.open(DialogNewEmployeeComponent, {
-      height: '650px',
+      height: '700px',
       width: '900px',
     });
   }
@@ -30,7 +30,7 @@ export class CommonComponentsService {
   openModalAddNewUser() {
     this.dialog.open(UserAddComponent, {
       height: '850px',
-      width: '600px',
+      width: '670px',
     });
   }
 
@@ -54,4 +54,6 @@ export class CommonComponentsService {
       width: '600px'
     });
   }
+
+
 }

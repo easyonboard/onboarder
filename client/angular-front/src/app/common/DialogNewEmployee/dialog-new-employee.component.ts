@@ -5,6 +5,7 @@ import {UserInfoFormularComponent} from '../../users/user-info-formular/user-inf
 import {UserInformationService} from '../../service/user-information.service';
 import {DialogCheckListComponent} from '../DialogCheckList/dialog-check-list.component';
 import {UserInfoUpdateComponent} from '../../users/user-info-update/user-info-update.component';
+import {CommonComponentsService} from '../common-components.service';
 
 @Component({
   selector: 'app-dialog-new-employee',

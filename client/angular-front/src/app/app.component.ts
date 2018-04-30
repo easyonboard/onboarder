@@ -4,14 +4,9 @@ import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
 import {UserService} from './service/user.service';
 import {UtilityService} from './service/utility.service';
-import {UserDTO} from './domain/user';
 import {MatDialog} from '@angular/material';
-import {UserAddComponent} from './users/user-add/user-add.component';
 import {CommonComponentsService} from './common/common-components.service';
-import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
-import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
-import {DialogDeleteUsersComponent} from './common/DialogDeleteUsers/dialog-delete-users.component';
 
 
 @Component({
