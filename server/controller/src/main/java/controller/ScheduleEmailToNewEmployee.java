@@ -4,12 +4,14 @@ import dao.UserDAO;
 import dao.UserInformationDAO;
 import entity.User;
 import entity.UserInformation;
+import entity.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import service.CheckListService;
+import service.UserService;
 import utilityService.MailSender;
 
 import java.lang.reflect.Field;
@@ -25,6 +27,8 @@ import java.util.logging.Logger;
 //@Component
 @Controller
 public class ScheduleEmailToNewEmployee {
+    private static final String BUDDY_MAIL_SUBJECT = "Detalii inceput angajat nou";
+    private static final String NEW_EMPLOYEE_MAIL_SUBJECT = "Data inceput msg";
     @Autowired
     private UserInformationDAO userInformationDAO;
 
@@ -38,11 +42,12 @@ public class ScheduleEmailToNewEmployee {
     private final List<String> mandatoryFieldsFromUserEntity = Arrays.asList("name", "username", "password", "email");
     private final List<String> mandatoryFieldsFromUserInfoEntity = Arrays.asList("team", "building", "floor", "startDate");
 
+
     /**
-     * try to send email for new employees on 7:00 every weekday
+     * try to send email for new employees on 19:00 every weekday
      */
 
-    // @Scheduled(cron = "0 0 18 * * MON-FRI")
+    // @Scheduled(cron = "0 0 19 * * MON-FRI")
     @RequestMapping(value = "/emailsch", method = RequestMethod.GET)
     public ResponseEntity reportCurrentTime() {
         List<UserInformation> usersInfoForUserWhoStartNextWeek = userInformationDAO.usersWhoStartOnGivenDate(getNextWeekDate());
@@ -60,33 +65,67 @@ public class ScheduleEmailToNewEmployee {
                     UserInformation ui = findUserInfoByUser(usersInfoForUserWhoStartNextWeek, user).get();
                     String dateWithZeroTime = null;
                     dateWithZeroTime = formatter.format(ui.getStartDate());
-                    String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", "aici", ui.getBuddyUser().getName(), ui.getFloor(), ui.getBuilding());
+                    String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", ui.getBuddyUser().getName(), ui.getFloor(), ui.getBuilding());
 
-                    MailSender sender = new MailSender();
+//                    MailSender sender = new MailSender();
 //                    sender.sendMail(user.getEmail(), null, "", emailBody);
 
-                    List<User> abteilungsleiters = userDAO.getAbteilungsleiters();
-                    for (User ab : abteilungsleiters) {
-                        if (ui.getBuddyUser().getUserAccount().getDepartment().equals(ab.getUserAccount().getDepartment())) {
-                            //sender.sendMail(ab.getEmail(), "", emailBody);
-                            //sender.sendMail(ui.getBuddyUser().getEmail(), "", emailBody);
-                            sender.sendMail(user.getEmail(), ab.getEmail(), ui.getBuddyUser().getEmail(), "", emailBody);
-                            checkListService.setValue(user, "mailSentToBuddy", true);
-                            checkListService.setValue(user, "mailSent", true);
-                            LOGGER.info("An email has been send to " + user.getName() + " at " + Calendar.getInstance().getTime());
-                            break;
-                        }
+                    Optional<User> abteilungsleiterForUser = findAbteilungsleiter(ui);
+                    if (abteilungsleiterForUser.isPresent()) {
+                        sendEmail(user, abteilungsleiterForUser.get(), NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);
                     }
+                    User buddy = ui.getBuddyUser();
+                    if (buddy != null){
+                        String emailBodyForBuddy = createEmailBodyForBuddy(buddy.getName(),user.getName(), dateWithZeroTime, "09:00", ui.getFloor(), ui.getBuilding(), ui.getTeam());
+                        sendEmail(buddy, null, BUDDY_MAIL_SUBJECT, emailBodyForBuddy);
+                    }
+//                    List<User> abteilungsleiters = userDAO.getAbteilungsleiters();
+//                    for (User ab : abteilungsleiters) {
+//                        if (ui.getBuddyUser().getUserAccount().getDepartment().equals(ab.getUserAccount().getDepartment())) {
+//                            //sender.sendMail(ab.getEmail(), "", emailBody);
+//                            //sender.sendMail(ui.getBuddyUser().getEmail(), "", emailBody);
+//                            sender.sendMail(user.getEmail(), ab.getEmail(), ui.getBuddyUser().getEmail(), "", emailBody);
+//                            checkListService.setValue(user, "mailSentToBuddy", true);
+//                            checkListService.setValue(user, "mailSent", true);
+//                            LOGGER.info("An email has been send to " + user.getName() + " at " + Calendar.getInstance().getTime());
+//                            break;
+//                        }
+//                    }
                 });
         return null;
     }
 
-    private String createEmailBody(String name, String startDate, String s, String where, String buddyName, String floor, String building) {
+    private Optional<User> findAbteilungsleiter(UserInformation user) {
+        return userDAO.getAbteilungsleiters().stream().filter(abteilungsleiter -> {
+            UserInformation userInfo = this.userInformationDAO.getUserInformationForUserAccount(abteilungsleiter);
+            return userInfo.getDepartment().equals(user.getDepartment());
+        }).findFirst();
+    }
+
+    private void sendEmail(User to, User personInCC, String subject, String body) {
+        MailSender sender = new MailSender();
+        if (personInCC!=null){
+        sender.sendMail(to.getEmail(), personInCC.getEmail(), subject, body);}
+        else{
+            sender.sendMail(to.getEmail(),subject, body);
+        }
+    }
+
+
+    private String createEmailBody(String name, String startDate, String s, String buddyName, String floor, String building) {
         ResourceBundle bundle = ResourceBundle.getBundle("email_template", Locale.ROOT);
         String email_body = bundle.getString("email_body");
-        String formattedEmailBoddy = MessageFormat.format(email_body, name, startDate, s, where, buddyName, floor, building);
+        String formattedEmailBoddy = MessageFormat.format(email_body, name, startDate, s, building, buddyName, floor, building);
         return formattedEmailBoddy;
     }
+
+    private String createEmailBodyForBuddy(String name,String newEmployeeName, String startDate, String time, String floor, String building, String team) {
+        ResourceBundle bundle = ResourceBundle.getBundle("buddy_email_template", Locale.ROOT);
+        String email_body = bundle.getString("email_body");
+        String formattedEmailBoddy = MessageFormat.format(email_body, name, newEmployeeName,startDate, time, building, team, floor, building);
+        return formattedEmailBoddy;
+    }
+
 
     public Date getNextWeekDate() {
         try {
