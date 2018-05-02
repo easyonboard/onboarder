@@ -77,7 +77,7 @@ public class ScheduleEmailToNewEmployee {
                     User buddy = ui.getBuddyUser();
                     if (buddy != null){
                         String emailBodyForBuddy = createEmailBodyForBuddy(buddy.getName(),user.getName(), dateWithZeroTime, "09:00", ui.getFloor(), ui.getBuilding(), ui.getTeam());
-                        sendEmail(user,buddy, BUDDY_MAIL_SUBJECT, emailBodyForBuddy);
+                        sendEmail(buddy, null, BUDDY_MAIL_SUBJECT, emailBodyForBuddy);
                     }
 //                    List<User> abteilungsleiters = userDAO.getAbteilungsleiters();
 //                    for (User ab : abteilungsleiters) {
@@ -104,7 +104,11 @@ public class ScheduleEmailToNewEmployee {
 
     private void sendEmail(User to, User personInCC, String subject, String body) {
         MailSender sender = new MailSender();
-        sender.sendMail(to.getEmail(), personInCC.getEmail(), subject, body);
+        if (personInCC!=null){
+        sender.sendMail(to.getEmail(), personInCC.getEmail(), subject, body);}
+        else{
+            sender.sendMail(to.getEmail(),subject, body);
+        }
     }
 
 
@@ -115,10 +119,10 @@ public class ScheduleEmailToNewEmployee {
         return formattedEmailBoddy;
     }
 
-    private String createEmailBodyForBuddy(String name,String newEmployeeName, String startDate, String s, String floor, String building, String team) {
+    private String createEmailBodyForBuddy(String name,String newEmployeeName, String startDate, String time, String floor, String building, String team) {
         ResourceBundle bundle = ResourceBundle.getBundle("buddy_email_template", Locale.ROOT);
         String email_body = bundle.getString("email_body");
-        String formattedEmailBoddy = MessageFormat.format(email_body, name, newEmployeeName, startDate, s, building, team, floor, building);
+        String formattedEmailBoddy = MessageFormat.format(email_body, name, newEmployeeName,startDate, time, building, team, floor, building);
         return formattedEmailBoddy;
     }
 
