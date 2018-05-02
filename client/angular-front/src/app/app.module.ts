@@ -36,10 +36,10 @@ import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCour
 import {DialogCheckListComponent} from './common/DialogCheckList/dialog-check-list.component';
 import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
 
-import {UsersInDepartmentListComponent} from "./users/users-in-department-list/users-in-department-list.component";
-import {DialogDeleteUsersComponent} from "./common/DialogDeleteUsers/dialog-delete-users.component";
+import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
+import {DialogDeleteUsersComponent} from './common/DialogDeleteUsers/dialog-delete-users.component';
 
-import {ExcelService} from "./service/excel.service";
+import {ExcelService} from './service/excel.service';
 
 import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
 import {DialogEditProfileComponent} from './common/DialogEditProfile/dialog-edit-profile.component';

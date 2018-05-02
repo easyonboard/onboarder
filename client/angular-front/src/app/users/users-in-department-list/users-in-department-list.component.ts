@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserDetailsToExport, UserDTO, UserInformationDTO} from '../../domain/user';
 import {UserService} from '../../service/user.service';
-import {ExcelService} from "../../service/excel.service";
-import {UserInformationService} from "../../service/user-information.service";
+import {ExcelService} from '../../service/excel.service';
+import {UserInformationService} from '../../service/user-information.service';
 
 @Component({
   selector: 'app-users-in-department-list',
@@ -13,18 +13,22 @@ export class UsersInDepartmentListComponent implements OnInit {
 
   public employeesInDepartment: UserDTO[];
   private department = '';
-  panelOpenState: boolean = false;
+  panelOpenState = false;
+  allUserDetails: UserDetailsToExport[] = [];
   userDetails: UserDetailsToExport[] = [];
   userDetail: UserDetailsToExport;
   userInformation: UserInformationDTO;
 
-  constructor(private userService: UserService, private excelService: ExcelService, private userInformationService: UserInformationService) {
+  public searchValue = '';
+
+  constructor(private userService: UserService, private excelService: ExcelService,
+              private userInformationService: UserInformationService) {
     this.excelService = excelService;
   }
 
   ngOnInit() {
 
-    let userLogged: string = localStorage.getItem('userLogged');
+    const userLogged: string = localStorage.getItem('userLogged');
 
     // console.log('inainte de get department');
     // this.userService.getDepartmentForUsername(userLogged).subscribe(value => {
@@ -37,10 +41,9 @@ export class UsersInDepartmentListComponent implements OnInit {
     this.employeesInDepartment = [];
     this.userService.getUsersInDepartment(userLogged).subscribe(employeesInDepartment => {
       this.employeesInDepartment = employeesInDepartment;
-      console.log(this.employeesInDepartment);
       this.getAllInformation();
       this.getUserTeamAndStartDate();
-
+      this.userDetails = this.allUserDetails;
     });
 
 
@@ -58,12 +61,12 @@ export class UsersInDepartmentListComponent implements OnInit {
       this.userDetail.name = user.name;
       this.userDetail.email = user.email;
       this.userDetail.username = user.username;
-      this.userDetails.push(this.userDetail);
+      this.allUserDetails.push(this.userDetail);
     });
   }
 
   getUserTeamAndStartDate() {
-    this.userDetails.forEach(userInfo => {
+    this.allUserDetails.forEach(userInfo => {
       this.userInformationService.getUserInformation(userInfo.username).subscribe(user => {
         userInfo.team = user.team;
         const myDate = new Date(user.startDate).toDateString();
@@ -75,4 +78,11 @@ export class UsersInDepartmentListComponent implements OnInit {
 
   }
 
+  searchByName() {
+    if (this.searchValue !== '' && this.searchValue !== null) {
+      this.userDetails = this.allUserDetails.filter(user => user.name.toLowerCase().includes(this.searchValue.toLowerCase()));
+    } else {
+      this.userDetails = this.allUserDetails;
+    }
+  }
 }

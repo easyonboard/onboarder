@@ -1,10 +1,17 @@
-<mat-dialog-content style="height:600px">
-  <h1>Users in department</h1>
+<h1>Users in department</h1>
+
+<mat-dialog-content style="height:600px; overflow: initial">
   <button mat-raised-button title="Export Excel" (click)="export()"> <i class="material-icons">file_download</i> Download user details</button>
+
+  <mat-form-field class="example-full-width" style="float: right; " >
+    <input matInput type="search" placeholder="Search by name" (input)="searchByName()"  [(ngModel)]="searchValue">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
   <mat-expansion-panel (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false"
                        *ngFor="let user of userDetails"
-                       style="padding: 10px;">
+                       style="padding: 10px;margin-top: 2%">
     <mat-expansion-panel-header>
       <mat-panel-title style="margin-left: 20px;">
         <span> <i class="material-icons">account_box</i></span>

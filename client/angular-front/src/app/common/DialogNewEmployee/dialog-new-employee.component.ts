@@ -5,7 +5,9 @@ import {UserInformationService} from '../../service/user-information.service';
 import {DialogCheckListComponent} from '../DialogCheckList/dialog-check-list.component';
 import {UserInfoUpdateComponent} from '../../users/user-info-update/user-info-update.component';
 import {UserService} from "../../service/user.service";
-import {TSMap} from "typescript-map";
+
+import {CommonComponentsService} from '../common-components.service';
+
 
 @Component({
   selector: 'app-dialog-new-employee',
@@ -14,8 +16,12 @@ import {TSMap} from "typescript-map";
 export class DialogNewEmployeeComponent implements OnInit {
 
   public newEmployees: UserInformationDTO[];
-  checkList: TSMap<string, boolean>;
+
   public isMailSent: Boolean[];
+
+  public allNewEmployees: UserInformationDTO[];
+  public searchValue = '';
+
 
   constructor(private userInformationService: UserInformationService, private dialog: MatDialog, private userService: UserService) {
   }
@@ -24,9 +30,11 @@ export class DialogNewEmployeeComponent implements OnInit {
 
     this.newEmployees = [];
     this.isMailSent = [];
-    this.getUsers();
-
-
+    this.userInformationService.getNewUsers().subscribe(newEmployees => {
+      this.allNewEmployees = newEmployees;
+      this.newEmployees = newEmployees;
+      this.getStatus();
+    });
   }
 
   openCheckList(user: UserDTO) {
@@ -55,11 +63,12 @@ export class DialogNewEmployeeComponent implements OnInit {
     });
   }
 
-  private getUsers() {
-
-    this.userInformationService.getNewUsers().subscribe(newEmployees => {
-      this.newEmployees = newEmployees;
-      this.getStatus();
-    });
+  searchByName() {
+    if (this.searchValue !== '' && this.searchValue !== null) {
+      this.newEmployees = this.allNewEmployees.filter(user => user.userAccount.name.toLowerCase().includes(this.searchValue.toLowerCase()));
+    } else {
+      this.newEmployees = this.allNewEmployees;
+    }
   }
+
 }
