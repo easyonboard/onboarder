@@ -1,11 +1,11 @@
 <h2 mat-dialog-title>New Employees</h2>
 <mat-dialog-content style="height:550px">
-    <mat-card *ngFor="let userInfo of newEmployees">
-        <div *ngIf="userInfo.mailSent==true">
+    <mat-card *ngFor="let userInfo of newEmployees; let i = index">
+        <div *ngIf="isMailSent[i]==true">
             <i class="material-icons" style="padding: 10px" title="Mail sent">done</i> {{userInfo.userAccount.name}}
         </div>
         <br/>
-        <div *ngIf="userInfo.mailSent==false">
+        <div *ngIf="isMailSent[i]==false">
             <i class="material-icons" *ngIf="!mailSent" style="padding: 10px" title="Mail not sent">error_outline</i> {{userInfo.userAccount.name}}
             <br/>
             <button mat-button color="warn" (click)="openUserInfoModal(userInfo)">Please fill in user data</button>

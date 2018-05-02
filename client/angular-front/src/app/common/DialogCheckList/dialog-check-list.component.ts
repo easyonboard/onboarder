@@ -46,8 +46,5 @@ export class DialogCheckListComponent implements OnInit {
 
     this.userService.saveCheckList(this.user.username, this.checkList).subscribe();
   }
-  //
-  // closeWindow() {
-  //   this.dialogRef.close('Closed!');
-  // }
+
 }

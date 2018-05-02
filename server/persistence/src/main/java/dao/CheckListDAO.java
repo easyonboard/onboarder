@@ -37,13 +37,23 @@ public class CheckListDAO extends AbstractDAO<CheckList> {
             field = CheckList.class.getDeclaredField(fieldName);
 
             field.setAccessible(true);
-            field.set(checkListForUser,value);
+            field.set(checkListForUser, value);
 
             this.persistEntity(checkListForUser);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean getValueForMailSent(User user) {
+        Query query = em.createQuery("Select c.mailSent from CheckList c where c.userAccount=:user");
+        query.setParameter("user", user);
+        try {
+            return (boolean) query.getSingleResult();
+        } catch (NoResultException e) {
+            return false;
         }
     }
 }

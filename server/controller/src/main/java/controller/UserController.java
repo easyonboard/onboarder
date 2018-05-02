@@ -194,4 +194,13 @@ public class UserController {
     return new ResponseEntity(userService.getUserInformationForUser(username), HttpStatus.OK);
     }
 
+
+//
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping(value = "isMailSent", method = RequestMethod.POST)
+public ResponseEntity getStatusMailForUser(@RequestBody String  username) {
+
+    return new ResponseEntity(userService.getStatusMailForUser(username), HttpStatus.OK);
+}
+
 }

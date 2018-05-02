@@ -175,6 +175,15 @@ public class UserService {
 
     }
 
+    public boolean getStatusMailForUser(String username) {
+        Optional<User> userOptional = userDAO.findUserByUsername(username);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return checkListDAO.getValueForMailSent(user);
+        }
+        return false;
+    }
+
 //    public List<UserDTO> searchByName(String name){
 ////        userMapper.entitiesToDTOs(userDAO.searchByName(name));
 //return null;

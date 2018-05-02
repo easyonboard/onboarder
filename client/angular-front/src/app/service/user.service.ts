@@ -115,4 +115,10 @@ export class UserService {
     return this.http.post(this.rootConst.REMOVE_USER, username, this.httpOptions);
 
   }
+
+  isMailSent(userAccount: UserDTO): Observable<Boolean> {
+
+    return this.http.post<Boolean>(this.rootConst.WEB_SERVER_STATUS_MAIL, userAccount.username, this.httpOptions);
+
+  }
 }
