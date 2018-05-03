@@ -29,7 +29,6 @@ public class CourseController {
     @Autowired
     private SubjectService subjectService;
 
-
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses", method = RequestMethod.GET)
     public ResponseEntity<List<CourseDTO>> allCourses(@RequestParam(value = "keyword", required = false) String keyword) {

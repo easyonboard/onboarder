@@ -39,8 +39,12 @@ export class UserAddComponent implements OnInit {
 
     this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
       value => {
-        this.snackBarMessagePopup('Succes! You just add a new employee!');
-        this.dialog.closeAll();
+        if (this.childUserInfoFormularComponent.userInformation.startDate === undefined) {
+          this.snackBarMessagePopup('You must specify the starting date!');
+        } else {
+          this.snackBarMessagePopup('Succes! You just add a new employee!');
+          this.dialog.closeAll();
+        }
       },
       error => this.snackBarMessagePopup('Insucces! An error has ocurred!')
   );
