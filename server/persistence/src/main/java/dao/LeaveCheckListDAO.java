@@ -2,12 +2,14 @@ package dao;
 
 import entity.LeaveCheckList;
 import entity.User;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+@Service
 public class LeaveCheckListDAO extends AbstractDAO<LeaveCheckList> {
-//    private static final String LEAVE_CHECKLIST_NOT_FOUND_EXCEPTION="User has no Leave Check List registered";
+
     @Override
     public Class<LeaveCheckList> getEntityClass() {
         return LeaveCheckList.class;

@@ -44,6 +44,7 @@ import {ExcelService} from './service/excel.service';
 import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
 import {DialogEditProfileComponent} from './common/DialogEditProfile/dialog-edit-profile.component';
 import { TutorialsComponent } from './tutorials/tutorials.component';
+import {DialogLeaveCheckListComponent} from "./common/DialogLeaveCheckList/dialog-leave-check-list.component";
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { TutorialsComponent } from './tutorials/tutorials.component';
     UserInfoUpdateComponent,
     UsersInDepartmentListComponent,
     DialogEditProfileComponent,
-    TutorialsComponent
+    TutorialsComponent,
+    DialogLeaveCheckListComponent
   ],
   imports: [
     FormsModule,
@@ -104,6 +106,7 @@ import { TutorialsComponent } from './tutorials/tutorials.component';
     DialogCheckListComponent,
     DialogEnrolledCoursesForUserComponent,
     DialogNewEmployeeComponent,
+    DialogLeaveCheckListComponent,
     ToDoListForBuddyComponent,
     UserAddComponent,
     UsersInDepartmentListComponent,

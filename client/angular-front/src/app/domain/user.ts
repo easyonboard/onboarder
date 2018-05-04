@@ -1,5 +1,5 @@
 import {RoleDTO} from './role';
-import { DepartmentType } from './departmentType';
+import {DepartmentType} from './departmentType';
 
 export class UserDTO {
   idUser: number;
@@ -23,12 +23,21 @@ export class UserInformationDTO {
   startDate: Date;
 }
 
-export class UserDetailsToExport{
+export class UserDetailsToExport {
   name: string;
   email: string;
   username: string;
   startDate: string;
   team: string;
   project: string;
+
+}
+
+
+export class LeaveCheckList {
+  userAccount: UserDTO;
+  inventoryObjects: boolean;
+  resignationForm: boolean;
+  cards: boolean;
 
 }

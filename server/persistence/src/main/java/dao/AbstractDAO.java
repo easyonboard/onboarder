@@ -24,6 +24,12 @@ public abstract class AbstractDAO<E> {
         em.flush();
         return entity;
     }
+    @Transactional
+    public E update(E entity) {
+        em.merge(entity);
+        em.flush();
+        return entity;
+    }
 
     @Transactional
     public void deleteEntity(E entity) {

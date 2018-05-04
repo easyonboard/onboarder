@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
-import {UserDTO, UserInformationDTO} from '../domain/user';
+import {LeaveCheckList, UserDTO, UserInformationDTO} from '../domain/user';
 import {RootConst} from '../util/RootConst';
 import {Course} from '../domain/course';
 
@@ -110,9 +110,9 @@ export class UserService {
     return this.http.get<any>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
   }
 
-  removeUser(username: String) {
+  removeUser(username: String): Observable<Boolean> {
 
-    return this.http.post(this.rootConst.REMOVE_USER, username, this.httpOptions);
+    return this.http.post<Boolean>(this.rootConst.REMOVE_USER, username, this.httpOptions);
 
   }
 
@@ -120,5 +120,15 @@ export class UserService {
 
     return this.http.post<Boolean>(this.rootConst.WEB_SERVER_STATUS_MAIL, userAccount.username, this.httpOptions);
 
+  }
+
+  getUserLeaveCheckList(user: string): Observable<LeaveCheckList> {
+
+    return this.http.post<LeaveCheckList>(this.rootConst.WEB_SERVER_LEAVE_CHECKLIST, user, this.httpOptions);
+  }
+
+  saveLeaveCheckList(leaveCheckList: LeaveCheckList): Observable<LeaveCheckList> {
+    const body = JSON.stringify(leaveCheckList);
+    return this.http.post<LeaveCheckList>(this.rootConst.WEB_SERVER_SAVE_LEAVE_CHECKLIST, body, this.httpOptions);
   }
 }

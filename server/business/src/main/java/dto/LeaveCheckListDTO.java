@@ -1,42 +1,27 @@
-package entity;
+package dto;
 
-import javax.persistence.*;
-import java.io.Serializable;
+public class LeaveCheckListDTO {
 
-
-@Entity
-public class LeaveCheckList implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer idCheckList;
-
-
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_account")
-    private User userAccount;
-
-    @Column(columnDefinition="NUMBER(1)")
+    private UserDTO userAccount;
     private boolean inventoryObjects;
-
-    @Column(columnDefinition="NUMBER(1)")
     private boolean resignationForm;
-    @Column(columnDefinition="NUMBER(1)")
     private boolean cards;
 
-
-    public void setIdCheckList(Integer idCheckList) {
-        this.idCheckList = idCheckList;
-    }
 
     public Integer getIdCheckList() {
         return idCheckList;
     }
 
-    public User getUserAccount() {
+    public void setIdCheckList(Integer idCheckList) {
+        this.idCheckList = idCheckList;
+    }
+
+    public UserDTO getUserAccount() {
         return userAccount;
     }
 
-    public void setUserAccount(User userAccount) {
+    public void setUserAccount(UserDTO userAccount) {
         this.userAccount = userAccount;
     }
 

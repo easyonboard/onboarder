@@ -8,7 +8,8 @@ export class ToDoListForBuddyComponent implements OnInit {
   toDoList: string[] = [];
 
   ngOnInit(): void {
-    this.toDoList.push('Intampinarea noului coleg');
+    this.toDoList.push('Intampinarea noului coleg in prima zi');
+    this.toDoList.push('Cheie de access pentru noul coleg');
     this.toDoList.push('Prezentarea colegilor din echipa');
     this.toDoList.push('Informarea despre exceptiile legate de concedii');
     this.toDoList.push('Initializarea conturilor pe proiect pentru noul angajat');
