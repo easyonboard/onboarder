@@ -150,22 +150,36 @@ public class UserService {
         checkListDAO.persistEntity(checkListEntity);
     }
 
-    public void deleteUser(String username) throws UserNotFoundException {
+    public boolean deleteUser(String username) throws UserNotFoundException {
 
         Optional<User> userOptional = userDAO.findUserByUsername(username);
         if (userOptional.isPresent()) {
             User userEntity = userOptional.get();
 
-            UserInformation userInformationEntity = userInformationDAO.findUserInformationByUser(userEntity);
-            if (userInformationEntity != null) {
-                userInformationDAO.deleteEntity(userInformationEntity);
+            if(canUserBeDeleted(userEntity)){
+
+                UserInformation userInformationEntity = userInformationDAO.findUserInformationByUser(userEntity);
+                if (userInformationEntity != null) {
+                    userInformationDAO.deleteEntity(userInformationEntity);
+                }
+
+                CheckList checkListEntity = checkListDAO.findByUser(userEntity);
+                if (checkListEntity != null) {
+                    checkListDAO.deleteEntity(checkListEntity);
+                }
+
+                LeaveCheckList leavecheckListEntity = leaveCheckListDAO.findLeaveCheckListByUser(userEntity);
+                if (leavecheckListEntity != null) {
+                    leaveCheckListDAO.deleteEntity(leavecheckListEntity);
+                }
+
+                userDAO.deleteEntity(userEntity);
+                return true;
+            }
+            else{
+                return false;
             }
 
-            CheckList checkListEntity = checkListDAO.findByUser(userEntity);
-            if (checkListEntity != null) {
-                checkListDAO.deleteEntity(checkListEntity);
-            }
-            userDAO.deleteEntity(userEntity);
         } else throw new UserNotFoundException(USER_NOT_FOUND_ERROR);
 
     }
@@ -236,4 +250,29 @@ public class UserService {
         return leaveCheckListMapper.mapToDTO(leaveCheckListDAO.findEntity(leaveCheckList.getIdCheckList()));
 
     }
+
+    public boolean canUserBeDeleted(User user) {
+
+        LeaveCheckList leaveCheckList = leaveCheckListDAO.findLeaveCheckListByUser(user);
+        if (leaveCheckList != null) {
+            Field[] fields = LeaveCheckList.class.getDeclaredFields();
+            for (int i = 0; i < fields.length; i++) {    // all fields are set to false, except id and userAccount
+                fields[i].setAccessible(true);
+                if (fields[i].getType() == boolean.class) {
+                    try {
+                        if (!fields[i].getBoolean(leaveCheckList)) {
+                            return false;
+                        }
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+            return true;
+
+        }
+        return false;
+    }
+
 }

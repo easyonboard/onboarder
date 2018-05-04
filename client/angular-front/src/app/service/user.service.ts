@@ -110,9 +110,9 @@ export class UserService {
     return this.http.get<any>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
   }
 
-  removeUser(username: String) {
+  removeUser(username: String): Observable<Boolean> {
 
-    return this.http.post(this.rootConst.REMOVE_USER, username, this.httpOptions);
+    return this.http.post<Boolean>(this.rootConst.REMOVE_USER, username, this.httpOptions);
 
   }
 

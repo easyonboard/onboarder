@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserDTO} from '../../domain/user';
 import {UserService} from '../../service/user.service';
-import {MatDialog} from "@angular/material";
+import {MatDialog, MatSnackBar} from "@angular/material";
 import {DialogLeaveCheckListComponent} from "../DialogLeaveCheckList/dialog-leave-check-list.component";
 
 @Component({
@@ -13,8 +13,9 @@ export class DialogDeleteUsersComponent implements OnInit {
   dialogDeleteUsers: string;
   public filteredUsers: UserDTO[];
   public allUsers: UserDTO[];
+  public canUserBeDeleted: Boolean;
 
-  constructor(private userService: UserService, private dialog: MatDialog) {
+  constructor(private userService: UserService, private dialog: MatDialog, public snackBarDelete: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -24,9 +25,13 @@ export class DialogDeleteUsersComponent implements OnInit {
 
   remove(username: String) {
     this.userService.removeUser(username).subscribe(res => {
-      this.getAllUsers();
+      if (res === false) {
+        this.snackBarMessagePopup('User can not be removed! Please verify Leave Check List');
+      } else {
+        this.snackBarMessagePopup('User ' + username + ' removed!');
+        this.getAllUsers();
+      }
     });
-
   }
 
   getAllUsers() {
@@ -52,4 +57,9 @@ export class DialogDeleteUsersComponent implements OnInit {
     });
   }
 
+  snackBarMessagePopup(message: string) {
+    this.snackBarDelete.open(message, null, {
+      duration: 3000
+    });
+  }
 }
