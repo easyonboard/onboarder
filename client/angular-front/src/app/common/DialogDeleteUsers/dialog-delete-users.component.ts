@@ -41,5 +41,8 @@ export class DialogDeleteUsersComponent implements OnInit {
       this.filteredUsers = this.allUsers;
     }
   }
+  openLeaveCheckList(user: string){
+
+  }
 
 }

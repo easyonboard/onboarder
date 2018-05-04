@@ -8,6 +8,7 @@ import dto.RoleDTO;
 import dto.UserDTO;
 import dto.UserInformationDTO;
 import entity.enums.RoleType;
+import exception.DataNotFoundException;
 import exception.InvalidDataException;
 import exception.RoleNameNotFoundException;
 import exception.UserNotFoundException;
@@ -189,18 +190,36 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "getUserInformation", method = RequestMethod.POST)
-    public ResponseEntity getUserInformationForUser(@RequestBody String  username) {
+    public ResponseEntity getUserInformationForUser(@RequestBody String username) {
 
-    return new ResponseEntity(userService.getUserInformationForUser(username), HttpStatus.OK);
+        return new ResponseEntity(userService.getUserInformationForUser(username), HttpStatus.OK);
     }
 
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "isMailSent", method = RequestMethod.POST)
+    public ResponseEntity getStatusMailForUser(@RequestBody String username) {
+
+        return new ResponseEntity(userService.getStatusMailForUser(username), HttpStatus.OK);
+    }
+
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "leaveCheckList", method = RequestMethod.POST)
+    public ResponseEntity getLeaveCheckList(@RequestBody String username) {
+        try {
+            return new ResponseEntity(userService.getLeaveCheckListForUser(username), HttpStatus.OK);
+        } catch (UserNotFoundException | DataNotFoundException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.OK);
+        }
+    }
+
+
+//    @CrossOrigin(origins = "http://localhost:4200")
+//    @RequestMapping(value = "saveLeaveCheckList", method = RequestMethod.POST)
+//    public ResponseEntity saveLEaveCheckList(@RequestBody String str) {
 //
-@CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(value = "isMailSent", method = RequestMethod.POST)
-public ResponseEntity getStatusMailForUser(@RequestBody String  username) {
-
-    return new ResponseEntity(userService.getStatusMailForUser(username), HttpStatus.OK);
-}
-
+//        return new ResponseEntity(, HttpStatus.OK);
+//    }
 }

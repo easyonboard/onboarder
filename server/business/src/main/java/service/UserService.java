@@ -2,17 +2,22 @@ package service;
 
 import com.google.common.hash.Hashing;
 import dao.CheckListDAO;
+import dao.LeaveCheckListDAO;
 import dao.UserDAO;
 import dao.UserInformationDAO;
 import dto.CheckListDTO;
+import dto.LeaveCheckListDTO;
 import dto.UserDTO;
 import dto.UserInformationDTO;
 import dto.mapper.CheckListMapper;
+import dto.mapper.LeaveCheckListMapper;
 import dto.mapper.UserInformationMapper;
 import dto.mapper.UserMapper;
 import entity.CheckList;
+import entity.LeaveCheckList;
 import entity.User;
 import entity.UserInformation;
+import exception.DataNotFoundException;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +48,9 @@ public class UserService {
     private CheckListDAO checkListDAO;
 
     @Autowired
+    private LeaveCheckListDAO leaveCheckListDAO;
+
+    @Autowired
     private UserInformationService userInformationService;
 
     @Autowired
@@ -52,9 +60,14 @@ public class UserService {
 
     private CheckListMapper checkListMapper = CheckListMapper.INSTANCE;
 
+
+    private LeaveCheckListMapper leaveCheckListMapper = LeaveCheckListMapper.INSTANCE;
+
+
     private UserInformationMapper userInformationMapper = UserInformationMapper.INSTANCE;
 
     private static final String USER_NOT_FOUND_ERROR = "User not found";
+    private static final String LEAVE_CHECKLIST_NOT_FOUND_EXCEPTION="User has no Leave Check List registered";
 
     public UserDTO findUserByUsername(String username) throws UserNotFoundException {
 
@@ -182,10 +195,21 @@ public class UserService {
         return false;
     }
 
+    public LeaveCheckListDTO getLeaveCheckListForUser(String username) throws UserNotFoundException, DataNotFoundException {
 
-//    public List<UserDTO> searchByName(String name){
-////        userMapper.entitiesToDTOs(userDAO.searchByName(name));
-//return null;
-//    }
+        Optional<User> user=userDAO.findUserByUsername(username);
+        if(user.isPresent()){
+            User userEntity=user.get();
+            LeaveCheckList leaveCheckList=leaveCheckListDAO.findLeaveCheckListByUser(userEntity);
+            if(leaveCheckList==null){
+                throw new DataNotFoundException(LEAVE_CHECKLIST_NOT_FOUND_EXCEPTION);
+            }
+            return leaveCheckListMapper.mapToDTO(leaveCheckList);
+        }
+        else
+            throw new UserNotFoundException(USER_NOT_FOUND_ERROR);
+
+
+    }
 
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
-import {UserDTO, UserInformationDTO} from '../domain/user';
+import {LeaveCheckList, UserDTO, UserInformationDTO} from '../domain/user';
 import {RootConst} from '../util/RootConst';
 import {Course} from '../domain/course';
 
@@ -120,5 +120,15 @@ export class UserService {
 
     return this.http.post<Boolean>(this.rootConst.WEB_SERVER_STATUS_MAIL, userAccount.username, this.httpOptions);
 
+  }
+
+  getUserLeaveCheckList(user: string): Observable<LeaveCheckList> {
+
+    return this.http.post<LeaveCheckList>(this.rootConst.WEB_SERVER_LEAVE_CHECKLIST, user, this.httpOptions);
+  }
+
+  saveLeaveCheckList(user: string, leaveCheckList: LeaveCheckList): Observable<LeaveCheckList> {
+    const body = JSON.stringify({user: user, leaveCheckList: leaveCheckList});
+    return this.http.post<LeaveCheckList>(this.rootConst.WEB_SERVER_SAVE_LEAVE_CHECKLIST, body, this.httpOptions);
   }
 }
