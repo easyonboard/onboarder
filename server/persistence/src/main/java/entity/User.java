@@ -36,6 +36,9 @@ public class User implements Serializable {
     @NotNull
     private String email;
 
+    @Column
+    private String msgMail;
+
     @ManyToOne
     private Role role;
 
@@ -140,5 +143,13 @@ public class User implements Serializable {
 
     public void setUserAccount(UserInformation userAccount) {
         this.userAccount = userAccount;
+    }
+
+    public String getMsgMail() {
+        return msgMail;
+    }
+
+    public void setMsgMail(String msgMail) {
+        this.msgMail = msgMail;
     }
 }

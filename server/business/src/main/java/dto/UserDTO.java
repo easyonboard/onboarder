@@ -10,6 +10,7 @@ public class UserDTO {
     private String password;
     private String email;
     private RoleDTO role;
+    private String msgMail;
 
     private List<CourseDTO> contactForCourses;
     private List<CourseDTO> ownerForCourses;
@@ -85,5 +86,13 @@ public class UserDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getMsgMail() {
+        return msgMail;
+    }
+
+    public void setMsgMail(String msgMail) {
+        this.msgMail = msgMail;
     }
 }
