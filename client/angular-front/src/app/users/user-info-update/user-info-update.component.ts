@@ -33,6 +33,8 @@ export class UserInfoUpdateComponent implements OnInit {
   }
 
   updateUserInformation(): void {
+    console.log('update user buuton: ' + this.childUserInfoFormularComponent.userInformation.project);
+    console.log('update user buuton: ' + this.childUserInfoFormularComponent.userInformation.department);
     this.userInformationService.updateUserInformation(this.childUserInfoFormularComponent.userInformation).subscribe(
       value => alert('yes!'),
       error => alert('No!')

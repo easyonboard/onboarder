@@ -47,7 +47,7 @@ export class UserAddComponent implements OnInit {
         }
       },
       error => this.snackBarMessagePopup('Insucces! An error has ocurred!')
-  );
+    );
   }
 
   selectRoleValue(event: MatSelectChange) {
