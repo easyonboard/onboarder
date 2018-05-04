@@ -31,6 +31,10 @@
       <i class="fa fa-info" style="margin-right: 10%"></i>
     </button>
 
+    <button (click)="redirectToTutorialsPage()" id="tutorials" title="Tutorials">
+      Tutorials
+    </button>
+
     <button id="logOut" (click)="logout()" *ngIf="userIsLogged()==true">
       <span class="glyphicon glyphicon-log-out"></span> Log out
     </button>
@@ -50,7 +54,8 @@
       </a>
       <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
         <li>
-          <a class="dropdown-menu-item" (click)="openModalAddNewUser()" title="Add New User" *ngIf="addUserPermission()">
+          <a class="dropdown-menu-item" (click)="openModalAddNewUser()" title="Add New User"
+             *ngIf="addUserPermission()">
             <i class="fa fa-user-plus"></i> Add User
           </a>
         </li>
@@ -95,7 +100,8 @@
           </a>
         </li>
         <li class="divider"></li>
-        <li><a mat-button (click)="openDialogCoursesForUser()" class="dropdown-menu-item"><i class="fa fa-book"></i>View courses</a>
+        <li><a mat-button (click)="openDialogCoursesForUser()" class="dropdown-menu-item"><i class="fa fa-book"></i>View
+          courses</a>
         </li>
 
         <li class="divider" *ngIf="isBuddy()===true"></li>

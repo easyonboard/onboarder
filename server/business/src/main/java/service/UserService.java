@@ -16,7 +16,6 @@ import entity.UserInformation;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
 
@@ -74,8 +73,7 @@ public class UserService {
         User user = new User();
         User appUser = userDAO.persistEntity(userMapper.mapToEntity(userDTO, user));
 
-        if (userInformationDTO.getBuddyUser().getIdUser() != null)
-        {
+        if (userInformationDTO.getBuddyUser().getIdUser() != null) {
             User buddyUser = userDAO.findEntity(userInformationDTO.getBuddyUser().getIdUser());
             userInformationService.addUserInfo(userInformationDTO, appUser, buddyUser);
         }

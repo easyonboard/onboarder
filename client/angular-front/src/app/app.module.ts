@@ -43,6 +43,7 @@ import {ExcelService} from './service/excel.service';
 
 import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
 import {DialogEditProfileComponent} from './common/DialogEditProfile/dialog-edit-profile.component';
+import { TutorialsComponent } from './tutorials/tutorials.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import {DialogEditProfileComponent} from './common/DialogEditProfile/dialog-edit
     UserInfoFormularComponent,
     UserInfoUpdateComponent,
     UsersInDepartmentListComponent,
-    DialogEditProfileComponent
+    DialogEditProfileComponent,
+    TutorialsComponent
   ],
   imports: [
     FormsModule,
