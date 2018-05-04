@@ -17,7 +17,7 @@ export class DialogLeaveCheckListComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.leaveCheckList = new LeaveCheckList();
     this.userService.getUserLeaveCheckList(this.user).subscribe(res => this.leaveCheckList = res);
   }
 

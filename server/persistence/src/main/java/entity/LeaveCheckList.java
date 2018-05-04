@@ -3,6 +3,7 @@ package entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 public class LeaveCheckList implements Serializable {
     @Id

@@ -9,7 +9,7 @@ import javax.persistence.Query;
 
 @Service
 public class LeaveCheckListDAO extends AbstractDAO<LeaveCheckList> {
-//
+
     @Override
     public Class<LeaveCheckList> getEntityClass() {
         return LeaveCheckList.class;
