@@ -134,6 +134,11 @@ export class AppComponent {
     location.replace(this.rootConst.FRONT_INFOS_PAGE);
   }
 
+  redirectToTutorialsPage() {
+    location.replace(this.rootConst.FRONT_TUTORIALS_PAGE);
+  }
+
+
   isBuddy(): boolean {
     return localStorage.getItem('userRole') === 'ROLE_BUDDY';
   }

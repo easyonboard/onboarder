@@ -9,6 +9,7 @@ import { SubjectDetailComponent } from './subject-detail/subject-detail.componen
 import { StarRatingModule } from 'angular-star-rating';
 import { GeneralInfosComponent } from './general-infos/general-infos.component';
 import { UserInfoFormularComponent } from './users/user-info-formular/user-info-formular.component';
+import {TutorialsComponent} from './tutorials/tutorials.component';
 
 const routes: Routes = [
   {path: 'courses/detailedCourse/:id', component: CourseDetailComponent},
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'infos', component: GeneralInfosComponent},
   {path: 'courses/detailedCourse/:id/subject/:idSubject', component: SubjectDetailComponent},
-  {path: 'userinfo', component: UserInfoFormularComponent}
+  {path: 'userinfo', component: UserInfoFormularComponent},
+  {path: 'tutorials', component: TutorialsComponent}
 ];
 
 @NgModule({

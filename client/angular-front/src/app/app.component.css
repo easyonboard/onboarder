@@ -153,6 +153,18 @@ footer {
     color: #ffffff;
 }
 
+#tutorials {
+  background-color: #841439;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 40px;
+  margin-top: 12px;
+  margin-left: 5%;
+  font-size: x-large;
+  color: #ffffff;
+}
+
 #addCourse {
     position: absolute;
     top: 0;
