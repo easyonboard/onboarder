@@ -127,8 +127,8 @@ export class UserService {
     return this.http.post<LeaveCheckList>(this.rootConst.WEB_SERVER_LEAVE_CHECKLIST, user, this.httpOptions);
   }
 
-  saveLeaveCheckList(user: string, leaveCheckList: LeaveCheckList): Observable<LeaveCheckList> {
-    const body = JSON.stringify({user: user, leaveCheckList: leaveCheckList});
+  saveLeaveCheckList(leaveCheckList: LeaveCheckList): Observable<LeaveCheckList> {
+    const body = JSON.stringify(leaveCheckList);
     return this.http.post<LeaveCheckList>(this.rootConst.WEB_SERVER_SAVE_LEAVE_CHECKLIST, body, this.httpOptions);
   }
 }

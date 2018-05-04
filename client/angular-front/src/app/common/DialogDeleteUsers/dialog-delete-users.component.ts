@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserDTO} from '../../domain/user';
 import {UserService} from '../../service/user.service';
+import {MatDialog} from "@angular/material";
+import {DialogLeaveCheckListComponent} from "../DialogLeaveCheckList/dialog-leave-check-list.component";
 
 @Component({
   selector: 'app-dialog-delete-users',
@@ -12,7 +14,7 @@ export class DialogDeleteUsersComponent implements OnInit {
   public filteredUsers: UserDTO[];
   public allUsers: UserDTO[];
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -41,8 +43,13 @@ export class DialogDeleteUsersComponent implements OnInit {
       this.filteredUsers = this.allUsers;
     }
   }
-  openLeaveCheckList(user: string){
 
+  openLeaveCheckList(user: string) {
+    this.dialog.open(DialogLeaveCheckListComponent, {
+      height: '650px',
+      width: '900px',
+      data: user
+    });
   }
 
 }

@@ -212,4 +212,12 @@ public class UserService {
 
     }
 
+    public LeaveCheckListDTO saveLeaveCheckList(LeaveCheckListDTO leaveCheckList) {
+
+        LeaveCheckList persistEntity=new LeaveCheckList();
+        leaveCheckListMapper.mapToEntity(leaveCheckList,persistEntity);
+        leaveCheckListDAO.update(persistEntity);
+        return leaveCheckListMapper.mapToDTO(leaveCheckListDAO.findEntity(leaveCheckList.getIdCheckList()));
+
+    }
 }

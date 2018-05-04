@@ -1,11 +1,13 @@
 package dto;
 
-public class LeaveCheckListDTO {  private Integer idCheckList;
+public class LeaveCheckListDTO {
 
+    private Integer idCheckList;
     private UserDTO userAccount;
     private boolean inventoryObjects;
     private boolean resignationForm;
     private boolean cards;
+
 
     public Integer getIdCheckList() {
         return idCheckList;

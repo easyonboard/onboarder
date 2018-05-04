@@ -6,9 +6,9 @@ import {LeaveCheckList} from "../../domain/user";
 
 @Component({
   selector: 'app-dialog-leave-check-list-user',
-  templateUrl: './dialog=leave-check-list.component.html',
+  templateUrl: './dialog-leave-check-list.component.html',
 })
-export class DialogCheckListComponent implements OnInit {
+export class DialogLeaveCheckListComponent implements OnInit {
   public dialogTitle: string;
   public leaveCheckList: LeaveCheckList;
 
@@ -18,13 +18,13 @@ export class DialogCheckListComponent implements OnInit {
 
   ngOnInit() {
 
-
     this.userService.getUserLeaveCheckList(this.user).subscribe(res => this.leaveCheckList = res);
   }
 
 
   saveStatus() {
-    this.userService.saveLeaveCheckList(this.user, this.leaveCheckList).subscribe();
+    console.log(this.leaveCheckList);
+    this.userService.saveLeaveCheckList(this.leaveCheckList).subscribe();
   }
 
 }

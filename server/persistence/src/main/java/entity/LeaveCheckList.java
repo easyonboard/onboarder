@@ -23,6 +23,10 @@ public class LeaveCheckList implements Serializable {
     private boolean cards;
 
 
+    public void setIdCheckList(Integer idCheckList) {
+        this.idCheckList = idCheckList;
+    }
+
     public Integer getIdCheckList() {
         return idCheckList;
     }
@@ -35,7 +39,7 @@ public class LeaveCheckList implements Serializable {
         this.userAccount = userAccount;
     }
 
-    public boolean getInventoryObjects() {
+    public boolean isInventoryObjects() {
         return inventoryObjects;
     }
 
@@ -43,7 +47,7 @@ public class LeaveCheckList implements Serializable {
         this.inventoryObjects = inventoryObjects;
     }
 
-    public boolean getResignationForm() {
+    public boolean isResignationForm() {
         return resignationForm;
     }
 
@@ -51,7 +55,7 @@ public class LeaveCheckList implements Serializable {
         this.resignationForm = resignationForm;
     }
 
-    public boolean getCards() {
+    public boolean isCards() {
         return cards;
     }
 

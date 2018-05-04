@@ -7,7 +7,7 @@
       <td> Inventory items were handed
       </td>
       <td>
-        <mat-checkbox [checked]="leaveCheckList.inventoryObjects" (change)="onCheck(key)" color="primary">
+        <mat-checkbox [checked]="leaveCheckList.inventoryObjects" [(ngModel)]="leaveCheckList.inventoryObjects" color="primary">
         </mat-checkbox>
       </td>
     </tr>
@@ -16,7 +16,7 @@
       <td> Resignation form was handed
       </td>
       <td>
-        <mat-checkbox [checked]="leaveCheckList.resignationForm" (change)="onCheck(key)" color="primary">
+        <mat-checkbox [checked]="leaveCheckList.resignationForm" [(ngModel)]="leaveCheckList.resignationForm"  color="primary">
         </mat-checkbox>
       </td>
     </tr>
@@ -25,7 +25,7 @@
       <td> All cards were handed
       </td>
       <td>
-        <mat-checkbox [checked]="leaveCheckList.cards" (change)="onCheck(key)" color="primary">
+        <mat-checkbox [checked]="leaveCheckList.cards" [(ngModel)]="leaveCheckList.cards"  color="primary">
         </mat-checkbox>
       </td>
     </tr>
