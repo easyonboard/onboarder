@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Inject, ContentChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 
@@ -8,7 +8,8 @@ import {UserDTO, UserInformationDTO} from '../../domain/user';
 import {DepartmentType} from '../../domain/departmentType';
 
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
-import {MAT_DIALOG_DATA, MatSelectChange} from '@angular/material';
+import {MatSelectChange} from '@angular/material';
+import {LocationDTO} from "../../domain/location";
 
 @Component({
   selector: 'app-user-info-formular',
@@ -17,6 +18,8 @@ import {MAT_DIALOG_DATA, MatSelectChange} from '@angular/material';
 })
 export class UserInfoFormularComponent implements OnInit {
   public today: Date;
+
+  public locations: LocationDTO[];
   @Input()
   show = true;
   @Input()
@@ -24,6 +27,7 @@ export class UserInfoFormularComponent implements OnInit {
 
   public departmentType = DepartmentType;
   public departments = Object.keys(DepartmentType);
+  public selectedLocation: LocationDTO;
 
   public users$: Observable<UserDTO[]>;
   private searchTerms = new Subject<string>();
@@ -33,6 +37,12 @@ export class UserInfoFormularComponent implements OnInit {
 
   ngOnInit() {
     this.today = new Date(Date.now());
+    this.locations = [];
+
+
+    this.userInformationService.getAllLocations().subscribe(resp => this.locations = resp);
+
+
     if (this.userInformation.buddyUser === undefined) {
       this.userInformation.buddyUser = new UserDTO();
       this.userInformation.buddyUser.name = '';
@@ -59,5 +69,10 @@ export class UserInfoFormularComponent implements OnInit {
 
   getDate(): Date {
     return new Date(this.userInformation.startDate);
+  }
+
+  selectLocationValue(event: MatSelectChange) {
+
+    this.userInformation.location = this.selectedLocation;
   }
 }

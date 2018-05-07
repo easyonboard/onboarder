@@ -49,7 +49,7 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         UserInformation actualUserInfo = findEntity(userInfo.getIdUserInformation());
 
         actualUserInfo.setTeam(userInfo.getTeam());
-        actualUserInfo.setBuilding(userInfo.getBuilding());
+        actualUserInfo.setLocation(userInfo.getLocation());
         actualUserInfo.setFloor(userInfo.getFloor());
 
         if (userInfo.getBuddyUser() != null)

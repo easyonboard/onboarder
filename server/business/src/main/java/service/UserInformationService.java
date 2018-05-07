@@ -24,7 +24,7 @@ public class UserInformationService {
                 .updateUserInformation(userInformationMapper.mapToNewEntity(userInfo));
 
         userInformation.setTeam(userInfo.getTeam());
-        userInformation.setBuilding(userInfo.getBuilding());
+        userInformation.setLocation(userInfo.getLocation());
         userInformation.setFloor(userInfo.getFloor());
         userInformation.setBuddyUser(userMapper.mapToNewEntity(userInfo.getBuddyUser()));
 
@@ -43,7 +43,7 @@ public class UserInformationService {
         UserInformation userInformation = new UserInformation();
 
         userInformation.setTeam(userInformationDTO.getTeam());
-        userInformation.setBuilding(userInformationDTO.getBuilding());
+        userInformation.setLocation(userInformationDTO.getLocation());
         userInformation.setFloor(userInformationDTO.getFloor());
         userInformation.setDepartment(userInformationDTO.getDepartment());
         userInformation.setProject(userInformationDTO.getProject());

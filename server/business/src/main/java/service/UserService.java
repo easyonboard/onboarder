@@ -2,22 +2,10 @@ package service;
 
 import com.google.common.hash.Hashing;
 import com.sun.org.apache.xpath.internal.operations.Bool;
-import dao.CheckListDAO;
-import dao.LeaveCheckListDAO;
-import dao.UserDAO;
-import dao.UserInformationDAO;
-import dto.CheckListDTO;
-import dto.LeaveCheckListDTO;
-import dto.UserDTO;
-import dto.UserInformationDTO;
-import dto.mapper.CheckListMapper;
-import dto.mapper.LeaveCheckListMapper;
-import dto.mapper.UserInformationMapper;
-import dto.mapper.UserMapper;
-import entity.CheckList;
-import entity.LeaveCheckList;
-import entity.User;
-import entity.UserInformation;
+import dao.*;
+import dto.*;
+import dto.mapper.*;
+import entity.*;
 import exception.DataNotFoundException;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
@@ -58,6 +46,10 @@ public class UserService {
     @Autowired
     private CheckListService checkListService;
 
+
+    @Autowired
+    private LocationDAO locationDAO;
+
     private UserMapper userMapper = UserMapper.INSTANCE;
 
     private CheckListMapper checkListMapper = CheckListMapper.INSTANCE;
@@ -67,6 +59,10 @@ public class UserService {
 
 
     private UserInformationMapper userInformationMapper = UserInformationMapper.INSTANCE;
+
+    private LocationMapper locationMapper = LocationMapper.INSTANCE;
+
+
 
     private static final String USER_NOT_FOUND_ERROR = "User not found";
 
@@ -275,4 +271,9 @@ public class UserService {
         return false;
     }
 
+    public List<LocationDTO> getAllLocations() {
+
+       return locationMapper.entitiesToDTOs(locationDAO.getAllLocations());
+
+    }
 }

@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {RootConst} from '../util/RootConst';
-import {UserDTO, UserInformationDTO} from '../domain/user';
+import {UserInformationDTO} from '../domain/user';
+import {LocationDTO} from "../domain/location";
 
 @Injectable()
 export class UserInformationService {
@@ -16,9 +17,9 @@ export class UserInformationService {
   }
 
   updateUserInformation(userInfo: UserInformationDTO): Observable<UserInformationDTO> {
-    let body = JSON.stringify({
+    const body = JSON.stringify({
       idUserInformation: userInfo.idUserInformation,
-      team: userInfo.team, building: userInfo.building, floor: userInfo.floor, buddyUser: userInfo.buddyUser,
+      team: userInfo.team, building: userInfo.location, floor: userInfo.floor, buddyUser: userInfo.buddyUser,
       userAccount: userInfo.userAccount, mailSent: userInfo.mailSent, startDate: userInfo.startDate
     });
 
@@ -33,5 +34,9 @@ export class UserInformationService {
 
     return this.http.post<UserInformationDTO>(this.rootConst.WEB_SERVER_USERINFORMATION, user, this.httpOptions);
 
+  }
+
+  getAllLocations(): Observable<LocationDTO[]> {
+    return this.http.get<LocationDTO[]>(this.rootConst.WEB_SERVER_LOCATIONS);
   }
 }

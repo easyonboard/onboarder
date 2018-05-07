@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.*;
-import entity.LeaveCheckList;
 import entity.enums.RoleType;
 import exception.DataNotFoundException;
 import exception.InvalidDataException;
@@ -180,7 +179,7 @@ public class UserController {
 
         try {
 
-            return new ResponseEntity<>( userService.deleteUser(username), HttpStatus.OK);
+            return new ResponseEntity<>(userService.deleteUser(username), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -202,7 +201,6 @@ public class UserController {
     }
 
 
-
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "leaveCheckList", method = RequestMethod.POST)
     public ResponseEntity getLeaveCheckList(@RequestBody String username) {
@@ -220,4 +218,12 @@ public class UserController {
 
         return new ResponseEntity<>(userService.saveLeaveCheckList(leaveCheckList), HttpStatus.OK);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "locations", method = RequestMethod.GET)
+    public ResponseEntity getAllLocations() {
+        return new ResponseEntity(userService.getAllLocations(), HttpStatus.OK);
+    }
+
+
 }

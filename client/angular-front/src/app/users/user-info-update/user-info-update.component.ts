@@ -24,7 +24,7 @@ export class UserInfoUpdateComponent implements OnInit {
   ngOnInit() {
     this.childUserInfoFormularComponent.userInformation.idUserInformation = this.userInformation.idUserInformation;
     this.childUserInfoFormularComponent.userInformation.team = this.userInformation.team;
-    this.childUserInfoFormularComponent.userInformation.building = this.userInformation.building;
+    this.childUserInfoFormularComponent.userInformation.location = this.userInformation.location;
     this.childUserInfoFormularComponent.userInformation.floor = this.userInformation.floor;
     this.childUserInfoFormularComponent.userInformation.project = this.userInformation.project;
     this.childUserInfoFormularComponent.userInformation.department = this.userInformation.department;

@@ -3,8 +3,14 @@
     <input #Team type="text" [(ngModel)]="userInformation.team" [ngModelOptions]="{standalone: true}" placeholder="Team" class="form-control" id="Team" [value]="userInformation.team" />
 </div>
 <div>
-    <label for="Building">Building</label>
-    <input #Building type="text" [(ngModel)]="userInformation.building" [ngModelOptions]="{standalone: true}" placeholder="Building" class="form-control" id="Building" [value]="userInformation.building" />
+    <label for="Building">Location</label>
+
+  <mat-select placeholder="Select role" (selectionChange)="selectLocationValue($event)" id="Building" >
+    <mat-option *ngFor="let location of locations" [value]="location">
+      {{location.locationName}}
+    </mat-option>
+  </mat-select>
+    <!--<input #Building type="text" [(ngModel)]="userInformation.building" [ngModelOptions]="{standalone: true}" placeholder="Location" class="form-control" id="Building" [value]="userInformation.location" />-->
 </div>
 <div>
     <label for="Floor">Floor</label>
