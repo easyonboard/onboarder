@@ -1,0 +1,51 @@
+<div id="addComponent">
+    <div class="pageTitle"> Add tutorial</div>
+    <hr class="separator">
+
+    <table id="tutorialTable" cellspacing="50">
+        <tr>
+            <td>
+                <label>Tutorial title</label>
+            </td>
+            <td>
+                <input type="text" id="tutorialTtile" name="Tutorial title" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Overview</label>
+            </td>
+            <td>
+                <textarea id="tutorialOverview" name="Overview"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Contact persons</label></td>
+            <td>
+                <ss-multiselect-dropdown [options]="usersOptions" [(ngModel)]="contactPersonsIds"></ss-multiselect-dropdown>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Owners</label></td>
+            <td>
+                <ss-multiselect-dropdown [options]="usersOptions" [(ngModel)]="ownersIds"></ss-multiselect-dropdown>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Keywords </label></td>
+            <td>
+                <mat-form-field class="keyword-list">
+                    <mat-chip-list #chipList>
+                        <mat-chip *ngFor="let keyword of keywords" [selectable]="true" [removable]="true" (remove)="removeKeyword(keyword)">
+                            {{keyword}}
+                            <mat-icon matChipRemove *ngIf="true"><i class="fa fa-times" aria-hidden="true"></i></mat-icon>
+                        </mat-chip>
+                        <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="addKeyword($event)" />
+                    </mat-chip-list>
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+
+    <button (click)="addTutorial()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Save</button>
+</div>

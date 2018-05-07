@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RootConst } from '../util/RootConst';
 
 @Component({
   selector: 'app-tutorials',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TutorialsComponent implements OnInit {
 
-  constructor() { }
+  private rootConst: RootConst;
+
+  constructor() {
+    this.rootConst = new RootConst();
+  }
 
   ngOnInit() {
   }
+
+  addTutorial(): void {
+    location.replace(this.rootConst.FRONT_ADD_TUTORIAL);
+  }
+
 
 }

@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {CoursesComponent} from './courses/courses.component';
 import {CourseService} from './service/course.service';
+import {TutorialService} from './service/tutorial.service';
 import {HttpClientModule} from '@angular/common/http';
 import {CourseDetailComponent} from './courses/course-detail/course-detail.component';
 import {AppRoutingModule} from './app-routing.module';
@@ -41,10 +42,11 @@ import {DialogDeleteUsersComponent} from './common/DialogDeleteUsers/dialog-dele
 
 import {ExcelService} from './service/excel.service';
 
-import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
-import {DialogEditProfileComponent} from './common/DialogEditProfile/dialog-edit-profile.component';
+import { UserInfoUpdateComponent } from './users/user-info-update/user-info-update.component';
+import { DialogEditProfileComponent } from './common/DialogEditProfile/dialog-edit-profile.component';
 import { TutorialsComponent } from './tutorials/tutorials.component';
-import {DialogLeaveCheckListComponent} from "./common/DialogLeaveCheckList/dialog-leave-check-list.component";
+import { DialogLeaveCheckListComponent } from './common/DialogLeaveCheckList/dialog-leave-check-list.component';
+import { AddTutorialComponent } from './tutorials/add-tutorial/add-tutorial.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import {DialogLeaveCheckListComponent} from "./common/DialogLeaveCheckList/dialo
     UsersInDepartmentListComponent,
     DialogEditProfileComponent,
     TutorialsComponent,
-    DialogLeaveCheckListComponent
+    AddTutorialComponent,
+    DialogLeaveCheckListComponent,
+    AddTutorialComponent
   ],
   imports: [
     FormsModule,
@@ -117,7 +121,7 @@ import {DialogLeaveCheckListComponent} from "./common/DialogLeaveCheckList/dialo
 
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
-    UserInformationService, CommonComponentsService, ExcelService],
+    UserInformationService, CommonComponentsService, ExcelService, TutorialService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

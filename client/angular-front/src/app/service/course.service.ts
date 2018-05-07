@@ -11,11 +11,10 @@ import {RootConst} from '../util/RootConst';
 export class CourseService implements OnInit {
 
   private rootConst: RootConst = new RootConst();
+
   private coursesByPageNumberUrl = this.rootConst.SERVER_COURSES_BY_PAGE_NUMBER_URL;
   private numberOfObjectsPerPageUrl = this.rootConst.SERVER_COURSES_NUMBER_OF_OBJECT_PER_PAGE;
-
   private searchByCourseOverviewUrl = this.rootConst.SERVER_COURSE_OVERVIEW;
-
   private detailedCourse = this.rootConst.SERVER_DETAILED_COURSE;
   private testIfUserIsEnroll = this.rootConst.SERVER_TEST_IF_USER_IS_ENROLLED;
   private enrolleUserOnCourse = this.rootConst.SERVER_ENROLLE_USER_ON_COURSE;

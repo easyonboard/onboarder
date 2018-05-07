@@ -26,7 +26,7 @@
     padding-top: 30px;
 }
 
-#courseTable td,
+#tutorialTable td,
 #materialTable td {
     padding-left: 50px;
 }
@@ -35,7 +35,7 @@
     padding-top: 10px;
 }
 
-#courseTable td {
+#tutorialTable td {
     padding-top: 50px;
 }
 
@@ -141,7 +141,7 @@ input[type~="submit"] {
     left: 16px;
 }
 
-#courseTable {
+#tutorialTable {
     margin-top: 50px;
 }
 
@@ -233,7 +233,7 @@ thead>tr>th {
     line-height: 470px;
 }
 
-#addCourseMessage {
+#addTutorialMessage {
     text-align: center;
     color: #ffffff;
     background: #841439;
@@ -245,7 +245,7 @@ thead>tr>th {
     padding: 30px;
 }
 
-#backToCourses {
+#backToTutorials {
     text-align: center;
     color: #ffffff;
     background: #841439;
