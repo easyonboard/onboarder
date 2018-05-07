@@ -1,8 +1,5 @@
 package dto;
 
-import entity.TutorialMaterial;
-import entity.User;
-
 import java.util.List;
 
 public class TutorialDTO {
@@ -19,7 +16,15 @@ public class TutorialDTO {
 
     private List<TutorialMaterialDTO> tutorialMaterials;
 
-    public TutorialDTO(){}
+    public TutorialDTO() {
+    }
+
+    public TutorialDTO(Integer idTutorial, String titleTutorial, String overview, String keywords) {
+        this.idTutorial = idTutorial;
+        this.titleTutorial = titleTutorial;
+        this.overview = overview;
+        this.keywords = keywords;
+    }
 
     public TutorialDTO(Integer idTutorial, String titleTutorial, String overview, String keywords, List<UserDTO> contactPersons, List<TutorialMaterialDTO> tutorialMaterials) {
         this.idTutorial = idTutorial;

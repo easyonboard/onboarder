@@ -20,9 +20,9 @@ public class TutorialDAO extends AbstractDAO<Tutorial> {
     public List<Tutorial> allCourses() {
         CriteriaBuilder cb = this.getCriteriaBuilder();
         CriteriaQuery<Tutorial> criteriaQuery = cb.createQuery(Tutorial.class);
-        Root<Tutorial> rootCourse = criteriaQuery.from(Tutorial.class);
-        criteriaQuery.select(cb.construct(Tutorial.class, rootCourse.get("idTutorial"), rootCourse.get("titleTutorial"),
-                rootCourse.get("overview"), rootCourse.get("keywords")));
+        Root<Tutorial> rootTutorial = criteriaQuery.from(Tutorial.class);
+        criteriaQuery.select(cb.construct(Tutorial.class, rootTutorial.get("idTutorial"), rootTutorial.get("titleTutorial"),
+                rootTutorial.get("overview"), rootTutorial.get("keywords")));
         return (List<Tutorial>) this.executeCriteriaQuery(criteriaQuery);
     }
 

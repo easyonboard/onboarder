@@ -24,13 +24,20 @@ public class Tutorial implements Serializable {
     private String keywords;
 
     @ManyToMany(targetEntity = User.class)
-    @JoinTable(name = "course_contactPerson", joinColumns = @JoinColumn(name = "idTutorial"), inverseJoinColumns = @JoinColumn(name = "idUser"))
+    @JoinTable(name = "tutorial_contactPerson", joinColumns = @JoinColumn(name = "idTutorial"), inverseJoinColumns = @JoinColumn(name = "idUser"))
     private List<User> contactPersons;
 
     @OneToMany(mappedBy = "tutorial", cascade = CascadeType.ALL)
     private List<TutorialMaterial> tutorialMaterials;
 
     public Tutorial() {
+    }
+
+    public Tutorial(Integer idTutorial, String titleTutorial, @Size(min = 50) String overview, String keywords) {
+        this.idTutorial = idTutorial;
+        this.titleTutorial = titleTutorial;
+        this.overview = overview;
+        this.keywords = keywords;
     }
 
     public Tutorial(Integer idTutorial, String titleTutorial, @Size(min = 50) String overview, String keywords, List<User> contactPersons, List<TutorialMaterial> tutorialMaterials) {
