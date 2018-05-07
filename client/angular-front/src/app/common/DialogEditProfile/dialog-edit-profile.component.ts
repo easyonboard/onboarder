@@ -11,7 +11,7 @@ export class DialogEditProfileComponent implements OnInit {
   public message: string;
   public username: string;
   public email: string;
-  
+
   constructor(private userService: UserService, private userInfoService: UserInformationService, public snackBar: MatSnackBar, private dialog: MatDialog) {
     this.username = localStorage.getItem('userLogged');
   }

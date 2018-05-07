@@ -2,6 +2,8 @@
     <label for="Team">Team</label>
     <input #Team type="text" [(ngModel)]="userInformation.team" [ngModelOptions]="{standalone: true}" placeholder="Team" class="form-control" id="Team" [value]="userInformation.team" />
 </div>
+
+
 <div>
     <label for="Building">Location</label>
 
@@ -10,6 +12,8 @@
       {{location.locationName}}
     </mat-option>
   </mat-select>
+
+
     <!--<input #Building type="text" [(ngModel)]="userInformation.building" [ngModelOptions]="{standalone: true}" placeholder="Location" class="form-control" id="Building" [value]="userInformation.location" />-->
 </div>
 <div>
@@ -21,14 +25,21 @@
     <input #Project type="text" [(ngModel)]="userInformation.project" [ngModelOptions]="{standalone: true}" placeholder="Project" class="form-control" id="Project" [value]="userInformation.project" />
 </div>
 
-<div class="form-group">
+
+
+<div>
+
     <label>Department</label>
-    <mat-select placeholder="Select department" (selectionChange)="selectValue($event)" [ngModel]="userInformation.department">
+    <mat-select placeholder="Select department" (selectionChange)="selectValue($event)">
         <mat-option *ngFor="let departmentValue of departments" [value]="departmentValue">
-            {{departmentType[departmentValue]}}
+            {{departmentValue}}
         </mat-option>
     </mat-select>
+
+
 </div>
+
+
 
 <div id="search-component">
     <label for="search-box">Buddy </label>

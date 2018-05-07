@@ -27,7 +27,6 @@ export class UserInfoFormularComponent implements OnInit {
 
   public departmentType = DepartmentType;
   public departments = Object.keys(DepartmentType);
-  public selectedLocation: LocationDTO;
 
   public users$: Observable<UserDTO[]>;
   private searchTerms = new Subject<string>();
@@ -64,6 +63,7 @@ export class UserInfoFormularComponent implements OnInit {
   }
 
   selectValue(event: MatSelectChange) {
+    console.log(event.value);
     this.userInformation.department = event.value;
   }
 
@@ -73,6 +73,7 @@ export class UserInfoFormularComponent implements OnInit {
 
   selectLocationValue(event: MatSelectChange) {
 
-    this.userInformation.location = this.selectedLocation;
+    console.log(event.value)
+    this.userInformation.location = event.value;
   }
 }
