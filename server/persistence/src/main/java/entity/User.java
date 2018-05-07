@@ -36,8 +36,20 @@ public class User implements Serializable {
     @NotNull
     private String email;
 
+    @Column
+    private String msgMail;
+
     @ManyToOne
     private Role role;
+
+    public User(Integer idUser,@NotNull String name, @NotNull @Size(min = 6) String username, @NotNull String email) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+    }
+
+    public User() {
+    }
 
     @OneToOne( mappedBy = "userAccount", targetEntity = UserInformation.class)
     public UserInformation userAccount;
@@ -131,5 +143,13 @@ public class User implements Serializable {
 
     public void setUserAccount(UserInformation userAccount) {
         this.userAccount = userAccount;
+    }
+
+    public String getMsgMail() {
+        return msgMail;
+    }
+
+    public void setMsgMail(String msgMail) {
+        this.msgMail = msgMail;
     }
 }

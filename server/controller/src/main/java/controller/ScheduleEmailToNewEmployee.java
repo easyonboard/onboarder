@@ -72,12 +72,12 @@ public class ScheduleEmailToNewEmployee {
 
                     Optional<User> abteilungsleiterForUser = findAbteilungsleiter(ui);
                     if (abteilungsleiterForUser.isPresent()) {
-                        sendEmail(user, abteilungsleiterForUser.get(), NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);
+                        sendEmail(user.getEmail(), abteilungsleiterForUser.get(), NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);
                     }
                     User buddy = ui.getBuddyUser();
                     if (buddy != null){
                         String emailBodyForBuddy = createEmailBodyForBuddy(buddy.getName(),user.getName(), dateWithZeroTime, "09:00", ui.getFloor(), ui.getBuilding(), ui.getTeam());
-                        sendEmail(buddy, null, BUDDY_MAIL_SUBJECT, emailBodyForBuddy);
+                        sendEmail(buddy.getMsgMail(), null, BUDDY_MAIL_SUBJECT, emailBodyForBuddy);
                     }
 //                    List<User> abteilungsleiters = userDAO.getAbteilungsleiters();
 //                    for (User ab : abteilungsleiters) {
@@ -102,12 +102,18 @@ public class ScheduleEmailToNewEmployee {
         }).findFirst();
     }
 
-    private void sendEmail(User to, User personInCC, String subject, String body) {
+
+    /**
+     *
+             Modificat parametrul "to" din user -> string email pentru ca buddy sa primeasca email pe mail-ul de msg iar angajatul nou pe mailul personal
+
+     */
+    private void sendEmail(String to, User personInCC, String subject, String body) {
         MailSender sender = new MailSender();
         if (personInCC!=null){
-        sender.sendMail(to.getEmail(), personInCC.getEmail(), subject, body);}
+        sender.sendMail(to, personInCC.getEmail(), subject, body);}
         else{
-            sender.sendMail(to.getEmail(),subject, body);
+            sender.sendMail(to,subject, body);
         }
     }
 

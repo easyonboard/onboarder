@@ -19,6 +19,7 @@ export class UserInformationService {
     let body = JSON.stringify({
       idUserInformation: userInfo.idUserInformation,
       team: userInfo.team, building: userInfo.building, floor: userInfo.floor, buddyUser: userInfo.buddyUser,
+      project: userInfo.project, department: userInfo.department,
       userAccount: userInfo.userAccount, mailSent: userInfo.mailSent, startDate: userInfo.startDate
     });
 

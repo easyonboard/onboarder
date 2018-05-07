@@ -51,6 +51,7 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         actualUserInfo.setTeam(userInfo.getTeam());
         actualUserInfo.setBuilding(userInfo.getBuilding());
         actualUserInfo.setFloor(userInfo.getFloor());
+        actualUserInfo.setProject(userInfo.getProject());
 
         if (userInfo.getBuddyUser() != null)
         {
@@ -58,7 +59,7 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
             actualUserInfo.setBuddyUser(newUser.get());
         }
 
-        return em.merge(userInfo);
+        return em.merge(actualUserInfo);
     }
 
   public List<UserInformation> usersWhoStartOnGivenDate(Date givenDate) {

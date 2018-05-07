@@ -54,10 +54,19 @@ export class UserInfoFormularComponent implements OnInit {
   }
 
   selectValue(event: MatSelectChange) {
+    console.log('update data: ' + event.value);
     this.userInformation.department = event.value;
   }
 
   getDate(): Date {
     return new Date(this.userInformation.startDate);
+  }
+
+  getDepartment(): String {
+    return this.userInformation.department;
+  }
+
+  getUserBuddy(): String {
+    return this.userInformation.buddyUser !== null ? this.userInformation.buddyUser.name : '';
   }
 }

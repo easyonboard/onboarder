@@ -17,7 +17,7 @@
 
 <div class="form-group">
     <label>Department</label>
-    <mat-select placeholder="Select department" (selectionChange)="selectValue($event)" [ngModel]="userInformation.department">
+    <mat-select placeholder="Select department" (selectionChange)="selectValue($event)" [(ngModel)]="userInformation.department" [value]="getDepartment()">
         <mat-option *ngFor="let departmentValue of departments" [value]="departmentValue">
             {{departmentType[departmentValue]}}
         </mat-option>
@@ -26,7 +26,7 @@
 
 <div id="search-component">
     <label for="search-box">Buddy </label>
-    <input #searchBox id="search-box" (keyup)="search(searchBox.value)" class="form-control" placeholder="Type in here" value={{userInformation.buddyUser.name}}/>
+    <input #searchBox id="search-box" (keyup)="search(searchBox.value)" class="form-control" placeholder="Type in here" [value]="getUserBuddy()" />
     <ul class="search-result" *ngIf="show">
         <li *ngFor="let buddy of users$ | async" (click)="userInformation.buddyUser=buddy;show = false">
             <span>{{buddy.name}}</span>
@@ -35,7 +35,7 @@
 </div>
 
 <div>
-    <input [(ngModel)]="userInformation.startDate" matInput [min]="today" [matDatepicker]="picker" placeholder="Choose a date" [value]="getDate()" required>
+    <input [(ngModel)]="userInformation.startDate" matInput [min]="today" [matDatepicker]="picker" placeholder="Choose a date" [value]="getDate()" required/>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <label class="hint-text">*must be specified</label>
     <mat-datepicker #picker></mat-datepicker>
