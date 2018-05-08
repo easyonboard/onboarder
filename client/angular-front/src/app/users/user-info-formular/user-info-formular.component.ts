@@ -63,7 +63,7 @@ export class UserInfoFormularComponent implements OnInit {
   }
 
   selectValue(event: MatSelectChange) {
-    console.log(event.value);
+
     this.userInformation.department = event.value;
   }
 
@@ -73,7 +73,13 @@ export class UserInfoFormularComponent implements OnInit {
 
   selectLocationValue(event: MatSelectChange) {
 
-    console.log(event.value)
     this.userInformation.location = event.value;
+
+  getDepartment(): String {
+    return this.userInformation.department;
+  }
+
+  getUserBuddy(): String {
+    return this.userInformation.buddyUser !== null ? this.userInformation.buddyUser.name : '';
   }
 }

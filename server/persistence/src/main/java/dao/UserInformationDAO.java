@@ -52,6 +52,7 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         actualUserInfo.setLocation(userInfo.getLocation());
         actualUserInfo.setFloor(userInfo.getFloor());
         actualUserInfo.setProject(userInfo.getProject());
+
         actualUserInfo.setDepartment(userInfo.getDepartment());
         actualUserInfo.setStartDate(userInfo.getStartDate());
         if (userInfo.getBuddyUser().getUsername() != null)

@@ -14,7 +14,6 @@ export class DialogCheckListComponent implements OnInit {
   public checkList: TSMap<string, boolean>;
   public checkListProperties: CheckListProperties;
 
-
   constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService) {
   }
 

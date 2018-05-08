@@ -100,10 +100,9 @@ public class UserService {
     }
 
     public void updateUser(UserDTO userUpdated) throws InvalidDataException {
-
         Optional<User> user = userDAO.findUserByUsername(userUpdated.getUsername());
-        if (user.isPresent()) {
 
+        if (user.isPresent()) {
             if (userUpdated.getPassword() != null) {
                 userUpdated.setPassword(encrypt(userUpdated.getPassword()));
             }
