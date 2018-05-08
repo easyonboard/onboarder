@@ -17,8 +17,10 @@ public class UserInformation implements Serializable {
     private int idUserInformation;
     @Column
     private String team;
-    @Column
-    private String building;
+
+    @ManyToOne
+    private Location location;
+
     @Column
     private String floor;
     @Column
@@ -41,9 +43,9 @@ public class UserInformation implements Serializable {
     public UserInformation() {
     }
 
-    public UserInformation(String team, String building, String floor, String project, Date startDate, User userBuddy, Integer mailSent) {
+    public UserInformation(String team, Location location, String floor, String project, Date startDate, User userBuddy, Integer mailSent) {
         this.team = team;
-        this.building = building;
+        this.location = location;
         this.floor = floor;
         this.project = project;
         this.startDate = startDate;
@@ -54,9 +56,7 @@ public class UserInformation implements Serializable {
         return team;
     }
 
-    public String getBuilding() {
-        return building;
-    }
+
 
     public String getFloor() {
         return floor;
@@ -74,9 +74,6 @@ public class UserInformation implements Serializable {
         this.team = team;
     }
 
-    public void setBuilding(String building) {
-        this.building = building;
-    }
 
     public void setFloor(String floor) {
         this.floor = floor;
@@ -121,5 +118,13 @@ public class UserInformation implements Serializable {
 
     public void setDepartment(DepartmentType department) {
         this.department = department;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }

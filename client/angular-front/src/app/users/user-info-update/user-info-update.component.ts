@@ -1,11 +1,10 @@
-import {Component, OnInit, ViewChild, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 
 import {UserInformationService} from '../../service/user-information.service';
-import {UserService} from '../../service/user.service';
 
 import {UserInfoFormularComponent} from '../user-info-formular/user-info-formular.component';
-import {UserDTO, UserInformationDTO} from '../../domain/user';
+import {UserInformationDTO} from '../../domain/user';
 
 @Component({
   selector: 'app-user-info-update',
@@ -18,27 +17,34 @@ export class UserInfoUpdateComponent implements OnInit {
   private childUserInfoFormularComponent: UserInfoFormularComponent;
 
   constructor(@Inject(MAT_DIALOG_DATA) public userInformation: UserInformationDTO,
-              private userInformationService: UserInformationService, private userService: UserService) {
+              private userInformationService: UserInformationService,  private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
+    console.log(this.userInformation);
     this.childUserInfoFormularComponent.userInformation.idUserInformation = this.userInformation.idUserInformation;
     this.childUserInfoFormularComponent.userInformation.team = this.userInformation.team;
-    this.childUserInfoFormularComponent.userInformation.building = this.userInformation.building;
+    this.childUserInfoFormularComponent.userInformation.location = this.userInformation.location;
     this.childUserInfoFormularComponent.userInformation.floor = this.userInformation.floor;
     this.childUserInfoFormularComponent.userInformation.project = this.userInformation.project;
     this.childUserInfoFormularComponent.userInformation.department = this.userInformation.department;
     this.childUserInfoFormularComponent.userInformation.buddyUser = this.userInformation.buddyUser;
     this.childUserInfoFormularComponent.userInformation.startDate = this.userInformation.startDate;
+    this.childUserInfoFormularComponent.userInformation.userAccount = this.userInformation.userAccount;
+
   }
 
   updateUserInformation(): void {
-    console.log('update user buuton: ' + this.childUserInfoFormularComponent.userInformation.project);
-    console.log('update user buuton: ' + this.childUserInfoFormularComponent.userInformation.department);
     this.userInformationService.updateUserInformation(this.childUserInfoFormularComponent.userInformation).subscribe(
-      value => alert('yes!'),
-      error => alert('No!')
+      value => this.snackBarMessagePopup('User info updated!'),
+      error => this.snackBarMessagePopup('Could not update user info! Please try again!')
     );
+  }
+
+  snackBarMessagePopup(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 3000
+    });
   }
 
 }

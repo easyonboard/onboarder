@@ -1,5 +1,6 @@
 package dto;
 
+import entity.Location;
 import entity.enums.DepartmentType;
 
 import java.util.Date;
@@ -9,7 +10,7 @@ public class UserInformationDTO {
     private int idUserInformation;
 
     private String team;
-    private String building;
+    private Location location;
     private String floor;
     private String project;
     private Date startDate;
@@ -30,12 +31,12 @@ public class UserInformationDTO {
         this.team = team;
     }
 
-    public String getBuilding() {
-        return building;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setBuilding(String building) {
-        this.building = building;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public String getFloor() {

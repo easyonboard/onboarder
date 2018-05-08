@@ -6,8 +6,6 @@ import {DialogCheckListComponent} from '../DialogCheckList/dialog-check-list.com
 import {UserInfoUpdateComponent} from '../../users/user-info-update/user-info-update.component';
 import {UserService} from '../../service/user.service';
 
-import {CommonComponentsService} from '../common-components.service';
-
 @Component({
   selector: 'app-dialog-new-employee',
   templateUrl: './dialog-new-employee.html'
@@ -45,6 +43,8 @@ export class DialogNewEmployeeComponent implements OnInit {
   }
 
   openUserInfoModal(userInformation: UserInformationDTO) {
+    console.log('user inainte de modal');
+    console.log(userInformation);
     this.dialog.open(UserInfoUpdateComponent, {
       height: '650px',
       width: '900px',
