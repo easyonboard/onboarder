@@ -6,19 +6,17 @@ import entity.enums.MaterialType;
 import java.util.List;
 
 public class MaterialDTO {
-    private Integer idMaterial;
 
+    private Integer idMaterial;
     private MaterialType materialType;
 
     private String link;
-
     @JsonProperty("material.fileMaterial")
     private byte[] fileMaterial;
 
     private SubjectDTO subject;
 
     private String title;
-
     private String description;
 
     public Integer getIdMaterial() {

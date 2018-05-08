@@ -32,7 +32,7 @@ public class TutorialController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/tutorials/addTutorial", method = RequestMethod.POST)
-    public ResponseEntity addCouse(@RequestBody String courseJson) {
+    public ResponseEntity addTutorial(@RequestBody String courseJson) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             JsonNode node = null;

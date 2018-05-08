@@ -26,10 +26,11 @@ public class MaterialController {
     @Autowired
     private MaterialService materialService;
 
-
     @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "/createMaterial", method = RequestMethod.POST)
-    public ResponseEntity addMaterial(@RequestParam(name = "material") String mat, @RequestParam(name = "file") Optional<MultipartFile> file, @RequestParam(name = "idSubject") String idSubject) throws IOException {
+    public ResponseEntity addMaterial(@RequestParam(name = "material") String mat,
+                                      @RequestParam(name = "file") Optional<MultipartFile> file,
+                                      @RequestParam(name = "idSubject") String idSubject) throws IOException {
         final GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
         MaterialDTO material = gson.fromJson(mat, MaterialDTO.class);
@@ -44,6 +45,26 @@ public class MaterialController {
         return null;
     }
 
+    @CrossOrigin(origins="http://localhost:4200")
+    @RequestMapping(value = "/createTutorialMaterial", method = RequestMethod.POST)
+    public ResponseEntity addTutorialMaterial(@RequestParam(name = "material") String mat,
+                                              @RequestParam(name = "file") Optional<MultipartFile> file,
+                                              @RequestParam(name = "idTutorial") String idSubject) throws IOException {
+        final GsonBuilder gsonBuilder = new GsonBuilder();
+        final Gson gson = gsonBuilder.create();
+        MaterialDTO material = gson.fromJson(mat, MaterialDTO.class);
+
+        if (file.isPresent()) {
+            material.setFileMaterial(file.get().getBytes());
+        }
+        try {
+            materialService.createMaterial(material, Integer.parseInt(idSubject));
+        } catch (InvalidDataException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
+
+        return null;
+    }
 
     @CrossOrigin(origins="http://localhost:4200")
     @RequestMapping(value = "courses/material", method = RequestMethod.GET, produces = "application/pdf")
