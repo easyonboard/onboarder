@@ -74,7 +74,7 @@ export class UserInfoFormularComponent implements OnInit {
   selectLocationValue(event: MatSelectChange) {
 
     this.userInformation.location = event.value;
-
+  }
   getDepartment(): String {
     return this.userInformation.department;
   }
