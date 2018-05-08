@@ -61,7 +61,7 @@ public class UserController {
             RoleType role = mapper.convertValue(node.get("role"), RoleType.class);
             UserInformationDTO userInformationDTO = mapper.convertValue(node.get("userInfo"), UserInformationDTO.class);
 
-            RoleDTO roleDTO = roleService.findRoleById(role.getRoleTypeId());
+            RoleDTO roleDTO = roleService.findRoleByType(role);
             userDTO.setRole(roleDTO);
 
             userService.addUser(userDTO, userInformationDTO);
@@ -71,10 +71,7 @@ public class UserController {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (RoleNameNotFoundException e) {
-            e.printStackTrace();
         }
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -19,6 +19,7 @@ export class UserInformationService {
   updateUserInformation(userInfo: UserInformationDTO): Observable<UserInformationDTO> {
     const body = JSON.stringify(userInfo);
     return this.http.post<UserInformationDTO>(this.rootConst.SERVER_UPDATE_USER_INFO, body, this.httpOptions);
+
   }
 
   getNewUsers(): Observable<UserInformationDTO[]> {

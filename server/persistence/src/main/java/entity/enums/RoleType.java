@@ -17,4 +17,5 @@ public enum RoleType {
     public int getRoleTypeId() {
         return roleTypeId;
     }
+
 }

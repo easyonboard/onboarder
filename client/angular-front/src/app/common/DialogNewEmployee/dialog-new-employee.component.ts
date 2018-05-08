@@ -4,7 +4,7 @@ import {MatDialog} from '@angular/material';
 import {UserInformationService} from '../../service/user-information.service';
 import {DialogCheckListComponent} from '../DialogCheckList/dialog-check-list.component';
 import {UserInfoUpdateComponent} from '../../users/user-info-update/user-info-update.component';
-import {UserService} from "../../service/user.service";
+import {UserService} from '../../service/user.service';
 
 
 @Component({
@@ -19,7 +19,6 @@ export class DialogNewEmployeeComponent implements OnInit {
 
   public allNewEmployees: UserInformationDTO[];
   public searchValue = '';
-
 
   constructor(private userInformationService: UserInformationService, private dialog: MatDialog, private userService: UserService) {
   }
@@ -56,6 +55,8 @@ export class DialogNewEmployeeComponent implements OnInit {
 
   private getStatus() {
     this.newEmployees.forEach(user => {
+      console.log(user.team + '\n');
+      console.log(user.userAccount.name + '\n');
       this.userService.isMailSent(user.userAccount).subscribe(value => {
         this.isMailSent.push(value);
         console.log(value);

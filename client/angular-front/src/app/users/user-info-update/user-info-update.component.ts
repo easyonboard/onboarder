@@ -35,7 +35,7 @@ export class UserInfoUpdateComponent implements OnInit {
   }
 
   updateUserInformation(): void {
-    console.log(this.childUserInfoFormularComponent.userInformation);
+
     this.userInformationService.updateUserInformation(this.childUserInfoFormularComponent.userInformation).subscribe(
       value => this.snackBarMessagePopup('User info updated!'),
       error => this.snackBarMessagePopup('Could not update user info! Please try again!')

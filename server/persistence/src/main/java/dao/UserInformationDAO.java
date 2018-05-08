@@ -55,6 +55,7 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         actualUserInfo.setDepartment(userInfo.getDepartment());
         actualUserInfo.setStartDate(userInfo.getStartDate());
         if (userInfo.getBuddyUser().getUsername() != null)
+
         {
             Optional<User> newUser = userDAO.findUserByUsername(userInfo.getBuddyUser().getUsername());
             actualUserInfo.setBuddyUser(newUser.get());
