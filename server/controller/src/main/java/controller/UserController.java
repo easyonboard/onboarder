@@ -118,7 +118,7 @@ public class UserController {
      * or HTTP STATUS BAD REQUEST for exception
      */
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/user/updateUserInfo", method = RequestMethod.PUT)
+    @RequestMapping(value = "/user/updateUserInfo", method = RequestMethod.POST)
     public ResponseEntity updateUserInformation(@RequestBody UserInformationDTO userInformationDTO) {
         try {
             userInformationService.updateUserInfo(userInformationDTO);
@@ -206,7 +206,7 @@ public class UserController {
     public ResponseEntity getLeaveCheckList(@RequestBody String username) {
         try {
             return new ResponseEntity<>(userService.getLeaveCheckListForUser(username), HttpStatus.OK);
-        } catch (UserNotFoundException | DataNotFoundException e) {
+        } catch (UserNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
         }
     }

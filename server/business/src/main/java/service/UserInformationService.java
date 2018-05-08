@@ -1,5 +1,6 @@
 package service;
 
+import dao.UserDAO;
 import dao.UserInformationDAO;
 import dto.UserInformationDTO;
 import dto.mapper.UserInformationMapper;
@@ -9,24 +10,31 @@ import entity.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserInformationService {
 
     @Autowired
     private UserInformationDAO userInformationDAO;
 
+    @Autowired
+    private UserDAO userDAO;
+
     private UserInformationMapper userInformationMapper = UserInformationMapper.INSTANCE;
     private UserMapper userMapper = UserMapper.INSTANCE;
 
     public void updateUserInfo(UserInformationDTO userInfo) {
 
-        UserInformation userInformation = userInformationDAO
+        userInformationDAO
                 .updateUserInformation(userInformationMapper.mapToNewEntity(userInfo));
 
-        userInformation.setTeam(userInfo.getTeam());
-        userInformation.setLocation(userInfo.getLocation());
-        userInformation.setFloor(userInfo.getFloor());
-        userInformation.setBuddyUser(userMapper.mapToNewEntity(userInfo.getBuddyUser()));
+//        userInformation.setTeam(userInfo.getTeam());
+//        userInformation.setLocation(userInfo.getLocation());
+//        userInformation.setFloor(userInfo.getFloor());
+//        Optional<User> userOptional=userDAO.findUserByUsername(userInfo.getBuddyUser().getUsername());
+//        if(userOptional.isPresent())
+//        userInformation.setBuddyUser(userOptional.get());
 
 //        UserInformation userInformation = userInformationDAO
 //                .getUserInformationForUserAccount(userMapper.mapToNewEntity(userInfo.getUserAccount()));

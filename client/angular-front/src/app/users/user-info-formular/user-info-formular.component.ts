@@ -25,8 +25,7 @@ export class UserInfoFormularComponent implements OnInit {
   @Input()
   userInformation = new UserInformationDTO();
 
-  public departmentType = DepartmentType;
-  public departments = Object.keys(DepartmentType);
+  public departments: string[];
 
   public users$: Observable<UserDTO[]>;
   private searchTerms = new Subject<string>();
@@ -35,6 +34,7 @@ export class UserInfoFormularComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.departments = Object.keys(DepartmentType);
     this.today = new Date(Date.now());
     this.locations = [];
 
@@ -42,7 +42,7 @@ export class UserInfoFormularComponent implements OnInit {
     this.userInformationService.getAllLocations().subscribe(resp => this.locations = resp);
 
 
-    if (this.userInformation.buddyUser === undefined) {
+    if (this.userInformation.buddyUser === undefined || this.userInformation.buddyUser === null) {
       this.userInformation.buddyUser = new UserDTO();
       this.userInformation.buddyUser.name = '';
     }

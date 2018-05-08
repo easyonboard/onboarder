@@ -21,8 +21,6 @@ export class DialogNewEmployeeComponent implements OnInit {
   public searchValue = '';
 
 
-
-
   constructor(private userInformationService: UserInformationService, private dialog: MatDialog, private userService: UserService) {
   }
 
@@ -47,6 +45,8 @@ export class DialogNewEmployeeComponent implements OnInit {
   }
 
   openUserInfoModal(userInformation: UserInformationDTO) {
+    console.log('user inainte de modal');
+    console.log(userInformation);
     this.dialog.open(UserInfoUpdateComponent, {
       height: '650px',
       width: '900px',

@@ -1,11 +1,13 @@
 package service;
 
 import com.google.common.hash.Hashing;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import dao.*;
 import dto.*;
 import dto.mapper.*;
-import entity.*;
+import entity.CheckList;
+import entity.LeaveCheckList;
+import entity.User;
+import entity.UserInformation;
 import exception.DataNotFoundException;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
@@ -63,7 +65,6 @@ public class UserService {
     private LocationMapper locationMapper = LocationMapper.INSTANCE;
 
 
-
     private static final String USER_NOT_FOUND_ERROR = "User not found";
 
     public UserDTO findUserByUsername(String username) throws UserNotFoundException {
@@ -83,12 +84,13 @@ public class UserService {
         User user = new User();
         User appUser = userDAO.persistEntity(userMapper.mapToEntity(userDTO, user));
 
-        if (userInformationDTO.getBuddyUser().getIdUser() != null) {
-            User buddyUser = userDAO.findEntity(userInformationDTO.getBuddyUser().getIdUser());
+        Optional<User> optional = userDAO.findUserByUsername(userInformationDTO.getBuddyUser().getUsername());
+        if (optional.isPresent()) {
+            User buddyUser = optional.get();
             userInformationService.addUserInfo(userInformationDTO, appUser, buddyUser);
+        } else {
+            userInformationService.addUserInfo(userInformationDTO, appUser, null);
         }
-
-        userInformationService.addUserInfo(userInformationDTO, appUser, null);
 
         checkListService.addCheckList(userInformationDTO, appUser);
     }
@@ -152,7 +154,7 @@ public class UserService {
         if (userOptional.isPresent()) {
             User userEntity = userOptional.get();
 
-            if(canUserBeDeleted(userEntity)){
+            if (canUserBeDeleted(userEntity)) {
 
                 UserInformation userInformationEntity = userInformationDAO.findUserInformationByUser(userEntity);
                 if (userInformationEntity != null) {
@@ -171,8 +173,7 @@ public class UserService {
 
                 userDAO.deleteEntity(userEntity);
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
 
@@ -206,7 +207,7 @@ public class UserService {
         return false;
     }
 
-    public LeaveCheckListDTO getLeaveCheckListForUser(String username) throws UserNotFoundException, DataNotFoundException {
+    public LeaveCheckListDTO getLeaveCheckListForUser(String username) throws UserNotFoundException {
 
         Optional<User> user = userDAO.findUserByUsername(username);
         if (user.isPresent()) {
@@ -220,7 +221,7 @@ public class UserService {
                 for (int i = 0; i < fields.length; i++) {    // all fields are set to false, except id and userAccount
                     fields[i].setAccessible(true);
                     try {
-                        if (fields[i].getType() == Boolean.class){
+                        if (fields[i].getType() == Boolean.class) {
                             fields[i].set(leaveCheckList, false);
                         }
                         return leaveCheckListMapper.mapToDTO(leaveCheckListDAO.persistEntity(leaveCheckList));
@@ -273,7 +274,7 @@ public class UserService {
 
     public List<LocationDTO> getAllLocations() {
 
-       return locationMapper.entitiesToDTOs(locationDAO.getAllLocations());
+        return locationMapper.entitiesToDTOs(locationDAO.getAllLocations());
 
     }
 }
