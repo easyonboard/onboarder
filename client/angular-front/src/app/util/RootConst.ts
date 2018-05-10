@@ -83,4 +83,5 @@ export class RootConst {
   WEB_SERVER_STATUS_MAIL = this.WEB_SERVICE_ENDPOINT + 'isMailSent';
   WEB_SERVER_LEAVE_CHECKLIST = this.WEB_SERVICE_ENDPOINT + 'leaveCheckList';
   WEB_SERVER_SAVE_LEAVE_CHECKLIST = this.WEB_SERVICE_ENDPOINT + 'saveLeaveCheckList';
+  WEB_SERVER_LOCATIONS = this.WEB_SERVICE_ENDPOINT + 'locations';
 }

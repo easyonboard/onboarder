@@ -22,6 +22,13 @@ public class Role implements Serializable {
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
+    public Role() {
+    }
+
+    public Role(@NotNull RoleType role) {
+        this.role = role;
+    }
+
     public int getIdRole() {
         return idRole;
     }

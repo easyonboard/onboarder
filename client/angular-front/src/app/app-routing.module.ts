@@ -23,6 +23,7 @@ const routes: Routes = [
   {path: 'userinfo', component: UserInfoFormularComponent},
   {path: 'tutorials', component: TutorialsComponent},
   {path: 'tutorials/addTutorial', component: AddTutorialComponent}
+  {path: 'buddyMenu', component: ToDoListForBuddyComponent}
 ];
 
 @NgModule({

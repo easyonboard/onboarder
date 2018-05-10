@@ -65,7 +65,7 @@ public class ScheduleEmailToNewEmployee {
                     UserInformation ui = findUserInfoByUser(usersInfoForUserWhoStartNextWeek, user).get();
                     String dateWithZeroTime = null;
                     dateWithZeroTime = formatter.format(ui.getStartDate());
-                    String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", ui.getBuddyUser().getName(), ui.getFloor(), ui.getBuilding());
+                    String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", ui.getBuddyUser().getName(), ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getLocation().getLocationAddress());
 
 //                    MailSender sender = new MailSender();
 //                    sender.sendMail(user.getEmail(), null, "", emailBody);
@@ -76,7 +76,8 @@ public class ScheduleEmailToNewEmployee {
                     }
                     User buddy = ui.getBuddyUser();
                     if (buddy != null){
-                        String emailBodyForBuddy = createEmailBodyForBuddy(buddy.getName(),user.getName(), dateWithZeroTime, "09:00", ui.getFloor(), ui.getBuilding(), ui.getTeam());
+                        String names[]=buddy.getName().split(" ");
+                        String emailBodyForBuddy = createEmailBodyForBuddy(names[0],user.getName(), dateWithZeroTime, "09:00", ui.getLocation().getLocationName().name(), ui.getTeam(), ui.getFloor());
                         sendEmail(buddy.getMsgMail(), null, BUDDY_MAIL_SUBJECT, emailBodyForBuddy);
                     }
 //                    List<User> abteilungsleiters = userDAO.getAbteilungsleiters();
@@ -118,10 +119,11 @@ public class ScheduleEmailToNewEmployee {
     }
 
 
-    private String createEmailBody(String name, String startDate, String s, String buddyName, String floor, String building) {
+    private String createEmailBody(String name, String startDate, String s, String buddyName, String floor, String building, String locationAddress) {
         ResourceBundle bundle = ResourceBundle.getBundle("email_template", Locale.ROOT);
         String email_body = bundle.getString("email_body");
-        String formattedEmailBoddy = MessageFormat.format(email_body, name, startDate, s, building, buddyName, floor, building);
+        String names[]=name.split(" ");
+        String formattedEmailBoddy = MessageFormat.format(email_body, names[0], startDate, s, building, buddyName, floor, building, locationAddress);
         return formattedEmailBoddy;
     }
 
