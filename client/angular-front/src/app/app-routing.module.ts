@@ -11,6 +11,7 @@ import { GeneralInfosComponent } from './general-infos/general-infos.component';
 import { UserInfoFormularComponent } from './users/user-info-formular/user-info-formular.component';
 import { TutorialsComponent } from './tutorials/tutorials.component';
 import { AddTutorialComponent } from './tutorials/add-tutorial/add-tutorial.component';
+import { ToDoListForBuddyComponent } from './common/DialogToDoListForBuddy/dialog-to-do-list-for-buddy.component';
 
 const routes: Routes = [
   {path: 'courses/detailedCourse/:id', component: CourseDetailComponent},
@@ -22,7 +23,7 @@ const routes: Routes = [
   {path: 'courses/detailedCourse/:id/subject/:idSubject', component: SubjectDetailComponent},
   {path: 'userinfo', component: UserInfoFormularComponent},
   {path: 'tutorials', component: TutorialsComponent},
-  {path: 'tutorials/addTutorial', component: AddTutorialComponent}
+  {path: 'tutorials/addTutorial', component: AddTutorialComponent},
   {path: 'buddyMenu', component: ToDoListForBuddyComponent}
 ];
 
