@@ -23,5 +23,4 @@ export class TutorialService implements OnInit {
     return this.http.post<TutorialDTO>(this.rootConst.SERVER_ADD_TUTORIAL, body, this.httpOptions);
   }
 
-
 }

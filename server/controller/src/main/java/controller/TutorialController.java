@@ -3,8 +3,11 @@ package controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.media.sound.InvalidDataException;
+import dto.MaterialDTO;
 import dto.TutorialDTO;
 
+import dto.TutorialMaterialDTO;
+import entity.Tutorial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +45,23 @@ public class TutorialController {
             List<Integer> contactPersonsId = mapper.convertValue(node.get("contactPersonsId"), List.class);
 
             return new ResponseEntity(tutorialService.addTutorial(tutorialDTO, ownersIds, contactPersonsId), HttpStatus.OK);
+        } catch (InvalidDataException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        } catch (IOException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/tutorials/addTutorialMaterial", method = RequestMethod.POST)
+    public ResponseEntity addTutorialMaterial(@RequestBody String courseJson) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            JsonNode node = null;
+            node = mapper.readTree(courseJson);
+            TutorialMaterialDTO tutorialMaterialDTO = mapper.convertValue(node.get("material"), TutorialMaterialDTO .class);
+
+            return new ResponseEntity(tutorialService.addTutorialMaterial(tutorialMaterialDTO), HttpStatus.OK);
         } catch (InvalidDataException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {

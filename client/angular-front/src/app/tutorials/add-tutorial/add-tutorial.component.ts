@@ -5,6 +5,9 @@ import { DOCUMENT } from '@angular/common';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 
 import { UserDTO } from '../../domain/user';
+import { Material } from '../../domain/material';
+import { MaterialType } from '../../domain/materialType';
+import { TutorialMaterialDTO } from '../../domain/tutorialMaterial';
 import { TutorialDTO } from '../../domain/tutorial';
 
 import { UserService } from '../../service/user.service';
@@ -14,10 +17,6 @@ import { MaterialService } from '../../service/material.service';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/Rx';
-
-import { Material } from '../../domain/material';
-import { MaterialType } from '../../domain/materialType';
-import { TutorialMaterialDTO } from '../../domain/tutorialMaterial';
 
 @Component({
   selector: 'app-add-tutorial',
@@ -108,40 +107,41 @@ export class AddTutorialComponent implements OnInit {
   }
 
   addMaterial(): void {
-    debugger
     this.file = (<HTMLInputElement>document.getElementById('file')).files[0];
     if (this.material.title == null || this.material.title.length < 5) {
-      this.materialErrorMessage = 'Title too short!';
-      return;
+      this.materialErrorMessage += 'Title too short!\n';
     }
     if (this.material.description == null || this.material.description.length < 20) {
-      this.materialErrorMessage = 'Description too short!';
-      return;
+      this.materialErrorMessage += 'Description too short!\n';
     }
     if (this.material.materialType === null) {
-      this.materialErrorMessage = 'Material type not chose';
-      return;
+      this.materialErrorMessage += 'Material type not chose\n';
     }
     if (this.material.materialType.toString() === 'LINK') {
       if (this.material.link === undefined || this.material.link.length < 5) {
-        this.materialErrorMessage = 'Link must have at least 6 characters';
+        this.materialErrorMessage += 'Link must have at least 6 characters\n';
       }
-      return;
     }
     if (this.material.materialType.toString() === 'FILE' && this.file == null) {
-      this.materialErrorMessage = 'File not uploaded';
-      return;
-    } else {
-      this.materialErrorMessage = '';
-      this.materialService.addTutorialMaterial(this.material, this.file, this.tutorial.idTutorial);
-      this.materialsForCurrentTutorial = new Array<TutorialMaterialDTO>();
-
-      // this.file = null;
-      // var fileInput = <HTMLInputElement>document.getElementById('file');
-      // fileInput.innerHTML = null;
-      // this.material = new TutorialMaterialDTO();
-      // this.material.materialType = this.materialTypeLink;
+      this.materialErrorMessage += 'File not uploaded\n';
     }
+
+    console.log('material from component ' + this.materialErrorMessage + '\n');
+
+    if (this.materialErrorMessage !== '') {
+      this.materialErrorMessage = '';
+      return;
+    }
+
+    this.materialService.addTutorialMaterial(this.material, this.file, this.tutorial.idTutorial).subscribe();
+    this.materialsForCurrentTutorial = new Array<TutorialMaterialDTO>();
+
+    // this.file = null;
+    // var fileInput = <HTMLInputElement>document.getElementById('file');
+    // fileInput.innerHTML = null;
+    // this.material = new TutorialMaterialDTO();
+    // this.material.materialType = this.materialTypeLink;
+
   }
 
   printMaterialType(): void {

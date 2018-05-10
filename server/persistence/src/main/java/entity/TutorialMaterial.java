@@ -17,21 +17,16 @@ public class TutorialMaterial implements Serializable {
     @NotNull
     @Enumerated(EnumType.STRING)
     private MaterialType materialType;
-
     @Column
     private String link;
-
     @Lob
     @Column
     private byte[] fileMaterial;
-
     @Column
     private String title;
-
     @Column
     @Size(max = 2500)
     private String description;
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "idTutorial")
     private Tutorial tutorial;

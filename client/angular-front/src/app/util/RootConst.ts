@@ -42,6 +42,7 @@ export class RootConst {
   public SERVER_ADD_COURSE = this.SERVER_COURSES_URL + '/addCourse';
 
   public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/addTutorial';
+  public SERVER_ADD_TUTORIAL_MATERIAL = this.SERVER_TUTORIALS_URL + '/addTutorialMaterial';
 
   public SERVER_DELETE_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'deleteCourseSubject';
   public WEB_SERVER_PROGRESS = this.WEB_SERVICE_ENDPOINT + 'progress';
@@ -54,7 +55,6 @@ export class RootConst {
   public WEB_SERVER_GET_STATUS = this.WEB_SERVICE_ENDPOINT + 'isSubjectFinished';
   public SERVER_MATERIALS_FROM_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'materials?idSubject=';
   public SERVER_ADD_MATERIAL = this.WEB_SERVICE_ENDPOINT + 'createMaterial';
-  public SERVER_ADD_TUTORIAL_MATERIAL = this.WEB_SERVICE_ENDPOINT + 'createTutorialMaterial';
   public WEB_SERVICE_RATING = this.WEB_SERVICE_ENDPOINT + 'generalRating';
   public WEB_SERVICE_ADD_REVIEW = this.WEB_SERVICE_ENDPOINT + 'course/addReview';
   public WEB_SERVICE_ALL_REVIEWS = this.WEB_SERVICE_ENDPOINT + 'allReviews';
