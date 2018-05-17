@@ -28,7 +28,7 @@ public class ReminderEmailForBuddy {
     private UserInformationDAO userInformationDAO;
 
     // @Scheduled(cron = "0 59 8 * * MON-FRI")
-    @RequestMapping(value = "/reminder", method = RequestMethod.GET)
+    @RequestMapping(value = "/reminderBuddy", method = RequestMethod.GET)
     public void reminderForBuddy() {
         List<UserInformation> usersInfoForUserWhoStartTomorrow = userInformationDAO.usersWhoStartOnGivenDate(getTomorrowDate());
         usersInfoForUserWhoStartTomorrow.stream()
@@ -36,7 +36,7 @@ public class ReminderEmailForBuddy {
 
         usersInfoForUserWhoStartTomorrow
                 .forEach(ui -> {
-                            String emailBody = createEmailBodyForBuddy(ui.getBuddyUser().getName(), ui.getUserAccount().getName(), "09:00", ui.getFloor(), ui.getBuilding(), ui.getTeam() );
+                            String emailBody = createEmailBodyForBuddy(ui.getBuddyUser().getName(), ui.getUserAccount().getName(), "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam() );
                             sendEmail(ui.getBuddyUser().getEmail(), BUDDY_MAIL_SUBJECT, emailBody);
                         }
                 );
