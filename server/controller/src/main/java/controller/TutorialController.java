@@ -41,10 +41,9 @@ public class TutorialController {
             JsonNode node = null;
             node = mapper.readTree(courseJson);
             TutorialDTO tutorialDTO = mapper.convertValue(node.get("tutorial"), TutorialDTO.class);
-            List<Integer> ownersIds = mapper.convertValue(node.get("ownersIds"), List.class);
-            List<Integer> contactPersonsId = mapper.convertValue(node.get("contactPersonsId"), List.class);
+            List<String> contactPersons = mapper.convertValue(node.get("contactPersons"), List.class);
 
-            return new ResponseEntity(tutorialService.addTutorial(tutorialDTO, ownersIds, contactPersonsId), HttpStatus.OK);
+            return new ResponseEntity(tutorialService.addTutorial(tutorialDTO, null, contactPersons), HttpStatus.OK);
         } catch (InvalidDataException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {

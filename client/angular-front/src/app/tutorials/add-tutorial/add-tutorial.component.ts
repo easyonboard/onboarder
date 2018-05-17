@@ -86,8 +86,9 @@ export class AddTutorialComponent implements OnInit {
   }
 
   addTutorial(): void {
+    console.log(this.selectedItems);
     this.tutorial.keywords = this.keywords.join(' ');
-    this.tutorialService.addTutorial(this.tutorial, null).subscribe(tutorial => {
+    this.tutorialService.addTutorial(this.tutorial, this.selectedItems).subscribe(tutorial => {
       this.tutorial = tutorial;
       this.saved = true;
       this.incStep();

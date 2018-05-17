@@ -1,5 +1,6 @@
 package service;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import dao.TutorialDAO;
 import dao.TutorialMaterialDAO;
 import dao.UserDAO;
@@ -22,6 +23,7 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.StringTokenizer;
 
 @Service
 public class TutorialService {
@@ -46,8 +48,19 @@ public class TutorialService {
         return tutorialMapper.entitiesToDTOs(tutorialDAO.filterByKeyword(keyword));
     }
 
-    public TutorialDTO addTutorial(TutorialDTO tutorialDTO, List<Integer> ownersIds, List<Integer> contactPersonsId) {
+    public TutorialDTO addTutorial(TutorialDTO tutorialDTO, List<Integer> ownersIds, List<String> contactPersons) {
+        List<String> usernames = extractContactPersonsUsernames(contactPersons);
         Tutorial tutorial = tutorialMapper.mapToEntity(tutorialDTO, new Tutorial());
+        List<User> users = new ArrayList<>();
+
+        for (int i=0; i<usernames.size(); i++)
+        {
+            User user = userDAO.findUserByUsername(usernames.get(i)).get();
+            users.add(user);
+        }
+
+        tutorial.setContactPersons(users);
+
 //        List<Tutorial> owners = new ArrayList<>();
 
 //        List<User> constantPerson = new ArrayList<>();
@@ -76,5 +89,24 @@ public class TutorialService {
     public TutorialDTO getTutorialById(Integer tutorialId) {
         Tutorial tutorialEntity = tutorialDAO.findTutorialById(tutorialId);
         return  tutorialMapper.mapToDTO(tutorialEntity);
+    }
+
+    private List<String> extractContactPersonsUsernames(List<String> nameUsernamesEmail) {
+        List<String> usernames = new ArrayList<>();
+        StringTokenizer st;
+        String username;
+
+        for (int i=0; i<nameUsernamesEmail.size(); i++) {
+            st = new StringTokenizer(nameUsernamesEmail.get(i), "()");
+
+            if (st.hasMoreTokens()) {
+                st.nextToken();
+            }
+            if (st.hasMoreTokens()) {
+                usernames.add(st.nextToken());
+            }
+        }
+
+        return usernames;
     }
 }

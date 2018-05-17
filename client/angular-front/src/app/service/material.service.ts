@@ -42,7 +42,8 @@ export class MaterialService implements OnInit {
     // formData.append('file', file);
     // formData.append('idTutorial', JSON.stringify(idTutorial));
 
-    console.log('addTutorialMaterial from service: ' + file + ' ' + idTutorial);
+    console.log('FILE: ');
+    console.log(file);
 
     let body = JSON.stringify({material: material, file: file, idTutorial: idTutorial});
     return this.http.post<TutorialMaterialDTO>(this.rootConst.SERVER_ADD_TUTORIAL_MATERIAL, body, this.httpOptions);
