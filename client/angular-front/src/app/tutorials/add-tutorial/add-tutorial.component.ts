@@ -25,6 +25,10 @@ import 'rxjs/Rx';
 })
 export class AddTutorialComponent implements OnInit {
 
+  // multiselect
+  public selectedItems = [];
+  public dropdownSettings = {};
+
   public saved: Boolean;
   public tutorial: TutorialDTO;
 
@@ -39,8 +43,8 @@ export class AddTutorialComponent implements OnInit {
   public selectedMaterialType: string;
   public materialErrorMessage: String;
 
-  public usersOptions: IMultiSelectOption[];
-  public contactPersonsIds: number[];
+  public usersOptions: string[];
+  public contactPersonsUsername: string[];
 
   separatorKeysCodes = [ENTER, COMMA, SPACE];
 
@@ -50,7 +54,7 @@ export class AddTutorialComponent implements OnInit {
   constructor(private tutorialService: TutorialService, private userService: UserService,
     private materialService: MaterialService, @Inject(DOCUMENT) private document: any) {
     this.keywords = [];
-    this.contactPersonsIds = [];
+    this.contactPersonsUsername = [];
 
     this.tutorial = new TutorialDTO();
     this.material = new TutorialMaterialDTO();
@@ -60,19 +64,24 @@ export class AddTutorialComponent implements OnInit {
     this.userService.getAllUsers().subscribe(us => {
       userArrayObjects = userArrayObjects.concat(us);
       this.usersOptions = [];
-      userArrayObjects.forEach(u => this.usersOptions.push({ id: u.idUser, name: u.name + ', email:  ' + u.email }));
-      this.contactPersonsIds.push(Number(localStorage.getItem('userLoggedId')));
+      userArrayObjects.forEach(u => this.usersOptions.push(u.name + '(' + u.username + ')' + ', email:  ' + u.email));
     });
   }
 
   ngOnInit() {
     this.currentStep = 'one';
     this.materialErrorMessage = '';
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      allowSearchFilter: true
+    };
   }
 
   addTutorial(): void {
     this.tutorial.keywords = this.keywords.join(' ');
-    this.tutorialService.addTutorial(this.tutorial, this.contactPersonsIds).subscribe(course => {
+    this.tutorialService.addTutorial(this.tutorial, null).subscribe(tutorial => {
+      this.tutorial = tutorial;
       this.saved = true;
       this.incStep();
     }, err => {
@@ -133,7 +142,12 @@ export class AddTutorialComponent implements OnInit {
       return;
     }
 
-    this.materialService.addTutorialMaterial(this.material, this.file, this.tutorial.idTutorial).subscribe();
+    console.log('add material to tutorial: ' + this.tutorial.idTutorial);
+    this.materialService.addMaterialToTutorial(this.material, this.file, this.tutorial.idTutorial).subscribe(material => {
+      this.incStep();
+    }, err => {
+      alert(err.error.message);
+    });
     this.materialsForCurrentTutorial = new Array<TutorialMaterialDTO>();
 
     // this.file = null;
@@ -170,6 +184,9 @@ export class AddTutorialComponent implements OnInit {
       case ('one'):
         this.currentStep = 'two';
         this.saved = false;
+        break;
+      case ('two'):
+        this.currentStep = 'three';
         break;
     }
   }

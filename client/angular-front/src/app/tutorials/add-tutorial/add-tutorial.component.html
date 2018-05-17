@@ -23,7 +23,7 @@
             <tr>
                 <td><label>Contact persons</label></td>
                 <td>
-                    <ss-multiselect-dropdown [options]="usersOptions" [(ngModel)]="contactPersonsIds"></ss-multiselect-dropdown>
+                    <ng-multiselect-dropdown [placeholder]="'choose one or more contact persons'" [data]="usersOptions" [(ngModel)]="selectedItems" [settings]="dropdownSettings"></ng-multiselect-dropdown>
                 </td>
             </tr>
             <tr>
@@ -88,5 +88,9 @@
         <button (click)="addMaterial()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Save</button>
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>Discard
         </button>
+    </div>
+
+    <div *ngSwitchCase="'three'" class="stepDiv">
+        material added to tutorial
     </div>
 </div>

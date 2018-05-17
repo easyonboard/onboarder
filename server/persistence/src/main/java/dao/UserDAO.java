@@ -23,7 +23,6 @@ import static entity.enums.RoleType.ROLE_ABTEILUNGSLEITER;
 @Service
 public class UserDAO extends AbstractDAO<User> {
 
-
     @Override
     public Class<User> getEntityClass() {
         return User.class;

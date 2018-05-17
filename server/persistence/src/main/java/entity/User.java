@@ -12,30 +12,25 @@ import java.util.List;
 @Table(name = "app_user")
 public class User implements Serializable {
 
-    public static final String FIND_USER_BY_USERNAME = "User.findUSerByUsername";
-    public static final String FIND_USER_BY_EMAIL = "User.findUSerByEmail";
+    public static final String FIND_USER_BY_USERNAME = "User.findUserByUsername";
+    public static final String FIND_USER_BY_EMAIL = "User.findUserByEmail";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idUser;
-
     @NotNull
     @Column
     private String name;
-
     @NotNull
     @Size(min = 6)
     private String username;
-
     @NotNull
     @Size(min = 6)
     @Column(nullable = false)
     private String password;
-
     @Column(nullable = false)
     @NotNull
     private String email;
-
     @Column
     private String msgMail;
 

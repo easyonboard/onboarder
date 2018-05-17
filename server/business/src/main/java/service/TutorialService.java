@@ -21,6 +21,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TutorialService {
@@ -70,5 +71,10 @@ public class TutorialService {
 //        tutorial.setContactPersons(constantPerson);
 
         return tutorialMaterialMapper.mapToDTO(tutorialMaterialDAO.persistEntity(tutorialMaterial));
+    }
+
+    public TutorialDTO getTutorialById(Integer tutorialId) {
+        Tutorial tutorialEntity = tutorialDAO.findTutorialById(tutorialId);
+        return  tutorialMapper.mapToDTO(tutorialEntity);
     }
 }

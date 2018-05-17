@@ -1,10 +1,10 @@
-import {Injectable, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Injectable, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import {Material} from '../domain/material';
+import { Material } from '../domain/material';
 import { TutorialMaterialDTO } from '../domain/tutorialMaterial';
-import {Observable} from 'rxjs/Observable';
-import {RootConst} from '../util/RootConst';
+import { Observable } from 'rxjs/Observable';
+import { RootConst } from '../util/RootConst';
 
 import 'rxjs/Rx';
 
@@ -36,13 +36,13 @@ export class MaterialService implements OnInit {
     return request.send(formData);
   }
 
-  addTutorialMaterial(material: TutorialMaterialDTO, file: File, idTutorial: number) {
+  addMaterialToTutorial(material: TutorialMaterialDTO, file: File, idTutorial: number) {
     // var formData = new FormData();
     // formData.append('material', JSON.stringify(material));
     // formData.append('file', file);
     // formData.append('idTutorial', JSON.stringify(idTutorial));
 
-    console.log('addTutorialMaterial from service');
+    console.log('addTutorialMaterial from service: ' + file + ' ' + idTutorial);
 
     let body = JSON.stringify({material: material, file: file, idTutorial: idTutorial});
     return this.http.post<TutorialMaterialDTO>(this.rootConst.SERVER_ADD_TUTORIAL_MATERIAL, body, this.httpOptions);

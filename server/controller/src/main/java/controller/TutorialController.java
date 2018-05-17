@@ -60,6 +60,11 @@ public class TutorialController {
             JsonNode node = null;
             node = mapper.readTree(courseJson);
             TutorialMaterialDTO tutorialMaterialDTO = mapper.convertValue(node.get("material"), TutorialMaterialDTO .class);
+            //tutorialMaterialDTO.setFileMaterial(mapper.convertValue(node.get("material"), TutorialMaterialDTO .class));
+            Integer idTutorial = mapper.convertValue(node.get("idTutorial"), Integer.class);
+            TutorialDTO tutorialDTO = tutorialService.getTutorialById(idTutorial);
+
+            tutorialMaterialDTO.setTutorial(tutorialDTO);
 
             return new ResponseEntity(tutorialService.addTutorialMaterial(tutorialMaterialDTO), HttpStatus.OK);
         } catch (InvalidDataException e) {
