@@ -11,6 +11,8 @@ export class RootConst {
   public SERVER_COURSES_BY_PAGE_NUMBER_URL = this.SERVER_COURSES_URL + 'FromPage/?pageNumber=';
   public SERVER_COURSES_NUMBER_OF_OBJECT_PER_PAGE = '&numberOfObjectsPerPage=';
 
+  public SERVER_TUTORIALS_URL = this.WEB_SERVICE_ENDPOINT + 'tutorials';
+
 
   public SERVER_TEST_IF_USER_IS_ENROLLED = this.SERVER_COURSES_URL + '/isEnrolledOnCourse?idCourse=';
   public SERVER_ENROLLE_USER_ON_COURSE = this.SERVER_COURSES_URL + '/enrollUserOnCourse?idCourse=';
@@ -29,7 +31,6 @@ export class RootConst {
 
   public VOTEUP = this.WEB_SERVICE_ENDPOINT + 'voteUp';
 
-
   public SERVER_AUTHENTIFICATION = this.WEB_SERVICE_ENDPOINT + '/auth';
   public SERVER_DELETE_CONTACT_PERSON = this.WEB_SERVICE_ENDPOINT + 'deleteContactPerson';
   public SERVER_DELETE_OWNER_PERSON = this.WEB_SERVICE_ENDPOINT + 'deleteOwnerPerson';
@@ -39,6 +40,9 @@ export class RootConst {
   public SERVER_SUBJECT_URL2 = '&idSubject=';
   public SERVER_SUBJECT_URL = this.WEB_SERVICE_ENDPOINT + 'courses/subject?id=';
   public SERVER_ADD_COURSE = this.SERVER_COURSES_URL + '/addCourse';
+
+  public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/addTutorial';
+  public SERVER_ADD_TUTORIAL_MATERIAL = this.SERVER_TUTORIALS_URL + '/addTutorialMaterial';
 
   public SERVER_DELETE_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'deleteCourseSubject';
   public WEB_SERVER_PROGRESS = this.WEB_SERVICE_ENDPOINT + 'progress';
@@ -60,6 +64,8 @@ export class RootConst {
 
   public FRONT_COURSES_PAGE = '/courses';
   public FRONT_ADD_COURSE = this.FRONT_COURSES_PAGE + '/addCourse';
+  public FRONT_TUTORIALS_PAGE = '/tutorials';
+  public FRONT_ADD_TUTORIAL = this.FRONT_TUTORIALS_PAGE + '/addTutorial';
   public FRONT_COURSES_PAGE_SEARCH_BY_KEYWORD = '/courses?keyword=';
   public FRONT_DETAILED_COURSE = this.FRONT_COURSES_PAGE + '/detailedCourse';
   public FRONT_DETAILED_SUBJECT = '/subject';
@@ -70,7 +76,6 @@ export class RootConst {
   public FRONT_RATINGS_REVIEW_SECTION = 'ratingsReview';
   public FRONT_LOGIN_PAGE = '';
   public FRONT_INFOS_PAGE = '/infos';
-  public FRONT_TUTORIALS_PAGE = '/tutorials';
 
   public SERVER_ADD_USER_INFO_URL = this.WEB_SERVICE_ENDPOINT + '/info';
   public REMOVE_USER = this.WEB_SERVICE_ENDPOINT + 'user/removeUser';

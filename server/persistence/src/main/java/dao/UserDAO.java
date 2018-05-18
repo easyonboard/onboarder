@@ -23,7 +23,6 @@ import static entity.enums.RoleType.ROLE_ABTEILUNGSLEITER;
 @Service
 public class UserDAO extends AbstractDAO<User> {
 
-
     @Override
     public Class<User> getEntityClass() {
         return User.class;
@@ -91,7 +90,7 @@ public class UserDAO extends AbstractDAO<User> {
                 rootUser.get("name"),
                 rootUser.get("username"),
                 rootUser.get("email"))).
-                where(cb.equal(rootUser.get("role.role"),ROLE_ABTEILUNGSLEITER));
+                where(cb.equal(rootUser.get("role").get("role"),ROLE_ABTEILUNGSLEITER));
         List<User> users = this.executeCriteriaQuery(criteriaQuery);
         return users;
     }

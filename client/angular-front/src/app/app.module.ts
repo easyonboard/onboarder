@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {CoursesComponent} from './courses/courses.component';
 import {CourseService} from './service/course.service';
+import {TutorialService} from './service/tutorial.service';
 import {HttpClientModule} from '@angular/common/http';
 import {CourseDetailComponent} from './courses/course-detail/course-detail.component';
 import {AppRoutingModule} from './app-routing.module';
@@ -25,26 +26,28 @@ import {
   MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule, MatExpansionModule,
   MatSnackBarModule, MatInputModule
 } from '@angular/material';
-import {ReviewService} from './service/review.service';
-import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
-import {UserInformationService} from './service/user-information.service';
-import {GeneralInfosComponent} from './general-infos/general-infos.component';
-import {UserAddComponent} from './users/user-add/user-add.component';
-import {CommonComponentsService} from './common/common-components.service';
-import {ToDoListForBuddyComponent} from './common/DialogToDoListForBuddy/dialog-to-do-list-for-buddy.component';
-import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
-import {DialogCheckListComponent} from './common/DialogCheckList/dialog-check-list.component';
-import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
+import { ReviewService } from './service/review.service';
+import { UserInfoFormularComponent } from './users/user-info-formular/user-info-formular.component';
+import { UserInformationService } from './service/user-information.service';
+import { GeneralInfosComponent } from './general-infos/general-infos.component';
+import { UserAddComponent } from './users/user-add/user-add.component';
+import { CommonComponentsService } from './common/common-components.service';
+import { ToDoListForBuddyComponent } from './common/DialogToDoListForBuddy/dialog-to-do-list-for-buddy.component';
+import { DialogEnrolledCoursesForUserComponent } from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
+import { DialogCheckListComponent } from './common/DialogCheckList/dialog-check-list.component';
+import { DialogNewEmployeeComponent } from './common/DialogNewEmployee/dialog-new-employee.component';
 
-import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
-import {DialogDeleteUsersComponent} from './common/DialogDeleteUsers/dialog-delete-users.component';
+import { UsersInDepartmentListComponent } from './users/users-in-department-list/users-in-department-list.component';
+import { DialogDeleteUsersComponent } from './common/DialogDeleteUsers/dialog-delete-users.component';
 
-import {ExcelService} from './service/excel.service';
+import { ExcelService } from './service/excel.service';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
-import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
-import {DialogEditProfileComponent} from './common/DialogEditProfile/dialog-edit-profile.component';
+import { UserInfoUpdateComponent } from './users/user-info-update/user-info-update.component';
+import { DialogEditProfileComponent } from './common/DialogEditProfile/dialog-edit-profile.component';
 import { TutorialsComponent } from './tutorials/tutorials.component';
-import {DialogLeaveCheckListComponent} from "./common/DialogLeaveCheckList/dialog-leave-check-list.component";
+import { DialogLeaveCheckListComponent } from './common/DialogLeaveCheckList/dialog-leave-check-list.component';
+import { AddTutorialComponent } from './tutorials/add-tutorial/add-tutorial.component';
 
 @NgModule({
   declarations: [
@@ -69,9 +72,12 @@ import {DialogLeaveCheckListComponent} from "./common/DialogLeaveCheckList/dialo
     UsersInDepartmentListComponent,
     DialogEditProfileComponent,
     TutorialsComponent,
-    DialogLeaveCheckListComponent
+    AddTutorialComponent,
+    DialogLeaveCheckListComponent,
+    AddTutorialComponent
   ],
   imports: [
+    NgMultiSelectDropDownModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
@@ -117,7 +123,7 @@ import {DialogLeaveCheckListComponent} from "./common/DialogLeaveCheckList/dialo
 
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
-    UserInformationService, CommonComponentsService, ExcelService],
+    UserInformationService, CommonComponentsService, ExcelService, TutorialService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

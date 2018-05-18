@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 public class Material implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer idMaterial;
@@ -17,20 +18,15 @@ public class Material implements Serializable {
     @NotNull
     @Enumerated(EnumType.STRING)
     private MaterialType materialType;
-
     @Column
     private String link;
-
     @Lob
     @Column
     private byte[] fileMaterial;
-
     @ManyToOne
     private Subject subject;
-
     @Column
     private String title;
-
     @Column
     @Size(max = 2500)
     private String description;

@@ -40,7 +40,7 @@ public class ScheduleEmailToNewEmployee {
 
     private final Logger LOGGER = Logger.getLogger(ScheduleEmailToNewEmployee.class.getName());
     private final List<String> mandatoryFieldsFromUserEntity = Arrays.asList("name", "username", "password", "email");
-    private final List<String> mandatoryFieldsFromUserInfoEntity = Arrays.asList("team", "building", "floor", "startDate");
+    private final List<String> mandatoryFieldsFromUserInfoEntity = Arrays.asList("team", "floor", "startDate");
 
 
     /**

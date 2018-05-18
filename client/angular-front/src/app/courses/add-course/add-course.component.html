@@ -52,11 +52,9 @@
             <button (click)="addCourse()" class="nextStepButton" *ngIf="saved===false"><span class="fa fa-caret-square-o-right"></span> Save</button>
         </div>
 
-
         <div *ngSwitchCase="'two'" class="stepDiv">
             <div class="pageTitle"> Subjects for this course</div>
             <hr class="separator">
-
 
             <i class="fa fa-plus-circle fa-3x" aria-hidden="true" title="Add subject" data-toggle="modal" id="addSubjectIcon" data-target="#subjectModal" (click)="newSubject()"></i>
 
@@ -255,7 +253,6 @@
             <button (click)="incStep()" class="nextStepButton"><span class="fa fa-check-square-o"></span>Next</button>
 
         </div>
-
 
         <div *ngSwitchCase="'three'" class="stepDiv">
             <div id="addCourseMessage">

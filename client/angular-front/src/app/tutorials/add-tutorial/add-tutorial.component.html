@@ -1,0 +1,98 @@
+<div id="addComponent" [ngSwitch]="getCurrentStep()">
+    <div *ngSwitchCase="'one'" class="stepDiv">
+        <div class="pageTitle"> Add tutorial</div>
+        <hr class="separator">
+
+        <table id="tutorialTable" cellspacing="50">
+            <tr>
+                <td>
+                    <label>Tutorial title</label>
+                </td>
+                <td>
+                    <input type="text" id="tutorialTtile" name="Tutorial title" [(ngModel)]="tutorial.titleTutorial" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Overview</label>
+                </td>
+                <td>
+                    <textarea id="tutorialOverview" name="Overview" [(ngModel)]="tutorial.overview"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Contact persons</label></td>
+                <td>
+                    <ng-multiselect-dropdown [placeholder]="'choose one or more contact persons'" [data]="usersOptions" [(ngModel)]="selectedItems" [settings]="dropdownSettings"></ng-multiselect-dropdown>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Keywords </label></td>
+                <td>
+                    <mat-form-field class="keyword-list">
+                        <mat-chip-list #chipList>
+                            <mat-chip *ngFor="let keyword of keywords" [selectable]="true" [removable]="true" (remove)="removeKeyword(keyword)">
+                                {{keyword}}
+                                <mat-icon matChipRemove *ngIf="true"><i class="fa fa-times" aria-hidden="true"></i></mat-icon>
+                            </mat-chip>
+                            <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="addKeyword($event)" />
+                        </mat-chip-list>
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+
+        <button (click)="addTutorial()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Next</button>
+    </div>
+
+    <div *ngSwitchCase="'two'" class="stepDiv">
+        <table id="materialTable" cellspacing="50">
+            <tr>
+                <td>
+                    <label>Material title</label>
+                </td>
+                <td>
+                    <input type="text" id="materialTtile" [(ngModel)]="material.title" name="Material title" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Description</label>
+                </td>
+                <td>
+                    <textarea id="materialOverview" [(ngModel)]="material.description" name="Description"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Material type</td>
+                <td>
+                    <select (change)="printMaterialType()" id="selectedMaterialType" [(ngModel)]="material.materialType" name="materialType">
+                        <option value="LINK" id="valueLink">Link</option>
+                        <option value="FILE" id="valueFile">File</option>
+                    </select>
+                </td>
+            </tr>
+
+            <br> <br>
+
+            <tr id="addLink" style="visibility: hidden">
+                <td>Link</td>
+                <td><input type="text" id="link" [(ngModel)]="material.link" name="link" /></td>
+            </tr>
+
+            <tr id="addFile" style="visibility: hidden">
+                <input type="file" name="materialFile" id="file" [(ngModel)]="file" accept="application/pdf" />
+            </tr>
+        </table>
+
+        <button (click)="addMaterial()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>Discard
+        </button>
+    </div>
+
+    <div *ngSwitchCase="'three'" class="stepDiv">
+        material added to tutorial
+        <button (click)="redirectToTutorialsPage()">Back to tutorials</button>
+        <!-- <button (click)="addNewMaterial()">Add another material to tutorial</button> -->
+    </div>
+</div>
