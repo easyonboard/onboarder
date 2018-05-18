@@ -50,7 +50,7 @@ public class CourseController {
     public ResponseEntity<List<CourseDTO>> searchArticlesByOverview(@RequestParam(value = "overview") String overview) {
 
         List<CourseDTO> searchCourses = courseService.searchByOverview(overview);
-//        List<CourseDTO> courses = courseService.getAllCourses();
+//        List<CourseDTO> courses = courseService.getAllTutorials();
 //        for (int i = 0; i < courses.size(); i++) {
 //            if (courses.get(i).getOverview().contains(overview)) {
 //                searchCourses.add(courses.get(i));

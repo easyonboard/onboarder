@@ -27,6 +27,7 @@ public class Tutorial implements Serializable {
     @ManyToMany(targetEntity = User.class)
     @JoinTable(name = "tutorial_contactPerson", joinColumns = @JoinColumn(name = "idTutorial"), inverseJoinColumns = @JoinColumn(name = "idUser"))
     private List<User> contactPersons;
+    
     @OneToMany(mappedBy = "tutorial", cascade = CascadeType.ALL)
     private List<TutorialMaterial> tutorialMaterials;
 
@@ -48,6 +49,7 @@ public class Tutorial implements Serializable {
         this.contactPersons = contactPersons;
         this.tutorialMaterials = tutorialMaterials;
     }
+
 
     public List<TutorialMaterial> getTutorialMaterials() {
         return tutorialMaterials;

@@ -32,7 +32,6 @@ public class RoleDAO extends AbstractDAO<Role> {
         Query query = this.em.createQuery(queryString);
         return (List<Role>) query.getResultList();
     }
-
 //    public List<Role> findRoleByType(RoleType role) {
 ////        String queryString = "select r from Role r where r.role=:roleName";
 ////        Query query = this.em.createQuery(queryString);

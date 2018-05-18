@@ -81,7 +81,7 @@
             </tr>
 
             <tr id="addFile" style="visibility: hidden">
-                <input type="file" name="materialFile" id="file" [(ngModel)]="file" accept="application/pdf" />
+                <input type="file" name="materialFile" id="file" (change)="uploadFile()" accept="application/pdf" />
             </tr>
         </table>
 

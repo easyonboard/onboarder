@@ -37,20 +37,19 @@ export class MaterialService implements OnInit {
   }
 
   addMaterialToTutorial(material: TutorialMaterialDTO, file: File, idTutorial: number) {
-    // var formData = new FormData();
-    // formData.append('material', JSON.stringify(material));
-    // formData.append('file', file);
-    // formData.append('idTutorial', JSON.stringify(idTutorial));
+    var formData = new FormData();
+    formData.append('material', JSON.stringify(material));
+    formData.append('file', file);
+    formData.append('idTutorial', JSON.stringify(idTutorial));
 
-    console.log('FILE: ');
-    console.log(file);
+    // console.log('addTutorialMaterial from service: ' + file + ' ' + idTutorial);
 
-    let body = JSON.stringify({material: material, file: file, idTutorial: idTutorial});
-    return this.http.post<TutorialMaterialDTO>(this.rootConst.SERVER_ADD_TUTORIAL_MATERIAL, body, this.httpOptions);
+    // let body = JSON.stringify({material: material, file: file, idTutorial: idTutorial});
+    // return this.http.post<TutorialMaterialDTO>(this.rootConst.SERVER_ADD_TUTORIAL_MATERIAL, body, this.httpOptions);
 
-    // var request = new XMLHttpRequest();
-    // request.open('POST', `${this.addTutorialMaterialURL}`);
-    // return request.send(formData);
+    var request = new XMLHttpRequest();
+    request.open('POST', `${this.addTutorialMaterialURL}`);
+    return request.send(formData);
   }
 
   allMaterialsAddedByUser(username: String): Observable<Material[]> {

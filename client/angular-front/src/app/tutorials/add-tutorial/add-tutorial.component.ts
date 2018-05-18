@@ -1,19 +1,19 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { ENTER, COMMA, SPACE } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material';
-import { DOCUMENT } from '@angular/common';
-import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
+import {Component, OnInit, Inject} from '@angular/core';
+import {ENTER, COMMA, SPACE} from '@angular/cdk/keycodes';
+import {MatChipInputEvent} from '@angular/material';
+import {DOCUMENT} from '@angular/common';
+import {IMultiSelectOption} from 'angular-2-dropdown-multiselect';
 import {Location} from '@angular/common';
 
-import { UserDTO } from '../../domain/user';
-import { Material } from '../../domain/material';
-import { MaterialType } from '../../domain/materialType';
-import { TutorialMaterialDTO } from '../../domain/tutorialMaterial';
-import { TutorialDTO } from '../../domain/tutorial';
+import {UserDTO} from '../../domain/user';
+import {Material} from '../../domain/material';
+import {MaterialType} from '../../domain/materialType';
+import {TutorialMaterialDTO} from '../../domain/tutorialMaterial';
+import {TutorialDTO} from '../../domain/tutorial';
 
-import { UserService } from '../../service/user.service';
-import { TutorialService } from '../../service/tutorial.service';
-import { MaterialService } from '../../service/material.service';
+import {UserService} from '../../service/user.service';
+import {TutorialService} from '../../service/tutorial.service';
+import {MaterialService} from '../../service/material.service';
 
 import {Router} from '@angular/router';
 import {RootConst} from '../../util/RootConst';
@@ -58,7 +58,7 @@ export class AddTutorialComponent implements OnInit {
   private materialsForCurrentTutorial: Array<TutorialMaterialDTO>;
 
   constructor(private location: Location, private tutorialService: TutorialService, private userService: UserService,
-    private materialService: MaterialService, @Inject(DOCUMENT) private document: any) {
+              private materialService: MaterialService, @Inject(DOCUMENT) private document: any) {
     this.keywords = [];
     this.contactPersonsUsername = [];
     this.rootConst = new RootConst();
@@ -98,7 +98,7 @@ export class AddTutorialComponent implements OnInit {
   }
 
   removeKeyword(keyword: any): void {
-    debugger
+    debugger;
     let index = this.keywords.indexOf(keyword);
     if (index >= 0) {
       this.keywords.splice(index, 1);
@@ -151,11 +151,12 @@ export class AddTutorialComponent implements OnInit {
     }
 
     console.log('add material to tutorial: ' + this.tutorial.idTutorial);
-    this.materialService.addMaterialToTutorial(this.material, this.file, this.tutorial.idTutorial).subscribe(material => {
+    try {
+      this.materialService.addMaterialToTutorial(this.material, this.file, this.tutorial.idTutorial);
       this.incStep();
-    }, err => {
+    } catch (err) {
       alert(err.error.message);
-    });
+    }
     this.materialsForCurrentTutorial = new Array<TutorialMaterialDTO>();
 
     // this.file = null;
@@ -206,5 +207,9 @@ export class AddTutorialComponent implements OnInit {
   addNewMaterial() {
     this.currentStep = 'two';
     this.material.materialType = null;
+  }
+
+  uploadFile() {
+    this.file = (<HTMLInputElement>document.getElementById('file')).files[0];
   }
 }

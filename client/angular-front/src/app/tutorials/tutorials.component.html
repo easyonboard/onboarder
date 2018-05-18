@@ -1,3 +1,14 @@
 <p>
-    <button (click)="addTutorial()">ADD NEW TUTORIAL</button>
+  <button (click)="addTutorial()">ADD NEW TUTORIAL</button>
 </p>
+
+<div fxLayout="row wrap" fxLayoutAlign="start start">
+  <div *ngFor="let tutorial of tutorials" fxFlex="25" fxFlexOffset="5">
+    <mat-card  style="margin-bottom: 5%"  (click)="downloadFile(tutorial.tutorialMaterials)">
+      <mat-card-title>
+        {{tutorial.titleTutorial}}
+        <mat-chip  color="primary" style="float: right">{{tutorial.tutorialMaterials.length}}</mat-chip>
+      </mat-card-title>
+    </mat-card>
+  </div>
+</div>
