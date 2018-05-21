@@ -9,6 +9,7 @@ import dto.mapper.TutorialMapper;
 import dto.mapper.TutorialMaterialMapper;
 import entity.Tutorial;
 import entity.TutorialMaterial;
+import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,24 +41,23 @@ public class TutorialService {
     }
 
     public TutorialDTO addTutorial(TutorialDTO tutorialDTO, List<Integer> ownersIds, List<String> contactPersons) {
-//        List<String> usernames = extractContactPersonsUsernames(contactPersons);
+        List<String> usernames = extractContactPersonsUsernames(contactPersons);
         Tutorial tutorial = tutorialMapper.mapToEntity(tutorialDTO, new Tutorial());
-//        List<User> users = new ArrayList<>();
-//
-//        for (int i=0; i<usernames.size(); i++)
-//        {
-//            User user = userDAO.findUserByUsername(usernames.get(i)).get();
-//            users.add(user);
-//        }
-//
-//        tutorial.setContactPersons(users);
+        List<User> users = new ArrayList<>();
+
+        for (int i = 0; i < usernames.size(); i++) {
+            User user = userDAO.findUserByUsername(usernames.get(i)).get();
+            users.add(user);
+        }
+
+        tutorial.setContactPersons(users);
 
 //        List<Tutorial> owners = new ArrayList<>();
-
+//
 //        List<User> constantPerson = new ArrayList<>();
 //        contactPersonsId.forEach(cpId -> constantPerson.add(userDAO.findEntity(cpId)));
-
-        //tutorial.setOwners(owners);
+//
+//        //tutorial.setOwners(owners);
 //        tutorial.setContactPersons(constantPerson);
 
         return tutorialMapper.mapToDTO(tutorialDAO.persistEntity(tutorial));

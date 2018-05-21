@@ -28,7 +28,7 @@ export class TutorialsComponent implements OnInit {
   }
 
   downloadFile(materials: TutorialMaterialDTO[]): void {
-    materials.forEach(material => this.tutorialService.getFileWithId(material.idTutorialMaterial);
+    materials.forEach(material => this.tutorialService.getFileWithId(material.idTutorialMaterial));
   }
 
 
