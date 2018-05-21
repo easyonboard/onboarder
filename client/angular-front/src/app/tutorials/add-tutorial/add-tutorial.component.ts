@@ -62,7 +62,6 @@ export class AddTutorialComponent implements OnInit {
     this.keywords = [];
     this.contactPersonsUsername = [];
     this.rootConst = new RootConst();
-
     this.tutorial = new TutorialDTO();
     this.material = new TutorialMaterialDTO();
     this.saved = false;

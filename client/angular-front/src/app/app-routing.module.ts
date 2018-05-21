@@ -23,7 +23,7 @@ const routes: Routes = [
   {path: 'courses/detailedCourse/:id/subject/:idSubject', component: SubjectDetailComponent},
   {path: 'userinfo', component: UserInfoFormularComponent},
   {path: 'tutorials', component: TutorialsComponent},
-  {path: 'tutorials/:keyword', component: TutorialsComponent},
+  {path: 'tutorials/keywords/:keyword', component: TutorialsComponent},
   {path: 'tutorials/addTutorial', component: AddTutorialComponent},
   {path: 'buddyMenu', component: ToDoListForBuddyComponent}
 ];

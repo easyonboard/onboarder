@@ -44,7 +44,9 @@ export class TutorialsComponent implements OnInit {
   }
 
   searchByKeyword(keyword: string) {
-    this.router.navigate(['tutorials/' + keyword]);
+    if (keyword !== 'addTutorial') {
+      this.router.navigate(['tutorials/keywords/' + keyword]);
+    }
   }
 
 
