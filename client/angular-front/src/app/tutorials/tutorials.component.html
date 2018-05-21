@@ -3,12 +3,32 @@
 </p>
 
 <div fxLayout="row wrap" fxLayoutAlign="start start">
-  <div *ngFor="let tutorial of tutorials" fxFlex="25" fxFlexOffset="5">
-    <mat-card  style="margin-bottom: 5%"  (click)="downloadFile(tutorial.tutorialMaterials)">
+  <div *ngFor="let tutorial of tutorials" fxFlex="25" fxFlexOffset="5" >
+    <mat-card class="tutorial" (click)="downloadFile(tutorial.tutorialMaterials)">
+      <mat-card-header style="padding-bottom: 2%">
+        <mat-chip-list class="mat-chip-list" *ngIf="tutorial.keywords!=null">
+          <mat-chip *ngFor="let keyword of tutorial.keywords.split(' ')"
+                    [selectable]="selectable"
+                     (click)="searchByKeyword(keyword)">{{keyword}}
+
+          </mat-chip>
+        </mat-chip-list>
+      </mat-card-header>
+
+
       <mat-card-title>
+        <label> Title: </label>
         {{tutorial.titleTutorial}}
-        <mat-chip  color="primary" style="float: right">{{tutorial.tutorialMaterials.length}}</mat-chip>
+        <mat-chip color="primary" *ngIf="tutorial.tutorialMaterials" style="float: right">{{tutorial.tutorialMaterials.length}}</mat-chip>
+        <mat-divider></mat-divider>
       </mat-card-title>
+
+      <mat-card-content>
+        <label>Overview: </label>
+        {{tutorial.overview}}
+      </mat-card-content>
+
+
     </mat-card>
   </div>
 </div>

@@ -84,10 +84,31 @@
                 <input type="file" name="materialFile" id="file" (change)="uploadFile()" accept="application/pdf" />
             </tr>
         </table>
+      <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>Discard</button>
+      <button (click)="addMaterial()"><span class="fa fa-caret-square-o-right"></span> Save</button>
 
-        <button (click)="addMaterial()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>Discard
-        </button>
+      <!--<div *ngIf="materialsForCurrentTutorial">-->
+        <!--<mat-grid-list cols="2" rowHeight="2:1" *ngFor="let material of materialsForCurrentTutorial">-->
+          <!--<mat-grid-tile> {{material.title}}</mat-grid-tile>-->
+        <!--</mat-grid-list>-->
+      <!--</div>-->
+
+      <div class="row" *ngFor="let  material of materialsForCurrentTutorial; let i=index" title="Description: {{material.description}}" style="margin-bottom: 10px">
+        <div></div>
+        <div class="col-md-3" style="margin-right: 25px">{{material.title.substring(0,50)}}</div>
+        <div class="col-md-4" style="margin-right: 30px">{{material.materialType}}</div>
+
+        <div class="col-md-3">
+          <a *ngIf="material.materialType === 'LINK'" href="{{material.link.substring(0,50)}}" target="_blank">
+            {{material.title}}</a>
+          <a *ngIf="material.materialType === 'FILE'" class="glyphicon glyphicon-download" title="Download source" (click)="downloadFile(material)"> </a>
+        </div>
+
+      </div>
+
+        <button (click)="incStep()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Next</button>
+        <!--<button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>Discard-->
+        <!--</button>-->
     </div>
 
     <div *ngSwitchCase="'three'" class="stepDiv">

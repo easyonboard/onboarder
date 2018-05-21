@@ -2,6 +2,7 @@ package dao;
 
 import entity.Course;
 import entity.Tutorial;
+import entity.TutorialMaterial;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -47,5 +48,6 @@ public class TutorialDAO extends AbstractDAO<Tutorial> {
         Tutorial tutorial = query.getResultList().stream().findFirst().get();
         return tutorial;
     }
+
 
 }

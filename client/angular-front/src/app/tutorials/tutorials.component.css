@@ -1,0 +1,8 @@
+.tutorial{
+  margin-bottom: 5%;
+  border: 3px #841439 solid ;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow:5px 10px 8px 10px #888888;
+  overflow: hidden;
+}

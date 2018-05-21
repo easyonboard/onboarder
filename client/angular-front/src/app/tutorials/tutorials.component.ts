@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RootConst} from '../util/RootConst';
 import {TutorialDTO} from '../domain/tutorial';
 import {TutorialService} from '../service/tutorial.service';
 import {TutorialMaterialDTO} from '../domain/tutorialMaterial';
 import {forEach} from '@angular/router/src/utils/collection';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-tutorials',
@@ -15,9 +16,20 @@ export class TutorialsComponent implements OnInit {
   private rootConst: RootConst;
   tutorials: TutorialDTO[];
 
-  constructor(private tutorialService: TutorialService) {
+  constructor(private tutorialService: TutorialService,
+              private route: ActivatedRoute,
+              private router: Router) {
     this.rootConst = new RootConst();
-    tutorialService.getTutorials().subscribe(tutorials => this.tutorials = tutorials);
+
+
+    this.route.params.subscribe(params => {
+      const keyword = params['keyword'];
+      if (keyword) {
+        this.tutorialService.searchByKeyword(keyword).subscribe(tutorials => this.tutorials = tutorials);
+      } else {
+        tutorialService.getTutorials().subscribe(tutorials => this.tutorials = tutorials);
+      }
+    });
   }
 
   ngOnInit() {
@@ -29,6 +41,12 @@ export class TutorialsComponent implements OnInit {
 
   downloadFile(materials: TutorialMaterialDTO[]): void {
     materials.forEach(material => this.tutorialService.getFileWithId(material.idTutorialMaterial));
+  }
+
+  searchByKeyword(keyword: string) {
+    if (keyword !== 'addTutorial') {
+      this.router.navigate(['tutorials/keywords/' + keyword]);
+    }
   }
 
 

@@ -20,7 +20,7 @@ import {RootConst} from '../../util/RootConst';
 
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
-import 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-add-tutorial',
@@ -55,14 +55,13 @@ export class AddTutorialComponent implements OnInit {
   separatorKeysCodes = [ENTER, COMMA, SPACE];
 
   private currentStep: string;
-  private materialsForCurrentTutorial: Array<TutorialMaterialDTO>;
+  public materialsForCurrentTutorial: TutorialMaterialDTO[] = [];
 
   constructor(private location: Location, private tutorialService: TutorialService, private userService: UserService,
               private materialService: MaterialService, @Inject(DOCUMENT) private document: any) {
     this.keywords = [];
     this.contactPersonsUsername = [];
     this.rootConst = new RootConst();
-
     this.tutorial = new TutorialDTO();
     this.material = new TutorialMaterialDTO();
     this.saved = false;
@@ -153,11 +152,17 @@ export class AddTutorialComponent implements OnInit {
     console.log('add material to tutorial: ' + this.tutorial.idTutorial);
     try {
       this.materialService.addMaterialToTutorial(this.material, this.file, this.tutorial.idTutorial);
-      this.incStep();
+      // this.incStep();
+      this.tutorialService.getMaterialsForTutorialId(this.tutorial.idTutorial).subscribe(
+        materials => {
+          this.materialsForCurrentTutorial = materials;
+          console.log(this.materialsForCurrentTutorial);
+        });
     } catch (err) {
       alert(err.error.message);
     }
-    this.materialsForCurrentTutorial = new Array<TutorialMaterialDTO>();
+
+    // this.materialsForCurrentTutorial = new Array<TutorialMaterialDTO>();
 
     // this.file = null;
     // var fileInput = <HTMLInputElement>document.getElementById('file');
@@ -212,4 +217,9 @@ export class AddTutorialComponent implements OnInit {
   uploadFile() {
     this.file = (<HTMLInputElement>document.getElementById('file')).files[0];
   }
+
+  downloadFile(material: TutorialMaterialDTO): void {
+    this.tutorialService.getFileWithId(material.idTutorialMaterial);
+  }
+
 }

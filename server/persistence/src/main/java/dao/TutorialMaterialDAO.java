@@ -9,4 +9,5 @@ public class TutorialMaterialDAO extends AbstractDAO<TutorialMaterial> {
     public Class<TutorialMaterial> getEntityClass() {
         return TutorialMaterial.class;
     }
+
 }

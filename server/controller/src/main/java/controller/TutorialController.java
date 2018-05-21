@@ -105,4 +105,10 @@ public class TutorialController {
         return materialDTO.getFileMaterial();
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/tutorials/materialsForTutorial", method = RequestMethod.GET)
+    public ResponseEntity<List<TutorialMaterialDTO>> allTutorials(@RequestParam(value = "id") Integer idTutorial) {
+        return new ResponseEntity<>(tutorialService.getAllMaterialsForTutorial(idTutorial), HttpStatus.OK);
+    }
+
 }
