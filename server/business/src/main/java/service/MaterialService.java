@@ -4,6 +4,7 @@ import dao.MaterialDAO;
 import dao.SubjectDAO;
 import dao.UserDAO;
 import dto.MaterialDTO;
+import dto.TutorialMaterialDTO;
 import dto.mapper.MaterialMapper;
 import entity.Course;
 import entity.Material;

@@ -1,23 +1,24 @@
 import { Component, Inject, OnInit } from '@angular/core';
+
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/catch';
+import 'rxjs/Rx';
+
 import { MaterialType } from '../../domain/materialType';
 import { DOCUMENT } from '@angular/common';
 import { Material } from '../../domain/material';
 import { MaterialService } from '../../service/material.service';
 import { RootConst } from '../../util/RootConst';
-import 'rxjs/Rx';
 import { UtilityService } from '../../service/utility.service';
 import { Subject } from '../../domain/subject';
 import { Course } from '../../domain/course';
 import { CourseService } from '../../service/course.service';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
 import { SubjectService } from '../../service/subject.service';
 import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 import { UserService } from '../../service/user.service';
 import { UserDTO } from '../../domain/user';
 import { MatChipInputEvent } from '@angular/material';
 import { ENTER, COMMA, SPACE } from '@angular/cdk/keycodes';
-
 
 @Component({
   selector: 'app-add-course',
@@ -33,7 +34,6 @@ export class AddCourseComponent implements OnInit {
   public selectedMaterialType: string;
   public rootConst: RootConst = new RootConst();
   public file: File;
-
 
   private currentStep: string;
   private materialsForCurrentSubject: Array<Material>;

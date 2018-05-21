@@ -44,7 +44,11 @@ import {ExcelService} from './service/excel.service';
 import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
 import {DialogEditProfileComponent} from './common/DialogEditProfile/dialog-edit-profile.component';
 import { TutorialsComponent } from './tutorials/tutorials.component';
-import {DialogLeaveCheckListComponent} from "./common/DialogLeaveCheckList/dialog-leave-check-list.component";
+import { DialogLeaveCheckListComponent } from './common/DialogLeaveCheckList/dialog-leave-check-list.component';
+import { AddTutorialComponent } from './tutorials/add-tutorial/add-tutorial.component';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
+import {TutorialService} from './service/tutorial.service';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -69,9 +73,11 @@ import {DialogLeaveCheckListComponent} from "./common/DialogLeaveCheckList/dialo
     UsersInDepartmentListComponent,
     DialogEditProfileComponent,
     TutorialsComponent,
-    DialogLeaveCheckListComponent
+    AddTutorialComponent,
+    DialogLeaveCheckListComponent,
   ],
   imports: [
+    NgMultiSelectDropDownModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
@@ -100,7 +106,8 @@ import {DialogLeaveCheckListComponent} from "./common/DialogLeaveCheckList/dialo
     MatNativeDateModule,
     MatExpansionModule,
     MatSnackBarModule,
-    MatInputModule
+    MatInputModule,
+    FlexLayoutModule
   ],
   entryComponents: [
     DialogCheckListComponent,
@@ -117,7 +124,7 @@ import {DialogLeaveCheckListComponent} from "./common/DialogLeaveCheckList/dialo
 
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
-    UserInformationService, CommonComponentsService, ExcelService],
+    UserInformationService, CommonComponentsService, ExcelService, TutorialService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

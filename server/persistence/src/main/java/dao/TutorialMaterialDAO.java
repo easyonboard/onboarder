@@ -1,6 +1,5 @@
 package dao;
 
-import entity.Tutorial;
 import entity.TutorialMaterial;
 import org.springframework.stereotype.Repository;
 

@@ -8,7 +8,6 @@ import {MatDialog} from '@angular/material';
 import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -163,6 +162,7 @@ export class AppComponent {
   }
 
   userManagementPermission(): boolean {
-    return this.addUserPermission() || this.newEmployeesPermission() || this.deleteUserPermission() || this.viewUsersByDepartmentPermission();
+    return this.addUserPermission() || this.newEmployeesPermission()
+          || this.deleteUserPermission() || this.viewUsersByDepartmentPermission();
   }
 }

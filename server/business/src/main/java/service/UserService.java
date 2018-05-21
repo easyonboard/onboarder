@@ -64,7 +64,6 @@ public class UserService {
 
     private LocationMapper locationMapper = LocationMapper.INSTANCE;
 
-
     private static final String USER_NOT_FOUND_ERROR = "User not found";
 
     public UserDTO findUserByUsername(String username) throws UserNotFoundException {

@@ -64,14 +64,12 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         return em.merge(actualUserInfo);
     }
 
-  public List<UserInformation> usersWhoStartOnGivenDate(Date givenDate) {
+    public List<UserInformation> usersWhoStartOnGivenDate(Date givenDate) {
         Query q = em.createQuery("select o from UserInformation o where o.startDate = :givenDate ");
         q.setParameter("givenDate", givenDate, TemporalType.DATE);
 
         return q.getResultList();
     }
-
-
 
     public UserInformation findUserInformationByUser(User userEntity){
         Query q=em.createQuery("select us from UserInformation us where us.userAccount=:userEntity");
