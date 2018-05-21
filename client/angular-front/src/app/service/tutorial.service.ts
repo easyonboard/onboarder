@@ -6,6 +6,7 @@ import {TutorialDTO} from '../domain/tutorial';
 import {Course} from '../domain/course';
 import {Observer} from 'rxjs/Observer';
 import {Observable} from 'rxjs/Observable';
+import {TutorialMaterialDTO} from '../domain/tutorialMaterial';
 
 @Injectable()
 export class TutorialService implements OnInit {
@@ -28,7 +29,7 @@ export class TutorialService implements OnInit {
   }
 
   getTutorials(): Observable<TutorialDTO[]> {
-  return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_TUTORIAL}`);
+    return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_TUTORIAL}`);
   }
 
   getFileWithId(idTutorialMaterial: number) {
@@ -38,5 +39,10 @@ export class TutorialService implements OnInit {
         const fileURL = URL.createObjectURL(file);
         window.open(fileURL);
       });
+  }
+
+
+  getMaterialsForTutorialId(idTutorial: number): Observable<TutorialMaterialDTO[]> {
+    return this.http.get<TutorialMaterialDTO[]>(`${this.rootConst.SERVER_GET_MATERIALS_FOR_TUTORIAL}${idTutorial}`);
   }
 }

@@ -108,4 +108,12 @@ public class TutorialService {
     public TutorialMaterialDTO getMaterialById(Integer id) {
         return tutorialMaterialMapper.mapToDTO(tutorialMaterialDAO.findEntity(id));
     }
+
+    public List<TutorialMaterialDTO> getAllMaterialsForTutorial(Integer idTutorial) {
+        List<TutorialMaterialDTO> tutorialMaterialDTOS= new ArrayList<>();
+        for(TutorialMaterial tutorialMaterial: tutorialDAO.findTutorialById(idTutorial).getTutorialMaterials()){
+            tutorialMaterialDTOS.add(tutorialMaterialMapper.mapToDTO(tutorialMaterial));
+        }
+        return tutorialMaterialDTOS;
+    }
 }

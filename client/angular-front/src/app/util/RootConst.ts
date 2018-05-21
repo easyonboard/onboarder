@@ -86,4 +86,5 @@ export class RootConst {
   WEB_SERVER_LOCATIONS = this.WEB_SERVICE_ENDPOINT + 'locations';
   SERVER_GET_TUTORIAL = this.WEB_SERVICE_ENDPOINT + 'tutorials';
   SERVER_FIND_TUTORIAL_MATERIAL_BY_ID = this.WEB_SERVICE_ENDPOINT + 'materialTutorial?id=';
+  SERVER_GET_MATERIALS_FOR_TUTORIAL = this.SERVER_GET_TUTORIAL + '/materialsForTutorial?id=';
 }

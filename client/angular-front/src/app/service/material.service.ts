@@ -79,4 +79,6 @@ export class MaterialService implements OnInit {
   getMaterialsFromSubjectId(idSubject: number) {
     return this.http.get<Material[]>(`${this.getMaterialsFromSubject}${idSubject}`);
   }
+
+
 }
