@@ -111,5 +111,4 @@ public class TutorialController {
         return new ResponseEntity<>(tutorialService.getAllMaterialsForTutorial(idTutorial), HttpStatus.OK);
     }
 
-
 }

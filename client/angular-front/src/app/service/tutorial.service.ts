@@ -45,4 +45,9 @@ export class TutorialService implements OnInit {
   getMaterialsForTutorialId(idTutorial: number): Observable<TutorialMaterialDTO[]> {
     return this.http.get<TutorialMaterialDTO[]>(`${this.rootConst.SERVER_GET_MATERIALS_FOR_TUTORIAL}${idTutorial}`);
   }
+
+  searchByKeyword(keyword: string): Observable<TutorialDTO[]> {
+    console.log(keyword)
+    return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_SEARCH_TUTORIAL_BY_KEYWORD}${keyword}`);
+  }
 }
