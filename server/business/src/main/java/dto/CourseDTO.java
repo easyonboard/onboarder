@@ -7,7 +7,7 @@ public class CourseDTO {
     private String titleCourse;
     private String overview;
     private String keywords;
-    private List<SubjectDTO> subjects;
+
 
     private List<UserDTO> contactPersons;
 
@@ -47,14 +47,6 @@ public class CourseDTO {
 
     public void setKeywords(String keywords) {
         this.keywords = keywords;
-    }
-
-    public List<SubjectDTO> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<SubjectDTO> subjects) {
-        this.subjects = subjects;
     }
 
     public List<UserDTO> getContactPersons() {

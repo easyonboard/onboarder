@@ -12,7 +12,6 @@ public interface CourseWithoutUserAndSubjectMapper extends AbstractMapper<Course
 
 
     @Mappings({
-            @Mapping(target = "subjects", ignore = true),
             @Mapping(target = "contactPersons", ignore = true),
             @Mapping(target = "owners", ignore = true),
             @Mapping(target = "enrolledUsers", ignore = true)
@@ -20,7 +19,7 @@ public interface CourseWithoutUserAndSubjectMapper extends AbstractMapper<Course
     CourseDTO mapToDTO(Course entity);
 
     @Mappings({
-            @Mapping(target = "subjects", ignore = true),
+
             @Mapping(target = "contactPersons", ignore = true),
             @Mapping(target = "owners", ignore = true),
             @Mapping(target = "enrolledUsers", ignore = true)

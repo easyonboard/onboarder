@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.Mapping;
 
 import java.util.List;
 
-@Mapper(uses = {SubjectMapper.class,UserMapper.class}, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+@Mapper( nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface CourseMapper extends AbstractMapper<Course,CourseDTO>{
 
     CourseMapper INSTANCE=Mappers.getMapper(CourseMapper.class);

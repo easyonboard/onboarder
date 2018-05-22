@@ -55,8 +55,7 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
 
         actualUserInfo.setDepartment(userInfo.getDepartment());
         actualUserInfo.setStartDate(userInfo.getStartDate());
-        if (userInfo.getBuddyUser().getUsername() != null)
-        {
+        if (userInfo.getBuddyUser().getUsername() != null) {
             Optional<User> newUser = userDAO.findUserByUsername(userInfo.getBuddyUser().getUsername());
             actualUserInfo.setBuddyUser(newUser.get());
         }
@@ -71,12 +70,32 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         return q.getResultList();
     }
 
-    public UserInformation findUserInformationByUser(User userEntity){
-        Query q=em.createQuery("select us from UserInformation us where us.userAccount=:userEntity");
+    public UserInformation findUserInformationByUser(User userEntity) {
+        Query q = em.createQuery("select us from UserInformation us where us.userAccount=:userEntity");
         q.setParameter("userEntity", userEntity);
-        try {return (UserInformation) q.getSingleResult();}
-        catch (NoResultException e){
+        try {
+            return (UserInformation) q.getSingleResult();
+        } catch (NoResultException e) {
             return null;
+        }
+    }
+
+    @Transactional
+    public void setBuddyToNull(User buddyUser) {
+        Query q = em.createQuery("select us from UserInformation us where us.buddyUser=:buddyUser");
+        q.setParameter("buddyUser", buddyUser);
+        try {
+            List<UserInformation> userInformationsList = (List<UserInformation>) q.getResultList();
+            if (userInformationsList != null) {
+                for (int i = 0; i < userInformationsList.size(); i++) {
+                    UserInformation userInformation = userInformationsList.get(i);
+                    userInformation.setBuddyUser(null);
+                    persistEntity(userInformation);
+                }
+            }
+        } catch (NoResultException e) {
+
+            System.out.println("User is not buddy");
         }
     }
 

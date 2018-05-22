@@ -146,6 +146,21 @@ public class UserService {
         checkListDAO.persistEntity(checkListEntity);
     }
 
+
+    /**
+     *
+     * @param username
+     * @return
+     * @throws UserNotFoundException
+     * delete user and all children from db
+     * searches all children and deletes them one by one
+     * searches all other users who have the user to be deleted as buddy and sets the buddy field TO NULL
+     *
+     *
+     * TO DO refactoring
+     *
+     *
+     */
     public boolean deleteUser(String username) throws UserNotFoundException {
 
         Optional<User> userOptional = userDAO.findUserByUsername(username);
@@ -156,6 +171,10 @@ public class UserService {
 
                 UserInformation userInformationEntity = userInformationDAO.findUserInformationByUser(userEntity);
                 if (userInformationEntity != null) {
+                    userInformationEntity.setBuddyUser(null);
+                    userInformationEntity
+                            .setLocation(null);
+
                     userInformationDAO.deleteEntity(userInformationEntity);
                 }
 
@@ -168,7 +187,7 @@ public class UserService {
                 if (leavecheckListEntity != null) {
                     leaveCheckListDAO.deleteEntity(leavecheckListEntity);
                 }
-
+                userInformationDAO.setBuddyToNull(userEntity);
                 userDAO.deleteEntity(userEntity);
                 return true;
             } else {
