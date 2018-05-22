@@ -3,7 +3,7 @@ package controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.CourseDTO;
-import dto.SubjectDTO;
+
 import dto.UserDTO;
 import exception.CourseNotFoundException;
 import exception.DeleteCourseException;
@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import service.CourseService;
-import service.SubjectService;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -26,8 +26,7 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    @Autowired
-    private SubjectService subjectService;
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses", method = RequestMethod.GET)
@@ -75,12 +74,7 @@ public class CourseController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/courses/enrollUserOnCourse", method = RequestMethod.POST)
-    public ResponseEntity enrollToCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) throws UserNotFoundException {
-        courseService.enrollUserToCourse(username, idCourse);
-        return new ResponseEntity(HttpStatus.OK);
-    }
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/isEnrolledOnCourse", method = RequestMethod.POST)
@@ -88,12 +82,7 @@ public class CourseController {
         return new ResponseEntity<Boolean>(courseService.userIsEnrolledOnCourse(username, idCourse), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/courses/unenrollUserFromCourse", method = RequestMethod.POST)
-    public ResponseEntity unenrollFromCourse(@RequestParam(value = "idCourse") Integer idCourse, @RequestBody String username) throws UserNotFoundException {
-        courseService.unenrollUserToCourse(username, idCourse);
-        return new ResponseEntity(HttpStatus.OK);
-    }
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/updateCourse", method = RequestMethod.POST)
@@ -115,16 +104,7 @@ public class CourseController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "courses/subject", method = RequestMethod.GET)
-    public ResponseEntity getDetails(@RequestParam(value = "id") Integer id, @RequestParam(value = "idSubject") Integer idSubject) {
 
-        SubjectDTO subject = subjectService.findSubjectOfCourse(id, idSubject);
-        if (subject != null) {
-            return new ResponseEntity(subject, HttpStatus.OK);
-        }
-        return new ResponseEntity(HttpStatus.BAD_REQUEST);
-    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/deleteContactPerson", method = RequestMethod.POST)
@@ -167,18 +147,6 @@ public class CourseController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/deleteCourseSubject", method = RequestMethod.POST)
-    public ResponseEntity deleteCourseSubject(@RequestBody String str) {
-
-        try {
-            courseService.deleteSubjectFromCourse(getCourse(str), getSubject(str));
-            return new ResponseEntity(HttpStatus.OK);
-
-        } catch (IOException e) {
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
-        }
-    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/courses/addCourse", method = RequestMethod.POST)
@@ -200,17 +168,7 @@ public class CourseController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/progress", method = RequestMethod.POST)
-    public ResponseEntity<Integer> getProgress(@RequestBody String str) {
-        try {
-            return new ResponseEntity<>(courseService.calculateProgress(getUser(str), getCourse(str)), HttpStatus.OK);
-        } catch (IOException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        }
-
-    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/courses", method = RequestMethod.GET)
@@ -218,44 +176,6 @@ public class CourseController {
         List<CourseDTO> courses = courseService.getCoursesForUser(username);
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
-
-
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/markAsFinished", method = RequestMethod.POST)
-    public ResponseEntity markAsFinished(@RequestBody String str) {
-        try {
-
-            int hasAnotherSubject = subjectService.markAsFinished(getSubject(str), getUser(str));
-            return new ResponseEntity(hasAnotherSubject, HttpStatus.OK);
-        } catch (IOException e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/subjectStatus", method = RequestMethod.POST)
-    public ResponseEntity getStatusForSubject(@RequestBody String str) {
-
-        try {
-            return new ResponseEntity(courseService.getStatusForSubject(getUser(str), getCourse(str)), HttpStatus.OK);
-        } catch (IOException e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-
-    }
-
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/isSubjectFinished", method = RequestMethod.POST)
-    public ResponseEntity isSubjectFinished(@RequestBody String str) {
-
-        try {
-            return new ResponseEntity(courseService.isSubjectFinished(getUser(str), getSubject(str)), HttpStatus.OK);
-        } catch (IOException e) {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-
-    }
-
 
 
 
@@ -272,10 +192,5 @@ public class CourseController {
 
     }
 
-    private SubjectDTO getSubject(String str) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.readTree(str);
-        return mapper.convertValue(node.get("subject"), SubjectDTO.class);
 
-    }
 }

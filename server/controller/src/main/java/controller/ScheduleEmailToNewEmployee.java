@@ -77,7 +77,7 @@ public class ScheduleEmailToNewEmployee {
                     User buddy = ui.getBuddyUser();
                     if (buddy != null){
                         String names[]=buddy.getName().split(" ");
-                        String emailBodyForBuddy = createEmailBodyForBuddy(names[1],user.getName(), dateWithZeroTime, "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
+                        String emailBodyForBuddy = createEmailBodyForBuddy(names[0],user.getName(), dateWithZeroTime, "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
                         sendEmail(buddy.getMsgMail(), null, BUDDY_MAIL_SUBJECT, emailBodyForBuddy);
                     }
 //                    List<User> abteilungsleiters = userDAO.getAbteilungsleiters();
@@ -123,7 +123,7 @@ public class ScheduleEmailToNewEmployee {
         ResourceBundle bundle = ResourceBundle.getBundle("email_template", Locale.ROOT);
         String email_body = bundle.getString("email_body");
         String names[]=name.split(" ");
-        String formattedEmailBoddy = MessageFormat.format(email_body, names[1], startDate, s, building, buddyName, floor, building, locationAddress);
+        String formattedEmailBoddy = MessageFormat.format(email_body, names[0], startDate, s, building, buddyName, floor, building, locationAddress);
         return formattedEmailBoddy;
     }
 

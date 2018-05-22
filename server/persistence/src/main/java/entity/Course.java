@@ -23,9 +23,6 @@ public class Course implements Serializable {
     @Column
     private String keywords;
 
-    @OneToMany(cascade = CascadeType.ALL,targetEntity = Subject.class)
-    @JoinTable(name="course_subject",joinColumns = @JoinColumn(name = "idCourse"), inverseJoinColumns = @JoinColumn(name = "idSubject"))
-    private List<Subject> subjects;
 
     @ManyToMany( targetEntity = User.class)
     @JoinTable(name="course_contactPerson",joinColumns = @JoinColumn(name = "idCourse"), inverseJoinColumns = @JoinColumn(name = "idUser"))
@@ -75,14 +72,6 @@ public class Course implements Serializable {
 
     public void setKeywords(String keywords) {
         this.keywords = keywords;
-    }
-
-    public List<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
     }
 
     public List<User> getContactPersons() {
