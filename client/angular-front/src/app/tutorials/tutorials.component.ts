@@ -20,8 +20,6 @@ export class TutorialsComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router) {
     this.rootConst = new RootConst();
-
-
     this.route.params.subscribe(params => {
       const keyword = params['keyword'];
       if (keyword) {

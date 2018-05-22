@@ -47,7 +47,6 @@ export class TutorialService implements OnInit {
   }
 
   searchByKeyword(keyword: string): Observable<TutorialDTO[]> {
-    console.log(keyword)
     return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_SEARCH_TUTORIAL_BY_KEYWORD}${keyword}`);
   }
 }

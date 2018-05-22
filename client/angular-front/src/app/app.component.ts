@@ -165,4 +165,8 @@ export class AppComponent {
     return this.addUserPermission() || this.newEmployeesPermission()
           || this.deleteUserPermission() || this.viewUsersByDepartmentPermission();
   }
+
+  redirectToAddTutorialPage() {
+    this.router.navigate(['/tutorials/addTutorial']);
+  }
 }

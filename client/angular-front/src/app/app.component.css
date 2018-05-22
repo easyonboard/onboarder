@@ -239,3 +239,14 @@ footer {
   color: #ffffff;
   font-size: large;
 }
+#tutorialManagementDropdown{
+  position: absolute;
+  top: 0;
+  right: 8%;
+  margin-top: 15px;
+  margin-right: 350px;
+  background-color: #841439;
+  border: none;
+  color: #ffffff;
+  font-size: large;
+}
