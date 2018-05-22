@@ -1,6 +1,11 @@
 # onboarder
 website for easing employee onboardnig in projects/workplace
 
+Use Case doc:
+* https://github.com/easyonboard/onboarder/blob/master/documentation/Adaugare%20Program.docx
+
+
+
 Installation requirements:
 * Oracle 11g Express Edition
   * download link: http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html
