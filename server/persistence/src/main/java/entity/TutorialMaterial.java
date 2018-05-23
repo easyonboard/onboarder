@@ -1,5 +1,6 @@
 package entity;
 
+import com.sun.istack.internal.Nullable;
 import entity.enums.MaterialType;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class TutorialMaterial implements Serializable {
     @Column
     private String title;
     @Column
+    @Nullable
     @Size(max = 2500)
     private String description;
 

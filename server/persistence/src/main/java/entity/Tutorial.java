@@ -1,5 +1,7 @@
 package entity;
 
+import com.sun.istack.internal.Nullable;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -18,7 +20,8 @@ public class Tutorial implements Serializable {
     @Column
     private String titleTutorial;
     @Lob
-    @Size(min = 50)
+    @Nullable
+    @Size(max = 500)
     @Column
     private String overview;
     @Column

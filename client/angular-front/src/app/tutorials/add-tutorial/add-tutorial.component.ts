@@ -4,6 +4,7 @@ import {MatChipInputEvent} from '@angular/material';
 import {DOCUMENT} from '@angular/common';
 import {IMultiSelectOption} from 'angular-2-dropdown-multiselect';
 import {Location} from '@angular/common';
+import {MatDialog, MatSelectChange, MatSnackBar} from '@angular/material';
 
 import {UserDTO} from '../../domain/user';
 import {Material} from '../../domain/material';
@@ -47,7 +48,8 @@ export class AddTutorialComponent implements OnInit {
   public inputKeyword: any;
 
   public selectedMaterialType: string;
-  public materialErrorMessage: String;
+  public materialErrorMessage: string;
+  public tutorialErrorMessage: string;
 
   public usersOptions: string[];
   public contactPersonsUsername: string[];
@@ -58,12 +60,16 @@ export class AddTutorialComponent implements OnInit {
   public materialsForCurrentTutorial: TutorialMaterialDTO[] = [];
 
   constructor(private location: Location, private tutorialService: TutorialService, private userService: UserService,
-              private materialService: MaterialService, @Inject(DOCUMENT) private document: any) {
+              private materialService: MaterialService, @Inject(DOCUMENT) private document: any, public snackBar: MatSnackBar) {
     this.keywords = [];
     this.contactPersonsUsername = [];
     this.rootConst = new RootConst();
     this.tutorial = new TutorialDTO();
+    this.tutorial.overview = '';
+    this.tutorial.titleTutorial = '';
     this.material = new TutorialMaterialDTO();
+    this.material.description = '';
+    this.material.title = '';
     this.saved = false;
 
     var userArrayObjects: Array<UserDTO> = new Array<UserDTO>();
@@ -77,6 +83,7 @@ export class AddTutorialComponent implements OnInit {
   ngOnInit() {
     this.currentStep = 'one';
     this.materialErrorMessage = '';
+    this.tutorialErrorMessage = '';
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -86,6 +93,19 @@ export class AddTutorialComponent implements OnInit {
 
   addTutorial(): void {
     console.log(this.selectedItems);
+    if (this.tutorial.titleTutorial.length < 5) {
+      this.tutorialErrorMessage += 'Title is too short!\n';
+    }
+    if (this.tutorial.overview.length > 500) {
+      this.tutorialErrorMessage += 'Description must contain at most 500 characters!\n';
+    }
+
+    if (this.tutorialErrorMessage !== '') {
+      this.snackBarMessagePopup(this.tutorialErrorMessage);
+      this.tutorialErrorMessage = '';
+      return;
+    }
+
     this.tutorial.keywords = this.keywords.join(' ');
     this.tutorialService.addTutorial(this.tutorial, this.selectedItems).subscribe(tutorial => {
       this.tutorial = tutorial;
@@ -123,33 +143,32 @@ export class AddTutorialComponent implements OnInit {
   }
 
   addMaterial(): void {
+    console.log('add meterial \n');
     this.file = (<HTMLInputElement>document.getElementById('file')).files[0];
-    if (this.material.title == null || this.material.title.length < 5) {
-      this.materialErrorMessage += 'Title too short!\n';
+    if (this.material.title.length < 5) {
+      this.materialErrorMessage += 'Title is too short!\n';
     }
-    if (this.material.description == null || this.material.description.length < 20) {
-      this.materialErrorMessage += 'Description too short!\n';
+    if (this.material.description.length > 500) {
+      this.materialErrorMessage += 'Description must contain at most 500 characters!\n';
     }
     if (this.material.materialType === null) {
-      this.materialErrorMessage += 'Material type not chose\n';
+      this.materialErrorMessage += 'Material type not chosen\n';
     }
-    if (this.material.materialType.toString() === 'LINK') {
+    if (this.material.materialType !== undefined && this.material.materialType.toString() === 'LINK') {
       if (this.material.link === undefined || this.material.link.length < 5) {
         this.materialErrorMessage += 'Link must have at least 6 characters\n';
       }
     }
-    if (this.material.materialType.toString() === 'FILE' && this.file == null) {
+    if (this.material.materialType !== undefined && this.material.materialType.toString() === 'FILE' && this.file == null) {
       this.materialErrorMessage += 'File not uploaded\n';
     }
 
-    console.log('material from component ' + this.materialErrorMessage + '\n');
-
     if (this.materialErrorMessage !== '') {
+      this.snackBarMessagePopup(this.materialErrorMessage);
       this.materialErrorMessage = '';
       return;
     }
 
-    console.log('add material to tutorial: ' + this.tutorial.idTutorial);
     try {
       this.materialService.addMaterialToTutorial(this.material, this.file, this.tutorial.idTutorial);
       // this.incStep();
@@ -222,4 +241,10 @@ export class AddTutorialComponent implements OnInit {
     this.tutorialService.getFileWithId(material.idTutorialMaterial);
   }
 
+  snackBarMessagePopup(message: string) {
+    console.log('tralalalaaaa\n');
+    this.snackBar.open(message, null, {
+      duration: 3000
+    });
+  }
 }
