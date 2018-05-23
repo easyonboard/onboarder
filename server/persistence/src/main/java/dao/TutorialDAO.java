@@ -1,8 +1,7 @@
 package dao;
 
-import entity.Course;
 import entity.Tutorial;
-import entity.TutorialMaterial;
+
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -11,7 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.Optional;
+
 
 @Repository
 public class TutorialDAO extends AbstractDAO<Tutorial> {

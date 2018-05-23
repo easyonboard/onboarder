@@ -1,7 +1,7 @@
 package dao;
 
 import entity.CheckList;
-import entity.Course;
+
 import entity.User;
 import entity.enums.DepartmentType;
 import org.springframework.stereotype.Service;
@@ -70,12 +70,7 @@ public class UserDAO extends AbstractDAO<User> {
         return (List<User>) this.executeCriteriaQuery(criteriaQuery);
     }
 
-    public List<Course> getcoursesForUser(String username) {
-        String queryString = "select u.enrolledCourses from User u where u.username=:username";
-        Query query = this.em.createQuery(queryString);
-        query.setParameter("username", username);
-        return query.getResultList();
-    }
+
 
     public List<User> getAbteilungsleiters() {
 //        String queryString = "select u from User u where u.role.role=:role";
