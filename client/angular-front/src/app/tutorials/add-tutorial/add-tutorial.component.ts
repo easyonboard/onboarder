@@ -176,6 +176,7 @@ export class AddTutorialComponent implements OnInit {
         materials => {
           this.materialsForCurrentTutorial = materials;
           console.log(this.materialsForCurrentTutorial);
+          this.snackBarMessagePopup('Material added successfully');
         });
     } catch (err) {
       alert(err.error.message);
