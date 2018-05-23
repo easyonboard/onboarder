@@ -99,7 +99,9 @@ export class AddTutorialComponent implements OnInit {
     if (this.tutorial.overview.length > 500) {
       this.tutorialErrorMessage += 'Description must contain at most 500 characters!\n';
     }
-
+    if (this.tutorial.overview.length < 50) {
+      this.tutorialErrorMessage += 'Description must contain at least 50 characters!\n';
+    }
     if (this.tutorialErrorMessage !== '') {
       this.snackBarMessagePopup(this.tutorialErrorMessage);
       this.tutorialErrorMessage = '';

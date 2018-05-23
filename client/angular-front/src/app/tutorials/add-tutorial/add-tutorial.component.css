@@ -276,3 +276,27 @@ thead>tr>th {
 .keyword-list {
     width: 80%;
 }
+#addCourseMessage {
+  text-align: center;
+  color: #ffffff;
+  background: #841439;
+  font-size: 18px;
+  font-weight: bolder;
+  text-shadow: #8c8b8b;
+  height: 90px;
+  width: 1080px;
+  padding: 30px;
+}
+
+#backToCourses {
+  text-align: center;
+  color: #ffffff;
+  background: #841439;
+  font-size: 18px;
+  font-weight: bolder;
+  text-shadow: #8c8b8b;
+  height: 90px;
+  width: 1080px;
+  margin-top: 500px;
+  padding: 30px;
+}

@@ -112,8 +112,15 @@
   </div>
 
   <div *ngSwitchCase="'three'" class="stepDiv">
-    material added to tutorial
-    <button (click)="redirectToTutorialsPage()">Back to tutorials</button>
+
+    <div id="addCourseMessage">
+      Tutorial added!
+    </div>
+    <div id="backToCourses">
+      <a (click)="redirectToTutorialsPage()" style="color: white; cursor: pointer">Back to tutorials!</a>
+
+    </div>
+
     <!-- <button (click)="addNewMaterial()">Add another material to tutorial</button> -->
   </div>
 </div>
