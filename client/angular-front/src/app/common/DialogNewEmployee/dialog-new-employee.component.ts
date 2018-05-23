@@ -15,7 +15,7 @@ export class DialogNewEmployeeComponent implements OnInit {
   public newEmployees: UserInformationDTO[];
 
   public isMailSent: Boolean[];
-
+  public
   public allNewEmployees: UserInformationDTO[];
   public searchValue = '';
 
@@ -30,6 +30,7 @@ export class DialogNewEmployeeComponent implements OnInit {
       this.allNewEmployees = newEmployees;
       this.newEmployees = newEmployees;
       this.getStatus();
+      this.setStartDate();
     });
   }
 
@@ -71,4 +72,10 @@ export class DialogNewEmployeeComponent implements OnInit {
     }
   }
 
+  private setStartDate() {
+    this.newEmployees.forEach(user => {
+      const myDate = new Date(user.startDate).toDateString();
+      user.startDateString = myDate;
+    });
+  }
 }

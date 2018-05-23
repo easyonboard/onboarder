@@ -1,14 +1,16 @@
 package dao;
 
 import entity.Tutorial;
-
+import entity.User;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -48,5 +50,22 @@ public class TutorialDAO extends AbstractDAO<Tutorial> {
         return tutorial;
     }
 
+    @Transactional
+    public void removeUserFromTutorialContactList(User user) {
+        Query query = em.createQuery("select t from Tutorial t where :user member of t.contactPersons ");
+        query.setParameter("user", user);
+        try {
+            List<Tutorial> tutorialsList = query.getResultList();
+            for (int i = 0; i < tutorialsList.size(); i++) {
+                tutorialsList.get(i).getContactPersons().remove(user);
+                persistEntity(tutorialsList.get(i));
+            }
+
+        } catch (NoResultException e) {
+
+        }
+
+
+    }
 
 }

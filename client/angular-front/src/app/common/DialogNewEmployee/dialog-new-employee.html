@@ -13,12 +13,22 @@
   <mat-card *ngFor="let userInfo of newEmployees;  let i = index">
     <div *ngIf="isMailSent[i]==true">
       <i class="material-icons" style="padding: 10px" title="Mail sent">done</i> {{userInfo.userAccount.name}}
+      <br/>
+      <i class="material-icons" style="padding: 10px" >
+        calendar_today
+      </i> Start date: {{userInfo.startDateString}}
+      <br/>
     </div>
     <br/>
     <div *ngIf="isMailSent[i]==false">
       <i class="material-icons" *ngIf="!mailSent" style="padding: 10px" title="Mail not sent">error_outline</i>
       {{userInfo.userAccount.name}}
       <br/>
+      <i class="material-icons" style="padding: 10px" >
+        calendar_today
+      </i> Start date: {{userInfo.startDateString}}
+      <br/>
+
       <button mat-button color="warn" (click)="openUserInfoModal(userInfo)">Please fill in user data</button>
     </div>
     <br/>

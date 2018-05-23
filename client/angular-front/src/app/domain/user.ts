@@ -22,6 +22,7 @@ export class UserInformationDTO {
   userAccount: UserDTO;
   mailSent: boolean;
   startDate: Date;
+  startDateString: String;
 }
 
 export class UserDetailsToExport {
