@@ -1,10 +1,11 @@
 import {RoleDTO} from './role';
 import {DepartmentType} from './departmentType';
-import {LocationDTO} from "./location";
+import {LocationDTO} from './location';
 
 export class UserDTO {
   idUser: number;
   email: string;
+  msgMail: string;
   name: string;
   username: string;
   password: string;

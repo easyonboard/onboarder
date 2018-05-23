@@ -9,7 +9,7 @@ import {DepartmentType} from '../../domain/departmentType';
 
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import {MatSelectChange} from '@angular/material';
-import {LocationDTO} from "../../domain/location";
+import {LocationDTO} from '../../domain/location';
 
 @Component({
   selector: 'app-user-info-formular',
