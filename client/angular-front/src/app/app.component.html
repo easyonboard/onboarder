@@ -31,9 +31,46 @@
       <i class="fa fa-info" style="margin-right: 10%"></i>
     </button>
 
-    <button (click)="redirectToTutorialsPage()" id="tutorials" title="Tutorials">
-      Tutorials
-    </button>
+    <ul class="dropdown" id="tutorialManagementDropdown">
+      <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown"
+         style="color: white; cursor: pointer; ">
+        <i class="fa fa-book" style="margin-right: 8px"> </i>
+        Tutorials
+        <span class="caret" style="margin-left: 3px"></span>
+      </a>
+
+      <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
+
+        <li>
+          <a (click)="redirectToTutorialsPage()" class="dropdown-menu-item">
+            <i class="fa fa-leanpub"></i>  View tutorials
+          </a>
+        </li>
+        <li class="divider" ></li>
+        <li>
+          <a (click)="redirectToAddTutorialPage()" class="dropdown-menu-item">
+            <i class="fa fa-plus-circle"></i>  Add tutorial
+          </a>
+        </li>
+        <li class="divider" hidden></li>
+        <li hidden>
+          <a mat-button (click)="openDialogCoursesForUser()" class="dropdown-menu-item">
+            <i class="fa fa-pencil-square-o"></i>
+            Update tutorial</a>
+        </li>
+
+        <li class="divider" *ngIf="isBuddy()===true" hidden></li>
+        <li hidden>
+          <a mat-button (click)="openToDoListForBuddy()" class="dropdown-menu-item">
+            <i class="fa fa-minus-circle"> </i>Delete tutorial
+          </a>
+        </li>
+
+      </ul>
+
+    </ul>
+
+
 
     <button id="logOut" (click)="logout()" *ngIf="userIsLogged()==true">
       <span class="glyphicon glyphicon-log-out"></span> Log out
@@ -99,10 +136,7 @@
             <span class="glyphicon glyphicon-pencil"></span> Change password
           </a>
         </li>
-        <li class="divider"></li>
-        <li><a mat-button (click)="openDialogCoursesForUser()" class="dropdown-menu-item"><i class="fa fa-book"></i>View
-          courses</a>
-        </li>
+        <li class="divider" hidden></li>
 
         <li class="divider" *ngIf="isBuddy()===true"></li>
         <li *ngIf="isBuddy()===true">
@@ -115,37 +149,6 @@
     </ul>
 
 
-    <ul class="dropdown" id="tutorialManagementDropdown">
-      <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown"
-         style="color: white; cursor: pointer; ">
-        <i class="fa fa-book" style="margin-right: 8px"> </i>
-        Tutorial management
-        <span class="caret" style="margin-left: 3px"></span>
-      </a>
-
-      <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
-        <li>
-          <a (click)="redirectToAddTutorialPage()" class="dropdown-menu-item">
-            <i class="fa fa-plus-circle"></i>  Add tutorial
-          </a>
-        </li>
-        <li class="divider" hidden></li>
-        <li hidden>
-          <a mat-button (click)="openDialogCoursesForUser()" class="dropdown-menu-item">
-          <i class="fa fa-pencil-square-o"></i>
-          Update tutorial</a>
-        </li>
-
-        <li class="divider" *ngIf="isBuddy()===true" hidden></li>
-        <li hidden>
-          <a mat-button (click)="openToDoListForBuddy()" class="dropdown-menu-item">
-            <i class="fa fa-minus-circle"> </i>Delete tutorial
-          </a>
-        </li>
-
-      </ul>
-
-    </ul>
 
 
   </div>

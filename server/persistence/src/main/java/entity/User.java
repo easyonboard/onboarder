@@ -49,14 +49,7 @@ public class User implements Serializable {
     @OneToOne( mappedBy = "userAccount", targetEntity = UserInformation.class)
     public UserInformation userAccount;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "contactPersons", targetEntity = Course.class)
-    private List<Course> contactForCourses;
 
-    @ManyToMany(mappedBy = "owners", targetEntity = Course.class)
-    private List<Course> ownerForCourses;
-
-    @ManyToMany(mappedBy = "enrolledUsers", targetEntity = Course.class)
-    private List<Course> enrolledCourses;
 
     public int getIdUser() {
         return idUser;
@@ -98,29 +91,7 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    public List<Course> getContactForCourses() {
-        return contactForCourses;
-    }
 
-    public void setContactForCourses(List<Course> contactForCourses) {
-        this.contactForCourses = contactForCourses;
-    }
-
-    public List<Course> getOwnerForCourses() {
-        return ownerForCourses;
-    }
-
-    public void setOwnerForCourses(List<Course> ownerForCourses) {
-        this.ownerForCourses = ownerForCourses;
-    }
-
-    public List<Course> getEnrolledCourses() {
-        return enrolledCourses;
-    }
-
-    public void setEnrolledCourses(List<Course> enrolledCourses) {
-        this.enrolledCourses = enrolledCourses;
-    }
 
     public String getEmail() {
         return email;

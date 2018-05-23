@@ -8,7 +8,7 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = {CourseWithoutUserAndSubjectMapper.class, RoleMapper.class, UserInformationMapper.class},nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+@Mapper(uses = {RoleMapper.class, UserInformationMapper.class},nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface UserMapper extends AbstractMapper<User, UserDTO> {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
