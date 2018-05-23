@@ -1,42 +1,42 @@
 <h2 mat-dialog-title>Add a new user</h2>
 <div mat-dialog-content style="height: 100% ">
-  <div>
-    <form>
-      <div>
-        <ng-container buddy-dropdown-directive></ng-container>
-      </div>
+    <div>
+        <form>
+            <div>
+                <ng-container buddy-dropdown-directive></ng-container>
+            </div>
 
-      <div>
-        <label for="FirstName">First Name</label>
-        <input #FirstName type="text" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}"
-               placeholder="FirstName" class="form-control" id="FirstName"/>
-      </div>
-      <div>
-        <label for="LastName">Last Name</label>
-        <input #LastName type="text" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" placeholder="LastName"
-               class="form-control" id="LastName"/>
-      </div>
-      <br>
-      <div>
-        <label>USERNAME: {{ firstName }}{{ lastName }}</label>
-      </div>
-      <br>
-      <div>
-        <label for="Email">Email address</label>
-        <input #Email type="text" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}"
-               placeholder="user@email" class="form-control" id="Email"/>
-      </div>
-      <div class="form-group">
-        <label>Role</label>
-        <mat-select placeholder="Select role" (selectionChange)="selectRoleValue($event)">
-          <mat-option *ngFor="let roleValue of roles" [value]="roleValue">
-            {{roleType[roleValue]}}
-          </mat-option>
-        </mat-select>
-      </div>
-      <app-user-info-formular></app-user-info-formular>
-    </form>
-  </div>
+            <div>
+                <label for="FirstName">First Name</label>
+                <input #FirstName type="text" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder="FirstName" class="form-control" id="FirstName" />
+            </div>
+            <div>
+                <label for="LastName">Last Name</label>
+                <input #LastName type="text" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" placeholder="LastName" class="form-control" id="LastName" />
+            </div>
+            <br>
+            <div>
+                <label>USERNAME: {{ firstName }}{{ lastName }}</label>
+            </div>
+            <br>
+            <div>
+                <label for="Email">Email address</label>
+                <input #Email type="text" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}" placeholder="user@email" class="form-control" id="Email" />
+            </div>
+            <div class>
+                <label for="msgMail">.msg email</label>
+                <input #msgEmail type="text" [(ngModel)]="user.msgMail" [ngModelOptions]="{standalone: true}" placeholder=".msg email" class="form-control" id="msgMail" [value]="user.msgMail" />
+            </div>
+            <div class="form-group">
+                <label>Role</label>
+                <mat-select placeholder="Select role" (selectionChange)="selectRoleValue($event)">
+                    <mat-option *ngFor="let roleValue of roles" [value]="roleValue">
+                        {{roleType[roleValue]}}
+                    </mat-option>
+                </mat-select>
+            </div>
+            <app-user-info-formular></app-user-info-formular>
+        </form>
+    </div>
 </div>
 <button id="addUser" class="btn-add-user" (click)="addUser()">ADD USER</button>
-

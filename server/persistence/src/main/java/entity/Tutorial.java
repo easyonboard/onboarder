@@ -18,7 +18,7 @@ public class Tutorial implements Serializable {
     @Column
     private String titleTutorial;
     @Lob
-    @Size(min = 50)
+    @Size(max = 500)
     @Column
     private String overview;
     @Column

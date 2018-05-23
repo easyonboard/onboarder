@@ -1,119 +1,119 @@
 <div id="addComponent" [ngSwitch]="getCurrentStep()">
-    <div *ngSwitchCase="'one'" class="stepDiv">
-        <div class="pageTitle"> Add tutorial</div>
-        <hr class="separator">
+  <div *ngSwitchCase="'one'" class="stepDiv">
+    <div class="pageTitle"> Add tutorial</div>
+    <hr class="separator">
 
-        <table id="tutorialTable" cellspacing="50">
-            <tr>
-                <td>
-                    <label>Tutorial title</label>
-                </td>
-                <td>
-                    <input type="text" id="tutorialTtile" name="Tutorial title" [(ngModel)]="tutorial.titleTutorial" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>Overview</label>
-                </td>
-                <td>
-                    <textarea id="tutorialOverview" name="Overview" [(ngModel)]="tutorial.overview"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td><label>Contact persons</label></td>
-                <td>
-                    <ng-multiselect-dropdown [placeholder]="'choose one or more contact persons'" [data]="usersOptions" [(ngModel)]="selectedItems" [settings]="dropdownSettings"></ng-multiselect-dropdown>
-                </td>
-            </tr>
-            <tr>
-                <td><label>Keywords </label></td>
-                <td>
-                    <mat-form-field class="keyword-list">
-                        <mat-chip-list #chipList>
-                            <mat-chip *ngFor="let keyword of keywords" [selectable]="true" [removable]="true" (remove)="removeKeyword(keyword)">
-                                {{keyword}}
-                                <mat-icon matChipRemove *ngIf="true"><i class="fa fa-times" aria-hidden="true"></i></mat-icon>
-                            </mat-chip>
-                            <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="addKeyword($event)" />
-                        </mat-chip-list>
-                    </mat-form-field>
-                </td>
-            </tr>
-        </table>
+    <table id="tutorialTable" cellspacing="50">
+      <tr>
+        <td>
+          <label>Tutorial title</label>
+        </td>
+        <td>
+          <input type="text" id="tutorialTtile" name="Tutorial title" [(ngModel)]="tutorial.titleTutorial"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Overview</label>
+        </td>
+        <td>
+          <textarea id="tutorialOverview" name="Overview" [(ngModel)]="tutorial.overview"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td><label>Contact persons</label></td>
+        <td>
+          <ng-multiselect-dropdown [placeholder]="'choose one or more contact persons'" [data]="usersOptions"
+                                   [(ngModel)]="selectedItems" [settings]="dropdownSettings"></ng-multiselect-dropdown>
+        </td>
+      </tr>
+      <tr>
+        <td><label>Keywords </label></td>
+        <td>
+          <mat-form-field class="keyword-list">
+            <mat-chip-list #chipList>
+              <mat-chip *ngFor="let keyword of keywords" [selectable]="true" [removable]="true"
+                        (remove)="removeKeyword(keyword)">
+                {{keyword}}
+                <mat-icon matChipRemove *ngIf="true"><i class="fa fa-times" aria-hidden="true"></i></mat-icon>
+              </mat-chip>
+              <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="addKeyword($event)"/>
+            </mat-chip-list>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
 
-        <button (click)="addTutorial()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Next</button>
-    </div>
+    <button (click)="addTutorial()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Next
+    </button>
+  </div>
 
-    <div *ngSwitchCase="'two'" class="stepDiv">
-        <table id="materialTable" cellspacing="50">
-            <tr>
-                <td>
-                    <label>Material title</label>
-                </td>
-                <td>
-                    <input type="text" id="materialTtile" [(ngModel)]="material.title" name="Material title" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>Description</label>
-                </td>
-                <td>
-                    <textarea id="materialOverview" [(ngModel)]="material.description" name="Description"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td>Material type</td>
-                <td>
-                    <select (change)="printMaterialType()" id="selectedMaterialType" [(ngModel)]="material.materialType" name="materialType">
-                        <option value="LINK" id="valueLink">Link</option>
-                        <option value="FILE" id="valueFile">File</option>
-                    </select>
-                </td>
-            </tr>
+  <div *ngSwitchCase="'two'" class="stepDiv">
+    <table id="materialTable" cellspacing="50">
+      <tr>
+        <td>
+          <label>Material title</label>
+        </td>
+        <td>
+          <input type="text" id="materialTtile" [(ngModel)]="material.title" name="Material title"/>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Description</label>
+        </td>
+        <td>
+          <textarea id="materialOverview" [(ngModel)]="material.description" name="Description"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td>Material type</td>
+        <td>
+          <select (change)="printMaterialType()" id="selectedMaterialType" [(ngModel)]="material.materialType"
+                  name="materialType">
+            <option value="LINK" id="valueLink">Link</option>
+            <option value="FILE" id="valueFile">File</option>
+          </select>
+        </td>
+      </tr>
 
-            <br> <br>
+      <br> <br>
 
-            <tr id="addLink" style="visibility: hidden">
-                <td>Link</td>
-                <td><input type="text" id="link" [(ngModel)]="material.link" name="link" /></td>
-            </tr>
+      <tr id="addLink" style="visibility: hidden">
+        <td>Link</td>
+        <td><input type="text" id="link" [(ngModel)]="material.link" name="link"/></td>
+      </tr>
 
-            <tr id="addFile" style="visibility: hidden">
-                <input type="file" name="materialFile" id="file" (change)="uploadFile()" accept="application/pdf" />
-            </tr>
-        </table>
-      <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>Discard</button>
-      <button (click)="addMaterial()"><span class="fa fa-caret-square-o-right"></span> Save</button>
+      <tr id="addFile" style="visibility: hidden">
+        <input type="file" name="materialFile" id="file" (change)="uploadFile()" accept="application/pdf"/>
+      </tr>
+    </table>
+    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>Discard
+    </button>
+    <button (click)="addMaterial()"><span class="fa fa-caret-square-o-right"></span> Save</button>
 
-      <!--<div *ngIf="materialsForCurrentTutorial">-->
-        <!--<mat-grid-list cols="2" rowHeight="2:1" *ngFor="let material of materialsForCurrentTutorial">-->
-          <!--<mat-grid-tile> {{material.title}}</mat-grid-tile>-->
-        <!--</mat-grid-list>-->
-      <!--</div>-->
+    <!--<div class="row" *ngFor="let  material of materialsForCurrentTutorial; let i=index" title="Description: {{material.description}}" style="margin-bottom: 10px">-->
+    <!--<div></div>-->
+    <!--<div class="col-md-3" style="margin-right: 25px">{{material.title.substring(0,50)}}</div>-->
+    <!--<div class="col-md-4" style="margin-right: 30px">{{material.materialType}}</div>-->
 
-      <div class="row" *ngFor="let  material of materialsForCurrentTutorial; let i=index" title="Description: {{material.description}}" style="margin-bottom: 10px">
-        <div></div>
-        <div class="col-md-3" style="margin-right: 25px">{{material.title.substring(0,50)}}</div>
-        <div class="col-md-4" style="margin-right: 30px">{{material.materialType}}</div>
+    <!--<div class="col-md-3">-->
+    <!--<a *ngIf="material.materialType === 'LINK'" href="{{material.link.substring(0,50)}}" target="_blank">-->
+    <!--{{material.title}}</a>-->
+    <!--<a *ngIf="material.materialType === 'FILE'" class="glyphicon glyphicon-download" title="Download source" (click)="downloadFile(material)"> </a>-->
+    <!--</div>-->
 
-        <div class="col-md-3">
-          <a *ngIf="material.materialType === 'LINK'" href="{{material.link.substring(0,50)}}" target="_blank">
-            {{material.title}}</a>
-          <a *ngIf="material.materialType === 'FILE'" class="glyphicon glyphicon-download" title="Download source" (click)="downloadFile(material)"> </a>
-        </div>
+    <!--</div>-->
 
-      </div>
+    <button (click)="incStep()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Next</button>
+    <!--<button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>Discard-->
+    <!--</button>-->
+  </div>
 
-        <button (click)="incStep()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Next</button>
-        <!--<button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>Discard-->
-        <!--</button>-->
-    </div>
-
-    <div *ngSwitchCase="'three'" class="stepDiv">
-        material added to tutorial
-        <button (click)="redirectToTutorialsPage()">Back to tutorials</button>
-        <!-- <button (click)="addNewMaterial()">Add another material to tutorial</button> -->
-    </div>
+  <div *ngSwitchCase="'three'" class="stepDiv">
+    material added to tutorial
+    <button (click)="redirectToTutorialsPage()">Back to tutorials</button>
+    <!-- <button (click)="addNewMaterial()">Add another material to tutorial</button> -->
+  </div>
 </div>

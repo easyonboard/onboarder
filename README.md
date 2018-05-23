@@ -2,7 +2,7 @@
 website for easing employee onboardnig in projects/workplace
 
 Use Case doc:
-* https://github.com/easyonboard/onboarder/blob/master/documentation/Adaugare%20Program.docx
+* https://github.com/easyonboard/onboarder/blob/master/documentation/User%20Case%20doc.docx
 
 
 
