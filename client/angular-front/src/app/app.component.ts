@@ -36,6 +36,8 @@ export class AppComponent {
       localStorage.removeItem('userLogged');
       localStorage.removeItem('userLoggedId');
       localStorage.removeItem('userRole');
+      localStorage.removeItem('userFirstname');
+
       this.redirectToLoginPage();
     }
   }
@@ -50,7 +52,7 @@ export class AppComponent {
   }
 
   userIsLogged(): boolean {
-    this.username = localStorage.getItem('userLogged');
+    this.username = localStorage.getItem('userFirstname');
     if (this.username !== null) {
       return true;
     }
