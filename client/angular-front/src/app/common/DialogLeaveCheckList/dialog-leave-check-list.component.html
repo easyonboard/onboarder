@@ -1,13 +1,17 @@
 <h2 mat-dialog-title>{{dialogTitle}}</h2>
-<mat-dialog-content style="height:550px">
+<mat-dialog-content >
 
 
-  <table class="table">
+  <table class="table"
+         style="line-height: 90px;
+                text-align: center;
+                margin-top: 5%">
     <tr>
       <td> Inventory items were handed
       </td>
       <td>
-        <mat-checkbox [checked]="leaveCheckList.inventoryObjects" [(ngModel)]="leaveCheckList.inventoryObjects" color="primary">
+        <mat-checkbox [checked]="leaveCheckList.inventoryObjects" [(ngModel)]="leaveCheckList.inventoryObjects"
+                      color="primary">
         </mat-checkbox>
       </td>
     </tr>
@@ -16,7 +20,8 @@
       <td> Resignation form was handed
       </td>
       <td>
-        <mat-checkbox [checked]="leaveCheckList.resignationForm" [(ngModel)]="leaveCheckList.resignationForm"  color="primary">
+        <mat-checkbox [checked]="leaveCheckList.resignationForm" [(ngModel)]="leaveCheckList.resignationForm"
+                      color="primary">
         </mat-checkbox>
       </td>
     </tr>
@@ -25,15 +30,17 @@
       <td> All cards were handed
       </td>
       <td>
-        <mat-checkbox [checked]="leaveCheckList.cards" [(ngModel)]="leaveCheckList.cards"  color="primary">
+        <mat-checkbox [checked]="leaveCheckList.cards" [(ngModel)]="leaveCheckList.cards" color="primary">
         </mat-checkbox>
       </td>
     </tr>
 
 
   </table>
-  <mat-card-actions>
-    <button mat-raised-button (click)="saveStatus()" color="primary" title="Update check list for user" [mat-dialog-close]>Save</button>
-    <button mat-raised-button [mat-dialog-close]  title="Close window">Close</button>
+  <mat-card-actions style="margin-left: 27%; margin-top: 8%">
+    <button mat-raised-button (click)="saveStatus()" color="primary" title="Update check list for user"
+            [mat-dialog-close]>Save
+    </button>
+    <button mat-raised-button [mat-dialog-close] title="Close window" style="margin-left: 10%">Close</button>
   </mat-card-actions>
 </mat-dialog-content>

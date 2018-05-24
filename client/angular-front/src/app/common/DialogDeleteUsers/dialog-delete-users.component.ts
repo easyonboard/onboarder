@@ -51,8 +51,8 @@ export class DialogDeleteUsersComponent implements OnInit {
 
   openLeaveCheckList(user: string) {
     this.dialog.open(DialogLeaveCheckListComponent, {
-      height: '650px',
-      width: '900px',
+      height: '350px',
+      width: '700px',
       data: user
     });
   }
