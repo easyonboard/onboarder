@@ -37,8 +37,7 @@ public class TutorialDAO extends AbstractDAO<Tutorial> {
         CriteriaBuilder cb = this.getCriteriaBuilder();
         CriteriaQuery<Tutorial> criteriaQuery = cb.createQuery(Tutorial.class);
         Root<Tutorial> rootTutorial = criteriaQuery.from(Tutorial.class);
-        criteriaQuery.select(cb.construct(Tutorial.class,
-                rootTutorial.get("idTutorial"), rootTutorial.get("titleTutorial"), rootTutorial.get("overview"), rootTutorial.get("keywords"))).where(cb.like(cb.upper(rootTutorial.get("keywords")), "%" + keyword.toUpperCase() + "%"));
+        criteriaQuery.select(rootTutorial).where(cb.like(cb.upper(rootTutorial.get("keywords")), "%" + keyword.toUpperCase() + "%"));
         List<Tutorial> tutorials = this.executeCriteriaQuery(criteriaQuery);
         return tutorials;
     }
