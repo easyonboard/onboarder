@@ -29,7 +29,7 @@ export class CommonComponentsService {
 
   openModalAddNewUser() {
     this.dialog.open(UserAddComponent, {
-      height: '850px',
+      height: '900px',
       width: '670px',
     });
   }
