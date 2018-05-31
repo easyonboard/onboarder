@@ -10,7 +10,6 @@ public class CheckList implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer idCheckList;
 
-
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_account")
     private User userAccount;

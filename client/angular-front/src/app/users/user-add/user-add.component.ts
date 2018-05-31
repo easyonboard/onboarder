@@ -46,7 +46,7 @@ export class UserAddComponent implements OnInit {
           this.dialog.closeAll();
         }
       },
-      error => this.snackBarMessagePopup('Insucces! An error has ocurred!')
+      error => this.snackBarMessagePopup('Failed! An error has ocurred!')
     );
   }
 

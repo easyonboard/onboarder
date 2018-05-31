@@ -4,13 +4,14 @@
 
 #addComponent {
     margin: auto;
-    width: 1350px;
-    height: 800px;
-    margin-top: 80px;
-    margin-bottom: 55px;
+    width: 70%;
+    height: 100%;
+    margin-top: 4%;
     border-radius: 12px;
-    padding-left: 50px;
-    padding-top: 30px;
+    padding-left: 14%;
+    padding-right: 14%;
+    padding-top: 1%;
+    padding-bottom: 3%;
     align-items: center;
     border: #841439 solid 4px;
     box-shadow: 0 6px 10px 6px #cccccc inset;
@@ -19,41 +20,29 @@
 
 .stepDiv {
     margin: auto;
-    width: 1350px;
-    height: 700px;
-    border-radius: 12px;
-    padding-left: 50px;
-    padding-top: 30px;
+    width: 100%;
+    height: 650px;
+    border-radius: 10px;
 }
 
 #tutorialTable td,
 #materialTable td {
-    padding-left: 50px;
+    padding-left: 5%;
 }
 
+#tutorialTable td,
 #materialTable td {
-    padding-top: 10px;
-}
-
-#tutorialTable td {
-    padding-top: 50px;
-}
-
-.modal-body {
-    border: 1.5px solid #841439;
-    border-radius: 9px;
-}
-
-#addMaterialForm {
-    margin-top: 50px;
-    padding-left: 80px;
+    padding-top: 5%;
 }
 
 .pageTitle {
-    font-size: 25px;
+    font-size: 170%;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 20px;
+    margin-top: 4%;
+    margin-right: 17%;
+    margin-left: 17%;
+    align-self: auto;
 }
 
 table {
@@ -65,61 +54,71 @@ table {
 
 input[type~="text"],
 select {
-    border-radius: 5px;
-    height: 35px;
-    width: 290px;
+    border-radius: 2px;
+    height: 100%;
+    width: 100%;
 }
 
 textarea {
     border-radius: 5px;
-    height: 135px;
-    width: 570px;
-}
-
-#materialTable textarea {
-    width: 290px;
+    height: 100px;
+    width: 500px;
 }
 
 input[type~="submit"] {
     border-radius: 7px;
-    height: 35px;
-    width: 70px;
+    height: 100%;
+    width: 100%;
     border-width: 3px;
     color: #0e0008;
     font-weight: bold;
 }
 
-#openModalIcon {
-    margin-top: 30px;
-    font-size: 35px;
-    margin-left: 85%;
+.prevStepButton {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
 }
 
-.materialModal {
-    margin: auto;
-    display: none;
-    /* Hidden by default */
-    position: fixed;
-    /* Stay in place */
-    /* Full width */
-    height: 100%;
-    /* Full height */
-    overflow: auto;
-    border: 2px #841439;
+#tutorialTable {
+    margin-top: 5%;
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    /* 15% from the top and centered */
-    padding: 15px;
-    border: 1px solid #888;
+#materialTable {
+    margin-top: 15%;
+    margin-left: 1%;
+    margin-right: 10%;
+}
+
+.separator {
+    margin-left: 5%;
+    width: 90%;
+    margin-bottom: 1%;
+}
+
+thead>tr>th {
+    border-bottom: 3px solid #841439;
+}
+
+.row {
+    margin-bottom: 5%;
+}
+
+.container-fluid .row .input-group-addon {
+    border-radius: 10px;
+    text-align: left;
+    opacity: 1;
+    background-color: #cccccc;
+}
+
+.keyword-list {
+    width: 80%;
 }
 
 .nextStepButton {
     position: absolute;
-    bottom: 8px;
-    right: 16px;
+    bottom: 8%;
+    right: 8%;
     background-color: white;
     color: #841439;
     border-radius: 5px;
@@ -135,168 +134,27 @@ input[type~="submit"] {
     transform: scale(1.1)
 }
 
-.prevStepButton {
-    position: absolute;
-    bottom: 8px;
-    left: 16px;
-}
-
-#tutorialTable {
-    margin-top: 50px;
-}
-
-.separator {
-    margin-left: -5px;
-    width: 90%;
-    margin-bottom: 30px;
-}
-
-#materialTableContainer {
-    width: 85%;
-    /* table width will be 99% of this*/
-    height: 320px;
-    /* must be greater than tbody*/
-    overflow: auto;
-    margin: 0 auto;
-}
-
-#materialTableContainer #materials {
-    margin-top: 30px;
-    border: solid 3px #841439;
-    width: 85%;
-    border-spacing: 18px;
-    border-collapse: separate;
-}
-
-#materialTableContainer #materials tr {
-    max-width: 85%;
-}
-
-#materialTableContainer #materials>tbody {
-    overflow: auto;
-    height: 380px;
-    max-width: 85%;
-    overflow-x: hidden;
-}
-
-thead>tr>th {
-    border-bottom: 3px solid #841439;
-}
-
-.row {
-    margin-bottom: 15px;
-}
-
-.modalTitle {
-    font-size: 18px;
-    font-weight: bold;
-    text-align: left;
-    margin-bottom: 20px;
-}
-
-#materialsDiv {
-    border-radius: 12px;
-    padding: 10px;
-    border: #841439 solid 1px;
-    width: 700px;
-    height: 176px;
-    overflow-y: auto;
-}
-
-.container-fluid .row .input-group-addon {
-    border-radius: 10px;
-    text-align: left;
-    opacity: 1;
-    background-color: #cccccc;
-}
-
-#addedSubjects {
-    margin-top: 30px;
-    width: 1150px;
-    height: 510px;
-    border-radius: 10px;
-    border: 3px solid #6b233b;
-    box-shadow: 0 4px 6px 4px #cccccc inset;
-    overflow-y: auto;
-}
-
-#addSubjectIcon {
-    margin-left: 1130px;
-}
-
-#noSubjectsMsg {
-    text-align: center;
-    color: #888888;
-    font-size: 18px;
-    text-shadow: #8c8b8b;
-    height: 90px;
-    line-height: 470px;
-}
-
-#addTutorialMessage {
-    text-align: center;
-    color: #ffffff;
-    background: #841439;
-    font-size: 18px;
-    font-weight: bolder;
-    text-shadow: #8c8b8b;
-    height: 90px;
-    width: 1080px;
-    padding: 30px;
-}
-
-#backToTutorials {
-    text-align: center;
-    color: #ffffff;
-    background: #841439;
-    font-size: 18px;
-    font-weight: bolder;
-    text-shadow: #8c8b8b;
-    height: 90px;
-    width: 1080px;
-    margin-top: 500px;
-    padding: 30px;
-}
-
-.displaySubject {
-    border-radius: 10px;
-    border: 1px solid #841439;
-    box-shadow: 0 2px 4px 4px #cccccc inset;
-    width: 1060px;
-    height: 130px;
-    margin-top: 25px;
-    padding: 20px;
-    border-collapse: collapse;
-}
-
-.displaySubject tr td {
-    padding: 6px;
-}
-
-.keyword-list {
-    width: 80%;
-}
 #addCourseMessage {
-  text-align: center;
-  color: #ffffff;
-  background: #841439;
-  font-size: 18px;
-  font-weight: bolder;
-  text-shadow: #8c8b8b;
-  height: 90px;
-  width: 1080px;
-  padding: 30px;
+    text-align: center;
+    color: #ffffff;
+    background: #841439;
+    font-size: 18px;
+    font-weight: bolder;
+    text-shadow: #8c8b8b;
+    height: 90px;
+    width: 100%;
+    padding: 30px;
 }
 
 #backToCourses {
-  text-align: center;
-  color: #ffffff;
-  background: #841439;
-  font-size: 18px;
-  font-weight: bolder;
-  text-shadow: #8c8b8b;
-  height: 90px;
-  width: 1080px;
-  margin-top: 500px;
-  padding: 30px;
+    text-align: center;
+    color: #ffffff;
+    background: #841439;
+    font-size: 18px;
+    font-weight: bolder;
+    text-shadow: #8c8b8b;
+    height: 90px;
+    width: 100%;
+    margin-top: 500px;
+    padding: 30px;
 }

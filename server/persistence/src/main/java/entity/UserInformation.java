@@ -56,8 +56,6 @@ public class UserInformation implements Serializable {
         return team;
     }
 
-
-
     public String getFloor() {
         return floor;
     }
@@ -86,7 +84,6 @@ public class UserInformation implements Serializable {
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
-
 
     public User getBuddyUser() {
         return buddyUser;
