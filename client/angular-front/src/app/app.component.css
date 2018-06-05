@@ -29,8 +29,8 @@ a {
 .headerDiv {
     background-color: #841439;
     color: #fff;
-    width: 100%;
-    height: 60px;
+    /*width: 100%;*/
+    height: 10%;
     vertical-align: middle;
 }
 
@@ -96,11 +96,11 @@ footer {
 #homePage {
     background-color: #841439;
     border: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-top: 5px;
-    margin-left: 2%;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*margin-top: 5px;*/
+    /*margin-left: 2%;*/
     font-size: xx-large;
     color: #ffffff;
 }
@@ -144,11 +144,11 @@ footer {
 #generalInfo {
     background-color: #841439;
     border: none;
-    position: absolute;
-    top: 0;
-    left: 0px;
-    margin-top: 12px;
-    margin-left: 5%;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0px;*/
+    /*margin-top: 12px;*/
+    /*margin-left: 5%;*/
     font-size: x-large;
     color: #ffffff;
 }
@@ -156,12 +156,12 @@ footer {
 #tutorials {
   background-color: #841439;
   border: none;
-  position: absolute;
-  top: 0;
-  left: 40px;
-  margin-top: 12px;
-  margin-left: 5%;
-  font-size: x-large;
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*left: 40px;*/
+  /*margin-top: 12px;*/
+  /*margin-left: 5%;*/
+  font-size: large;
   color: #ffffff;
 }
 
@@ -179,11 +179,11 @@ footer {
 
 #logOut,
 #logIn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 15px;
-    margin-right: 15px;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*right: 0;*/
+    /*margin-top: 15px;*/
+    /*margin-right: 15px;*/
     background-color: #841439;
     border: none;
     color: #ffffff;
@@ -191,11 +191,11 @@ footer {
 }
 
 #loggedUserButton {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 15px;
-    margin-right: 130px;
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*right: 0;*/
+    /*margin-top: 15px;*/
+    /*margin-right: 130px;*/
     background-color: #841439;
     border: none;
     color: #ffffff;
@@ -229,24 +229,18 @@ footer {
 }
 
 #userManagmentDropDown{
-  position: absolute;
-  top: 0;
-  right: 8%;
-  margin-top: 15px;
-  margin-right: 130px;
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*right: 8%;*/
+  /*margin-top: 15px;*/
+  /*margin-right: 130px;*/
   background-color: #841439;
   border: none;
   color: #ffffff;
   font-size: large;
 }
-#tutorialManagementDropdown{
-  position: absolute;
-  top: 6px;
-  left: 25px;
-  margin-top: 12px;
-  margin-left: 5%;
-  background-color: #841439;
-  border: none;
-  color: #ffffff;
-  font-size: large;
+
+.menuItemButton{
+  font-size: large; color: white
 }
+
