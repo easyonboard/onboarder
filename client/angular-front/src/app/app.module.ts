@@ -49,6 +49,7 @@ import { AddTutorialComponent } from './tutorials/add-tutorial/add-tutorial.comp
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {TutorialService} from './service/tutorial.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { ViewTutorialComponent } from './tutorials/view-tutorial/view-tutorial.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     TutorialsComponent,
     AddTutorialComponent,
     DialogLeaveCheckListComponent,
+    ViewTutorialComponent,
 
   ],
   imports: [
@@ -110,7 +112,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     MatInputModule,
     FlexLayoutModule,
     MatMenuModule,
-    MatToolbarModule
+    MatToolbarModule,
   ],
   entryComponents: [
     DialogCheckListComponent,

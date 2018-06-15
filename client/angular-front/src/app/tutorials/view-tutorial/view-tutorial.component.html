@@ -1,0 +1,105 @@
+<div id="parentDiv">
+  <div id="tutorialDetails" *ngIf="tutorial">
+
+
+    <div fxLayout="row" style="margin-top: 2%; margin-left: 2%" *ngIf="tutorial.keywords!=null">
+
+      <div fxFlex="10">
+        <i class="fa fa-server icon" aria-hidden="true"></i>
+        <label class="subtitle">Keywords: </label></div>
+
+      <div fxFlex>
+        <mat-chip-list class="mat-chip-list" id="keywordsList">
+          <mat-chip *ngFor="let keyword of tutorial.keywords.split(' ')"
+                    [selectable]="selectable"
+                    (click)="searchByKeyword(keyword)">{{keyword}}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+
+    <div fxLayout="row" *ngIf="tutorial.titleTutorial" fxLayoutAlign="center center">
+      <div fxFlex="25"></div>
+      <div id="titleDiv" fxFlex="50" fxLayoutAlign="center center">
+        {{tutorial.titleTutorial}}
+      </div>
+      <div fxFlex></div>
+    </div>
+
+    <div fxLayout="row" style="margin-top: 5%; margin-left: 2%" *ngIf="tutorial.overview">
+
+      <div fxFlex="15">
+        <i class="fa fa-align-left icon" aria-hidden="true"></i>
+        <label class="subtitle">Overview: </label>
+      </div>
+
+      <div fxFlex style="font-size: larger">
+        <mat-accordion>
+          <mat-expansion-panel (opened)="addScollBarToPage()">
+            <mat-expansion-panel-header>
+              <mat-panel-title id="overview">
+                {{tutorial.overview}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>{{tutorial.overview}}</p>
+          </mat-expansion-panel>
+
+        </mat-accordion>
+      </div>
+
+      <div fxFlex="10"></div>
+    </div>
+
+
+    <div fxLayout="row" style="margin-top: 5%; margin-left: 2%" *ngIf="tutorial.contactPersons.length!=0">
+      <div fxFlex="15">
+        <i class="fa fa-users icon" aria-hidden="true"></i>
+        <label class="subtitle">Contact persons: </label>
+      </div>
+      <div fxFlex style="font-size: larger">
+        <div fxLayout="row" *ngFor="let cp of tutorial.contactPersons">
+          <div fxFlex>
+            <div fxLayout="colum">
+              <div fxFlex="5" style="color: #000000"> Name:</div>
+              <div fxFlex="10" fxFlexOffset="2">{{cp.name}}</div>
+              <div fxFlex="10" style="color: #000000" fxFlexOffset="2">Email adress:</div>
+              <div fxFlex fxFlexOffset="2">{{cp.email}}</div>
+              <!--<div fxFlex fxFlexOffset="2">{{cp.msgMail}}</div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxFlex="10"></div>
+    </div>
+
+
+    <div fxLayout="row" style="margin-top: 5%; margin-left: 2%" *ngIf="tutorial.tutorialMaterials.length!=0">
+      <div fxFlex="15">
+        <i class="fa fa-users icon" aria-hidden="true"></i>
+        <label class="subtitle">Materials: </label>
+      </div>
+      <div fxFlex style="font-size: larger">
+        <div fxLayout="row" *ngFor="let material of tutorial.tutorialMaterials">
+          <div fxFlex>
+            <div fxLayout="colum">
+              <div fxFlex="5"> Type:</div>
+              <div fxFlex="10" fxFlexOffset="1">{{material.materialType}}</div>
+
+              <div fxFlex="10" fxFlexOffset="2">Material:</div>
+              <div fxFlex fxFlexOffset="1" *ngIf="material.link">
+                <a href="{{material.link}}" target="_blank">{{material.title}}</a>
+              </div>
+              <div fxFlex fxFlexOffset="1" *ngIf="!material.link" (click)="getFileWithId(material.idTutorialMaterial)">
+                <i class="fa fa-download" aria-hidden="true"></i>
+                <a>{{material.title}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div fxFlex="10"></div>
+    </div>
+
+  </div>
+</div>

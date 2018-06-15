@@ -41,7 +41,7 @@ export class RootConst {
   public SERVER_SUBJECT_URL = this.WEB_SERVICE_ENDPOINT + 'courses/subject?id=';
   public SERVER_ADD_COURSE = this.SERVER_COURSES_URL + '/addCourse';
 
-  public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/addTutorial';
+  public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/addTutorialRouterLink';
   public SERVER_ADD_TUTORIAL_MATERIAL = this.SERVER_TUTORIALS_URL + '/addTutorialMaterial';
 
   public SERVER_DELETE_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'deleteCourseSubject';
@@ -65,7 +65,7 @@ export class RootConst {
   public FRONT_COURSES_PAGE = '/courses';
   public FRONT_ADD_COURSE = this.FRONT_COURSES_PAGE + '/addCourse';
   public FRONT_TUTORIALS_PAGE = '/tutorials';
-  public FRONT_ADD_TUTORIAL = this.FRONT_TUTORIALS_PAGE + '/addTutorial';
+  public FRONT_ADD_TUTORIAL = this.FRONT_TUTORIALS_PAGE + '/addTutorialRouterLink';
   public FRONT_COURSES_PAGE_SEARCH_BY_KEYWORD = '/courses?keyword=';
   public FRONT_DETAILED_COURSE = this.FRONT_COURSES_PAGE + '/detailedCourse';
   public FRONT_DETAILED_SUBJECT = '/subject';
@@ -88,4 +88,5 @@ export class RootConst {
   SERVER_FIND_TUTORIAL_MATERIAL_BY_ID = this.WEB_SERVICE_ENDPOINT + 'materialTutorial?id=';
   SERVER_GET_MATERIALS_FOR_TUTORIAL = this.SERVER_GET_TUTORIAL + '/materialsForTutorial?id=';
   SERVER_SEARCH_TUTORIAL_BY_KEYWORD = this.SERVER_GET_TUTORIAL + '?keyword=';
+  SERVER_SEARCH_TUTORIAL_BY_ID = this.SERVER_GET_TUTORIAL + '/';
 }

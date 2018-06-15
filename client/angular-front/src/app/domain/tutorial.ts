@@ -6,6 +6,6 @@ export  class TutorialDTO {
     titleTutorial: string;
     overview: string;
     keywords: string;
-    contactPersons: UserDTO;
-    tutorialMaterials: TutorialMaterialDTO;
+    contactPersons: UserDTO[];
+    tutorialMaterials: TutorialMaterialDTO[];
 }

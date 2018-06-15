@@ -105,41 +105,6 @@ footer {
     color: #ffffff;
 }
 
-/*.addNewUser {*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*right: 0;*/
-    /*margin-top: 10px;*/
-    /*margin-right: 400px;*/
-    /*background-color: #841439;*/
-    /*border: none;*/
-    /*color: #ffffff;*/
-    /*font-size: large;*/
-/*}*/
-
-/*.viewNewEmployeeList {*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*right: 0;*/
-    /*margin-top: 10px;*/
-    /*margin-right: 520px;*/
-    /*background-color: #841439;*/
-    /*border: none;*/
-    /*color: #ffffff;*/
-    /*font-size: large;*/
-/*}*/
-
-/*.viewEmployeesInDepartmentList {*/
-  /*position: absolute;*/
-  /*top: 0;*/
-  /*right: 0;*/
-  /*margin-top: 10px;*/
-  /*margin-right: 700px;*/
-  /*background-color: #841439;*/
-  /*border: none;*/
-  /*color: #ffffff;*/
-  /*font-size: large;*/
-/*}*/
 
 #generalInfo {
     background-color: #841439;
@@ -153,94 +118,14 @@ footer {
     color: #ffffff;
 }
 
-#tutorials {
-  background-color: #841439;
-  border: none;
-  /*position: absolute;*/
-  /*top: 0;*/
-  /*left: 40px;*/
-  /*margin-top: 12px;*/
-  /*margin-left: 5%;*/
-  font-size: large;
-  color: #ffffff;
-}
 
-#addCourse {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 15px;
-    margin-right: 270px;
-    background-color: #841439;
-    border: none;
-    color: #ffffff;
-    font-size: large;
-}
-
-#logOut,
-#logIn {
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*right: 0;*/
-    /*margin-top: 15px;*/
-    /*margin-right: 15px;*/
-    background-color: #841439;
-    border: none;
-    color: #ffffff;
-    font-size: large;
-}
-
-#loggedUserButton {
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*right: 0;*/
-    /*margin-top: 15px;*/
-    /*margin-right: 130px;*/
-    background-color: #841439;
-    border: none;
-    color: #ffffff;
-    font-size: large;
-}
 
 .separator {
     border-top: 1px solid #8c8b8b;
 }
 
-.dropdown-menu-item {
-    cursor: pointer;
-    font-size: 18px;
-}
-
-.dropdown-menu-item:hover {
-    color: #2975cc;
-}
-
-
-.buttonDeleteUsers{
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin-top: 10px;
-  margin-right: 950px;
-  background-color: #841439;
-  border: none;
-  color: #ffffff;
-  font-size: large;
-}
-
-#userManagmentDropDown{
-  /*position: absolute;*/
-  /*top: 0;*/
-  /*right: 8%;*/
-  /*margin-top: 15px;*/
-  /*margin-right: 130px;*/
-  background-color: #841439;
-  border: none;
-  color: #ffffff;
-  font-size: large;
-}
-
 .menuItemButton{
   font-size: large; color: white
 }
+
 
