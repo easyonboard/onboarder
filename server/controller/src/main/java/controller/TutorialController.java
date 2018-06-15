@@ -111,4 +111,10 @@ public class TutorialController {
         return new ResponseEntity<>(tutorialService.getAllMaterialsForTutorial(idTutorial), HttpStatus.OK);
     }
 
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/tutorials/{id}", method = RequestMethod.GET)
+    public ResponseEntity<TutorialDTO> getTutorialById(@PathVariable(value = "id", required = true) Integer idTutorial) {
+        return  new ResponseEntity<TutorialDTO>(tutorialService.getTutorialById(idTutorial), HttpStatus.OK);
+    }
 }

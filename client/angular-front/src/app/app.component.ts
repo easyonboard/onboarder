@@ -169,6 +169,6 @@ export class AppComponent {
   }
 
   redirectToAddTutorialPage() {
-    this.router.navigate(['/tutorials/addTutorial']);
+    this.router.navigate(['/tutorials/addTutorialRouterLink']);
   }
 }

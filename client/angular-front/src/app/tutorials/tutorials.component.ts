@@ -33,19 +33,15 @@ export class TutorialsComponent implements OnInit {
   ngOnInit() {
   }
 
-  addTutorial(): void {
+  addTutorialRouterLink(): void {
     location.replace(this.rootConst.FRONT_ADD_TUTORIAL);
   }
 
-  downloadFile(materials: TutorialMaterialDTO[]): void {
-    materials.forEach(material => this.tutorialService.getFileWithId(material.idTutorialMaterial));
-  }
 
   searchByKeyword(keyword: string) {
-    if (keyword !== 'addTutorial') {
+    if (keyword !== 'addTutorialRouterLink') {
       this.router.navigate(['tutorials/keywords/' + keyword]);
     }
   }
-
 
 }

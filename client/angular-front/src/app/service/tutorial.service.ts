@@ -32,13 +32,8 @@ export class TutorialService implements OnInit {
     return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_TUTORIAL}`);
   }
 
-  getFileWithId(idTutorialMaterial: number) {
-    return this.http.get(`${this.rootConst.SERVER_FIND_TUTORIAL_MATERIAL_BY_ID}${idTutorialMaterial}`, {responseType: 'arraybuffer'}).subscribe(
-      (response) => {
-        const file = new Blob([response], {type: 'application/pdf'});
-        const fileURL = URL.createObjectURL(file);
-        window.open(fileURL);
-      });
+  getFileWithId(idTutorialMaterial: number): Observable<ArrayBuffer> {
+    return this.http.get(`${this.rootConst.SERVER_FIND_TUTORIAL_MATERIAL_BY_ID}${idTutorialMaterial}`, {responseType: 'arraybuffer'});
   }
 
 
@@ -48,5 +43,9 @@ export class TutorialService implements OnInit {
 
   searchByKeyword(keyword: string): Observable<TutorialDTO[]> {
     return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_SEARCH_TUTORIAL_BY_KEYWORD}${keyword}`);
+  }
+
+  getTutorialWithId(tutorialId: number): Observable<TutorialDTO> {
+    return this.http.get<TutorialDTO>(`${this.rootConst.SERVER_SEARCH_TUTORIAL_BY_ID}${tutorialId}`);
   }
 }
