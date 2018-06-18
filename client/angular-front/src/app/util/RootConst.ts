@@ -41,7 +41,7 @@ export class RootConst {
   public SERVER_SUBJECT_URL = this.WEB_SERVICE_ENDPOINT + 'courses/subject?id=';
   public SERVER_ADD_COURSE = this.SERVER_COURSES_URL + '/addCourse';
 
-  public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/addTutorialRouterLink';
+  public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/addTutorial';
   public SERVER_ADD_TUTORIAL_MATERIAL = this.SERVER_TUTORIALS_URL + '/addTutorialMaterial';
 
   public SERVER_DELETE_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'deleteCourseSubject';
