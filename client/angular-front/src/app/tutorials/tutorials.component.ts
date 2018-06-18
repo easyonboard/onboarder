@@ -24,18 +24,39 @@ export class TutorialsComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router) {
     this.rootConst = new RootConst();
+    this.tutorialsPerPage = [];
+
+
+
+
+    // this.pageEvent = new PageEvent();
+    // this.pageEvent.pageIndex = 0;
+    // this.pageEvent.pageSize = this.pageSize;
+    // this.pageEvent.length = this.length;
+    // this.getServerData(this.pageEvent);
+
+
+
+
+
     this.route.params.subscribe(params => {
+      this.tutorialsPerPage = [];
+
       const keyword = params['keyword'];
       if (keyword) {
-        this.tutorialService.searchByKeyword(keyword).subscribe(tutorials => this.tutorials = tutorials);
+        this.tutorialService.searchByKeyword(keyword).subscribe(tutorials => {this.tutorials = tutorials;
+        this.initTutorialsPerPageList();
+       });
       } else {
-        tutorialService.getTutorials().subscribe(tutorials => this.tutorials = tutorials);
+        tutorialService.getTutorials().subscribe(tutorials => {this.tutorials = tutorials;
+        this.initTutorialsPerPageList();
+     });
       }
     });
   }
 
   ngOnInit() {
-    this.tutorialsPerPage = [];
+
   }
 
   addTutorialRouterLink(): void {
@@ -51,17 +72,22 @@ export class TutorialsComponent implements OnInit {
 
   public getServerData(event?: PageEvent) {
     this.tutorialsPerPage = [];
-    console.log(event.pageIndex);
-    console.log(event.pageSize);
+    debugger;
+
     let index = event.pageIndex;
     let pageSize = event.pageSize;
     let indexList = index * pageSize;
     for (indexList; indexList < (index + 1) * pageSize; indexList++) {
-      console.log(this.tutorials[indexList]);
-      if(this.tutorials[indexList] != null)
-      this.tutorialsPerPage.push(this.tutorials[indexList]);
+      if (this.tutorials[indexList] != null)
+        this.tutorialsPerPage.push(this.tutorials[indexList]);
     }
-    console.log(this.tutorialsPerPage);
 
+
+  }
+  public initTutorialsPerPageList(){
+    for (let indexList=0; indexList <  this.pageSize; indexList++) {
+      if (this.tutorials[indexList] != null)
+        this.tutorialsPerPage.push(this.tutorials[indexList]);
+    }
   }
 }
