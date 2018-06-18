@@ -63,7 +63,9 @@
               <div fxFlex="5" style="color: #000000"> Name:</div>
               <div fxFlex="10" fxFlexOffset="2">{{cp.name}}</div>
               <div fxFlex="10" style="color: #000000" fxFlexOffset="2">Email adress:</div>
-              <div fxFlex fxFlexOffset="2">{{cp.email}}</div>
+              <div fxFlex fxFlexOffset="2">
+                <a href="mailto:someone@example.com?Subject=Hello%20again">{{cp.email}}</a>
+              </div>
               <!--<div fxFlex fxFlexOffset="2">{{cp.msgMail}}</div>-->
             </div>
           </div>
