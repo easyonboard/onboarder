@@ -2,7 +2,7 @@ package entity.enums;
 
 public enum RoleType {
     ROLE_ADMIN(1),
-    ROLE_READER(2),
+    ROLE_CONTENT_MANAGER(2),
     ROLE_ABTEILUNGSLEITER(3),
     ROLE_HR(4),
     ROLE_BUDDY(5),
