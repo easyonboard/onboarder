@@ -23,7 +23,7 @@ import {
   MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
   MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule,
   MatCheckboxModule, MatDatepickerModule, MatSelectModule, MatOptionModule, MatNativeDateModule, MatExpansionModule,
-  MatSnackBarModule, MatInputModule, MatMenuModule, MatToolbarModule
+  MatSnackBarModule, MatInputModule, MatMenuModule, MatToolbarModule, MatPaginatorModule
 } from '@angular/material';
 import {ReviewService} from './service/review.service';
 import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
@@ -108,6 +108,7 @@ import { ViewTutorialComponent } from './tutorials/view-tutorial/view-tutorial.c
     MatDatepickerModule,
     MatNativeDateModule,
     MatExpansionModule,
+    MatPaginatorModule,
     MatSnackBarModule,
     MatInputModule,
     FlexLayoutModule,

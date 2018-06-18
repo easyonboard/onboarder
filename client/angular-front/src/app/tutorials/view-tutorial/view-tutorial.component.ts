@@ -46,4 +46,5 @@ export class ViewTutorialComponent implements OnInit {
     debugger
     document.getElementById('tutorialDetails').style.overflow = 'scroll';
   }
+
 }

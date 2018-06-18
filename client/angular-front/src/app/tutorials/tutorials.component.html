@@ -1,29 +1,40 @@
-<div fxLayout="row wrap" fxLayoutAlign="start start" style="padding-top: 30px">
-
-  <div *ngFor="let tutorial of tutorials" fxFlex="20" fxFlexOffset="10" >
-    <mat-card class="tutorial" routerLink="/tutorials/{{tutorial.idTutorial}}">
-      <mat-card-header style="padding-bottom: 2%">
-        <mat-chip-list class="mat-chip-list" *ngIf="tutorial.keywords!=null">
-          <mat-chip *ngFor="let keyword of tutorial.keywords.split(' ')"
-                    [selectable]="selectable"
-                     (click)="searchByKeyword(keyword)">{{keyword}}
-          </mat-chip>
-        </mat-chip-list>
-      </mat-card-header>
+<mat-paginator [length]="length"
+               [pageSize]="pageSize"
+               [pageSizeOptions]="pageSizeOptions"
+               (page)="pageEvent = getServerData($event)">
+</mat-paginator>
 
 
-      <mat-card-title>
-        <label> Title: </label>
-        {{tutorial.titleTutorial}}
-        <mat-divider></mat-divider>
-      </mat-card-title>
 
-      <mat-card-content *ngIf="tutorial.overview" class="overview">
-        <label>Overview: </label>
-        {{tutorial.overview.substring(0,550)}}
-      </mat-card-content>
+  <div fxLayout="row wrap" fxLayoutAlign="start start" style="padding-top: 30px">
+
+    <div *ngFor="let tutorial of tutorialsPerPage" fxFlex="20" fxFlexOffset="10" >
+      <mat-card class="tutorial" routerLink="/tutorials/{{tutorial.idTutorial}}">
+        <mat-card-header style="padding-bottom: 2%">
+          <mat-chip-list class="mat-chip-list" *ngIf="tutorial.keywords!=null">
+            <mat-chip *ngFor="let keyword of tutorial.keywords.split(' ')"
+                      [selectable]="selectable"
+                      (click)="searchByKeyword(keyword)">{{keyword}}
+            </mat-chip>
+          </mat-chip-list>
+        </mat-card-header>
 
 
-    </mat-card>
+        <mat-card-title>
+          <label> Title: </label>
+          {{tutorial.titleTutorial}}
+          <mat-divider></mat-divider>
+        </mat-card-title>
+
+        <mat-card-content *ngIf="tutorial.overview" class="overview">
+          <label>Overview: </label>
+          {{tutorial.overview.substring(0,550)}}
+        </mat-card-content>
+
+
+      </mat-card>
+    </div>
   </div>
-</div>
+
+
+
