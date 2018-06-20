@@ -115,6 +115,13 @@ public class TutorialController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/tutorials/{id}", method = RequestMethod.GET)
     public ResponseEntity<TutorialDTO> getTutorialById(@PathVariable(value = "id", required = true) Integer idTutorial) {
-        return  new ResponseEntity<TutorialDTO>(tutorialService.getTutorialById(idTutorial), HttpStatus.OK);
+        return new ResponseEntity<>(tutorialService.getTutorialById(idTutorial), HttpStatus.OK);
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/deleteTutorial", method = RequestMethod.POST)
+    public ResponseEntity<List<TutorialDTO>> deleteTutorial(@RequestBody TutorialDTO tutorial) {
+        return new ResponseEntity<>(tutorialService.deleteTutorial(tutorial), HttpStatus.OK);
     }
 }

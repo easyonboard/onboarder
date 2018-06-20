@@ -12,3 +12,9 @@
   text-overflow: ellipsis;
   white-space: normal ;
 }
+.mat-mini-fab{
+  width:20px ;
+  height: 20px ;
+  color: white;
+  padding-top: 0;
+}

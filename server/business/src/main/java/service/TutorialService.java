@@ -116,4 +116,11 @@ public class TutorialService {
         }
         return tutorialMaterialDTOS;
     }
+
+    public List<TutorialDTO> deleteTutorial(TutorialDTO tutorial) {
+
+        Tutorial entity=tutorialDAO.findEntity(tutorial.getIdTutorial());
+        tutorialDAO.deleteEntity(entity);
+        return getAllTutorials() ;
+    }
 }

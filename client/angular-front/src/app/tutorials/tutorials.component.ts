@@ -16,7 +16,7 @@ export class TutorialsComponent implements OnInit {
   tutorials: TutorialDTO[];
   tutorialsPerPage: TutorialDTO[];
   pageEvent: PageEvent;
-  length = 100;
+  length : number;
   pageSize = 10;
   pageSizeOptions = [5, 10, 25, 100];
 
@@ -26,19 +26,6 @@ export class TutorialsComponent implements OnInit {
     this.rootConst = new RootConst();
     this.tutorialsPerPage = [];
 
-
-
-
-    // this.pageEvent = new PageEvent();
-    // this.pageEvent.pageIndex = 0;
-    // this.pageEvent.pageSize = this.pageSize;
-    // this.pageEvent.length = this.length;
-    // this.getServerData(this.pageEvent);
-
-
-
-
-
     this.route.params.subscribe(params => {
       this.tutorialsPerPage = [];
 
@@ -46,12 +33,15 @@ export class TutorialsComponent implements OnInit {
       if (keyword) {
         this.tutorialService.searchByKeyword(keyword).subscribe(tutorials => {this.tutorials = tutorials;
         this.initTutorialsPerPageList();
+          this.length=this.tutorials.length;
        });
       } else {
         tutorialService.getTutorials().subscribe(tutorials => {this.tutorials = tutorials;
         this.initTutorialsPerPageList();
+          this.length=this.tutorials.length;
      });
       }
+
     });
   }
 
@@ -89,5 +79,13 @@ export class TutorialsComponent implements OnInit {
       if (this.tutorials[indexList] != null)
         this.tutorialsPerPage.push(this.tutorials[indexList]);
     }
+  }
+
+  deleteTutorial(idTutorial: number) {
+    if(confirm("Do you want to delete this tutorial?")) {
+      this.tutorialService.deleteTutorial(idTutorial).subscribe(tutorials => this.tutorialsPerPage = tutorials);
+    }
+
+
   }
 }
