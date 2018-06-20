@@ -5,4 +5,4 @@ INSERT INTO ROLE(id_role, role) VALUES (4, 'ROLE_HR');
 INSERT INTO ROLE(id_role, role) VALUES (5, 'ROLE_BUDDY');
 INSERT INTO ROLE(id_role, role) VALUES (6, 'ROLE_USER');
 
-INSERT INTO APP_USER(id_user, email, msg_mail, name, password, username, role_id_role) VALUES (1, 'admin@db.test', 'admin@msg.test', 'admin', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', 'admin', 1);
+INSERT INTO APP_USER(id_user, email, msg_mail, name, password, username, role_id_role) VALUES (1, 'admin@db.test', 'admin@msg.test', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'admin', 1);
