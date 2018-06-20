@@ -48,4 +48,10 @@ export class TutorialService implements OnInit {
   getTutorialWithId(tutorialId: number): Observable<TutorialDTO> {
     return this.http.get<TutorialDTO>(`${this.rootConst.SERVER_SEARCH_TUTORIAL_BY_ID}${tutorialId}`);
   }
+
+  deleteTutorial(idTutorial: number): Observable<TutorialDTO[]> {
+    const body = JSON.stringify({idTutorial: idTutorial});
+    return this.http.post<TutorialDTO[]>(this.rootConst.SERVER_DELETE_TUTORIAL,body, this.httpOptions );
+
+  }
 }
