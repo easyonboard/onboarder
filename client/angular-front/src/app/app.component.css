@@ -105,7 +105,6 @@ footer {
     color: #ffffff;
 }
 
-
 #generalInfo {
     background-color: #841439;
     border: none;
@@ -118,14 +117,20 @@ footer {
     color: #ffffff;
 }
 
-
-
 .separator {
     border-top: 1px solid #8c8b8b;
 }
 
-.menuItemButton{
-  font-size: large; color: white
+.menuItemButton {
+    font-size: large;
+    color: white
 }
 
-
+.menu-tooltip {
+    text-align: center;
+    font-size: 100%;
+    width: 200px;
+    overflow: auto;
+    background-color: rgba(20, 109, 129, 0.6);
+    position: absolute;
+}
