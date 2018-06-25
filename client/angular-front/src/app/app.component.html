@@ -44,12 +44,8 @@
                 <mat-menu #events style="margin-top: 10%">
                     <button mat-menu-item (click)="redirectToEventsPage()">View Events</button>
                     <button mat-menu-item (click)="redirectToAddEvent()">Add event</button>
-
                 </mat-menu>
-
-
             </div>
-
             <div fxFlex fxLayout="row">
                 <button mat-button [matMenuTriggerFor]="tutorials" class="menuItemButton" #tooltipHome="matTooltip" [matTooltip]="tutorials_msg" matTooltipClass="menu-tooltip">
           Tutorials
