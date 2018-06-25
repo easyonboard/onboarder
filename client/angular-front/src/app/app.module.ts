@@ -50,6 +50,7 @@ import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {TutorialService} from './service/tutorial.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { ViewTutorialComponent } from './tutorials/view-tutorial/view-tutorial.component';
+import { EventsComponent } from './events/events.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { ViewTutorialComponent } from './tutorials/view-tutorial/view-tutorial.c
     AddTutorialComponent,
     DialogLeaveCheckListComponent,
     ViewTutorialComponent,
+    EventsComponent,
 
   ],
   imports: [
