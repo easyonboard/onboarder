@@ -19,6 +19,9 @@
     color: white;
     padding-top: 0;
 }
+.confirm{
+  background-color: #5e1f32;
+}
 
 .paginator-tooltip {
     text-align: center;

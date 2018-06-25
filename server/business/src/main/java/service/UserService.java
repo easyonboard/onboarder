@@ -266,7 +266,6 @@ public class UserService {
         leaveCheckListMapper.mapToEntity(leaveCheckList, persistEntity);
         leaveCheckListDAO.update(persistEntity);
         return leaveCheckListMapper.mapToDTO(leaveCheckListDAO.findEntity(leaveCheckList.getIdCheckList()));
-
     }
 
     public boolean canUserBeDeleted(User user) {

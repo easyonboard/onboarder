@@ -171,10 +171,18 @@ export class AppComponent {
 
   userManagementPermission(): boolean {
     return this.addUserPermission() || this.newEmployeesPermission()
-          || this.deleteUserPermission() || this.viewUsersByDepartmentPermission();
+      || this.deleteUserPermission() || this.viewUsersByDepartmentPermission();
   }
 
   redirectToAddTutorialPage() {
     this.router.navigate(['/tutorials/addTutorialRouterLink']);
+  }
+
+  redirectToEventsPage() {
+    this.router.navigate(['/events/viewEvents']);
+  }
+
+  redirectToAddEvent() {
+
   }
 }
