@@ -1,46 +1,33 @@
-<mat-paginator [length]="length"
-               [pageSize]="pageSize"
-               [pageSizeOptions]="pageSizeOptions"
-               (page)="pageEvent = getServerData($event)">
+<mat-paginator style="margin-left: 80%" matTooltipClass="paginator-tooltip" [matTooltip]="paginator_msg" mat [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getServerData($event)">
 </mat-paginator>
 
+<div fxLayout="row wrap" fxLayoutAlign="start start" style="padding-top: 30px">
 
-
-  <div fxLayout="row wrap" fxLayoutAlign="start start" style="padding-top: 30px">
-
-    <div *ngFor="let tutorial of tutorialsPerPage" fxFlex="20" fxFlexOffset="10" >
-      <mat-card class="tutorial" >
-        <mat-card-header style="padding-bottom: 2%">
-          <mat-chip-list class="mat-chip-list" *ngIf="tutorial.keywords!=null">
-            <mat-chip *ngFor="let keyword of tutorial.keywords.split(' ')"
-                      [selectable]="selectable"
-                      (click)="searchByKeyword(keyword)">{{keyword}}
-            </mat-chip>
-          </mat-chip-list>
-          <div id="buttonDelete" fxFlex="" fxLayoutAlign="end start">
-            <i class="material-icons" (click)="deleteTutorial(tutorial.idTutorial)" style="color:  #841439; cursor: pointer">
+    <div *ngFor="let tutorial of tutorialsPerPage" fxFlex="20" fxFlexOffset="10" matTooltipPosition="above" matTooltipClass="tutorial-tooltip" [matTooltip]="tutorial_msg">
+        <mat-card class="tutorial">
+            <mat-card-header style="padding-bottom: 2%">
+                <mat-chip-list class="mat-chip-list" *ngIf="tutorial.keywords!=null" matTooltipPosition="left" matTooltipClass="tutorial-tooltip" [matTooltip]="tutorial_keywords_msg">
+                    <mat-chip *ngFor="let keyword of tutorial.keywords.split(' ')" [selectable]="selectable" (click)="searchByKeyword(keyword)">{{keyword}}
+                    </mat-chip>
+                </mat-chip-list>
+                <div id="buttonDelete" fxFlex="" fxLayoutAlign="end start" matTooltipPosition="right" matTooltipClass="tutorial-tooltip" [matTooltip]="tutorial_delete_msg">
+                    <i class="material-icons" (click)="deleteTutorial(tutorial.idTutorial)" style="color:  #841439; cursor: pointer">
                delete_forever
              </i>
-          </div>
-        </mat-card-header>
+                </div>
+            </mat-card-header>
+
+            <mat-card-title routerLink="/tutorials/{{tutorial.idTutorial}}" matTooltipPosition="right" matTooltipClass="tutorial-tooltip" [matTooltip]="tutorial_title_msg">
+                <label> Title: </label> {{tutorial.titleTutorial}}
+
+                <mat-divider></mat-divider>
+            </mat-card-title>
+
+            <mat-card-content *ngIf="tutorial.overview" class="overview" routerLink="/tutorials/{{tutorial.idTutorial}}" matTooltipPosition="right" matTooltipClass="tutorial-tooltip" [matTooltip]="tutorial_overview_msg">
+                <label>Overview: </label> {{tutorial.overview.substring(0,550)}}
+            </mat-card-content>
 
 
-        <mat-card-title routerLink="/tutorials/{{tutorial.idTutorial}}">
-          <label> Title: </label>
-          {{tutorial.titleTutorial}}
-
-          <mat-divider></mat-divider>
-        </mat-card-title>
-
-        <mat-card-content *ngIf="tutorial.overview" class="overview" routerLink="/tutorials/{{tutorial.idTutorial}}">
-          <label>Overview: </label>
-          {{tutorial.overview.substring(0,550)}}
-        </mat-card-content>
-
-
-      </mat-card>
+        </mat-card>
     </div>
-  </div>
-
-
-
+</div>

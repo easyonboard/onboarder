@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, AfterViewChecked, ViewChild, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {MatTooltip} from '@angular/material';
 import {TutorialDTO} from '../../domain/tutorial';
 import {MaterialType} from '../../domain/materialType';
 import {TutorialService} from '../../service/tutorial.service';
@@ -9,16 +10,30 @@ import {TutorialMaterialDTO} from '../../domain/tutorialMaterial';
 @Component({
   selector: 'app-view-tutorial',
   templateUrl: './view-tutorial.component.html',
-  styleUrls: ['./view-tutorial.component.css']
+  styleUrls: ['./view-tutorial.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
-export class ViewTutorialComponent implements OnInit {
+export class ViewTutorialComponent implements OnInit, AfterViewChecked {
   private tutorialId: number;
   public tutorial: TutorialDTO;
+
+  public tutorial_title_msg = 'tutorial title msg demo';
+  public tutorial_keywords_msg = 'tutorial keywords msg demo';
+  public tutorial_contact_msg = 'Here are the informations about the contact person/s for this tutorial';
+  public tutorial_overview_msg = 'tutorial overview msg demo';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private tutorialService: TutorialService,
               private materialService: MaterialService) {
+  }
+
+  @ViewChild('tooltipTutorial') tooltipTutorial: MatTooltip;
+
+  ngAfterViewChecked() {
+    if (this.tooltipTutorial._isTooltipVisible() === false) {
+      this.tooltipTutorial.show();
+    }
   }
 
   ngOnInit() {

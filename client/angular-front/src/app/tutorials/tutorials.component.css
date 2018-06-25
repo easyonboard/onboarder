@@ -1,23 +1,38 @@
-.tutorial{
-  margin-bottom: 9%;
-  border: 3px #841439 solid ;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow:5px 10px 8px 10px #888888;
-  overflow: hidden;
+.tutorial {
+    margin-bottom: 9%;
+    border: 3px #841439 solid;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 5px 10px 8px 10px #888888;
+    overflow: hidden;
 }
 
-.overview{
-  max-height: 6.10em;
-  text-overflow: ellipsis;
-  white-space: normal ;
+.overview {
+    max-height: 6.10em;
+    text-overflow: ellipsis;
+    white-space: normal;
 }
-.mat-mini-fab{
-  width:20px ;
-  height: 20px ;
-  color: white;
-  padding-top: 0;
+
+.mat-mini-fab {
+    width: 20px;
+    height: 20px;
+    color: white;
+    padding-top: 0;
 }
 .confirm{
   background-color: #5e1f32;
+}
+
+.paginator-tooltip {
+    text-align: center;
+    font-size: 100%;
+    width: 300px;
+    background-color: rgba(20, 109, 129, 0.6);
+}
+
+.tutorial-tooltip {
+    text-align: center;
+    font-size: 100%;
+    width: 200px;
+    background-color: rgba(20, 109, 129, 0.6);
 }

@@ -52,3 +52,10 @@
   text-overflow: ellipsis;
   max-height: 3em;
 }
+
+.tutorial-tooltip {
+    text-align: center;
+    font-size: 100%;
+    width: 200px;
+    background-color: rgba(20, 109, 129, 0.6);
+}

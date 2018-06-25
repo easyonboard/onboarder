@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {RootConst} from '../util/RootConst';
 import {TutorialDTO} from '../domain/tutorial';
 import {TutorialService} from '../service/tutorial.service';
@@ -8,7 +8,8 @@ import {PageEvent} from '@angular/material';
 @Component({
   selector: 'app-tutorials',
   templateUrl: './tutorials.component.html',
-  styleUrls: ['./tutorials.component.css']
+  styleUrls: ['./tutorials.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class TutorialsComponent implements OnInit {
 
@@ -16,9 +17,16 @@ export class TutorialsComponent implements OnInit {
   tutorials: TutorialDTO[];
   tutorialsPerPage: TutorialDTO[];
   pageEvent: PageEvent;
-  length : number;
+  length: number;
   pageSize = 10;
   pageSizeOptions = [5, 10, 25, 100];
+
+  public paginator_msg = 'choose the number of items per page & navigate through pages';
+  public tutorial_msg = 'tutorial msg demo';
+  public tutorial_title_msg = 'tutorial title msg demo';
+  public tutorial_keywords_msg = 'tutorial keywords msg demo';
+  public tutorial_delete_msg = 'tutorial delete msg demo';
+  public tutorial_overview_msg = 'tutorial overview msg demo';
 
   constructor(private tutorialService: TutorialService,
               private route: ActivatedRoute,

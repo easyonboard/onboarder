@@ -1,4 +1,4 @@
-import {Component, ElementRef} from '@angular/core';
+import {Component, ElementRef, ViewEncapsulation} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
@@ -11,7 +11,8 @@ import {UsersInDepartmentListComponent} from './users/users-in-department-list/u
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class AppComponent {
@@ -22,13 +23,19 @@ export class AppComponent {
   public username: String;
   public role: string;
 
+  public home_msg = 'Go to the home page';
+  public info_msg = 'Find useful general informations';
+  public tutorials_msg = 'View existing tutorials and add new ones';
+  public management_msg = 'Find and update informations about users';
+  public user_msg = 'Change your password';
+  public events_msg = 'See the new .msg events';
+
   constructor(private location: Location, private router: Router, private elemRef: ElementRef,
               private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog,
               private commonComponent: CommonComponentsService) {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
-
   }
 
   logout(): void {
