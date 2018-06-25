@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewChecked, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatTooltip} from '@angular/material';
 import {TutorialDTO} from '../../domain/tutorial';
@@ -13,7 +13,7 @@ import {TutorialMaterialDTO} from '../../domain/tutorialMaterial';
   styleUrls: ['./view-tutorial.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class ViewTutorialComponent implements OnInit, AfterViewChecked {
+export class ViewTutorialComponent implements OnInit {
   private tutorialId: number;
   public tutorial: TutorialDTO;
 
@@ -26,14 +26,6 @@ export class ViewTutorialComponent implements OnInit, AfterViewChecked {
               private router: Router,
               private tutorialService: TutorialService,
               private materialService: MaterialService) {
-  }
-
-  @ViewChild('tooltipTutorial') tooltipTutorial: MatTooltip;
-
-  ngAfterViewChecked() {
-    if (this.tooltipTutorial._isTooltipVisible() === false) {
-      this.tooltipTutorial.show();
-    }
   }
 
   ngOnInit() {
