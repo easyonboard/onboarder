@@ -28,6 +28,7 @@ export class AppComponent {
   public tutorials_msg = 'View existing tutorials and add new ones';
   public management_msg = 'Find and update informations about users';
   public user_msg = 'Change your password';
+  public events_msg = 'See the new .msg events';
 
   constructor(private location: Location, private router: Router, private elemRef: ElementRef,
               private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog,
