@@ -22,11 +22,12 @@ public class EventDTO {
     private String keywords;
 
     private Date eventDate;
+    private MeetingHallDTO meetingHall;
 
     public EventDTO() {
     }
 
-    public EventDTO(Integer idEvent, String titleEvent, String overview, List<UserDTO> enrolledUsers, UserDTO contactPerson, Integer maxEnrolledUsers, LocationDTO location, String keywords, Date eventDate) {
+    public EventDTO(Integer idEvent, String titleEvent,  String overview, List<UserDTO> enrolledUsers, UserDTO contactPerson, Integer maxEnrolledUsers, LocationDTO location, String keywords, Date eventDate, MeetingHallDTO meetingHall) {
         this.idEvent = idEvent;
         this.titleEvent = titleEvent;
         this.overview = overview;
@@ -36,6 +37,7 @@ public class EventDTO {
         this.location = location;
         this.keywords = keywords;
         this.eventDate = eventDate;
+        this.meetingHall=meetingHall;
     }
 
     public Integer getIdEvent() {
@@ -108,5 +110,13 @@ public class EventDTO {
 
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
+    }
+
+    public MeetingHallDTO getMeetingHall() {
+        return meetingHall;
+    }
+
+    public void setMeetingHall(MeetingHallDTO meetingHall) {
+        this.meetingHall = meetingHall;
     }
 }

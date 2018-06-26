@@ -36,6 +36,10 @@ public class Event implements Serializable {
     @JoinColumn(name = "idLocation")
     private Location location;
 
+    @ManyToOne
+    @JoinColumn(name = "idMeetingHall")
+    private MeetingHall meetingHall;
+
 
 
     @Column
@@ -127,5 +131,13 @@ public class Event implements Serializable {
 
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
+    }
+
+    public MeetingHall getMeetingHall() {
+        return meetingHall;
+    }
+
+    public void setMeetingHall(MeetingHall meetingHall) {
+        this.meetingHall = meetingHall;
     }
 }

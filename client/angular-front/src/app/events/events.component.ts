@@ -11,6 +11,7 @@ export class EventsComponent implements OnInit {
   panelOpenState: boolean = false;
   pastEvents: EventDTO[];
   upcomingEvents: EventDTO[];
+  canEnroll: boolean = true;
 
 
   constructor(private eventService: EventService) {
@@ -24,8 +25,15 @@ export class EventsComponent implements OnInit {
         this.processDateAndTime(this.pastEvents);
       }
     );
-    this.eventService.getUpcomingEvents().subscribe(upcomingEvents => { this.upcomingEvents = upcomingEvents;
-    this.processDateAndTime(this.upcomingEvents)});
+
+    this.eventService.getUpcomingEvents().subscribe(upcomingEvents => {
+      this.upcomingEvents = upcomingEvents;
+      this.processDateAndTime(this.upcomingEvents);
+      this.processPlacesLeftToEnroll();
+      console.log(upcomingEvents);
+    });
+
+
 
 
   }
@@ -40,4 +48,20 @@ export class EventsComponent implements OnInit {
   }
 
 
+  enrollUser() {
+
+  }
+
+  private processPlacesLeftToEnroll() {
+
+    this.upcomingEvents.forEach(event => {
+
+      let x = event.placesLeft = event.meetingHall.capacity - event.enrolledUsers.length;
+      this.canEnroll = false;
+      if (x < 0) {
+        x = 0;
+      }
+      event.placesLeft = x;
+    });
+  }
 }

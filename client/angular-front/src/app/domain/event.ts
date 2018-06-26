@@ -8,11 +8,21 @@ export  class EventDTO {
   overview: string;
   keywords: string;
   contactPersons: UserDTO[];
-  enrolledPersons: UserDTO[];
+  enrolledUsers: UserDTO[];
   maxEnrolledUsers: number;
   location: LocationDTO;
   stringDate: string;
   stringHour: string;
   eventDate: Date;
+  placesLeft: number;
+  meetingHall: MeetingHall;
 
+}
+
+export class MeetingHall{
+ idMeetingHall: number;
+  hallName: string;
+  capacity: number;
+  location: LocationDTO;
+   floor: number;
 }
