@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -63,5 +64,16 @@ public class EventService {
         }
 
         return usernames;
+    }
+
+    public List<EventDTO> getAllUpcomingEvents(){
+
+      return eventDAO.findAllUpcomingEvents().stream().map(eventEntity->eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+
+    }
+    public List<EventDTO> getAllPastEvents(){
+
+        return eventDAO.findAllUPastEvents().stream().map(eventEntity->eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+
     }
 }

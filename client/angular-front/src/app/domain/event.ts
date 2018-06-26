@@ -1,5 +1,6 @@
-import { UserDTO } from './user';
-import { TutorialMaterialDTO } from './tutorialMaterial';
+import {UserDTO} from './user';
+import {LocationDTO} from './location';
+
 
 export  class EventDTO {
   idEvent: number;
@@ -9,4 +10,9 @@ export  class EventDTO {
   contactPersons: UserDTO[];
   enrolledPersons: UserDTO[];
   maxEnrolledUsers: number;
+  location: LocationDTO;
+  stringDate: string;
+  stringHour: string;
+  eventDate: Date;
+
 }

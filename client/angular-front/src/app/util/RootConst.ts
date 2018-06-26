@@ -45,6 +45,8 @@ export class RootConst {
   public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/addTutorial';
   public SERVER_ADD_EVENT = this.SERVER_EVENTS_URL + '/addEvent';
   public SERVER_ADD_TUTORIAL_MATERIAL = this.SERVER_TUTORIALS_URL + '/addTutorialMaterial';
+  public SERVER_PAST_EVENT = this.SERVER_EVENTS_URL + '/pastEvent';
+  public SERVER_UPCOMING_EVENT = this.SERVER_EVENTS_URL + '/upcomingEvent';
 
   public SERVER_DELETE_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'deleteCourseSubject';
   public WEB_SERVER_PROGRESS = this.WEB_SERVICE_ENDPOINT + 'progress';

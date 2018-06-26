@@ -42,4 +42,18 @@ public class EventController {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/events/pastEvent", method = RequestMethod.GET)
+    public ResponseEntity getPastEvents() {
+        return new ResponseEntity(eventService.getAllPastEvents(), HttpStatus.OK);
+
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/events/upcomingEvent", method = RequestMethod.GET)
+    public ResponseEntity getUpcomingEvents() {
+        return new ResponseEntity(eventService.getAllUpcomingEvents(), HttpStatus.OK);
+
+    }
 }

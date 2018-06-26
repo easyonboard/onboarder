@@ -7,6 +7,7 @@ import {Observer} from 'rxjs/Observer';
 import {Observable} from 'rxjs/Observable';
 import {TutorialMaterialDTO} from '../domain/tutorialMaterial';
 import {EventDTO} from '../domain/event';
+import {TutorialDTO} from '../domain/tutorial';
 
 @Injectable()
 export class EventService implements OnInit {
@@ -28,4 +29,10 @@ export class EventService implements OnInit {
     return this.http.post<EventDTO>(this.rootConst.SERVER_ADD_EVENT, body, this.httpOptions);
   }
 
+  getPastEvents(): Observable<EventDTO[]> {
+    return this.http.get<EventDTO[]>(`${this.rootConst.SERVER_PAST_EVENT}`);
+  }
+  getUpcomingEvents(): Observable<EventDTO[]> {
+    return this.http.get<EventDTO[]>(`${this.rootConst.SERVER_UPCOMING_EVENT}`);
+  }
 }

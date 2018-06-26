@@ -36,6 +36,8 @@ public class Event implements Serializable {
     @JoinColumn(name = "idLocation")
     private Location location;
 
+
+
     @Column
     private String keywords;
 

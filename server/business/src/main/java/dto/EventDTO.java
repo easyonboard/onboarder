@@ -1,10 +1,5 @@
 package dto;
 
-import entity.Location;
-import entity.User;
-
-import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -16,21 +11,22 @@ public class EventDTO {
 
     private String overview;
 
-    private List<User> enrolledUsers;
+    private List<UserDTO> enrolledUsers;
 
-    private User contactPerson;
+    private UserDTO contactPerson;
 
     private Integer maxEnrolledUsers;
 
-    private Location location;
+    private LocationDTO location;
 
     private String keywords;
 
     private Date eventDate;
 
-    public EventDTO(){}
+    public EventDTO() {
+    }
 
-    public EventDTO(Integer idEvent, String titleEvent, String overview, List<User> enrolledUsers, User contactPerson, Integer maxEnrolledUsers, Location location, String keywords, Date eventDate) {
+    public EventDTO(Integer idEvent, String titleEvent, String overview, List<UserDTO> enrolledUsers, UserDTO contactPerson, Integer maxEnrolledUsers, LocationDTO location, String keywords, Date eventDate) {
         this.idEvent = idEvent;
         this.titleEvent = titleEvent;
         this.overview = overview;
@@ -66,19 +62,19 @@ public class EventDTO {
         this.overview = overview;
     }
 
-    public List<User> getEnrolledUsers() {
+    public List<UserDTO> getEnrolledUsers() {
         return enrolledUsers;
     }
 
-    public void setEnrolledUsers(List<User> enrolledUsers) {
+    public void setEnrolledUsers(List<UserDTO> enrolledUsers) {
         this.enrolledUsers = enrolledUsers;
     }
 
-    public User getContactPerson() {
+    public UserDTO getContactPerson() {
         return contactPerson;
     }
 
-    public void setContactPerson(User contactPerson) {
+    public void setContactPerson(UserDTO contactPerson) {
         this.contactPerson = contactPerson;
     }
 
@@ -90,11 +86,11 @@ public class EventDTO {
         this.maxEnrolledUsers = maxEnrolledUsers;
     }
 
-    public Location getLocation() {
+    public LocationDTO getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(LocationDTO location) {
         this.location = location;
     }
 
