@@ -1,40 +1,38 @@
-<h2 mat-dialog-title>New Employees</h2>
+<h2 #tooltipNewEmployees="matTooltip" [matTooltip]="new_employees_msg" matTooltipPosition="left" matTooltipClass="employee-tooltip" mat-dialog-title>New Employees</h2>
+<button mat-button (click)="disablePopups()" *ngIf="popups_visible" class="dialog-got-it-button">Got it</button>
 
 <mat-dialog-content>
-  <mat-form-field style="float: right;">
-    <input matInput type="search" placeholder="Search by name" (input)="searchByName()" [(ngModel)]="searchValue">
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
+    <mat-form-field style="float: right;">
+        <input matInput type="search" placeholder="Search by name" (input)="searchByName()" [(ngModel)]="searchValue">
+        <mat-icon matSuffix #tooltipSearch="matTooltip" [matTooltip]="search_msg" matTooltipPosition="right" matTooltipClass="employee-tooltip">search</mat-icon>
+    </mat-form-field>
 </mat-dialog-content>
 
-<mat-dialog-content style="height:550px; overflow: initial" >
-
-
-  <mat-card *ngFor="let userInfo of newEmployees;  let i = index">
-    <div *ngIf="isMailSent[i]==true">
-      <i class="material-icons" style="padding: 10px" title="Mail sent">done</i> {{userInfo.userAccount.name}}
-      <br/>
-      <i class="material-icons" style="padding: 10px" >
+<mat-dialog-content style="height:550px; overflow: initial">
+    <mat-card *ngFor="let userInfo of newEmployees;  let i = index">
+        <div *ngIf="isMailSent[i]==true">
+            <i class="material-icons" style="padding: 10px" title="Mail sent">done</i> {{userInfo.userAccount.name}}
+            <br/>
+            <i class="material-icons" style="padding: 10px">
         calendar_today
       </i> Start date: {{userInfo.startDateString}}
-      <br/>
-    </div>
-    <br/>
-    <div *ngIf="isMailSent[i]==false">
-      <i class="material-icons" *ngIf="!mailSent" style="padding: 10px" title="Mail not sent">error_outline</i>
-      {{userInfo.userAccount.name}}
-      <br/>
-      <i class="material-icons" style="padding: 10px" >
+            <br/>
+        </div>
+        <br/>
+        <div *ngIf="isMailSent[i]==false">
+            <i class="material-icons" *ngIf="!mailSent" style="padding: 10px" title="Mail not sent" #tooltipUsername="matTooltip" [matTooltip]="username_msg" matTooltipPosition="left" matTooltipClass="wide-employee-tooltip">error_outline</i> {{userInfo.userAccount.name}}
+            <br/>
+            <i class="material-icons" style="padding: 10px" #tooltipStartDate="matTooltip" [matTooltip]="start_date_msg" matTooltipPosition="left" matTooltipClass="wide-employee-tooltip">
         calendar_today
       </i> Start date: {{userInfo.startDateString}}
-      <br/>
+            <br/>
 
-      <button mat-button color="warn" (click)="openUserInfoModal(userInfo)">Please fill in user data</button>
-    </div>
-    <br/>
-    <button mat-raised-button (click)="openCheckList(userInfo.userAccount)" title="Check list for user">
+            <button mat-button color="warn" (click)="openUserInfoModal(userInfo)" #tooltipIncomplete="matTooltip" [matTooltip]="incomplete_msg" matTooltipPosition="right" matTooltipClass="wide-employee-tooltip">Please fill in user data</button>
+        </div>
+        <br/>
+        <button mat-raised-button (click)="openCheckList(userInfo.userAccount)" title="Check list for user" #tooltipChecklist="matTooltip" [matTooltip]="checklist_msg" matTooltipPosition="left" matTooltipClass="wide-employee-tooltip">
       Open check list for {{userInfo.userAccount.name}}
     </button>
-  </mat-card>
-  <br>
+    </mat-card>
+    <br>
 </mat-dialog-content>

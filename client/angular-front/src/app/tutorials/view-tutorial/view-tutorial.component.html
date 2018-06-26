@@ -1,3 +1,5 @@
+<button mat-button (click)="disablePopups()" *ngIf="popups_visible" class="gotit-button">Got it</button>
+
 <div id="parentDiv">
     <div id="tutorialDetails" *ngIf="tutorial">
         <div fxLayout="row" style="margin-top: 2%; margin-left: 2%" *ngIf="tutorial.keywords!=null">

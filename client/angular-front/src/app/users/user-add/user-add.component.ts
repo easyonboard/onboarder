@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog, MatSelectChange, MatSnackBar} from '@angular/material';
+import {Component, OnInit, ViewChild, ViewEncapsulation, AfterViewChecked} from '@angular/core';
+import {MatDialog, MatSelectChange, MatSnackBar, MatTooltip} from '@angular/material';
 
 import {RoleDTO, RoleType} from '../../domain/role';
 import {UserDTO, UserInformationDTO} from '../../domain/user';
@@ -11,9 +11,10 @@ import {UserInfoFormularComponent} from '../user-info-formular/user-info-formula
 @Component({
   selector: 'app-user-add',
   templateUrl: './user-add.component.html',
-  styleUrls: ['./user-add.component.css']
+  styleUrls: ['./user-add.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
-export class UserAddComponent implements OnInit {
+export class UserAddComponent implements OnInit, AfterViewChecked {
 
   @ViewChild(UserInfoFormularComponent)
   private childUserInfoFormularComponent: UserInfoFormularComponent;
@@ -26,11 +27,40 @@ export class UserAddComponent implements OnInit {
   public user = new UserDTO();
   public roles = Object.keys(RoleType);
 
+  public popups_visible = true;
+
+  public add_user_msg = 'Complete the formular with the required data and press \'ADD USER\'';
+  public username_msg = 'The username is created automatically using the first and last names';
+  public must_msg = 'fields marked with \'*\' must be completed now; the rest of them can be completed later.';
+
+  @ViewChild('tooltipAdd') tooltipAdd: MatTooltip;
+  @ViewChild('tooltipMust') tooltipMust: MatTooltip;
+  @ViewChild('tooltipUsername') tooltipUsername: MatTooltip;
+
+  ngAfterViewChecked() {
+    if (this.tooltipAdd !== undefined && this.tooltipAdd._isTooltipVisible() === false) {
+      this.tooltipAdd.show();
+    }
+    if (this.tooltipMust !== undefined && this.tooltipMust._isTooltipVisible() === false) {
+      this.tooltipMust.show();
+    }
+    if (this.tooltipUsername !== undefined && this.tooltipUsername._isTooltipVisible() === false) {
+      this.tooltipUsername.show();
+    }
+  }
+
   constructor(private userService: UserService, private userInformationService: UserInformationService,
               public snackBar: MatSnackBar, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
+  }
+
+  disablePopups(): void {
+    this.popups_visible = false;
+    this.tooltipUsername.disabled = true;
+    this.tooltipAdd.disabled = true;
+    this.tooltipMust.disabled = true;
   }
 
   addUser(): void {

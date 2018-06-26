@@ -23,6 +23,8 @@ export class ViewTutorialComponent implements OnInit, AfterViewChecked {
   public tutorial_overview_msg = 'This is the overview';
   public tutorial_material_msg = 'Here is the material associated with the tutorial ';
 
+  public popups_visible = true;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private tutorialService: TutorialService,
@@ -74,8 +76,18 @@ export class ViewTutorialComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  disablePopups(): void {
+    this.popups_visible = false;
+    this.tooltipTitle.disabled = true;
+    this.tooltipKeywords.disabled = true;
+    this.tooltipOverview.disabled = true;
+    this.tooltipContact.disabled = true;
+    this.tooltipMaterial.disabled = true;
+  }
+
   addScollBarToPage() {
-    debugger
+    // tslint:disable-next-line:no-debugger
+    debugger;
     document.getElementById('tutorialDetails').style.overflow = 'scroll';
   }
 
