@@ -2,7 +2,7 @@
     <div id="tutorialDetails" *ngIf="tutorial">
         <div fxLayout="row" style="margin-top: 2%; margin-left: 2%" *ngIf="tutorial.keywords!=null">
 
-            <div fxFlex="10" matTooltipPosition="above" matTooltipClass="tutorial-tooltip" [matTooltip]="tutorial_keywords_msg">
+            <div fxFlex="10" matTooltipPosition="above" matTooltipClass="tutorial-tooltip" #tooltipKeywords="matTooltip" [matTooltip]="tutorial_keywords_msg">
                 <i class="fa fa-server icon" aria-hidden="true"></i>
                 <label class="subtitle">Keywords: </label></div>
 
@@ -16,7 +16,7 @@
 
         <div fxLayout="row" *ngIf="tutorial.titleTutorial" fxLayoutAlign="center center">
             <div fxFlex="25"></div>
-            <div id="titleDiv" fxFlex="50" fxLayoutAlign="center center" matTooltipPosition="right" matTooltipClass="tutorial-tooltip" [matTooltip]="tutorial_title_msg">
+            <div id="titleDiv" fxFlex="50" fxLayoutAlign="center center" matTooltipPosition="right" matTooltipClass="tutorial-tooltip" #tooltipTitle="matTooltip" [matTooltip]="tutorial_title_msg">
                 {{tutorial.titleTutorial}}
             </div>
             <div fxFlex></div>
@@ -24,7 +24,7 @@
 
         <div fxLayout="row" style="margin-top: 5%; margin-left: 2%" *ngIf="tutorial.overview">
 
-            <div fxFlex="15" matTooltipPosition="above" matTooltipClass="tutorial-tooltip" [matTooltip]="tutorial_overview_msg">
+            <div fxFlex="15" matTooltipPosition="above" matTooltipClass="tutorial-tooltip" #tooltipOverview="matTooltip" [matTooltip]="tutorial_overview_msg">
                 <i class="fa fa-align-left icon" aria-hidden="true"></i>
                 <label class="subtitle">Overview: </label>
             </div>
@@ -46,7 +46,7 @@
             <div fxFlex="10"></div>
         </div>
 
-        <div fxLayout="row" style="margin-top: 5%; margin-left: 2%" *ngIf="tutorial.contactPersons.length!=0" matTooltipPosition="above" matTooltipClass="tutorial-tooltip" [matTooltip]="tutorial_contact_msg">
+        <div fxLayout="row" style="margin-top: 5%; margin-left: 2%" *ngIf="tutorial.contactPersons.length!=0" matTooltipPosition="above" #tooltipContact="matTooltip" matTooltipClass="tutorial-tooltip" [matTooltip]="tutorial_contact_msg">
             <div fxFlex="15">
                 <i class="fa fa-users icon" aria-hidden="true"></i>
                 <label class="subtitle">Contact persons: </label>
@@ -70,7 +70,7 @@
         </div>
 
 
-        <div fxLayout="row" style="margin-top: 5%; margin-left: 2%" *ngIf="tutorial.tutorialMaterials.length!=0">
+        <div fxLayout="row" style="margin-top: 5%; margin-left: 2%" *ngIf="tutorial.tutorialMaterials.length!=0" matTooltipPosition="above" #tooltipMaterial="matTooltip" matTooltipClass="tutorial-tooltip" [matTooltip]="tutorial_material_msg">
             <div fxFlex="15">
                 <i class="fa fa-users icon" aria-hidden="true"></i>
                 <label class="subtitle">Materials: </label>
