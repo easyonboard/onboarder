@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.media.sound.InvalidDataException;
 import dto.EventDTO;
 import dto.TutorialDTO;
+import dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,6 +55,20 @@ public class EventController {
     @RequestMapping(value = "/events/upcomingEvent", method = RequestMethod.GET)
     public ResponseEntity getUpcomingEvents() {
         return new ResponseEntity(eventService.getAllUpcomingEvents(), HttpStatus.OK);
+
+    }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/events/enrollUser", method = RequestMethod.POST)
+    public ResponseEntity enrollUser(@RequestBody String courseJson) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode node = mapper.readTree(courseJson);
+            int eventDTO = mapper.convertValue(node.get("eventID"), Integer.class);
+            UserDTO userDTO = mapper.convertValue(node.get("user"), UserDTO.class);
+            return new ResponseEntity(eventService.enrollUser(userDTO,eventDTO), HttpStatus.OK);
+        }catch (IOException e){
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
 
     }
 }

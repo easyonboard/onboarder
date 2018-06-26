@@ -24,7 +24,7 @@
           <mat-card-content>
             <div style="float: right">
               Places left: {{upcoming.placesLeft}}<br/>
-              <button mat-button (click)="enrollUser()" color="primary">Enroll to event</button> </div>
+              <button mat-button (click)="enrollUser(upcoming)" color="primary" *ngIf="canEnroll">Enroll to event</button> </div>
             <i class="material-icons">
               calendar_today
             </i>  {{upcoming.stringDate}}
@@ -68,7 +68,7 @@
           <i class="material-icons"> place </i> {{past.location.locationName}}, {{past.location.locationAddress}}, {{past.location.locationCity}} <br/>
           <i class="material-icons">
             meeting_room
-          </i>Moon I
+          </i>{{past.meetingHall.hallName}}, {{past.meetingHall.location.locationName}}, floor: {{past.meetingHall.floor}}
         </mat-card-subtitle>
         <mat-card-content>
           <i class="material-icons">

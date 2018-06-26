@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {EventService} from '../service/event.service';
 import {EventDTO} from '../domain/event';
+import {UserDTO} from '../domain/user';
 
 @Component({
   selector: 'app-events',
@@ -11,12 +12,16 @@ export class EventsComponent implements OnInit {
   panelOpenState: boolean = false;
   pastEvents: EventDTO[];
   upcomingEvents: EventDTO[];
-  canEnroll: boolean = true;
+  canEnroll: boolean;
+  user: UserDTO;
 
 
   constructor(private eventService: EventService) {
     this.pastEvents = [];
     this.upcomingEvents = [];
+    this.canEnroll = true;
+    this.user=new UserDTO();
+    this.user.username = localStorage.getItem('userLogged');
   }
 
   ngOnInit() {
@@ -34,8 +39,6 @@ export class EventsComponent implements OnInit {
     });
 
 
-
-
   }
 
   private processDateAndTime(events: EventDTO[]) {
@@ -48,7 +51,11 @@ export class EventsComponent implements OnInit {
   }
 
 
-  enrollUser() {
+  enrollUser(event: EventDTO) {
+    this.eventService.enrollUser(this.user, event).subscribe(resp=>{
+      this.upcomingEvents=resp;
+      this.processPlacesLeftToEnroll()
+    });
 
   }
 
@@ -57,9 +64,10 @@ export class EventsComponent implements OnInit {
     this.upcomingEvents.forEach(event => {
 
       let x = event.placesLeft = event.meetingHall.capacity - event.enrolledUsers.length;
-      this.canEnroll = false;
-      if (x < 0) {
+
+      if (x <= 0) {
         x = 0;
+        this.canEnroll = false;
       }
       event.placesLeft = x;
     });

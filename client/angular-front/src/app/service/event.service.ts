@@ -2,12 +2,9 @@ import {Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {RootConst} from '../util/RootConst';
-import {Course} from '../domain/course';
-import {Observer} from 'rxjs/Observer';
 import {Observable} from 'rxjs/Observable';
-import {TutorialMaterialDTO} from '../domain/tutorialMaterial';
 import {EventDTO} from '../domain/event';
-import {TutorialDTO} from '../domain/tutorial';
+import {UserDTO} from '../domain/user';
 
 @Injectable()
 export class EventService implements OnInit {
@@ -32,7 +29,13 @@ export class EventService implements OnInit {
   getPastEvents(): Observable<EventDTO[]> {
     return this.http.get<EventDTO[]>(`${this.rootConst.SERVER_PAST_EVENT}`);
   }
+
   getUpcomingEvents(): Observable<EventDTO[]> {
     return this.http.get<EventDTO[]>(`${this.rootConst.SERVER_UPCOMING_EVENT}`);
+  }
+
+  enrollUser(user: UserDTO, event: EventDTO):Observable<EventDTO[]> {
+    const body = JSON.stringify({eventID: event.idEvent, user: user});
+    return this.http.post<EventDTO[]>(this.rootConst.SERVER_ENROLL_USER, body, this.httpOptions);
   }
 }
