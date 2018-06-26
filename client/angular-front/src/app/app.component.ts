@@ -186,4 +186,8 @@ export class AppComponent {
   redirectToAddEvent() {
 
   }
+
+  redirectToAddEventPage() {
+    this.router.navigate(['/events/addEventRouterLink']);
+  }
 }

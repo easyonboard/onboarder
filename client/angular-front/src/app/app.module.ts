@@ -46,8 +46,10 @@ import {DialogEditProfileComponent} from './common/DialogEditProfile/dialog-edit
 import { TutorialsComponent } from './tutorials/tutorials.component';
 import { DialogLeaveCheckListComponent } from './common/DialogLeaveCheckList/dialog-leave-check-list.component';
 import { AddTutorialComponent } from './tutorials/add-tutorial/add-tutorial.component';
+import { AddEventComponent } from './events/add-event/add-event.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {TutorialService} from './service/tutorial.service';
+import {EventService} from './service/event.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { ViewTutorialComponent } from './tutorials/view-tutorial/view-tutorial.component';
 import { EventsComponent } from './events/events.component';
@@ -76,9 +78,11 @@ import { EventsComponent } from './events/events.component';
     DialogEditProfileComponent,
     TutorialsComponent,
     AddTutorialComponent,
+    AddEventComponent,
     DialogLeaveCheckListComponent,
     ViewTutorialComponent,
     EventsComponent,
+    AddEventComponent,
 
   ],
   imports: [
@@ -132,7 +136,7 @@ import { EventsComponent } from './events/events.component';
 
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
-    UserInformationService, CommonComponentsService, ExcelService, TutorialService],
+    UserInformationService, CommonComponentsService, ExcelService, TutorialService, EventService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

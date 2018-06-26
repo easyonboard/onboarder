@@ -37,6 +37,9 @@ public class User implements Serializable {
     @ManyToOne
     private Role role;
 
+    @OneToMany(mappedBy = "contactPerson", cascade = CascadeType.ALL)
+    private List<Event> events;
+
     public User(Integer idUser,@NotNull String name, @NotNull @Size(min = 6) String username, @NotNull String email) {
         this.name = name;
         this.username = username;

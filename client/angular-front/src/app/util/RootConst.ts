@@ -12,6 +12,7 @@ export class RootConst {
   public SERVER_COURSES_NUMBER_OF_OBJECT_PER_PAGE = '&numberOfObjectsPerPage=';
 
   public SERVER_TUTORIALS_URL = this.WEB_SERVICE_ENDPOINT + 'tutorials';
+  public SERVER_EVENTS_URL = this.WEB_SERVICE_ENDPOINT + 'events';
 
 
   public SERVER_TEST_IF_USER_IS_ENROLLED = this.SERVER_COURSES_URL + '/isEnrolledOnCourse?idCourse=';
@@ -42,6 +43,7 @@ export class RootConst {
   public SERVER_ADD_COURSE = this.SERVER_COURSES_URL + '/addCourse';
 
   public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/addTutorial';
+  public SERVER_ADD_EVENT = this.SERVER_EVENTS_URL + '/addEvent';
   public SERVER_ADD_TUTORIAL_MATERIAL = this.SERVER_TUTORIALS_URL + '/addTutorialMaterial';
 
   public SERVER_DELETE_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'deleteCourseSubject';

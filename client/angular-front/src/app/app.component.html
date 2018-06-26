@@ -59,6 +59,19 @@
                 </mat-menu>
             </div>
 
+      <div fxFlex fxLayout="row">
+        <button mat-button [matMenuTriggerFor]="events" class="menuItemButton">
+          Events
+          <span class="caret" style="margin-left: 3px"></span>
+        </button>
+        <mat-menu #events="matMenu" style="margin-top: 10%">
+          <button mat-menu-item>View events</button>
+          <button mat-menu-item (click)="redirectToAddEventPage()">Add event</button>
+          <button mat-menu-item hidden> Update event</button>
+          <button mat-menu-item hidden> Delete event</button>
+        </mat-menu>
+      </div>
+
 
             <div *ngIf="userManagementPermission()" fxFlex fxLayout="row">
                 <button mat-button [matMenuTriggerFor]="userManagement" class="menuItemButton" #tooltipHome="matTooltip" [matTooltip]="management_msg" matTooltipPosition="left" matTooltipClass="menu-tooltip">
