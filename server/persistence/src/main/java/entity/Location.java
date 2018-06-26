@@ -7,8 +7,12 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
+@NamedQueries({@NamedQuery(name = Location.FIND_LOCATION_BY_NAME, query = "select l from Location l where l.locationName=:name")})
 @Entity
 public class Location  implements Serializable{
+
+    public static final String FIND_LOCATION_BY_NAME = "Location.findLocationByName";
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer idLocation;

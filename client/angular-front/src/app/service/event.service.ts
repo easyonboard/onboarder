@@ -21,8 +21,8 @@ export class EventService implements OnInit {
   ngOnInit(): void {
   }
 
-  addEvent(event: EventDTO, contactPersons: any[], enrolledPersons: any[]): any {
-    let body = JSON.stringify({event: event, contactPersons: contactPersons, enrolledPersons: enrolledPersons});
+  addEvent(event: EventDTO, contactPersons: any[], enrolledPersons: any[], selectedLocation: any[]): any {
+    let body = JSON.stringify({event: event, contactPersons: contactPersons, enrolledPersons: enrolledPersons, location: selectedLocation});
     return this.http.post<EventDTO>(this.rootConst.SERVER_ADD_EVENT, body, this.httpOptions);
   }
 

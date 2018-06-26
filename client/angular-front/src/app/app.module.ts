@@ -53,6 +53,7 @@ import {EventService} from './service/event.service';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { ViewTutorialComponent } from './tutorials/view-tutorial/view-tutorial.component';
 import { EventsComponent } from './events/events.component';
+import {LocationService} from './service/location.service';
 
 @NgModule({
   declarations: [
@@ -136,7 +137,7 @@ import { EventsComponent } from './events/events.component';
 
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
-    UserInformationService, CommonComponentsService, ExcelService, TutorialService, EventService],
+    UserInformationService, CommonComponentsService, ExcelService, TutorialService, EventService, LocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

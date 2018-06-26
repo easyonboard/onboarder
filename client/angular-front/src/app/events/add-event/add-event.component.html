@@ -33,6 +33,12 @@
         </td>
       </tr>
       <tr>
+        <td><label>Contact person</label></td>
+        <td>
+          <ng-multiselect-dropdown [placeholder]="'choose a location for the event'" [data]="locationOptions" [(ngModel)]="selectedLocation" [settings]="dropdownLocationSettings"></ng-multiselect-dropdown>
+        </td>
+      </tr>
+      <tr>
         <td><label>Maximum number of participants</label></td>
         <td>
           <input type="text" id="maxEnrolledUsers" name="Tutorial title" [(ngModel)]="event.maxEnrolledUsers" />

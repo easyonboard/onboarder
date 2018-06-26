@@ -1,11 +1,13 @@
 package service;
 
 import dao.EventDAO;
+import dao.LocationDAO;
 import dao.UserDAO;
 import dto.EventDTO;
 import dto.UserDTO;
 import dto.mapper.EventMapper;
 import entity.Event;
+import entity.Location;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,9 +29,12 @@ public class EventService {
     private UserDAO userDAO;
 
     @Autowired
+    private LocationDAO locationDAO;
+
+    @Autowired
     private EventDAO eventDAO;
 
-    public EventDTO addEvent(EventDTO eventDTO, List<String> enrolledUsersEmails, List<String> contactPersonEmails){
+    public EventDTO addEvent(EventDTO eventDTO, List<String> enrolledUsersEmails, List<String> contactPersonEmails, String location){
         List<String> enrolledUsersUsernames = extractUsernamesFromEmails(enrolledUsersEmails);
         List<String> contactPersonUsernames = extractUsernamesFromEmails(contactPersonEmails);
         String contactPersonUsername = contactPersonUsernames.get(0);
@@ -43,10 +48,12 @@ public class EventService {
         }
 
         User contactPerson = userDAO.findUserByUsername(contactPersonUsername).get();
+        Location selectedLocation = locationDAO.findLocationByName(location).get();
 
         event.setContactPerson(contactPerson);
         contactPerson.getEvents().add(event);
         event.setEnrolledUsers(enrolledUsers);
+        event.setLocation(selectedLocation);
 
         return eventMapper.mapToDTO(eventDAO.persistEntity(event));
     }

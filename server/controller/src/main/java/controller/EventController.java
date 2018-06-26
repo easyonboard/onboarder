@@ -35,8 +35,9 @@ public class EventController {
             EventDTO eventDTO = mapper.convertValue(node.get("event"), EventDTO.class);
             List<String> enrolledUsers = mapper.convertValue(node.get("enrolledPersons"), List.class);
             List<String> contactPerson = mapper.convertValue(node.get("contactPersons"), List.class);
+            String location = mapper.convertValue(node.get("location"), String.class);
 
-            return new ResponseEntity(eventService.addEvent(eventDTO, enrolledUsers, contactPerson), HttpStatus.OK);
+            return new ResponseEntity(eventService.addEvent(eventDTO, enrolledUsers, contactPerson, location), HttpStatus.OK);
         } catch (InvalidDataException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {

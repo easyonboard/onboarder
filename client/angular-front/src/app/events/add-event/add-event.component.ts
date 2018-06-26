@@ -4,9 +4,11 @@ import {Location} from '@angular/common';
 import {UserService} from '../../service/user.service';
 import {EventDTO} from '../../domain/event';
 import {EventService} from '../../service/event.service';
+import {LocationService} from '../../service/location.service';
 import {MatChipInputEvent, MatSnackBar} from '@angular/material';
 import {RootConst} from '../../util/RootConst';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
+import {LocationDTO} from '../../domain/location';
 
 @Component({
   selector: 'app-add-event',
@@ -21,7 +23,10 @@ export class AddEventComponent implements OnInit {
   public dropdownContactPersonsSettings = {};
   public selectedEnrolledPersonsItems = [];
   public dropdownEnrolledPersonsSettings = {};
+  public selectedLocation = [];
+  public dropdownLocationSettings = {};
   public usersOptions: string[];
+  public locationOptions: string[];
 
   public event: EventDTO;
   public eventErrorMessage: string;
@@ -37,7 +42,7 @@ export class AddEventComponent implements OnInit {
 
   separatorKeysCodes = [ENTER, COMMA, SPACE];
 
-  constructor(private location: Location, private eventService: EventService, private userService: UserService, public snackBar: MatSnackBar) {
+  constructor(private location: Location, private eventService: EventService, private userService: UserService, private locationService: LocationService,  public snackBar: MatSnackBar) {
     this.keywords = [];
     this.rootConst = new RootConst();
     this.event = new EventDTO();
@@ -45,12 +50,19 @@ export class AddEventComponent implements OnInit {
     this.event.titleEvent = '';
     this.saved = false;
     let userArrayObjects: Array<UserDTO> = new Array<UserDTO>();
+    let locationArray : Array<LocationDTO> = new Array<LocationDTO>();
     this.contactPersonUsername = [];
     this.enrolledPersonUsername = [];
     this.userService.getAllUsers().subscribe(us => {
       userArrayObjects = userArrayObjects.concat(us);
       this.usersOptions = [];
       userArrayObjects.forEach(u => this.usersOptions.push(u.name + '(' + u.username + ')' + ', email:  ' + u.email));
+    });
+
+    this.locationService.getLocations().subscribe(us => {
+      locationArray = locationArray.concat(us);
+      this.locationOptions = [];
+      locationArray.forEach(u => this.locationOptions.push(u.locationName));
     });
   }
 
@@ -64,6 +76,11 @@ export class AddEventComponent implements OnInit {
 
     this.dropdownEnrolledPersonsSettings = {
       singleSelection: false,
+      allowSearchFilter: true
+    };
+
+    this.dropdownLocationSettings = {
+      singleSelection: true,
       allowSearchFilter: true
     };
   }
@@ -84,7 +101,7 @@ export class AddEventComponent implements OnInit {
     }
 
     this.event.keywords = this.keywords.join(' ');
-    this.eventService.addEvent(this.event, this.selectedContactPersonsItems, this.selectedEnrolledPersonsItems).subscribe(event => {
+    this.eventService.addEvent(this.event, this.selectedContactPersonsItems, this.selectedEnrolledPersonsItems, this.selectedLocation).subscribe(event => {
       this.event = event;
       this.saved = true;
       this.incStep();
