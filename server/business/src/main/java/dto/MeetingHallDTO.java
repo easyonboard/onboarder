@@ -1,6 +1,7 @@
 package dto;
 
 import entity.Location;
+import entity.MeetingHall;
 
 public class MeetingHallDTO {
 
@@ -9,6 +10,8 @@ public class MeetingHallDTO {
     private int capacity;
     private Location location;
     private int floor;
+
+
 
     public int getIdMeetingHall() {
         return idMeetingHall;
@@ -49,4 +52,5 @@ public class MeetingHallDTO {
     public void setFloor(int floor) {
         this.floor = floor;
     }
+
 }

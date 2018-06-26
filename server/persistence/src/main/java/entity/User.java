@@ -37,6 +37,11 @@ public class User implements Serializable {
     @ManyToOne
     private Role role;
 
+    @OneToMany(mappedBy = "contactPerson", cascade = CascadeType.ALL)
+    private List<Event> events;
+
+
+
     public User(Integer idUser,@NotNull String name, @NotNull @Size(min = 6) String username, @NotNull String email) {
         this.name = name;
         this.username = username;
@@ -50,6 +55,13 @@ public class User implements Serializable {
     public UserInformation userAccount;
 
 
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
 
     public int getIdUser() {
         return idUser;

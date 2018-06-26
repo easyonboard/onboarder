@@ -268,7 +268,7 @@ public class UserService {
         return leaveCheckListMapper.mapToDTO(leaveCheckListDAO.findEntity(leaveCheckList.getIdCheckList()));
     }
 
-    public boolean canUserBeDeleted(User user) {
+    private boolean canUserBeDeleted(User user) {
 
         LeaveCheckList leaveCheckList = leaveCheckListDAO.findLeaveCheckListByUser(user);
         if (leaveCheckList != null) {

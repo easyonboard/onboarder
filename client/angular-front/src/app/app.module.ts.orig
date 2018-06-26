@@ -81,8 +81,11 @@ import { EventsComponent } from './events/events.component';
     AddEventComponent,
     DialogLeaveCheckListComponent,
     ViewTutorialComponent,
+<<<<<<< Updated upstream
     EventsComponent,
+=======
     AddEventComponent,
+>>>>>>> Stashed changes
 
   ],
   imports: [

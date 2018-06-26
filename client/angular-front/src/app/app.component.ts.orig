@@ -179,15 +179,16 @@ export class AppComponent {
     this.router.navigate(['/tutorials/addTutorialRouterLink']);
   }
 
+<<<<<<< Updated upstream
   redirectToEventsPage() {
     this.router.navigate(['/events/viewEvents']);
   }
 
   redirectToAddEvent() {
 
-  }
-
+=======
   redirectToAddEventPage() {
     this.router.navigate(['/events/addEventRouterLink']);
+>>>>>>> Stashed changes
   }
 }

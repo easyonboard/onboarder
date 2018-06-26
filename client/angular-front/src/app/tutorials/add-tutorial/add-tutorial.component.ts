@@ -1,13 +1,9 @@
-import {Component, OnInit, Inject} from '@angular/core';
-import {ENTER, COMMA, SPACE} from '@angular/cdk/keycodes';
-import {MatChipInputEvent} from '@angular/material';
-import {DOCUMENT} from '@angular/common';
-import {IMultiSelectOption} from 'angular-2-dropdown-multiselect';
-import {Location} from '@angular/common';
-import {MatDialog, MatSelectChange, MatSnackBar} from '@angular/material';
+import {Component, Inject, OnInit} from '@angular/core';
+import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
+import {MatChipInputEvent, MatSnackBar} from '@angular/material';
+import {DOCUMENT, Location} from '@angular/common';
 
 import {UserDTO} from '../../domain/user';
-import {Material} from '../../domain/material';
 import {MaterialType} from '../../domain/materialType';
 import {TutorialMaterialDTO} from '../../domain/tutorialMaterial';
 import {TutorialDTO} from '../../domain/tutorial';
@@ -15,8 +11,6 @@ import {TutorialDTO} from '../../domain/tutorial';
 import {UserService} from '../../service/user.service';
 import {TutorialService} from '../../service/tutorial.service';
 import {MaterialService} from '../../service/material.service';
-
-import {Router} from '@angular/router';
 import {RootConst} from '../../util/RootConst';
 
 import 'rxjs/add/observable/throw';

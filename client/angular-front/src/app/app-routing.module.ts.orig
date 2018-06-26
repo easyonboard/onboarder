@@ -13,8 +13,11 @@ import {TutorialsComponent} from './tutorials/tutorials.component';
 import {ToDoListForBuddyComponent} from './common/DialogToDoListForBuddy/dialog-to-do-list-for-buddy.component';
 import {AddTutorialComponent} from './tutorials/add-tutorial/add-tutorial.component';
 import {ViewTutorialComponent} from './tutorials/view-tutorial/view-tutorial.component';
+<<<<<<< Updated upstream
 import {EventsComponent} from './events/events.component';
+=======
 import {AddEventComponent} from './events/add-event/add-event.component';
+>>>>>>> Stashed changes
 
 const routes: Routes = [
   {path: 'courses/detailedCourse/:id', component: CourseDetailComponent},

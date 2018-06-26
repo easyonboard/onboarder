@@ -1,6 +1,5 @@
 package dto;
 
-import entity.Tutorial;
 import entity.enums.MaterialType;
 
 public class TutorialMaterialDTO {

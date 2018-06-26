@@ -5,6 +5,7 @@ import entity.enums.LocationName;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Location  implements Serializable{
@@ -31,6 +32,9 @@ public class Location  implements Serializable{
 
     @Column
     private String locationContactEmail;
+
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
+    private List<Event> events;
 
     public Integer getIdLocation() {
         return idLocation;
@@ -78,5 +82,13 @@ public class Location  implements Serializable{
 
     public void setLocationContactEmail(String locationContactEmail) {
         this.locationContactEmail = locationContactEmail;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 }
