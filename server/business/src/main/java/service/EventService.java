@@ -41,6 +41,7 @@ public class EventService {
         User contactPerson = userDAO.findUserByUsername(contactPersonUsername).get();
 
         event.setContactPerson(contactPerson);
+        contactPerson.getEvents().add(event);
         event.setEnrolledUsers(enrolledUsers);
 
         return eventMapper.mapToDTO(eventDAO.persistEntity(event));

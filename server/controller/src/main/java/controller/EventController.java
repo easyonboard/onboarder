@@ -32,8 +32,8 @@ public class EventController {
             JsonNode node = null;
             node = mapper.readTree(courseJson);
             EventDTO eventDTO = mapper.convertValue(node.get("event"), EventDTO.class);
-            List<String> enrolledUsers = mapper.convertValue(node.get("enrolledUsers"), List.class);
-            List<String> contactPerson = mapper.convertValue(node.get("contactPerson"), List.class);
+            List<String> enrolledUsers = mapper.convertValue(node.get("enrolledPersons"), List.class);
+            List<String> contactPerson = mapper.convertValue(node.get("contactPersons"), List.class);
 
             return new ResponseEntity(eventService.addEvent(eventDTO, enrolledUsers, contactPerson), HttpStatus.OK);
         } catch (InvalidDataException e) {

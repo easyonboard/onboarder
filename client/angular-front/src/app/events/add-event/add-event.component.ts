@@ -32,6 +32,9 @@ export class AddEventComponent implements OnInit {
 
   public inputKeyword: any;
 
+  public contactPersonUsername: string[];
+  public enrolledPersonUsername: string[];
+
   separatorKeysCodes = [ENTER, COMMA, SPACE];
 
   constructor(private location: Location, private eventService: EventService, private userService: UserService, public snackBar: MatSnackBar) {
@@ -42,6 +45,8 @@ export class AddEventComponent implements OnInit {
     this.event.titleEvent = '';
     this.saved = false;
     let userArrayObjects: Array<UserDTO> = new Array<UserDTO>();
+    this.contactPersonUsername = [];
+    this.enrolledPersonUsername = [];
     this.userService.getAllUsers().subscribe(us => {
       userArrayObjects = userArrayObjects.concat(us);
       this.usersOptions = [];
@@ -50,6 +55,17 @@ export class AddEventComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentStep = 'one';
+
+    this.dropdownContactPersonsSettings = {
+      singleSelection: true,
+      allowSearchFilter: true
+    };
+
+    this.dropdownEnrolledPersonsSettings = {
+      singleSelection: false,
+      allowSearchFilter: true
+    };
   }
 
   addEvent(): void {
@@ -68,7 +84,7 @@ export class AddEventComponent implements OnInit {
     }
 
     this.event.keywords = this.keywords.join(' ');
-    this.eventService.addEvent(this.event, this.selectedEnrolledPersonsItems, this.selectedContactPersonsItems).subscribe(event => {
+    this.eventService.addEvent(this.event, this.selectedContactPersonsItems, this.selectedEnrolledPersonsItems).subscribe(event => {
       this.event = event;
       this.saved = true;
       this.incStep();
