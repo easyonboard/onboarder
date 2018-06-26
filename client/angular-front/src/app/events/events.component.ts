@@ -54,7 +54,8 @@ export class EventsComponent implements OnInit {
   enrollUser(event: EventDTO) {
     this.eventService.enrollUser(this.user, event).subscribe(resp=>{
       this.upcomingEvents=resp;
-      this.processPlacesLeftToEnroll()
+      this.processDateAndTime(this.upcomingEvents)
+      this.processPlacesLeftToEnroll();
     });
 
   }
