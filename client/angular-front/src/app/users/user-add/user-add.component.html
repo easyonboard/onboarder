@@ -1,5 +1,6 @@
-<h2 mat-dialog-title>Add a new user</h2>
-<div mat-dialog-content style="min-height: 750px">
+<h2 mat-dialog-title style="margin-bottom: 0px" #tooltipAdd="matTooltip" [matTooltip]="add_user_msg" matTooltipPosition="above" matTooltipClass="add-user-tooltip">Add a new user</h2>
+<button mat-button (click)="disablePopups()" *ngIf="popups_visible" class="dialog-got-it-button">Got it</button>
+<div mat-dialog-content style="min-height: 750px" #tooltipMust="matTooltip" [matTooltip]="must_msg" matTooltipPosition="right" matTooltipClass="add-user-tooltip">
     <form>
         <div>
             <ng-container buddy-dropdown-directive></ng-container>
@@ -15,7 +16,7 @@
         </div>
         <br>
         <div>
-            <label>USERNAME: {{ firstName }}{{ lastName }}</label>
+            <label style='width: 70%' #tooltipUsername="matTooltip" [matTooltip]="username_msg" matTooltipPosition="left" matTooltipClass="add-user-tooltip">USERNAME: {{ firstName }}{{ lastName }}</label>
         </div>
         <br>
         <div>
@@ -37,4 +38,5 @@
         <app-user-info-formular></app-user-info-formular>
     </form>
 </div>
+
 <button id="addUser" class="btn-add-user" (click)="addUser()">ADD USER</button>

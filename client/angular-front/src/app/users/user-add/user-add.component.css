@@ -9,3 +9,23 @@
     margin-top: 2%;
     margin: 0 auto;
 }
+
+.add-user-tooltip {
+    text-align: center;
+    font-size: 100%;
+    width: 300px;
+    overflow: auto;
+    background-color: rgba(20, 109, 129, 0.6);
+    position: absolute;
+}
+
+.dialog-got-it-button {
+    background-color: rgba(20, 109, 129, 0.6);
+    color: #fff;
+    width: 20%;
+    height: 30px;
+    position: relative;
+    text-align: center;
+    margin-top: 0px;
+    margin-left: 0px;
+}
