@@ -34,7 +34,7 @@ export class EventsComponent implements OnInit {
     events.forEach(event => {
       const myDate = new Date(event.eventDate).toDateString();
       event.stringDate = myDate;
-      event.stringHour = new Date(event.eventDate).getHours() + ':' + new Date(event.eventDate).getMinutes(); 
+      event.stringHour = new Date(event.eventDate).getHours() + ':' + new Date(event.eventDate).getMinutes();
     });
 
   }
