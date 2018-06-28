@@ -1,160 +1,30 @@
-#bigDiv {
-    overflow-y: auto;
-}
-
 #addComponent {
     margin: auto;
-    width: 70%;
-    height: 100%;
+    width: 85%;
+    height: 90%;
     margin-top: 4%;
-    border-radius: 12px;
-    padding-left: 14%;
-    padding-right: 14%;
-    padding-top: 1%;
-    padding-bottom: 3%;
-    align-items: center;
     border: #841439 solid 4px;
     box-shadow: 0 6px 10px 6px #cccccc inset;
     position: relative;
 }
 
-.stepDiv {
-    margin: auto;
-    width: 100%;
-    height: 650px;
-    border-radius: 10px;
-}
-
-#tutorialTable td,
-#materialTable td {
-    padding-left: 5%;
-}
-
-#tutorialTable td,
-#materialTable td {
-    padding-top: 5%;
-}
-
 .pageTitle {
-    font-size: 170%;
+    font-size: xx-large;
     font-weight: bold;
     text-align: center;
     margin-top: 4%;
-    margin-right: 17%;
-    margin-left: 17%;
     align-self: auto;
 }
-
-table {
-    color: #0e0008;
-    opacity: revert;
-    font-weight: bold;
-    font-size: medium;
-}
-
-input[type~="text"],
-select {
-    border-radius: 2px;
-    height: 100%;
-    width: 100%;
-}
-
 textarea {
     border-radius: 5px;
     height: 100px;
     width: 500px;
 }
 
-input[type~="submit"] {
-    border-radius: 7px;
-    height: 100%;
-    width: 100%;
-    border-width: 3px;
-    color: #0e0008;
-    font-weight: bold;
-}
-
-.prevStepButton {
-    position: absolute;
-    bottom: 8px;
-    left: 16px;
-}
-
-#tutorialTable {
-    margin-top: 5%;
-}
-
-#materialTable {
-    margin-top: 15%;
-    margin-left: 1%;
-    margin-right: 10%;
-}
-
-.separator {
-    margin-left: 5%;
-    width: 90%;
-    margin-bottom: 1%;
-}
-
-thead>tr>th {
-    border-bottom: 3px solid #841439;
-}
-
-.row {
-    margin-bottom: 5%;
-}
-
-.container-fluid .row .input-group-addon {
-    border-radius: 10px;
-    text-align: left;
-    opacity: 1;
-    background-color: #cccccc;
-}
-
 .keyword-list {
     width: 80%;
 }
 
-.nextStepButton {
-    position: absolute;
-    bottom: 8%;
-    right: 8%;
-    background-color: white;
-    color: #841439;
-    border-radius: 5px;
-    font-weight: lighter;
-    font-size: large;
-    border: solid 1.5px #841439;
-    box-shadow: 0 4px 6px 4px #cccccc;
-}
-
-.nextStepButton:hover {
-    background-color: #6b233b;
-    color: white;
-    transform: scale(1.1)
-}
-
-#addCourseMessage {
-    text-align: center;
-    color: #ffffff;
-    background: #841439;
-    font-size: 18px;
-    font-weight: bolder;
-    text-shadow: #8c8b8b;
-    height: 90px;
-    width: 100%;
-    padding: 30px;
-}
-
-#backToCourses {
-    text-align: center;
-    color: #ffffff;
-    background: #841439;
-    font-size: 18px;
-    font-weight: bolder;
-    text-shadow: #8c8b8b;
-    height: 90px;
-    width: 100%;
-    margin-top: 500px;
-    padding: 30px;
+.tutorialRow{
+  margin-top: 5%;
 }

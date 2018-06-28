@@ -53,6 +53,7 @@ export class AddTutorialComponent implements OnInit {
   private currentStep: string;
   public materialsForCurrentTutorial: TutorialMaterialDTO[] = [];
 
+
   constructor(private location: Location, private tutorialService: TutorialService, private userService: UserService,
               private materialService: MaterialService, @Inject(DOCUMENT) private document: any, public snackBar: MatSnackBar) {
     this.keywords = [];
@@ -241,5 +242,9 @@ export class AddTutorialComponent implements OnInit {
     this.snackBar.open(message, null, {
       duration: 3000
     });
+  }
+
+  addNewEmptyMaterial() {
+    this.materialsForCurrentTutorial.push(new TutorialMaterialDTO());
   }
 }

@@ -12,6 +12,8 @@ public class TutorialDTO {
 
     private String keywords;
 
+    private Boolean isDraft;
+
     private List<UserDTO> contactPersons;
 
     private List<TutorialMaterialDTO> tutorialMaterials;
@@ -65,6 +67,14 @@ public class TutorialDTO {
 
     public void setKeywords(String keywords) {
         this.keywords = keywords;
+    }
+
+    public Boolean getDraft() {
+        return isDraft;
+    }
+
+    public void setDraft(Boolean draft) {
+        isDraft = draft;
     }
 
     public List<UserDTO> getContactPersons() {
