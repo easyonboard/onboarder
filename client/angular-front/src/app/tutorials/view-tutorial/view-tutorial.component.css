@@ -7,7 +7,7 @@
     border-radius: 8px;
     padding: 10px;
     box-shadow: 5px 10px 8px 10px #888888;
-    overflow: hidden;
+    overflow: auto;
 }
 
 #parentDiv {

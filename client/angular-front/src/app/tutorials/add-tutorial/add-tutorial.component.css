@@ -6,6 +6,7 @@
     border: #841439 solid 4px;
     box-shadow: 0 6px 10px 6px #cccccc inset;
     position: relative;
+    padding-right: 2%;
 }
 
 .pageTitle {
@@ -28,3 +29,19 @@ textarea {
 .tutorialRow{
   margin-top: 5%;
 }
+
+th {
+  margin-left: 1%;
+  min-width: 5px;
+  max-width: 5px;
+  overflow: hidden;
+}
+
+td {
+  margin-left: 1%;
+  min-width: 30px;
+  max-width: 30px;
+  overflow: hidden;
+}
+
+

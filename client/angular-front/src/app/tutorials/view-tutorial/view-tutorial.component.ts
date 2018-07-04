@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TutorialDTO} from '../../domain/tutorial';
-import {MaterialType} from '../../domain/materialType';
 import {TutorialService} from '../../service/tutorial.service';
 import {MaterialService} from '../../service/material.service';
-import {TutorialMaterialDTO} from '../../domain/tutorialMaterial';
 
 @Component({
   selector: 'app-view-tutorial',
@@ -45,4 +43,5 @@ export class ViewTutorialComponent implements OnInit {
   addScollBarToPage() {
     document.getElementById('tutorialDetails').style.overflow = 'scroll';
   }
+
 }

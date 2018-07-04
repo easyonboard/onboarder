@@ -23,7 +23,7 @@ export class TutorialService implements OnInit {
   ngOnInit(): void {
   }
 
-  addTutorial(tutorial: TutorialDTO, contactPersons: any[]): any {
+  addTutorial(tutorial: TutorialDTO, contactPersons: number[]): any {
     let body = JSON.stringify({tutorial: tutorial, contactPersons: contactPersons});
     return this.http.post<TutorialDTO>(this.rootConst.SERVER_ADD_TUTORIAL, body, this.httpOptions);
   }

@@ -66,7 +66,7 @@ public class UserDAO extends AbstractDAO<User> {
         CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
         Root<User> rootUser = criteriaQuery.from(User.class);
         criteriaQuery.select(cb.construct(User.class, rootUser.get("idUser"), rootUser.get("name"),
-                rootUser.get("username"),rootUser.get("email")));
+                rootUser.get("username"),rootUser.get("email"), rootUser.get("msgMail")));
         return (List<User>) this.executeCriteriaQuery(criteriaQuery);
     }
 
@@ -84,7 +84,8 @@ public class UserDAO extends AbstractDAO<User> {
                 rootUser.get("idUser"),
                 rootUser.get("name"),
                 rootUser.get("username"),
-                rootUser.get("email"))).
+                rootUser.get("email"),
+                rootUser.get("msgMail"))).
                 where(cb.equal(rootUser.get("role").get("role"),ROLE_ABTEILUNGSLEITER));
         List<User> users = this.executeCriteriaQuery(criteriaQuery);
         return users;
@@ -104,7 +105,8 @@ public class UserDAO extends AbstractDAO<User> {
                 rootUser.get("idUser"),
                 rootUser.get("name"),
                 rootUser.get("username"),
-                rootUser.get("email"))).
+                rootUser.get("email"),
+                rootUser.get("msgMail"))).
                 where(cb.like(cb.upper(rootUser.get("name")), "%" + name.toUpperCase() + "%"));
         List<User> users = this.executeCriteriaQuery(criteriaQuery);
         return users;

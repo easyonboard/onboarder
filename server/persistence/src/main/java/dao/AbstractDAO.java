@@ -23,7 +23,7 @@ public abstract class AbstractDAO<E> {
         em.persist(entity);
         em.flush();
         return entity;
-    }
+}
 
     @Transactional
     public E update(E entity) {

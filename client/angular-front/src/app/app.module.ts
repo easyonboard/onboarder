@@ -54,6 +54,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { ViewTutorialComponent } from './tutorials/view-tutorial/view-tutorial.component';
 import { EventsComponent } from './events/events.component';
 import {LocationService} from './service/location.service';
+import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown';
+import {Ng2OrderPipe} from 'ng2-order-pipe';
 
 @NgModule({
   declarations: [
@@ -84,7 +86,7 @@ import {LocationService} from './service/location.service';
     ViewTutorialComponent,
     EventsComponent,
     AddEventComponent,
-
+    Ng2OrderPipe
   ],
   imports: [
     NgMultiSelectDropDownModule,
@@ -121,6 +123,7 @@ import {LocationService} from './service/location.service';
     FlexLayoutModule,
     MatMenuModule,
     MatToolbarModule,
+    AngularMultiSelectModule
   ],
   entryComponents: [
     DialogCheckListComponent,

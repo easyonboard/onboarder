@@ -40,17 +40,10 @@ public class TutorialService {
         return tutorialMapper.entitiesToDTOs(tutorialDAO.filterByKeyword(keyword));
     }
 
-    public TutorialDTO addTutorial(TutorialDTO tutorialDTO, List<Integer> ownersIds, List<String> contactPersons) {
-        List<String> usernames = extractContactPersonsUsernames(contactPersons);
+    public TutorialDTO addTutorial(TutorialDTO tutorialDTO, List<Integer> contactPersonsIds) {
         Tutorial tutorial = tutorialMapper.mapToEntity(tutorialDTO, new Tutorial());
-        List<User> users = new ArrayList<>();
-
-        for (int i = 0; i < usernames.size(); i++) {
-            User user = userDAO.findUserByUsername(usernames.get(i)).get();
-            users.add(user);
-        }
-
-        tutorial.setContactPersons(users);
+//        List<User> users = getUsersByIds(contactPersonsIds);
+        tutorial.setContactPersons(getUsersByIds(contactPersonsIds));
 
 //        List<Tutorial> owners = new ArrayList<>();
 //
@@ -61,6 +54,14 @@ public class TutorialService {
 //        tutorial.setContactPersons(constantPerson);
 
         return tutorialMapper.mapToDTO(tutorialDAO.persistEntity(tutorial));
+    }
+
+    private List<User> getUsersByIds(List<Integer> contactPersonsIds) {
+        List<User> users= new ArrayList<>();
+        for (Integer id:contactPersonsIds) {
+            users.add(userDAO.findEntity(id));
+        }
+        return users;
     }
 
     public TutorialMaterialDTO addTutorialMaterial(TutorialMaterialDTO tutorialMaterialDTO) {
@@ -82,25 +83,6 @@ public class TutorialService {
         return tutorialMapper.mapToDTO(tutorialEntity);
     }
 
-    private List<String> extractContactPersonsUsernames(List<String> nameUsernamesEmail) {
-        List<String> usernames = new ArrayList<>();
-        StringTokenizer st;
-        String username;
-
-        for (int i = 0; i < nameUsernamesEmail.size(); i++) {
-            st = new StringTokenizer(nameUsernamesEmail.get(i), "()");
-
-            if (st.hasMoreTokens()) {
-                st.nextToken();
-            }
-            if (st.hasMoreTokens()) {
-                usernames.add(st.nextToken());
-            }
-
-        }
-
-        return usernames;
-    }
 
     public TutorialDTO findTutorialById(Integer idTutorial) {
         return tutorialMapper.mapToDTO(tutorialDAO.findTutorialById(idTutorial));

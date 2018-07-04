@@ -42,11 +42,14 @@ public class User implements Serializable {
 
 
 
-    public User(Integer idUser,@NotNull String name, @NotNull @Size(min = 6) String username, @NotNull String email) {
+    public User(Integer idUser,@NotNull String name, @NotNull @Size(min = 6) String username, @NotNull String email, String msgMail) {
+        this.idUser = idUser;
         this.name = name;
         this.username = username;
         this.email = email;
+        this.msgMail = msgMail;
     }
+
 
     public User() {
     }
