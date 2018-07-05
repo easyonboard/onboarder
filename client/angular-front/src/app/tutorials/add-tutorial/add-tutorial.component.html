@@ -19,6 +19,7 @@
           <mat-form-field>
             <mat-select placeholder="choose one or more contact persons"
                         multiple
+                        [panelClass]="dropdownSettings"
                         [(ngModel)]="selectedContactPersonsIds">
               <mat-option *ngFor="let user of usersOptions"
                           [value]="user.idUser">

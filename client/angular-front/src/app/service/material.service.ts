@@ -51,13 +51,8 @@ export class MaterialService {
     return this.http.get<Material[]>(`${this.allMaterialsUploadedByThisUser}${username}`);
   }
 
-  getFileWithId(idMaterial: number): any {
-    return this.http.get(`${this.findMaterialById}${idMaterial}`, {responseType: 'arraybuffer'}).subscribe(
-      (response) => {
-        const file = new Blob([response], {type: 'application/pdf'});
-        const fileURL = URL.createObjectURL(file);
-        window.open(fileURL);
-      });
+  getFileWithId(idTutorialMaterial: number): Observable<ArrayBuffer> {
+    return this.http.get(`${this.rootConst.SERVER_FIND_TUTORIAL_MATERIAL_BY_ID}${idTutorialMaterial}`, {responseType: 'arraybuffer'});
   }
 
   addMaterialsToSubject(idSubject: number, materialForCurrentSubject: Material, file: File) {

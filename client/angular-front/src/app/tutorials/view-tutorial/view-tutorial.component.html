@@ -90,7 +90,7 @@
 
               <div fxFlex="10" fxFlexOffset="2">Material:</div>
               <div fxFlex fxFlexOffset="1" *ngIf="material.link">
-                <a href="{{material.link}}" target="_blank">{{material.title}}</a>
+                <a (click)="openURL(material.link);">{{material.title}}</a>
               </div>
               <div fxFlex fxFlexOffset="1" *ngIf="!material.link" (click)="getFileWithId(material.idTutorialMaterial)">
                 <a>{{material.title}}</a>

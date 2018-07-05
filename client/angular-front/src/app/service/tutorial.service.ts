@@ -32,10 +32,6 @@ export class TutorialService implements OnInit {
     return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_TUTORIAL}`);
   }
 
-  getFileWithId(idTutorialMaterial: number): Observable<ArrayBuffer> {
-    return this.http.get(`${this.rootConst.SERVER_FIND_TUTORIAL_MATERIAL_BY_ID}${idTutorialMaterial}`, {responseType: 'arraybuffer'});
-  }
-
 
   getMaterialsForTutorialId(idTutorial: number): Observable<TutorialMaterialDTO[]> {
     return this.http.get<TutorialMaterialDTO[]>(`${this.rootConst.SERVER_GET_MATERIALS_FOR_TUTORIAL}${idTutorial}`);

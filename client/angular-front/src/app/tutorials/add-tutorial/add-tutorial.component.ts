@@ -18,6 +18,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import {Ng2OrderPipe} from 'ng2-order-pipe';
 import {FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -42,10 +43,14 @@ export class AddTutorialComponent implements OnInit {
 
   public tutorialErrorMessage: string;
   separatorKeysCodes = [ENTER, COMMA, SPACE];
-  public contacts = new FormControl();
 
-  constructor(private location: Location, private tutorialService: TutorialService, private userService: UserService,
-              private materialService: MaterialService, @Inject(DOCUMENT) private document: any, public snackBar: MatSnackBar) {
+  constructor(private location: Location,
+              private tutorialService: TutorialService,
+              private userService: UserService,
+              private materialService: MaterialService,
+              @Inject(DOCUMENT) private document: any,
+              public snackBar: MatSnackBar,
+              private router: Router) {
     this.keywords = [];
     this.rootConst = new RootConst();
     this.tutorial = new TutorialDTO();
@@ -71,25 +76,31 @@ export class AddTutorialComponent implements OnInit {
   private getUsers() {
     this.userService.getAllUsers().subscribe(us => {
       this.usersOptions = us;
+      console.log(localStorage.getItem('msgMail'));
+      const currentUser = this.usersOptions.find(u => u.msgMail === localStorage.getItem('msgMail'));
+      this.selectedContactPersonsIds.push(currentUser.idUser);
     });
   }
 
 
   addTutorial(): void {
-    this.getUploadedFiles();
-    alert(this.selectedContactPersonsIds);
+    try {
+      this.getUploadedFiles();
 
-    this.verifyConstraintsForTutorial();
+      this.verifyConstraintsForTutorial();
 
-    this.tutorial.keywords = this.keywords.join(' ');
+      this.tutorial.keywords = this.keywords.join(' ');
 
-    this.tutorialService.addTutorial(this.tutorial, this.selectedContactPersonsIds).subscribe(tutorial => {
-      this.tutorial = tutorial;
-      this.addMaterials();
-      this.snackBarMessagePopup('You added a new tutorial successfully!');
-    }, err => {
-      alert(err.error.message);
-    });
+      this.tutorialService.addTutorial(this.tutorial, this.selectedContactPersonsIds).subscribe(tutorial => {
+        this.tutorial = tutorial;
+        this.addMaterials();
+        this.redirectToTutorialPage(this.tutorial.idTutorial);
+      }, err => {
+        this.snackBarMessagePopup('Error!');
+      });
+    } catch (e) {
+      this.snackBarMessagePopup('Error!');
+    }
   }
 
   private addMaterials() {
@@ -136,8 +147,8 @@ export class AddTutorialComponent implements OnInit {
     }
   }
 
-  redirectToTutorialsPage() {
-    location.replace(this.rootConst.FRONT_TUTORIALS_PAGE);
+  private redirectToTutorialPage(tutorialId: number) {
+    location.replace(this.rootConst.FRONT_TUTORIALS_PAGE + '/' + `${tutorialId}`);
   }
 
   openFile(position: number): void {

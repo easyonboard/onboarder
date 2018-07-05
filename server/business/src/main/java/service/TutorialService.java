@@ -42,16 +42,7 @@ public class TutorialService {
 
     public TutorialDTO addTutorial(TutorialDTO tutorialDTO, List<Integer> contactPersonsIds) {
         Tutorial tutorial = tutorialMapper.mapToEntity(tutorialDTO, new Tutorial());
-//        List<User> users = getUsersByIds(contactPersonsIds);
         tutorial.setContactPersons(getUsersByIds(contactPersonsIds));
-
-//        List<Tutorial> owners = new ArrayList<>();
-//
-//        List<User> constantPerson = new ArrayList<>();
-//        contactPersonsId.forEach(cpId -> constantPerson.add(userDAO.findEntity(cpId)));
-//
-//        //tutorial.setOwners(owners);
-//        tutorial.setContactPersons(constantPerson);
 
         return tutorialMapper.mapToDTO(tutorialDAO.persistEntity(tutorial));
     }

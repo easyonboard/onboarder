@@ -23,6 +23,12 @@ export class ViewTutorialComponent implements OnInit {
     this.tutorialId = this.route.snapshot.params.id;
     this.tutorialService.getTutorialWithId(this.tutorialId).subscribe(tutorial => {
       this.tutorial = tutorial;
+      // this.tutorialService.getMaterialsForTutorialId(this.tutorial.idTutorial).subscribe(
+      //   materials => {
+      //     this.tutorial.tutorialMaterials = materials;
+      //   }
+      // )
+      ;
     });
   }
 
@@ -33,7 +39,7 @@ export class ViewTutorialComponent implements OnInit {
   }
 
   getFileWithId(idFile: number) {
-    this.tutorialService.getFileWithId(idFile).subscribe((response) => {
+    this.materialService.getFileWithId(idFile).subscribe((response) => {
       const file = new Blob([response], {type: 'application/pdf'});
       const fileURL = URL.createObjectURL(file);
       window.open(fileURL);
@@ -42,6 +48,10 @@ export class ViewTutorialComponent implements OnInit {
 
   addScollBarToPage() {
     document.getElementById('tutorialDetails').style.overflow = 'scroll';
+  }
+
+  openURL(link: string) {
+    window.open(link);
   }
 
 }

@@ -37,6 +37,35 @@ export class TutorialsComponent implements OnInit, AfterViewChecked {
   @ViewChild('tooltipOverview') tooltipOverview: MatTooltip;
   @ViewChild('tooltipDelete') tooltipDelete: MatTooltip;
 
+  constructor(private tutorialService: TutorialService,
+              private route: ActivatedRoute,
+              private router: Router) {
+    this.rootConst = new RootConst();
+    this.tutorialsPerPage = [];
+
+    this.route.params.subscribe(params => {
+      this.tutorialsPerPage = [];
+
+      const keyword = params['keyword'];
+      if (keyword) {
+        this.tutorialService.searchByKeyword(keyword).subscribe(tutorials => {this.tutorials = tutorials;
+          this.initTutorialsPerPageList();
+          this.length = this.tutorials.length;
+        });
+      } else {
+        tutorialService.getTutorials().subscribe(tutorials => {this.tutorials = tutorials;
+          this.initTutorialsPerPageList();
+          this.length = this.tutorials.length;
+        });
+      }
+
+    });
+  }
+
+  ngOnInit() {
+  }
+
+
   ngAfterViewChecked() {
     if (this.tooltipPaginator !== undefined && this.tooltipPaginator._isTooltipVisible() === false) {
       this.tooltipPaginator.show();
@@ -58,34 +87,6 @@ export class TutorialsComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  constructor(private tutorialService: TutorialService,
-              private route: ActivatedRoute,
-              private router: Router) {
-    this.rootConst = new RootConst();
-    this.tutorialsPerPage = [];
-
-    this.route.params.subscribe(params => {
-      this.tutorialsPerPage = [];
-
-      const keyword = params['keyword'];
-      if (keyword) {
-        this.tutorialService.searchByKeyword(keyword).subscribe(tutorials => {this.tutorials = tutorials;
-        this.initTutorialsPerPageList();
-          this.length = this.tutorials.length;
-       });
-      } else {
-        tutorialService.getTutorials().subscribe(tutorials => {this.tutorials = tutorials;
-        this.initTutorialsPerPageList();
-          this.length = this.tutorials.length;
-     });
-      }
-
-    });
-  }
-
-  ngOnInit() {
-
-  }
 
   disablePopups(): void {
     this.popups_visible = false;
