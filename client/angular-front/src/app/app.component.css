@@ -117,6 +117,13 @@ footer {
     color: #ffffff;
 }
 
+#generalPopupTutorial {
+    background-color: #ffffff;
+    border: none;
+    font-size: x-large;
+    color: rgba(20, 109, 129, 0.6);
+}
+
 .separator {
     border-top: 1px solid #8c8b8b;
 }

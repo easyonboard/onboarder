@@ -7,6 +7,7 @@ import {UtilityService} from './service/utility.service';
 import {MatDialog} from '@angular/material';
 import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
+import {SessionConst} from './util/SessionConst';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,8 @@ import {UsersInDepartmentListComponent} from './users/users-in-department-list/u
 
 export class AppComponent {
 
+  public localStorage: Storage;
+
   private rootConst: RootConst;
   public message: string;
   public successMessage: string;
@@ -25,10 +28,14 @@ export class AppComponent {
 
   public home_msg = 'Go to the home page';
   public info_msg = 'Find useful general informations';
+  public show_popup_tutorial_msg = 'Show me how to use this site';
+  public hide_popup_tutorial_msg = 'I know how to use this site :)';
   public tutorials_msg = 'View existing tutorials and add new ones';
   public management_msg = 'Find and update informations about users';
   public user_msg = 'Change your password';
   public events_msg = 'See the new .msg events';
+
+  public show = true;
 
   constructor(private location: Location, private router: Router, private elemRef: ElementRef,
               private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog,
@@ -36,6 +43,7 @@ export class AppComponent {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
+    localStorage.setItem(SessionConst.IS_DEMO_ENABLED, '');
   }
 
   logout(): void {
@@ -52,7 +60,6 @@ export class AppComponent {
   redirectToAddCourse(): void {
     location.replace(this.rootConst.FRONT_ADD_COURSE);
   }
-
 
   closeModal(id: string) {
     this.utilityService.closeModal(id);
@@ -117,6 +124,10 @@ export class AppComponent {
 
   }
 
+  toggleTutorialMode(): void {
+    this.show = !this.show;
+  }
+
   redirectToLoginPage(): void {
     location.replace(this.rootConst.FRONT_LOGIN_PAGE);
   }
@@ -132,7 +143,6 @@ export class AppComponent {
   openModalAddNewUser() {
     this.commonComponent.openModalAddNewUser();
   }
-
 
   redirectToCoursePage() {
     location.replace(this.rootConst.FRONT_INFOS_PAGE);
