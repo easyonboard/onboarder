@@ -18,8 +18,6 @@ import {SessionConst} from './util/SessionConst';
 
 export class AppComponent {
 
-  public localStorage: Storage;
-
   private rootConst: RootConst;
   public message: string;
   public successMessage: string;
@@ -43,16 +41,15 @@ export class AppComponent {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
-    localStorage.setItem(SessionConst.IS_DEMO_ENABLED, '');
   }
 
   logout(): void {
     if (confirm('Do you really want to logout?')) {
-      localStorage.removeItem('userLogged');
-      localStorage.removeItem('userLoggedId');
-      localStorage.removeItem('userRole');
-      localStorage.removeItem('userFirstname');
-      localStorage.removeItem('msgMail');
+      localStorage.removeItem(SessionConst._USER_LOGGED);
+      localStorage.removeItem(SessionConst._USER_LOGGED_ID);
+      localStorage.removeItem(SessionConst._USER_ROLE);
+      localStorage.removeItem(SessionConst._USER_FIRSTNAME);
+      localStorage.removeItem(SessionConst._MSG_MAIL);
 
       this.redirectToLoginPage();
     }
@@ -67,7 +64,7 @@ export class AppComponent {
   }
 
   userIsLogged(): boolean {
-    this.username = localStorage.getItem('userFirstname');
+    this.username = localStorage.getItem(SessionConst._USER_FIRSTNAME);
     if (this.username !== null) {
       return true;
     }
@@ -75,7 +72,7 @@ export class AppComponent {
   }
 
   newEmployeesPermission(): boolean {
-    this.role = localStorage.getItem('userRole');
+    this.role = localStorage.getItem(SessionConst._USER_ROLE);
     if (!this.userIsLogged()) {
       return false;
     }
@@ -87,7 +84,7 @@ export class AppComponent {
   }
 
   addUserPermission(): boolean {
-    this.role = localStorage.getItem('userRole');
+    this.role = localStorage.getItem(SessionConst._USER_ROLE);
     if (!this.userIsLogged()) {
       return false;
     }
@@ -99,7 +96,7 @@ export class AppComponent {
   }
 
   viewUsersByDepartmentPermission(): boolean {
-    this.role = localStorage.getItem('userRole');
+    this.role = localStorage.getItem(SessionConst._USER_ROLE);
     if (!this.userIsLogged()) {
       return false;
     }
@@ -112,7 +109,7 @@ export class AppComponent {
   }
 
   deleteUserPermission(): boolean {
-    this.role = localStorage.getItem('userRole');
+    this.role = localStorage.getItem(SessionConst._USER_ROLE);
     if (!this.userIsLogged()) {
       return false;
     }
@@ -121,12 +118,13 @@ export class AppComponent {
     } else {
       return false;
     }
-
-
   }
 
   toggleTutorialMode(): void {
     this.show = !this.show;
+
+    console.log(localStorage.getItem(SessionConst._DEMO_ENABLED));
+    SessionConst.toggle(localStorage.getItem(SessionConst._DEMO_ENABLED));
   }
 
   redirectToLoginPage(): void {
@@ -159,7 +157,7 @@ export class AppComponent {
 
 
   isBuddy(): boolean {
-    return localStorage.getItem('userRole') === 'ROLE_BUDDY';
+    return localStorage.getItem(SessionConst._USER_ROLE) === 'ROLE_BUDDY';
   }
 
   openToDoListForBuddy() {

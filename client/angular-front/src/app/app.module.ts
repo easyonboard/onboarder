@@ -137,5 +137,6 @@ import {Ng2OrderPipe} from 'ng2-order-pipe';
     UserInformationService, CommonComponentsService, ExcelService, TutorialService, EventService, LocationService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }
