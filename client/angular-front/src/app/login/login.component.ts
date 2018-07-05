@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
           localStorage.setItem('userLogged', res.username);
           localStorage.setItem('userLoggedId', res.idUser.toString());
           localStorage.setItem('userRole', res.role.role);
+          localStorage.setItem('msgMail', res.msgMail);
           localStorage.setItem('userFirstname', res.name.split(' ')[0]);
           for (let index = 0; index < this.headerDiv.length; index++) {
             (<HTMLElement>this.headerDiv.item(index)).style.visibility = 'visible';

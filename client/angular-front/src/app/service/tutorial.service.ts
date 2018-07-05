@@ -23,17 +23,13 @@ export class TutorialService implements OnInit {
   ngOnInit(): void {
   }
 
-  addTutorial(tutorial: TutorialDTO, contactPersons: any[]): any {
+  addTutorial(tutorial: TutorialDTO, contactPersons: number[]): any {
     let body = JSON.stringify({tutorial: tutorial, contactPersons: contactPersons});
     return this.http.post<TutorialDTO>(this.rootConst.SERVER_ADD_TUTORIAL, body, this.httpOptions);
   }
 
   getTutorials(): Observable<TutorialDTO[]> {
     return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_TUTORIAL}`);
-  }
-
-  getFileWithId(idTutorialMaterial: number): Observable<ArrayBuffer> {
-    return this.http.get(`${this.rootConst.SERVER_FIND_TUTORIAL_MATERIAL_BY_ID}${idTutorialMaterial}`, {responseType: 'arraybuffer'});
   }
 
 

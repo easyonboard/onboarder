@@ -45,9 +45,10 @@ public class TutorialController {
             JsonNode node = null;
             node = mapper.readTree(courseJson);
             TutorialDTO tutorialDTO = mapper.convertValue(node.get("tutorial"), TutorialDTO.class);
-            List<String> contactPersons = mapper.convertValue(node.get("contactPersons"), List.class);
+            tutorialDTO.setDraft(false);
+            List<Integer> contactPersons = mapper.convertValue(node.get("contactPersons"), List.class);
 
-            return new ResponseEntity(tutorialService.addTutorial(tutorialDTO, null, contactPersons), HttpStatus.OK);
+            return new ResponseEntity(tutorialService.addTutorial(tutorialDTO, contactPersons), HttpStatus.OK);
         } catch (InvalidDataException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {
@@ -57,26 +58,6 @@ public class TutorialController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/tutorials/addTutorialMaterial", method = RequestMethod.POST)
-//    public ResponseEntity addTutorialMaterial(@RequestBody String courseJson) {
-//        ObjectMapper mapper = new ObjectMapper();
-//        try {
-//            JsonNode node = null;
-//            node = mapper.readTree(courseJson);
-//            TutorialMaterialDTO tutorialMaterialDTO = mapper.convertValue(node.get("material"), TutorialMaterialDTO .class);
-//            //tutorialMaterialDTO.setFileMaterial(mapper.convertValue(node.get("material"), TutorialMaterialDTO .class));
-//            Integer idTutorial = mapper.convertValue(node.get("idTutorial"), Integer.class);
-//            TutorialDTO tutorialDTO = tutorialService.getTutorialById(idTutorial);
-//
-//            tutorialMaterialDTO.setTutorial(tutorialDTO);
-//
-//            return new ResponseEntity(tutorialService.addTutorialMaterial(tutorialMaterialDTO), HttpStatus.OK);
-//        } catch (InvalidDataException e) {
-//            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
-//        } catch (IOException e) {
-//            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
-//        }
-//    }
-
     public ResponseEntity addTutorialMaterial(@RequestParam(name = "material") String mat,
                                               @RequestParam(name = "file") Optional<MultipartFile> file,
                                               @RequestParam(name = "idTutorial") Integer idTutorial) throws IOException {

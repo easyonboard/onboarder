@@ -22,7 +22,9 @@ export class SubjectDetailComponent implements OnInit {
   public courseId: number;
   public nextSubjectID: number;
 
-  constructor(private materialService: MaterialService, public utilityService: UtilityService, private route: ActivatedRoute, private courseService: CourseService, private materialSevice: MaterialService, private subjectService: SubjectService) {
+  constructor(private materialService: MaterialService, public utilityService: UtilityService,
+              private route: ActivatedRoute, private courseService: CourseService, private materialSevice: MaterialService,
+              private subjectService: SubjectService) {
   }
 
   ngOnInit() {
@@ -48,27 +50,27 @@ export class SubjectDetailComponent implements OnInit {
 
   markAsFinish(subject: Subject) {
     this.subjectService.markAsFinish(subject, this.user).subscribe(resp => {
-      if (resp != 0) {
-        this.nextSubjectID=resp;
+      if (resp !== 0) {
+        this.nextSubjectID = resp;
         this.hasAnotherSubject = true;
         this.isSubjectFinished = true;
         console.log(this.hasAnotherSubject);
       } else {
         this.hasAnotherSubject = false;
       }
-      if (this.hasAnotherSubject == true)
-        this.modalMessage = "Subject finished! You can now see next subject!";
-      else {
-        this.modalMessage = "Course finished!";
+      if (this.hasAnotherSubject === true) {
+        this.modalMessage = 'Subject finished! You can now see next subject!';
+      } else {
+        this.modalMessage = 'Course finished!';
       }
 
-      this.utilityService.openModal("subjectFinished")
+      this.utilityService.openModal('subjectFinished');
     });
   }
 
 
-  downloadFile(idMaterial: number, titleMaterial: string): void {
-    var file: Blob;
-    this.materialSevice.getFileWithId(idMaterial).subscribe(url => window.open(url));
-  }
+  // downloadFile(idMaterial: number, titleMaterial: string): void {
+  //   const file: Blob;
+  //   this.materialSevice.getFileWithId(idMaterial).subscribe(url => window.open(url));
+  // }
 }

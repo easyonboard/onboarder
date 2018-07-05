@@ -24,6 +24,9 @@ public class Tutorial implements Serializable {
     @Column
     private String keywords;
 
+    @Column(columnDefinition="NUMBER(1)")
+    private Boolean isDraft;
+
     @ManyToMany(targetEntity = User.class)
     @JoinTable(name = "tutorial_contactPerson", joinColumns = @JoinColumn(name = "idTutorial"), inverseJoinColumns = @JoinColumn(name = "idUser"))
     private List<User> contactPersons;
@@ -97,5 +100,13 @@ public class Tutorial implements Serializable {
 
     public void setContactPersons(List<User> contactPersons) {
         this.contactPersons = contactPersons;
+    }
+
+    public Boolean getDraft() {
+        return isDraft;
+    }
+
+    public void setDraft(Boolean draft) {
+        isDraft = draft;
     }
 }

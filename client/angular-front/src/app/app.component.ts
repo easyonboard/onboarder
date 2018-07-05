@@ -52,6 +52,7 @@ export class AppComponent {
       localStorage.removeItem('userLoggedId');
       localStorage.removeItem('userRole');
       localStorage.removeItem('userFirstname');
+      localStorage.removeItem('msgMail');
 
       this.redirectToLoginPage();
     }

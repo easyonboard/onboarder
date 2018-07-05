@@ -3,18 +3,12 @@
 }
 
 #addComponent {
-    margin: auto;
-    width: 1350px;
-    height: 800px;
-    margin-top: 80px;
-    margin-bottom: 55px;
+    width: 80%;
+    height: 90%;
     border-radius: 12px;
-    padding-left: 50px;
-    padding-top: 30px;
-    align-items: center;
+
     border: #841439 solid 4px;
     box-shadow: 0 6px 10px 6px #cccccc inset;
-    position: relative;
 }
 
 .stepDiv {
@@ -50,10 +44,9 @@
 }
 
 .pageTitle {
-    font-size: 25px;
+    font-size: xx-large;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 20px;
 }
 
 table {
