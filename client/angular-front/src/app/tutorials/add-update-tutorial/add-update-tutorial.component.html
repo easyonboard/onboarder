@@ -1,14 +1,23 @@
 <div fxLayout="column" id="addComponent">
   <div fxFlex>
-    <div  *ngIf="!onUpdateTutorialMode" class="pageTitle"> Add tutorial</div>
-    <div *ngIf="onUpdateTutorialMode"  class="pageTitle"> Update tutorial</div>
+    <div *ngIf="!onUpdateTutorialMode" class="pageTitle">
+      Add tutorial
+    </div>
+    <div *ngIf="onUpdateTutorialMode" class="pageTitle">
+      <p>Update tutorial</p>
+      <mat-chip  *ngIf="tutorial.draft"
+                 [ngStyle]="{ backgroundColor: '#71ABFF'}"
+                 selected="true">Draft
+      </mat-chip>
+    </div>
   </div>
 
+
+
   <div fxFlex="80" fxFlexOffset="5" fxLayout="row" fxLayoutAlign="stretch">
-
     <div fxFlex="35" fxFlexOffset="5" fxLayoutAlign=" stretch">
-      <div fxFlex="row">
 
+      <div fxFlex="row">
         <div fxFlex fxLayout="row">
           <label fxFlex>Tutorial title</label>
           <input fxFlex class="form-control" type="text" id="tutorialTtile" name="Tutorial title"
@@ -84,12 +93,14 @@
                       (click)="openURL(material.link)">
               visibility
             </mat-icon>
-            <mat-icon *ngIf="materialType[material.materialType]===materialType['FILE'] && !material.idTutorialMaterial" matSuffix
+            <mat-icon *ngIf="materialType[material.materialType]===materialType['FILE'] && !material.idTutorialMaterial"
+                      matSuffix
                       (click)="openFile(position)">
               save_alt
             </mat-icon>
 
-            <mat-icon *ngIf="materialType[material.materialType]===materialType['FILE'] && material.idTutorialMaterial" matSuffix
+            <mat-icon *ngIf="materialType[material.materialType]===materialType['FILE'] && material.idTutorialMaterial"
+                      matSuffix
                       (click)="getFileWithId(material.idTutorialMaterial)">
               save_alt
             </mat-icon>
@@ -98,22 +109,26 @@
 
           <td>
             <mat-form-field>
-              <input matInput *ngIf="!material.idTutorialMaterial" type="text" placeholder="Title" [(ngModel)]="material.title" name="title" autofocus>
-              <input matInput *ngIf="material.idTutorialMaterial" type="text" placeholder="Title" [(ngModel)]="material.title" name="title" readonly >
+              <input matInput *ngIf="!material.idTutorialMaterial" type="text" placeholder="Title"
+                     [(ngModel)]="material.title" name="title" autofocus>
+              <input matInput *ngIf="material.idTutorialMaterial" type="text" placeholder="Title"
+                     [(ngModel)]="material.title" name="title" readonly>
             </mat-form-field>
           </td>
 
           <td>
             <mat-form-field>
-              <mat-select placeholder="Material type" [(value)]="material.materialType" *ngIf="!material.idTutorialMaterial">
+              <mat-select placeholder="Material type" [(value)]="material.materialType"
+                          *ngIf="!material.idTutorialMaterial">
                 <mat-option value="LINK" id="valueLink">Link</mat-option>
                 <mat-option value="FILE" id="valueFile">File</mat-option>
               </mat-select>
 
 
-              <mat-select placeholder="Material type" [(value)]="material.materialType" *ngIf="material.idTutorialMaterial" disabled>
-                <mat-option value="LINK" >Link</mat-option>
-                <mat-option value="FILE" >File</mat-option>
+              <mat-select placeholder="Material type" [(value)]="material.materialType"
+                          *ngIf="material.idTutorialMaterial" disabled>
+                <mat-option value="LINK">Link</mat-option>
+                <mat-option value="FILE">File</mat-option>
               </mat-select>
             </mat-form-field>
           </td>
@@ -127,7 +142,8 @@
           </td>
           <td *ngIf="materialType[material.materialType]===materialType['FILE'] ">
             <form>
-              <input *ngIf="!material.idTutorialMaterial" type="file" name="materialFile" id={{position}} accept="application/pdf"/>
+              <input *ngIf="!material.idTutorialMaterial" type="file" name="materialFile" id={{position}}
+                     accept="application/pdf"/>
             </form>
           </td>
 
@@ -149,17 +165,26 @@
       <!--</button>-->
 
       <button mat-raised-button color="basic" (click)="goBack()">
-        <mat-icon>cancel</mat-icon> Cancel
+        <mat-icon>cancel</mat-icon>
+        Cancel
       </button>
 
       <button mat-raised-button color="primary" (click)="saveAsDraft()">
-       <mat-icon>insert_drive_file</mat-icon> Save as draft
+        <mat-icon>insert_drive_file</mat-icon>
+        Save as draft
       </button>
       <button mat-raised-button color="primary" *ngIf="!onUpdateTutorialMode" (click)="addTutorial()">
-       <mat-icon>save</mat-icon> Save
+        <mat-icon>save</mat-icon>
+        Save
       </button>
-      <button mat-raised-button color="primary" *ngIf="onUpdateTutorialMode" (click)="updateTutorial()">
-        <mat-icon>save</mat-icon> Save
+      <button mat-raised-button color="primary" *ngIf="onUpdateTutorialMode && !tutorial.draft"
+              (click)="updateTutorial()">
+        <mat-icon>save</mat-icon>
+        Save
+      </button>
+      <button mat-raised-button color="primary" *ngIf="onUpdateTutorialMode && tutorial.draft" (click)="publishDraft()">
+        <mat-icon>save</mat-icon>
+        Publish
       </button>
 
 

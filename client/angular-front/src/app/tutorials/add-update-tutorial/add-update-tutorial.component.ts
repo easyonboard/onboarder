@@ -17,7 +17,7 @@ import {map} from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import {ActivatedRoute, Router} from '@angular/router';
-import { LocalStorageConst } from '../../util/LocalStorageConst';
+import {LocalStorageConst} from '../../util/LocalStorageConst';
 
 
 @Component({
@@ -259,7 +259,14 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  publishDraft() {
+    this.tutorial.draft = false;
+    this.updateTutorial();
+  }
+
   goBack() {
     history.go(-1);
   }
+
+
 }

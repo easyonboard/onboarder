@@ -27,7 +27,7 @@
                        matTooltipClass="tutorial-tooltip" #tooltipKeywords="matTooltip"
                        [matTooltip]="tutorial_keywords_msg">
           <mat-chip *ngFor="let keyword of tutorial.keywords.split(' ')" [selectable]="selectable"
-                    (click)="searchByKeyword(keyword)">{{keyword}}
+                    (click)="searchByKeyword(keyword)">{{ keyword }}
           </mat-chip>
         </mat-chip-list>
         <div id="buttonDelete" fxFlex="" fxLayoutAlign="end start" matTooltipPosition="right"
@@ -42,9 +42,10 @@
       <mat-card-title routerLink="/tutorials/{{tutorial.idTutorial}}" matTooltipPosition="right"
                       matTooltipClass="tutorial-tooltip" #tooltipTitle="matTooltip" [matTooltip]="tutorial_title_msg">
         <label> Title: </label>
-        {{tutorial.titleTutorial}}
+       {{ tutorial.titleTutorial}}
 
-        <mat-chip *ngIf="tutorial.draft" color="primary" [ngStyle]="{ backgroundColor: '#71ABFF', float:'right' }"
+        <mat-chip *ngIf="tutorial.draft"
+                  [ngStyle]="{ backgroundColor: '#71ABFF', float:'right' }"
                   selected="true">Draft
         </mat-chip>
         <mat-divider></mat-divider>
@@ -53,7 +54,7 @@
       <mat-card-content *ngIf="tutorial.overview" class="overview" routerLink="/tutorials/{{tutorial.idTutorial}}"
                         matTooltipPosition="right" matTooltipClass="tutorial-tooltip" #tooltipOverview="matTooltip"
                         [matTooltip]="tutorial_overview_msg">
-        <label>Overview: </label> {{tutorial.overview.substring(0,550)}}
+        <label>Overview: </label> {{ tutorial.overview.substring(0,550) }}
       </mat-card-content>
 
 

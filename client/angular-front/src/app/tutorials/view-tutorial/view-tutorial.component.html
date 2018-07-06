@@ -25,11 +25,17 @@
     </div>
 
     <div fxLayout="row" *ngIf="tutorial.titleTutorial" fxLayoutAlign="center center">
-      <div fxFlex="25"></div>
+      <div fxFlex="20" fxFlexOffset="5">
+        <mat-chip *ngIf="tutorial.draft"
+                  [ngStyle]="{ backgroundColor: '#71ABFF', float:'left' }"
+                  selected="true">Draft
+        </mat-chip>
+      </div>
       <div id="titleDiv" fxFlex="50" fxLayoutAlign="center center">
         {{tutorial.titleTutorial}}
       </div>
-      <div fxFlex></div>
+      <div fxFlex>
+      </div>
     </div>
 
     <div fxLayout="row" style="margin-top: 5%; margin-left: 2%" *ngIf="tutorial.overview">

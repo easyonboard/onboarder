@@ -137,8 +137,8 @@ export class TutorialsComponent implements AfterViewChecked {
     // tslint:disable-next-line:no-debugger
     debugger;
 
-    let index = event.pageIndex;
-    let pageSize = event.pageSize;
+    const index = event.pageIndex;
+    const pageSize = event.pageSize;
     let indexList = index * pageSize;
     for (indexList; indexList < (index + 1) * pageSize; indexList++) {
       // tslint:disable-next-line:curly
