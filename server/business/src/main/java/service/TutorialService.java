@@ -48,8 +48,8 @@ public class TutorialService {
     }
 
     private List<User> getUsersByIds(List<Integer> contactPersonsIds) {
-        List<User> users= new ArrayList<>();
-        for (Integer id:contactPersonsIds) {
+        List<User> users = new ArrayList<>();
+        for (Integer id : contactPersonsIds) {
             users.add(userDAO.findEntity(id));
         }
         return users;
@@ -84,8 +84,8 @@ public class TutorialService {
     }
 
     public List<TutorialMaterialDTO> getAllMaterialsForTutorial(Integer idTutorial) {
-        List<TutorialMaterialDTO> tutorialMaterialDTOS= new ArrayList<>();
-        for(TutorialMaterial tutorialMaterial: tutorialDAO.findTutorialById(idTutorial).getTutorialMaterials()){
+        List<TutorialMaterialDTO> tutorialMaterialDTOS = new ArrayList<>();
+        for (TutorialMaterial tutorialMaterial : tutorialDAO.findTutorialById(idTutorial).getTutorialMaterials()) {
             tutorialMaterialDTOS.add(tutorialMaterialMapper.mapToDTO(tutorialMaterial));
         }
         return tutorialMaterialDTOS;
@@ -93,8 +93,15 @@ public class TutorialService {
 
     public List<TutorialDTO> deleteTutorial(TutorialDTO tutorial) {
 
-        Tutorial entity=tutorialDAO.findEntity(tutorial.getIdTutorial());
+        Tutorial entity = tutorialDAO.findEntity(tutorial.getIdTutorial());
         tutorialDAO.deleteEntity(entity);
-        return getAllTutorials() ;
+        return getAllTutorials();
+    }
+
+    public TutorialDTO updateTutorial(TutorialDTO tutorialDTO, List<Integer> contactPersons) {
+        Tutorial tutorial = new Tutorial();
+        tutorialMapper.mapToEntity(tutorialDTO, tutorial);
+        tutorial.setContactPersons(getUsersByIds(contactPersons));
+        return tutorialMapper.mapToDTO(tutorialDAO.update(tutorial));
     }
 }

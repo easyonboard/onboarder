@@ -39,11 +39,11 @@ public class TutorialController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/tutorials/addTutorial", method = RequestMethod.POST)
-    public ResponseEntity addTutorial(@RequestBody String courseJson) {
+    public ResponseEntity addTutorial(@RequestBody String tutorialJSON) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             JsonNode node = null;
-            node = mapper.readTree(courseJson);
+            node = mapper.readTree(tutorialJSON);
             TutorialDTO tutorialDTO = mapper.convertValue(node.get("tutorial"), TutorialDTO.class);
             tutorialDTO.setDraft(false);
             List<Integer> contactPersons = mapper.convertValue(node.get("contactPersons"), List.class);
@@ -105,4 +105,24 @@ public class TutorialController {
     public ResponseEntity<List<TutorialDTO>> deleteTutorial(@RequestBody TutorialDTO tutorial) {
         return new ResponseEntity<>(tutorialService.deleteTutorial(tutorial), HttpStatus.OK);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/tutorials/update", method = RequestMethod.POST)
+    public ResponseEntity updateTutorial(@RequestBody String tutorialJSON) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            JsonNode node = null;
+            node = mapper.readTree(tutorialJSON);
+            TutorialDTO tutorialDTO = mapper.convertValue(node.get("tutorial"), TutorialDTO.class);
+            tutorialDTO.setDraft(false);
+            List<Integer> contactPersons = mapper.convertValue(node.get("contactPersons"), List.class);
+
+            return new ResponseEntity(tutorialService.updateTutorial(tutorialDTO, contactPersons), HttpStatus.OK);
+        } catch (InvalidDataException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        } catch (IOException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

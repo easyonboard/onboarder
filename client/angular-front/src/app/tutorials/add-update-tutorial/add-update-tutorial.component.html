@@ -1,6 +1,7 @@
 <div fxLayout="column" id="addComponent">
   <div fxFlex>
-    <div class="pageTitle"> Add tutorial</div>
+    <div  *ngIf="!onUpdateTutorialMode" class="pageTitle"> Add tutorial</div>
+    <div *ngIf="onUpdateTutorialMode"  class="pageTitle"> Update tutorial</div>
   </div>
 
   <div fxFlex="80" fxFlexOffset="5" fxLayout="row" fxLayoutAlign="stretch">
@@ -83,41 +84,54 @@
                       (click)="openURL(material.link)">
               visibility
             </mat-icon>
-            <mat-icon *ngIf="materialType[material.materialType]===materialType['FILE']" matSuffix
+            <mat-icon *ngIf="materialType[material.materialType]===materialType['FILE'] && !material.idTutorialMaterial" matSuffix
                       (click)="openFile(position)">
               save_alt
             </mat-icon>
-            <mat-icon matSuffix (click)="deleteMaterial(position)">delete</mat-icon>
+
+            <mat-icon *ngIf="materialType[material.materialType]===materialType['FILE'] && material.idTutorialMaterial" matSuffix
+                      (click)="getFileWithId(material.idTutorialMaterial)">
+              save_alt
+            </mat-icon>
+            <mat-icon matSuffix (click)="removeMaterialFromUI(position)">delete</mat-icon>
           </th>
 
           <td>
             <mat-form-field>
-              <input matInput type="text" placeholder="Title" [(ngModel)]="material.title" name="title" autofocus>
+              <input matInput *ngIf="!material.idTutorialMaterial" type="text" placeholder="Title" [(ngModel)]="material.title" name="title" autofocus>
+              <input matInput *ngIf="material.idTutorialMaterial" type="text" placeholder="Title" [(ngModel)]="material.title" name="title" readonly >
             </mat-form-field>
           </td>
-          <!--<th *ngIf="material.materialType">{{material.materialType}}</th>-->
-          <!--<th *ngIf="!material.materialType">-->
+
           <td>
             <mat-form-field>
-              <mat-select placeholder="Material type" [(value)]="material.materialType">
+              <mat-select placeholder="Material type" [(value)]="material.materialType" *ngIf="!material.idTutorialMaterial">
                 <mat-option value="LINK" id="valueLink">Link</mat-option>
                 <mat-option value="FILE" id="valueFile">File</mat-option>
+              </mat-select>
+
+
+              <mat-select placeholder="Material type" [(value)]="material.materialType" *ngIf="material.idTutorialMaterial" disabled>
+                <mat-option value="LINK" >Link</mat-option>
+                <mat-option value="FILE" >File</mat-option>
               </mat-select>
             </mat-form-field>
           </td>
 
-          <td *ngIf="materialType[material.materialType]===materialType['LINK']">
+          <td *ngIf="materialType[material.materialType]===materialType['LINK'] && !material.idTutorialMaterial">
             <form>
               <mat-form-field>
                 <input matInput placeholder="Link" [(ngModel)]="material.link" name="link">
               </mat-form-field>
             </form>
           </td>
-          <td *ngIf="materialType[material.materialType]===materialType['FILE']">
+          <td *ngIf="materialType[material.materialType]===materialType['FILE'] ">
             <form>
-              <input type="file" name="materialFile" id={{position}} accept="application/pdf"/>
+              <input *ngIf="!material.idTutorialMaterial" type="file" name="materialFile" id={{position}} accept="application/pdf"/>
             </form>
           </td>
+
+
         </tr>
 
 
@@ -129,11 +143,16 @@
 
   <div fxFlex fxLayout="row">
 
-    <div fxFlex fxFlexOffset="85">
-      <button type="button" class="btn btn-default" data-dismiss="modal">
+    <div fxFlex fxFlexOffset="90" id="buttons">
+      <!--<button type="button" class="btn btn-default" data-dismiss="modal">-->
 
+      <!--</button>-->
+      <button mat-raised-button color="primary" *ngIf="!onUpdateTutorialMode" (click)="addTutorial()">
+        <span class="fa fa-caret-square-o-right"></span> Save
       </button>
-      <button (click)="addTutorial()"><span class="fa fa-caret-square-o-right"></span> Save</button>
+      <button mat-raised-button color="primary" *ngIf="onUpdateTutorialMode" (click)="updateTutorial()">
+        <span class="fa fa-caret-square-o-right"></span> Save
+      </button>
     </div>
   </div>
 

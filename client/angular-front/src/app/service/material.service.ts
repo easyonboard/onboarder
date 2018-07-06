@@ -13,7 +13,6 @@ export class MaterialService {
   private rootConst: RootConst = new RootConst();
   private addMaterialURL = this.rootConst.SERVER_ADD_MATERIAL;
   private addTutorialMaterialURL = this.rootConst.SERVER_ADD_TUTORIAL_MATERIAL;
-  private findMaterialById = this.rootConst.SERVER_FIND_MATERIAL_BY_ID;
   private allMaterialsUploadedByThisUser = this.rootConst.SERVER_MATERIALS_UPLOADED_BY_USE;
   private getMaterialsFromSubject: string = this.rootConst.SERVER_MATERIALS_FROM_SUBJECT;
 
@@ -36,7 +35,7 @@ export class MaterialService {
     return request.send(formData);
   }
 
-  addMaterialToTutorial(material: TutorialMaterialDTO, file: File, idTutorial: number):any {
+  addMaterialToTutorial(material: TutorialMaterialDTO, file: File, idTutorial: number): any {
     const formData = new FormData();
     formData.append('material', JSON.stringify(material));
     formData.append('file', file);
@@ -69,4 +68,7 @@ export class MaterialService {
   }
 
 
+  deleteMaterialWithId(idMaterial: number): Observable<any> {
+    return this.http.get(`${this.rootConst.SERVER_DELETE_MATERIAL}${idMaterial}`);
+  }
 }

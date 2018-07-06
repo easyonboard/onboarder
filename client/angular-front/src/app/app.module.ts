@@ -45,7 +45,7 @@ import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update
 import {DialogEditProfileComponent} from './common/DialogEditProfile/dialog-edit-profile.component';
 import { TutorialsComponent } from './tutorials/tutorials.component';
 import { DialogLeaveCheckListComponent } from './common/DialogLeaveCheckList/dialog-leave-check-list.component';
-import { AddTutorialComponent } from './tutorials/add-tutorial/add-tutorial.component';
+import { AddUpdateTutorialComponent } from './tutorials/add-update-tutorial/add-update-tutorial.component';
 import { AddEventComponent } from './events/add-event/add-event.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {TutorialService} from './service/tutorial.service';
@@ -80,13 +80,12 @@ import {Ng2OrderPipe} from 'ng2-order-pipe';
     UsersInDepartmentListComponent,
     DialogEditProfileComponent,
     TutorialsComponent,
-    AddTutorialComponent,
+    AddUpdateTutorialComponent,
     AddEventComponent,
     DialogLeaveCheckListComponent,
     ViewTutorialComponent,
     EventsComponent,
     AddEventComponent,
-    Ng2OrderPipe
   ],
   imports: [
     NgMultiSelectDropDownModule,
