@@ -18,8 +18,8 @@
       </div>
 
       <div fxFlex="5" class="editIcon" *ngIf="userCanEditThisTutorial()">
-        <button mat-button>
-          <mat-icon matTooltip="Edit tutorial" (click)="redirectToUpdateTutorial(tutorial.idTutorial)">edit</mat-icon>
+        <button mat-button (click)="redirectToUpdateTutorial(tutorial.idTutorial)">
+          <mat-icon matTooltip="Edit tutorial" >edit</mat-icon>
         </button>
       </div>
     </div>

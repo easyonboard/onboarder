@@ -44,7 +44,6 @@ public class TutorialController {
             JsonNode node = null;
             node = mapper.readTree(tutorialJSON);
             TutorialDTO tutorialDTO = mapper.convertValue(node.get("tutorial"), TutorialDTO.class);
-            tutorialDTO.setDraft(false);
             List<Integer> contactPersons = mapper.convertValue(node.get("contactPersons"), List.class);
 
             return new ResponseEntity(tutorialService.addTutorial(tutorialDTO, contactPersons), HttpStatus.OK);
@@ -113,7 +112,6 @@ public class TutorialController {
             JsonNode node = null;
             node = mapper.readTree(tutorialJSON);
             TutorialDTO tutorialDTO = mapper.convertValue(node.get("tutorial"), TutorialDTO.class);
-            tutorialDTO.setDraft(false);
             List<Integer> contactPersons = mapper.convertValue(node.get("contactPersons"), List.class);
 
             return new ResponseEntity(tutorialService.updateTutorial(tutorialDTO, contactPersons), HttpStatus.OK);

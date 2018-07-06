@@ -63,7 +63,7 @@ public class TutorialDAO extends AbstractDAO<Tutorial> {
         } catch (NoResultException e) {
         }
     }
-
+//
 //    public List<Tutorial> getTutorialsWhereUserIsContactPerson(User user) {
 //        Query query = em.createQuery(
 //                "select distinct t " +

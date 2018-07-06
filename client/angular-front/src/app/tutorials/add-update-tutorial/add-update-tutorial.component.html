@@ -143,16 +143,26 @@
 
   <div fxFlex fxLayout="row">
 
-    <div fxFlex fxFlexOffset="90" id="buttons">
+    <div fxFlex fxFlexOffset="75" id="buttons">
       <!--<button type="button" class="btn btn-default" data-dismiss="modal">-->
 
       <!--</button>-->
+
+      <button mat-raised-button color="basic" (click)="goBack()">
+        <mat-icon>cancel</mat-icon> Cancel
+      </button>
+
+      <button mat-raised-button color="primary" (click)="saveAsDraft()">
+       <mat-icon>insert_drive_file</mat-icon> Save as draft
+      </button>
       <button mat-raised-button color="primary" *ngIf="!onUpdateTutorialMode" (click)="addTutorial()">
-        <span class="fa fa-caret-square-o-right"></span> Save
+       <mat-icon>save</mat-icon> Save
       </button>
       <button mat-raised-button color="primary" *ngIf="onUpdateTutorialMode" (click)="updateTutorial()">
-        <span class="fa fa-caret-square-o-right"></span> Save
+        <mat-icon>save</mat-icon> Save
       </button>
+
+
     </div>
   </div>
 

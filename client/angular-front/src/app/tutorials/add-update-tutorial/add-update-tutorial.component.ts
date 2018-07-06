@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, AfterViewChecked, ViewEncapsulation} from '@angular/core';
+import {AfterViewChecked, Component, Inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 import {MatChipInputEvent, MatSnackBar} from '@angular/material';
 import {DOCUMENT, Location} from '@angular/common';
@@ -13,10 +13,12 @@ import {TutorialService} from '../../service/tutorial.service';
 import {MaterialService} from '../../service/material.service';
 import {RootConst} from '../../util/RootConst';
 
+import {map} from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import {ActivatedRoute, Router} from '@angular/router';
 import { LocalStorageConst } from '../../util/LocalStorageConst';
+
 
 @Component({
   selector: 'app-add-tutorial',
@@ -42,6 +44,7 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
   public tutorialErrorMessage: string;
   public separatorKeysCodes = [ENTER, COMMA, SPACE];
   public onUpdateTutorialMode = false;
+  private tutorialId: number = null;
 
   public show;
 
@@ -52,15 +55,15 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
               @Inject(DOCUMENT) private document: any,
               public snackBar: MatSnackBar,
               private route: ActivatedRoute) {
+    this.tutorialId = +this.route.snapshot.paramMap.get('id');
     this.show = LocalStorageConst.IS_DEMO_ENABLED;
   }
 
+
   ngOnInit() {
     this.getUsers();
-    if (this.route.snapshot.paramMap.get('id')) {
+    if (this.tutorialId) {
       this.getTutorialInformation();
-    } else {
-      this.setCurrentUserAsContactPerson();
     }
     this.dropdownSettings = {
       singleSelection: false,
@@ -94,6 +97,9 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
   private getUsers() {
     this.userService.getAllUsers().subscribe(us => {
       this.usersOptions = us;
+      if (!this.tutorialId) {
+        this.setCurrentUserAsContactPerson();
+      }
     });
   }
 
@@ -119,13 +125,15 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
   }
 
   private addMaterials() {
-    for (const material of this.materialsForCurrentTutorial) {
-      if (!material.idTutorialMaterial) {
-        if (material.materialType.valueOf().toString() === MaterialType[MaterialType.LINK].toString()) {
-          this.materialService.addMaterialToTutorial(material, null, this.tutorial.idTutorial);
-        } else {
-          this.materialService.addMaterialToTutorial(material, this.files[0], this.tutorial.idTutorial);
-          this.files.splice(0, 1);
+    if (this.materialsForCurrentTutorial.length > 0) {
+      for (const material of this.materialsForCurrentTutorial) {
+        if (!material.idTutorialMaterial) {
+          if (material.materialType.valueOf().toString() === MaterialType[MaterialType.LINK].toString()) {
+            this.materialService.addMaterialToTutorial(material, null, this.tutorial.idTutorial);
+          } else {
+            this.materialService.addMaterialToTutorial(material, this.files[0], this.tutorial.idTutorial);
+            this.files.splice(0, 1);
+          }
         }
       }
     }
@@ -242,4 +250,16 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  saveAsDraft() {
+    this.tutorial.draft = true;
+    if (this.tutorial.idTutorial) {
+      this.updateTutorial();
+    } else {
+      this.addTutorial();
+    }
+  }
+
+  goBack() {
+    history.go(-1);
+  }
 }

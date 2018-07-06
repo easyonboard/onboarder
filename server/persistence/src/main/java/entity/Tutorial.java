@@ -24,7 +24,7 @@ public class Tutorial implements Serializable {
     @Column
     private String keywords;
 
-    @Column(columnDefinition="NUMBER(1)")
+    @Column(columnDefinition="NUMBER(1) default '0'")
     private Boolean isDraft;
 
     @ManyToMany(targetEntity = User.class)
