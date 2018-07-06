@@ -26,6 +26,7 @@ const routes: Routes = [
   {path: 'courses/detailedCourse/:id/subject/:idSubject', component: SubjectDetailComponent},
   {path: 'userinfo', component: UserInfoFormularComponent},
   {path: 'tutorials', component: TutorialsComponent},
+  {path: 'tutorials/draft', component: TutorialsComponent},
   {path: 'tutorials/keywords/:keyword', component: TutorialsComponent},
   {path: 'tutorials/addTutorialRouterLink', component: AddUpdateTutorialComponent},
   {path: 'tutorials/addTutorialRouterLink/:id', component: AddUpdateTutorialComponent},

@@ -4,8 +4,8 @@ import {TutorialDTO} from '../domain/tutorial';
 import {TutorialService} from '../service/tutorial.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PageEvent, MatTooltip} from '@angular/material';
-import { TooltipConst } from '../util/TooltipConst';
-import { LocalStorageConst } from '../util/LocalStorageConst';
+import {TooltipConst} from '../util/TooltipConst';
+import {LocalStorageConst} from '../util/LocalStorageConst';
 
 @Component({
   selector: 'app-tutorials',
@@ -51,15 +51,23 @@ export class TutorialsComponent implements AfterViewChecked {
 
     this.route.params.subscribe(params => {
       this.tutorialsPerPage = [];
-
       const keyword = params['keyword'];
       if (keyword) {
-        this.tutorialService.searchByKeyword(keyword).subscribe(tutorials => {this.tutorials = tutorials;
+        this.tutorialService.searchByKeyword(keyword).subscribe(tutorials => {
+          this.tutorials = tutorials;
+          this.initTutorialsPerPageList();
+          this.length = this.tutorials.length;
+        });
+      } else if (this.router.url.indexOf('draft') >= 0) {
+        const userId = +localStorage.getItem('userLoggedId');
+        tutorialService.getDraftsTutorialsForUser(userId).subscribe(tutorials => {
+          this.tutorials = tutorials;
           this.initTutorialsPerPageList();
           this.length = this.tutorials.length;
         });
       } else {
-        tutorialService.getTutorials().subscribe(tutorials => {this.tutorials = tutorials;
+        tutorialService.getTutorials().subscribe(tutorials => {
+          this.tutorials = tutorials;
           this.initTutorialsPerPageList();
           this.length = this.tutorials.length;
         });
@@ -140,7 +148,7 @@ export class TutorialsComponent implements AfterViewChecked {
   }
 
   public initTutorialsPerPageList() {
-    for (let indexList = 0; indexList <  this.pageSize; indexList++) {
+    for (let indexList = 0; indexList < this.pageSize; indexList++) {
       // tslint:disable-next-line:curly
       if (this.tutorials[indexList] != null)
         this.tutorialsPerPage.push(this.tutorials[indexList]);

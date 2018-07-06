@@ -103,4 +103,8 @@ public class TutorialService {
         tutorial.setContactPersons(getUsersByIds(contactPersons));
         return tutorialMapper.mapToDTO(tutorialDAO.update(tutorial));
     }
+
+    public List<TutorialDTO> allDraftTutorialsForUser(Integer idUser) {
+        return tutorialMapper.entitiesToDTOs(tutorialDAO.getAllDraftTutorialsForUser(userDAO.findEntity(idUser)));
+    }
 }

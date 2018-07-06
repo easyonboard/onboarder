@@ -243,4 +243,8 @@ export class AppComponent implements AfterViewChecked {
   redirectToAddEventPage() {
     this.router.navigate(['/events/addEventRouterLink']);
   }
+
+  redirectToDraftPage() {
+    this.router.navigate(['/tutorials/draft']);
+  }
 }

@@ -12,7 +12,6 @@ import {MaterialService} from '../../service/material.service';
 export class ViewTutorialComponent implements OnInit {
   private tutorialId: number;
   public tutorial: TutorialDTO;
-  public loadEditTutorial = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,

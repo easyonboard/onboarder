@@ -74,7 +74,7 @@ public class TutorialController {
         return null;
     }
 
-    @CrossOrigin(origins="http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "materialTutorial", method = RequestMethod.GET, produces = "application/pdf")
     public @ResponseBody
     byte[] getMaterialById(@RequestParam(value = "id") Integer id, HttpServletResponse response) {
@@ -121,5 +121,12 @@ public class TutorialController {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/tutorials/draft", method = RequestMethod.GET)
+    public ResponseEntity<List<TutorialDTO>> allDraftTutorialsForUser(@RequestParam(value = "idUser", required = false) Integer idUser) {
+        return new ResponseEntity<>(tutorialService.allDraftTutorialsForUser(idUser), HttpStatus.OK);
+    }
+
 
 }

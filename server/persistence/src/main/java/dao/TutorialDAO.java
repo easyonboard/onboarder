@@ -63,7 +63,13 @@ public class TutorialDAO extends AbstractDAO<Tutorial> {
         } catch (NoResultException e) {
         }
     }
-//
+
+    public List<Tutorial> getAllDraftTutorialsForUser(User user){
+        Query query = em.createQuery("SELECT t FROM Tutorial t where t.isDraft=true and :user member of t.contactPersons");
+        query.setParameter("user", user);
+        return query.getResultList();
+
+    }
 //    public List<Tutorial> getTutorialsWhereUserIsContactPerson(User user) {
 //        Query query = em.createQuery(
 //                "select distinct t " +
