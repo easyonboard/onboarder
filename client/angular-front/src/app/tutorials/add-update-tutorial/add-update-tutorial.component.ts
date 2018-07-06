@@ -18,7 +18,6 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import {ActivatedRoute, Router} from '@angular/router';
 
-
 @Component({
   selector: 'app-add-tutorial',
   templateUrl: './add-update-tutorial.component.html',

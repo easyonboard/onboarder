@@ -18,7 +18,6 @@ import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ScrollEventModule} from 'ngx-scroll-event';
 import {StarRatingModule} from 'angular-star-rating';
-
 import {
   MatProgressSpinnerModule, MatChipsModule, MatIconModule, MatFormFieldModule, MatProgressBarModule,
   MatDialogModule, MatGridListModule, MatCardModule, MatTooltipModule, MatButtonModule, MatListModule, MatTableModule,
@@ -35,12 +34,9 @@ import {ToDoListForBuddyComponent} from './common/DialogToDoListForBuddy/dialog-
 import {DialogEnrolledCoursesForUserComponent} from './common/DialogEnrolledCoursesForUser/dialog-enrolled-courses-for-user.component';
 import {DialogCheckListComponent} from './common/DialogCheckList/dialog-check-list.component';
 import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-employee.component';
-
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 import {DialogDeleteUsersComponent} from './common/DialogDeleteUsers/dialog-delete-users.component';
-
 import {ExcelService} from './service/excel.service';
-
 import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
 import {DialogEditProfileComponent} from './common/DialogEditProfile/dialog-edit-profile.component';
 import { TutorialsComponent } from './tutorials/tutorials.component';
@@ -68,7 +64,6 @@ import {Ng2OrderPipe} from 'ng2-order-pipe';
     UserInfoFormularComponent,
     GeneralInfosComponent,
     UserAddComponent,
-
     //  dialogs
     DialogCheckListComponent,
     DialogEnrolledCoursesForUserComponent,
@@ -136,11 +131,11 @@ import {Ng2OrderPipe} from 'ng2-order-pipe';
     UserInfoUpdateComponent,
     UserInfoFormularComponent,
     DialogEditProfileComponent
-
   ],
   providers: [CourseService, UserService, UtilityService, MaterialService, SubjectService, ReviewService,
     UserInformationService, CommonComponentsService, ExcelService, TutorialService, EventService, LocationService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }
