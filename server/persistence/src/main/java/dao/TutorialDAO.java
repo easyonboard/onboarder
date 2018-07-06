@@ -64,22 +64,22 @@ public class TutorialDAO extends AbstractDAO<Tutorial> {
         }
     }
 
-    public List<Tutorial> getTutorialsWhereUserIsContactPerson(User user) {
-        Query query = em.createQuery(
-                "select distinct t " +
-                        "from Tutorial t " +
-                        "where :user member of t.contactPersons ");
-        query.setParameter("user", user);
-        try {
-            List<Tutorial> tutorialsList = query.getResultList();
-            for (int i = 0; i < tutorialsList.size(); i++) {
-                tutorialsList.get(i).getContactPersons().remove(user);
-                persistEntity(tutorialsList.get(i));
-            }
-
-        } catch (NoResultException e) {
-        }
-
-    }
+//    public List<Tutorial> getTutorialsWhereUserIsContactPerson(User user) {
+//        Query query = em.createQuery(
+//                "select distinct t " +
+//                        "from Tutorial t " +
+//                        "where :user member of t.contactPersons ");
+//        query.setParameter("user", user);
+//        try {
+//            List<Tutorial> tutorialsList = query.getResultList();
+//            for (int i = 0; i < tutorialsList.size(); i++) {
+//                tutorialsList.get(i).getContactPersons().remove(user);
+//                persistEntity(tutorialsList.get(i));
+//            }
+//
+//        } catch (NoResultException e) {
+//        }
+//
+//    }
 
 }

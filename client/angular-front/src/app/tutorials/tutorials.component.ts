@@ -70,35 +70,47 @@ export class TutorialsComponent implements AfterViewChecked {
   ngAfterViewChecked() {
     this.show = LocalStorageConst.IS_DEMO_ENABLED;
 
-    if (this.tooltipPaginator !== undefined && this.show === true) {
-      this.tooltipPaginator.disabled = false;
-    } else {
-      this.tooltipPaginator.disabled = true;
+    if (this.tooltipPaginator !== undefined) {
+      if (this.show === true) {
+        this.tooltipPaginator.disabled = false;
+      } else {
+        this.tooltipPaginator.disabled = true;
+      }
     }
-    if (this.tooltipTitle !== undefined && this.show === true) {
-      this.tooltipTitle.disabled = false;
-    } else {
-      this.tooltipTitle.disabled = true;
+    if (this.tooltipTitle !== undefined) {
+      if (this.show === true) {
+        this.tooltipTitle.disabled = false;
+      } else {
+        this.tooltipTitle.disabled = true;
+      }
     }
-    if (this.tooltipKeywords !== undefined && this.show === true) {
-      this.tooltipKeywords.disabled = false;
-    } else {
-      this.tooltipKeywords.disabled = true;
+    if (this.tooltipKeywords !== undefined) {
+      if (this.show === true) {
+        this.tooltipKeywords.disabled = false;
+      } else {
+        this.tooltipKeywords.disabled = true;
+      }
     }
-    if (this.tooltipOverview !== undefined && this.show === true) {
-      this.tooltipOverview.disabled = false;
-    } else {
-      this.tooltipOverview.disabled = true;
+    if (this.tooltipOverview !== undefined) {
+      if (this.show === true) {
+        this.tooltipOverview.disabled = false;
+      } else {
+        this.tooltipOverview.disabled = true;
+      }
     }
-    if (this.tooltipTutorial !== undefined && this.show === true) {
-      this.tooltipTutorial.disabled = false;
-    } else {
-      this.tooltipTutorial.disabled = true;
+    if (this.tooltipTutorial !== undefined) {
+      if (this.show === true) {
+        this.tooltipTutorial.disabled = false;
+      } else {
+        this.tooltipTutorial.disabled = true;
+      }
     }
-    if (this.tooltipDelete !== undefined && this.show === true) {
-      this.tooltipDelete.disabled = false;
-    } else {
-      this.tooltipDelete.disabled = true;
+    if (this.tooltipDelete !== undefined) {
+      if (this.show === true) {
+        this.tooltipDelete.disabled = false;
+      } else {
+        this.tooltipDelete.disabled = true;
+      }
     }
   }
 
