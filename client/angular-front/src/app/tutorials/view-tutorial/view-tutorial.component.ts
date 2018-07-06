@@ -27,8 +27,7 @@ export class ViewTutorialComponent implements OnInit {
       //   materials => {
       //     this.tutorial.tutorialMaterials = materials;
       //   }
-      // )
-      ;
+      // );
     });
   }
 

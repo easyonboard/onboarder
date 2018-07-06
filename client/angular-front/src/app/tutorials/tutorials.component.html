@@ -1,4 +1,4 @@
-<button mat-button (click)="disablePopups()" *ngIf="popups_visible" class="gotit-button">Got it</button>
+<!-- <button mat-button (click)="disablePopups()" *ngIf="popups_visible" class="gotit-button">Got it</button> -->
 
 <mat-paginator style="margin-left: 80%" matTooltipClass="paginator-tooltip" #tooltipPaginator="matTooltip" [matTooltip]="paginator_msg" mat [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getServerData($event)">
 </mat-paginator>

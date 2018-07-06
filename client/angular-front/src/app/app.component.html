@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <div class="modal" id="myCustom">
-
     <div class="modal-content">
         <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
         <br/> {{successMessage}}
@@ -20,10 +19,10 @@
 
         <div fxFlex="20" fxFlexAlign="start center">
             <div fxFlexOffset="5" fxFlexAlign="start">
-                <button (click)="toggleTutorialMode()" *ngIf="show" id="generalPopupTutorial" #tooltipShowTutorial="matTooltip" [matTooltip]="show_popup_tutorial_msg" matTooltipClass="menu-tooltip">
+                <button (click)="toggleTutorialMode()" *ngIf="!show" id="generalPopupTutorial" #tooltipShowTutorial="matTooltip" [matTooltip]="show_popup_tutorial_msg" matTooltipClass="menu-tooltip">
                     <i class="fa fa-bookmark" style="margin-right: 10%"></i>
                 </button>
-                <button (click)="toggleTutorialMode()" *ngIf="!show" id="generalPopupTutorial" #tooltipHideTutorial="matTooltip" [matTooltip]="hide_popup_tutorial_msg" matTooltipClass="menu-tooltip">
+                <button (click)="toggleTutorialMode()" *ngIf="show" id="generalPopupTutorial" #tooltipHideTutorial="matTooltip" [matTooltip]="hide_popup_tutorial_msg" matTooltipClass="menu-tooltip">
                     <i class="fa fa-bookmark-o" style="margin-right: 10%"></i>
                 </button>
             </div>
@@ -35,7 +34,7 @@
             </div>
 
             <div fxFlexOffset="5" fxFlexAlign="center">
-                <button (click)="redirectToGeneralInfosPage()" title="General information" id="generalInfo" #tooltipHome="matTooltip" [matTooltip]="info_msg" matTooltipClass="menu-tooltip">
+                <button (click)="redirectToGeneralInfosPage()" title="General information" id="generalInfo" #tooltipInfo="matTooltip" [matTooltip]="info_msg" matTooltipClass="menu-tooltip">
                 <i class="fa fa-info" style="margin-right: 10%"></i>
                 </button>
             </div>
@@ -45,7 +44,7 @@
 
         <div fxFlex fxLayout="row" fxFlexAlign="end end" *ngIf="userIsLogged()==true">
             <div fxFlex fxLayout="row">
-                <button mat-button [matMenuTriggerFor]="tutorials" class="menuItemButton" #tooltipHome="matTooltip" [matTooltip]="tutorials_msg" matTooltipClass="menu-tooltip">
+                <button mat-button [matMenuTriggerFor]="tutorials" class="menuItemButton" #tooltipTutorials="matTooltip" [matTooltip]="tutorials_msg" matTooltipClass="menu-tooltip">
           Tutorials
           <span class="caret" style="margin-left: 3px"></span>
         </button>
@@ -58,7 +57,7 @@
             </div>
 
             <div fxFlex fxLayout="row">
-                <button mat-button [matMenuTriggerFor]="events" class="menuItemButton" #tooltipHome="matTooltip" [matTooltip]="events_msg" matTooltipClass="menu-tooltip">
+                <button mat-button [matMenuTriggerFor]="events" class="menuItemButton" #tooltipEvents="matTooltip" [matTooltip]="events_msg" matTooltipClass="menu-tooltip">
           Events
           <span class="caret" style="margin-left: 3px"></span>
         </button>
@@ -72,7 +71,7 @@
 
 
             <div *ngIf="userManagementPermission()" fxFlex fxLayout="row">
-                <button mat-button [matMenuTriggerFor]="userManagement" class="menuItemButton" #tooltipHome="matTooltip" [matTooltip]="management_msg" matTooltipPosition="left" matTooltipClass="menu-tooltip">
+                <button mat-button [matMenuTriggerFor]="userManagement" class="menuItemButton" #tooltipManagement="matTooltip" [matTooltip]="management_msg" matTooltipPosition="left" matTooltipClass="menu-tooltip">
           <i class="fa fa-user-circle-o" style="margin-right: 8px"></i>
           User management
           <span class="caret" style="margin-left: 3px"></span>
@@ -87,7 +86,7 @@
                 </mat-menu>
             </div>
 
-            <div fxFlex fxLayout="row" #tooltipHome="matTooltip" [matTooltip]="user_msg" matTooltipPosition="left" matTooltipClass="menu-tooltip">
+            <div fxFlex fxLayout="row" #tooltipUser="matTooltip" [matTooltip]="user_msg" matTooltipPosition="left" matTooltipClass="menu-tooltip">
                 <button mat-button [matMenuTriggerFor]="userManagement" class="menuItemButton">
           <i class="fa fa-user-circle-o"></i>
           {{username}}

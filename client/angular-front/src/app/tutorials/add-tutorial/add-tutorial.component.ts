@@ -20,7 +20,6 @@ import {Ng2OrderPipe} from 'ng2-order-pipe';
 import {FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
 
-
 @Component({
   selector: 'app-add-tutorial',
   templateUrl: './add-tutorial.component.html',

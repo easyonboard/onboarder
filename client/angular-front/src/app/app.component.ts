@@ -1,10 +1,10 @@
-import {Component, ElementRef, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, ViewEncapsulation, AfterViewChecked, ViewChild} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
 import {UserService} from './service/user.service';
 import {UtilityService} from './service/utility.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatTooltip} from '@angular/material';
 import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 import {SessionConst} from './util/SessionConst';
@@ -16,7 +16,7 @@ import {SessionConst} from './util/SessionConst';
   encapsulation: ViewEncapsulation.None
 })
 
-export class AppComponent {
+export class AppComponent implements AfterViewChecked {
 
   private rootConst: RootConst;
   public message: string;
@@ -33,7 +33,7 @@ export class AppComponent {
   public user_msg = 'Change your password';
   public events_msg = 'See the new .msg events';
 
-  public show = true;
+  public show;
 
   constructor(private location: Location, private router: Router, private elemRef: ElementRef,
               private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog,
@@ -41,6 +41,55 @@ export class AppComponent {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
+
+    this.show = localStorage.IS_DEMO_ENABLED;
+  }
+
+  @ViewChild('tooltipHome') tooltipHome: MatTooltip;
+  @ViewChild('tooltipInfo') tooltipInfo: MatTooltip;
+  @ViewChild('tooltipTutorials') tooltipTutorials: MatTooltip;
+  @ViewChild('tooltipEvents') tooltipEvents: MatTooltip;
+  @ViewChild('tooltipManagement') tooltipManagement: MatTooltip;
+  @ViewChild('tooltipUser') tooltipUser: MatTooltip;
+
+  ngAfterViewChecked() {
+    this.show = SessionConst.IS_DEMO_ENABLED;
+
+    if (this.tooltipHome !== undefined && this.show === true) {
+      this.tooltipHome.disabled = false;
+    } else {
+      this.tooltipHome.disabled = true;
+    }
+    if (this.tooltipInfo !== undefined && this.show === true) {
+      this.tooltipInfo.disabled = false;
+    } else {
+      this.tooltipInfo.disabled = true;
+    }
+    if (this.tooltipTutorials !== undefined && this.show === true) {
+      this.tooltipTutorials.disabled = false;
+    } else {
+      this.tooltipTutorials.disabled = true;
+    }
+    if (this.tooltipEvents !== undefined && this.show === true) {
+      this.tooltipEvents.disabled = false;
+    } else {
+      this.tooltipEvents.disabled = true;
+    }
+    if (this.tooltipManagement !== undefined && this.show === true) {
+      this.tooltipManagement.disabled = false;
+    } else {
+      this.tooltipManagement.disabled = true;
+    }
+    if (this.tooltipUser !== undefined && this.show === true) {
+      this.tooltipUser.disabled = false;
+    } else {
+      this.tooltipUser.disabled = true;
+    }
+  }
+
+  toggleTutorialMode(): void {
+    this.show = SessionConst.toggle(localStorage.getItem(SessionConst._DEMO_ENABLED));
+    console.log('Now it is: ' + localStorage.getItem(SessionConst._DEMO_ENABLED) + ' ' + this.show);
   }
 
   logout(): void {
@@ -105,7 +154,6 @@ export class AppComponent {
     } else {
       return false;
     }
-
   }
 
   deleteUserPermission(): boolean {
@@ -118,13 +166,6 @@ export class AppComponent {
     } else {
       return false;
     }
-  }
-
-  toggleTutorialMode(): void {
-    this.show = !this.show;
-
-    console.log(localStorage.getItem(SessionConst._DEMO_ENABLED));
-    SessionConst.toggle(localStorage.getItem(SessionConst._DEMO_ENABLED));
   }
 
   redirectToLoginPage(): void {

@@ -9,15 +9,18 @@ export class SessionConst {
     static _ENABLED = 'enabled';
     static _DISABLED = 'disabled';
 
-    static toggle(demo_enabled: string): void {
+    // return the state of the show button
+    static toggle(demo_enabled: string): boolean {
       if (demo_enabled === this._ENABLED) {
         localStorage.setItem(this._DEMO_ENABLED, this._DISABLED);
       } else {
         localStorage.setItem(this._DEMO_ENABLED, this._ENABLED);
       }
+
+      return (localStorage.getItem(this._DEMO_ENABLED) === this._ENABLED);
     }
 
-    static get IS_DEMO_ENABLED(): string {
-      return localStorage.getItem(this._DEMO_ENABLED);
+    static get IS_DEMO_ENABLED(): boolean {
+      return (localStorage.getItem(this._DEMO_ENABLED) === this._ENABLED);
     }
   }

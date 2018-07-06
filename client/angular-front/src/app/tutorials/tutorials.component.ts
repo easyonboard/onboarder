@@ -21,7 +21,7 @@ export class TutorialsComponent implements OnInit, AfterViewChecked {
   pageSize = 10;
   pageSizeOptions = [5, 10, 25, 100];
 
-  public popups_visible = true;
+  public show;
 
   public paginator_msg = 'choose the number of items per page & navigate through pages';
   public tutorial_msg = 'tutorial msg demo';
@@ -42,6 +42,8 @@ export class TutorialsComponent implements OnInit, AfterViewChecked {
               private router: Router) {
     this.rootConst = new RootConst();
     this.tutorialsPerPage = [];
+
+    this.show = localStorage.IS_DEMO_ENABLED;
 
     this.route.params.subscribe(params => {
       this.tutorialsPerPage = [];
@@ -67,36 +69,35 @@ export class TutorialsComponent implements OnInit, AfterViewChecked {
 
 
   ngAfterViewChecked() {
-    if (this.tooltipPaginator !== undefined && this.tooltipPaginator._isTooltipVisible() === false) {
+    if (this.tooltipPaginator !== undefined && this.show === true) {
       this.tooltipPaginator.show();
     }
-    if (this.tooltipTitle !== undefined && this.tooltipTitle._isTooltipVisible() === false) {
+    if (this.tooltipTitle !== undefined && this.show === true) {
       this.tooltipTitle.show();
     }
-    if (this.tooltipKeywords !== undefined && this.tooltipKeywords._isTooltipVisible() === false) {
+    if (this.tooltipKeywords !== undefined && this.show === true) {
       this.tooltipKeywords.show();
     }
-    if (this.tooltipOverview !== undefined && this.tooltipOverview._isTooltipVisible() === false) {
+    if (this.tooltipOverview !== undefined && this.show === true) {
       this.tooltipOverview.show();
     }
-    if (this.tooltipTutorial !== undefined && this.tooltipTutorial._isTooltipVisible() === false) {
+    if (this.tooltipTutorial !== undefined && this.show === true) {
       this.tooltipTutorial.show();
     }
-    if (this.tooltipDelete !== undefined && this.tooltipDelete._isTooltipVisible() === false) {
+    if (this.tooltipDelete !== undefined && this.show === true) {
       this.tooltipDelete.show();
     }
   }
 
-
-  disablePopups(): void {
-    this.popups_visible = false;
-    this.tooltipPaginator.disabled = true;
-    this.tooltipTitle.disabled = true;
-    this.tooltipTutorial.disabled = true;
-    this.tooltipKeywords.disabled = true;
-    this.tooltipOverview.disabled = true;
-    this.tooltipDelete.disabled = true;
-  }
+  // disablePopups(): void {
+  //   this.popups_visible = false;
+  //   this.tooltipPaginator.disabled = true;
+  //   this.tooltipTitle.disabled = true;
+  //   this.tooltipTutorial.disabled = true;
+  //   this.tooltipKeywords.disabled = true;
+  //   this.tooltipOverview.disabled = true;
+  //   this.tooltipDelete.disabled = true;
+  // }
 
   addTutorialRouterLink(): void {
     location.replace(this.rootConst.FRONT_ADD_TUTORIAL);
