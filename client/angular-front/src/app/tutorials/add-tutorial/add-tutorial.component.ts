@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, AfterViewChecked, ViewEncapsulation} from '@angular/core';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 import {MatChipInputEvent, MatSnackBar} from '@angular/material';
 import {DOCUMENT, Location} from '@angular/common';
@@ -13,19 +13,18 @@ import {TutorialService} from '../../service/tutorial.service';
 import {MaterialService} from '../../service/material.service';
 import {RootConst} from '../../util/RootConst';
 
-import {map} from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
-import {Ng2OrderPipe} from 'ng2-order-pipe';
-import {FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
+import { LocalStorageConst } from '../../util/LocalStorageConst';
 
 @Component({
   selector: 'app-add-tutorial',
   templateUrl: './add-tutorial.component.html',
-  styleUrls: ['./add-tutorial.component.css']
+  styleUrls: ['./add-tutorial.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
-export class AddTutorialComponent implements OnInit {
+export class AddTutorialComponent implements OnInit, AfterViewChecked {
   private rootConst: RootConst;
 
   public selectedContactPersonsIds: number[];
@@ -43,6 +42,8 @@ export class AddTutorialComponent implements OnInit {
   public tutorialErrorMessage: string;
   separatorKeysCodes = [ENTER, COMMA, SPACE];
 
+  public show;
+
   constructor(private location: Location,
               private tutorialService: TutorialService,
               private userService: UserService,
@@ -59,6 +60,8 @@ export class AddTutorialComponent implements OnInit {
     this.materialsForCurrentTutorial = [];
     this.usersOptions = [];
     this.selectedContactPersonsIds = [];
+
+    this.show = LocalStorageConst.IS_DEMO_ENABLED;
   }
 
   ngOnInit() {
@@ -70,6 +73,10 @@ export class AddTutorialComponent implements OnInit {
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 1,
     };
+  }
+
+  ngAfterViewChecked() {
+    this.show = LocalStorageConst.IS_DEMO_ENABLED;
   }
 
   private getUsers() {

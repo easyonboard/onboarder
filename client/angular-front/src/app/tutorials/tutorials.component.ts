@@ -4,6 +4,8 @@ import {TutorialDTO} from '../domain/tutorial';
 import {TutorialService} from '../service/tutorial.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PageEvent, MatTooltip} from '@angular/material';
+import { TooltipConst } from '../util/TooltipConst';
+import { LocalStorageConst } from '../util/LocalStorageConst';
 
 @Component({
   selector: 'app-tutorials',
@@ -11,9 +13,11 @@ import {PageEvent, MatTooltip} from '@angular/material';
   styleUrls: ['./tutorials.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class TutorialsComponent implements OnInit, AfterViewChecked {
+export class TutorialsComponent implements AfterViewChecked {
 
   private rootConst: RootConst;
+  private tooltips: TooltipConst = new TooltipConst();
+
   tutorials: TutorialDTO[];
   tutorialsPerPage: TutorialDTO[];
   pageEvent: PageEvent;
@@ -21,14 +25,14 @@ export class TutorialsComponent implements OnInit, AfterViewChecked {
   pageSize = 10;
   pageSizeOptions = [5, 10, 25, 100];
 
-  public show;
+  public paginator_msg = this.tooltips.PAGINATOR_MSG;
+  public tutorial_msg = this.tooltips.TUTORIAL_MSG;
+  public tutorial_title_msg = this.tooltips.TUTORIAL_TITLE_MSG;
+  public tutorial_keywords_msg = this.tooltips.TUTORIAL_KEYWORDS_MSG;
+  public tutorial_delete_msg = this.tooltips.TUTORIAL_DELETE_MSG;
+  public tutorial_overview_msg = this.tooltips.TUTORIAL_OVERVIEW_MSG;
 
-  public paginator_msg = 'choose the number of items per page & navigate through pages';
-  public tutorial_msg = 'tutorial msg demo';
-  public tutorial_title_msg = 'tutorial title msg demo';
-  public tutorial_keywords_msg = 'tutorial keywords msg demo';
-  public tutorial_delete_msg = 'tutorial delete msg demo';
-  public tutorial_overview_msg = 'tutorial overview msg demo';
+  public show;
 
   @ViewChild('tooltipPaginator') tooltipPaginator: MatTooltip;
   @ViewChild('tooltipTitle') tooltipTitle: MatTooltip;
@@ -43,7 +47,7 @@ export class TutorialsComponent implements OnInit, AfterViewChecked {
     this.rootConst = new RootConst();
     this.tutorialsPerPage = [];
 
-    this.show = localStorage.IS_DEMO_ENABLED;
+    this.show = LocalStorageConst.IS_DEMO_ENABLED;
 
     this.route.params.subscribe(params => {
       this.tutorialsPerPage = [];
@@ -60,49 +64,47 @@ export class TutorialsComponent implements OnInit, AfterViewChecked {
           this.length = this.tutorials.length;
         });
       }
-
     });
   }
 
-  ngOnInit() {
-  }
-
-
   ngAfterViewChecked() {
+    this.show = LocalStorageConst.IS_DEMO_ENABLED;
+
     if (this.tooltipPaginator !== undefined && this.show === true) {
-      this.tooltipPaginator.show();
+      this.tooltipPaginator.disabled = false;
+    } else {
+      this.tooltipPaginator.disabled = true;
     }
     if (this.tooltipTitle !== undefined && this.show === true) {
-      this.tooltipTitle.show();
+      this.tooltipTitle.disabled = false;
+    } else {
+      this.tooltipTitle.disabled = true;
     }
     if (this.tooltipKeywords !== undefined && this.show === true) {
-      this.tooltipKeywords.show();
+      this.tooltipKeywords.disabled = false;
+    } else {
+      this.tooltipKeywords.disabled = true;
     }
     if (this.tooltipOverview !== undefined && this.show === true) {
-      this.tooltipOverview.show();
+      this.tooltipOverview.disabled = false;
+    } else {
+      this.tooltipOverview.disabled = true;
     }
     if (this.tooltipTutorial !== undefined && this.show === true) {
-      this.tooltipTutorial.show();
+      this.tooltipTutorial.disabled = false;
+    } else {
+      this.tooltipTutorial.disabled = true;
     }
     if (this.tooltipDelete !== undefined && this.show === true) {
-      this.tooltipDelete.show();
+      this.tooltipDelete.disabled = false;
+    } else {
+      this.tooltipDelete.disabled = true;
     }
   }
-
-  // disablePopups(): void {
-  //   this.popups_visible = false;
-  //   this.tooltipPaginator.disabled = true;
-  //   this.tooltipTitle.disabled = true;
-  //   this.tooltipTutorial.disabled = true;
-  //   this.tooltipKeywords.disabled = true;
-  //   this.tooltipOverview.disabled = true;
-  //   this.tooltipDelete.disabled = true;
-  // }
 
   addTutorialRouterLink(): void {
     location.replace(this.rootConst.FRONT_ADD_TUTORIAL);
   }
-
 
   searchByKeyword(keyword: string) {
     if (keyword !== 'addTutorialRouterLink') {
@@ -123,9 +125,8 @@ export class TutorialsComponent implements OnInit, AfterViewChecked {
       if (this.tutorials[indexList] != null)
         this.tutorialsPerPage.push(this.tutorials[indexList]);
     }
-
-
   }
+
   public initTutorialsPerPageList() {
     for (let indexList = 0; indexList <  this.pageSize; indexList++) {
       // tslint:disable-next-line:curly

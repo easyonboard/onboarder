@@ -8,6 +8,7 @@ import {MatDialog, MatTooltip} from '@angular/material';
 import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 import {LocalStorageConst} from './util/LocalStorageConst';
+import { TooltipConst } from './util/TooltipConst';
 
 @Component({
   selector: 'app-root',
@@ -24,14 +25,16 @@ export class AppComponent implements AfterViewChecked {
   public username: String;
   public role: string;
 
-  public home_msg = 'Go to the home page';
-  public info_msg = 'Find useful general informations';
-  public show_popup_tutorial_msg = 'Show me how to use this site';
-  public hide_popup_tutorial_msg = 'I know how to use this site :)';
-  public tutorials_msg = 'View existing tutorials and add new ones';
-  public management_msg = 'Find and update informations about users';
-  public user_msg = 'Change your password';
-  public events_msg = 'See the new .msg events';
+  private tooltips: TooltipConst = new TooltipConst();
+
+  public home_msg = this.tooltips.HOME_MSG;
+  public info_msg = this.tooltips.INFO_MSG;
+  public show_popup_tutorial_msg = this.tooltips.SHOW_POPUP_TUTORIAL_MSG;
+  public hide_popup_tutorial_msg = this.tooltips.HIDE_POPUP_TUTORIAL_MSG;
+  public tutorials_msg = this.tooltips.TUTORIALS_MSG;
+  public management_msg = this.tooltips.MANAGEMENT_MSG;
+  public user_msg = this.tooltips.USER_MSG;
+  public events_msg = this.tooltips.EVENTS_MSG;
 
   public show;
 

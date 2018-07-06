@@ -121,7 +121,7 @@ footer {
     background-color: #ffffff;
     border: none;
     font-size: x-large;
-    color: rgba(20, 109, 129, 0.6);
+    color: rgba(20, 109, 129, 1);
 }
 
 .separator {
@@ -139,5 +139,15 @@ footer {
     width: 200px;
     /* overflow: auto; */
     background-color: rgba(20, 109, 129, 0.6);
+    position: absolute;
+}
+
+.toggle-menu-tooltip {
+    text-align: center;
+    font-size: 100%;
+    width: 200px;
+    background-color: rgba(20, 109, 129, 1);
+    /* border-color: #0e0008;
+    border-width: 2px; */
     position: absolute;
 }

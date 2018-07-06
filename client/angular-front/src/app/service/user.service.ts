@@ -16,7 +16,6 @@ export class UserService {
   private rootConst: RootConst = new RootConst();
   public message: string;
 
-
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };

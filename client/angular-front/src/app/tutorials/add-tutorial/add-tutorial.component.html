@@ -4,13 +4,13 @@
     </div>
 
     <div fxFlex="80" fxFlexOffset="5" fxLayout="row" fxLayoutAlign="stretch">
-
         <div fxFlex="35" fxFlexOffset="5" fxLayoutAlign=" stretch">
             <div fxFlex="row">
 
                 <div fxFlex fxLayout="row">
                     <label fxFlex>Tutorial title</label>
-                    <input fxFlex class="form-control" type="text" id="tutorialTtile" name="Tutorial title" [(ngModel)]="tutorial.titleTutorial" />
+                    <input fxFlex class="form-control" type="text" id="tutorialTtile" name="Tutorial title" [(ngModel)]="tutorial.titleTutorial" matTooltipPosition="above" matTooltipClass="tutorial-tooltip" #tooltipKeywords="matTooltip" [matTooltip]="tutorial_title_msg"
+                    />
                 </div>
 
                 <div fxFlex="" fxLayout="row" class="tutorialRow">
@@ -22,9 +22,7 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-
                 </div>
-
 
                 <div fxFlex fxLayout="row" class="tutorialRow">
                     <label fxFlex>Overview</label>
