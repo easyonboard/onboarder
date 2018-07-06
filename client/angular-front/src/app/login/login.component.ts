@@ -5,7 +5,7 @@ import {RootConst} from '../util/RootConst';
 import {Router} from '@angular/router';
 import {CommonComponentsService} from '../common/common-components.service';
 import {MatSnackBar} from '@angular/material';
-import { SessionConst } from '../util/SessionConst';
+import { LocalStorageConst } from '../util/LocalStorageConst';
 
 @Component({
   selector: 'app-login',
@@ -67,12 +67,12 @@ export class LoginComponent implements OnInit, AfterContentInit {
     password = password.trim();
     this.userService.login({username, password} as UserDTO).subscribe((res: UserDTO) => {
         if (res.username.length > 0) {
-          localStorage.setItem(SessionConst._USER_LOGGED, res.username);
-          localStorage.setItem(SessionConst._USER_LOGGED_ID, res.idUser.toString());
-          localStorage.setItem(SessionConst._USER_ROLE, res.role.role);
-          localStorage.setItem(SessionConst._MSG_MAIL, res.msgMail);
-          localStorage.setItem(SessionConst._USER_FIRSTNAME, res.name.split(' ')[0]);
-          localStorage.setItem(SessionConst._DEMO_ENABLED, SessionConst._DISABLED);
+          localStorage.setItem(LocalStorageConst._USER_LOGGED, res.username);
+          localStorage.setItem(LocalStorageConst._USER_LOGGED_ID, res.idUser.toString());
+          localStorage.setItem(LocalStorageConst._USER_ROLE, res.role.role);
+          localStorage.setItem(LocalStorageConst._MSG_MAIL, res.msgMail);
+          localStorage.setItem(LocalStorageConst._USER_FIRSTNAME, res.name.split(' ')[0]);
+          localStorage.setItem(LocalStorageConst._DEMO_ENABLED, LocalStorageConst._DISABLED);
           for (let index = 0; index < this.headerDiv.length; index++) {
             (<HTMLElement>this.headerDiv.item(index)).style.visibility = 'visible';
           }

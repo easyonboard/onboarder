@@ -7,7 +7,7 @@ import {UtilityService} from './service/utility.service';
 import {MatDialog, MatTooltip} from '@angular/material';
 import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
-import {SessionConst} from './util/SessionConst';
+import {LocalStorageConst} from './util/LocalStorageConst';
 
 @Component({
   selector: 'app-root',
@@ -53,7 +53,7 @@ export class AppComponent implements AfterViewChecked {
   @ViewChild('tooltipUser') tooltipUser: MatTooltip;
 
   ngAfterViewChecked() {
-    this.show = SessionConst.IS_DEMO_ENABLED;
+    this.show = LocalStorageConst.IS_DEMO_ENABLED;
 
     if (this.tooltipHome !== undefined && this.show === true) {
       this.tooltipHome.disabled = false;
@@ -88,17 +88,17 @@ export class AppComponent implements AfterViewChecked {
   }
 
   toggleTutorialMode(): void {
-    this.show = SessionConst.toggle(localStorage.getItem(SessionConst._DEMO_ENABLED));
-    console.log('Now it is: ' + localStorage.getItem(SessionConst._DEMO_ENABLED) + ' ' + this.show);
+    this.show = LocalStorageConst.toggle(localStorage.getItem(LocalStorageConst._DEMO_ENABLED));
+    console.log('Now it is: ' + localStorage.getItem(LocalStorageConst._DEMO_ENABLED) + ' ' + this.show);
   }
 
   logout(): void {
     if (confirm('Do you really want to logout?')) {
-      localStorage.removeItem(SessionConst._USER_LOGGED);
-      localStorage.removeItem(SessionConst._USER_LOGGED_ID);
-      localStorage.removeItem(SessionConst._USER_ROLE);
-      localStorage.removeItem(SessionConst._USER_FIRSTNAME);
-      localStorage.removeItem(SessionConst._MSG_MAIL);
+      localStorage.removeItem(LocalStorageConst._USER_LOGGED);
+      localStorage.removeItem(LocalStorageConst._USER_LOGGED_ID);
+      localStorage.removeItem(LocalStorageConst._USER_ROLE);
+      localStorage.removeItem(LocalStorageConst._USER_FIRSTNAME);
+      localStorage.removeItem(LocalStorageConst._MSG_MAIL);
 
       this.redirectToLoginPage();
     }
@@ -113,7 +113,7 @@ export class AppComponent implements AfterViewChecked {
   }
 
   userIsLogged(): boolean {
-    this.username = localStorage.getItem(SessionConst._USER_FIRSTNAME);
+    this.username = localStorage.getItem(LocalStorageConst._USER_FIRSTNAME);
     if (this.username !== null) {
       return true;
     }
@@ -121,7 +121,7 @@ export class AppComponent implements AfterViewChecked {
   }
 
   newEmployeesPermission(): boolean {
-    this.role = localStorage.getItem(SessionConst._USER_ROLE);
+    this.role = localStorage.getItem(LocalStorageConst._USER_ROLE);
     if (!this.userIsLogged()) {
       return false;
     }
@@ -133,7 +133,7 @@ export class AppComponent implements AfterViewChecked {
   }
 
   addUserPermission(): boolean {
-    this.role = localStorage.getItem(SessionConst._USER_ROLE);
+    this.role = localStorage.getItem(LocalStorageConst._USER_ROLE);
     if (!this.userIsLogged()) {
       return false;
     }
@@ -145,7 +145,7 @@ export class AppComponent implements AfterViewChecked {
   }
 
   viewUsersByDepartmentPermission(): boolean {
-    this.role = localStorage.getItem(SessionConst._USER_ROLE);
+    this.role = localStorage.getItem(LocalStorageConst._USER_ROLE);
     if (!this.userIsLogged()) {
       return false;
     }
@@ -157,7 +157,7 @@ export class AppComponent implements AfterViewChecked {
   }
 
   deleteUserPermission(): boolean {
-    this.role = localStorage.getItem(SessionConst._USER_ROLE);
+    this.role = localStorage.getItem(LocalStorageConst._USER_ROLE);
     if (!this.userIsLogged()) {
       return false;
     }
@@ -198,7 +198,7 @@ export class AppComponent implements AfterViewChecked {
 
 
   isBuddy(): boolean {
-    return localStorage.getItem(SessionConst._USER_ROLE) === 'ROLE_BUDDY';
+    return localStorage.getItem(LocalStorageConst._USER_ROLE) === 'ROLE_BUDDY';
   }
 
   openToDoListForBuddy() {

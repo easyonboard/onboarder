@@ -1,4 +1,4 @@
-export class SessionConst {
+export class LocalStorageConst {
     static _DEMO_ENABLED = 'demo_enabled';
     static _USER_FIRSTNAME = 'userFirstname';
     static _MSG_MAIL = 'msgMail';
