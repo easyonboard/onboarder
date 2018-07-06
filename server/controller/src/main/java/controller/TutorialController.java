@@ -8,7 +8,6 @@ import com.sun.media.sound.InvalidDataException;
 import dto.TutorialDTO;
 
 import dto.TutorialMaterialDTO;
-import entity.TutorialMaterial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +33,7 @@ public class TutorialController {
         if (keyword != null && keyword.length() > 0) {
             return new ResponseEntity<>(tutorialService.filterByKeyword(keyword), HttpStatus.OK);
         }
-        return new ResponseEntity<>(tutorialService.getAllTutorials(), HttpStatus.OK);
+        return new ResponseEntity<>(tutorialService.getAllPublicTutorials(), HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

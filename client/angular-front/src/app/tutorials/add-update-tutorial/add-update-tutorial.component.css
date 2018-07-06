@@ -1,32 +1,36 @@
 #addComponent {
-    margin: auto;
-    width: 85%;
-    height: 90%;
-    margin-top: 4%;
-    border: #841439 solid 4px;
-    box-shadow: 0 6px 10px 6px #cccccc inset;
-    position: relative;
-    padding-right: 2%;
+  margin: auto;
+  width: 85vw;
+  height: 80vh;
+  margin-top: 4%;
+  border: #841439 solid 4px;
+  box-shadow: 0 6px 10px 6px #cccccc inset;
+  position: relative;
+  padding-right: 2%;
+}
+#materialTable{
+  height: 50vh;
+  overflow: scroll;
+}
+.pageTitle {
+  font-size: xx-large;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 4%;
+  align-self: auto;
 }
 
-.pageTitle {
-    font-size: xx-large;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 4%;
-    align-self: auto;
-}
 textarea {
-    border-radius: 5px;
-    height: 100px;
-    width: 500px;
+  border-radius: 5px;
+  height: 100px;
+  width: 500px;
 }
 
 .keyword-list {
-    width: 80%;
+  width: 80%;
 }
 
-.tutorialRow{
+.tutorialRow {
   margin-top: 5%;
 }
 
@@ -44,6 +48,6 @@ td {
   overflow: hidden;
 }
 
-#buttons{
+#buttons {
   margin-bottom: 2%;
 }

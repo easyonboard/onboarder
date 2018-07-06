@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 @Service
 public class TutorialService {
@@ -32,8 +31,8 @@ public class TutorialService {
     private TutorialMapper tutorialMapper = TutorialMapper.INSTANCE;
     private TutorialMaterialMapper tutorialMaterialMapper = TutorialMaterialMapper.INSTANCE;
 
-    public List<TutorialDTO> getAllTutorials() {
-        return tutorialMapper.entitiesToDTOs(tutorialDAO.allTutorials());
+    public List<TutorialDTO> getAllPublicTutorials() {
+        return tutorialMapper.entitiesToDTOs(tutorialDAO.allPublicTutorials());
     }
 
     public List<TutorialDTO> filterByKeyword(String keyword) {
@@ -95,7 +94,7 @@ public class TutorialService {
 
         Tutorial entity = tutorialDAO.findEntity(tutorial.getIdTutorial());
         tutorialDAO.deleteEntity(entity);
-        return getAllTutorials();
+        return getAllPublicTutorials();
     }
 
     public TutorialDTO updateTutorial(TutorialDTO tutorialDTO, List<Integer> contactPersons) {
