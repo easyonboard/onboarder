@@ -22,13 +22,13 @@ public class TutorialDAO extends AbstractDAO<Tutorial> {
         return Tutorial.class;
     }
 
-    public List<Tutorial> allTutorials() {
+    public List<Tutorial> allPublicTutorials() {
 //        CriteriaBuilder cb = this.getCriteriaBuilder();
 //        CriteriaQuery<Tutorial> criteriaQuery = cb.createQuery(Tutorial.class);
 //        Root<Tutorial> rootTutorial = criteriaQuery.from(Tutorial.class);
 //        criteriaQuery.select(cb.construct(Tutorial.class));
 //        return (List<Tutorial>) this.executeCriteriaQuery(criteriaQuery);
-        Query query = em.createQuery("SELECT m FROM Tutorial m");
+        Query query = em.createQuery("SELECT t FROM Tutorial t where t.isDraft=false");
 
         return query.getResultList();
     }
@@ -61,10 +61,31 @@ public class TutorialDAO extends AbstractDAO<Tutorial> {
             }
 
         } catch (NoResultException e) {
-
         }
+    }
 
+    public List<Tutorial> getAllDraftTutorialsForUser(User user){
+        Query query = em.createQuery("SELECT t FROM Tutorial t where t.isDraft=true and :user member of t.contactPersons");
+        query.setParameter("user", user);
+        return query.getResultList();
 
     }
+//    public List<Tutorial> getTutorialsWhereUserIsContactPerson(User user) {
+//        Query query = em.createQuery(
+//                "select distinct t " +
+//                        "from Tutorial t " +
+//                        "where :user member of t.contactPersons ");
+//        query.setParameter("user", user);
+//        try {
+//            List<Tutorial> tutorialsList = query.getResultList();
+//            for (int i = 0; i < tutorialsList.size(); i++) {
+//                tutorialsList.get(i).getContactPersons().remove(user);
+//                persistEntity(tutorialsList.get(i));
+//            }
+//
+//        } catch (NoResultException e) {
+//        }
+//
+//    }
 
 }

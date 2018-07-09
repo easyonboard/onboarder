@@ -47,7 +47,17 @@ export class TutorialService implements OnInit {
 
   deleteTutorial(idTutorial: number): Observable<TutorialDTO[]> {
     const body = JSON.stringify({idTutorial: idTutorial});
-    return this.http.post<TutorialDTO[]>(this.rootConst.SERVER_DELETE_TUTORIAL,body, this.httpOptions );
+    return this.http.post<TutorialDTO[]>(this.rootConst.SERVER_DELETE_TUTORIAL, body, this.httpOptions);
 
+  }
+
+  updateTutorial(tutorial: TutorialDTO, contactPersons: number[]) {
+    const body = JSON.stringify({tutorial: tutorial, contactPersons: contactPersons});
+    return this.http.post<TutorialDTO>(this.rootConst.SERVER_UPADATE_TUTORIAL, body, this.httpOptions);
+
+  }
+
+  getDraftsTutorialsForUser(userId: number) {
+    return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_DRAFTS_TUTORIAL}${userId}`);
   }
 }

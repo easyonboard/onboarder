@@ -80,6 +80,7 @@ export class RootConst {
   public FRONT_RATINGS_REVIEW_SECTION = 'ratingsReview';
   public FRONT_LOGIN_PAGE = '';
   public FRONT_INFOS_PAGE = '/infos';
+  public FRONT_EVENTS_PAGE= 'events/viewEvents';
 
   public SERVER_ADD_USER_INFO_URL = this.WEB_SERVICE_ENDPOINT + '/info';
   public REMOVE_USER = this.WEB_SERVICE_ENDPOINT + 'user/removeUser';
@@ -95,5 +96,8 @@ export class RootConst {
   SERVER_SEARCH_TUTORIAL_BY_KEYWORD = this.SERVER_GET_TUTORIAL + '?keyword=';
   SERVER_SEARCH_TUTORIAL_BY_ID = this.SERVER_GET_TUTORIAL + '/';
   SERVER_DELETE_TUTORIAL = this.WEB_SERVICE_ENDPOINT + 'deleteTutorial';
+  SERVER_DELETE_MATERIAL = this.WEB_SERVICE_ENDPOINT + 'material/delete?id=';
+  SERVER_UPADATE_TUTORIAL = this.SERVER_TUTORIALS_URL + '/update';
+  public SERVER_GET_DRAFTS_TUTORIAL = this.SERVER_GET_TUTORIAL + '/draft?idUser=';
 
 }

@@ -1,6 +1,6 @@
 <div id="addComponent" [ngSwitch]="getCurrentStep()">
-  <div *ngSwitchCase="'one'" class="stepDiv">
-    <div class="pageTitle"> Add tutorial</div>
+    <div *ngSwitchCase="'one'" class="stepDiv">
+        <div class="pageTitle"> Add event</div>
 
     <hr class="separator">
     <table>
@@ -10,7 +10,7 @@
         </td>
         <td>
           <mat-form-field  style="width: 100%;">
-            <input matInput placeholder="Tutorial title" [(ngModel)]="event.titleEvent">
+            <input matInput placeholder="Event title" [(ngModel)]="event.titleEvent">
           </mat-form-field>
 
         </td>
@@ -45,6 +45,18 @@
 
         </td>
       </tr>
+
+      <tr>
+        <td><label>Event date</label></td>
+        <td>
+
+          <input [(ngModel)]="event.eventDate" matInput [min]="today" [matDatepicker]="picker" placeholder="Choose a date" [value]="getDate()" required/>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+        </td>
+      </tr>
+
       <tr>
         <td><label>Location (optional)</label></td>
         <td>
@@ -91,20 +103,20 @@
         </td>
       </tr>
     </table>
-
-    <button (click)="addEvent()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Next
+        <button (click)="addEvent()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Next
     </button>
-  </div>
-
-
-  <div *ngSwitchCase="'two'" class="stepDiv">
-
-    <div id="addCourseMessage">
-      Event added!
     </div>
-    <div id="backToCourses">
-      <a (click)="redirectToTutorialsPage()" style="color: white; cursor: pointer">Back to events!</a>
+
+
+    <div *ngSwitchCase="'two'" class="stepDiv">
+
+        <div id="addCourseMessage">
+            Event added!
+        </div>
+        <div id="backToCourses">
+            <a (click)="redirectToEventPage()" style="color: white; cursor: pointer">Back to events!</a>
 
     </div>
   </div>
 </div>
+

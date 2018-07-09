@@ -16,6 +16,7 @@
     margin-top: 4%;
     align-self: auto;
 }
+
 textarea {
     border-radius: 5px;
     height: 100px;
@@ -26,22 +27,27 @@ textarea {
     width: 80%;
 }
 
-.tutorialRow{
-  margin-top: 5%;
+.tutorialRow {
+    margin-top: 5%;
 }
 
 th {
-  margin-left: 1%;
-  min-width: 5px;
-  max-width: 5px;
-  overflow: hidden;
+    margin-left: 1%;
+    min-width: 5px;
+    max-width: 5px;
+    overflow: hidden;
 }
 
 td {
-  margin-left: 1%;
-  min-width: 30px;
-  max-width: 30px;
-  overflow: hidden;
+    margin-left: 1%;
+    min-width: 30px;
+    max-width: 30px;
+    overflow: hidden;
 }
 
-
+.tutorial-tooltip {
+    text-align: center;
+    font-size: 100%;
+    width: 200px;
+    background-color: rgba(20, 109, 129, 0.6);
+}

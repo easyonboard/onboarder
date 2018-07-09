@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, AfterViewChecked, ViewEncapsulation} from '@angular/core';
+import {AfterViewChecked, Component, Inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 import {MatChipInputEvent, MatSnackBar} from '@angular/material';
 import {DOCUMENT, Location} from '@angular/common';
@@ -13,37 +13,40 @@ import {TutorialService} from '../../service/tutorial.service';
 import {MaterialService} from '../../service/material.service';
 import {RootConst} from '../../util/RootConst';
 
+import {map} from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
-import {Router} from '@angular/router';
-import { LocalStorageConst } from '../../util/LocalStorageConst';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LocalStorageConst} from '../../util/LocalStorageConst';
+
 
 @Component({
   selector: 'app-add-tutorial',
-  templateUrl: './add-tutorial.component.html',
-  styleUrls: ['./add-tutorial.component.css'],
+  templateUrl: './add-update-tutorial.component.html',
+  styleUrls: ['./add-update-tutorial.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class AddTutorialComponent implements OnInit, AfterViewChecked {
-  private rootConst: RootConst;
+export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
+  private rootConst = new RootConst();
 
-  public selectedContactPersonsIds: number[];
+  public selectedContactPersonsIds: number[] = [];
   public dropdownSettings = {};
-  public usersOptions: UserDTO[];
+  public usersOptions: UserDTO[] = [];
 
-  public tutorial: TutorialDTO;
-  public materialsForCurrentTutorial: TutorialMaterialDTO[];
+  tutorial = new TutorialDTO();
+  public materialsForCurrentTutorial: TutorialMaterialDTO[] = [];
   public materialType = MaterialType;
-  public files: File[];
+  public files: File[] = [];
 
-  public keywords: String[];
+  public keywords: String[] = [];
   public inputKeyword: any;
 
   public tutorialErrorMessage: string;
-  separatorKeysCodes = [ENTER, COMMA, SPACE];
+  public separatorKeysCodes = [ENTER, COMMA, SPACE];
+  public onUpdateTutorialMode = false;
+  private tutorialId: number = null;
 
   public show;
-  // TO DO
 
   constructor(private location: Location,
               private tutorialService: TutorialService,
@@ -51,22 +54,17 @@ export class AddTutorialComponent implements OnInit, AfterViewChecked {
               private materialService: MaterialService,
               @Inject(DOCUMENT) private document: any,
               public snackBar: MatSnackBar,
-              private router: Router) {
-    this.keywords = [];
-    this.rootConst = new RootConst();
-    this.tutorial = new TutorialDTO();
-    this.tutorial.overview = '';
-    this.tutorial.titleTutorial = '';
-    this.files = [];
-    this.materialsForCurrentTutorial = [];
-    this.usersOptions = [];
-    this.selectedContactPersonsIds = [];
-
+              private route: ActivatedRoute) {
+    this.tutorialId = +this.route.snapshot.paramMap.get('id');
     this.show = LocalStorageConst.IS_DEMO_ENABLED;
   }
 
+
   ngOnInit() {
     this.getUsers();
+    if (this.tutorialId) {
+      this.getTutorialInformation();
+    }
     this.dropdownSettings = {
       singleSelection: false,
       allowSearchFilter: true,
@@ -80,12 +78,28 @@ export class AddTutorialComponent implements OnInit, AfterViewChecked {
     this.show = LocalStorageConst.IS_DEMO_ENABLED;
   }
 
+  private getTutorialInformation() {
+    this.onUpdateTutorialMode = true;
+    const tutorialId = +this.route.snapshot.paramMap.get('id');
+    this.tutorialService.getTutorialWithId(tutorialId).subscribe(tutorial => {
+      this.tutorial = tutorial;
+      this.selectedContactPersonsIds = this.tutorial.contactPersons.map(cp => cp.idUser);
+      this.keywords = this.tutorial.keywords.split(' ');
+      this.materialsForCurrentTutorial = this.tutorial.tutorialMaterials.slice(0);
+    });
+  }
+
+  private setCurrentUserAsContactPerson() {
+    const currentUser = this.usersOptions.find(u => u.msgMail === localStorage.getItem('msgMail'));
+    this.selectedContactPersonsIds.push(currentUser.idUser);
+  }
+
   private getUsers() {
     this.userService.getAllUsers().subscribe(us => {
       this.usersOptions = us;
-      console.log(localStorage.getItem('msgMail'));
-      const currentUser = this.usersOptions.find(u => u.msgMail === localStorage.getItem('msgMail'));
-      this.selectedContactPersonsIds.push(currentUser.idUser);
+      if (!this.tutorialId) {
+        this.setCurrentUserAsContactPerson();
+      }
     });
   }
 
@@ -111,13 +125,16 @@ export class AddTutorialComponent implements OnInit, AfterViewChecked {
   }
 
   private addMaterials() {
-    for (const material of this.materialsForCurrentTutorial) {
-      if (material.materialType.valueOf().toString() === MaterialType[MaterialType.LINK].toString()) {
-        this.materialService.addMaterialToTutorial(material, null, this.tutorial.idTutorial);
-      } else {
-        console.log(this.files[0]);
-        this.materialService.addMaterialToTutorial(material, this.files[0], this.tutorial.idTutorial);
-        this.files.splice(0, 1);
+    if (this.materialsForCurrentTutorial.length > 0) {
+      for (const material of this.materialsForCurrentTutorial) {
+        if (!material.idTutorialMaterial) {
+          if (material.materialType.valueOf().toString() === MaterialType[MaterialType.LINK].toString()) {
+            this.materialService.addMaterialToTutorial(material, null, this.tutorial.idTutorial);
+          } else {
+            this.materialService.addMaterialToTutorial(material, this.files[0], this.tutorial.idTutorial);
+            this.files.splice(0, 1);
+          }
+        }
       }
     }
   }
@@ -165,18 +182,15 @@ export class AddTutorialComponent implements OnInit, AfterViewChecked {
     window.open(fileURL);
   }
 
-  snackBarMessagePopup(message: string) {
-    this.snackBar.open(message, null, {
-      duration: 3000
-    });
-  }
-
   addNewEmptyMaterial() {
     this.materialsForCurrentTutorial.push(new TutorialMaterialDTO());
   }
 
-  deleteMaterial(positionInList: number) {
-    this.materialsForCurrentTutorial.splice(positionInList, 1);
+  removeMaterialFromUI(positionInList: number) {
+    if (confirm('Do you want to delete this material?')) {
+      this.materialsForCurrentTutorial.splice(positionInList, 1);
+      this.files.splice(positionInList, 1);
+    }
   }
 
   openURL(link: string) {
@@ -197,4 +211,62 @@ export class AddTutorialComponent implements OnInit, AfterViewChecked {
       return;
     }
   }
+
+  getFileWithId(idFile: number) {
+    this.materialService.getFileWithId(idFile).subscribe((response) => {
+      const file = new Blob([response], {type: 'application/pdf'});
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    });
+  }
+
+  updateTutorial() {
+    this.getUploadedFiles();
+    this.verifyConstraintsForTutorial();
+
+    this.tutorial.keywords = this.keywords.join(' ');
+
+    this.tutorialService.updateTutorial(this.tutorial, this.selectedContactPersonsIds).subscribe(tutorial => {
+      this.tutorial = tutorial;
+      this.addMaterials();
+      this.deleteFromServerMaterials();
+      this.redirectToTutorialPage(this.tutorial.idTutorial);
+    });
+  }
+
+
+  private deleteFromServerMaterials() {
+    const ids = this.materialsForCurrentTutorial.map(ma => ma.idTutorialMaterial);
+    this.tutorial.tutorialMaterials.forEach(mat => {
+      if (mat.idTutorialMaterial && ids.indexOf(mat.idTutorialMaterial) < 0) {
+        this.materialService.deleteMaterialWithId(mat.idTutorialMaterial).subscribe();
+      }
+    });
+  }
+
+  snackBarMessagePopup(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 3000
+    });
+  }
+
+  saveAsDraft() {
+    this.tutorial.draft = true;
+    if (this.tutorial.idTutorial) {
+      this.updateTutorial();
+    } else {
+      this.addTutorial();
+    }
+  }
+
+  publishDraft() {
+    this.tutorial.draft = false;
+    this.updateTutorial();
+  }
+
+  goBack() {
+    history.go(-1);
+  }
+
+
 }

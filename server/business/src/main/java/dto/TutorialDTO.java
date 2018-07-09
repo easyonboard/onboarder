@@ -37,6 +37,16 @@ public class TutorialDTO {
         this.tutorialMaterials = tutorialMaterials;
     }
 
+    public TutorialDTO(Integer idTutorial, String titleTutorial, String overview, String keywords, Boolean isDraft, List<UserDTO> contactPersons, List<TutorialMaterialDTO> tutorialMaterials) {
+        this.idTutorial = idTutorial;
+        this.titleTutorial = titleTutorial;
+        this.overview = overview;
+        this.keywords = keywords;
+        this.isDraft = isDraft;
+        this.contactPersons = contactPersons;
+        this.tutorialMaterials = tutorialMaterials;
+    }
+
     public Integer getIdTutorial() {
         return idTutorial;
     }

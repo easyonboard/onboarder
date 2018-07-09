@@ -14,7 +14,6 @@ import {Review} from "../../domain/review";
 import {OnClickEvent} from "angular-star-rating";
 import {ReviewService} from "../../service/review.service";
 
-
 @Component({
   selector: 'app-course-detail',
   templateUrl: './course-detail.component.html',

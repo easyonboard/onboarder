@@ -23,12 +23,6 @@ export class ViewTutorialComponent implements OnInit {
     this.tutorialId = this.route.snapshot.params.id;
     this.tutorialService.getTutorialWithId(this.tutorialId).subscribe(tutorial => {
       this.tutorial = tutorial;
-      // this.tutorialService.getMaterialsForTutorialId(this.tutorial.idTutorial).subscribe(
-      //   materials => {
-      //     this.tutorial.tutorialMaterials = materials;
-      //   }
-      // )
-      ;
     });
   }
 
@@ -54,4 +48,12 @@ export class ViewTutorialComponent implements OnInit {
     window.open(link);
   }
 
+  redirectToUpdateTutorial(idTutorial: number) {
+    this.router.navigate(['/tutorials/addTutorialRouterLink/' + idTutorial]);
+  }
+
+  userCanEditThisTutorial() {
+    const currentUserEmail = localStorage.getItem('msgMail');
+    return this.tutorial.contactPersons.map(cp => cp.msgMail).indexOf(currentUserEmail) >= 0;
+  }
 }

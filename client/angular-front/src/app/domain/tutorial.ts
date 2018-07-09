@@ -1,11 +1,12 @@
-import { UserDTO } from './user';
-import { TutorialMaterialDTO } from './tutorialMaterial';
+import {UserDTO} from './user';
+import {TutorialMaterialDTO} from './tutorialMaterial';
 
-export  class TutorialDTO {
-    idTutorial: number;
-    titleTutorial: string;
-    overview: string;
-    keywords: string;
-    contactPersons: UserDTO[];
-    tutorialMaterials: TutorialMaterialDTO[];
+export class TutorialDTO {
+  idTutorial: number;
+  titleTutorial: string;
+  overview: string;
+  keywords: string;
+  contactPersons: UserDTO[];
+  tutorialMaterials: TutorialMaterialDTO[];
+  draft: boolean;
 }

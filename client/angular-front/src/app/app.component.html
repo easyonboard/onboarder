@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <div class="modal" id="myCustom">
-
     <div class="modal-content">
         <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
         <br/> {{successMessage}}
@@ -19,62 +18,60 @@
     <div class="headerDiv" fxLayout="row" fxFlexAlign="start center">
 
         <div fxFlex="20" fxFlexAlign="start center">
-            <div fxFlexOffset="5" fxFlexAlign="center">
-                <button (click)="redirectToCoursePage()" title="Home" id="homePage" #tooltipHome="matTooltip" [matTooltip]="home_msg" matTooltipClass="menu-tooltip">
-          <i class="fa fa-home" style="margin-right: 8px"></i>
-        </button>
+            <div fxFlexOffset="5" fxFlexAlign="start">
+                <button (click)="toggleTutorialMode()" *ngIf="!show" id="generalPopupTutorial" #tooltipShowTutorial="matTooltip" [matTooltip]="show_popup_tutorial_msg" matTooltipClass="toggle-menu-tooltip">
+                    <i class="fa fa-bookmark" style="margin-right: 10%"></i>
+                </button>
+                <button (click)="toggleTutorialMode()" *ngIf="show" id="generalPopupTutorial" #tooltipHideTutorial="matTooltip" [matTooltip]="hide_popup_tutorial_msg" matTooltipClass="toggle-menu-tooltip">
+                    <i class="fa fa-bookmark-o" style="margin-right: 10%"></i>
+                </button>
             </div>
 
             <div fxFlexOffset="8" fxFlexAlign="center">
-                <button (click)="redirectToGeneralInfosPage()" title="General information" id="generalInfo" #tooltipHome="matTooltip" [matTooltip]="info_msg" matTooltipClass="menu-tooltip">
-          <i class="fa fa-info" style="margin-right: 10%"></i>
-        </button>
+                <button (click)="redirectToCoursePage()" title="Home" id="homePage" #tooltipHome="matTooltip" [matTooltip]="home_msg" matTooltipClass="menu-tooltip">
+                <i class="fa fa-home" style="margin-right: 8px"></i>
+                </button>
             </div>
 
+            <div fxFlexOffset="5" fxFlexAlign="center">
+                <button (click)="redirectToGeneralInfosPage()" title="General information" id="generalInfo" #tooltipInfo="matTooltip" [matTooltip]="info_msg" matTooltipClass="menu-tooltip">
+                <i class="fa fa-info" style="margin-right: 10%"></i>
+                </button>
+            </div>
         </div>
 
         <div fxFlex="50"></div>
 
         <div fxFlex fxLayout="row" fxFlexAlign="end end" *ngIf="userIsLogged()==true">
-
             <div fxFlex fxLayout="row">
-                <button mat-button [matMenuTriggerFor]="events" class="menuItemButton" #tooltipHome="matTooltip" [matTooltip]="events_msg" matTooltipClass="menu-tooltip">
-          Events    <span class="caret" style="margin-left: 3px"></span>
-        </button>
-                <mat-menu #events style="margin-top: 10%">
-                    <button mat-menu-item (click)="redirectToEventsPage()">View Events</button>
-                    <button mat-menu-item (click)="redirectToAddEvent()">Add event</button>
-                </mat-menu>
-            </div>
-            <div fxFlex fxLayout="row">
-                <button mat-button [matMenuTriggerFor]="tutorials" class="menuItemButton" #tooltipHome="matTooltip" [matTooltip]="tutorials_msg" matTooltipClass="menu-tooltip">
+                <button mat-button [matMenuTriggerFor]="tutorials" class="menuItemButton" #tooltipTutorials="matTooltip" [matTooltip]="tutorials_msg" matTooltipClass="menu-tooltip">
           Tutorials
           <span class="caret" style="margin-left: 3px"></span>
         </button>
                 <mat-menu #tutorials="matMenu" style="margin-top: 10%">
                     <button mat-menu-item (click)="redirectToTutorialsPage()">View tutorials</button>
                     <button mat-menu-item (click)="redirectToAddTutorialPage()">Add tutorial</button>
-                    <button mat-menu-item hidden> Update tutorial</button>
-                    <button mat-menu-item hidden> Delete tutorial</button>
+                    <button mat-menu-item (click)="redirectToDraftPage()"> Drafts</button>
+                    <button mat-menu-item hidden>  tutorial</button>
                 </mat-menu>
             </div>
 
-      <div fxFlex fxLayout="row">
-        <button mat-button [matMenuTriggerFor]="events" class="menuItemButton">
+            <div fxFlex fxLayout="row">
+                <button mat-button [matMenuTriggerFor]="events" class="menuItemButton" #tooltipEvents="matTooltip" [matTooltip]="events_msg" matTooltipClass="menu-tooltip">
           Events
           <span class="caret" style="margin-left: 3px"></span>
         </button>
-        <mat-menu #events="matMenu" style="margin-top: 10%">
-          <button mat-menu-item (click)="redirectToEventsPage()">View events</button>
-          <button mat-menu-item (click)="redirectToAddEventPage()">Add event</button>
-          <button mat-menu-item hidden> Update event</button>
-          <button mat-menu-item hidden> Delete event</button>
-        </mat-menu>
-      </div>
+                <mat-menu #events="matMenu" style="margin-top: 10%">
+                    <button mat-menu-item (click)="redirectToEventsPage()">View events</button>
+                    <button mat-menu-item (click)="redirectToAddEventPage()">Add event</button>
+                    <button mat-menu-item hidden> Update event</button>
+                    <button mat-menu-item hidden> Delete event</button>
+                </mat-menu>
+            </div>
 
 
             <div *ngIf="userManagementPermission()" fxFlex fxLayout="row">
-                <button mat-button [matMenuTriggerFor]="userManagement" class="menuItemButton" #tooltipHome="matTooltip" [matTooltip]="management_msg" matTooltipPosition="left" matTooltipClass="menu-tooltip">
+                <button mat-button [matMenuTriggerFor]="userManagement" class="menuItemButton" #tooltipManagement="matTooltip" [matTooltip]="management_msg" matTooltipPosition="left" matTooltipClass="menu-tooltip">
           <i class="fa fa-user-circle-o" style="margin-right: 8px"></i>
           User management
           <span class="caret" style="margin-left: 3px"></span>
@@ -89,7 +86,7 @@
                 </mat-menu>
             </div>
 
-            <div fxFlex fxLayout="row" #tooltipHome="matTooltip" [matTooltip]="user_msg" matTooltipPosition="left" matTooltipClass="menu-tooltip">
+            <div fxFlex fxLayout="row" #tooltipUser="matTooltip" [matTooltip]="user_msg" matTooltipPosition="left" matTooltipClass="menu-tooltip">
                 <button mat-button [matMenuTriggerFor]="userManagement" class="menuItemButton">
           <i class="fa fa-user-circle-o"></i>
           {{username}}

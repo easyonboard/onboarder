@@ -156,8 +156,11 @@ export class AddEventComponent implements OnInit {
     }
   }
 
-  redirectToTutorialsPage() {
-    location.replace(this.rootConst.FRONT_TUTORIALS_PAGE);
+  redirectToEventPage() {
+    location.replace(this.rootConst.FRONT_EVENTS_PAGE);
+  }
+  getDate(): Date {
+    return new Date(this.event.eventDate);
   }
 
 }
