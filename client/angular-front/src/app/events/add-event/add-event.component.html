@@ -1,80 +1,80 @@
 <div id="addComponent" [ngSwitch]="getCurrentStep()">
-  <div *ngSwitchCase="'one'" class="stepDiv">
-    <div class="pageTitle"> Add tutorial</div>
+    <div *ngSwitchCase="'one'" class="stepDiv">
+        <div class="pageTitle"> Add event</div>
 
-    <hr class="separator">
-    <table id="eventTable" cellspacing="50">
-      <tr>
-        <td>
-          <label>Event title</label>
-        </td>
-        <td>
-          <input type="text" id="tutorialTtile" name="Tutorial title" [(ngModel)]="event.titleEvent" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label>Overview</label>
-        </td>
-        <td>
-          <textarea id="tutorialOverview" name="Overview" [(ngModel)]="event.overview"></textarea>
-        </td>
-      </tr>
-      <tr>
-        <td><label>Enrolled persons</label></td>
-        <td>
-          <ng-multiselect-dropdown [placeholder]="'choose one or more enrolled users'" [data]="usersOptions" [(ngModel)]="selectedEnrolledPersonsItems" [settings]="dropdownEnrolledPersonsSettings"></ng-multiselect-dropdown>
-        </td>
-      </tr>
-      <tr>
-        <td><label>Contact person</label></td>
-        <td>
-          <ng-multiselect-dropdown [placeholder]="'choose one contact person'" [data]="usersOptions" [(ngModel)]="selectedContactPersonsItems" [settings]="dropdownContactPersonsSettings"></ng-multiselect-dropdown>
-        </td>
-      </tr>
-      <tr>
-        <td><label>Contact person</label></td>
-        <td>
-          <ng-multiselect-dropdown [placeholder]="'choose a location for the event'" [data]="locationOptions" [(ngModel)]="selectedLocation" [settings]="dropdownLocationSettings"></ng-multiselect-dropdown>
-        </td>
-      </tr>
-      <tr>
-        <td><label>Maximum number of participants</label></td>
-        <td>
-          <input type="text" id="maxEnrolledUsers" name="Tutorial title" [(ngModel)]="event.maxEnrolledUsers" />
-        </td>
-      </tr>
-      <tr>
-        <td><label>Keywords </label></td>
-        <td>
-          <mat-form-field class="keyword-list">
-            <mat-chip-list #chipList>
-              <mat-chip *ngFor="let keyword of keywords" [selectable]="true" [removable]="true" (remove)="removeKeyword(keyword)">
-                {{keyword}}
-                <mat-icon matChipRemove *ngIf="true"><i class="fa fa-times" aria-hidden="true"></i></mat-icon>
-              </mat-chip>
-              <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="addKeyword($event)" />
-            </mat-chip-list>
-          </mat-form-field>
-        </td>
-      </tr>
-    </table>
+        <hr class="separator">
+        <table id="eventTable" cellspacing="50">
+            <tr>
+                <td>
+                    <label>Event title</label>
+                </td>
+                <td>
+                    <input type="text" id="tutorialTtile" name="Tutorial title" [(ngModel)]="event.titleEvent" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Overview</label>
+                </td>
+                <td>
+                    <textarea id="tutorialOverview" name="Overview" [(ngModel)]="event.overview"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Enrolled persons</label></td>
+                <td>
+                    <ng-multiselect-dropdown [placeholder]="'choose one or more enrolled users'" [data]="usersOptions" [(ngModel)]="selectedEnrolledPersonsItems" [settings]="dropdownEnrolledPersonsSettings"></ng-multiselect-dropdown>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Contact person</label></td>
+                <td>
+                    <ng-multiselect-dropdown [placeholder]="'choose one contact person'" [data]="usersOptions" [(ngModel)]="selectedContactPersonsItems" [settings]="dropdownContactPersonsSettings"></ng-multiselect-dropdown>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Event location</label></td>
+                <td>
+                    <ng-multiselect-dropdown [placeholder]="'choose a location for the event'" [data]="locationOptions" [(ngModel)]="selectedLocation" [settings]="dropdownLocationSettings"></ng-multiselect-dropdown>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Maximum number of participants</label></td>
+                <td>
+                    <input type="text" id="maxEnrolledUsers" name="Tutorial title" [(ngModel)]="event.maxEnrolledUsers" />
+                </td>
+            </tr>
+            <tr>
+                <td><label>Keywords </label></td>
+                <td>
+                    <mat-form-field class="keyword-list">
+                        <mat-chip-list #chipList>
+                            <mat-chip *ngFor="let keyword of keywords" [selectable]="true" [removable]="true" (remove)="removeKeyword(keyword)">
+                                {{keyword}}
+                                <mat-icon matChipRemove *ngIf="true"><i class="fa fa-times" aria-hidden="true"></i></mat-icon>
+                            </mat-chip>
+                            <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="addKeyword($event)" />
+                        </mat-chip-list>
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
 
-    <button (click)="addEvent()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Next
+        <button (click)="addEvent()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Next
     </button>
-  </div>
-
-
-  <div *ngSwitchCase="'two'" class="stepDiv">
-
-    <div id="addCourseMessage">
-      Event added!
-    </div>
-    <div id="backToCourses">
-      <a (click)="redirectToTutorialsPage()" style="color: white; cursor: pointer">Back to events!</a>
-
     </div>
 
-    <!-- <button (click)="addNewMaterial()">Add another material to tutorial</button> -->
-  </div>
+
+    <div *ngSwitchCase="'two'" class="stepDiv">
+
+        <div id="addCourseMessage">
+            Event added!
+        </div>
+        <div id="backToCourses">
+            <a (click)="redirectToTutorialsPage()" style="color: white; cursor: pointer">Back to events!</a>
+
+        </div>
+
+        <!-- <button (click)="addNewMaterial()">Add another material to tutorial</button> -->
+    </div>
 </div>
