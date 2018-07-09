@@ -216,11 +216,7 @@ public class UserController {
         return new ResponseEntity<>(userService.saveLeaveCheckList(leaveCheckList), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "locations", method = RequestMethod.GET)
-    public ResponseEntity getAllLocations() {
-        return new ResponseEntity(userService.getAllLocations(), HttpStatus.OK);
-    }
+
 
 
 }

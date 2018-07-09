@@ -64,13 +64,14 @@ export class EventsComponent implements OnInit {
 
     this.upcomingEvents.forEach(event => {
 
-      let x = event.placesLeft = event.meetingHall.capacity - event.enrolledUsers.length;
+      if(event.maxEnrolledUsers!=undefined) {
+        let x = event.placesLeft = event.meetingHall.capacity - event.enrolledUsers.length;
 
-      if (x <= 0) {
-        x = 0;
-        this.canEnroll = false;
-      }
-      event.placesLeft = x;
-    });
+        if (x <= 0) {
+          x = 0;
+          this.canEnroll = false;
+        }
+        event.placesLeft = x;
+      }});
   }
 }

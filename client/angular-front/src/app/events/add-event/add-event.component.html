@@ -3,13 +3,16 @@
     <div class="pageTitle"> Add tutorial</div>
 
     <hr class="separator">
-    <table id="eventTable" cellspacing="50">
+    <table>
       <tr>
         <td>
           <label>Event title</label>
         </td>
         <td>
-          <input type="text" id="tutorialTtile" name="Tutorial title" [(ngModel)]="event.titleEvent" />
+          <mat-form-field  style="width: 100%;">
+            <input matInput placeholder="Tutorial title" [(ngModel)]="event.titleEvent">
+          </mat-form-field>
+
         </td>
       </tr>
       <tr>
@@ -17,31 +20,60 @@
           <label>Overview</label>
         </td>
         <td>
-          <textarea id="tutorialOverview" name="Overview" [(ngModel)]="event.overview"></textarea>
+          <textarea matInput placeholder="Event description" [(ngModel)]="event.overview"></textarea>
         </td>
       </tr>
       <tr>
         <td><label>Enrolled persons</label></td>
         <td>
-          <ng-multiselect-dropdown [placeholder]="'choose one or more enrolled users'" [data]="usersOptions" [(ngModel)]="selectedEnrolledPersonsItems" [settings]="dropdownEnrolledPersonsSettings"></ng-multiselect-dropdown>
+          <mat-select [(value)]="selectedEnrolledPersonsItems" name="enroll" placeholder="select enrolled persons" multiple>
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let user of usersOptions" [value]="user.username">{{user.name}}</mat-option>
+
+          </mat-select>
+
         </td>
       </tr>
+      <tr></tr>
       <tr>
         <td><label>Contact person</label></td>
         <td>
-          <ng-multiselect-dropdown [placeholder]="'choose one contact person'" [data]="usersOptions" [(ngModel)]="selectedContactPersonsItems" [settings]="dropdownContactPersonsSettings"></ng-multiselect-dropdown>
+          <mat-select [(value)]="selectedContactPerson" name="contact" placeholder="select contact person">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let user of usersOptions" [value]="user.username">{{user.name}}</mat-option>
+          </mat-select>
+
         </td>
       </tr>
       <tr>
-        <td><label>Contact person</label></td>
+        <td><label>Location (optional)</label></td>
         <td>
-          <ng-multiselect-dropdown [placeholder]="'choose a location for the event'" [data]="locationOptions" [(ngModel)]="selectedLocation" [settings]="dropdownLocationSettings"></ng-multiselect-dropdown>
+          <mat-select [(value)]="selectedLocation.idLocation" name="location" placeholder="select location">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let loc of locationOptions" [value]="loc.idLocation">{{loc.locationName}}</mat-option>
+
+          </mat-select>
         </td>
       </tr>
+      <tr></tr>
       <tr>
-        <td><label>Maximum number of participants</label></td>
+        <td><label>Meeting Hall (optional)</label></td>
+
         <td>
-          <input type="text" id="maxEnrolledUsers" name="Tutorial title" [(ngModel)]="event.maxEnrolledUsers" />
+          <mat-select [(value)]="selectedRoom.idMeetingHall" name="meeting" placeholder="select room">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let hall of meetingHallOptions" [value]="hall.idMeetingHall">{{hall.hallName}}</mat-option>
+
+          </mat-select>
+        </td>
+      </tr>
+<tr></tr>
+      <tr>
+        <td><label>Maximum number of participants (optional)</label></td>
+        <td>
+          <mat-form-field  style="width: 100%;">
+            <input matInput placeholder="Max. number of participants" [(ngModel)]="event.maxEnrolledUsers">
+          </mat-form-field>
         </td>
       </tr>
       <tr>
@@ -74,7 +106,5 @@
       <a (click)="redirectToTutorialsPage()" style="color: white; cursor: pointer">Back to events!</a>
 
     </div>
-
-    <!-- <button (click)="addNewMaterial()">Add another material to tutorial</button> -->
   </div>
 </div>

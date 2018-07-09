@@ -292,9 +292,5 @@ public class UserService {
         return false;
     }
 
-    public List<LocationDTO> getAllLocations() {
 
-        return locationMapper.entitiesToDTOs(locationDAO.getAllLocations());
-
-    }
 }
