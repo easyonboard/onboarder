@@ -36,8 +36,8 @@ export class UserInfoUpdateComponent implements OnInit {
 
   updateUserInformation(): void {
     this.userInformationService.updateUserInformation(this.childUserInfoFormularComponent.userInformation).subscribe(
-      value => this.snackBarMessagePopup('User info updated!'),
-      error => this.snackBarMessagePopup('Could not update user info! Please try again!')
+      value => this.snackBarMessagePopup('User inf updated!'),
+      error => this.snackBarMessagePopup('Could not update user inf! Please try again!')
     );
   }
 
