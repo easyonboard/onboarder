@@ -1,18 +1,19 @@
-<mat-paginator *ngIf="tutorials?.length>0"
-               style="margin-left: 80%"
-               matTooltipClass="paginator-tooltip"
-               #tooltipPaginator="matTooltip"
-               [matTooltip]="paginator_msg"
-               mat [length]="length"
-               [pageSize]="pageSize"
-               [pageSizeOptions]="pageSizeOptions"
-               (page)="pageEvent = getServerData($event)">
-</mat-paginator>
+<div fxFlex="95">
+  <mat-paginator *ngIf="tutorials?.length>0"
+                 matTooltipClass="paginator-tooltip"
+                 #tooltipPaginator="matTooltip"
+                 [matTooltip]="paginator_msg"
+                 mat [length]="length"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="pageEvent = getServerData($event)">
+  </mat-paginator>
+</div>
 
 <div fxLayout="row wrap" fxLayoutAlign="start start" style="padding-top: 30px">
 
   <p fxFlex *ngIf="tutorials?.length === 0" style="text-align: center">
-    <b>No tutorial yet.</b>
+    <b>No tutorials yet.</b>
   </p>
   <div *ngFor="let tutorial of tutorialsPerPage"
        fxFlex="20"
@@ -22,16 +23,24 @@
        #tooltipTutorial="matTooltip"
        [matTooltip]="tutorial_msg">
     <mat-card class="tutorial">
-      <mat-card-header style="padding-bottom: 2%">
-        <mat-chip-list class="mat-chip-list" *ngIf="tutorial.keywords!=null" matTooltipPosition="left"
-                       matTooltipClass="tutorial-tooltip" #tooltipKeywords="matTooltip"
+      <mat-card-header class="tutorialHeader" >
+        <mat-chip-list class="mat-chip-list"
+                       *ngIf="tutorial.keywords!=null"
+                       matTooltipPosition="left"
+                       matTooltipClass="tutorial-tooltip"
+                       #tooltipKeywords="matTooltip"
                        [matTooltip]="tutorial_keywords_msg">
           <mat-chip *ngFor="let keyword of tutorial.keywords.split(' ')" [selectable]="selectable"
                     (click)="searchByKeyword(keyword)">{{ keyword }}
           </mat-chip>
         </mat-chip-list>
-        <div id="buttonDelete" fxFlex="" fxLayoutAlign="end start" matTooltipPosition="right"
-             matTooltipClass="tutorial-tooltip" #tooltipDelete="matTooltip" [matTooltip]="tutorial_delete_msg">
+        <div id="buttonDelete"
+             fxFlex=""
+             fxLayoutAlign="end start"
+             matTooltipPosition="right"
+             matTooltipClass="tutorial-tooltip"
+             #tooltipDelete="matTooltip"
+             [matTooltip]="tutorial_delete_msg">
           <i class="material-icons" (click)="deleteTutorial(tutorial.idTutorial)"
              style="color:  #841439; cursor: pointer">
             delete_forever
@@ -39,10 +48,13 @@
         </div>
       </mat-card-header>
 
-      <mat-card-title routerLink="/tutorials/{{tutorial.idTutorial}}" matTooltipPosition="right"
-                      matTooltipClass="tutorial-tooltip" #tooltipTitle="matTooltip" [matTooltip]="tutorial_title_msg">
-        <label> Title: </label>
-       {{ tutorial.titleTutorial}}
+      <mat-card-title routerLink="/tutorials/{{tutorial.idTutorial}}"
+                      matTooltipPosition="right"
+                      matTooltipClass="tutorial-tooltip"
+                      #tooltipTitle="matTooltip"
+                      [matTooltip]="tutorial_title_msg">
+        <p  class="tutorialTitle">  {{ tutorial.titleTutorial}}</p>
+
 
         <mat-chip *ngIf="tutorial.draft"
                   [ngStyle]="{ backgroundColor: '#71ABFF', float:'right' }"
@@ -51,13 +63,18 @@
         <mat-divider></mat-divider>
       </mat-card-title>
 
-      <mat-card-content *ngIf="tutorial.overview" class="overview" routerLink="/tutorials/{{tutorial.idTutorial}}"
-                        matTooltipPosition="right" matTooltipClass="tutorial-tooltip" #tooltipOverview="matTooltip"
+      <mat-card-content *ngIf="tutorial.overview"
+
+                        routerLink="/tutorials/{{tutorial.idTutorial}}"
+                        matTooltipPosition="right"
+                        matTooltipClass="tutorial-tooltip"
+                        #tooltipOverview="matTooltip"
                         [matTooltip]="tutorial_overview_msg">
-        <label>Overview: </label> {{ tutorial.overview.substring(0,550) }}
+        <p class="overview">  {{ tutorial.overview}} </p>
       </mat-card-content>
 
 
     </mat-card>
   </div>
+
 </div>

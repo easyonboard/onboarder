@@ -22,8 +22,8 @@ export class TutorialsComponent implements AfterViewChecked {
   tutorialsPerPage: TutorialDTO[];
   pageEvent: PageEvent;
   length: number;
-  pageSize = 10;
-  pageSizeOptions = [5, 10, 25, 100];
+  pageSize = 9;
+  pageSizeOptions = [9, 18, 36, 99];
 
   public paginator_msg = this.tooltips.PAGINATOR_MSG;
   public tutorial_msg = this.tooltips.TUTORIAL_MSG;
