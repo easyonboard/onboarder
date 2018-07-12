@@ -54,24 +54,24 @@ export class TutorialsComponent implements AfterViewChecked, OnDestroy {
       this.tutorialsPerPage = [];
       const keyword = params['keyword'];
       if (keyword) {
-        this.httpSubscription.add(this.tutorialService.searchByKeyword(keyword).subscribe(tutorials => {
+        this.httpSubscription = this.tutorialService.searchByKeyword(keyword).subscribe(tutorials => {
           this.tutorials = tutorials;
           this.initTutorialsPerPageList();
           this.length = this.tutorials.length;
-        }));
+        });
       } else if (this.router.url.indexOf('draft') >= 0) {
         const userId = +localStorage.getItem('userLoggedId');
-        this.httpSubscription.add(tutorialService.getDraftsTutorialsForUser(userId).subscribe(tutorials => {
+        this.httpSubscription = this.tutorialService.getDraftsTutorialsForUser(userId).subscribe(tutorials => {
           this.tutorials = tutorials;
           this.initTutorialsPerPageList();
           this.length = this.tutorials.length;
-        }));
+        });
       } else {
-        this.httpSubscription.add(tutorialService.getTutorials().subscribe(tutorials => {
+        this.httpSubscription = this.tutorialService.getTutorials().subscribe(tutorials => {
           this.tutorials = tutorials;
           this.initTutorialsPerPageList();
           this.length = this.tutorials.length;
-        }));
+        });
       }
     });
   }
