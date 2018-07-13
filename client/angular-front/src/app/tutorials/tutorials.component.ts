@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation, ViewChild, AfterContentChecked, AfterViewChecked} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ViewChild, AfterContentChecked, AfterViewChecked, OnDestroy} from '@angular/core';
 import {RootConst} from '../util/RootConst';
 import {TutorialDTO} from '../domain/tutorial';
 import {TutorialService} from '../service/tutorial.service';
@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PageEvent, MatTooltip} from '@angular/material';
 import {TooltipConst} from '../util/TooltipConst';
 import {LocalStorageConst} from '../util/LocalStorageConst';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-tutorials',
@@ -13,8 +14,7 @@ import {LocalStorageConst} from '../util/LocalStorageConst';
   styleUrls: ['./tutorials.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class TutorialsComponent implements AfterViewChecked {
-
+export class TutorialsComponent implements AfterViewChecked, OnDestroy {
   private rootConst: RootConst;
   private tooltips: TooltipConst = new TooltipConst();
 
@@ -22,8 +22,8 @@ export class TutorialsComponent implements AfterViewChecked {
   tutorialsPerPage: TutorialDTO[];
   pageEvent: PageEvent;
   length: number;
-  pageSize = 10;
-  pageSizeOptions = [5, 10, 25, 100];
+  pageSize = 9;
+  pageSizeOptions = [9, 18, 36, 99];
 
   public paginator_msg = this.tooltips.PAGINATOR_MSG;
   public tutorial_msg = this.tooltips.TUTORIAL_MSG;
@@ -33,6 +33,7 @@ export class TutorialsComponent implements AfterViewChecked {
   public tutorial_overview_msg = this.tooltips.TUTORIAL_OVERVIEW_MSG;
 
   public show;
+  private httpSubscription: Subscription;
 
   @ViewChild('tooltipPaginator') tooltipPaginator: MatTooltip;
   @ViewChild('tooltipTitle') tooltipTitle: MatTooltip;
@@ -53,20 +54,20 @@ export class TutorialsComponent implements AfterViewChecked {
       this.tutorialsPerPage = [];
       const keyword = params['keyword'];
       if (keyword) {
-        this.tutorialService.searchByKeyword(keyword).subscribe(tutorials => {
+        this.httpSubscription = this.tutorialService.searchByKeyword(keyword).subscribe(tutorials => {
           this.tutorials = tutorials;
           this.initTutorialsPerPageList();
           this.length = this.tutorials.length;
         });
       } else if (this.router.url.indexOf('draft') >= 0) {
         const userId = +localStorage.getItem('userLoggedId');
-        tutorialService.getDraftsTutorialsForUser(userId).subscribe(tutorials => {
+        this.httpSubscription = this.tutorialService.getDraftsTutorialsForUser(userId).subscribe(tutorials => {
           this.tutorials = tutorials;
           this.initTutorialsPerPageList();
           this.length = this.tutorials.length;
         });
       } else {
-        tutorialService.getTutorials().subscribe(tutorials => {
+        this.httpSubscription = this.tutorialService.getTutorials().subscribe(tutorials => {
           this.tutorials = tutorials;
           this.initTutorialsPerPageList();
           this.length = this.tutorials.length;
@@ -120,6 +121,10 @@ export class TutorialsComponent implements AfterViewChecked {
         this.tooltipDelete.disabled = true;
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.httpSubscription.unsubscribe();
   }
 
   addTutorialRouterLink(): void {

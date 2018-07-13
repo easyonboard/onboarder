@@ -23,11 +23,6 @@ public class TutorialDAO extends AbstractDAO<Tutorial> {
     }
 
     public List<Tutorial> allPublicTutorials() {
-//        CriteriaBuilder cb = this.getCriteriaBuilder();
-//        CriteriaQuery<Tutorial> criteriaQuery = cb.createQuery(Tutorial.class);
-//        Root<Tutorial> rootTutorial = criteriaQuery.from(Tutorial.class);
-//        criteriaQuery.select(cb.construct(Tutorial.class));
-//        return (List<Tutorial>) this.executeCriteriaQuery(criteriaQuery);
         Query query = em.createQuery("SELECT t FROM Tutorial t where t.isDraft=false");
 
         return query.getResultList();
@@ -37,7 +32,9 @@ public class TutorialDAO extends AbstractDAO<Tutorial> {
         CriteriaBuilder cb = this.getCriteriaBuilder();
         CriteriaQuery<Tutorial> criteriaQuery = cb.createQuery(Tutorial.class);
         Root<Tutorial> rootTutorial = criteriaQuery.from(Tutorial.class);
-        criteriaQuery.select(rootTutorial).where(cb.like(cb.upper(rootTutorial.get("keywords")), "%" + keyword.toUpperCase() + "%"));
+        criteriaQuery.select(rootTutorial)
+                .where(cb.and(cb.like(cb.upper(rootTutorial.get("keywords")), "%" + keyword.toUpperCase() + "%")),
+                        (cb.equal(rootTutorial.get("isDraft"), false)));
         List<Tutorial> tutorials = this.executeCriteriaQuery(criteriaQuery);
         return tutorials;
     }
@@ -64,7 +61,7 @@ public class TutorialDAO extends AbstractDAO<Tutorial> {
         }
     }
 
-    public List<Tutorial> getAllDraftTutorialsForUser(User user){
+    public List<Tutorial> getAllDraftTutorialsForUser(User user) {
         Query query = em.createQuery("SELECT t FROM Tutorial t where t.isDraft=true and :user member of t.contactPersons");
         query.setParameter("user", user);
         return query.getResultList();
