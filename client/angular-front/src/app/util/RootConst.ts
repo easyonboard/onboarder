@@ -79,7 +79,9 @@ export class RootConst {
   public FRONT_CONTACT_PERSON_SECTION = 'contactPerson';
   public FRONT_RATINGS_REVIEW_SECTION = 'ratingsReview';
   public FRONT_LOGIN_PAGE = '';
-  public FRONT_INFOS_PAGE = '/infos';
+
+  public FRONT_INFOS_PAGE = '/info';
+  public FRONT_EVENTS_PAGE= 'events/viewEvents';
 
   public SERVER_ADD_USER_INFO_URL = this.WEB_SERVICE_ENDPOINT + '/info';
   public REMOVE_USER = this.WEB_SERVICE_ENDPOINT + 'user/removeUser';
@@ -88,6 +90,7 @@ export class RootConst {
   WEB_SERVER_LEAVE_CHECKLIST = this.WEB_SERVICE_ENDPOINT + 'leaveCheckList';
   WEB_SERVER_SAVE_LEAVE_CHECKLIST = this.WEB_SERVICE_ENDPOINT + 'saveLeaveCheckList';
   WEB_SERVER_LOCATIONS = this.WEB_SERVICE_ENDPOINT + 'locations';
+  WEB_SERVER_ROOMS = this.WEB_SERVICE_ENDPOINT + 'meetingHalls';
   SERVER_GET_TUTORIAL = this.WEB_SERVICE_ENDPOINT + 'tutorials';
   SERVER_FIND_TUTORIAL_MATERIAL_BY_ID = this.WEB_SERVICE_ENDPOINT + 'materialTutorial?id=';
   SERVER_GET_MATERIALS_FOR_TUTORIAL = this.SERVER_GET_TUTORIAL + '/materialsForTutorial?id=';

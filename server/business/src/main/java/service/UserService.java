@@ -8,7 +8,6 @@ import entity.CheckList;
 import entity.LeaveCheckList;
 import entity.User;
 import entity.UserInformation;
-import exception.DataNotFoundException;
 import exception.InvalidDataException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,7 +119,6 @@ public class UserService {
     }
 
     public List<UserInformationDTO> getAllNewUsers() {
-        List<UserInformation> list = userInformationDAO.getAllNewUsers();
         return userInformationMapper.entitiesToDTOs(userInformationDAO.getAllNewUsers());
     }
 
@@ -128,13 +126,13 @@ public class UserService {
         return userMapper.entitiesToDTOs(userDAO.searchByName(name));
     }
 
-    public List<UserDTO> getUsersInDepartmentForLoggedInUser(String username) {
-        String department = getDepartmentForLoggedUser(username);
+    public List<UserDTO> getUsersInDepartmentForUser(String username) {
+        String department = getDepartmentForUser(username);
         return userMapper.entitiesToDTOs(userDAO.getUsersInDepartment(department));
     }
 
-    public String getDepartmentForLoggedUser(String username) {
-        return userDAO.getDepartmentForLoggedUser(username);
+    public String getDepartmentForUser(String username) {
+        return userDAO.getDepartmentForUser(username);
     }
 
     public Map getCheckList(UserDTO userDTO) {
@@ -175,8 +173,7 @@ public class UserService {
                 UserInformation userInformationEntity = userInformationDAO.findUserInformationByUser(userEntity);
                 if (userInformationEntity != null) {
                     userInformationEntity.setBuddyUser(null);
-                    userInformationEntity
-                            .setLocation(null);
+                    userInformationEntity.setLocation(null);
 
                     userInformationDAO.deleteEntity(userInformationEntity);
                 }
@@ -292,9 +289,5 @@ public class UserService {
         return false;
     }
 
-    public List<LocationDTO> getAllLocations() {
 
-        return locationMapper.entitiesToDTOs(locationDAO.getAllLocations());
-
-    }
 }

@@ -16,7 +16,7 @@ import {RootConst} from '../../util/RootConst';
 import {map} from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {LocalStorageConst} from '../../util/LocalStorageConst';
 
 

@@ -15,15 +15,17 @@
             </mat-chip-list>
           </mat-card-title>
           <mat-card-subtitle>
-            <i class="material-icons"> place </i> {{upcoming.location.locationName}}, {{upcoming.location.locationAddress}}, {{upcoming.location.locationCity}}
-            <br/>
-            <i class="material-icons">
-              meeting_room
-            </i>{{upcoming.meetingHall.hallName}}, {{upcoming.meetingHall.location.locationName}}, floor: {{upcoming.meetingHall.floor}}
+            <div *ngIf="upcoming.location !=undefined">  <i class="material-icons"> place </i> {{upcoming.location.locationName}}, {{upcoming.location.locationAddress}}, {{upcoming.location.locationCity}} <br/>
+            </div>
+            <div *ngIf="upcoming.meetingHall!=undefined">
+              <i class="material-icons">
+                meeting_room
+              </i>{{upcoming.meetingHall.hallName}}, {{upcoming.meetingHall.location.locationName}}, floor: {{upcoming.meetingHall.floor}}
+            </div>
           </mat-card-subtitle>
           <mat-card-content>
-            <div style="float: right">
-              Places left: {{upcoming.placesLeft}}<br/>
+            <div style="float: right" >
+              <p *ngIf="upcoming.placesLeft!=undefined">Places left: {{upcoming.placesLeft}}</p><br/>
               <button mat-button (click)="enrollUser(upcoming)" color="primary" *ngIf="canEnroll">Enroll to event</button> </div>
             <i class="material-icons">
               calendar_today
@@ -65,10 +67,14 @@
           </mat-chip-list>
         </mat-card-title>
         <mat-card-subtitle>
-          <i class="material-icons"> place </i> {{past.location.locationName}}, {{past.location.locationAddress}}, {{past.location.locationCity}} <br/>
+
+        <div *ngIf="past.location !=undefined">  <i class="material-icons"> place </i> {{past.location.locationName}}, {{past.location.locationAddress}}, {{past.location.locationCity}} <br/>
+        </div>
+        <div *ngIf="past.meetingHall!=undefined">
           <i class="material-icons">
             meeting_room
           </i>{{past.meetingHall.hallName}}, {{past.meetingHall.location.locationName}}, floor: {{past.meetingHall.floor}}
+        </div>
         </mat-card-subtitle>
         <mat-card-content>
           <i class="material-icons">

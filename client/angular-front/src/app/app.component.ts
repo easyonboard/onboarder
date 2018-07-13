@@ -187,7 +187,7 @@ export class AppComponent implements AfterViewChecked {
     this.commonComponent.openModalAddNewUser();
   }
 
-  redirectToCoursePage() {
+  redirectToInfoPage() {
     location.replace(this.rootConst.FRONT_INFOS_PAGE);
   }
 

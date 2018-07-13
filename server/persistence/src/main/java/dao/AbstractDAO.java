@@ -40,6 +40,7 @@ public abstract class AbstractDAO<E> {
     @Transactional
     public E findEntity(int id) {
         return em.find(getEntityClass(), id);
+
     }
 
     @PersistenceContext

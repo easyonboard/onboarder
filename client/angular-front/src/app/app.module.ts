@@ -52,6 +52,7 @@ import { EventsComponent } from './events/events.component';
 import {LocationService} from './service/location.service';
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown';
 import {Ng2OrderPipe} from 'ng2-order-pipe';
+import { NotFoundComponent } from './not-found-component/not-found-component.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import {Ng2OrderPipe} from 'ng2-order-pipe';
     ViewTutorialComponent,
     EventsComponent,
     AddEventComponent,
+    NotFoundComponent,
   ],
   imports: [
     NgMultiSelectDropDownModule,

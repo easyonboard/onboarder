@@ -2,12 +2,9 @@ import {Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {RootConst} from '../util/RootConst';
-import {Course} from '../domain/course';
-import {Observer} from 'rxjs/Observer';
 import {Observable} from 'rxjs/Observable';
-import {TutorialMaterialDTO} from '../domain/tutorialMaterial';
 import {LocationDTO} from '../domain/location';
-import {TutorialDTO} from '../domain/tutorial';
+import {MeetingHall} from '../domain/event';
 
 @Injectable()
 export class LocationService implements OnInit {
@@ -26,5 +23,9 @@ export class LocationService implements OnInit {
 
   getLocations(): Observable<LocationDTO[]> {
     return this.http.get<LocationDTO[]>(`${this.rootConst.WEB_SERVER_LOCATIONS}`);
+  }
+
+  getRooms():Observable<MeetingHall[]> {
+    return this.http.get<MeetingHall[]>(`${this.rootConst.WEB_SERVER_ROOMS}`);
   }
 }

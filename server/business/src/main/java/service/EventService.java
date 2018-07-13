@@ -2,18 +2,22 @@ package service;
 
 import dao.EventDAO;
 import dao.LocationDAO;
+import dao.MeetingHallDAO;
 import dao.UserDAO;
 import dto.EventDTO;
+import dto.LocationDTO;
+import dto.MeetingHallDTO;
 import dto.UserDTO;
 import dto.mapper.EventMapper;
+import dto.mapper.LocationMapper;
+import dto.mapper.MeetingHallMapper;
 import entity.Event;
 import entity.Location;
+import entity.MeetingHall;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +28,8 @@ import java.util.stream.Collectors;
 public class EventService {
 
     private EventMapper eventMapper = EventMapper.INSTANCE;
+    private LocationMapper locationMapper = LocationMapper.INSTANCE;
+    private MeetingHallMapper meetingHallMapper = MeetingHallMapper.INSTANCE;
 
     @Autowired
     private UserDAO userDAO;
@@ -34,11 +40,13 @@ public class EventService {
     @Autowired
     private EventDAO eventDAO;
 
-    public EventDTO addEvent(EventDTO eventDTO, List<String> enrolledUsersEmails, List<String> contactPersonEmails, String location){
+    @Autowired
+    private MeetingHallDAO meetingHallDAO;
+
+    public EventDTO addEvent(EventDTO eventDTO, List<String> enrolledUsersEmails, String contactPerson, LocationDTO location, MeetingHallDTO meetingHall){
         List<String> enrolledUsersUsernames = extractUsernamesFromEmails(enrolledUsersEmails);
-        List<String> contactPersonUsernames = extractUsernamesFromEmails(contactPersonEmails);
-        String contactPersonUsername = contactPersonUsernames.get(0);
-        Event event = eventMapper.mapToEntity(eventDTO,new Event());
+
+        Event event = eventMapper.mapToNewEntity(eventDTO);
 
         List<User> enrolledUsers = new ArrayList<>();
 
@@ -47,13 +55,20 @@ public class EventService {
             enrolledUsers.add(user);
         }
 
-        User contactPerson = userDAO.findUserByUsername(contactPersonUsername).get();
-        Location selectedLocation = locationDAO.findLocationByName(location).get();
+        User contactPersonEntity = userDAO.findUserByUsername(contactPerson).get();
+        if(location.getIdLocation()!=null) {
+            Location selectedLocation = locationDAO.findEntity(location.getIdLocation());
+            event.setLocation(selectedLocation);
+        }
+        if(meetingHall.getIdMeetingHall()!=0) {
+            MeetingHall selectedHall = meetingHallDAO.findEntity(meetingHall.getIdMeetingHall());
+            event.setMeetingHall(selectedHall);
+        }
 
-        event.setContactPerson(contactPerson);
-        contactPerson.getEvents().add(event);
+        event.setContactPerson(contactPersonEntity);
+        contactPersonEntity.getEvents().add(event);
         event.setEnrolledUsers(enrolledUsers);
-        event.setLocation(selectedLocation);
+
 
         return eventMapper.mapToDTO(eventDAO.persistEntity(event));
     }
@@ -103,5 +118,15 @@ public class EventService {
         }
         return getAllUpcomingEvents();
 
+    }
+
+    public List<LocationDTO> getAllLocations() {
+
+        return locationMapper.entitiesToDTOs(locationDAO.getAllLocations());
+
+    }
+
+    public List<MeetingHallDTO> getAllMeetingHalls() {
+      return  meetingHallMapper.entitiesToDTOs(meetingHallDAO.getAllRooms());
     }
 }

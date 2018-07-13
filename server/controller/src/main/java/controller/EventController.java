@@ -2,9 +2,9 @@ package controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.media.sound.InvalidDataException;
 import dto.EventDTO;
-import dto.TutorialDTO;
+import dto.LocationDTO;
+import dto.MeetingHallDTO;
 import dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,49 +27,60 @@ public class EventController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/events/addEvent", method = RequestMethod.POST)
-    public ResponseEntity addEvent(@RequestBody String courseJson) {
+    public ResponseEntity<Object> addEvent(@RequestBody String courseJson) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             JsonNode node = null;
             node = mapper.readTree(courseJson);
             EventDTO eventDTO = mapper.convertValue(node.get("event"), EventDTO.class);
+            MeetingHallDTO meetingHall = mapper.convertValue(node.get("hall"), MeetingHallDTO.class);
             List<String> enrolledUsers = mapper.convertValue(node.get("enrolledPersons"), List.class);
-            List<String> contactPerson = mapper.convertValue(node.get("contactPersons"), List.class);
-            String location = mapper.convertValue(node.get("location"), String.class);
+            String contactPerson = mapper.convertValue(node.get("contactPersons"), String.class);
+            LocationDTO locationDTO = mapper.convertValue(node.get("location"), LocationDTO.class);
 
-            return new ResponseEntity(eventService.addEvent(eventDTO, enrolledUsers, contactPerson, location), HttpStatus.OK);
-        } catch (InvalidDataException e) {
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(eventService.addEvent(eventDTO, enrolledUsers, contactPerson, locationDTO, meetingHall), HttpStatus.OK);
         } catch (IOException e) {
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/events/pastEvent", method = RequestMethod.GET)
-    public ResponseEntity getPastEvents() {
-        return new ResponseEntity(eventService.getAllPastEvents(), HttpStatus.OK);
+    public ResponseEntity<List<EventDTO>> getPastEvents() {
+        return new ResponseEntity<>(eventService.getAllPastEvents(), HttpStatus.OK);
 
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/events/upcomingEvent", method = RequestMethod.GET)
-    public ResponseEntity getUpcomingEvents() {
-        return new ResponseEntity(eventService.getAllUpcomingEvents(), HttpStatus.OK);
+    public ResponseEntity<List<EventDTO>> getUpcomingEvents() {
+        return new ResponseEntity<>(eventService.getAllUpcomingEvents(), HttpStatus.OK);
 
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/events/enrollUser", method = RequestMethod.POST)
-    public ResponseEntity enrollUser(@RequestBody String courseJson) {
+    public ResponseEntity<Object> enrollUser(@RequestBody String courseJson) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(courseJson);
             int eventDTO = mapper.convertValue(node.get("eventID"), Integer.class);
             UserDTO userDTO = mapper.convertValue(node.get("user"), UserDTO.class);
-            return new ResponseEntity(eventService.enrollUser(userDTO,eventDTO), HttpStatus.OK);
+            return new ResponseEntity<>(eventService.enrollUser(userDTO,eventDTO), HttpStatus.OK);
         }catch (IOException e){
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "locations", method = RequestMethod.GET)
+    public ResponseEntity<List<dto.LocationDTO>> getAllLocations() {
+        return new ResponseEntity<>(eventService.getAllLocations(), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "meetingHalls", method = RequestMethod.GET)
+    public ResponseEntity<List<dto.MeetingHallDTO>> getAllMeetingHalls() {
+        return new ResponseEntity<>(eventService.getAllMeetingHalls(), HttpStatus.OK);
     }
 }

@@ -163,7 +163,7 @@ public class ScheduleEmailToNewEmployee {
             }
             return true;
         } catch (NoSuchFieldException e) {
-            LOGGER.info("Error while searching for fields in entities  " + e.getMessage());
+            LOGGER.warning("Error while searching for fields in entities  " + e.getMessage());
             return false;
         } catch (IllegalAccessException e) {
             LOGGER.info("Error while searching for fields in entities  " + e.getMessage());

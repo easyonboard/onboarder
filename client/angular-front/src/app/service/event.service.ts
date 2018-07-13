@@ -3,8 +3,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {RootConst} from '../util/RootConst';
 import {Observable} from 'rxjs/Observable';
-import {EventDTO} from '../domain/event';
+import {EventDTO, MeetingHall} from '../domain/event';
 import {UserDTO} from '../domain/user';
+import {LocationDTO} from '../domain/location';
 
 @Injectable()
 export class EventService implements OnInit {
@@ -21,8 +22,8 @@ export class EventService implements OnInit {
   ngOnInit(): void {
   }
 
-  addEvent(event: EventDTO, contactPersons: any[], enrolledPersons: any[], selectedLocation: any[]): any {
-    let body = JSON.stringify({event: event, contactPersons: contactPersons, enrolledPersons: enrolledPersons, location: selectedLocation});
+  addEvent(event: EventDTO, contactPerson: string, enrolledPersons: string[], selectedLocation: LocationDTO, hall: MeetingHall): any {
+    let body = JSON.stringify({event: event, contactPersons: contactPerson, enrolledPersons: enrolledPersons, location: selectedLocation, hall: hall});
     return this.http.post<EventDTO>(this.rootConst.SERVER_ADD_EVENT, body, this.httpOptions);
   }
 

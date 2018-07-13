@@ -168,7 +168,7 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
 
-    public String getDepartmentForLoggedUser(String username) {
+    public String getDepartmentForUser(String username) {
 
         Optional<User> userOptional = findUserByUsername(username);
         User user;

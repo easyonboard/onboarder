@@ -17,7 +17,7 @@ public class MaterialController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/material/delete", method = RequestMethod.GET)
-    public ResponseEntity deleteTutorial(@RequestParam(value = "id", required = true) Integer materialId) {
+    public ResponseEntity deleteMaterial(@RequestParam(value = "id", required = true) Integer materialId) {
         materialService.deleteTutorial(materialId);
        return new ResponseEntity(HttpStatus.OK);
     }
