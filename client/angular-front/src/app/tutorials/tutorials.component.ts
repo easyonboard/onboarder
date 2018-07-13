@@ -76,6 +76,20 @@ export class TutorialsComponent implements AfterViewChecked, OnDestroy {
     });
   }
 
+  decision(params) {
+    const keyword = params['keyword'];
+    if (keyword) {
+      return this.tutorialService.searchByKeyword(keyword)
+    } else if (this.router.url.indexOf('draft') >= 0) {
+      const userId = +localStorage.getItem('userLoggedId');
+      return this.tutorialService.getDraftsTutorialsForUser(userId)
+    } else {
+      return this.tutorialService.getTutorials()
+    }
+
+  }
+
+
   ngAfterViewChecked() {
     this.show = LocalStorageConst.IS_DEMO_ENABLED;
 
