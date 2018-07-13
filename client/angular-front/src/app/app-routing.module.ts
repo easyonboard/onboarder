@@ -35,6 +35,8 @@ const routes: Routes = [
   {path: 'tutorials/:id', component: ViewTutorialComponent},
   {path: 'buddyMenu', component: ToDoListForBuddyComponent},
   {path: 'events/viewEvents', component: EventsComponent},
+  {path: '404', component: NotFoundComponent},
+  {path: '**', redirectTo: '/404'}
 ];
 
 @NgModule({
