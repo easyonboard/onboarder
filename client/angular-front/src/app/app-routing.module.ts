@@ -15,6 +15,7 @@ import {AddUpdateTutorialComponent} from './tutorials/add-update-tutorial/add-up
 import {ViewTutorialComponent} from './tutorials/view-tutorial/view-tutorial.component';
 import {EventsComponent} from './events/events.component';
 import {AddEventComponent} from './events/add-event/add-event.component';
+import {NotFoundComponent} from './not-found-component/not-found-component.component';
 
 const routes: Routes = [
   {path: 'courses/detailedCourse/:id', component: CourseDetailComponent},
@@ -33,7 +34,7 @@ const routes: Routes = [
   {path: 'events/addEventRouterLink', component: AddEventComponent},
   {path: 'tutorials/:id', component: ViewTutorialComponent},
   {path: 'buddyMenu', component: ToDoListForBuddyComponent},
-  {path: 'events/viewEvents', component: EventsComponent}
+  {path: 'events/viewEvents', component: EventsComponent},
 ];
 
 @NgModule({
