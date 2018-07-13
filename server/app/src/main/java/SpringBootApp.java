@@ -12,5 +12,7 @@ public class SpringBootApp extends ResourceServerConfigurerAdapter {
     public static void main(String[] args) {
 
         SpringApplication.run(SpringBootApp.class, args);
+
     }
 }
+

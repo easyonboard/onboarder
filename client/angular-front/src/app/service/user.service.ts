@@ -32,9 +32,6 @@ export class UserService {
   }
 
   addUser(user: UserDTO, role: RoleType, userInfo: UserInformationDTO) {
-    console.log('user stuff ' + user.email + '\n');
-    console.log('role stuff ' + role + '\n');
-
     const body = JSON.stringify({user: user, role: role, userInfo: userInfo});
     return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }

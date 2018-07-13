@@ -42,7 +42,7 @@ export class AddEventComponent implements OnInit {
 
   public contactPersonUsername: string;
   public enrolledPersonUsername: string[];
-
+  public today: Date;
   separatorKeysCodes = [ENTER, COMMA, SPACE];
 
   constructor(private location: Location, private eventService: EventService, private userService: UserService, private locationService: LocationService,  public snackBar: MatSnackBar) {
@@ -51,6 +51,7 @@ export class AddEventComponent implements OnInit {
     this.event = new EventDTO();
     this.event.overview = '';
     this.event.titleEvent = '';
+    this.eventErrorMessage='';
     this.saved = false;
     this.enrolledPersonUsername = [];
     this.userService.getAllUsers().subscribe(us => {
@@ -64,6 +65,7 @@ export class AddEventComponent implements OnInit {
 
   ngOnInit() {
     this.currentStep = 'one';
+    this.today = new Date(Date.now());
 
     this.dropdownContactPersonsSettings = {
       singleSelection: true,

@@ -46,7 +46,7 @@ public class EventService {
     public EventDTO addEvent(EventDTO eventDTO, List<String> enrolledUsersEmails, String contactPerson, LocationDTO location, MeetingHallDTO meetingHall){
         List<String> enrolledUsersUsernames = extractUsernamesFromEmails(enrolledUsersEmails);
 
-        Event event = eventMapper.mapToEntity(eventDTO,new Event());
+        Event event = eventMapper.mapToNewEntity(eventDTO);
 
         List<User> enrolledUsers = new ArrayList<>();
 

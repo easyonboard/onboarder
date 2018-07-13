@@ -2,7 +2,6 @@ package controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.media.sound.InvalidDataException;
 import dto.EventDTO;
 import dto.LocationDTO;
 import dto.MeetingHallDTO;

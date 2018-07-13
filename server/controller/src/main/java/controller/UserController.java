@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.*;
 import entity.enums.RoleType;
-import exception.DataNotFoundException;
 import exception.InvalidDataException;
-import exception.RoleNameNotFoundException;
 import exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -164,8 +162,8 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "user/department", method = RequestMethod.GET)
-    public ResponseEntity<List<UserDTO>> getUsersInDepartmentForLoggedInUser(@RequestParam(value = "username") String username) {
-        List<UserDTO> users = userService.getUsersInDepartmentForLoggedInUser(username);
+    public ResponseEntity<List<UserDTO>> getUsersInDepartmentForUser(@RequestParam(value = "username") String username) {
+        List<UserDTO> users = userService.getUsersInDepartmentForUser(username);
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }

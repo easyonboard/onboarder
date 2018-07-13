@@ -1,7 +1,6 @@
 package controller;
 
 import dao.UserInformationDAO;
-import entity.User;
 import entity.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,11 +9,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import utilityService.MailSender;
 
 import java.text.MessageFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 //@Component
@@ -45,8 +45,7 @@ public class ReminderEmailForBuddy {
     private String createEmailBodyForBuddy(String name, String newEmployeeName, String time, String floor, String building, String team) {
         ResourceBundle bundle = ResourceBundle.getBundle("buddy_reminder_email_template", Locale.ROOT);
         String email_body = bundle.getString("email_body");
-        String formattedEmailBody = MessageFormat.format(email_body, name, newEmployeeName, time, building, team, floor);
-        return formattedEmailBody;
+        return MessageFormat.format(email_body, name, newEmployeeName, time, building, team, floor);
     }
 
 
@@ -54,14 +53,9 @@ public class ReminderEmailForBuddy {
         sender.sendMail(to, subject, body);
     }
 
-    public Date getTomorrowDate() {
-        try {
-            LocalDate today = LocalDate.now();
-            return new SimpleDateFormat("yyyy-MM-dd").parse(today.plus(1, ChronoUnit.DAYS).toString());
-        } catch (ParseException e) {
-            LOGGER.info("Error while parse date  " + e.getMessage());
-            return null;
-        }
+    private Date getTomorrowDate() {
+        LocalDate today = LocalDate.now();
+        return Date.from( today.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
 }

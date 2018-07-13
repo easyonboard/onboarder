@@ -39,7 +39,6 @@
         <td><label>Contact person</label></td>
         <td>
           <mat-select [(value)]="selectedContactPerson" name="contact" placeholder="select contact person">
-            <mat-option>None</mat-option>
             <mat-option *ngFor="let user of usersOptions" [value]="user.username">{{user.name}}</mat-option>
           </mat-select>
 

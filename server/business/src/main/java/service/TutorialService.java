@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TutorialService {
@@ -56,15 +57,6 @@ public class TutorialService {
 
     public TutorialMaterialDTO addTutorialMaterial(TutorialMaterialDTO tutorialMaterialDTO) {
         TutorialMaterial tutorialMaterial = tutorialMaterialMapper.mapToEntity(tutorialMaterialDTO, new TutorialMaterial());
-
-//        List<Tutorial> owners = new ArrayList<>();
-
-//        List<User> constantPerson = new ArrayList<>();
-//        contactPersonsId.forEach(cpId -> constantPerson.add(userDAO.findEntity(cpId)));
-
-        //tutorial.setOwners(owners);
-//        tutorial.setContactPersons(constantPerson);
-
         return tutorialMaterialMapper.mapToDTO(tutorialMaterialDAO.persistEntity(tutorialMaterial));
     }
 
@@ -83,10 +75,11 @@ public class TutorialService {
     }
 
     public List<TutorialMaterialDTO> getAllMaterialsForTutorial(Integer idTutorial) {
-        List<TutorialMaterialDTO> tutorialMaterialDTOS = new ArrayList<>();
-        for (TutorialMaterial tutorialMaterial : tutorialDAO.findTutorialById(idTutorial).getTutorialMaterials()) {
-            tutorialMaterialDTOS.add(tutorialMaterialMapper.mapToDTO(tutorialMaterial));
-        }
+        List<TutorialMaterialDTO> tutorialMaterialDTOS;
+
+        List<TutorialMaterial> tutorialMaterials = tutorialDAO.findTutorialById(idTutorial).getTutorialMaterials();
+        tutorialMaterialDTOS = tutorialMaterials.stream().map(tutorial -> tutorialMaterialMapper.mapToDTO(tutorial)).collect(Collectors.toList());
+
         return tutorialMaterialDTOS;
     }
 
