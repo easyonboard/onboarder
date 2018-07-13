@@ -22,7 +22,7 @@ const routes: Routes = [
   {path: 'courses/addCourse', component: AddCourseComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: '', component: LoginComponent},
-  {path: 'info', component: GeneralInfosComponent},
+  {path: 'infos', component: GeneralInfosComponent},
   {path: 'courses/detailedCourse/:id/subject/:idSubject', component: SubjectDetailComponent},
   {path: 'userinfo', component: UserInfoFormularComponent},
   {path: 'tutorials', component: TutorialsComponent},
