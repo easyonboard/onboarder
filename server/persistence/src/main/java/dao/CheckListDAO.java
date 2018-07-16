@@ -11,11 +11,12 @@ import java.lang.reflect.Field;
 
 @Service
 public class CheckListDAO extends AbstractDAO<CheckList> {
+
     @Override
     public Class<CheckList> getEntityClass() {
+
         return CheckList.class;
     }
-
 
     public CheckList findByUser(User userEntity) {
 
@@ -23,7 +24,6 @@ public class CheckListDAO extends AbstractDAO<CheckList> {
         query.setParameter("user", userEntity);
         try {
             return (CheckList) query.getSingleResult();
-
         } catch (NoResultException e) {
             return null;
         }
@@ -31,6 +31,7 @@ public class CheckListDAO extends AbstractDAO<CheckList> {
 
     @Transactional
     public void setValue(User user, String fieldName, boolean value) {
+
         try {
             CheckList checkListForUser = this.findByUser(user);
             Field field = null;
@@ -48,6 +49,7 @@ public class CheckListDAO extends AbstractDAO<CheckList> {
     }
 
     public boolean getValueForMailSent(User user) {
+
         Query query = em.createQuery("Select c.mailSent from CheckList c where c.userAccount=:user");
         query.setParameter("user", user);
         try {

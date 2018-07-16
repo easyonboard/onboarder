@@ -25,6 +25,7 @@ public class UserDAO extends AbstractDAO<User> {
 
     @Override
     public Class<User> getEntityClass() {
+
         return User.class;
     }
 
@@ -35,6 +36,7 @@ public class UserDAO extends AbstractDAO<User> {
      * @return User
      */
     public Optional<User> findUserByUsername(String username) {
+
         TypedQuery<User> query = this.em.createNamedQuery(User.FIND_USER_BY_USERNAME, User.class);
         query.setParameter("username", username);
         Optional<User> firstUser = query.getResultList().stream().findFirst();
@@ -42,6 +44,7 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     public User userByUsername(String username) {
+
         TypedQuery<User> query = this.em.createNamedQuery(User.FIND_USER_BY_USERNAME, User.class);
         query.setParameter("username", username);
         User firstUser = query.getResultList().stream().findFirst().get();
@@ -55,6 +58,7 @@ public class UserDAO extends AbstractDAO<User> {
      * @return User
      */
     public Optional<User> findUserByEmail(String email) {
+
         TypedQuery<User> query = this.em.createNamedQuery(User.FIND_USER_BY_EMAIL, User.class);
         query.setParameter("email", email);
         Optional<User> firstUser = query.getResultList().stream().findFirst();
@@ -62,51 +66,44 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     public List<User> getAllUsers() {
+
         CriteriaBuilder cb = this.getCriteriaBuilder();
         CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
         Root<User> rootUser = criteriaQuery.from(User.class);
-        criteriaQuery.select(cb.construct(User.class, rootUser.get("idUser"), rootUser.get("name"),
-                rootUser.get("username"),rootUser.get("email"), rootUser.get("msgMail")));
+        criteriaQuery.select(
+                cb.construct(User.class, rootUser.get("idUser"), rootUser.get("name"), rootUser.get("username"),
+                             rootUser.get("email"), rootUser.get("msgMail")));
         return (List<User>) this.executeCriteriaQuery(criteriaQuery);
     }
 
-
-
     public List<User> getAbteilungsleiters() {
-//        String queryString = "select u from User u where u.role.role=:role";
-//        Query query = this.em.createQuery(queryString);
-//        query.setParameter("role", ROLE_ABTEILUNGSLEITER);
-//        return query.getResultList();
+        //        String queryString = "select u from User u where u.role.role=:role";
+        //        Query query = this.em.createQuery(queryString);
+        //        query.setParameter("role", ROLE_ABTEILUNGSLEITER);
+        //        return query.getResultList();
         CriteriaBuilder cb = this.getCriteriaBuilder();
         CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
         Root<User> rootUser = criteriaQuery.from(User.class);
-        criteriaQuery.select(cb.construct(User.class,
-                rootUser.get("idUser"),
-                rootUser.get("name"),
-                rootUser.get("username"),
-                rootUser.get("email"),
-                rootUser.get("msgMail"))).
-                where(cb.equal(rootUser.get("role").get("role"),ROLE_ABTEILUNGSLEITER));
+        criteriaQuery.select(
+                cb.construct(User.class, rootUser.get("idUser"), rootUser.get("name"), rootUser.get("username"),
+                             rootUser.get("email"), rootUser.get("msgMail"))).
+                where(cb.equal(rootUser.get("role").get("role"), ROLE_ABTEILUNGSLEITER));
         List<User> users = this.executeCriteriaQuery(criteriaQuery);
         return users;
     }
 
-
     public List<User> searchByName(String name) {
 
-//        String queryString = "select u from User u where u.name LIKE :name";
-//        Query query = this.em.createQuery(queryString);
-//        query.setParameter("name", "%" + name + "%");
-//        return query.getResultList();
+        //        String queryString = "select u from User u where u.name LIKE :name";
+        //        Query query = this.em.createQuery(queryString);
+        //        query.setParameter("name", "%" + name + "%");
+        //        return query.getResultList();
         CriteriaBuilder cb = this.getCriteriaBuilder();
         CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
         Root<User> rootUser = criteriaQuery.from(User.class);
-        criteriaQuery.select(cb.construct(User.class,
-                rootUser.get("idUser"),
-                rootUser.get("name"),
-                rootUser.get("username"),
-                rootUser.get("email"),
-                rootUser.get("msgMail"))).
+        criteriaQuery.select(
+                cb.construct(User.class, rootUser.get("idUser"), rootUser.get("name"), rootUser.get("username"),
+                             rootUser.get("email"), rootUser.get("msgMail"))).
                 where(cb.like(cb.upper(rootUser.get("name")), "%" + name.toUpperCase() + "%"));
         List<User> users = this.executeCriteriaQuery(criteriaQuery);
         return users;
@@ -120,24 +117,25 @@ public class UserDAO extends AbstractDAO<User> {
         query.setParameter("department", DepartmentType.valueOf(department));
         return query.getResultList();
 
-//        CriteriaBuilder cb = this.getCriteriaBuilder();
-//        CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
-//        Root<UserInformation> rootUser = criteriaQuery.from(UserInformation.class);
-//        criteriaQuery.select(cb.construct(User.class,
-//                rootUser.get("userAccount.idUser"),
-//                rootUser.get("userAccount.name"),
-//                rootUser.get("userAccount.username"),
-//                rootUser.get("userAccount.email")
-// ));
-////                where(cb.equal(rootUser.get("department"),department));
-//        List<User> users = this.executeCriteriaQuery(criteriaQuery);
-//        return users;
+        //        CriteriaBuilder cb = this.getCriteriaBuilder();
+        //        CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
+        //        Root<UserInformation> rootUser = criteriaQuery.from(UserInformation.class);
+        //        criteriaQuery.select(cb.construct(User.class,
+        //                rootUser.get("userAccount.idUser"),
+        //                rootUser.get("userAccount.name"),
+        //                rootUser.get("userAccount.username"),
+        //                rootUser.get("userAccount.email")
+        // ));
+        ////                where(cb.equal(rootUser.get("department"),department));
+        //        List<User> users = this.executeCriteriaQuery(criteriaQuery);
+        //        return users;
     }
 
     /**
      * returns map of checklist properties and values for a particular user
      */
     public Map<String, Boolean> getCheckListMapForUser(User user) {
+
         String queryString = "select cl from CheckList cl where cl.userAccount=:user";
         Query query = em.createQuery(queryString);
         query.setParameter("user", user);
@@ -166,7 +164,6 @@ public class UserDAO extends AbstractDAO<User> {
 
         }
     }
-
 
     public String getDepartmentForUser(String username) {
 

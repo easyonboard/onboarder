@@ -6,14 +6,12 @@ export class RootConst {
   public SERVER_COURSE_OVERVIEW = this.SERVER_COURSES_URL + '/course?overview=';
   public SERVER_FILTER_COURSES_BY_KEYWORD = this.WEB_SERVICE_ENDPOINT + '/courses?keyword=';
 
-
   public SERVER_DETAILED_COURSE = this.SERVER_COURSES_URL + '/detailedCourse?id=';
   public SERVER_COURSES_BY_PAGE_NUMBER_URL = this.SERVER_COURSES_URL + 'FromPage/?pageNumber=';
   public SERVER_COURSES_NUMBER_OF_OBJECT_PER_PAGE = '&numberOfObjectsPerPage=';
 
   public SERVER_TUTORIALS_URL = this.WEB_SERVICE_ENDPOINT + 'tutorials';
   public SERVER_EVENTS_URL = this.WEB_SERVICE_ENDPOINT + 'events';
-
 
   public SERVER_TEST_IF_USER_IS_ENROLLED = this.SERVER_COURSES_URL + '/isEnrolledOnCourse?idCourse=';
   public SERVER_ENROLLE_USER_ON_COURSE = this.SERVER_COURSES_URL + '/enrollUserOnCourse?idCourse=';

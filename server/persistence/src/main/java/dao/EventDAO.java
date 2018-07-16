@@ -26,7 +26,7 @@ public class EventDAO extends AbstractDAO<Event> {
     }
 
     @Transactional
-    public List<Event> findAllUPastEvents() {
+    public List<Event> findAllPastEvents() {
         Query q = em.createQuery("select e from Event e where e.eventDate <= :today ");
         Date date = new Date();
         q.setParameter("today", date);

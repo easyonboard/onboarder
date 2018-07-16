@@ -9,7 +9,7 @@ import entity.LeaveCheckList;
 import entity.User;
 import entity.UserInformation;
 import exception.InvalidDataException;
-import exception.UserNotFoundException;
+import exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
@@ -68,11 +68,11 @@ public class UserService {
 
     private static final String USER_NOT_FOUND_ERROR = "User not found";
 
-    public UserDTO findUserByUsername(String username) throws UserNotFoundException {
+    public UserDTO findUserByUsername(String username) throws EntityNotFoundException {
 
         Optional<User> entity = userDAO.findUserByUsername(username);
         if (!entity.isPresent()) {
-            throw new UserNotFoundException(USER_NOT_FOUND_ERROR);
+            throw new EntityNotFoundException(USER_NOT_FOUND_ERROR);
         }
         return userMapper.mapToDTO(entity.get());
     }
@@ -152,7 +152,7 @@ public class UserService {
      *
      * @param username
      * @return
-     * @throws UserNotFoundException
+     * @throws EntityNotFoundException
      * delete user and all children from db
      * searches all children and deletes them one by one
      * searches all other users who have the user to be deleted as buddy and sets the buddy field TO NULL
@@ -162,7 +162,7 @@ public class UserService {
      *
      *
      */
-    public boolean deleteUser(String username) throws UserNotFoundException {
+    public boolean deleteUser(String username) throws EntityNotFoundException {
 
         Optional<User> userOptional = userDAO.findUserByUsername(username);
         if (userOptional.isPresent()) {
@@ -195,10 +195,9 @@ public class UserService {
                 return false;
             }
 
-        } else throw new UserNotFoundException(USER_NOT_FOUND_ERROR);
+        } else throw new EntityNotFoundException(USER_NOT_FOUND_ERROR);
 
     }
-
 
     public UserInformationDTO getUserInformationForUser(String username) {
         return userInformationMapper.mapToDTO(userInformationDAO.findUserInformationByUser(userDAO.findUserByUsername(username).get()));
@@ -225,7 +224,7 @@ public class UserService {
         return false;
     }
 
-    public LeaveCheckListDTO getLeaveCheckListForUser(String username) throws UserNotFoundException {
+    public LeaveCheckListDTO getLeaveCheckListForUser(String username) throws EntityNotFoundException {
 
         Optional<User> user = userDAO.findUserByUsername(username);
         if (user.isPresent()) {
@@ -252,7 +251,7 @@ public class UserService {
             }
             return leaveCheckListMapper.mapToDTO(leaveCheckList);
         } else
-            throw new UserNotFoundException(USER_NOT_FOUND_ERROR);
+            throw new EntityNotFoundException(USER_NOT_FOUND_ERROR);
 
 
     }

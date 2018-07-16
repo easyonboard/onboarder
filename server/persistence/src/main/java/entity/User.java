@@ -40,8 +40,6 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "contactPerson", cascade = CascadeType.ALL)
     private List<Event> events;
 
-
-
     public User(Integer idUser,@NotNull String name, @NotNull @Size(min = 6) String username, @NotNull String email, String msgMail) {
         this.idUser = idUser;
         this.name = name;
@@ -50,13 +48,11 @@ public class User implements Serializable {
         this.msgMail = msgMail;
     }
 
-
     public User() {
     }
 
     @OneToOne( mappedBy = "userAccount", targetEntity = UserInformation.class)
     public UserInformation userAccount;
-
 
     public List<Event> getEvents() {
         return events;
@@ -106,8 +102,6 @@ public class User implements Serializable {
         this.role = role;
     }
 
-
-
     public String getEmail() {
         return email;
     }
@@ -115,8 +109,6 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
-
 
     public UserInformation getUserAccount() {
         return userAccount;

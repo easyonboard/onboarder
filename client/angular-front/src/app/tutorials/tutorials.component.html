@@ -3,8 +3,9 @@
                  matTooltipClass="paginator-tooltip"
                  #tooltipPaginator="matTooltip"
                  [matTooltip]="paginator_msg"
-                 mat [length]="length"
+                 mat [length]="this.tutorials.length"
                  [pageSize]="pageSize"
+                 [pageIndex]="pageIndex"
                  [pageSizeOptions]="pageSizeOptions"
                  (page)="pageEvent = getServerData($event)">
   </mat-paginator>
