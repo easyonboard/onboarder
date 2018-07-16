@@ -1,11 +1,9 @@
-<h2 mat-dialog-title style="margin-bottom: 0px" #tooltipAdd="matTooltip" [matTooltip]="add_user_msg" matTooltipPosition="above" matTooltipClass="add-user-tooltip">Add a new user</h2>
-<button mat-button (click)="disablePopups()" *ngIf="popups_visible" class="dialog-got-it-button">Got it</button>
-<div mat-dialog-content style="min-height: 750px" #tooltipMust="matTooltip" [matTooltip]="must_msg" matTooltipPosition="right" matTooltipClass="add-user-tooltip">
+<h2 mat-dialog-title style="margin-bottom: 0px">Add a new user</h2>
+<div mat-dialog-content style="min-height: 750px">
     <form>
         <div>
             <ng-container buddy-dropdown-directive></ng-container>
         </div>
-
         <div>
             <label for="FirstName">First Name</label>
             <input #FirstName type="text" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder="FirstName" class="form-control" id="FirstName" />
@@ -16,7 +14,7 @@
         </div>
         <br>
         <div>
-            <label style='width: 70%' #tooltipUsername="matTooltip" [matTooltip]="username_msg" matTooltipPosition="left" matTooltipClass="add-user-tooltip">USERNAME: {{ firstName }}{{ lastName }}</label>
+            <label style='width: 70%'>USERNAME: {{firstName.trim()}}{{lastName.trim()}}</label>
         </div>
         <br>
         <div>
