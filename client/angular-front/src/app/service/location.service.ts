@@ -5,6 +5,7 @@ import {RootConst} from '../util/RootConst';
 import {Observable} from 'rxjs/Observable';
 import {LocationDTO} from '../domain/location';
 import {MeetingHall} from '../domain/event';
+import {debug} from 'util';
 
 @Injectable()
 export class LocationService implements OnInit {
@@ -25,7 +26,8 @@ export class LocationService implements OnInit {
     return this.http.get<LocationDTO[]>(`${this.rootConst.WEB_SERVER_LOCATIONS}`);
   }
 
-  getRooms():Observable<MeetingHall[]> {
+  getRooms(): Observable<MeetingHall[]> {
+    debug;
     return this.http.get<MeetingHall[]>(`${this.rootConst.WEB_SERVER_ROOMS}`);
   }
 }

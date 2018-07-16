@@ -1,5 +1,7 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -41,14 +43,14 @@ public class Event implements Serializable {
     private MeetingHall meetingHall;
 
 
-
     @Column
     private String keywords;
 
     @Column
     private Date eventDate;
 
-    public Event(){}
+    public Event() {
+    }
 
     public Event(String titleEvent, @Size(max = 500) String overview, List<User> enrolledUsers, User contactPerson, Integer maxEnrolledUsers, Location location, String keywords, Date eventDate) {
         this.titleEvent = titleEvent;

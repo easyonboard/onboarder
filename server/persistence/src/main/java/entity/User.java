@@ -1,5 +1,7 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -36,11 +38,11 @@ public class User implements Serializable {
 
     @ManyToOne
     private Role role;
-
+    @JsonBackReference(value="user-event-contact-person")
     @OneToMany(mappedBy = "contactPerson", cascade = CascadeType.ALL)
     private List<Event> events;
 
-    public User(Integer idUser,@NotNull String name, @NotNull @Size(min = 6) String username, @NotNull String email, String msgMail) {
+    public User(Integer idUser, @NotNull String name, @NotNull @Size(min = 6) String username, @NotNull String email, String msgMail) {
         this.idUser = idUser;
         this.name = name;
         this.username = username;
@@ -51,7 +53,8 @@ public class User implements Serializable {
     public User() {
     }
 
-    @OneToOne( mappedBy = "userAccount", targetEntity = UserInformation.class)
+    @JsonBackReference(value="user-information")
+    @OneToOne(mappedBy = "userAccount", targetEntity = UserInformation.class)
     public UserInformation userAccount;
 
     public List<Event> getEvents() {

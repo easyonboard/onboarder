@@ -9,6 +9,7 @@ import {MatChipInputEvent, MatSnackBar} from '@angular/material';
 import {RootConst} from '../../util/RootConst';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 import {LocationDTO} from '../../domain/location';
+import {debug} from 'util';
 
 @Component({
   selector: 'app-add-event',
@@ -23,8 +24,8 @@ export class AddEventComponent implements OnInit {
   public dropdownContactPersonsSettings = {};
   public selectedEnrolledPersonsItems = [];
   public dropdownEnrolledPersonsSettings = {};
-  public selectedLocation : LocationDTO;
-  public selectedRoom : MeetingHall;
+  public selectedLocation: LocationDTO;
+  public selectedRoom: MeetingHall;
 
   public dropdownLocationSettings = {};
   public usersOptions: UserDTO[];
@@ -45,20 +46,20 @@ export class AddEventComponent implements OnInit {
   public today: Date;
   separatorKeysCodes = [ENTER, COMMA, SPACE];
 
-  constructor(private location: Location, private eventService: EventService, private userService: UserService, private locationService: LocationService,  public snackBar: MatSnackBar) {
+  constructor(private location: Location, private eventService: EventService, private userService: UserService, private locationService: LocationService, public snackBar: MatSnackBar) {
     this.keywords = [];
     this.rootConst = new RootConst();
     this.event = new EventDTO();
     this.event.overview = '';
     this.event.titleEvent = '';
-    this.eventErrorMessage='';
+    this.eventErrorMessage = '';
     this.saved = false;
     this.enrolledPersonUsername = [];
     this.userService.getAllUsers().subscribe(us => {
-      this.usersOptions=us
+      this.usersOptions = us;
     });
-    this.selectedRoom=new MeetingHall();
-    this.selectedLocation=new LocationDTO();
+    this.selectedRoom = new MeetingHall();
+    this.selectedLocation = new LocationDTO();
 
 
   }
@@ -81,14 +82,23 @@ export class AddEventComponent implements OnInit {
       singleSelection: true,
       allowSearchFilter: true
     };
-    this.locationService.getLocations().subscribe(resp=>{this.locationOptions=resp; console.log(this.locationOptions)});
-    this.locationService.getRooms().subscribe(resp=>this.meetingHallOptions=resp);
+    this.locationService.getLocations().subscribe(resp => {
+      this.locationOptions = resp;
+      console.log(this.locationOptions);
+    });
+    this.locationService.getRooms().subscribe(resp => {
+        this.meetingHallOptions = resp;
+        console.log(this.meetingHallOptions [0]);
+      }
+    )
+    ;
   }
 
   addEvent(): void {
-    console.log('selected  loc  '+ this.selectedLocation.idLocation);
-    console.log('contact oersons   '+ this.selectedContactPerson);
-    console.log('selected room   '+ this.selectedRoom.idMeetingHall);
+    debug;
+    console.log('selected  loc  ' + this.selectedLocation.idLocation);
+    console.log('contact oersons   ' + this.selectedContactPerson);
+    console.log('selected room   ' + this.selectedRoom.idMeetingHall);
     if (this.event.titleEvent.length < 5) {
       this.eventErrorMessage += 'Title is too short!\n';
     }
@@ -103,7 +113,7 @@ export class AddEventComponent implements OnInit {
     }
 
     this.event.keywords = this.keywords.join(' ');
-    this.eventService.addEvent(this.event, this.selectedContactPerson,  this.selectedEnrolledPersonsItems, this.selectedLocation, this.selectedRoom).subscribe(event => {
+    this.eventService.addEvent(this.event, this.selectedContactPerson, this.selectedEnrolledPersonsItems, this.selectedLocation, this.selectedRoom).subscribe(event => {
       this.event = event;
       this.saved = true;
       this.incStep();
@@ -161,6 +171,7 @@ export class AddEventComponent implements OnInit {
   redirectToEventPage() {
     location.replace(this.rootConst.FRONT_EVENTS_PAGE);
   }
+
   getDate(): Date {
     return new Date(this.event.eventDate);
   }

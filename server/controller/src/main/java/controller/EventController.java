@@ -89,7 +89,7 @@ public class EventController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "meetingHalls", method = RequestMethod.GET)
     public ResponseEntity<List<dto.MeetingHallDTO>> getAllMeetingHalls() {
-
+        System.out.println("HALLS");
         return new ResponseEntity<>(eventService.getAllMeetingHalls(), HttpStatus.OK);
     }
 }

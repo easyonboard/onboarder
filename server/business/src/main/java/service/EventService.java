@@ -11,9 +11,8 @@ import dto.UserDTO;
 import dto.mapper.EventMapper;
 import dto.mapper.LocationMapper;
 import dto.mapper.MeetingHallMapper;
+import dto.mapper.UserMapper;
 import entity.Event;
-import entity.Location;
-import entity.MeetingHall;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +29,7 @@ public class EventService {
     private EventMapper eventMapper = EventMapper.INSTANCE;
     private LocationMapper locationMapper = LocationMapper.INSTANCE;
     private MeetingHallMapper meetingHallMapper = MeetingHallMapper.INSTANCE;
+    private UserMapper userMapper = UserMapper.INSTANCE;
 
     @Autowired
     private UserDAO userDAO;
@@ -43,34 +43,53 @@ public class EventService {
     @Autowired
     private MeetingHallDAO meetingHallDAO;
 
-    public EventDTO addEvent(EventDTO eventDTO, List<String> enrolledUsersEmails, String contactPerson, LocationDTO location, MeetingHallDTO meetingHall){
-        List<String> enrolledUsersUsernames = extractUsernamesFromEmails(enrolledUsersEmails);
+    public EventDTO addEvent(EventDTO eventDTO, List<String> enrolledUsersUsernames, String contactPerson, LocationDTO location, MeetingHallDTO meetingHall) {
+//        List<String> enrolledUsersUsernames = extractUsernamesFromEmails(enrolledUsersEmails);
+//        Event event = eventMapper.mapToNewEntity(eventDTO);
+//
+//        List<User> enrolledUsers = new ArrayList<>();
+//
+//        for (int i = 0; i < enrolledUsersUsernames.size(); i++) {
+//            User user = userDAO.findUserByUsername(enrolledUsersUsernames.get(i)).get();
+//            enrolledUsers.add(user);
+//        }
+//
+//        User contactPersonEntity = userDAO.findUserByUsername(contactPerson).get();
+//        if (location.getIdLocation() != null) {
+//            Location selectedLocation = locationDAO.findEntity(location.getIdLocation());
+//            event.setLocation(selectedLocation);
+//        }
+//        if (meetingHall.getIdMeetingHall() != 0) {
+//            MeetingHall selectedHall = meetingHallDAO.findEntity(meetingHall.getIdMeetingHall());
+//            event.setMeetingHall(selectedHall);
+//        }
+//
+//        event.setContactPerson(contactPersonEntity);
+//        Event resultedEvent = eventDAO.persistEntity(event);
+//        EventDTO eventDTO1 = eventMapper.mapToDTO(resultedEvent);
+//
+//        resultedEvent.setEnrolledUsers(enrolledUsers);
 
-        Event event = eventMapper.mapToNewEntity(eventDTO);
-
-        List<User> enrolledUsers = new ArrayList<>();
+        List<UserDTO> enrolledUsersDTO = new ArrayList<>();
 
         for (int i = 0; i < enrolledUsersUsernames.size(); i++) {
-            User user = userDAO.findUserByUsername(enrolledUsersUsernames.get(i)).get();
-            enrolledUsers.add(user);
+            UserDTO userDTO = userMapper.mapToDTO(userDAO.findUserByUsername(enrolledUsersUsernames.get(i)).get());
+            enrolledUsersDTO.add(userDTO);
         }
 
-        User contactPersonEntity = userDAO.findUserByUsername(contactPerson).get();
-        if(location.getIdLocation()!=null) {
-            Location selectedLocation = locationDAO.findEntity(location.getIdLocation());
-            event.setLocation(selectedLocation);
+        UserDTO contactPersonEntityDTO = userMapper.mapToDTO(userDAO.findUserByUsername(contactPerson).get());
+        if (location.getIdLocation() != null) {
+            LocationDTO selectedLocationDTO = locationMapper.mapToDTO(locationDAO.findEntity(location.getIdLocation()));
+            eventDTO.setLocation(selectedLocationDTO);
         }
-        if(meetingHall.getIdMeetingHall()!=0) {
-            MeetingHall selectedHall = meetingHallDAO.findEntity(meetingHall.getIdMeetingHall());
-            event.setMeetingHall(selectedHall);
+        if (meetingHall.getIdMeetingHall() != 0) {
+            MeetingHallDTO selectedHallDTO = meetingHallMapper.mapToDTO(meetingHallDAO.findEntity(meetingHall.getIdMeetingHall()));
+            eventDTO.setMeetingHall(selectedHallDTO);
         }
+        eventDTO.setContactPerson(contactPersonEntityDTO);
+        eventDTO.setEnrolledUsers(enrolledUsersDTO);
+        return eventMapper.mapToDTO(eventDAO.update(eventMapper.mapToNewEntity(eventDTO)));
 
-        event.setContactPerson(contactPersonEntity);
-        contactPersonEntity.getEvents().add(event);
-        event.setEnrolledUsers(enrolledUsers);
-
-
-        return eventMapper.mapToDTO(eventDAO.persistEntity(event));
     }
 
 
@@ -93,26 +112,27 @@ public class EventService {
         return usernames;
     }
 
-    public List<EventDTO> getAllUpcomingEvents(){
+    public List<EventDTO> getAllUpcomingEvents() {
 
-      return eventDAO.findAllUpcomingEvents().stream().map(eventEntity->eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+        return eventDAO.findAllUpcomingEvents().stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
 
     }
-    public List<EventDTO> getAllPastEvents(){
 
-        return eventDAO.findAllPastEvents().stream().map(eventEntity->eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+    public List<EventDTO> getAllPastEvents() {
+
+        return eventDAO.findAllPastEvents().stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
 
     }
 
     public List<EventDTO> enrollUser(UserDTO userDTO, int eventDTO) {
-        Optional<User> userOptional=userDAO.findUserByUsername(userDTO.getUsername());
-        if(userOptional.isPresent()){
-            User userEntity=userOptional.get();
-            Event eventEntity=eventDAO.findEntity(eventDTO);
-            if(eventEntity!=null){
+        Optional<User> userOptional = userDAO.findUserByUsername(userDTO.getUsername());
+        if (userOptional.isPresent()) {
+            User userEntity = userOptional.get();
+            Event eventEntity = eventDAO.findEntity(eventDTO);
+            if (eventEntity != null) {
 
-                   eventEntity.getEnrolledUsers().add(userEntity);
-                   eventDAO.persistEntity(eventEntity);
+                eventEntity.getEnrolledUsers().add(userEntity);
+                eventDAO.persistEntity(eventEntity);
 
             }
         }
@@ -127,6 +147,6 @@ public class EventService {
     }
 
     public List<MeetingHallDTO> getAllMeetingHalls() {
-      return  meetingHallMapper.entitiesToDTOs(meetingHallDAO.getAllRooms());
+        return meetingHallMapper.entitiesToDTOs(meetingHallDAO.getAllRooms());
     }
 }

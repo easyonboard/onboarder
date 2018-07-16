@@ -1,5 +1,6 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import entity.enums.LocationName;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @NamedQueries({@NamedQuery(name = Location.FIND_LOCATION_BY_NAME, query = "select l from Location l where l.locationName=:name")})
 @Entity
-public class Location  implements Serializable{
+public class Location implements Serializable {
 
     public static final String FIND_LOCATION_BY_NAME = "Location.findLocationByName";
 
@@ -36,7 +37,7 @@ public class Location  implements Serializable{
 
     @Column
     private String locationContactEmail;
-
+    @JsonBackReference(value = "event-list")
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
     private List<Event> events;
 

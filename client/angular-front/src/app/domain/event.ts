@@ -2,7 +2,7 @@ import {UserDTO} from './user';
 import {LocationDTO} from './location';
 
 
-export  class EventDTO {
+export class EventDTO {
   idEvent: number;
   titleEvent: string;
   overview: string;
@@ -19,10 +19,10 @@ export  class EventDTO {
 
 }
 
-export class MeetingHall{
- idMeetingHall: number;
+export class MeetingHall {
+  idMeetingHall: number;
   hallName: string;
   capacity: number;
   location: LocationDTO;
-   floor: number;
+  floor: number;
 }
