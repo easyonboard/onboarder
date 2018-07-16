@@ -3,9 +3,9 @@ package exception;
 /**
  * Exception thrown when a user entity is not found in the database
  */
-public class UserNotFoundException extends Exception {
+public class EntityNotFoundException extends Exception {
 
-    public UserNotFoundException(String message) {
+    public EntityNotFoundException(String message) {
         super(message);
     }
 

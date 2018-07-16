@@ -3,8 +3,10 @@ package exception;
 /**
  * Exception thrown when an entry is not found in database
  */
-public class DataNotFoundException extends Exception {
-    public DataNotFoundException(String message){
+public class FieldNotFoundException extends Exception {
+
+    public FieldNotFoundException(String message) {
+
         super(message);
     }
 }

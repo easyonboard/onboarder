@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.*;
 import entity.enums.RoleType;
 import exception.InvalidDataException;
-import exception.UserNotFoundException;
+import exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +43,7 @@ public class UserController {
             if (userLogged.getPassword().equals(password))
                 return new ResponseEntity<>(userLogged, HttpStatus.OK);
             return new ResponseEntity(HttpStatus.FORBIDDEN);
-        } catch (UserNotFoundException exception) {
+        } catch (EntityNotFoundException exception) {
             return new ResponseEntity(exception, HttpStatus.FORBIDDEN);
         }
     }
@@ -173,9 +173,8 @@ public class UserController {
     public ResponseEntity removeUser(@RequestBody String username) {
 
         try {
-
             return new ResponseEntity<>(userService.deleteUser(username), HttpStatus.OK);
-        } catch (UserNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
@@ -201,7 +200,7 @@ public class UserController {
     public ResponseEntity getLeaveCheckList(@RequestBody String username) {
         try {
             return new ResponseEntity<>(userService.getLeaveCheckListForUser(username), HttpStatus.OK);
-        } catch (UserNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.OK);
         }
     }

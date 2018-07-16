@@ -100,7 +100,7 @@ public class EventService {
     }
     public List<EventDTO> getAllPastEvents(){
 
-        return eventDAO.findAllUPastEvents().stream().map(eventEntity->eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+        return eventDAO.findAllPastEvents().stream().map(eventEntity->eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
 
     }
 
