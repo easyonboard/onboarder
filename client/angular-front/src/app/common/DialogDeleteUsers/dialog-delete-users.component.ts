@@ -3,6 +3,7 @@ import {UserDTO} from '../../domain/user';
 import {UserService} from '../../service/user.service';
 import {MatDialog, MatSnackBar, MatTooltip} from '@angular/material';
 import {DialogLeaveCheckListComponent} from '../DialogLeaveCheckList/dialog-leave-check-list.component';
+import {LocalStorageConst} from '../../util/LocalStorageConst';
 
 @Component({
   selector: 'app-dialog-delete-users',
@@ -91,7 +92,12 @@ export class DialogDeleteUsersComponent implements OnInit, AfterViewChecked {
 
   getAllUsers() {
     this.userService.getAllUsers().subscribe(users => {
-      this.allUsers = users;
+      this.allUsers = users
+      this.allUsers.forEach(user => {
+        if (user.username === localStorage.getItem(LocalStorageConst._USER_LOGGED)) {
+          this.allUsers.splice(this.allUsers.indexOf(user),1 );
+        }
+      });
       this.searchByName();
     });
   }
