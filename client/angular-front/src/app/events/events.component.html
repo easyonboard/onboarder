@@ -1,107 +1,103 @@
 <mat-grid-list cols="2" rowHeight="850">
-  <mat-grid-tile style="height: 98%; width: 98%;">
+    <mat-grid-tile style="height: 98%; width: 98%;">
 
-    <mat-card style="width: 98%; height: 98%">
+        <mat-card style="width: 98%; height: 98%">
 
-      <mat-card-title> Upcoming Events</mat-card-title>
-      <mat-divider></mat-divider>
+            <mat-card-title> Upcoming Events</mat-card-title>
+            <mat-divider></mat-divider>
 
 
-        <mat-card *ngFor="let upcoming of upcomingEvents">
-          <mat-card-title> {{upcoming.titleEvent}}
-            <mat-chip-list class="mat-chip-list" *ngIf="upcoming.keywords!=null" matTooltipPosition="left" matTooltipClass="tutorial-tooltip" style="float: right">
-              <mat-chip *ngFor="let keyword of upcoming.keywords.split(' ')">{{keyword}}
-              </mat-chip>
-            </mat-chip-list>
-          </mat-card-title>
-          <mat-card-subtitle>
-            <div *ngIf="upcoming.location !=undefined">  <i class="material-icons"> place </i> {{upcoming.location.locationName}}, {{upcoming.location.locationAddress}}, {{upcoming.location.locationCity}} <br/>
-            </div>
-            <div *ngIf="upcoming.meetingHall!=undefined">
-              <i class="material-icons">
+            <mat-card *ngFor="let upcoming of upcomingEvents">
+                <mat-card-title> {{upcoming.titleEvent}}
+                    <mat-chip-list class="mat-chip-list" *ngIf="upcoming.keywords!=null" style="float: right">
+                        <mat-chip *ngFor="let keyword of upcoming.keywords.split(' ')">{{keyword}}
+                        </mat-chip>
+                    </mat-chip-list>
+                </mat-card-title>
+                <mat-card-subtitle>
+                    <div *ngIf="upcoming.location !=undefined"> <i class="material-icons"> place </i> {{upcoming.location.locationName}}, {{upcoming.location.locationAddress}}, {{upcoming.location.locationCity}} <br/>
+                    </div>
+                    <div *ngIf="upcoming.meetingHall!=undefined">
+                        <i class="material-icons">
                 meeting_room
               </i>{{upcoming.meetingHall.hallName}}, {{upcoming.meetingHall.location.locationName}}, floor: {{upcoming.meetingHall.floor}}
-            </div>
-          </mat-card-subtitle>
-          <mat-card-content>
-            <div style="float: right" >
-              <p *ngIf="upcoming.placesLeft!=undefined">Places left: {{upcoming.placesLeft}}</p><br/>
-              <button mat-button (click)="enrollUser(upcoming)" color="primary" *ngIf="canEnroll">Enroll to event</button> </div>
-            <i class="material-icons">
+                    </div>
+                </mat-card-subtitle>
+                <mat-card-content>
+                    <div style="float: right">
+                        <p *ngIf="upcoming.placesLeft!=undefined">Places left: {{upcoming.placesLeft}}</p><br/>
+                        <button mat-button (click)="enrollUser(upcoming)" color="primary" *ngIf="canEnroll">Enroll to event</button> </div>
+                    <i class="material-icons">
               calendar_today
-            </i>  {{upcoming.stringDate}}
-            <br/>
-            <i class="material-icons">
+            </i> {{upcoming.stringDate}}
+                    <br/>
+                    <i class="material-icons">
               access_time
-            </i>  {{upcoming.stringHour}}
+            </i> {{upcoming.stringHour}}
 
 
 
-            <mat-expansion-panel (opened)="panelOpenState = true"
-                                 (closed)="panelOpenState = false"
-            style="background-color: #841439; color:white">
-              <mat-expansion-panel-header>
-                <mat-panel-title style="color:white">
-                {{upcoming.overview.substring(0,25)}}...
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-                {{upcoming.overview}}
-            </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" style="background-color: #841439; color:white">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title style="color:white">
+                                {{upcoming.overview.substring(0,25)}}...
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        {{upcoming.overview}}
+                    </mat-expansion-panel>
 
-          </mat-card-content>
+                </mat-card-content>
+            </mat-card>
+
         </mat-card>
+    </mat-grid-tile>
 
-    </mat-card>
-  </mat-grid-tile>
+    <mat-grid-tile>
+        <mat-card style="width: 98%; height: 98%">
 
-  <mat-grid-tile>
-    <mat-card style="width: 98%; height: 98%">
+            <mat-card-title> Past Events</mat-card-title>
+            <mat-divider></mat-divider>
+            <mat-card *ngFor="let past of pastEvents">
+                <mat-card-title> {{past.titleEvent}}
+                    <mat-chip-list class="mat-chip-list" *ngIf="past.keywords!=null" style="float: right;">
+                        <mat-chip *ngFor="let keyword of past.keywords.split(' ')">{{keyword}}
+                        </mat-chip>
+                    </mat-chip-list>
+                </mat-card-title>
+                <mat-card-subtitle>
 
-      <mat-card-title> Past Events</mat-card-title>
-      <mat-divider></mat-divider>
-      <mat-card *ngFor="let past of pastEvents">
-        <mat-card-title> {{past.titleEvent}}
-          <mat-chip-list class="mat-chip-list" *ngIf="past.keywords!=null" matTooltipPosition="left" matTooltipClass="tutorial-tooltip" style="float: right;" >
-            <mat-chip *ngFor="let keyword of past.keywords.split(' ')">{{keyword}}
-            </mat-chip>
-          </mat-chip-list>
-        </mat-card-title>
-        <mat-card-subtitle>
-
-        <div *ngIf="past.location !=undefined">  <i class="material-icons"> place </i> {{past.location.locationName}}, {{past.location.locationAddress}}, {{past.location.locationCity}} <br/>
-        </div>
-        <div *ngIf="past.meetingHall!=undefined">
-          <i class="material-icons">
+                    <div *ngIf="past.location !=undefined"> <i class="material-icons"> place </i> {{past.location.locationName}}, {{past.location.locationAddress}}, {{past.location.locationCity}} <br/>
+                    </div>
+                    <div *ngIf="past.meetingHall!=undefined">
+                        <i class="material-icons">
             meeting_room
           </i>{{past.meetingHall.hallName}}, {{past.meetingHall.location.locationName}}, floor: {{past.meetingHall.floor}}
-        </div>
-        </mat-card-subtitle>
-        <mat-card-content>
-          <i class="material-icons">
+                    </div>
+                </mat-card-subtitle>
+                <mat-card-content>
+                    <i class="material-icons">
             calendar_today
-          </i>  {{past.stringDate}}
-          <br/>
-          <i class="material-icons">
+          </i> {{past.stringDate}}
+                    <br/>
+                    <i class="material-icons">
             access_time
           </i> {{past.stringHour}}
-          <!--<div class="separatorDiv"></div>-->
+                    <!--<div class="separatorDiv"></div>-->
 
 
-          <mat-expansion-panel (opened)="panelOpenState = true"
-                               (closed)="panelOpenState = false"
-                               style="background-color: #841439; color:white">
-            <mat-expansion-panel-header>
-              <mat-panel-title style="color:white">
-                {{past.overview.substring(0,50)}}...
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            {{past.overview}}
-          </mat-expansion-panel>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" style="background-color: #841439; color:white">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title style="color:white">
+                                {{past.overview.substring(0,50)}}...
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        {{past.overview}}
+                    </mat-expansion-panel>
 
-        </mat-card-content>
-      </mat-card>
+                </mat-card-content>
+            </mat-card>
 
-    </mat-card>
+        </mat-card>
 
-  </mat-grid-tile>
+    </mat-grid-tile>
 </mat-grid-list>

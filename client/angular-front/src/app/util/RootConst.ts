@@ -1,7 +1,6 @@
 export class RootConst {
   public WEB_SERVICE_ENDPOINT = 'http://localhost:8090/';
 
-
   public SERVER_COURSES_URL = this.WEB_SERVICE_ENDPOINT + 'courses';
   public SERVER_COURSE_OVERVIEW = this.SERVER_COURSES_URL + '/course?overview=';
   public SERVER_FILTER_COURSES_BY_KEYWORD = this.WEB_SERVICE_ENDPOINT + '/courses?keyword=';
