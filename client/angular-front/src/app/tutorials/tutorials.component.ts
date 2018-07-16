@@ -132,7 +132,6 @@ export class TutorialsComponent implements AfterViewChecked, OnDestroy, OnInit {
     }
   }
 
-
   addTutorialRouterLink(): void {
     location.replace(this.rootConst.FRONT_ADD_TUTORIAL);
   }
@@ -154,7 +153,7 @@ export class TutorialsComponent implements AfterViewChecked, OnDestroy, OnInit {
 
   public initTutorialsPerPageList(pageSize: number, pageIndex: number) {
     this.tutorialsPerPage = [];
-    this.tutorialsPerPage = this.tutorials.slice(pageIndex * pageSize + 1, ((+pageIndex + 1) * pageSize) + 1);
+    this.tutorialsPerPage = this.tutorials.slice(pageIndex * pageSize, ((+pageIndex + 1) * pageSize));
   }
 
   deleteTutorial(idTutorial: number) {
