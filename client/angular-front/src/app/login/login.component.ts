@@ -5,7 +5,7 @@ import {RootConst} from '../util/RootConst';
 import {Router} from '@angular/router';
 import {CommonComponentsService} from '../common/common-components.service';
 import {MatSnackBar} from '@angular/material';
-import { LocalStorageConst } from '../util/LocalStorageConst';
+import {LocalStorageConst} from '../util/LocalStorageConst';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +16,11 @@ export class LoginComponent implements OnInit, AfterContentInit {
 
   public option: boolean;
   public userLogged: UserDTO;
-  private message: string;
-  private messageSignIn: string;
+  public message: string;
   private errorMessage: string;
   public rootConst: RootConst;
   private currentComponentElement: HTMLElement;
-  private userNotfound: string;
+  public userNotfound: string;
   private headerDiv: NodeListOf<Element>;
   private footerDiv: Element;
 
@@ -33,7 +32,6 @@ export class LoginComponent implements OnInit, AfterContentInit {
   ngOnInit() {
     this.userNotfound = '';
     this.message = 'Welcome back!';
-    this.messageSignIn = 'Sign Up for Free';
     this.rootConst = new RootConst();
   }
 
@@ -45,22 +43,11 @@ export class LoginComponent implements OnInit, AfterContentInit {
     for (let index = 0; index < this.headerDiv.length; index++) {
       (<HTMLElement>this.headerDiv.item(index)).style.visibility = 'hidden';
     }
-
     if (this.footerDiv != null) {
       (<HTMLElement>this.footerDiv).style.visibility = 'hidden';
     }
   }
 
-  createNewAccount(option: boolean): void {
-    if (true === option) {
-      document.getElementById('signUp').style.backgroundColor = '#841439';
-      document.getElementById('login').style.background = '#d3d3d3';
-    } else {
-      document.getElementById('signUp').style.backgroundColor = '#d3d3d3';
-      document.getElementById('login').style.backgroundColor = '#841439';
-    }
-    this.option = option;
-  }
 
   login(username: string, password: string): void {
     username = username.trim();
@@ -96,25 +83,5 @@ export class LoginComponent implements OnInit, AfterContentInit {
         console.log(err);
       });
 
-  }
-
-  addUser(name: string, username: string, email: string, password: string, passwordII: string): void {
-    name = name.trim();
-    username = username.trim();
-    email = email.trim();
-    password = password.trim();
-    passwordII = passwordII.trim();
-    if (password !== passwordII) {
-      this.errorMessage = 'Password does not match';
-      return;
-    } else {
-      this.userService.addUser({name, username, email, password} as UserDTO, null, null).subscribe(
-        res => {
-          this.option = false;
-        },
-        err => {
-          this.errorMessage = err.error.message;
-        });
-    }
   }
 }
