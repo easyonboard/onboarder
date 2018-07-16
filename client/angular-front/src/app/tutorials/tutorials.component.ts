@@ -48,7 +48,6 @@ export class TutorialsComponent implements AfterViewChecked, OnDestroy, OnInit {
               private router: Router) {
     this.rootConst = new RootConst();
 
-
     this.show = LocalStorageConst.IS_DEMO_ENABLED;
   }
 
