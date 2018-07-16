@@ -35,7 +35,7 @@ export class TutorialsComponent implements AfterViewChecked, OnDestroy, OnInit {
 
   public show;
   private httpSubscription: Subscription;
-
+  private pageIndex = 0 ;
   @ViewChild('tooltipPaginator') tooltipPaginator: MatTooltip;
   @ViewChild('tooltipTitle') tooltipTitle: MatTooltip;
   @ViewChild('tooltipKeywords') tooltipKeywords: MatTooltip;
@@ -55,13 +55,13 @@ export class TutorialsComponent implements AfterViewChecked, OnDestroy, OnInit {
     this.route.params.subscribe(params => {
       this.route.queryParams.subscribe(
         queryParams => {
-          let pageIndex = +queryParams['page'];
-          if (!pageIndex) {
-            pageIndex = 0;
+          this.pageIndex = +queryParams['page'];
+          if (!this.pageIndex) {
+            this.pageIndex = 0;
           }
           this.httpSubscription = this.decision(params).subscribe(tutorials => {
             this.tutorials = tutorials;
-            this.initTutorialsPerPageList(this.pageSize, pageIndex);
+            this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
           });
         }
       );
@@ -158,7 +158,11 @@ export class TutorialsComponent implements AfterViewChecked, OnDestroy, OnInit {
 
   deleteTutorial(idTutorial: number) {
     if (confirm('Do you want to delete this tutorial?')) {
-      this.tutorialService.deleteTutorial(idTutorial).subscribe(tutorials => this.tutorialsPerPage = tutorials);
+      this.tutorialService.deleteTutorial(idTutorial).subscribe(
+        tutorials => {
+          this.tutorials = tutorials;
+          this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
+        });
     }
   }
 }
