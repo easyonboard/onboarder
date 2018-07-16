@@ -53,23 +53,6 @@
     max-height: 3em;
 }
 
-.tutorial-tooltip {
-    text-align: center;
-    font-size: 100%;
-    width: 200px;
-    background-color: rgba(20, 109, 129, 0.6);
-}
-
-.gotit-button {
-    background-color: rgba(20, 109, 129, 0.6);
-    text-align: center;
-    font-size: 100%;
-    color: #FFFFFF;
-    margin-left: 50%;
-    margin-right: 50%;
-    margin-top: 0.5%;
-}
-
-.editIcon{
-  margin-right: 2%;
+.editIcon {
+    margin-right: 2%;
 }

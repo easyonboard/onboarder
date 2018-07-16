@@ -1,61 +1,38 @@
 .overview {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
 }
 
 .tutorial {
-  height: 22vh;
-  margin-bottom: 9%;
-  border: 3px #841439 solid;
-  border-radius: 8px !important;
-  padding: 10px;
-  box-shadow: 3px 6px 4px 6px #888888 !important;
-  overflow: hidden;
+    height: 22vh;
+    margin-bottom: 9%;
+    border: 3px #841439 solid;
+    border-radius: 8px !important;
+    padding: 10px;
+    box-shadow: 3px 6px 4px 6px #888888 !important;
+    overflow: hidden;
 }
 
 .mat-mini-fab {
-  width: 20px;
-  height: 20px;
-  color: white;
-  padding-top: 0;
+    width: 20px;
+    height: 20px;
+    color: white;
+    padding-top: 0;
 }
 
 .confirm {
-  background-color: #5e1f32;
+    background-color: #5e1f32;
 }
 
-.paginator-tooltip {
-  text-align: center;
-  font-size: 100%;
-  width: 300px;
-  background-color: rgba(20, 109, 129, 0.6);
+.tutorialHeader {
+    padding-bottom: 2%;
 }
 
-.tutorial-tooltip {
-  text-align: center;
-  font-size: 100%;
-  width: 200px;
-  background-color: rgba(20, 109, 129, 0.6);
-}
-
-.gotit-button {
-  background-color: rgba(20, 109, 129, 0.6);
-  text-align: center;
-  font-size: 100%;
-  color: #FFFFFF;
-  margin-left: 50%;
-  margin-right: 50%;
-  margin-top: 0.5%;
-}
-.tutorialHeader{
-  padding-bottom: 2%;
-}
-
-.tutorialTitle{
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+.tutorialTitle {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }

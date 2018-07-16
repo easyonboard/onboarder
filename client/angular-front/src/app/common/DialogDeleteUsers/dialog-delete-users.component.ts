@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewEncapsulation, ViewChild, AfterViewChecked} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 import {UserDTO} from '../../domain/user';
 import {UserService} from '../../service/user.service';
-import {MatDialog, MatSnackBar, MatTooltip} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {DialogLeaveCheckListComponent} from '../DialogLeaveCheckList/dialog-leave-check-list.component';
 import {LocalStorageConst} from '../../util/LocalStorageConst';
 
@@ -11,55 +11,12 @@ import {LocalStorageConst} from '../../util/LocalStorageConst';
   styleUrls: ['./dialog-delete-users.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class DialogDeleteUsersComponent implements OnInit, AfterViewChecked {
+export class DialogDeleteUsersComponent implements OnInit {
   public searchValue = '';
   dialogDeleteUsers: string;
   public filteredUsers: UserDTO[];
   public allUsers: UserDTO[];
   public canUserBeDeleted: Boolean;
-
-  public delete_employee_msg = 'This is a list with all the employees. From here, you can delete them from the system';
-  public search_msg = 'Here you can search by name throuh employees.';
-  public username_msg = 'This is the name of the employee.';
-  public user_email_msg = 'This is the personal email address of the employee.';
-  public leave_checklist_msg = 'Here is a list that tracks the things that MUST be completed before the employee leaves.';
-  public remove_msg = 'Press the \'Remove user\' button to remove the employee from the system. Note that all the items from the list above MUST be checked in order to delete a user.';
-
-  public popups_visible = true;
-
-  @ViewChild('tooltipDeleteEmployee') tooltipDeleteEmployee: MatTooltip;
-  @ViewChild('tooltipSearch') tooltipSearch: MatTooltip;
-  @ViewChild('tooltipUsername') tooltipUsername: MatTooltip;
-  @ViewChild('tooltipUserEmail') tooltipUserEmail: MatTooltip;
-  @ViewChild('tooltipLeaveChecklist') tooltipLeaveChecklist: MatTooltip;
-  @ViewChild('tooltipRemove') tooltipRemove: MatTooltip;
-
-  ngAfterViewChecked() {
-    if (this.tooltipDeleteEmployee !== undefined && this.tooltipDeleteEmployee._isTooltipVisible() === false) {
-      this.tooltipDeleteEmployee.showDelay = 400;
-      this.tooltipDeleteEmployee.show();
-    }
-    if (this.tooltipSearch !== undefined && this.tooltipSearch._isTooltipVisible() === false) {
-      this.tooltipSearch.showDelay = 400;
-      this.tooltipSearch.show();
-    }
-    if (this.tooltipUsername !== undefined && this.tooltipUsername._isTooltipVisible() === false) {
-      this.tooltipUsername.showDelay = 400;
-      this.tooltipUsername.show();
-    }
-    if (this.tooltipUserEmail !== undefined && this.tooltipUserEmail._isTooltipVisible() === false) {
-      this.tooltipUserEmail.showDelay = 400;
-      this.tooltipUserEmail.show();
-    }
-    if (this.tooltipLeaveChecklist !== undefined && this.tooltipLeaveChecklist._isTooltipVisible() === false) {
-      this.tooltipLeaveChecklist.showDelay = 400;
-      this.tooltipLeaveChecklist.show();
-    }
-    if (this.tooltipRemove !== undefined && this.tooltipRemove._isTooltipVisible() === false) {
-      this.tooltipRemove.showDelay = 400;
-      this.tooltipRemove.show();
-    }
-  }
 
   constructor(private userService: UserService, private dialog: MatDialog, public snackBarDelete: MatSnackBar) {
   }
@@ -67,16 +24,6 @@ export class DialogDeleteUsersComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {
     this.dialogDeleteUsers = 'My title!';
     this.getAllUsers();
-  }
-
-  disablePopups(): void {
-    this.popups_visible = false;
-    this.tooltipLeaveChecklist.disabled = true;
-    this.tooltipDeleteEmployee.disabled = true;
-    this.tooltipSearch.disabled = true;
-    this.tooltipUsername.disabled = true;
-    this.tooltipRemove.disabled = true;
-    this.tooltipUserEmail.disabled = true;
   }
 
   remove(username: String) {

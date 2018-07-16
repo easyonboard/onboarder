@@ -1,13 +1,10 @@
-import {Component, OnInit, ViewEncapsulation, ViewChild, AfterContentChecked, AfterViewChecked, OnDestroy} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, OnDestroy} from '@angular/core';
 import {RootConst} from '../util/RootConst';
 import {TutorialDTO} from '../domain/tutorial';
 import {TutorialService} from '../service/tutorial.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {PageEvent, MatTooltip} from '@angular/material';
-import {TooltipConst} from '../util/TooltipConst';
-import {LocalStorageConst} from '../util/LocalStorageConst';
+import {PageEvent} from '@angular/material';
 import {Subscription} from 'rxjs/Subscription';
-import {Http} from '@angular/http';
 
 @Component({
   selector: 'app-tutorials',
@@ -15,10 +12,9 @@ import {Http} from '@angular/http';
   styleUrls: ['./tutorials.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class TutorialsComponent implements AfterViewChecked, OnDestroy, OnInit {
+export class TutorialsComponent implements OnDestroy, OnInit {
 
   private rootConst: RootConst;
-  private tooltips: TooltipConst = new TooltipConst();
 
   tutorials: TutorialDTO[];
   tutorialsPerPage: TutorialDTO[];
@@ -26,29 +22,13 @@ export class TutorialsComponent implements AfterViewChecked, OnDestroy, OnInit {
   pageSize = 9;
   pageSizeOptions = [9, 18, 36, 99];
 
-  public paginator_msg = this.tooltips.PAGINATOR_MSG;
-  public tutorial_msg = this.tooltips.TUTORIAL_MSG;
-  public tutorial_title_msg = this.tooltips.TUTORIAL_TITLE_MSG;
-  public tutorial_keywords_msg = this.tooltips.TUTORIAL_KEYWORDS_MSG;
-  public tutorial_delete_msg = this.tooltips.TUTORIAL_DELETE_MSG;
-  public tutorial_overview_msg = this.tooltips.TUTORIAL_OVERVIEW_MSG;
-
-  public show;
   private httpSubscription: Subscription;
   private pageIndex = 0 ;
-  @ViewChild('tooltipPaginator') tooltipPaginator: MatTooltip;
-  @ViewChild('tooltipTitle') tooltipTitle: MatTooltip;
-  @ViewChild('tooltipKeywords') tooltipKeywords: MatTooltip;
-  @ViewChild('tooltipTutorial') tooltipTutorial: MatTooltip;
-  @ViewChild('tooltipOverview') tooltipOverview: MatTooltip;
-  @ViewChild('tooltipDelete') tooltipDelete: MatTooltip;
-
+ 
   constructor(private tutorialService: TutorialService,
               private route: ActivatedRoute,
               private router: Router) {
     this.rootConst = new RootConst();
-
-    this.show = LocalStorageConst.IS_DEMO_ENABLED;
   }
 
   ngOnInit(): void {
@@ -66,53 +46,6 @@ export class TutorialsComponent implements AfterViewChecked, OnDestroy, OnInit {
         }
       );
     });
-  }
-
-  ngAfterViewChecked() {
-    this.show = LocalStorageConst.IS_DEMO_ENABLED;
-
-    if (this.tooltipPaginator !== undefined) {
-      if (this.show === true) {
-        this.tooltipPaginator.disabled = false;
-      } else {
-        this.tooltipPaginator.disabled = true;
-      }
-    }
-    if (this.tooltipTitle !== undefined) {
-      if (this.show === true) {
-        this.tooltipTitle.disabled = false;
-      } else {
-        this.tooltipTitle.disabled = true;
-      }
-    }
-    if (this.tooltipKeywords !== undefined) {
-      if (this.show === true) {
-        this.tooltipKeywords.disabled = false;
-      } else {
-        this.tooltipKeywords.disabled = true;
-      }
-    }
-    if (this.tooltipOverview !== undefined) {
-      if (this.show === true) {
-        this.tooltipOverview.disabled = false;
-      } else {
-        this.tooltipOverview.disabled = true;
-      }
-    }
-    if (this.tooltipTutorial !== undefined) {
-      if (this.show === true) {
-        this.tooltipTutorial.disabled = false;
-      } else {
-        this.tooltipTutorial.disabled = true;
-      }
-    }
-    if (this.tooltipDelete !== undefined) {
-      if (this.show === true) {
-        this.tooltipDelete.disabled = false;
-      } else {
-        this.tooltipDelete.disabled = true;
-      }
-    }
   }
 
   ngOnDestroy(): void {
