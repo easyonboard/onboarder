@@ -2,11 +2,12 @@ import {Component, OnInit, ViewEncapsulation, ViewChild, AfterContentChecked, Af
 import {RootConst} from '../util/RootConst';
 import {TutorialDTO} from '../domain/tutorial';
 import {TutorialService} from '../service/tutorial.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {PageEvent, MatTooltip} from '@angular/material';
 import {TooltipConst} from '../util/TooltipConst';
 import {LocalStorageConst} from '../util/LocalStorageConst';
 import {Subscription} from 'rxjs/Subscription';
+import {Http} from '@angular/http';
 
 @Component({
   selector: 'app-tutorials',
@@ -14,14 +15,14 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./tutorials.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class TutorialsComponent implements AfterViewChecked, OnDestroy {
+export class TutorialsComponent implements AfterViewChecked, OnDestroy, OnInit {
+
   private rootConst: RootConst;
   private tooltips: TooltipConst = new TooltipConst();
 
   tutorials: TutorialDTO[];
   tutorialsPerPage: TutorialDTO[];
   pageEvent: PageEvent;
-  length: number;
   pageSize = 9;
   pageSizeOptions = [9, 18, 36, 99];
 
@@ -46,49 +47,27 @@ export class TutorialsComponent implements AfterViewChecked, OnDestroy {
               private route: ActivatedRoute,
               private router: Router) {
     this.rootConst = new RootConst();
-    this.tutorialsPerPage = [];
+
 
     this.show = LocalStorageConst.IS_DEMO_ENABLED;
+  }
 
+  ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.tutorialsPerPage = [];
-      const keyword = params['keyword'];
-      if (keyword) {
-        this.httpSubscription = this.tutorialService.searchByKeyword(keyword).subscribe(tutorials => {
-          this.tutorials = tutorials;
-          this.initTutorialsPerPageList();
-          this.length = this.tutorials.length;
-        });
-      } else if (this.router.url.indexOf('draft') >= 0) {
-        const userId = +localStorage.getItem('userLoggedId');
-        this.httpSubscription = this.tutorialService.getDraftsTutorialsForUser(userId).subscribe(tutorials => {
-          this.tutorials = tutorials;
-          this.initTutorialsPerPageList();
-          this.length = this.tutorials.length;
-        });
-      } else {
-        this.httpSubscription = this.tutorialService.getTutorials().subscribe(tutorials => {
-          this.tutorials = tutorials;
-          this.initTutorialsPerPageList();
-          this.length = this.tutorials.length;
-        });
-      }
+      this.route.queryParams.subscribe(
+        queryParams => {
+          let pageIndex = +queryParams['page'];
+          if (!pageIndex) {
+            pageIndex = 0;
+          }
+          this.httpSubscription = this.decision(params).subscribe(tutorials => {
+            this.tutorials = tutorials;
+            this.initTutorialsPerPageList(this.pageSize, pageIndex);
+          });
+        }
+      );
     });
   }
-
-  decision(params) {
-    const keyword = params['keyword'];
-    if (keyword) {
-      return this.tutorialService.searchByKeyword(keyword)
-    } else if (this.router.url.indexOf('draft') >= 0) {
-      const userId = +localStorage.getItem('userLoggedId');
-      return this.tutorialService.getDraftsTutorialsForUser(userId)
-    } else {
-      return this.tutorialService.getTutorials()
-    }
-
-  }
-
 
   ngAfterViewChecked() {
     this.show = LocalStorageConst.IS_DEMO_ENABLED;
@@ -141,6 +120,20 @@ export class TutorialsComponent implements AfterViewChecked, OnDestroy {
     this.httpSubscription.unsubscribe();
   }
 
+  private decision(params: any): any {
+    const keyword = params['keyword'];
+
+    if (keyword) {
+      return this.tutorialService.searchByKeyword(keyword);
+    } else if (this.router.url.indexOf('draft') >= 0) {
+      const userId = +localStorage.getItem('userLoggedId');
+      return this.tutorialService.getDraftsTutorialsForUser(userId);
+    } else {
+      return this.tutorialService.getTutorials();
+    }
+  }
+
+
   addTutorialRouterLink(): void {
     location.replace(this.rootConst.FRONT_ADD_TUTORIAL);
   }
@@ -152,26 +145,17 @@ export class TutorialsComponent implements AfterViewChecked, OnDestroy {
   }
 
   public getServerData(event?: PageEvent) {
-    this.tutorialsPerPage = [];
-    // tslint:disable-next-line:no-debugger
-    debugger;
+    const queryParams: Params = Object.assign({}, this.route.snapshot.queryParams);
 
-    const index = event.pageIndex;
-    const pageSize = event.pageSize;
-    let indexList = index * pageSize;
-    for (indexList; indexList < (index + 1) * pageSize; indexList++) {
-      // tslint:disable-next-line:curly
-      if (this.tutorials[indexList] != null)
-        this.tutorialsPerPage.push(this.tutorials[indexList]);
-    }
+    queryParams['page'] = event.pageIndex;
+    let root = '/';
+    this.route.snapshot.pathFromRoot.forEach(el => root = root.concat(el.url.toString()));
+    this.router.navigate([root], {queryParams: queryParams});
   }
 
-  public initTutorialsPerPageList() {
-    for (let indexList = 0; indexList < this.pageSize; indexList++) {
-      // tslint:disable-next-line:curly
-      if (this.tutorials[indexList] != null)
-        this.tutorialsPerPage.push(this.tutorials[indexList]);
-    }
+  public initTutorialsPerPageList(pageSize: number, pageIndex: number) {
+    this.tutorialsPerPage = [];
+    this.tutorialsPerPage = this.tutorials.slice(pageIndex * pageSize + 1, ((+pageIndex + 1) * pageSize) + 1);
   }
 
   deleteTutorial(idTutorial: number) {
