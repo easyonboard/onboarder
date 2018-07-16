@@ -18,6 +18,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import {ActivatedRoute} from '@angular/router';
 import {LocalStorageConst} from '../../util/LocalStorageConst';
+import {MyException} from 'ng-multiselect-dropdown/multiselect.model';
 
 
 @Component({
@@ -41,7 +42,6 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
   public keywords: String[] = [];
   public inputKeyword: any;
 
-  public tutorialErrorMessage: string;
   public separatorKeysCodes = [ENTER, COMMA, SPACE];
   public onUpdateTutorialMode = false;
   private tutorialId: number = null;
@@ -120,7 +120,7 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
         this.snackBarMessagePopup('Error!');
       });
     } catch (e) {
-      this.snackBarMessagePopup('Error!');
+      this.snackBarMessagePopup(e);
     }
   }
 
@@ -198,17 +198,15 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
   }
 
   private verifyConstraintsForTutorial() {
-    if (this.tutorial.titleTutorial.length < 5) {
-      this.tutorialErrorMessage += 'Title is too short!\n';
+    let tutorialErrorMessage = '';
+    if (!this.tutorial.titleTutorial || this.tutorial.titleTutorial.length < 5) {
+      tutorialErrorMessage += 'Title is too short!\n';
     }
-    if (this.tutorial.overview.length > 500) {
-      this.tutorialErrorMessage += 'Description must contain at most 500 characters!\n';
+    if (!this.tutorial.overview || this.tutorial.overview.length > 500 ) {
+      tutorialErrorMessage += 'Description must contain at most 500 characters!\n';
     }
-
-    if (this.tutorialErrorMessage !== '') {
-      this.snackBarMessagePopup(this.tutorialErrorMessage);
-      this.tutorialErrorMessage = '';
-      return;
+    if (tutorialErrorMessage !== '') {
+      throw new Error(tutorialErrorMessage);
     }
   }
 

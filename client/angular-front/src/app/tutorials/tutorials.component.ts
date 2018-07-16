@@ -23,8 +23,8 @@ export class TutorialsComponent implements OnDestroy, OnInit {
   pageSizeOptions = [9, 18, 36, 99];
 
   private httpSubscription: Subscription;
-  private pageIndex = 0 ;
- 
+  private pageIndex = 0;
+
   constructor(private tutorialService: TutorialService,
               private route: ActivatedRoute,
               private router: Router) {
