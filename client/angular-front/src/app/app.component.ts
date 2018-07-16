@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewEncapsulation, AfterViewChecked, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
@@ -8,7 +8,7 @@ import {MatDialog, MatTooltip} from '@angular/material';
 import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 import {LocalStorageConst} from './util/LocalStorageConst';
-import { TooltipConst } from './util/TooltipConst';
+import {TooltipConst} from './util/TooltipConst';
 
 @Component({
   selector: 'app-root',
@@ -56,38 +56,38 @@ export class AppComponent implements AfterViewChecked {
   @ViewChild('tooltipUser') tooltipUser: MatTooltip;
 
   ngAfterViewChecked() {
-    this.show = LocalStorageConst.IS_DEMO_ENABLED;
-
-    if (this.tooltipHome !== undefined && this.show === true) {
-      this.tooltipHome.disabled = false;
-    } else {
-      this.tooltipHome.disabled = true;
-    }
-    if (this.tooltipInfo !== undefined && this.show === true) {
-      this.tooltipInfo.disabled = false;
-    } else {
-      this.tooltipInfo.disabled = true;
-    }
-    if (this.tooltipTutorials !== undefined && this.show === true) {
-      this.tooltipTutorials.disabled = false;
-    } else {
-      this.tooltipTutorials.disabled = true;
-    }
-    if (this.tooltipEvents !== undefined && this.show === true) {
-      this.tooltipEvents.disabled = false;
-    } else {
-      this.tooltipEvents.disabled = true;
-    }
-    if (this.tooltipManagement !== undefined && this.show === true) {
-      this.tooltipManagement.disabled = false;
-    } else {
-      this.tooltipManagement.disabled = true;
-    }
-    if (this.tooltipUser !== undefined && this.show === true) {
-      this.tooltipUser.disabled = false;
-    } else {
-      this.tooltipUser.disabled = true;
-    }
+    // this.show = LocalStorageConst.IS_DEMO_ENABLED;
+    //
+    // if (this.tooltipHome !== undefined && this.show === true) {
+    //   this.tooltipHome.disabled = false;
+    // } else {
+    //   this.tooltipHome.disabled = true;
+    // }
+    // if (this.tooltipInfo !== undefined && this.show === true) {
+    //   this.tooltipInfo.disabled = false;
+    // } else {
+    //   this.tooltipInfo.disabled = true;
+    // }
+    // if (this.tooltipTutorials !== undefined && this.show === true) {
+    //   this.tooltipTutorials.disabled = false;
+    // } else {
+    //   this.tooltipTutorials.disabled = true;
+    // }
+    // if (this.tooltipEvents !== undefined && this.show === true) {
+    //   this.tooltipEvents.disabled = false;
+    // } else {
+    //   this.tooltipEvents.disabled = true;
+    // }
+    // if (this.tooltipManagement !== undefined && this.show === true) {
+    //   this.tooltipManagement.disabled = false;
+    // } else {
+    //   this.tooltipManagement.disabled = true;
+    // }
+    // if (this.tooltipUser !== undefined && this.show === true) {
+    //   this.tooltipUser.disabled = false;
+    // } else {
+    //   this.tooltipUser.disabled = true;
+    // }
   }
 
   toggleTutorialMode(): void {
