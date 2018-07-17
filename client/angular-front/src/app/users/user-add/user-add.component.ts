@@ -33,7 +33,7 @@ export class UserAddComponent implements OnInit {
 
   addUser(): void {
     this.user.username = this.firstName.trim() + this.lastName.trim();
-    this.user.name = this.firstName + ' ' + this.lastName;
+    this.user.name = this.firstName.trim() + ' ' + this.lastName.trim();
 
     this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
       value => {
