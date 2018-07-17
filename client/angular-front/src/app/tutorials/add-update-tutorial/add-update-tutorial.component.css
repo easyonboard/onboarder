@@ -2,15 +2,15 @@
   margin: auto;
   width: 85%;
   height: 80%;
-  margin-top: 4%;
+  margin-top: 2%;
   border: #841439 solid 4px;
   box-shadow: 0 6px 10px 6px #cccccc inset;
   position: relative;
   padding-right: 2%;
 }
 #materialTable{
-  height: 50%;
-  overflow: auto;
+  height: 50vh;
+  overflow: scroll;
 }
 .pageTitle {
   font-size: xx-large;

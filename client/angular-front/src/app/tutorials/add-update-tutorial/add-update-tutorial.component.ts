@@ -19,6 +19,7 @@ import 'rxjs/add/operator/catch';
 import {ActivatedRoute} from '@angular/router';
 import {LocalStorageConst} from '../../util/LocalStorageConst';
 import {MyException} from 'ng-multiselect-dropdown/multiselect.model';
+import {FormControl, Validators} from '@angular/forms';
 
 
 @Component({
@@ -47,6 +48,10 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
   private tutorialId: number = null;
 
   public show;
+  titleFormControl = new FormControl('', [
+    Validators.required,
+    Validators.min(5)
+  ]);
 
   constructor(private location: Location,
               private tutorialService: TutorialService,
@@ -109,6 +114,7 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
       this.getUploadedFiles();
 
       this.verifyConstraintsForTutorial();
+      this.materialsForCurrentTutorial.forEach((material, index) => this.verifyConstraintsForMaterial(index + 1, material));
 
       this.tutorial.keywords = this.keywords.join(' ');
 
@@ -202,11 +208,31 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
     if (!this.tutorial.titleTutorial || this.tutorial.titleTutorial.length < 5) {
       tutorialErrorMessage += 'Title is too short!\n';
     }
-    if (!this.tutorial.overview || this.tutorial.overview.length > 500 ) {
+    if (!this.tutorial.overview || this.tutorial.overview.length < 10) {
+      tutorialErrorMessage += 'Description must contain at least 10 characters!\n';
+    }
+    if (!this.tutorial.overview || this.tutorial.overview.length > 500) {
       tutorialErrorMessage += 'Description must contain at most 500 characters!\n';
     }
     if (tutorialErrorMessage !== '') {
       throw new Error(tutorialErrorMessage);
+    }
+  }
+
+  private verifyConstraintsForMaterial(positionInList: number, material: TutorialMaterialDTO) {
+    let materialErrorMessage = '';
+    if (!material.title) {
+      materialErrorMessage += `Title is required for material with number ${positionInList}!`;
+    } else if (material.title.length < 5) {
+      materialErrorMessage += `Title is too short for material with number ${positionInList}! Required at least 5 characters`;
+    }
+
+    if (!material.materialType) {
+      materialErrorMessage += `Material type is required for material with number ${positionInList}!`;
+    }
+
+    if (materialErrorMessage !== '') {
+      throw new Error(materialErrorMessage);
     }
   }
 
@@ -219,17 +245,23 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
   }
 
   updateTutorial() {
-    this.getUploadedFiles();
-    this.verifyConstraintsForTutorial();
+    try {
+      this.getUploadedFiles();
+      this.verifyConstraintsForTutorial();
 
-    this.tutorial.keywords = this.keywords.join(' ');
+      this.materialsForCurrentTutorial.forEach((material, index) => this.verifyConstraintsForMaterial(index + 1, material));
 
-    this.tutorialService.updateTutorial(this.tutorial, this.selectedContactPersonsIds).subscribe(tutorial => {
-      this.tutorial = tutorial;
-      this.addMaterials();
-      this.deleteFromServerMaterials();
-      this.redirectToTutorialPage(this.tutorial.idTutorial);
-    });
+      this.tutorial.keywords = this.keywords.join(' ');
+
+      this.tutorialService.updateTutorial(this.tutorial, this.selectedContactPersonsIds).subscribe(tutorial => {
+        this.tutorial = tutorial;
+        this.addMaterials();
+        this.deleteFromServerMaterials();
+        this.redirectToTutorialPage(this.tutorial.idTutorial);
+      });
+    } catch (e) {
+      this.snackBarMessagePopup(e);
+    }
   }
 
 

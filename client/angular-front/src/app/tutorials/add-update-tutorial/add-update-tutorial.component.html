@@ -9,17 +9,28 @@
                 [ngStyle]="{ backgroundColor: '#71ABFF'}"
                 selected="true">Draft
       </mat-chip>
+      <p>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="addNewEmptyMaterial()"
+          style="margin-top: 4%">Add material
+        </button>
+      </p>
     </div>
   </div>
 
 
-  <div fxFlex="80" fxFlexOffset="5" fxLayout="row" fxLayoutAlign="stretch">
+  <div fxFlex="70"  fxLayout="row" fxLayoutAlign="stretch">
     <div fxFlex="35" fxFlexOffset="5" fxLayoutAlign=" stretch">
 
       <div fxFlex="row">
         <div fxFlex fxLayout="row">
           <label fxFlex>Tutorial title</label>
-          <input fxFlex class="form-control" type="text" id="tutorialTtile" name="Tutorial title"
+          <input fxFlex class="form-control"
+                 type="text"
+                 id="tutorialTtile"
+                 name="Tutorial title"
                  [(ngModel)]="tutorial.titleTutorial"/>
         </div>
 
@@ -65,9 +76,7 @@
         </div>
       </div>
     </div>
-
     <div fxFlex="" fxFlexOffset="5" id="materialTable">
-      <button mat-raised-button color="primary" (click)="addNewEmptyMaterial()">Add material</button>
       <table class="table table-hover">
         <thead>
         <tr>
