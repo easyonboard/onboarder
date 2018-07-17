@@ -130,10 +130,10 @@ public class EventService {
             User userEntity = userOptional.get();
             Event eventEntity = eventDAO.findEntity(eventDTO);
             if (eventEntity != null) {
-
-                eventEntity.getEnrolledUsers().add(userEntity);
-                eventDAO.persistEntity(eventEntity);
-
+                if (!eventEntity.getEnrolledUsers().contains(userEntity)) {
+                    eventEntity.getEnrolledUsers().add(userEntity);
+                    eventDAO.persistEntity(eventEntity);
+                }
             }
         }
         return getAllUpcomingEvents();
