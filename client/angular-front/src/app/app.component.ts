@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
 import {UserService} from './service/user.service';
 import {UtilityService} from './service/utility.service';
-import {MatDialog, MatTooltip} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 import {LocalStorageConst} from './util/LocalStorageConst';
