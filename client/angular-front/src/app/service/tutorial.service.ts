@@ -3,10 +3,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {RootConst} from '../util/RootConst';
 import {TutorialDTO} from '../domain/tutorial';
-import {Course} from '../domain/course';
-import {Observer} from 'rxjs/Observer';
 import {Observable} from 'rxjs/Observable';
 import {TutorialMaterialDTO} from '../domain/tutorialMaterial';
+import { ContactPersonDto } from '../domain/user';
 
 @Injectable()
 export class TutorialService implements OnInit {
@@ -23,8 +22,21 @@ export class TutorialService implements OnInit {
   ngOnInit(): void {
   }
 
-  addTutorial(tutorial: TutorialDTO, contactPersons: number[]): any {
-    let body = JSON.stringify({tutorial: tutorial, contactPersons: contactPersons});
+  /** !TODO */
+  addTutorial(tutorial: TutorialDTO, contactPersons: String[]): any {
+    // tslint:disable-next-line:prefer-const
+    let contactPersonsDto: ContactPersonDto[] = [];
+    // tslint:disable-next-line:prefer-const
+    let contactPersonDto: ContactPersonDto = new ContactPersonDto;
+
+    contactPersons.forEach(cp => {
+      const x = cp.split(/[()]/);
+      contactPersonDto.username = x[0];
+      contactPersonDto.msgEmail = x[1];
+      contactPersonsDto.push(contactPersonDto);
+    });
+
+    const body = JSON.stringify({tutorial: tutorial, contactPersonsDto: contactPersonsDto});
     return this.http.post<TutorialDTO>(this.rootConst.SERVER_ADD_TUTORIAL, body, this.httpOptions);
   }
 

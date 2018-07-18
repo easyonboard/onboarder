@@ -3,6 +3,7 @@ package service;
 import dao.TutorialDAO;
 import dao.TutorialMaterialDAO;
 import dao.UserDAO;
+import dto.ContactPersonDto;
 import dto.TutorialDTO;
 import dto.TutorialMaterialDTO;
 import dto.mapper.TutorialMapper;
@@ -40,9 +41,9 @@ public class TutorialService {
         return tutorialMapper.entitiesToDTOs(tutorialDAO.filterByKeyword(keyword));
     }
 
-    public TutorialDTO addTutorial(TutorialDTO tutorialDTO, List<Integer> contactPersonsIds) {
+    public TutorialDTO addTutorial(TutorialDTO tutorialDTO, List<ContactPersonDto> contactPersons) {
         Tutorial tutorial = tutorialMapper.mapToEntity(tutorialDTO, new Tutorial());
-        tutorial.setContactPersons(getUsersByIds(contactPersonsIds));
+        tutorial.setContactPersons(getUsersByUsername(contactPersons));
         if (tutorial.getDraft()==null) {
             tutorial.setDraft(false);
         }
@@ -53,6 +54,14 @@ public class TutorialService {
         List<User> users = new ArrayList<>();
         for (Integer id : contactPersonsIds) {
             users.add(userDAO.findEntity(id));
+        }
+        return users;
+    }
+
+    private List<User> getUsersByUsername(List<ContactPersonDto> contactPersons) {
+        List<User> users = new ArrayList<>();
+        for (ContactPersonDto contactPerson : contactPersons) {
+            users.add(userDAO.findUserByUsername(contactPerson.getUsername()).get());
         }
         return users;
     }

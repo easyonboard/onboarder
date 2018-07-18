@@ -73,7 +73,7 @@ export class AddCourseComponent implements OnInit {
     this.ownersIds = [];
     this.contactPersonsIds = [];
 
-    var userArrayObjects: Array<UserDTO> = new Array<UserDTO>();
+    let userArrayObjects: Array<UserDTO> = new Array<UserDTO>();
     this.userService.getAllUsers().subscribe(us => {
       userArrayObjects = userArrayObjects.concat(us);
       this.usersOptions = [];

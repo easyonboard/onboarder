@@ -58,6 +58,11 @@ export class UserService {
     return this.http.get<UserDTO[]>(`${this.allUsers}`);
   }
 
+  /** !TODO */
+  getAllUsersNameAndEmail(): Observable<String[]> {
+    return this.http.get<String[]>(this.rootConst.SERVER_ALL_USERS_NAME_EMAIL);
+  }
+
   searchUsers(term: string): Observable<UserDTO[]> {
 
     if (term && term.length > 0) {

@@ -51,6 +51,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/addUser", method = RequestMethod.POST)
     public ResponseEntity addUser(@RequestBody String userJson) {
+
         ObjectMapper mapper = new ObjectMapper();
 
         try {
@@ -76,6 +77,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/updateUser", method = RequestMethod.POST)
     public ResponseEntity updateUser(@RequestBody UserDTO user) {
+
         try {
             userService.updateUser(user);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -87,6 +89,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/updateUserPassword", method = RequestMethod.POST)
     public ResponseEntity updateUserPassword(@RequestBody UserDTO user) {
+
         userService.updateUserPassword(user.getUsername(), user.getPassword());
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -94,6 +97,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/allUsers", method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> getAllUsers() {
+
         List<UserDTO> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -101,6 +105,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/newUsers", method = RequestMethod.GET)
     public ResponseEntity<List<UserInformationDTO>> getAllNewUsers() {
+
         List<UserInformationDTO> asd = userService.getAllNewUsers();
         return new ResponseEntity(userService.getAllNewUsers(), HttpStatus.OK);
     }
@@ -115,6 +120,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/updateUserInfo", method = RequestMethod.POST)
     public ResponseEntity updateUserInformation(@RequestBody UserInformationDTO userInformationDTO) {
+
         try {
             userInformationService.updateUserInfo(userInformationDTO);
             return new ResponseEntity(HttpStatus.OK);
@@ -127,6 +133,7 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> getUserByName(@RequestParam(value = "name") String name) {
+
         List<UserDTO> users = userService.searchByName(name);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -134,12 +141,14 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/checkList", method = RequestMethod.POST)
     public ResponseEntity getCheckList(@RequestBody UserDTO user) {
+
         return new ResponseEntity(userService.getCheckList(user), HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/saveCheckList", method = RequestMethod.POST)
     public ResponseEntity saveCheckList(@RequestBody String str) {
+
         try {
             userService.saveCheckListForUser(getUser(str), getCheckListMsp(str));
             return new ResponseEntity(HttpStatus.OK);
@@ -149,12 +158,14 @@ public class UserController {
     }
 
     private String getUser(String str) throws IOException {
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);
         return mapper.convertValue(node.get("user"), String.class);
     }
 
     private CheckListDTO getCheckListMsp(String str) throws IOException {
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);
         return mapper.convertValue(node.get("check"), CheckListDTO.class);
@@ -162,7 +173,9 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "user/department", method = RequestMethod.GET)
-    public ResponseEntity<List<UserDTO>> getUsersInDepartmentForUser(@RequestParam(value = "username") String username) {
+    public ResponseEntity<List<UserDTO>> getUsersInDepartmentForUser(
+            @RequestParam(value = "username") String username) {
+
         List<UserDTO> users = userService.getUsersInDepartmentForUser(username);
 
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -186,6 +199,12 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserInformationForUser(username), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "getAllUserNameAndEmail", method = RequestMethod.GET)
+    public  ResponseEntity<List<String>> getAllUsersNameAndEmail() {
+
+        return new ResponseEntity<>(userService.getAllUsersNameAndEmail(), HttpStatus.OK);
+    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "isMailSent", method = RequestMethod.POST)
@@ -194,10 +213,10 @@ public class UserController {
         return new ResponseEntity<>(userService.getStatusMailForUser(username), HttpStatus.OK);
     }
 
-
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "leaveCheckList", method = RequestMethod.POST)
     public ResponseEntity getLeaveCheckList(@RequestBody String username) {
+
         try {
             return new ResponseEntity<>(userService.getLeaveCheckListForUser(username), HttpStatus.OK);
         } catch (EntityNotFoundException e) {
@@ -205,15 +224,11 @@ public class UserController {
         }
     }
 
-
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "saveLeaveCheckList", method = RequestMethod.POST)
     public ResponseEntity saveLeaveCheckList(@RequestBody LeaveCheckListDTO leaveCheckList) {
 
         return new ResponseEntity<>(userService.saveLeaveCheckList(leaveCheckList), HttpStatus.OK);
     }
-
-
-
 
 }

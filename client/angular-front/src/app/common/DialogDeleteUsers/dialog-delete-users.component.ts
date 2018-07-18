@@ -39,10 +39,10 @@ export class DialogDeleteUsersComponent implements OnInit {
 
   getAllUsers() {
     this.userService.getAllUsers().subscribe(users => {
-      this.allUsers = users
+      this.allUsers = users;
       this.allUsers.forEach(user => {
         if (user.username === localStorage.getItem(LocalStorageConst._USER_LOGGED)) {
-          this.allUsers.splice(this.allUsers.indexOf(user),1 );
+          this.allUsers.splice(this.allUsers.indexOf(user), 1);
         }
       });
       this.searchByName();

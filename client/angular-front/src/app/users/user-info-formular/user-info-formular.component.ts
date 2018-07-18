@@ -41,7 +41,6 @@ export class UserInfoFormularComponent implements OnInit {
 
     this.userInformationService.getAllLocations().subscribe(resp => this.locations = resp);
 
-
     if (this.userInformation.buddyUser === undefined || this.userInformation.buddyUser === null) {
       this.userInformation.buddyUser = new UserDTO();
       this.userInformation.buddyUser.name = '';

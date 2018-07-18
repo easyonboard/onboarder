@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sun.media.sound.InvalidDataException;
+import dto.ContactPersonDto;
 import dto.TutorialDTO;
 
 import dto.TutorialMaterialDTO;
@@ -44,7 +45,7 @@ public class TutorialController {
             JsonNode node = null;
             node = mapper.readTree(tutorialJSON);
             TutorialDTO tutorialDTO = mapper.convertValue(node.get("tutorial"), TutorialDTO.class);
-            List<Integer> contactPersons = mapper.convertValue(node.get("contactPersons"), List.class);
+            List<ContactPersonDto> contactPersons = mapper.convertValue(node.get("contactPersons"), List.class);
 
             return new ResponseEntity(tutorialService.addTutorial(tutorialDTO, contactPersons), HttpStatus.OK);
         } catch (InvalidDataException e) {
