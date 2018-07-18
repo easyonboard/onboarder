@@ -3,8 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {RootConst} from '../util/RootConst';
 import {TutorialDTO} from '../domain/tutorial';
-import {Course} from '../domain/course';
-import {Observer} from 'rxjs/Observer';
 import {Observable} from 'rxjs/Observable';
 import {TutorialMaterialDTO} from '../domain/tutorialMaterial';
 
