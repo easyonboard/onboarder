@@ -55,7 +55,10 @@
     "typescript-map": "0.0.5",
     "web-animations-js": "^2.3.1",
     "xlsx": "^0.12.10",
-    "zone.js": "^0.8.20"
+    "zone.js": "^0.8.20",
+    "angular2-multiselect-dropdown": "latest",
+    "angular-2-dropdown-multiselect": "latest",
+    "angular-2-dropdown-multiselect": "latest"
   },
   "devDependencies": {
     "@angular/cli": "^1.5.4",
