@@ -24,6 +24,7 @@ export class DialogDeleteUsersComponent implements OnInit {
   ngOnInit(): void {
     this.dialogDeleteUsers = 'My title!';
     this.getAllUsers();
+
   }
 
   remove(username: String) {
@@ -39,14 +40,19 @@ export class DialogDeleteUsersComponent implements OnInit {
 
   getAllUsers() {
     this.userService.getAllUsers().subscribe(users => {
+
       this.allUsers = users
-      this.allUsers.forEach(user => {
-        if (user.username === localStorage.getItem(LocalStorageConst._USER_LOGGED)) {
-          this.allUsers.splice(this.allUsers.indexOf(user),1 );
-        }
-      });
+      // console.log(this.allUsers);
+      // this.allUsers.forEach(user => {
+      //   if (user.username === localStorage.getItem(LocalStorageConst._USER_LOGGED)) {
+      //     debugger
+      //     this.allUsers.splice(this.allUsers.indexOf(user),1 );
+      //   }
+      // });
+
       this.searchByName();
     });
+
   }
 
   searchByName() {
