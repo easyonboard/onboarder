@@ -15,7 +15,7 @@ public class ContactPersonDto {
         this.username = username;
     }
 
-    public String getMsgMail() {
+    public String getMsgEmail() {
 
         return msgMail;
     }

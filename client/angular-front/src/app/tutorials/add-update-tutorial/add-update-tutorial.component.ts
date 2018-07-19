@@ -16,7 +16,6 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import {ActivatedRoute} from '@angular/router';
 import {LocalStorageConst} from '../../util/LocalStorageConst';
-import {MyException} from 'ng-multiselect-dropdown/multiselect.model';
 import {FormControl, Validators} from '@angular/forms';
 
 @Component({

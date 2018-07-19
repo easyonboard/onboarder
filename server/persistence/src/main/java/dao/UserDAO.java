@@ -43,6 +43,14 @@ public class UserDAO extends AbstractDAO<User> {
         return firstUser;
     }
 
+    public Optional<User> findUserByMsgMail(String msgMail) {
+
+        TypedQuery<User> query = this.em.createNamedQuery(User.FIND_USER_BY_MSG_EMAIL, User.class);
+        query.setParameter("msgMail", msgMail);
+        Optional<User> firstUser = query.getResultList().stream().findFirst();
+        return firstUser;
+    }
+
     public User userByUsername(String username) {
 
         TypedQuery<User> query = this.em.createNamedQuery(User.FIND_USER_BY_USERNAME, User.class);

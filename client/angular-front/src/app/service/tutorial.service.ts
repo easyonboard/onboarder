@@ -26,24 +26,23 @@ export class TutorialService implements OnInit {
   addTutorial(tutorial: TutorialDTO, contactPersons: String[]): any {
     // tslint:disable-next-line:prefer-const
     let contactPersonsDto: ContactPersonDto[] = [];
-    // tslint:disable-next-line:prefer-const
-    let contactPersonDto: ContactPersonDto = new ContactPersonDto;
 
     contactPersons.forEach(cp => {
       const x = cp.split(/[()]/);
+      // tslint:disable-next-line:prefer-const
+      let contactPersonDto: ContactPersonDto = new ContactPersonDto;
       contactPersonDto.username = x[0];
-      contactPersonDto.msgEmail = x[1];
+      contactPersonDto.msgMail = x[1];
       contactPersonsDto.push(contactPersonDto);
     });
 
-    const body = JSON.stringify({tutorial: tutorial, contactPersonsDto: contactPersonsDto});
+    const body = JSON.stringify({tutorial: tutorial, contactPersonsDto:  contactPersonsDto});
     return this.http.post<TutorialDTO>(this.rootConst.SERVER_ADD_TUTORIAL, body, this.httpOptions);
   }
 
   getTutorials(): Observable<TutorialDTO[]> {
-    return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_TUTORIAL}`);
+    return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_TUTORIALS_URL}`);
   }
-
 
   getMaterialsForTutorialId(idTutorial: number): Observable<TutorialMaterialDTO[]> {
     return this.http.get<TutorialMaterialDTO[]>(`${this.rootConst.SERVER_GET_MATERIALS_FOR_TUTORIAL}${idTutorial}`);
@@ -60,13 +59,11 @@ export class TutorialService implements OnInit {
   deleteTutorial(idTutorial: number): Observable<TutorialDTO[]> {
     const body = JSON.stringify({idTutorial: idTutorial});
     return this.http.post<TutorialDTO[]>(this.rootConst.SERVER_DELETE_TUTORIAL, body, this.httpOptions);
-
   }
 
   updateTutorial(tutorial: TutorialDTO, contactPersons: String[]) {
     const body = JSON.stringify({tutorial: tutorial, contactPersons: contactPersons});
     return this.http.post<TutorialDTO>(this.rootConst.SERVER_UPADATE_TUTORIAL, body, this.httpOptions);
-
   }
 
   getDraftsTutorialsForUser(userId: number) {

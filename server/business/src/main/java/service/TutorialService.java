@@ -4,7 +4,7 @@ import dao.TutorialDAO;
 import dao.TutorialMaterialDAO;
 import dao.UserDAO;
 import dto.ContactPersonDto;
-import dto.TutorialDTO;
+import dto.TutorialDto;
 import dto.TutorialMaterialDTO;
 import dto.mapper.TutorialMapper;
 import dto.mapper.TutorialMaterialMapper;
@@ -33,17 +33,17 @@ public class TutorialService {
     private TutorialMapper tutorialMapper = TutorialMapper.INSTANCE;
     private TutorialMaterialMapper tutorialMaterialMapper = TutorialMaterialMapper.INSTANCE;
 
-    public List<TutorialDTO> getAllPublicTutorials() {
+    public List<TutorialDto> getAllPublicTutorials() {
         return tutorialMapper.entitiesToDTOs(tutorialDAO.allPublicTutorials());
     }
 
-    public List<TutorialDTO> filterByKeyword(String keyword) {
+    public List<TutorialDto> filterByKeyword(String keyword) {
         return tutorialMapper.entitiesToDTOs(tutorialDAO.filterByKeyword(keyword));
     }
 
-    public TutorialDTO addTutorial(TutorialDTO tutorialDTO, List<ContactPersonDto> contactPersons) {
-        Tutorial tutorial = tutorialMapper.mapToEntity(tutorialDTO, new Tutorial());
-        tutorial.setContactPersons(getUsersByUsername(contactPersons));
+    public TutorialDto addTutorial(TutorialDto tutorialDto, List<ContactPersonDto> contactPersons) {
+        Tutorial tutorial = tutorialMapper.mapToEntity(tutorialDto, new Tutorial());
+        tutorial.setContactPersons(getUsersByMsgEmail(contactPersons));
         if (tutorial.getDraft()==null) {
             tutorial.setDraft(false);
         }
@@ -58,10 +58,10 @@ public class TutorialService {
         return users;
     }
 
-    private List<User> getUsersByUsername(List<ContactPersonDto> contactPersons) {
+    private List<User> getUsersByMsgEmail(List<ContactPersonDto> contactPersons) {
         List<User> users = new ArrayList<>();
         for (ContactPersonDto contactPerson : contactPersons) {
-            users.add(userDAO.findUserByUsername(contactPerson.getUsername()).get());
+            users.add(userDAO.findUserByMsgMail(contactPerson.getMsgEmail()).get());
         }
         return users;
     }
@@ -71,13 +71,13 @@ public class TutorialService {
         return tutorialMaterialMapper.mapToDTO(tutorialMaterialDAO.persistEntity(tutorialMaterial));
     }
 
-    public TutorialDTO getTutorialById(Integer tutorialId) {
+    public TutorialDto getTutorialById(Integer tutorialId) {
         Tutorial tutorialEntity = tutorialDAO.findTutorialById(tutorialId);
         return tutorialMapper.mapToDTO(tutorialEntity);
     }
 
 
-    public TutorialDTO findTutorialById(Integer idTutorial) {
+    public TutorialDto findTutorialById(Integer idTutorial) {
         return tutorialMapper.mapToDTO(tutorialDAO.findTutorialById(idTutorial));
     }
 
@@ -94,21 +94,21 @@ public class TutorialService {
         return tutorialMaterialDTOS;
     }
 
-    public List<TutorialDTO> deleteTutorial(TutorialDTO tutorial) {
+    public List<TutorialDto> deleteTutorial(TutorialDto tutorial) {
 
         Tutorial entity = tutorialDAO.findEntity(tutorial.getIdTutorial());
         tutorialDAO.deleteEntity(entity);
         return getAllPublicTutorials();
     }
 
-    public TutorialDTO updateTutorial(TutorialDTO tutorialDTO, List<Integer> contactPersons) {
+    public TutorialDto updateTutorial(TutorialDto tutorialDto, List<Integer> contactPersons) {
         Tutorial tutorial = new Tutorial();
-        tutorialMapper.mapToEntity(tutorialDTO, tutorial);
+        tutorialMapper.mapToEntity(tutorialDto, tutorial);
         tutorial.setContactPersons(getUsersByIds(contactPersons));
         return tutorialMapper.mapToDTO(tutorialDAO.update(tutorial));
     }
 
-    public List<TutorialDTO> allDraftTutorialsForUser(Integer idUser) {
+    public List<TutorialDto> allDraftTutorialsForUser(Integer idUser) {
         return tutorialMapper.entitiesToDTOs(tutorialDAO.getAllDraftTutorialsForUser(userDAO.findEntity(idUser)));
     }
 }

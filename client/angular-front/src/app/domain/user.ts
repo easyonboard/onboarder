@@ -41,10 +41,9 @@ export class LeaveCheckList {
   inventoryObjects: boolean;
   resignationForm: boolean;
   cards: boolean;
-
 }
 
 export class ContactPersonDto {
   username: string;
-  msgEmail: string;
+  msgMail: string;
 }

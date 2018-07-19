@@ -2,7 +2,7 @@ package dto;
 
 import java.util.List;
 
-public class TutorialDTO {
+public class TutorialDto {
 
     private Integer idTutorial;
 
@@ -18,17 +18,17 @@ public class TutorialDTO {
 
     private List<TutorialMaterialDTO> tutorialMaterials;
 
-    public TutorialDTO() {
+    public TutorialDto() {
     }
 
-    public TutorialDTO(Integer idTutorial, String titleTutorial, String overview, String keywords) {
+    public TutorialDto(Integer idTutorial, String titleTutorial, String overview, String keywords) {
         this.idTutorial = idTutorial;
         this.titleTutorial = titleTutorial;
         this.overview = overview;
         this.keywords = keywords;
     }
 
-    public TutorialDTO(Integer idTutorial, String titleTutorial, String overview, String keywords, List<UserDTO> contactPersons, List<TutorialMaterialDTO> tutorialMaterials) {
+    public TutorialDto(Integer idTutorial, String titleTutorial, String overview, String keywords, List<UserDTO> contactPersons, List<TutorialMaterialDTO> tutorialMaterials) {
         this.idTutorial = idTutorial;
         this.titleTutorial = titleTutorial;
         this.overview = overview;
@@ -37,7 +37,7 @@ public class TutorialDTO {
         this.tutorialMaterials = tutorialMaterials;
     }
 
-    public TutorialDTO(Integer idTutorial, String titleTutorial, String overview, String keywords, Boolean isDraft, List<UserDTO> contactPersons, List<TutorialMaterialDTO> tutorialMaterials) {
+    public TutorialDto(Integer idTutorial, String titleTutorial, String overview, String keywords, Boolean isDraft, List<UserDTO> contactPersons, List<TutorialMaterialDTO> tutorialMaterials) {
         this.idTutorial = idTutorial;
         this.titleTutorial = titleTutorial;
         this.overview = overview;

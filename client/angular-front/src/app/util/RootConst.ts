@@ -40,9 +40,9 @@ export class RootConst {
   public SERVER_SUBJECT_URL = this.WEB_SERVICE_ENDPOINT + 'courses/subject?id=';
   public SERVER_ADD_COURSE = this.SERVER_COURSES_URL + '/addCourse';
 
-  public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/addTutorial';
+  public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/add';
   public SERVER_ADD_EVENT = this.SERVER_EVENTS_URL + '/addEvent';
-  public SERVER_ADD_TUTORIAL_MATERIAL = this.SERVER_TUTORIALS_URL + '/addTutorialMaterial';
+  
   public SERVER_PAST_EVENT = this.SERVER_EVENTS_URL + '/pastEvent';
   public SERVER_UPCOMING_EVENT = this.SERVER_EVENTS_URL + '/upcomingEvent';
   SERVER_ENROLL_USER = this.SERVER_EVENTS_URL + '/enrollUser';
@@ -89,14 +89,16 @@ export class RootConst {
   WEB_SERVER_SAVE_LEAVE_CHECKLIST = this.WEB_SERVICE_ENDPOINT + 'saveLeaveCheckList';
   WEB_SERVER_LOCATIONS = this.WEB_SERVICE_ENDPOINT + 'locations';
   WEB_SERVER_ROOMS = this.WEB_SERVICE_ENDPOINT + 'meetingHalls';
-  SERVER_GET_TUTORIAL = this.WEB_SERVICE_ENDPOINT + 'tutorials';
-  SERVER_FIND_TUTORIAL_MATERIAL_BY_ID = this.WEB_SERVICE_ENDPOINT + 'materialTutorial?id=';
-  SERVER_GET_MATERIALS_FOR_TUTORIAL = this.SERVER_GET_TUTORIAL + '/materialsForTutorial?id=';
-  SERVER_SEARCH_TUTORIAL_BY_KEYWORD = this.SERVER_GET_TUTORIAL + '?keyword=';
-  SERVER_SEARCH_TUTORIAL_BY_ID = this.SERVER_GET_TUTORIAL + '/';
-  SERVER_DELETE_TUTORIAL = this.WEB_SERVICE_ENDPOINT + 'deleteTutorial';
-  SERVER_DELETE_MATERIAL = this.WEB_SERVICE_ENDPOINT + 'material/delete?id=';
-  SERVER_UPADATE_TUTORIAL = this.SERVER_TUTORIALS_URL + '/update';
-  public SERVER_GET_DRAFTS_TUTORIAL = this.SERVER_GET_TUTORIAL + '/draft?idUser=';
+
+  public SERVER_PING_TUTORIALS = this.SERVER_TUTORIALS_URL + '/ping';
+  public SERVER_ADD_TUTORIAL_MATERIAL = this.SERVER_TUTORIALS_URL + '/addTutorialMaterial';
+  public SERVER_FIND_TUTORIAL_MATERIAL_BY_ID = this.SERVER_TUTORIALS_URL + '/materialTutorial?id=';
+  public SERVER_GET_MATERIALS_FOR_TUTORIAL = this.SERVER_TUTORIALS_URL + '/materialsForTutorial?id=';
+  public SERVER_SEARCH_TUTORIAL_BY_KEYWORD = this.SERVER_TUTORIALS_URL + '?keyword=';
+  public SERVER_SEARCH_TUTORIAL_BY_ID = this.SERVER_TUTORIALS_URL + '/';
+  public SERVER_DELETE_TUTORIAL = this.SERVER_TUTORIALS_URL + '/deleteTutorial';
+  public SERVER_DELETE_MATERIAL = this.WEB_SERVICE_ENDPOINT + 'material/delete?id=';
+  public SERVER_UPADATE_TUTORIAL = this.SERVER_TUTORIALS_URL + '/update';
+  public SERVER_GET_DRAFTS_TUTORIAL = this.SERVER_TUTORIALS_URL + '/draft?idUser=';
 
 }
