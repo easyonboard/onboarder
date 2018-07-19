@@ -9,10 +9,29 @@
             </mat-chip>
         </div>
     </div>
+    <div *ngIf="onUpdateTutorialMode" class="pageTitle">
+      <p>Update tutorial</p>
+      <mat-chip *ngIf="tutorial.draft"
+                [ngStyle]="{ backgroundColor: '#71ABFF'}"
+                selected="true">Draft
+      </mat-chip>
+
+    </div>
+    <p>
+      <button
+        style="margin-left:45%; margin-top: 4%"
+        mat-raised-button
+        color="primary"
+        (click)="addNewEmptyMaterial()">Add material
+      </button>
+    </p>
+  </div>
 
     <div fxFlex="80" fxFlexOffset="5" fxLayout="row" fxLayoutAlign="stretch">
         <div fxFlex="35" fxFlexOffset="5" fxLayoutAlign=" stretch">
 
+  <div fxFlex="70" fxLayout="row" fxLayoutAlign="stretch">
+    <div fxFlex="35" fxFlexOffset="5" fxLayoutAlign=" stretch">
             <div fxFlex="row">
                 <div fxFlex fxLayout="row">
                     <label fxFlex>Tutorial title</label>
@@ -95,6 +114,19 @@
                                     <mat-option value="FILE" id="valueFile">File</mat-option>
                                 </mat-select>
 
+        <tbody *ngFor="let material of materialsForCurrentTutorial;let position= index">
+        <tr>
+          <th scope="row" align="center">{{position+1}}</th>
+          <th align="center">
+            <mat-icon *ngIf="materialType[material.materialType]===materialType['LINK']" matSuffix
+                      (click)="openURL(material.link)">
+              visibility
+            </mat-icon>
+            <mat-icon *ngIf="materialType[material.materialType]===materialType['FILE'] && !material.idTutorialMaterial"
+                      matSuffix
+                      (click)="openFile(position)">
+              save_alt
+            </mat-icon>
 
                                 <mat-select placeholder="Material type" [(value)]="material.materialType" *ngIf="material.idTutorialMaterial" disabled>
                                     <mat-option value="LINK">Link</mat-option>
@@ -131,7 +163,8 @@
         <div fxFlex fxFlexOffset="75" id="buttons">
             <!--<button type="button" class="btn btn-default" data-dismiss="modal">-->
 
-            <!--</button>-->
+    <div fxFlex fxFlexOffset="75" id="buttons">
+      <!--<button type="button" class="btn btn-default" data-dismiss="modal">-->
 
             <button mat-raised-button color="basic" (click)="goBack()">
         <mat-icon>cancel</mat-icon>

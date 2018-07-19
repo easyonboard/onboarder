@@ -3,11 +3,11 @@ import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
 import {UserService} from './service/user.service';
-import {UtilityService} from './service/utility.service';
 import {MatDialog} from '@angular/material';
 import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 import {LocalStorageConst} from './util/LocalStorageConst';
+import {UtilityService} from './service/utility.service';
 
 @Component({
   selector: 'app-root',
@@ -42,10 +42,6 @@ export class AppComponent {
 
       this.redirectToLoginPage();
     }
-  }
-
-  redirectToAddCourse(): void {
-    location.replace(this.rootConst.FRONT_ADD_COURSE);
   }
 
   closeModal(id: string) {
@@ -111,11 +107,6 @@ export class AppComponent {
   redirectToLoginPage(): void {
     location.replace(this.rootConst.FRONT_LOGIN_PAGE);
   }
-
-  openDialogCoursesForUser() {
-    this.commonComponent.openDialogCoursesForUser();
-  }
-
   openModalNewEmployee() {
     this.commonComponent.openModalNewEmployee();
   }

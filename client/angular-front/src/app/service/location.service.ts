@@ -27,7 +27,6 @@ export class LocationService implements OnInit {
   }
 
   getRooms(): Observable<MeetingHall[]> {
-    debug;
     return this.http.get<MeetingHall[]>(`${this.rootConst.WEB_SERVER_ROOMS}`);
   }
 }

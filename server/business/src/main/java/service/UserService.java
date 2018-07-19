@@ -52,6 +52,9 @@ public class UserService {
     private LocationDAO locationDAO;
 
     @Autowired
+    private EventDAO eventDAO;
+
+    @Autowired
     private TutorialDAO tutorialDAO;
 
     private UserMapper userMapper = UserMapper.INSTANCE;
@@ -192,6 +195,8 @@ public class UserService {
                     leaveCheckListDAO.deleteEntity(leavecheckListEntity);
                 }
                 tutorialDAO.removeUserFromTutorialContactList(userEntity);
+                eventDAO.removeUserFromEnrolledList(userEntity);
+                eventDAO.removeContactPersonFromEvents(userEntity);
                 userInformationDAO.setBuddyToNull(userEntity);
                 userDAO.deleteEntity(userEntity);
                 return true;

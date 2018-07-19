@@ -24,6 +24,7 @@ export class DialogDeleteUsersComponent implements OnInit {
   ngOnInit(): void {
     this.dialogDeleteUsers = 'My title!';
     this.getAllUsers();
+
   }
 
   remove(username: String) {
@@ -47,6 +48,7 @@ export class DialogDeleteUsersComponent implements OnInit {
       });
       this.searchByName();
     });
+
   }
 
   searchByName() {

@@ -1,8 +1,8 @@
 #addComponent {
   margin: auto;
-  width: 85vw;
-  height: 80vh;
-  margin-top: 4%;
+  width: 85%;
+  height: 80%;
+  margin-top: 2%;
   border: #841439 solid 4px;
   box-shadow: 0 6px 10px 6px #cccccc inset;
   position: relative;
@@ -22,8 +22,8 @@
 
 textarea {
   border-radius: 5px;
-  height: 10vh;
-  width: 500px;
+  height: 10%;
+  width: 30%;
 }
 
 .keyword-list {
@@ -46,8 +46,18 @@ td {
   min-width: 30px;
   max-width: 30px;
   overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fileTd{
+  min-width: 60px;
+
 }
 
 #buttons {
   margin-bottom: 2%;
+}
+
+mat-icon{
+  cursor: pointer;
 }

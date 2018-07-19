@@ -20,7 +20,7 @@ export class EventsComponent implements OnInit {
     this.pastEvents = [];
     this.upcomingEvents = [];
     this.canEnroll = true;
-    this.user=new UserDTO();
+    this.user = new UserDTO();
     this.user.username = localStorage.getItem('userLogged');
   }
 
@@ -52,9 +52,9 @@ export class EventsComponent implements OnInit {
 
 
   enrollUser(event: EventDTO) {
-    this.eventService.enrollUser(this.user, event).subscribe(resp=>{
-      this.upcomingEvents=resp;
-      this.processDateAndTime(this.upcomingEvents)
+    this.eventService.enrollUser(this.user, event).subscribe(resp => {
+      this.upcomingEvents = resp;
+      this.processDateAndTime(this.upcomingEvents);
       this.processPlacesLeftToEnroll();
     });
 
@@ -64,7 +64,7 @@ export class EventsComponent implements OnInit {
 
     this.upcomingEvents.forEach(event => {
 
-      if(event.maxEnrolledUsers!=undefined) {
+      if (event.maxEnrolledUsers != undefined) {
         let x = event.placesLeft = event.meetingHall.capacity - event.enrolledUsers.length;
 
         if (x <= 0) {
@@ -72,6 +72,7 @@ export class EventsComponent implements OnInit {
           this.canEnroll = false;
         }
         event.placesLeft = x;
-      }});
+      }
+    });
   }
 }
