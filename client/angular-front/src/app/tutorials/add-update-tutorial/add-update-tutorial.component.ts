@@ -243,7 +243,7 @@ export class AddUpdateTutorialComponent implements OnInit {
 
       this.tutorial.keywords = this.keywords.join(' ');
 
-      this.tutorialService.updateTutorial(this.tutorial, this.selectedContactPersonsIds).subscribe(tutorial => {
+      this.tutorialService.updateTutorial(this.tutorial, this.selectedUsers).subscribe(tutorial => {
         this.tutorial = tutorial;
         this.addMaterials();
         this.deleteFromServerMaterials();

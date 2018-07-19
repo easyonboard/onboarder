@@ -63,7 +63,7 @@ export class TutorialService implements OnInit {
 
   }
 
-  updateTutorial(tutorial: TutorialDTO, contactPersons: number[]) {
+  updateTutorial(tutorial: TutorialDTO, contactPersons: String[]) {
     const body = JSON.stringify({tutorial: tutorial, contactPersons: contactPersons});
     return this.http.post<TutorialDTO>(this.rootConst.SERVER_UPADATE_TUTORIAL, body, this.httpOptions);
 

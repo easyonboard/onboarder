@@ -7,31 +7,18 @@
             <p>Update tutorial</p>
             <mat-chip *ngIf="tutorial.draft" [ngStyle]="{ backgroundColor: '#71ABFF'}" selected="true">Draft
             </mat-chip>
+
         </div>
-    </div>
-    <div *ngIf="onUpdateTutorialMode" class="pageTitle">
-      <p>Update tutorial</p>
-      <mat-chip *ngIf="tutorial.draft"
-                [ngStyle]="{ backgroundColor: '#71ABFF'}"
-                selected="true">Draft
-      </mat-chip>
-
-    </div>
-    <p>
-      <button
-        style="margin-left:45%; margin-top: 4%"
-        mat-raised-button
-        color="primary"
-        (click)="addNewEmptyMaterial()">Add material
+        <p>
+            <button style="margin-left:45%; margin-top: 4%" mat-raised-button color="primary" (click)="addNewEmptyMaterial()">Add material
       </button>
-    </p>
-  </div>
+        </p>
+    </div>
 
-    <div fxFlex="80" fxFlexOffset="5" fxLayout="row" fxLayoutAlign="stretch">
+
+    <div fxFlex="70" fxLayout="row" fxLayoutAlign="stretch">
         <div fxFlex="35" fxFlexOffset="5" fxLayoutAlign=" stretch">
 
-  <div fxFlex="70" fxLayout="row" fxLayoutAlign="stretch">
-    <div fxFlex="35" fxFlexOffset="5" fxLayoutAlign=" stretch">
             <div fxFlex="row">
                 <div fxFlex fxLayout="row">
                     <label fxFlex>Tutorial title</label>
@@ -43,10 +30,12 @@
                     <ng-multiselect-dropdown style="width: 53%;" [placeholder]="'choose one or more contact persons'" [data]="allUsers" [(ngModel)]="selectedUsers" [settings]="dropdownSettings"></ng-multiselect-dropdown>
                 </div>
 
+
                 <div fxFlex fxLayout="row" class="tutorialRow">
                     <label fxFlex>Overview</label>
                     <textarea fxFlex class="form-control" id="tutorialOverview" name="Overview" rows="14" [(ngModel)]="tutorial.overview"></textarea>
                 </div>
+
 
                 <div fxFlex="" fxLayout="row" class="tutorialRow">
                     <label fxFlex>Keywords </label>
@@ -62,9 +51,7 @@
                 </div>
             </div>
         </div>
-
         <div fxFlex="" fxFlexOffset="5" id="materialTable">
-            <button mat-raised-button color="primary" (click)="addNewEmptyMaterial()">Add material</button>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -79,7 +66,7 @@
 
                 <tbody *ngIf="materialsForCurrentTutorial.length===0">
                     <tr>
-                        <td colspan="4" style="text-align: center">No materials for this tutorial </td>
+                        <td colspan="4" style="text-align: center">No materials for this tutorial</td>
                     </tr>
                 </tbody>
 
@@ -87,17 +74,19 @@
                     <tr>
                         <th scope="row" align="center">{{position+1}}</th>
                         <th align="center">
-                            <mat-icon *ngIf="materialType[material.materialType]===materialType['LINK']" matSuffix (click)="openURL(material.link)">
+                            <mat-icon *ngIf="materialType[material.materialType]===materialType['LINK']" matSuffix (click)="openURL(material.link)" matTooltip="View page">
                                 visibility
                             </mat-icon>
-                            <mat-icon *ngIf="materialType[material.materialType]===materialType['FILE'] && !material.idTutorialMaterial" matSuffix (click)="openFile(position)">
+                            <mat-icon *ngIf="materialType[material.materialType]===materialType['FILE'] && !material.idTutorialMaterial" matSuffix (click)="openFile(position)" matTooltip="View file">
                                 save_alt
                             </mat-icon>
 
-                            <mat-icon *ngIf="materialType[material.materialType]===materialType['FILE'] && material.idTutorialMaterial" matSuffix (click)="getFileWithId(material.idTutorialMaterial)">
+                            <mat-icon *ngIf="materialType[material.materialType]===materialType['FILE'] && material.idTutorialMaterial" matSuffix (click)="getFileWithId(material.idTutorialMaterial)" matTooltip="View file">
                                 save_alt
                             </mat-icon>
-                            <mat-icon matSuffix (click)="removeMaterialFromUI(position)">delete</mat-icon>
+                            <mat-icon matSuffix (click)="removeMaterialFromUI(position)" matTooltip="Delete">
+                                delete
+                            </mat-icon>
                         </th>
 
                         <td>
@@ -114,19 +103,6 @@
                                     <mat-option value="FILE" id="valueFile">File</mat-option>
                                 </mat-select>
 
-        <tbody *ngFor="let material of materialsForCurrentTutorial;let position= index">
-        <tr>
-          <th scope="row" align="center">{{position+1}}</th>
-          <th align="center">
-            <mat-icon *ngIf="materialType[material.materialType]===materialType['LINK']" matSuffix
-                      (click)="openURL(material.link)">
-              visibility
-            </mat-icon>
-            <mat-icon *ngIf="materialType[material.materialType]===materialType['FILE'] && !material.idTutorialMaterial"
-                      matSuffix
-                      (click)="openFile(position)">
-              save_alt
-            </mat-icon>
 
                                 <mat-select placeholder="Material type" [(value)]="material.materialType" *ngIf="material.idTutorialMaterial" disabled>
                                     <mat-option value="LINK">Link</mat-option>
@@ -142,7 +118,7 @@
                                 </mat-form-field>
                             </form>
                         </td>
-                        <td *ngIf="materialType[material.materialType]===materialType['FILE'] ">
+                        <td class="fileTd" *ngIf="materialType[material.materialType]===materialType['FILE'] ">
                             <form>
                                 <input *ngIf="!material.idTutorialMaterial" type="file" name="materialFile" id={{position}} accept="application/pdf" />
                             </form>
@@ -160,26 +136,22 @@
 
     <div fxFlex fxLayout="row">
 
-        <div fxFlex fxFlexOffset="75" id="buttons">
-            <!--<button type="button" class="btn btn-default" data-dismiss="modal">-->
+        <div fxFlex fxFlexLayout="column" fxFlexOffset="70" id="buttons">
 
-    <div fxFlex fxFlexOffset="75" id="buttons">
-      <!--<button type="button" class="btn btn-default" data-dismiss="modal">-->
-
-            <button mat-raised-button color="basic" (click)="goBack()">
+            <button fxFlex mat-raised-button color="basic" (click)="goBack()">
         <mat-icon>cancel</mat-icon>
         Cancel
       </button>
 
-            <button mat-raised-button color="primary" (click)="saveAsDraft()">
+            <button fxFlex mat-raised-button color="primary" (click)="saveAsDraft()">
         <mat-icon>insert_drive_file</mat-icon>
         Save as draft
       </button>
-            <button mat-raised-button color="primary" *ngIf="!onUpdateTutorialMode" (click)="addTutorial()">
+            <button fxFlex mat-raised-button color="primary" *ngIf="!onUpdateTutorialMode" (click)="addTutorial()">
         <mat-icon>save</mat-icon>
         Save
       </button>
-            <button mat-raised-button color="primary" *ngIf="onUpdateTutorialMode && !tutorial.draft" (click)="updateTutorial()">
+            <button fxFlex mat-raised-button color="primary" *ngIf="onUpdateTutorialMode && !tutorial.draft" (click)="updateTutorial()">
         <mat-icon>save</mat-icon>
         Save
       </button>
