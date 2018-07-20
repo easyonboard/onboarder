@@ -1,18 +1,19 @@
 package service;
 
 import dao.EventDAO;
-import dao.LocationDAO;
-import dao.MeetingHallDAO;
+import dao.LocationRepository;
+import dao.MeetingHallRepository;
 import dao.UserDAO;
 import dto.EventDTO;
-import dto.LocationDTO;
-import dto.MeetingHallDTO;
+import dto.LocationDto;
+import dto.MeetingHallDto;
 import dto.UserDTO;
 import dto.mapper.EventMapper;
 import dto.mapper.LocationMapper;
 import dto.mapper.MeetingHallMapper;
 import dto.mapper.UserMapper;
 import entity.Event;
+import entity.MeetingHall;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,40 +36,41 @@ public class EventService {
     private UserDAO userDAO;
 
     @Autowired
-    private LocationDAO locationDAO;
+    private LocationRepository locationRepository;
 
     @Autowired
     private EventDAO eventDAO;
 
     @Autowired
-    private MeetingHallDAO meetingHallDAO;
+    private MeetingHallRepository meetingHallRepository;
 
-    public EventDTO addEvent(EventDTO eventDTO, List<String> enrolledUsersUsernames, String contactPerson, LocationDTO location, MeetingHallDTO meetingHall) {
-//        List<String> enrolledUsersUsernames = extractUsernamesFromEmails(enrolledUsersEmails);
-//        Event event = eventMapper.mapToNewEntity(eventDTO);
-//
-//        List<User> enrolledUsers = new ArrayList<>();
-//
-//        for (int i = 0; i < enrolledUsersUsernames.size(); i++) {
-//            User user = userDAO.findUserByUsername(enrolledUsersUsernames.get(i)).get();
-//            enrolledUsers.add(user);
-//        }
-//
-//        User contactPersonEntity = userDAO.findUserByUsername(contactPerson).get();
-//        if (location.getIdLocation() != null) {
-//            Location selectedLocation = locationDAO.findEntity(location.getIdLocation());
-//            event.setLocation(selectedLocation);
-//        }
-//        if (meetingHall.getIdMeetingHall() != 0) {
-//            MeetingHall selectedHall = meetingHallDAO.findEntity(meetingHall.getIdMeetingHall());
-//            event.setMeetingHall(selectedHall);
-//        }
-//
-//        event.setContactPerson(contactPersonEntity);
-//        Event resultedEvent = eventDAO.persistEntity(event);
-//        EventDTO eventDTO1 = eventMapper.mapToDTO(resultedEvent);
-//
-//        resultedEvent.setEnrolledUsers(enrolledUsers);
+    public EventDTO addEvent(EventDTO eventDTO, List<String> enrolledUsersUsernames, String contactPerson,
+                             LocationDto location, MeetingHallDto meetingHall) {
+        //        List<String> enrolledUsersUsernames = extractUsernamesFromEmails(enrolledUsersEmails);
+        //        Event event = eventMapper.mapToNewEntity(eventDTO);
+        //
+        //        List<User> enrolledUsers = new ArrayList<>();
+        //
+        //        for (int i = 0; i < enrolledUsersUsernames.size(); i++) {
+        //            User user = userDAO.findUserByUsername(enrolledUsersUsernames.get(i)).get();
+        //            enrolledUsers.add(user);
+        //        }
+        //
+        //        User contactPersonEntity = userDAO.findUserByUsername(contactPerson).get();
+        //        if (location.getIdLocation() != null) {
+        //            Location selectedLocation = locationRepository.findEntity(location.getIdLocation());
+        //            event.setLocation(selectedLocation);
+        //        }
+        //        if (meetingHall.getIdMeetingHall() != 0) {
+        //            MeetingHall selectedHall = meetingHallRepository.findEntity(meetingHall.getIdMeetingHall());
+        //            event.setMeetingHall(selectedHall);
+        //        }
+        //
+        //        event.setContactPerson(contactPersonEntity);
+        //        Event resultedEvent = eventDAO.persistEntity(event);
+        //        EventDTO eventDTO1 = eventMapper.mapToDTO(resultedEvent);
+        //
+        //        resultedEvent.setEnrolledUsers(enrolledUsers);
 
         List<UserDTO> enrolledUsersDTO = new ArrayList<>();
 
@@ -79,11 +81,13 @@ public class EventService {
 
         UserDTO contactPersonEntityDTO = userMapper.mapToDTO(userDAO.findUserByUsername(contactPerson).get());
         if (location.getIdLocation() != null) {
-            LocationDTO selectedLocationDTO = locationMapper.mapToDTO(locationDAO.findEntity(location.getIdLocation()));
-            eventDTO.setLocation(selectedLocationDTO);
+            LocationDto selectedLocationDto = locationMapper.mapToDTO(
+                    locationRepository.findOne(location.getIdLocation()));
+            eventDTO.setLocation(selectedLocationDto);
         }
         if (meetingHall.getIdMeetingHall() != 0) {
-            MeetingHallDTO selectedHallDTO = meetingHallMapper.mapToDTO(meetingHallDAO.findEntity(meetingHall.getIdMeetingHall()));
+            MeetingHallDto selectedHallDTO = meetingHallMapper.mapToDTO(
+                    meetingHallRepository.findOne(meetingHall.getIdMeetingHall()));
             eventDTO.setMeetingHall(selectedHallDTO);
         }
         eventDTO.setContactPerson(contactPersonEntityDTO);
@@ -92,8 +96,8 @@ public class EventService {
 
     }
 
-
     private List<String> extractUsernamesFromEmails(List<String> nameUsernamesEmail) {
+
         List<String> usernames = new ArrayList<>();
         StringTokenizer st;
         String username;
@@ -114,17 +118,20 @@ public class EventService {
 
     public List<EventDTO> getAllUpcomingEvents() {
 
-        return eventDAO.findAllUpcomingEvents().stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+        return eventDAO.findAllUpcomingEvents().stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(
+                Collectors.toList());
 
     }
 
     public List<EventDTO> getAllPastEvents() {
 
-        return eventDAO.findAllPastEvents().stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+        return eventDAO.findAllPastEvents().stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(
+                Collectors.toList());
 
     }
 
     public List<EventDTO> enrollUser(UserDTO userDTO, int eventDTO) {
+
         Optional<User> userOptional = userDAO.findUserByUsername(userDTO.getUsername());
         if (userOptional.isPresent()) {
             User userEntity = userOptional.get();
@@ -137,16 +144,30 @@ public class EventService {
             }
         }
         return getAllUpcomingEvents();
+    }
+
+    public List<LocationDto> getAllLocations() {
+
+        return locationMapper.entitiesToDTOs(locationRepository.findAll());
 
     }
 
-    public List<LocationDTO> getAllLocations() {
+    public List<MeetingHallDto> getAllMeetingHalls() {
 
-        return locationMapper.entitiesToDTOs(locationDAO.getAllLocations());
-
+        return meetingHallMapper.entitiesToDTOs(meetingHallRepository.findAll());
     }
 
-    public List<MeetingHallDTO> getAllMeetingHalls() {
-        return meetingHallMapper.entitiesToDTOs(meetingHallDAO.getAllRooms());
+    /** metodele nu sunt folosite pentru ca filtrarea locatiilor si a meeting hall-urilor e facuta pe front
+     *  bine de luat in considerare ca exemplu de folosire al JpaReository-urilor
+     */
+    public LocationDto getLocationByHallName(String hallName) {
+
+        MeetingHall meetingHall = meetingHallRepository.findByHallName(hallName);
+        return locationMapper.mapToDTO(meetingHall.getLocation());
+    }
+
+    public List<MeetingHallDto> getMeetingHallsByLocation(String location) {
+
+        return meetingHallMapper.entitiesToDTOs(meetingHallRepository.findByLocation(location));
     }
 }

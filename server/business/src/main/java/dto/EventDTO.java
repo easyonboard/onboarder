@@ -17,17 +17,17 @@ public class EventDTO {
 
     private Integer maxEnrolledUsers;
 
-    private LocationDTO location;
+    private LocationDto location;
 
     private String keywords;
 
     private Date eventDate;
-    private MeetingHallDTO meetingHall;
+    private MeetingHallDto meetingHall;
 
     public EventDTO() {
     }
 
-    public EventDTO(Integer idEvent, String titleEvent,  String overview, List<UserDTO> enrolledUsers, UserDTO contactPerson, Integer maxEnrolledUsers, LocationDTO location, String keywords, Date eventDate, MeetingHallDTO meetingHall) {
+    public EventDTO(Integer idEvent, String titleEvent, String overview, List<UserDTO> enrolledUsers, UserDTO contactPerson, Integer maxEnrolledUsers, LocationDto location, String keywords, Date eventDate, MeetingHallDto meetingHall) {
         this.idEvent = idEvent;
         this.titleEvent = titleEvent;
         this.overview = overview;
@@ -88,11 +88,11 @@ public class EventDTO {
         this.maxEnrolledUsers = maxEnrolledUsers;
     }
 
-    public LocationDTO getLocation() {
+    public LocationDto getLocation() {
         return location;
     }
 
-    public void setLocation(LocationDTO location) {
+    public void setLocation(LocationDto location) {
         this.location = location;
     }
 
@@ -112,11 +112,11 @@ public class EventDTO {
         this.eventDate = eventDate;
     }
 
-    public MeetingHallDTO getMeetingHall() {
+    public MeetingHallDto getMeetingHall() {
         return meetingHall;
     }
 
-    public void setMeetingHall(MeetingHallDTO meetingHall) {
+    public void setMeetingHall(MeetingHallDto meetingHall) {
         this.meetingHall = meetingHall;
     }
 }

@@ -3,8 +3,8 @@ package controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.EventDTO;
-import dto.LocationDTO;
-import dto.MeetingHallDTO;
+import dto.LocationDto;
+import dto.MeetingHallDto;
 import dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,13 +34,13 @@ public class EventController {
             JsonNode node = null;
             node = mapper.readTree(courseJson);
             EventDTO eventDTO = mapper.convertValue(node.get("event"), EventDTO.class);
-            MeetingHallDTO meetingHall = mapper.convertValue(node.get("hall"), MeetingHallDTO.class);
+            MeetingHallDto meetingHall = mapper.convertValue(node.get("hall"), MeetingHallDto.class);
             List<String> enrolledUsers = mapper.convertValue(node.get("enrolledPersons"), List.class);
             String contactPerson = mapper.convertValue(node.get("contactPersons"), String.class);
-            LocationDTO locationDTO = mapper.convertValue(node.get("location"), LocationDTO.class);
+            LocationDto locationDto = mapper.convertValue(node.get("location"), LocationDto.class);
 
             return new ResponseEntity<>(
-                    eventService.addEvent(eventDTO, enrolledUsers, contactPerson, locationDTO, meetingHall),
+                    eventService.addEvent(eventDTO, enrolledUsers, contactPerson, locationDto, meetingHall),
                     HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
@@ -81,15 +81,14 @@ public class EventController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "locations", method = RequestMethod.GET)
-    public ResponseEntity<List<dto.LocationDTO>> getAllLocations() {
+    public ResponseEntity<List<LocationDto>> getAllLocations() {
 
         return new ResponseEntity<>(eventService.getAllLocations(), HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "meetingHalls", method = RequestMethod.GET)
-    public ResponseEntity<List<dto.MeetingHallDTO>> getAllMeetingHalls() {
-        System.out.println("HALLS");
+    public ResponseEntity<List<MeetingHallDto>> getAllMeetingHalls() {
         return new ResponseEntity<>(eventService.getAllMeetingHalls(), HttpStatus.OK);
     }
 }

@@ -1,12 +1,12 @@
 <div id="parentDiv">
     <div id="tutorialDetails" *ngIf="tutorial">
 
-
         <div fxLayout="row" style="margin-top: 2%; margin-left: 2%" *ngIf="tutorial.keywords!=null">
 
             <div fxFlex="10">
                 <i class="fa fa-server icon" aria-hidden="true"></i>
-                <label class="subtitle">Keywords: </label></div>
+                <label class="subtitle">Keywords: </label>
+            </div>
 
             <div fxFlex>
                 <mat-chip-list class="mat-chip-list" id="keywordsList">
@@ -17,8 +17,8 @@
 
             <div fxFlex="5" class="editIcon" *ngIf="userCanEditThisTutorial()">
                 <button mat-button (click)="redirectToUpdateTutorial(tutorial.idTutorial)">
-          <mat-icon matTooltip="Edit tutorial" >edit</mat-icon>
-        </button>
+                    <mat-icon matTooltip="Edit tutorial" >edit</mat-icon>
+                </button>
             </div>
         </div>
 

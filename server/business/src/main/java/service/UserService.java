@@ -49,7 +49,7 @@ public class UserService {
     private CheckListService checkListService;
 
     @Autowired
-    private LocationDAO locationDAO;
+    private LocationRepository locationRepository;
 
     @Autowired
     private EventDAO eventDAO;

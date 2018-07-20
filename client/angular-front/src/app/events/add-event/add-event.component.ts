@@ -10,6 +10,8 @@ import {RootConst} from '../../util/RootConst';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 import {LocationDTO} from '../../domain/location';
 import {debug} from 'util';
+import { forEach } from '@angular/router/src/utils/collection';
+import { Statement } from '@angular/compiler';
 
 @Component({
   selector: 'app-add-event',
@@ -29,8 +31,11 @@ export class AddEventComponent implements OnInit {
 
   public dropdownLocationSettings = {};
   public usersOptions: UserDTO[];
-  public locationOptions: LocationDTO[];
-  public meetingHallOptions: MeetingHall[];
+
+  public allLocationOptions: LocationDTO[] = [];
+  public allMeetingHallOptions: MeetingHall[] = [];
+  public locationOptions: LocationDTO[] = [];
+  public meetingHallOptions: MeetingHall[] = [];
 
   public event: EventDTO;
   public eventErrorMessage: string;
@@ -46,7 +51,8 @@ export class AddEventComponent implements OnInit {
   public today: Date;
   separatorKeysCodes = [ENTER, COMMA, SPACE];
 
-  constructor(private location: Location, private eventService: EventService, private userService: UserService, private locationService: LocationService, public snackBar: MatSnackBar) {
+  constructor(private location: Location, private eventService: EventService, private userService: UserService,
+              private locationService: LocationService, public snackBar: MatSnackBar) {
     this.keywords = [];
     this.rootConst = new RootConst();
     this.event = new EventDTO();
@@ -60,8 +66,6 @@ export class AddEventComponent implements OnInit {
     });
     this.selectedRoom = new MeetingHall();
     this.selectedLocation = new LocationDTO();
-
-
   }
 
   ngOnInit() {
@@ -83,15 +87,15 @@ export class AddEventComponent implements OnInit {
       allowSearchFilter: true
     };
     this.locationService.getLocations().subscribe(resp => {
-      this.locationOptions = resp;
+      this.allLocationOptions = resp;
+      this.locationOptions = this.allLocationOptions;
       console.log(this.locationOptions);
     });
     this.locationService.getRooms().subscribe(resp => {
-        this.meetingHallOptions = resp;
-        console.log(this.meetingHallOptions [0]);
-      }
-    )
-    ;
+      this.allMeetingHallOptions = resp;
+      this.meetingHallOptions = this.allMeetingHallOptions;
+      console.log(this.meetingHallOptions [0]);
+    });
   }
 
   addEvent(): void {
@@ -99,6 +103,7 @@ export class AddEventComponent implements OnInit {
     console.log('selected  loc  ' + this.selectedLocation.idLocation);
     console.log('contact oersons   ' + this.selectedContactPerson);
     console.log('selected room   ' + this.selectedRoom.idMeetingHall);
+
     if (this.event.titleEvent.length < 5) {
       this.eventErrorMessage += 'Title is too short!\n';
     }
@@ -113,7 +118,8 @@ export class AddEventComponent implements OnInit {
     }
 
     this.event.keywords = this.keywords.join(' ');
-    this.eventService.addEvent(this.event, this.selectedContactPerson, this.selectedEnrolledPersonsItems, this.selectedLocation, this.selectedRoom).subscribe(event => {
+    this.eventService.addEvent(this.event, this.selectedContactPerson, this.selectedEnrolledPersonsItems,
+                               this.selectedLocation, this.selectedRoom).subscribe(event => {
       this.event = event;
       this.saved = true;
       this.incStep();
@@ -122,9 +128,32 @@ export class AddEventComponent implements OnInit {
     });
   }
 
+  filterLocations(state: any) {
+    console.log('Here filter locations by ' + state + ' which is the hall\'s id');
+    this.locationOptions = [];
+    if (state === undefined) {
+      this.locationOptions = this.allLocationOptions;
+    } else {
+      const meetingHall = this.meetingHallOptions.find(mh => mh.idMeetingHall === state);
+      this.locationOptions.push(meetingHall.location);
+    }
+  }
+
+  filterHalls(state: any) {
+    console.log('Here filter halls ' + state + ' which is the location\'s id');
+    this.meetingHallOptions = [];
+    if (state === undefined) {
+      this.meetingHallOptions = this.allMeetingHallOptions;
+    } else {
+      this.allMeetingHallOptions.forEach(mh => {
+        if (mh.location.idLocation === state) {
+          this.meetingHallOptions.push(mh);
+        }
+      });
+    }
+  }
 
   snackBarMessagePopup(message: string) {
-    console.log('tralalalaaaa\n');
     this.snackBar.open(message, null, {
       duration: 3000
     });
@@ -156,7 +185,7 @@ export class AddEventComponent implements OnInit {
   addKeyword(event: MatChipInputEvent): void {
     this.inputKeyword = event.input;
     let value = event.value;
-    console.log('keywords: ' + this.keywords);
+
     if ((value || '').trim() && this.keywords.length < 4) {
       this.keywords.push(value.trim());
       if (this.inputKeyword) {
