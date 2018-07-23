@@ -209,19 +209,4 @@ export class AddEventComponent implements OnInit {
   getDate(): Date {
     return new Date(this.event.eventDate);
   }
-
-  // getTime(): TimeFormat {
-    // let time: Time;
-    // time.hours = 10;
-    // time.minutes = 10;
-    // time.meriden = this.event.eventMeriden === 'AM' ? 'AM' : 'PM';
-    // return
-  // }
-
-  // parseTime(time: Time) {
-  //   console.log(time);
-  //   this.event.eventHours = time.hours;
-  //   this.event.eventMinutes = time.minutes;
-  //   this.event.eventMeriden = time.toString().includes('AM') === true ? 'AM' : 'PM';
-  // }
 }

@@ -45,7 +45,6 @@ export class EventsComponent implements OnInit {
     events.forEach(event => {
       const myDate = new Date(event.eventDate).toDateString();
       event.stringDate = myDate;
-      event.stringHour = new Date(event.eventDate).getHours() + ':' + new Date(event.eventDate).getMinutes();
     });
 
   }
@@ -64,7 +63,7 @@ export class EventsComponent implements OnInit {
 
     this.upcomingEvents.forEach(event => {
 
-      if (event.maxEnrolledUsers != undefined) {
+      if (event.maxEnrolledUsers !== undefined) {
         let x = event.placesLeft = event.meetingHall.capacity - event.enrolledUsers.length;
 
         if (x <= 0) {

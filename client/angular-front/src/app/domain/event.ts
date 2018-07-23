@@ -11,7 +11,6 @@ export class EventDTO {
   maxEnrolledUsers: number;
   location: LocationDTO;
   stringDate: string;
-  stringHour: string;
   eventDate: Date;
   eventTime: string;
   placesLeft: number;

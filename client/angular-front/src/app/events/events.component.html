@@ -6,7 +6,6 @@
             <mat-card-title> Upcoming Events</mat-card-title>
             <mat-divider></mat-divider>
 
-
             <mat-card *ngFor="let upcoming of upcomingEvents">
                 <mat-card-title> {{upcoming.titleEvent}}
                     <mat-chip-list class="mat-chip-list" *ngIf="upcoming.keywords!=null" style="float: right">
@@ -33,10 +32,7 @@
                     <br/>
                     <i class="material-icons">
               access_time
-            </i> {{upcoming.stringHour}}
-
-
-
+            </i> {{upcoming.eventTime}}
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" style="background-color: #841439; color:white">
                         <mat-expansion-panel-header>
                             <mat-panel-title style="color:white">
@@ -48,7 +44,6 @@
 
                 </mat-card-content>
             </mat-card>
-
         </mat-card>
     </mat-grid-tile>
 
@@ -81,9 +76,8 @@
                     <br/>
                     <i class="material-icons">
             access_time
-          </i> {{past.stringHour}}
+          </i> {{past.eventTime}}
                     <!--<div class="separatorDiv"></div>-->
-
 
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" style="background-color: #841439; color:white">
                         <mat-expansion-panel-header>
