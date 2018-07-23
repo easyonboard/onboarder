@@ -52,7 +52,7 @@ public class UserService {
     private LocationRepository locationRepository;
 
     @Autowired
-    private EventDAO eventDAO;
+    private EventRepository eventRepository;
 
     @Autowired
     private TutorialDAO tutorialDAO;
@@ -195,8 +195,8 @@ public class UserService {
                     leaveCheckListDAO.deleteEntity(leavecheckListEntity);
                 }
                 tutorialDAO.removeUserFromTutorialContactList(userEntity);
-                eventDAO.removeUserFromEnrolledList(userEntity);
-                eventDAO.removeContactPersonFromEvents(userEntity);
+                eventRepository.removeUserFromEnrolledList(userEntity);
+                eventRepository.removeContactPersonFromEvents(userEntity);
                 userInformationDAO.setBuddyToNull(userEntity);
                 userDAO.deleteEntity(userEntity);
                 return true;

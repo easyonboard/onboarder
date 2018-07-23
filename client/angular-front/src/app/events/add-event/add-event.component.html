@@ -48,14 +48,23 @@
             <tr>
                 <td><label>Event date</label></td>
                 <td>
-
-                    <input [(ngModel)]="event.eventDate" matInput [min]="today" [matDatepicker]="picker" placeholder="Choose a date" [value]="getDate()" required/>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-
+                    <mat-form-field>
+                        <input [(ngModel)]="event.eventDate" matInput [min]="today" [matDatepicker]="datePicker" placeholder="Choose a date" [value]="getDate()" required/>
+                        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #datePicker color="primary"></mat-datepicker>
+                    </mat-form-field>
                 </td>
             </tr>
-
+            <tr>
+                <td><label>Hour (optional)</label></td>
+                <td>
+                    <mat-form-field>
+                        <input matInput #timeInput [matTimepicker]="timePicker" placeholder="Choose a time" />
+                        <mat-timepicker-toggle matSuffix [for]="timePicker"></mat-timepicker-toggle>
+                        <mat-timepicker #timePicker color="primary"></mat-timepicker>
+                    </mat-form-field>
+                </td>
+            </tr>
             <tr>
                 <td><label>Location (optional)</label></td>
                 <td>
@@ -65,7 +74,6 @@
                     </mat-select>
                 </td>
             </tr>
-            <tr></tr>
             <tr>
                 <td><label>Meeting Hall (optional)</label></td>
                 <td>
@@ -75,7 +83,6 @@
                     </mat-select>
                 </td>
             </tr>
-            <tr></tr>
             <tr>
                 <td><label>Maximum number of participants (optional)</label></td>
                 <td>
@@ -99,7 +106,7 @@
                 </td>
             </tr>
         </table>
-        <button (click)="addEvent()" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Next
+        <button (click)="addEvent(timeInput.value)" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Next
     </button>
     </div>
 
@@ -111,7 +118,6 @@
         </div>
         <div id="backToCourses">
             <a (click)="redirectToEventPage()" style="color: white; cursor: pointer">Back to events!</a>
-
         </div>
     </div>
 </div>

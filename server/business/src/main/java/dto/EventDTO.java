@@ -1,14 +1,14 @@
 package dto;
 
+import org.apache.tomcat.jni.Time;
+
 import java.util.Date;
 import java.util.List;
 
 public class EventDTO {
 
     private Integer idEvent;
-
     private String titleEvent;
-
     private String overview;
 
     private List<UserDTO> enrolledUsers;
@@ -22,6 +22,9 @@ public class EventDTO {
     private String keywords;
 
     private Date eventDate;
+
+    private String eventTime;
+
     private MeetingHallDto meetingHall;
 
     public EventDTO() {
@@ -110,6 +113,16 @@ public class EventDTO {
 
     public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
+    }
+
+    public String getEventTime() {
+
+        return eventTime;
+    }
+
+    public void setEventTime(String eventTime) {
+
+        this.eventTime = eventTime;
     }
 
     public MeetingHallDto getMeetingHall() {

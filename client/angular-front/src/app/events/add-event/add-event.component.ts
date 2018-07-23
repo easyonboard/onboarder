@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ANALYZE_FOR_ENTRY_COMPONENTS} from '@angular/core';
 import {UserDTO} from '../../domain/user';
-import {Location} from '@angular/common';
+import {Location, Time} from '@angular/common';
 import {UserService} from '../../service/user.service';
 import {EventDTO, MeetingHall} from '../../domain/event';
 import {EventService} from '../../service/event.service';
@@ -10,8 +10,10 @@ import {RootConst} from '../../util/RootConst';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 import {LocationDTO} from '../../domain/location';
 import {debug} from 'util';
-import { forEach } from '@angular/router/src/utils/collection';
-import { Statement } from '@angular/compiler';
+import { TimepickerDirective, ITime, TimeFormat } from 'angular5-time-picker';
+import { Item } from 'angular2-multiselect-dropdown';
+import { DEFAULT_RESIZE_TIME } from '@angular/cdk/scrolling';
+import { Timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-add-event',
@@ -40,6 +42,8 @@ export class AddEventComponent implements OnInit {
   public event: EventDTO;
   public eventErrorMessage: string;
   public keywords: String[];
+
+  public time: any;
 
   public saved: Boolean;
   private currentStep: string;
@@ -86,11 +90,13 @@ export class AddEventComponent implements OnInit {
       singleSelection: true,
       allowSearchFilter: true
     };
+
     this.locationService.getLocations().subscribe(resp => {
       this.allLocationOptions = resp;
       this.locationOptions = this.allLocationOptions;
       console.log(this.locationOptions);
     });
+
     this.locationService.getRooms().subscribe(resp => {
       this.allMeetingHallOptions = resp;
       this.meetingHallOptions = this.allMeetingHallOptions;
@@ -98,11 +104,10 @@ export class AddEventComponent implements OnInit {
     });
   }
 
-  addEvent(): void {
+  addEvent(time: string): void {
     debug;
-    console.log('selected  loc  ' + this.selectedLocation.idLocation);
-    console.log('contact oersons   ' + this.selectedContactPerson);
-    console.log('selected room   ' + this.selectedRoom.idMeetingHall);
+
+    this.event.eventTime = time;
 
     if (this.event.titleEvent.length < 5) {
       this.eventErrorMessage += 'Title is too short!\n';
@@ -205,4 +210,18 @@ export class AddEventComponent implements OnInit {
     return new Date(this.event.eventDate);
   }
 
+  // getTime(): TimeFormat {
+    // let time: Time;
+    // time.hours = 10;
+    // time.minutes = 10;
+    // time.meriden = this.event.eventMeriden === 'AM' ? 'AM' : 'PM';
+    // return
+  // }
+
+  // parseTime(time: Time) {
+  //   console.log(time);
+  //   this.event.eventHours = time.hours;
+  //   this.event.eventMinutes = time.minutes;
+  //   this.event.eventMeriden = time.toString().includes('AM') === true ? 'AM' : 'PM';
+  // }
 }

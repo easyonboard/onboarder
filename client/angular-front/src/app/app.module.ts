@@ -58,9 +58,10 @@ import {
   MatSnackBarModule,
   MatTableModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
 } from '@angular/material';
 import {UtilityService} from './service/utility.service';
+import { TimepickerDirective, Angular5TimePickerModule } from 'angular5-time-picker';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import {UtilityService} from './service/utility.service';
   ],
   imports: [
     NgMultiSelectDropDownModule,
+    Angular5TimePickerModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
