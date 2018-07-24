@@ -83,6 +83,9 @@ export class RootConst {
 
   public SERVER_ADD_USER_INFO_URL = this.WEB_SERVICE_ENDPOINT + '/info';
   public REMOVE_USER = this.WEB_SERVICE_ENDPOINT + 'user/removeUser';
+  // ***********************************************
+  public CHECK_USER_UNICITY = this.WEB_SERVICE_ENDPOINT + 'user/checkUnicity';
+  // ***********************************************
   WEB_SERVER_USERINFORMATION = this.WEB_SERVICE_ENDPOINT + 'getUserInformation';
   WEB_SERVER_STATUS_MAIL = this.WEB_SERVICE_ENDPOINT + 'isMailSent';
   WEB_SERVER_LEAVE_CHECKLIST = this.WEB_SERVICE_ENDPOINT + 'leaveCheckList';

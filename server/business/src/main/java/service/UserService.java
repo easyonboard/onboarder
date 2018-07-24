@@ -311,4 +311,8 @@ public class UserService {
         return false;
     }
 
+    public boolean checkUnicity(String username) {
+
+        return !userDAO.findUserByUsername(username).isPresent();
+    }
 }

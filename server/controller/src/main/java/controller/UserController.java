@@ -201,7 +201,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "getAllUserNameAndEmail", method = RequestMethod.GET)
-    public  ResponseEntity<List<String>> getAllUsersNameAndEmail() {
+    public ResponseEntity<List<String>> getAllUsersNameAndEmail() {
 
         return new ResponseEntity<>(userService.getAllUsersNameAndEmail(), HttpStatus.OK);
     }
@@ -231,4 +231,10 @@ public class UserController {
         return new ResponseEntity<>(userService.saveLeaveCheckList(leaveCheckList), HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "user/checkUnicity", method = RequestMethod.POST)
+    public ResponseEntity checkUserUnicity(@RequestBody String username) {
+
+        return new ResponseEntity<>(userService.checkUnicity(username), HttpStatus.OK);
+    }
 }
