@@ -49,6 +49,11 @@ export class UserInfoFormularComponent implements OnInit {
       this.userInformation.buddyUser.name = '';
     }
 
+    if (this.userInformation.location === undefined || this.userInformation.location === null) {
+      this.userInformation.location = new LocationDTO();
+      this.userInformation.location.locationName = '';
+    }
+
     this.users$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
