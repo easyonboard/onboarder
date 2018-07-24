@@ -29,6 +29,7 @@ export class UserAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user.msgMail = '@msg.group';
   }
 
   addUser(): void {
