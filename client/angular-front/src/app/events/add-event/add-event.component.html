@@ -12,7 +12,6 @@
                     <mat-form-field style="width: 100%;">
                         <input matInput placeholder="Event title" [(ngModel)]="event.titleEvent">
                     </mat-form-field>
-
                 </td>
             </tr>
             <tr>
@@ -29,9 +28,7 @@
                     <mat-select [(value)]="selectedEnrolledPersonsItems" name="enroll" placeholder="select enrolled persons" multiple>
                         <mat-option>None</mat-option>
                         <mat-option *ngFor="let user of usersOptions" [value]="user.username">{{user.name}}</mat-option>
-
                     </mat-select>
-
                 </td>
             </tr>
             <tr></tr>
@@ -41,10 +38,8 @@
                     <mat-select [(value)]="selectedContactPerson" name="contact" placeholder="select contact person">
                         <mat-option *ngFor="let user of usersOptions" [value]="user.username">{{user.name}}</mat-option>
                     </mat-select>
-
                 </td>
             </tr>
-
             <tr>
                 <td><label>Event date</label></td>
                 <td>
@@ -109,7 +104,6 @@
         <button (click)="addEvent(timeInput.value)" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Next
     </button>
     </div>
-
 
     <div *ngSwitchCase="'two'" class="stepDiv">
 
