@@ -313,6 +313,6 @@ public class UserService {
 
     public boolean checkUnicity(String username) {
 
-        return !userDAO.findUserByUsername(username).isPresent();
+        return !(userDAO.findUserByUsername(username).isPresent());
     }
 }

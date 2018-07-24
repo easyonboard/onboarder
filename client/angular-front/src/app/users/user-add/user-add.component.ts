@@ -36,29 +36,29 @@ export class UserAddComponent implements OnInit {
     this.user.username = this.firstName.trim() + this.lastName.trim();
     this.user.name = this.firstName.trim() + ' ' + this.lastName.trim();
 
-    let unique: Boolean = false;
+    let unique: boolean;
     this.userService.checkUnicity(this.user.username).subscribe(
       value => {
         unique = value;
+
+        if (unique === true) {
+          this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
+            value2 => {
+              if (this.childUserInfoFormularComponent.userInformation.startDate === undefined) {
+                this.snackBarMessagePopup('You must specify the starting date!');
+              } else {
+                this.snackBarMessagePopup('Succes! You just add a new employee!');
+                this.dialog.closeAll();
+              }
+            },
+            error => this.snackBarMessagePopup('Failed! An error has ocurred!')
+          );
+        } else {
+          this.snackBarMessagePopup('Failed! Duplicated username!');
+        }
       },
       error => this.snackBarMessagePopup('Failed! An error has ocurred!')
     );
-
-    if (unique) {
-      this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
-        value => {
-          if (this.childUserInfoFormularComponent.userInformation.startDate === undefined) {
-            this.snackBarMessagePopup('You must specify the starting date!');
-          } else {
-            this.snackBarMessagePopup('Succes! You just add a new employee!');
-            this.dialog.closeAll();
-          }
-        },
-        error => this.snackBarMessagePopup('Failed! An error has ocurred!')
-      );
-    } else {
-      this.snackBarMessagePopup('Failed! Duplicated username!');
-    }
   }
 
   selectRoleValue(event: MatSelectChange) {

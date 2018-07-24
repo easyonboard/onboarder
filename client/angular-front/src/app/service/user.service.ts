@@ -133,8 +133,8 @@ export class UserService {
     return this.http.post<LeaveCheckList>(this.rootConst.WEB_SERVER_SAVE_LEAVE_CHECKLIST, body, this.httpOptions);
   }
 
-  checkUnicity(username: String): Observable<Boolean> {
+  checkUnicity(username: String): Observable<boolean> {
     const body = JSON.stringify({username: username});
-    return this.http.post<Boolean>(this.rootConst.CHECK_USER_UNICITY, body, this.httpOptions);
+    return this.http.post<boolean>(this.rootConst.CHECK_USER_UNICITY, body, this.httpOptions);
   }
 }
