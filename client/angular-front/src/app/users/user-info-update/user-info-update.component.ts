@@ -31,13 +31,12 @@ export class UserInfoUpdateComponent implements OnInit {
     this.childUserInfoFormularComponent.userInformation.buddyUser = this.userInformation.buddyUser;
     this.childUserInfoFormularComponent.userInformation.startDate = this.userInformation.startDate;
     this.childUserInfoFormularComponent.userInformation.userAccount = this.userInformation.userAccount;
-
   }
 
   updateUserInformation(): void {
     this.userInformationService.updateUserInformation(this.childUserInfoFormularComponent.userInformation).subscribe(
-      value => this.snackBarMessagePopup('User inf updated!'),
-      error => this.snackBarMessagePopup('Could not update user inf! Please try again!')
+      value => this.snackBarMessagePopup('User info updated!'),
+      error => this.snackBarMessagePopup('Could not update user info! Please try again!')
     );
   }
 
