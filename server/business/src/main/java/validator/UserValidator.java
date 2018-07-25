@@ -2,7 +2,7 @@ package validator;
 
 import dao.UserDAO;
 import dto.UserDTO;
-import exception.InvalidDataException;
+import exception.types.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

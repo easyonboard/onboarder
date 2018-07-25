@@ -8,8 +8,8 @@ import entity.CheckList;
 import entity.LeaveCheckList;
 import entity.User;
 import entity.UserInformation;
-import exception.InvalidDataException;
-import exception.EntityNotFoundException;
+import exception.types.InvalidDataException;
+import exception.types.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import static exception.Constants.USER_NOT_FOUND_ERROR;
 
 /**
  * Service for {@link UserDTO}
@@ -66,8 +68,6 @@ public class UserService {
     private UserInformationMapper userInformationMapper = UserInformationMapper.INSTANCE;
 
     private LocationMapper locationMapper = LocationMapper.INSTANCE;
-
-    private static final String USER_NOT_FOUND_ERROR = "User not found";
 
     public UserDTO findUserByUsername(String username) throws EntityNotFoundException {
 

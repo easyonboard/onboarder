@@ -13,8 +13,11 @@ import dto.mapper.LocationMapper;
 import dto.mapper.MeetingHallMapper;
 import dto.mapper.UserMapper;
 import entity.Event;
+import entity.Location;
 import entity.MeetingHall;
 import entity.User;
+import exception.types.DatabaseException;
+import exception.types.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,48 +36,66 @@ public class EventService {
 
     @Autowired
     private UserDAO userDAO;
-
     @Autowired
     private LocationRepository locationRepository;
-
     @Autowired
     private EventRepository eventRepository;
-
     @Autowired
     private MeetingHallRepository meetingHallRepository;
 
     public EventDTO addEvent(EventDTO eventDTO, List<String> enrolledUsersUsernames, String contactPerson,
-                             LocationDto location, MeetingHallDto meetingHall) {
+                             LocationDto locationDto,
+                             MeetingHallDto meetingHallDto) throws DatabaseException, EntityNotFoundException {
 
         List<UserDTO> enrolledUsersDTO = new ArrayList<>();
 
         for (int i = 0; i < enrolledUsersUsernames.size(); i++) {
-            UserDTO userDTO = userMapper.mapToDTO(userDAO.findUserByUsername(enrolledUsersUsernames.get(i)).get());
+            Optional<User> user = userDAO.findUserByUsername(enrolledUsersUsernames.get(i));
+            if (!user.isPresent()) {
+                throw new EntityNotFoundException("" + user.get().getUsername());
+            }
+
+            UserDTO userDTO = userMapper.mapToDTO(user.get());
             enrolledUsersDTO.add(userDTO);
         }
 
-        UserDTO contactPersonEntityDTO = userMapper.mapToDTO(userDAO.findUserByUsername(contactPerson).get());
-        if (location.getIdLocation() != null) {
-            LocationDto selectedLocationDto = locationMapper.mapToDTO(
-                    locationRepository.findOne(location.getIdLocation()));
+        Optional<User> user = userDAO.findUserByUsername(contactPerson);
+        if (!user.isPresent()) {
+            throw new EntityNotFoundException("" + user.get().getUsername());
+        }
+        UserDTO contactPersonEntityDTO = userMapper.mapToDTO(user.get());
+
+        if (locationDto.getIdLocation() != null) {
+            Location location = locationRepository.findOne(locationDto.getIdLocation());
+            if (location == null) {
+                throw new EntityNotFoundException("");
+            }
+            LocationDto selectedLocationDto = locationMapper.mapToDTO(location);
             eventDTO.setLocation(selectedLocationDto);
         }
-        if (meetingHall.getIdMeetingHall() != 0) {
-            MeetingHallDto selectedHallDTO = meetingHallMapper.mapToDTO(
-                    meetingHallRepository.findOne(meetingHall.getIdMeetingHall()));
+        if (meetingHallDto.getIdMeetingHall() != 0) {
+            MeetingHall meetingHall = meetingHallRepository.findOne(meetingHallDto.getIdMeetingHall());
+            if (meetingHall == null) {
+                throw new EntityNotFoundException("");
+            }
+            MeetingHallDto selectedHallDTO = meetingHallMapper.mapToDTO(meetingHall);
             eventDTO.setMeetingHall(selectedHallDTO);
         }
         eventDTO.setContactPerson(contactPersonEntityDTO);
         eventDTO.setEnrolledUsers(enrolledUsersDTO);
 
-        return eventMapper.mapToDTO(eventRepository.save(eventMapper.mapToNewEntity(eventDTO)));
+        Event event = eventRepository.save(eventMapper.mapToNewEntity(eventDTO));
+        if (event == null) {
+            throw new DatabaseException("");
+        }
+
+        return eventMapper.mapToDTO(event);
     }
 
     private List<String> extractUsernamesFromEmails(List<String> nameUsernamesEmail) {
 
         List<String> usernames = new ArrayList<>();
         StringTokenizer st;
-        String username;
 
         for (int i = 0; i < nameUsernamesEmail.size(); i++) {
             st = new StringTokenizer(nameUsernamesEmail.get(i), "()");
@@ -90,22 +111,29 @@ public class EventService {
         return usernames;
     }
 
-    public List<EventDTO> getAllUpcomingEvents() {
+    public List<EventDTO> getAllUpcomingEvents() throws EntityNotFoundException {
 
-        List<Event> upcoming = eventRepository.findAllUpcomingEvents(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        return upcoming.stream().map(
-                eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
-
-    }
-
-    public List<EventDTO> getAllPastEvents() {
-
-        return eventRepository.findAllPastEvents(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())).stream().map(
-                eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+        List<Event> upcoming = eventRepository.findAllUpcomingEvents(
+                Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        if (upcoming.isEmpty()) {
+            throw new EntityNotFoundException("");
+        }
+        return upcoming.stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
 
     }
 
-    public List<EventDTO> enrollUser(UserDTO userDTO, int eventDTO) {
+    public List<EventDTO> getAllPastEvents() throws EntityNotFoundException {
+
+        List<Event> past = eventRepository.findAllPastEvents(
+                Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        if (past.isEmpty()) {
+            throw new EntityNotFoundException("");
+        }
+        return past.stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+
+    }
+
+    public List<EventDTO> enrollUser(UserDTO userDTO, int eventDTO) throws EntityNotFoundException {
 
         Optional<User> userOptional = userDAO.findUserByUsername(userDTO.getUsername());
         if (userOptional.isPresent()) {
@@ -117,33 +145,31 @@ public class EventService {
                     eventRepository.save(eventEntity);
                 }
             }
+        } else {
+            throw new EntityNotFoundException("");
         }
+
         return getAllUpcomingEvents();
     }
 
-    public List<LocationDto> getAllLocations() {
+    public List<LocationDto> getAllLocations() throws EntityNotFoundException {
 
-        return locationMapper.entitiesToDTOs(locationRepository.findAll());
+        List<Location> locationList = locationRepository.findAll();
+        if (!locationList.isEmpty()) {
+            throw new EntityNotFoundException("Locations have not been found in the DB");
+        }
+
+        return locationMapper.entitiesToDTOs(locationList);
 
     }
 
-    public List<MeetingHallDto> getAllMeetingHalls() {
+    public List<MeetingHallDto> getAllMeetingHalls() throws EntityNotFoundException {
 
-        return meetingHallMapper.entitiesToDTOs(meetingHallRepository.findAll());
-    }
+        List<MeetingHall> meetingHallList = meetingHallRepository.findAll();
+        if (!meetingHallList.isEmpty()) {
+            throw new EntityNotFoundException("Meeting halls have not been found in the DB");
+        }
 
-    /**
-     * metodele nu sunt folosite pentru ca filtrarea locatiilor si a meeting hall-urilor e facuta pe front
-     * bine de luat in considerare ca exemplu de folosire al JpaReository-urilor
-     */
-    public LocationDto getLocationByHallName(String hallName) {
-
-        MeetingHall meetingHall = meetingHallRepository.findByHallName(hallName);
-        return locationMapper.mapToDTO(meetingHall.getLocation());
-    }
-
-    public List<MeetingHallDto> getMeetingHallsByLocation(String location) {
-
-        return meetingHallMapper.entitiesToDTOs(meetingHallRepository.findByLocation(location));
+        return meetingHallMapper.entitiesToDTOs(meetingHallList);
     }
 }

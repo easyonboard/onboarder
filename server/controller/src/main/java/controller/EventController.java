@@ -6,6 +6,8 @@ import dto.EventDTO;
 import dto.LocationDto;
 import dto.MeetingHallDto;
 import dto.UserDTO;
+import exception.types.DatabaseException;
+import exception.types.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +46,10 @@ public class EventController {
                     HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
+        } catch (DatabaseException e) {
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -51,15 +57,22 @@ public class EventController {
     @RequestMapping(value = "/events/pastEvent", method = RequestMethod.GET)
     public ResponseEntity<List<EventDTO>> getPastEvents() {
 
-        return new ResponseEntity<>(eventService.getAllPastEvents(), HttpStatus.OK);
-
+        try {
+            return new ResponseEntity<>(eventService.getAllPastEvents(), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/events/upcomingEvent", method = RequestMethod.GET)
     public ResponseEntity<List<EventDTO>> getUpcomingEvents() {
 
-        return new ResponseEntity<>(eventService.getAllUpcomingEvents(), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(eventService.getAllUpcomingEvents(), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
+        }
 
     }
 
@@ -75,6 +88,8 @@ public class EventController {
             return new ResponseEntity<>(eventService.enrollUser(userDTO, eventDTO), HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         }
 
     }
@@ -83,12 +98,23 @@ public class EventController {
     @RequestMapping(value = "locations", method = RequestMethod.GET)
     public ResponseEntity<List<LocationDto>> getAllLocations() {
 
-        return new ResponseEntity<>(eventService.getAllLocations(), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(eventService.getAllLocations(), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "meetingHalls", method = RequestMethod.GET)
     public ResponseEntity<List<MeetingHallDto>> getAllMeetingHalls() {
-        return new ResponseEntity<>(eventService.getAllMeetingHalls(), HttpStatus.OK);
+
+        try {
+            return new ResponseEntity<>(eventService.getAllMeetingHalls(), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
+
+        }
     }
 }

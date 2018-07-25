@@ -95,6 +95,8 @@ export class AddEventComponent implements OnInit {
       this.allLocationOptions = resp;
       this.locationOptions = this.allLocationOptions;
       console.log(this.locationOptions);
+    }, err => {
+      alert(err.error.message);
     });
 
     this.locationService.getRooms().subscribe(resp => {
