@@ -311,8 +311,8 @@ public class UserService {
         return false;
     }
 
-    public boolean checkUnicity(String username) {
+    public boolean checkUnicity(String username, String msgMail) {
 
-        return !(userDAO.findUserByUsername(username).isPresent());
+        return !(userDAO.findUserByUsername(username).isPresent() || userDAO.findUserByMsgMail(msgMail).isPresent());
     }
 }

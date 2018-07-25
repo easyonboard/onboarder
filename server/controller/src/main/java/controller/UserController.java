@@ -233,8 +233,14 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "user/checkUnicity", method = RequestMethod.POST)
-    public ResponseEntity checkUserUnicity(@RequestBody String username) {
+    public ResponseEntity checkUserUnicity(@RequestBody String uniqueJson) throws IOException {
 
-        return new ResponseEntity<>(userService.checkUnicity(username), HttpStatus.OK);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(uniqueJson);
+
+        String username = mapper.convertValue(node.get("username"), String.class);
+        String msgMail = mapper.convertValue(node.get("msgMail"), String.class);
+
+        return new ResponseEntity<>(userService.checkUnicity(username, msgMail), HttpStatus.OK);
     }
 }

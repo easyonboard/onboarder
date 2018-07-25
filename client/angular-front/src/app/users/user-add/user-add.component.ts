@@ -37,7 +37,7 @@ export class UserAddComponent implements OnInit {
     this.user.name = this.firstName.trim() + ' ' + this.lastName.trim();
 
     let unique: boolean;
-    this.userService.checkUnicity(this.user.username).subscribe(
+    this.userService.checkUnicity(this.user.username, this.user.msgMail).subscribe(
       value => {
         unique = value;
 
@@ -54,7 +54,7 @@ export class UserAddComponent implements OnInit {
             error => this.snackBarMessagePopup('Failed! An error has ocurred!')
           );
         } else {
-          this.snackBarMessagePopup('Failed! Duplicated username!');
+          this.snackBarMessagePopup('Failed! Duplicated username or .msg email!');
         }
       },
       error => this.snackBarMessagePopup('Failed! An error has ocurred!')
