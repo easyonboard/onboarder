@@ -1,7 +1,7 @@
 package exception;
 
 /**
- * Exception thrown when a user entity is not found in the database
+ * Exception thrown
  */
 public class EntityNotFoundException extends Exception {
 
