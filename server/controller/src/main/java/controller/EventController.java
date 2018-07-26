@@ -114,7 +114,6 @@ public class EventController {
             return new ResponseEntity<>(eventService.getAllMeetingHalls(), HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity(e, HttpStatus.NOT_FOUND);
-
         }
     }
 }
