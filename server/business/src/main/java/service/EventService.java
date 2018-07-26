@@ -91,7 +91,7 @@ public class EventService {
 
         Event event = eventRepository.save(eventMapper.mapToNewEntity(eventDTO));
         if (event == null) {
-            throw new DatabaseException(EVENT_DATABASE_EXCEPTION);
+            throw new DatabaseException(EVENT_SAVE_DATABASE_EXCEPTION);
         }
 
         return eventMapper.mapToDTO(event);
@@ -138,7 +138,7 @@ public class EventService {
         return past.stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
     }
 
-    public List<EventDTO> enrollUser(UserDTO userDTO, int eventDTO) throws EntityNotFoundException {
+    public List<EventDTO> enrollUser(UserDTO userDTO, int eventDTO) throws EntityNotFoundException, DatabaseException {
 
         Optional<User> userOptional = userRepository.findByUsername(userDTO.getUsername());
         if (userOptional.isPresent()) {
@@ -147,7 +147,9 @@ public class EventService {
             if (eventEntity != null) {
                 if (!eventEntity.getEnrolledUsers().contains(userEntity)) {
                     eventEntity.getEnrolledUsers().add(userEntity);
-                    eventRepository.save(eventEntity);
+                    if (eventRepository.save(eventEntity) == null) {
+                        throw new DatabaseException(EVENT_SAVE_DATABASE_EXCEPTION);
+                    }
                 }
             }
         } else {

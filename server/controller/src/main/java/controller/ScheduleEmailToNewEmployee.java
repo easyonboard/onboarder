@@ -4,6 +4,7 @@ import dao.UserRepository;
 import dao.UserInformationDAO;
 import entity.User;
 import entity.UserInformation;
+import exception.types.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -62,7 +63,14 @@ public class ScheduleEmailToNewEmployee {
                 .forEach(userInformation -> usersWhoStartNextWeek.add(userInformation.getUserAccount()));
 
         usersWhoStartNextWeek.stream()
-                .filter(user -> !checkListService.isMailSentToUser(user))
+                .filter(user -> {
+                    try {
+                        return !checkListService.isMailSentToUser(user);
+                    } catch (EntityNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    return false;
+                })
                 .filter(user -> hasNotNullFields(mandatoryFieldsFromUserEntity, user))
                 .forEach(user -> {
                     UserInformation ui = findUserInfoByUser(usersInfoForUserWhoStartNextWeek, user).get();
@@ -78,9 +86,9 @@ public class ScheduleEmailToNewEmployee {
                         sendEmail(user.getEmail(), abteilungsleiterForUser.get(), NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);
                     }
                     User buddy = ui.getBuddyUser();
-                    if (buddy != null){
-                        String names[]=buddy.getName().split(" ");
-                        String emailBodyForBuddy = createEmailBodyForBuddy(names[0],user.getName(), dateWithZeroTime, "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
+                    if (buddy != null) {
+                        String names[] = buddy.getName().split(" ");
+                        String emailBodyForBuddy = createEmailBodyForBuddy(names[0], user.getName(), dateWithZeroTime, "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
                         sendEmail(buddy.getMsgMail(), null, BUDDY_MAIL_SUBJECT, emailBodyForBuddy);
                     }
 //                    List<User> abteilungsleiters = userRepository.getAbteilungsleiters();
@@ -110,16 +118,14 @@ public class ScheduleEmailToNewEmployee {
 
 
     /**
-     *
-             Modificat parametrul "to" din user -> string email pentru ca buddy sa primeasca email pe mail-ul de msg iar angajatul nou pe mailul personal
-
+     * Modificat parametrul "to" din user -> string email pentru ca buddy sa primeasca email pe mail-ul de msg iar angajatul nou pe mailul personal
      */
     private void sendEmail(String to, User personInCC, String subject, String body) {
         MailSender sender = new MailSender();
-        if (personInCC!=null){
-        sender.sendMail(to, personInCC.getEmail(), subject, body);}
-        else{
-            sender.sendMail(to,subject, body);
+        if (personInCC != null) {
+            sender.sendMail(to, personInCC.getEmail(), subject, body);
+        } else {
+            sender.sendMail(to, subject, body);
         }
     }
 
@@ -127,15 +133,15 @@ public class ScheduleEmailToNewEmployee {
     private String createEmailBody(String name, String startDate, String s, String buddyName, String floor, String building, String locationAddress) {
         ResourceBundle bundle = ResourceBundle.getBundle("email_template", Locale.ROOT);
         String email_body = bundle.getString("email_body");
-        String names[]=name.split(" ");
+        String names[] = name.split(" ");
         String formattedEmailBoddy = MessageFormat.format(email_body, names[0], startDate, s, building, buddyName, floor, building, locationAddress);
         return formattedEmailBoddy;
     }
 
-    private String createEmailBodyForBuddy(String name,String newEmployeeName, String startDate, String time, String floor, String building, String team) {
+    private String createEmailBodyForBuddy(String name, String newEmployeeName, String startDate, String time, String floor, String building, String team) {
         ResourceBundle bundle = ResourceBundle.getBundle("buddy_email_template", Locale.ROOT);
         String email_body = bundle.getString("email_body");
-        String formattedEmailBoddy = MessageFormat.format(email_body, name, newEmployeeName,startDate, time, building, team, floor, building);
+        String formattedEmailBoddy = MessageFormat.format(email_body, name, newEmployeeName, startDate, time, building, team, floor, building);
         return formattedEmailBoddy;
     }
 
