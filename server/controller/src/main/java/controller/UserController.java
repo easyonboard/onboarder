@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.*;
 import entity.enums.RoleType;
+import exception.types.DatabaseException;
+import exception.types.FieldNotFoundException;
 import exception.types.InvalidDataException;
 import exception.types.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import service.UserInformationService;
 import service.UserService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -70,6 +73,8 @@ public class UserController {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (DatabaseException e) {
+            e.printStackTrace();
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -83,6 +88,10 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (InvalidDataException exception) {
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
+        } catch (DatabaseException e) {
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -98,7 +107,12 @@ public class UserController {
     @RequestMapping(value = "/allUsers", method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> getAllUsers() {
 
-        List<UserDTO> users = userService.getAllUsers();
+        List<UserDTO> users = null;
+        try {
+            users = userService.getAllUsers();
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
+        }
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
@@ -106,8 +120,13 @@ public class UserController {
     @RequestMapping(value = "/newUsers", method = RequestMethod.GET)
     public ResponseEntity<List<UserInformationDTO>> getAllNewUsers() {
 
-        List<UserInformationDTO> asd = userService.getAllNewUsers();
-        return new ResponseEntity(userService.getAllNewUsers(), HttpStatus.OK);
+        List<UserInformationDTO> newUsers = new ArrayList<>();
+        try {
+            newUsers = userService.getAllNewUsers();
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity(newUsers, HttpStatus.OK);
     }
 
     /**
@@ -134,7 +153,12 @@ public class UserController {
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> getUserByName(@RequestParam(value = "name") String name) {
 
-        List<UserDTO> users = userService.searchByName(name);
+        List<UserDTO> users = null;
+        try {
+            users = userService.searchByName(name);
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
+        }
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
@@ -142,7 +166,11 @@ public class UserController {
     @RequestMapping(value = "/checkList", method = RequestMethod.POST)
     public ResponseEntity getCheckList(@RequestBody UserDTO user) {
 
-        return new ResponseEntity(userService.getCheckList(user), HttpStatus.OK);
+        try {
+            return new ResponseEntity(userService.getCheckList(user), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -176,7 +204,14 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> getUsersInDepartmentForUser(
             @RequestParam(value = "username") String username) {
 
-        List<UserDTO> users = userService.getUsersInDepartmentForUser(username);
+        List<UserDTO> users = null;
+        try {
+            users = userService.getUsersInDepartmentForUser(username);
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
+        } catch (FieldNotFoundException e) {
+            e.printStackTrace();
+        }
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }

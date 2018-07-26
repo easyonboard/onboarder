@@ -8,6 +8,8 @@ import entity.CheckList;
 import entity.LeaveCheckList;
 import entity.User;
 import entity.UserInformation;
+import exception.types.DatabaseException;
+import exception.types.FieldNotFoundException;
 import exception.types.InvalidDataException;
 import exception.types.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-import static exception.Constants.userNotFound;
+import static exception.Constants.*;
 
 /**
  * Service for {@link UserDTO}
@@ -37,7 +39,7 @@ public class UserService {
     private UserInformationDAO userInformationDAO;
 
     @Autowired
-    private CheckListDAO checkListDAO;
+    private CheckListRepository checkListRepository;
 
     @Autowired
     private LeaveCheckListDAO leaveCheckListDAO;
@@ -73,7 +75,7 @@ public class UserService {
         return userMapper.mapToDTO(entity.get());
     }
 
-    public void addUser(UserDTO userDTO, UserInformationDTO userInformationDTO) throws InvalidDataException {
+    public void addUser(UserDTO userDTO, UserInformationDTO userInformationDTO) throws InvalidDataException, DatabaseException {
 
         userDTO.setPassword(encrypt(userDTO.getUsername()));
         userValidator.validateUsername(userDTO.getUsername());
@@ -82,9 +84,13 @@ public class UserService {
         User user = new User();
         User appUser = userRepository.save(userMapper.mapToEntity(userDTO, user));
 
-        Optional<User> optional = userRepository.findByUsername(userInformationDTO.getBuddyUser().getUsername());
-        if (optional.isPresent()) {
-            User buddyUser = optional.get();
+        if (appUser == null) {
+            throw new DatabaseException(USER_SAVE_DATABASE_EXCEPTION);
+        }
+
+        Optional<User> optionalUser = userRepository.findByUsername(userInformationDTO.getBuddyUser().getUsername());
+        if (optionalUser.isPresent()) {
+            User buddyUser = optionalUser.get();
             userInformationService.addUserInfo(userInformationDTO, appUser, buddyUser);
         } else {
             userInformationService.addUserInfo(userInformationDTO, appUser, null);
@@ -98,7 +104,7 @@ public class UserService {
         return Hashing.sha256().hashString(initString, StandardCharsets.UTF_8).toString();
     }
 
-    public void updateUser(UserDTO userUpdated) throws InvalidDataException {
+    public void updateUser(UserDTO userUpdated) throws InvalidDataException, EntityNotFoundException, DatabaseException {
 
         Optional<User> user = userRepository.findByUsername(userUpdated.getUsername());
 
@@ -108,70 +114,99 @@ public class UserService {
             }
             User entity = userMapper.mapToEntity(userUpdated, user.get());
             userValidator.validateUserData(userMapper.mapToDTO(entity));
-            userRepository.save(entity);
+            if (userRepository.save(entity) == null) {
+                throw new DatabaseException(USER_SAVE_DATABASE_EXCEPTION);
+            }
+        } else {
+            throw new EntityNotFoundException(userNotFound(userUpdated.getUsername()));
         }
     }
 
-    public List<UserDTO> getAllUsers() {
+    public List<UserDTO> getAllUsers() throws EntityNotFoundException {
 
         List<User> allUsersFromDb = userRepository.findAll();
+        if (allUsersFromDb.isEmpty()) {
+            throw new EntityNotFoundException(USERS_NOT_FOUND_EXCEPTION);
+        }
+
         return userMapper.entitiesToDTOs(allUsersFromDb);
     }
 
-    public List<UserInformationDTO> getAllNewUsers() {
+    public List<UserInformationDTO> getAllNewUsers() throws EntityNotFoundException {
 
-        return userInformationMapper.entitiesToDTOs(userInformationDAO.getAllNewUsers());
+        List<UserInformation> newUsers = userInformationDAO.getAllNewUsers();
+        if (newUsers.isEmpty()) {
+            throw new EntityNotFoundException(NEW_USERS_NOT_FOUND_EXCEPTION);
+        }
+
+        return userInformationMapper.entitiesToDTOs(newUsers);
     }
 
-    public List<UserDTO> searchByName(String name) {
+    public List<UserDTO> searchByName(String name) throws EntityNotFoundException {
 
-        return userMapper.entitiesToDTOs(userRepository.findAllByName(name));
+        List<User> users = userRepository.findAllByName(name);
+        if (users.isEmpty()) {
+            throw new EntityNotFoundException(USERS_MATCHING_STRING_NOT_FOUND_EXCEPTION);
+        }
+
+        return userMapper.entitiesToDTOs(users);
     }
 
-    public List<UserDTO> getUsersInDepartmentForUser(String username) {
+    public List<UserDTO> getUsersInDepartmentForUser(String username) throws EntityNotFoundException, FieldNotFoundException {
 
         String department = getDepartmentForUser(username);
-        return userMapper.entitiesToDTOs(userRepository.findAllByDepartment(department));
+        List<User> users = userRepository.findAllByDepartment(department);
+        if (users.isEmpty()) {
+            throw new EntityNotFoundException(userForDepartmentNotFound(department));
+        }
+
+        return userMapper.entitiesToDTOs(users);
     }
 
-    public String getDepartmentForUser(String username) {
+    public String getDepartmentForUser(String username) throws FieldNotFoundException {
 
-        return userRepository.findDepartmentByUsername(username);
+        String department = userRepository.findDepartmentByUsername(username);
+        if (department.isEmpty()) {
+            throw new FieldNotFoundException(departmentForUserNotFound(username));
+        }
+
+        return department;
     }
 
-    public Map getCheckList(UserDTO userDTO) {
+    public Map getCheckList(UserDTO userDTO) throws EntityNotFoundException {
 
         CheckList checkList = userRepository.getCheckListForUser(userRepository.findOne(userDTO.getIdUser()));
-        try {
-            Map checkListMap = new HashMap();
-            Field fields[] = checkList.getClass().getDeclaredFields();
-            boolean value = false;
-            String attribute;
-            for (int i = 2; i < fields.length; i++) {
 
-                attribute = fields[i].getName();
-                try {
-                    fields[i].setAccessible(true);
-                    value = (boolean) fields[i].get(checkList);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                checkListMap.put(attribute, value);
-            }
-
-            return checkListMap;
-        } catch (NoResultException e) {
-            return null;
+        if (checkList == null) {
+            throw new EntityNotFoundException(checklistForUserNotFound(userDTO.getUsername()));
         }
+
+        Map checkListMap = new HashMap();
+        Field fields[] = checkList.getClass().getDeclaredFields();
+        boolean value = false;
+        String attribute;
+        for (int i = 2; i < fields.length; i++) {
+
+            attribute = fields[i].getName();
+            try {
+                fields[i].setAccessible(true);
+                value = (boolean) fields[i].get(checkList);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            checkListMap.put(attribute, value);
+        }
+
+        return checkListMap;
     }
 
     public void saveCheckListForUser(String user, CheckListDTO checkList) {
 
         User userEntity = userRepository.findByUsername(user).get();
         checkList.setUserAccount(userMapper.mapToDTO(userEntity));
-        CheckList checkListEntity = checkListDAO.findByUser(userEntity);
+        CheckList checkListEntity = checkListRepository.findByUserAccount(userEntity);
         checkListMapper.mapToEntity(checkList, checkListEntity);
-        checkListDAO.persistEntity(checkListEntity);
+        checkListRepository.save(checkListEntity);
     }
 
     /**
@@ -185,7 +220,7 @@ public class UserService {
      *                                 <p>
      *                                 TO DO refactoring
      */
-    public boolean deleteUser(String username) throws EntityNotFoundException {
+    public boolean deleteUser(String username) throws EntityNotFoundException, DatabaseException {
 
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
@@ -201,15 +236,20 @@ public class UserService {
                     userInformationDAO.deleteEntity(userInformationEntity);
                 }
 
-                CheckList checkListEntity = checkListDAO.findByUser(userEntity);
+                CheckList checkListEntity = checkListRepository.findByUserAccount(userEntity);
                 if (checkListEntity != null) {
-                    checkListDAO.deleteEntity(checkListEntity);
+                    checkListRepository.delete(checkListEntity);
+                } else {
+                    throw new EntityNotFoundException(checklistForUserNotFound(username));
                 }
 
                 LeaveCheckList leavecheckListEntity = leaveCheckListDAO.findLeaveCheckListByUser(userEntity);
                 if (leavecheckListEntity != null) {
                     leaveCheckListDAO.deleteEntity(leavecheckListEntity);
+                } else {
+                    checklistForUserNotFound(username);
                 }
+
                 tutorialDAO.removeUserFromTutorialContactList(userEntity);
                 eventRepository.removeUserFromEnrolledList(userEntity);
                 eventRepository.removeContactPersonFromEvents(userEntity);
@@ -219,16 +259,23 @@ public class UserService {
             } else {
                 return false;
             }
-
-        } else
+        } else {
             throw new EntityNotFoundException(userNotFound(username));
-
+        }
     }
 
-    public UserInformationDTO getUserInformationForUser(String username) {
+    public UserInformationDTO getUserInformationForUser(String username) throws EntityNotFoundException {
 
-        return userInformationMapper.mapToDTO(
-                userInformationDAO.findUserInformationByUser(userRepository.findByUsername(username).get()));
+        User user = userRepository.findByUsername(username).get();
+        if (user == null) {
+            throw new EntityNotFoundException(userNotFound(username));
+        }
+        UserInformation userInformation = userInformationDAO.findUserInformationByUser(user);
+        if (user == null) {
+            throw new EntityNotFoundException("Information for user " + username + "not found");
+        }
+
+        return userInformationMapper.mapToDTO(userInformation);
     }
 
     public List<String> getAllUsersNameAndEmail() {
@@ -259,7 +306,7 @@ public class UserService {
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            return checkListDAO.getValueForMailSent(user);
+            return checkListRepository.getValueForMailSent(user);
         }
         return false;
     }
@@ -329,6 +376,7 @@ public class UserService {
 
     public boolean checkUnicity(String username, String msgMail) {
 
-        return !(userRepository.findByUsername(username).isPresent() || userRepository.findByMsgMail(msgMail).isPresent());
+        return !(userRepository.findByUsername(username).isPresent() || userRepository.findByMsgMail(
+                msgMail).isPresent());
     }
 }
