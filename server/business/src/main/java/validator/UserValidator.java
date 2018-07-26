@@ -1,6 +1,6 @@
 package validator;
 
-import dao.UserDAO;
+import dao.UserRepository;
 import dto.UserDTO;
 import exception.types.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class UserValidator {
 
     @Autowired
-    private UserDAO userDAO;
+    private UserRepository userRepository;
 
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
             "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -40,7 +40,7 @@ public class UserValidator {
 
         if (username.length() < MIN_NUMBER_CHARACTERS)
             throw new InvalidDataException(USERNAME_LENGTH_ERROR);
-        if (userDAO.findUserByUsername(username).isPresent())
+        if (userRepository.findByUsername(username).isPresent())
             throw new InvalidDataException(USERNAME_EXISTS_ERROR);
     }
 

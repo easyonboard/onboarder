@@ -40,9 +40,14 @@ public class User implements Serializable {
 
     @ManyToOne
     private Role role;
+
     @JsonBackReference(value="user-event-contact-person")
     @OneToMany(mappedBy = "contactPerson", cascade = CascadeType.ALL)
     private List<Event> events;
+
+    @JsonBackReference(value="user-information")
+    @OneToOne(mappedBy = "userAccount", targetEntity = UserInformation.class)
+    public UserInformation userAccount;
 
     public User(Integer idUser, @NotNull String name, @NotNull @Size(min = 6) String username, @NotNull String email, String msgMail) {
         this.idUser = idUser;
@@ -54,10 +59,6 @@ public class User implements Serializable {
 
     public User() {
     }
-
-    @JsonBackReference(value="user-information")
-    @OneToOne(mappedBy = "userAccount", targetEntity = UserInformation.class)
-    public UserInformation userAccount;
 
     public List<Event> getEvents() {
         return events;

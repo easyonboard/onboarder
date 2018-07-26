@@ -14,12 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
 
+import javax.persistence.NoResultException;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static exception.Constants.userNotFound;
 
@@ -30,7 +28,7 @@ import static exception.Constants.userNotFound;
 public class UserService {
 
     @Autowired
-    private UserDAO userDAO;
+    private UserRepository userRepository;
 
     @Autowired
     private UserValidator userValidator;
@@ -68,7 +66,7 @@ public class UserService {
 
     public UserDTO findUserByUsername(String username) throws EntityNotFoundException {
 
-        Optional<User> entity = userDAO.findUserByUsername(username);
+        Optional<User> entity = userRepository.findByUsername(username);
         if (!entity.isPresent()) {
             throw new EntityNotFoundException(userNotFound(username));
         }
@@ -82,9 +80,9 @@ public class UserService {
         userValidator.validateUserData(userDTO);
 
         User user = new User();
-        User appUser = userDAO.persistEntity(userMapper.mapToEntity(userDTO, user));
+        User appUser = userRepository.save(userMapper.mapToEntity(userDTO, user));
 
-        Optional<User> optional = userDAO.findUserByUsername(userInformationDTO.getBuddyUser().getUsername());
+        Optional<User> optional = userRepository.findByUsername(userInformationDTO.getBuddyUser().getUsername());
         if (optional.isPresent()) {
             User buddyUser = optional.get();
             userInformationService.addUserInfo(userInformationDTO, appUser, buddyUser);
@@ -102,7 +100,7 @@ public class UserService {
 
     public void updateUser(UserDTO userUpdated) throws InvalidDataException {
 
-        Optional<User> user = userDAO.findUserByUsername(userUpdated.getUsername());
+        Optional<User> user = userRepository.findByUsername(userUpdated.getUsername());
 
         if (user.isPresent()) {
             if (userUpdated.getPassword() != null) {
@@ -110,13 +108,13 @@ public class UserService {
             }
             User entity = userMapper.mapToEntity(userUpdated, user.get());
             userValidator.validateUserData(userMapper.mapToDTO(entity));
-            userDAO.persistEntity(entity);
+            userRepository.save(entity);
         }
     }
 
     public List<UserDTO> getAllUsers() {
 
-        List<User> allUsersFromDb = userDAO.getAllUsers();
+        List<User> allUsersFromDb = userRepository.findAll();
         return userMapper.entitiesToDTOs(allUsersFromDb);
     }
 
@@ -127,28 +125,49 @@ public class UserService {
 
     public List<UserDTO> searchByName(String name) {
 
-        return userMapper.entitiesToDTOs(userDAO.searchByName(name));
+        return userMapper.entitiesToDTOs(userRepository.findAllByName(name));
     }
 
     public List<UserDTO> getUsersInDepartmentForUser(String username) {
 
         String department = getDepartmentForUser(username);
-        return userMapper.entitiesToDTOs(userDAO.getUsersInDepartment(department));
+        return userMapper.entitiesToDTOs(userRepository.findAllByDepartment(department));
     }
 
     public String getDepartmentForUser(String username) {
 
-        return userDAO.getDepartmentForUser(username);
+        return userRepository.findDepartmentByUsername(username);
     }
 
     public Map getCheckList(UserDTO userDTO) {
 
-        return userDAO.getCheckListMapForUser(userDAO.findEntity(userDTO.getIdUser()));
+        CheckList checkList = userRepository.getCheckListForUser(userRepository.findOne(userDTO.getIdUser()));
+        try {
+            Map checkListMap = new HashMap();
+            Field fields[] = checkList.getClass().getDeclaredFields();
+            boolean value = false;
+            String attribute;
+            for (int i = 2; i < fields.length; i++) {
+
+                attribute = fields[i].getName();
+                try {
+                    fields[i].setAccessible(true);
+                    value = (boolean) fields[i].get(checkList);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                checkListMap.put(attribute, value);
+            }
+
+            return checkListMap;
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     public void saveCheckListForUser(String user, CheckListDTO checkList) {
 
-        User userEntity = userDAO.findUserByUsername(user).get();
+        User userEntity = userRepository.findByUsername(user).get();
         checkList.setUserAccount(userMapper.mapToDTO(userEntity));
         CheckList checkListEntity = checkListDAO.findByUser(userEntity);
         checkListMapper.mapToEntity(checkList, checkListEntity);
@@ -168,7 +187,7 @@ public class UserService {
      */
     public boolean deleteUser(String username) throws EntityNotFoundException {
 
-        Optional<User> userOptional = userDAO.findUserByUsername(username);
+        Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
             User userEntity = userOptional.get();
 
@@ -195,7 +214,7 @@ public class UserService {
                 eventRepository.removeUserFromEnrolledList(userEntity);
                 eventRepository.removeContactPersonFromEvents(userEntity);
                 userInformationDAO.setBuddyToNull(userEntity);
-                userDAO.deleteEntity(userEntity);
+                userRepository.delete(userEntity);
                 return true;
             } else {
                 return false;
@@ -209,12 +228,12 @@ public class UserService {
     public UserInformationDTO getUserInformationForUser(String username) {
 
         return userInformationMapper.mapToDTO(
-                userInformationDAO.findUserInformationByUser(userDAO.findUserByUsername(username).get()));
+                userInformationDAO.findUserInformationByUser(userRepository.findByUsername(username).get()));
     }
 
     public List<String> getAllUsersNameAndEmail() {
 
-        List<User> users = userDAO.getAllUsers();
+        List<User> users = userRepository.findAll();
         List<String> usersList = new ArrayList<>();
 
         users.forEach(user -> usersList.add(user.getName() + '(' + user.getMsgMail() + ')'));
@@ -224,20 +243,20 @@ public class UserService {
 
     public void updateUserPassword(String username, String password) {
 
-        Optional<User> userOptional = userDAO.findUserByUsername(username);
+        Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (password != null) {
                 user.setPassword(encrypt(password));
             }
-            userDAO.persistEntity(user);
+            userRepository.save(user);
         }
 
     }
 
     public boolean getStatusMailForUser(String username) {
 
-        Optional<User> userOptional = userDAO.findUserByUsername(username);
+        Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             return checkListDAO.getValueForMailSent(user);
@@ -247,7 +266,7 @@ public class UserService {
 
     public LeaveCheckListDTO getLeaveCheckListForUser(String username) throws EntityNotFoundException {
 
-        Optional<User> user = userDAO.findUserByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
             User userEntity = user.get();
             LeaveCheckList leaveCheckList = leaveCheckListDAO.findLeaveCheckListByUser(userEntity);
@@ -310,6 +329,6 @@ public class UserService {
 
     public boolean checkUnicity(String username, String msgMail) {
 
-        return !(userDAO.findUserByUsername(username).isPresent() || userDAO.findUserByMsgMail(msgMail).isPresent());
+        return !(userRepository.findByUsername(username).isPresent() || userRepository.findByMsgMail(msgMail).isPresent());
     }
 }

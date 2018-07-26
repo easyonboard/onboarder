@@ -3,7 +3,7 @@ package service;
 import dao.EventRepository;
 import dao.LocationRepository;
 import dao.MeetingHallRepository;
-import dao.UserDAO;
+import dao.UserRepository;
 import dto.EventDTO;
 import dto.LocationDto;
 import dto.MeetingHallDto;
@@ -37,7 +37,7 @@ public class EventService {
     private UserMapper userMapper = UserMapper.INSTANCE;
 
     @Autowired
-    private UserDAO userDAO;
+    private UserRepository userRepository;
     @Autowired
     private LocationRepository locationRepository;
     @Autowired
@@ -52,7 +52,7 @@ public class EventService {
         List<UserDTO> enrolledUsersDTO = new ArrayList<>();
 
         for (int i = 0; i < enrolledUsersUsernames.size(); i++) {
-            Optional<User> user = userDAO.findUserByUsername(enrolledUsersUsernames.get(i));
+            Optional<User> user = userRepository.findByUsername(enrolledUsersUsernames.get(i));
 
             if (!user.isPresent()) {
                 throw new EntityNotFoundException(userNotFound(user.get().getUsername()));
@@ -62,7 +62,7 @@ public class EventService {
             enrolledUsersDTO.add(userDTO);
         }
 
-        Optional<User> user = userDAO.findUserByUsername(contactPerson);
+        Optional<User> user = userRepository.findByUsername(contactPerson);
         if (!user.isPresent()) {
             throw new EntityNotFoundException(userNotFound(user.get().getUsername()));
         }
@@ -140,7 +140,7 @@ public class EventService {
 
     public List<EventDTO> enrollUser(UserDTO userDTO, int eventDTO) throws EntityNotFoundException {
 
-        Optional<User> userOptional = userDAO.findUserByUsername(userDTO.getUsername());
+        Optional<User> userOptional = userRepository.findByUsername(userDTO.getUsername());
         if (userOptional.isPresent()) {
             User userEntity = userOptional.get();
             Event eventEntity = eventRepository.findOne(eventDTO);
