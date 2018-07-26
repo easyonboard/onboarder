@@ -39,7 +39,7 @@ public class UserService {
     private UserInformationDAO userInformationDAO;
 
     @Autowired
-    private CheckListDAO checkListDAO;
+    private CheckListRepository checkListRepository;
 
     @Autowired
     private LeaveCheckListDAO leaveCheckListDAO;
@@ -153,9 +153,9 @@ public class UserService {
 
         User userEntity = userDAO.findUserByUsername(user).get();
         checkList.setUserAccount(userMapper.mapToDTO(userEntity));
-        CheckList checkListEntity = checkListDAO.findByUser(userEntity);
+        CheckList checkListEntity = checkListRepository.findByUserAccount(userEntity);
         checkListMapper.mapToEntity(checkList, checkListEntity);
-        checkListDAO.persistEntity(checkListEntity);
+        checkListRepository.save(checkListEntity);
     }
 
     /**
@@ -185,9 +185,9 @@ public class UserService {
                     userInformationDAO.deleteEntity(userInformationEntity);
                 }
 
-                CheckList checkListEntity = checkListDAO.findByUser(userEntity);
+                CheckList checkListEntity = checkListRepository.findByUserAccount(userEntity);
                 if (checkListEntity != null) {
-                    checkListDAO.deleteEntity(checkListEntity);
+                    checkListRepository.delete(checkListEntity);
                 }
 
                 LeaveCheckList leavecheckListEntity = leaveCheckListDAO.findLeaveCheckListByUser(userEntity);
@@ -243,7 +243,7 @@ public class UserService {
         Optional<User> userOptional = userDAO.findUserByUsername(username);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            return checkListDAO.getValueForMailSent(user);
+            return checkListRepository.getValueForMailSent(user);
         }
         return false;
     }
