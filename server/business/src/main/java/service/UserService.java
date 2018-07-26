@@ -2,14 +2,17 @@ package service;
 
 import com.google.common.hash.Hashing;
 import dao.*;
-import dto.*;
+import dto.CheckListDTO;
+import dto.LeaveCheckListDTO;
+import dto.UserDTO;
+import dto.UserInformationDTO;
 import dto.mapper.*;
 import entity.CheckList;
 import entity.LeaveCheckList;
 import entity.User;
 import entity.UserInformation;
-import exception.types.InvalidDataException;
 import exception.types.EntityNotFoundException;
+import exception.types.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
@@ -42,7 +45,7 @@ public class UserService {
     private CheckListRepository checkListRepository;
 
     @Autowired
-    private LeaveCheckListDAO leaveCheckListDAO;
+    private LeaveCheckListRepository leaveCheckListRepository;
 
     @Autowired
     private UserInformationService userInformationService;
@@ -95,6 +98,7 @@ public class UserService {
             userInformationService.addUserInfo(userInformationDTO, appUser, null);
         }
 
+
         checkListService.addCheckList(userInformationDTO, appUser);
     }
 
@@ -103,7 +107,7 @@ public class UserService {
         return Hashing.sha256().hashString(initString, StandardCharsets.UTF_8).toString();
     }
 
-    public void updateUser(UserDTO userUpdated) throws InvalidDataException {
+    public void updateUser(UserDTO userUpdated) throws InvalidDataException, EntityNotFoundException {
 
         Optional<User> user = userDAO.findUserByUsername(userUpdated.getUsername());
 
@@ -114,6 +118,8 @@ public class UserService {
             User entity = userMapper.mapToEntity(userUpdated, user.get());
             userValidator.validateUserData(userMapper.mapToDTO(entity));
             userDAO.persistEntity(entity);
+        } else {
+            throw new EntityNotFoundException(USER_NOT_FOUND_EXCEPTION);
         }
     }
 
@@ -190,9 +196,9 @@ public class UserService {
                     checkListRepository.delete(checkListEntity);
                 }
 
-                LeaveCheckList leavecheckListEntity = leaveCheckListDAO.findLeaveCheckListByUser(userEntity);
+                LeaveCheckList leavecheckListEntity = leaveCheckListRepository.findLeaveCheckListByUserAccount(userEntity);
                 if (leavecheckListEntity != null) {
-                    leaveCheckListDAO.deleteEntity(leavecheckListEntity);
+                    leaveCheckListRepository.delete(leavecheckListEntity);
                 }
                 tutorialDAO.removeUserFromTutorialContactList(userEntity);
                 eventRepository.removeUserFromEnrolledList(userEntity);
@@ -225,7 +231,7 @@ public class UserService {
         return usersList;
     }
 
-    public void updateUserPassword(String username, String password) {
+    public void updateUserPassword(String username, String password) throws EntityNotFoundException {
 
         Optional<User> userOptional = userDAO.findUserByUsername(username);
         if (userOptional.isPresent()) {
@@ -234,18 +240,21 @@ public class UserService {
                 user.setPassword(encrypt(password));
             }
             userDAO.persistEntity(user);
+        } else {
+            throw new EntityNotFoundException(USER_NOT_FOUND_EXCEPTION);
         }
 
     }
 
-    public boolean getStatusMailForUser(String username) {
+    public boolean getStatusMailForUser(String username) throws EntityNotFoundException {
 
         Optional<User> userOptional = userDAO.findUserByUsername(username);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             return checkListRepository.getValueForMailSent(user);
+        } else {
+            throw new EntityNotFoundException(USER_NOT_FOUND_EXCEPTION);
         }
-        return false;
     }
 
     public LeaveCheckListDTO getLeaveCheckListForUser(String username) throws EntityNotFoundException {
@@ -253,7 +262,7 @@ public class UserService {
         Optional<User> user = userDAO.findUserByUsername(username);
         if (user.isPresent()) {
             User userEntity = user.get();
-            LeaveCheckList leaveCheckList = leaveCheckListDAO.findLeaveCheckListByUser(userEntity);
+            LeaveCheckList leaveCheckList = leaveCheckListRepository.findLeaveCheckListByUserAccount(userEntity);
             if (leaveCheckList == null) {
                 leaveCheckList = new LeaveCheckList();
                 leaveCheckList.setUserAccount(userEntity);
@@ -265,13 +274,13 @@ public class UserService {
                         if (fields[i].getType() == Boolean.class) {
                             fields[i].set(leaveCheckList, false);
                         }
-                        return leaveCheckListMapper.mapToDTO(leaveCheckListDAO.persistEntity(leaveCheckList));
+                        return leaveCheckListMapper.mapToDTO(leaveCheckListRepository.save(leaveCheckList));
 
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }
                 }
-                leaveCheckListDAO.persistEntity(leaveCheckList);
+                leaveCheckListRepository.save(leaveCheckList);
             }
             return leaveCheckListMapper.mapToDTO(leaveCheckList);
         } else
@@ -283,13 +292,13 @@ public class UserService {
 
         LeaveCheckList persistEntity = new LeaveCheckList();
         leaveCheckListMapper.mapToEntity(leaveCheckList, persistEntity);
-        leaveCheckListDAO.update(persistEntity);
-        return leaveCheckListMapper.mapToDTO(leaveCheckListDAO.findEntity(leaveCheckList.getIdCheckList()));
+        leaveCheckListRepository.save(persistEntity);
+        return leaveCheckListMapper.mapToDTO(leaveCheckListRepository.findOne(leaveCheckList.getIdCheckList()));
     }
 
     private boolean canUserBeDeleted(User user) {
 
-        LeaveCheckList leaveCheckList = leaveCheckListDAO.findLeaveCheckListByUser(user);
+        LeaveCheckList leaveCheckList = leaveCheckListRepository.findLeaveCheckListByUserAccount(user);
         if (leaveCheckList != null) {
             Field[] fields = LeaveCheckList.class.getDeclaredFields();
             for (int i = 0; i < fields.length; i++) {    // all fields are set to false, except id and userAccount
