@@ -52,7 +52,7 @@ public class EventService {
         for (int i = 0; i < enrolledUsersUsernames.size(); i++) {
             Optional<User> user = userDAO.findUserByUsername(enrolledUsersUsernames.get(i));
             if (!user.isPresent()) {
-                throw new EntityNotFoundException("" + user.get().getUsername());
+                throw new EntityNotFoundException("User with " + user.get().getUsername() + " could not be found in the database");
             }
 
             UserDTO userDTO = userMapper.mapToDTO(user.get());
@@ -61,14 +61,14 @@ public class EventService {
 
         Optional<User> user = userDAO.findUserByUsername(contactPerson);
         if (!user.isPresent()) {
-            throw new EntityNotFoundException("" + user.get().getUsername());
+            throw new EntityNotFoundException("User with " + user.get().getUsername() + " could not be found in the database");
         }
         UserDTO contactPersonEntityDTO = userMapper.mapToDTO(user.get());
 
         if (locationDto.getIdLocation() != null) {
             Location location = locationRepository.findOne(locationDto.getIdLocation());
             if (location == null) {
-                throw new EntityNotFoundException("");
+                throw new EntityNotFoundException("Locations could not be found in the database");
             }
             LocationDto selectedLocationDto = locationMapper.mapToDTO(location);
             eventDTO.setLocation(selectedLocationDto);
@@ -76,7 +76,7 @@ public class EventService {
         if (meetingHallDto.getIdMeetingHall() != 0) {
             MeetingHall meetingHall = meetingHallRepository.findOne(meetingHallDto.getIdMeetingHall());
             if (meetingHall == null) {
-                throw new EntityNotFoundException("");
+                throw new EntityNotFoundException("Meeting halls could not be found in the database");
             }
             MeetingHallDto selectedHallDTO = meetingHallMapper.mapToDTO(meetingHall);
             eventDTO.setMeetingHall(selectedHallDTO);
@@ -86,7 +86,7 @@ public class EventService {
 
         Event event = eventRepository.save(eventMapper.mapToNewEntity(eventDTO));
         if (event == null) {
-            throw new DatabaseException("");
+            throw new DatabaseException("The event could not be saved. Please retry later.");
         }
 
         return eventMapper.mapToDTO(event);
@@ -116,7 +116,7 @@ public class EventService {
         List<Event> upcoming = eventRepository.findAllUpcomingEvents(
                 Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         if (upcoming.isEmpty()) {
-            throw new EntityNotFoundException("");
+            throw new EntityNotFoundException("There are no upcoming events");
         }
         return upcoming.stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
 
@@ -127,7 +127,7 @@ public class EventService {
         List<Event> past = eventRepository.findAllPastEvents(
                 Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         if (past.isEmpty()) {
-            throw new EntityNotFoundException("");
+            throw new EntityNotFoundException("There are no past events");
         }
         return past.stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
 
@@ -146,7 +146,7 @@ public class EventService {
                 }
             }
         } else {
-            throw new EntityNotFoundException("");
+            throw new EntityNotFoundException("User with " + userDTO.getUsername() + " could not be found in the database");
         }
 
         return getAllUpcomingEvents();
@@ -166,7 +166,7 @@ public class EventService {
     public List<MeetingHallDto> getAllMeetingHalls() throws EntityNotFoundException {
 
         List<MeetingHall> meetingHallList = meetingHallRepository.findAll();
-        if (!meetingHallList.isEmpty()) {
+        if (meetingHallList.isEmpty()) {
             throw new EntityNotFoundException("Meeting halls have not been found in the DB");
         }
 
