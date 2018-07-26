@@ -155,7 +155,7 @@ public class EventService {
     public List<LocationDto> getAllLocations() throws EntityNotFoundException {
 
         List<Location> locationList = locationRepository.findAll();
-        if (!locationList.isEmpty()) {
+        if (locationList.isEmpty()) {
             throw new EntityNotFoundException("Locations have not been found in the DB");
         }
 
