@@ -51,9 +51,6 @@ public class UserService {
     private CheckListService checkListService;
 
     @Autowired
-    private LocationRepository locationRepository;
-
-    @Autowired
     private EventRepository eventRepository;
 
     @Autowired
