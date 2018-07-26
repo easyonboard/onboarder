@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import static exception.Constants.USER_NOT_FOUND_ERROR;
+import static exception.Constants.USER_NOT_FOUND_EXCEPTION;
 
 /**
  * Service for {@link UserDTO}
@@ -73,7 +73,7 @@ public class UserService {
 
         Optional<User> entity = userDAO.findUserByUsername(username);
         if (!entity.isPresent()) {
-            throw new EntityNotFoundException(USER_NOT_FOUND_ERROR);
+            throw new EntityNotFoundException(USER_NOT_FOUND_EXCEPTION);
         }
         return userMapper.mapToDTO(entity.get());
     }
@@ -205,7 +205,7 @@ public class UserService {
             }
 
         } else
-            throw new EntityNotFoundException(USER_NOT_FOUND_ERROR);
+            throw new EntityNotFoundException(USER_NOT_FOUND_EXCEPTION);
 
     }
 
@@ -275,7 +275,7 @@ public class UserService {
             }
             return leaveCheckListMapper.mapToDTO(leaveCheckList);
         } else
-            throw new EntityNotFoundException(USER_NOT_FOUND_ERROR);
+            throw new EntityNotFoundException(USER_NOT_FOUND_EXCEPTION);
 
     }
 
