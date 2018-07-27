@@ -178,6 +178,7 @@ import entity.CheckList;
 import entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -198,6 +199,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     String findDepartmentByUsername(String username);
 
     @Query("select cl from CheckList cl where cl.userAccount=:user")
-    CheckList getCheckListForUser(User user);
+    CheckList getCheckListForUser(@Param("user")User userAccount);
 
 }
