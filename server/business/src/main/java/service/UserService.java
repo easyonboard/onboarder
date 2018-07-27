@@ -2,16 +2,16 @@ package service;
 
 import com.google.common.hash.Hashing;
 import dao.*;
-import dto.*;
+import dto.CheckListDTO;
+import dto.LeaveCheckListDTO;
+import dto.UserDTO;
+import dto.UserInformationDTO;
 import dto.mapper.*;
 import entity.CheckList;
 import entity.LeaveCheckList;
 import entity.User;
 import entity.UserInformation;
-import exception.types.DatabaseException;
-import exception.types.FieldNotFoundException;
-import exception.types.InvalidDataException;
-import exception.types.EntityNotFoundException;
+import exception.types.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
@@ -41,7 +41,7 @@ public class UserService {
     private CheckListRepository checkListRepository;
 
     @Autowired
-    private LeaveCheckListDAO leaveCheckListDAO;
+    private LeaveCheckListRepository leaveCheckListRepository;
 
     @Autowired
     private UserInformationService userInformationService;
@@ -93,6 +93,7 @@ public class UserService {
         } else {
             userInformationService.addUserInfo(userInformationDTO, appUser, null);
         }
+
 
         checkListService.addCheckList(userInformationDTO, appUser);
     }
@@ -251,9 +252,9 @@ public class UserService {
                     throw new EntityNotFoundException(checklistForUserNotFound(username));
                 }
 
-                LeaveCheckList leavecheckListEntity = leaveCheckListDAO.findLeaveCheckListByUser(userEntity);
+                LeaveCheckList leavecheckListEntity = leaveCheckListRepository.findLeaveCheckListByUserAccount(userEntity);
                 if (leavecheckListEntity != null) {
-                    leaveCheckListDAO.deleteEntity(leavecheckListEntity);
+                    leaveCheckListRepository.delete(leavecheckListEntity);
                 } else {
                     checklistForUserNotFound(username);
                 }
@@ -310,20 +311,19 @@ public class UserService {
             if (userRepository.save(user) == null) {
                 throw new DatabaseException(USER_SAVE_DATABASE_EXCEPTION);
             }
-        } else {
-            throw new EntityNotFoundException(userNotFound(username));
         }
 
     }
 
-    public boolean getStatusMailForUser(String username) {
+    public boolean getStatusMailForUser(String username) throws EntityNotFoundException {
 
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             return checkListRepository.getValueForMailSent(user);
+        } else {
+            throw new EntityNotFoundException(userNotFound(username));
         }
-        return false;
     }
 
     public LeaveCheckListDTO getLeaveCheckListForUser(String username) throws EntityNotFoundException {
@@ -331,7 +331,7 @@ public class UserService {
         Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
             User userEntity = user.get();
-            LeaveCheckList leaveCheckList = leaveCheckListDAO.findLeaveCheckListByUser(userEntity);
+            LeaveCheckList leaveCheckList = leaveCheckListRepository.findLeaveCheckListByUserAccount(userEntity);
             if (leaveCheckList == null) {
                 leaveCheckList = new LeaveCheckList();
                 leaveCheckList.setUserAccount(userEntity);
@@ -343,13 +343,13 @@ public class UserService {
                         if (fields[i].getType() == Boolean.class) {
                             fields[i].set(leaveCheckList, false);
                         }
-                        return leaveCheckListMapper.mapToDTO(leaveCheckListDAO.persistEntity(leaveCheckList));
+                        return leaveCheckListMapper.mapToDTO(leaveCheckListRepository.save(leaveCheckList));
 
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }
                 }
-                leaveCheckListDAO.persistEntity(leaveCheckList);
+                leaveCheckListRepository.save(leaveCheckList);
             }
             return leaveCheckListMapper.mapToDTO(leaveCheckList);
         } else
@@ -361,15 +361,15 @@ public class UserService {
 
         LeaveCheckList leaveCheckList = new LeaveCheckList();
         leaveCheckListMapper.mapToEntity(leaveCheckListDTO, leaveCheckList);
-        if (leaveCheckListDAO.update(leaveCheckList) == null) {
+        if (leaveCheckListRepository.save(leaveCheckList) == null) {
             throw new DatabaseException("Leave check list for user could not be updated");
         }
-        return leaveCheckListMapper.mapToDTO(leaveCheckListDAO.findEntity(leaveCheckListDTO.getIdCheckList()));
+        return leaveCheckListMapper.mapToDTO(leaveCheckListRepository.findOne(leaveCheckListDTO.getIdCheckList()));
     }
 
     private boolean canUserBeDeleted(User user) {
 
-        LeaveCheckList leaveCheckList = leaveCheckListDAO.findLeaveCheckListByUser(user);
+        LeaveCheckList leaveCheckList = leaveCheckListRepository.findLeaveCheckListByUserAccount(user);
         if (leaveCheckList != null) {
             Field[] fields = LeaveCheckList.class.getDeclaredFields();
             for (int i = 0; i < fields.length; i++) {    // all fields are set to false, except id and userAccount
