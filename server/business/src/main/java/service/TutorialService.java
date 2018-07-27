@@ -76,11 +76,6 @@ public class TutorialService {
         return tutorialMapper.mapToDTO(tutorialEntity);
     }
 
-
-    public TutorialDto findTutorialById(Integer idTutorial) {
-        return tutorialMapper.mapToDTO(tutorialDAO.findTutorialById(idTutorial));
-    }
-
     public TutorialMaterialDTO getMaterialById(Integer id) {
         return tutorialMaterialMapper.mapToDTO(tutorialMaterialDAO.findEntity(id));
     }

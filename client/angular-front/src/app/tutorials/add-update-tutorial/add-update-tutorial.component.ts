@@ -112,10 +112,10 @@ export class AddUpdateTutorialComponent implements OnInit {
         this.addMaterials();
         this.redirectToTutorialPage(this.tutorial.idTutorial);
       }, err => {
-        this.snackBarMessagePopup('Error!');
+        this.snackBarMessagePopup(err.error.message);
       });
     } catch (e) {
-      this.snackBarMessagePopup(e);
+      this.snackBarMessagePopup(e.error.message);
     }
   }
 
@@ -247,9 +247,11 @@ export class AddUpdateTutorialComponent implements OnInit {
         this.addMaterials();
         this.deleteFromServerMaterials();
         this.redirectToTutorialPage(this.tutorial.idTutorial);
+      }, err => {
+        this.snackBarMessagePopup(err.error.message);
       });
     } catch (e) {
-      this.snackBarMessagePopup(e);
+      this.snackBarMessagePopup(e.error.message);
     }
   }
 

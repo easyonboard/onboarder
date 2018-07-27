@@ -35,6 +35,9 @@ export class DialogDeleteUsersComponent implements OnInit {
         this.snackBarMessagePopup('User ' + username + ' removed!');
         this.getAllUsers();
       }
+    },
+    err => {
+      this.snackBarMessagePopup(err.error.message);
     });
   }
 
@@ -47,6 +50,9 @@ export class DialogDeleteUsersComponent implements OnInit {
         }
       });
       this.searchByName();
+    },
+    err => {
+      this.snackBarMessagePopup(err.error.message);
     });
 
   }

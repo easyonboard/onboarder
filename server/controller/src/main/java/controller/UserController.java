@@ -74,7 +74,7 @@ public class UserController {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (DatabaseException e) {
-            e.printStackTrace();
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -117,7 +117,7 @@ public class UserController {
         try {
             users = userService.getAllUsers();
         } catch (EntityNotFoundException e) {
-            e.printStackTrace();
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -130,7 +130,7 @@ public class UserController {
         try {
             newUsers = userService.getAllNewUsers();
         } catch (EntityNotFoundException e) {
-            e.printStackTrace();
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity(newUsers, HttpStatus.OK);
     }
@@ -163,7 +163,7 @@ public class UserController {
         try {
             users = userService.searchByName(name);
         } catch (EntityNotFoundException e) {
-            e.printStackTrace();
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -218,9 +218,9 @@ public class UserController {
         try {
             users = userService.getUsersInDepartmentForUser(username);
         } catch (EntityNotFoundException e) {
-            e.printStackTrace();
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         } catch (FieldNotFoundException e) {
-            e.printStackTrace();
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -246,7 +246,7 @@ public class UserController {
         try {
             return new ResponseEntity<>(userService.getUserInformationForUser(username), HttpStatus.OK);
         } catch (EntityNotFoundException e) {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         }
     }
 

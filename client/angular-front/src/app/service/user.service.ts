@@ -107,9 +107,9 @@ export class UserService {
     return this.http.get<UserDTO[]>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
   }
 
-  getDepartmentForUsername(username): Observable<any> {
-    return this.http.get<any>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
-  }
+  // getDepartmentForUsername(username): Observable<any> {
+  //   return this.http.get<any>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
+  // }
 
   removeUser(username: String): Observable<Boolean> {
 

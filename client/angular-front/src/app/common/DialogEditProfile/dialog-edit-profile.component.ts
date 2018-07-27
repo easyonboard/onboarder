@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {UserService} from '../../service/user.service';
-import {UserInformationService} from "../../service/user-information.service";
+import {UserInformationService} from '../../service/user-information.service';
 
 @Component({
   selector: 'app-dialog-edit-profile',

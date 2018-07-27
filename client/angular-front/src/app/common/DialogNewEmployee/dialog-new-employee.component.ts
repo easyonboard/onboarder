@@ -13,6 +13,7 @@ import {UserService} from '../../service/user.service';
   encapsulation: ViewEncapsulation.None
 })
 export class DialogNewEmployeeComponent implements OnInit {
+  [x: string]: any;
 
   public newEmployees: UserInformationDTO[];
 
@@ -32,6 +33,9 @@ export class DialogNewEmployeeComponent implements OnInit {
       this.newEmployees = newEmployees;
       this.getStatus();
       this.setStartDate();
+    },
+    err => {
+      this.snackBarMessagePopup(err.error.message);
     });
   }
 

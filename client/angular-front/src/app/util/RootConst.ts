@@ -19,7 +19,6 @@ export class RootConst {
   public SERVER_UNENROLLE_USER_ON_COURSE = this.SERVER_COURSES_URL + '/unenrollUserFromCourse?idCourse=';
   public SERVER_ADD_USER = this.WEB_SERVICE_ENDPOINT + 'user/addUser';
   public SERVER_UPDATE_USER_INFO = this.WEB_SERVICE_ENDPOINT + '/user/updateUserInfo';
-  // public SERVER_ADD_USER_INFO = this.WEB_SERVICE_ENDPOINT + 'user/addUserInfo';
   public SERVER_UPDATE_USER = this.WEB_SERVICE_ENDPOINT + '/user/updateUser';
   public SERVER_UPDATE_USER_PASSWORD = this.WEB_SERVICE_ENDPOINT + '/user/updateUserPassword';
   public SERVER_USER_COURSES = this.WEB_SERVICE_ENDPOINT + '/user/courses?username=';
@@ -42,7 +41,7 @@ export class RootConst {
 
   public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/add';
   public SERVER_ADD_EVENT = this.SERVER_EVENTS_URL + '/addEvent';
-  
+
   public SERVER_PAST_EVENT = this.SERVER_EVENTS_URL + '/pastEvent';
   public SERVER_UPCOMING_EVENT = this.SERVER_EVENTS_URL + '/upcomingEvent';
   SERVER_ENROLL_USER = this.SERVER_EVENTS_URL + '/enrollUser';

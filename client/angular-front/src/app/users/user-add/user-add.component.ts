@@ -51,13 +51,13 @@ export class UserAddComponent implements OnInit {
                 this.dialog.closeAll();
               }
             },
-            error => this.snackBarMessagePopup('Failed! An error has ocurred!')
+            error => this.snackBarMessagePopup(error.error.message)
           );
         } else {
           this.snackBarMessagePopup('Failed! Duplicated username or .msg email!');
         }
       },
-      error => this.snackBarMessagePopup('Failed! An error has ocurred!')
+      error => this.snackBarMessagePopup(error.error.message)
     );
   }
 

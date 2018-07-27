@@ -80,7 +80,7 @@ public class TutorialController {
         final Gson gson = gsonBuilder.create();
         TutorialMaterialDTO material = gson.fromJson(mat, TutorialMaterialDTO.class);
 
-        TutorialDto tutorial = tutorialService.findTutorialById(idTutorial);
+        TutorialDto tutorial = tutorialService.getTutorialById(idTutorial);
         material.setTutorial(tutorial);
         if (file.isPresent()) {
             material.setFileMaterial(file.get().getBytes());
