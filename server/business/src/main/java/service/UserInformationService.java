@@ -1,10 +1,8 @@
 package service;
 
-import dao.UserDAO;
 import dao.UserInformationDAO;
 import dto.UserInformationDTO;
 import dto.mapper.UserInformationMapper;
-import dto.mapper.UserMapper;
 import entity.User;
 import entity.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;

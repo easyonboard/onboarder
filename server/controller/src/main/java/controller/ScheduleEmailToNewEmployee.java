@@ -1,6 +1,6 @@
 package controller;
 
-import dao.UserDAO;
+import dao.UserRepository;
 import dao.UserInformationDAO;
 import entity.User;
 import entity.UserInformation;
@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import service.CheckListService;
 import utilityService.MailSender;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.MessageFormat;
@@ -22,6 +25,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.logging.Logger;
+
+import static entity.enums.RoleType.ROLE_ABTEILUNGSLEITER;
 
 //@Component
 @Controller
@@ -35,7 +40,7 @@ public class ScheduleEmailToNewEmployee {
     private CheckListService checkListService;
 
     @Autowired
-    private UserDAO userDAO;
+    private UserRepository userRepository;
 
     private final Logger LOGGER = Logger.getLogger(ScheduleEmailToNewEmployee.class.getName());
     private final List<String> mandatoryFieldsFromUserEntity = Arrays.asList("name", "username", "password", "email");
@@ -86,7 +91,7 @@ public class ScheduleEmailToNewEmployee {
                         String emailBodyForBuddy = createEmailBodyForBuddy(names[0], user.getName(), dateWithZeroTime, "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
                         sendEmail(buddy.getMsgMail(), null, BUDDY_MAIL_SUBJECT, emailBodyForBuddy);
                     }
-//                    List<User> abteilungsleiters = userDAO.getAbteilungsleiters();
+//                    List<User> abteilungsleiters = userRepository.getAbteilungsleiters();
 //                    for (User ab : abteilungsleiters) {
 //                        if (ui.getBuddyUser().getUserAccount().getDepartment().equals(ab.getUserAccount().getDepartment())) {
 //                            //sender.sendMail(ab.getEmail(), "", emailBody);
@@ -102,11 +107,13 @@ public class ScheduleEmailToNewEmployee {
         return null;
     }
 
+    // TODO: findAbteilungsleiter ??
     private Optional<User> findAbteilungsleiter(UserInformation user) {
-        return userDAO.getAbteilungsleiters().stream().filter(abteilungsleiter -> {
-            UserInformation userInfo = this.userInformationDAO.getUserInformationForUserAccount(abteilungsleiter);
-            return userInfo.getDepartment().equals(user.getDepartment());
-        }).findFirst();
+//        return userRepository.getAbteilungsleiters().stream().filter(abteilungsleiter -> {
+//            UserInformation userInfo = this.userInformationDAO.getUserInformationForUserAccount(abteilungsleiter);
+//            return userInfo.getDepartment().equals(user.getDepartment());
+//        }).findFirst();
+        return null;
     }
 
 
@@ -176,5 +183,20 @@ public class ScheduleEmailToNewEmployee {
 
     }
 
-
+    // TODO: getAbteilungsleiters ?
+//    public List<User> getAbteilungsleiters() {
+//        //        String queryString = "select u from User u where u.role.role=:role";
+//        //        Query query = this.em.createQuery(queryString);
+//        //        query.setParameter("role", ROLE_ABTEILUNGSLEITER);
+//        //        return query.getResultList();
+//        CriteriaBuilder cb = this.getCriteriaBuilder();
+//        CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
+//        Root<User> rootUser = criteriaQuery.from(User.class);
+//        criteriaQuery.select(
+//                cb.construct(User.class, rootUser.get("idUser"), rootUser.get("name"), rootUser.get("username"),
+//                             rootUser.get("email"), rootUser.get("msgMail"))).
+//                where(cb.equal(rootUser.get("role").get("role"), ROLE_ABTEILUNGSLEITER));
+//        List<User> users = this.executeCriteriaQuery(criteriaQuery);
+//        return users;
+//    }
 }

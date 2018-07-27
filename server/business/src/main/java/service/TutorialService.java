@@ -2,7 +2,7 @@ package service;
 
 import dao.TutorialDAO;
 import dao.TutorialMaterialDAO;
-import dao.UserDAO;
+import dao.UserRepository;
 import dto.ContactPersonDto;
 import dto.TutorialDto;
 import dto.TutorialMaterialDTO;
@@ -28,7 +28,7 @@ public class TutorialService {
     private TutorialMaterialDAO tutorialMaterialDAO;
 
     @Autowired
-    private UserDAO userDAO;
+    private UserRepository userRepository;
 
     private TutorialMapper tutorialMapper = TutorialMapper.INSTANCE;
     private TutorialMaterialMapper tutorialMaterialMapper = TutorialMaterialMapper.INSTANCE;
@@ -53,7 +53,7 @@ public class TutorialService {
     private List<User> getUsersByIds(List<Integer> contactPersonsIds) {
         List<User> users = new ArrayList<>();
         for (Integer id : contactPersonsIds) {
-            users.add(userDAO.findEntity(id));
+            users.add(userRepository.findOne(id));
         }
         return users;
     }
@@ -61,7 +61,7 @@ public class TutorialService {
     private List<User> getUsersByMsgEmail(List<ContactPersonDto> contactPersons) {
         List<User> users = new ArrayList<>();
         for (ContactPersonDto contactPerson : contactPersons) {
-            users.add(userDAO.findUserByMsgMail(contactPerson.getMsgEmail()).get());
+            users.add(userRepository.findByMsgMail(contactPerson.getMsgEmail()).get());
         }
         return users;
     }
@@ -109,6 +109,6 @@ public class TutorialService {
     }
 
     public List<TutorialDto> allDraftTutorialsForUser(Integer idUser) {
-        return tutorialMapper.entitiesToDTOs(tutorialDAO.getAllDraftTutorialsForUser(userDAO.findEntity(idUser)));
+        return tutorialMapper.entitiesToDTOs(tutorialDAO.getAllDraftTutorialsForUser(userRepository.findOne(idUser)));
     }
 }

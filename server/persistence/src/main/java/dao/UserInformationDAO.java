@@ -22,7 +22,7 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
     }
 
     @Autowired
-    UserDAO userDAO;
+    UserRepository userRepository;
 
     /**
      * @return list of all users whose startingDate is greater than today
@@ -36,7 +36,7 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
     }
 
     public UserInformation getUserInformationForUserAccount(User userAccount) {
-        User userAccount2 = userDAO.userByUsername(userAccount.getUsername());
+        User userAccount2 = userRepository.findByUsername(userAccount.getUsername()).get();
 
         Query q = em.createQuery("select o from UserInformation o where o.userAccount =:userAccount");
         q.setParameter("userAccount", userAccount2);
@@ -56,8 +56,8 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         actualUserInfo.setDepartment(userInfo.getDepartment());
         actualUserInfo.setStartDate(userInfo.getStartDate());
         if (userInfo.getBuddyUser().getUsername() != null) {
-            Optional<User> newUser = userDAO.findUserByUsername(userInfo.getBuddyUser().getUsername());
-            actualUserInfo.setBuddyUser(newUser.get());
+            User newUser = userRepository.findByUsername(userInfo.getBuddyUser().getUsername()).get();
+            actualUserInfo.setBuddyUser(newUser);
         }
 
         return em.merge(actualUserInfo);
