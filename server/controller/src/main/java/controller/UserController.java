@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.*;
 import entity.enums.RoleType;
-import exception.types.InvalidDataException;
 import exception.types.EntityNotFoundException;
+import exception.types.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -83,15 +83,20 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (InvalidDataException exception) {
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
+        } catch (EntityNotFoundException exception) {
+            return new ResponseEntity(exception, HttpStatus.BAD_REQUEST);
         }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/updateUserPassword", method = RequestMethod.POST)
     public ResponseEntity updateUserPassword(@RequestBody UserDTO user) {
-
-        userService.updateUserPassword(user.getUsername(), user.getPassword());
-        return new ResponseEntity<>(HttpStatus.OK);
+        try {
+            userService.updateUserPassword(user.getUsername(), user.getPassword());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -209,8 +214,11 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "isMailSent", method = RequestMethod.POST)
     public ResponseEntity getStatusMailForUser(@RequestBody String username) {
-
-        return new ResponseEntity<>(userService.getStatusMailForUser(username), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(userService.getStatusMailForUser(username), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
