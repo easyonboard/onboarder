@@ -63,7 +63,7 @@ export class UserService {
   }
 
   /** !TODO */
-  getAllUsersNameAndEmail(): Observable<String[]> {
+  getAllUsernames(): Observable<String[]> {
     return this.http.get<String[]>(this.rootConst.SERVER_ALL_USERS_NAME_EMAIL);
   }
 

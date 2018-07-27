@@ -81,19 +81,18 @@ export class AddUpdateTutorialComponent implements OnInit {
     const tutorialId = +this.route.snapshot.paramMap.get('id');
     this.tutorialService.getTutorialWithId(tutorialId).subscribe(tutorial => {
       this.tutorial = tutorial;
-      this.selectedUsers = this.tutorial.contactPersons.map(cp => cp.name + '(' + cp.msgMail + ')');
+      this.selectedUsers = this.tutorial.contactPersons.map(cp => cp.msgMail);
       this.keywords = this.tutorial.keywords.split(' ');
       this.materialsForCurrentTutorial = this.tutorial.tutorialMaterials.slice(0);
     });
   }
 
   private setCurrentUserAsContactPerson() {
-    this.selectedUsers.push(localStorage.getItem(LocalStorageConst._USER_LOGGED) + '('
-                          + localStorage.getItem(LocalStorageConst._MSG_MAIL) + ')');
+    this.selectedUsers.push(localStorage.getItem(LocalStorageConst._MSG_MAIL));
   }
 
   private getUsers() {
-    this.userService.getAllUsersNameAndEmail().subscribe((users: String[]) => {
+    this.userService.getAllUsernames().subscribe((users: String[]) => {
       this.allUsers = users;
     });
   }

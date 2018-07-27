@@ -57,12 +57,11 @@ public class TutorialController {
             JsonNode node = null;
             node = mapper.readTree(tutorialJSON);
             JsonNode nodeTutorial = node.get("tutorial");
-            JsonNode nodeContactPersons = node.get("contactPersonsDto");
+            JsonNode nodeContactPersonMsgMails = node.get("contactPersonMsgMails");
             TutorialDto tutorialDto = mapper.convertValue(nodeTutorial, TutorialDto.class);
-            String c = nodeContactPersons.toString();
-            List<ContactPersonDto> contactPersonsDto = mapper.readValue(nodeContactPersons.toString(), new TypeReference<List<ContactPersonDto>>(){});
+            List<String> contactPersonMsgMails = mapper.readValue(nodeContactPersonMsgMails.toString(), new TypeReference<List<String>>(){});
 
-            return new ResponseEntity(tutorialService.addTutorial(tutorialDto, contactPersonsDto), HttpStatus.OK);
+            return new ResponseEntity(tutorialService.addTutorial(tutorialDto, contactPersonMsgMails), HttpStatus.OK);
         } catch (InvalidDataException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {
@@ -132,7 +131,7 @@ public class TutorialController {
             JsonNode node = null;
             node = mapper.readTree(tutorialJSON);
             TutorialDto tutorialDto = mapper.convertValue(node.get("tutorial"), TutorialDto.class);
-            List<Integer> contactPersons = mapper.convertValue(node.get("contactPersons"), List.class);
+            List<String> contactPersons = mapper.convertValue(node.get("contactPersons"), List.class);
 
             return new ResponseEntity(tutorialService.updateTutorial(tutorialDto, contactPersons), HttpStatus.OK);
         } catch (InvalidDataException e) {

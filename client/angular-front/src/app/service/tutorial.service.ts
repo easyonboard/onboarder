@@ -25,18 +25,14 @@ export class TutorialService implements OnInit {
   /** !TODO */
   addTutorial(tutorial: TutorialDTO, contactPersons: String[]): any {
     // tslint:disable-next-line:prefer-const
-    let contactPersonsDto: ContactPersonDto[] = [];
+    let contactPersonMsgMails: String[] = [];
 
     contactPersons.forEach(cp => {
-      const x = cp.split(/[()]/);
       // tslint:disable-next-line:prefer-const
-      let contactPersonDto: ContactPersonDto = new ContactPersonDto;
-      contactPersonDto.username = x[0];
-      contactPersonDto.msgMail = x[1];
-      contactPersonsDto.push(contactPersonDto);
+      contactPersonMsgMails.push(cp);
     });
 
-    const body = JSON.stringify({tutorial: tutorial, contactPersonsDto:  contactPersonsDto});
+    const body = JSON.stringify({tutorial: tutorial, contactPersonMsgMails:  contactPersonMsgMails});
     return this.http.post<TutorialDTO>(this.rootConst.SERVER_ADD_TUTORIAL, body, this.httpOptions);
   }
 

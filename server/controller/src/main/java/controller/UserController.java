@@ -251,11 +251,11 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "getAllUserNameAndEmail", method = RequestMethod.GET)
+    @RequestMapping(value = "getAllMsgMails", method = RequestMethod.GET)
     public ResponseEntity<List<String>> getAllUsersNameAndEmail() {
 
         try {
-            return new ResponseEntity<>(userService.getAllUsersNameAndEmail(), HttpStatus.OK);
+            return new ResponseEntity<>(userService.getAllUserames(), HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         }

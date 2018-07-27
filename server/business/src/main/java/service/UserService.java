@@ -289,7 +289,7 @@ public class UserService {
         return userInformationMapper.mapToDTO(userInformation);
     }
 
-    public List<String> getAllUsersNameAndEmail() throws EntityNotFoundException {
+    public List<String> getAllUserames() throws EntityNotFoundException {
 
         List<User> users = userRepository.findAll();
         if (users.isEmpty()) {
@@ -297,7 +297,7 @@ public class UserService {
         }
         List<String> usersList = new ArrayList<>();
 
-        users.forEach(user -> usersList.add(user.getName() + '(' + user.getMsgMail() + ')'));
+        users.forEach(user -> usersList.add(user.getMsgMail()));
 
         return usersList;
     }
