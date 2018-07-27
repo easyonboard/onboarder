@@ -33,7 +33,9 @@ export class UserService {
 
   addUser(user: UserDTO, role: RoleType, userInfo: UserInformationDTO) {
     const body = JSON.stringify({user: user, role: role, userInfo: userInfo});
-    return this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
+    const result = this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
+    console.log(result);
+    return result;
   }
 
   updatePassword(username: string, password: string) {
@@ -41,7 +43,9 @@ export class UserService {
       username: username,
       password: password,
     });
-    return this.http.post<UserDTO>(this.rootConst.SERVER_UPDATE_USER_PASSWORD, body, this.httpOptions);
+    const result = this.http.post<UserDTO>(this.rootConst.SERVER_UPDATE_USER_PASSWORD, body, this.httpOptions);
+    console.log(result);
+    return result;
   }
 
   updateUser(userDTO: UserDTO): any {
@@ -130,7 +134,9 @@ export class UserService {
 
   saveLeaveCheckList(leaveCheckList: LeaveCheckList): Observable<LeaveCheckList> {
     const body = JSON.stringify(leaveCheckList);
-    return this.http.post<LeaveCheckList>(this.rootConst.WEB_SERVER_SAVE_LEAVE_CHECKLIST, body, this.httpOptions);
+    const result = this.http.post<LeaveCheckList>(this.rootConst.WEB_SERVER_SAVE_LEAVE_CHECKLIST, body, this.httpOptions);
+    console.log(result);
+    return result;
   }
 
   checkUnicity(username: String, msgMail: String): Observable<boolean> {

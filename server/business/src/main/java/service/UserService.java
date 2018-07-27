@@ -11,6 +11,7 @@ import entity.CheckList;
 import entity.LeaveCheckList;
 import entity.User;
 import entity.UserInformation;
+import entity.enums.DepartmentType;
 import exception.types.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -154,7 +155,8 @@ public class UserService {
     public List<UserDTO> getUsersInDepartmentForUser(String username) throws EntityNotFoundException, FieldNotFoundException {
 
         String department = getDepartmentForUser(username);
-        List<User> users = userRepository.findAllByDepartment(department);
+        DepartmentType departmentType = DepartmentType.valueOf(department);
+        List<User> users = userRepository.findAllByDepartment(departmentType);
         if (users.isEmpty()) {
             throw new EntityNotFoundException(userForDepartmentNotFound(department));
         }
@@ -173,8 +175,8 @@ public class UserService {
     }
 
     public Map getCheckList(UserDTO userDTO) throws EntityNotFoundException {
-
-        CheckList checkList = userRepository.getCheckListForUser(userRepository.findOne(userDTO.getIdUser()));
+        User user = userRepository.findOne(userDTO.getIdUser());
+        CheckList checkList = userRepository.getCheckListForUser(user);
 
         if (checkList == null) {
             throw new EntityNotFoundException(checklistForUserNotFound(userDTO.getUsername()));
