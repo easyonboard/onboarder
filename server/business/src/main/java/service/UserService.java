@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static exception.Constants.NOT_FOUND_EXCEPTION;
 import static exception.Constants.userNotFound;
 
 /**
@@ -116,7 +117,7 @@ public class UserService {
             userValidator.validateUserData(userMapper.mapToDTO(entity));
             userDAO.persistEntity(entity);
         } else {
-            throw new EntityNotFoundException(USER_NOT_FOUND_EXCEPTION);
+            throw new EntityNotFoundException(NOT_FOUND_EXCEPTION);
         }
     }
 
@@ -238,7 +239,7 @@ public class UserService {
             }
             userDAO.persistEntity(user);
         } else {
-            throw new EntityNotFoundException(USER_NOT_FOUND_EXCEPTION);
+            throw new EntityNotFoundException(NOT_FOUND_EXCEPTION);
         }
 
     }
@@ -250,7 +251,7 @@ public class UserService {
             User user = userOptional.get();
             return checkListRepository.getValueForMailSent(user);
         } else {
-            throw new EntityNotFoundException(USER_NOT_FOUND_EXCEPTION);
+            throw new EntityNotFoundException(NOT_FOUND_EXCEPTION);
         }
     }
 
