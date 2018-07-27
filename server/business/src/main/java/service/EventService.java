@@ -3,7 +3,7 @@ package service;
 import dao.EventRepository;
 import dao.LocationRepository;
 import dao.MeetingHallRepository;
-import dao.UserDAO;
+import dao.UserRepository;
 import dto.EventDTO;
 import dto.LocationDto;
 import dto.MeetingHallDto;
@@ -37,7 +37,7 @@ public class EventService {
     private UserMapper userMapper = UserMapper.INSTANCE;
 
     @Autowired
-    private UserDAO userDAO;
+    private UserRepository userRepository;
     @Autowired
     private LocationRepository locationRepository;
     @Autowired
@@ -52,7 +52,7 @@ public class EventService {
         List<UserDTO> enrolledUsersDTO = new ArrayList<>();
 
         for (int i = 0; i < enrolledUsersUsernames.size(); i++) {
-            Optional<User> user = userDAO.findUserByUsername(enrolledUsersUsernames.get(i));
+            Optional<User> user = userRepository.findByUsername(enrolledUsersUsernames.get(i));
 
             if (!user.isPresent()) {
                 throw new EntityNotFoundException(userNotFound(user.get().getUsername()));
@@ -62,7 +62,7 @@ public class EventService {
             enrolledUsersDTO.add(userDTO);
         }
 
-        Optional<User> user = userDAO.findUserByUsername(contactPerson);
+        Optional<User> user = userRepository.findByUsername(contactPerson);
         if (!user.isPresent()) {
             throw new EntityNotFoundException(userNotFound(user.get().getUsername()));
         }
@@ -91,7 +91,7 @@ public class EventService {
 
         Event event = eventRepository.save(eventMapper.mapToNewEntity(eventDTO));
         if (event == null) {
-            throw new DatabaseException(EVENT_DATABASE_EXCEPTION);
+            throw new DatabaseException(EVENT_SAVE_DATABASE_EXCEPTION);
         }
 
         return eventMapper.mapToDTO(event);
@@ -138,16 +138,18 @@ public class EventService {
         return past.stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
     }
 
-    public List<EventDTO> enrollUser(UserDTO userDTO, int eventDTO) throws EntityNotFoundException {
+    public List<EventDTO> enrollUser(UserDTO userDTO, int eventDTO) throws EntityNotFoundException, DatabaseException {
 
-        Optional<User> userOptional = userDAO.findUserByUsername(userDTO.getUsername());
+        Optional<User> userOptional = userRepository.findByUsername(userDTO.getUsername());
         if (userOptional.isPresent()) {
             User userEntity = userOptional.get();
             Event eventEntity = eventRepository.findOne(eventDTO);
             if (eventEntity != null) {
                 if (!eventEntity.getEnrolledUsers().contains(userEntity)) {
                     eventEntity.getEnrolledUsers().add(userEntity);
-                    eventRepository.save(eventEntity);
+                    if (eventRepository.save(eventEntity) == null) {
+                        throw new DatabaseException(EVENT_SAVE_DATABASE_EXCEPTION);
+                    }
                 }
             }
         } else {

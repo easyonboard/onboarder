@@ -85,13 +85,16 @@ public class EventController {
             JsonNode node = mapper.readTree(courseJson);
             int eventDTO = mapper.convertValue(node.get("eventID"), Integer.class);
             UserDTO userDTO = mapper.convertValue(node.get("user"), UserDTO.class);
-            return new ResponseEntity<>(eventService.enrollUser(userDTO, eventDTO), HttpStatus.OK);
+            try {
+                return new ResponseEntity<>(eventService.enrollUser(userDTO, eventDTO), HttpStatus.OK);
+            } catch (DatabaseException e) {
+                return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         } catch (IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         }
-
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
