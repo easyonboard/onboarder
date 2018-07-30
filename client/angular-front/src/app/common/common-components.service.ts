@@ -15,35 +15,35 @@ export class CommonComponentsService {
 
   openModalNewEmployee() {
     this.dialog.open(DialogNewEmployeeComponent, {
-      height: '700px',
+      height: '90%',
       width: '900px',
     });
   }
 
   openModalAddNewUser() {
     this.dialog.open(UserAddComponent, {
-      height: '900px',
+      height: '90%',
       width: '670px',
     });
   }
 
   modalDeleteUser() {
     this.dialog.open(DialogDeleteUsersComponent, {
-      height: '650px',
+      height: '90%',
       width: '900px',
     });
   }
 
   openDialogWithToDOListForBuddy() {
-    const dialogRef = this.dialog.open(ToDoListForBuddyComponent, {
-      height: '650px',
+  this.dialog.open(ToDoListForBuddyComponent, {
+      height: '90%',
       width: '900px'
     });
   }
 
   openEditProfileDialog() {
     this.dialog.open(DialogEditProfileComponent, {
-      height: '400px',
+      height: '40%',
       width: '600px'
     });
   }
