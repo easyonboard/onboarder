@@ -5,7 +5,6 @@ import {RootConst} from '../util/RootConst';
 import {TutorialDTO} from '../domain/tutorial';
 import {Observable} from 'rxjs/Observable';
 import {TutorialMaterialDTO} from '../domain/tutorialMaterial';
-import {ContactPersonDto} from '../domain/user';
 
 @Injectable()
 export class TutorialService implements OnInit {

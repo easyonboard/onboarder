@@ -138,7 +138,7 @@ export class AppComponent {
 
   openModalEmployeesInDepartment() {
     this.dialog.open(UsersInDepartmentListComponent, {
-      height: '650px',
+      height: '90%',
       width: '900px',
     });
   }

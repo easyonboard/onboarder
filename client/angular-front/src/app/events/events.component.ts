@@ -42,6 +42,7 @@ export class EventsComponent implements OnInit {
         this.upcomingEvents = upcomingEvents;
         this.processDateAndTime(this.upcomingEvents);
         this.processPlacesLeftToEnroll();
+        this.getStatusEnrollment();
       }, error => {
         this.upcomingEvents = [];
       });
@@ -62,6 +63,16 @@ export class EventsComponent implements OnInit {
       this.upcomingEvents = resp;
       this.processDateAndTime(this.upcomingEvents);
       this.processPlacesLeftToEnroll();
+      this.getStatusEnrollment();
+    });
+
+  }
+
+  unenrollUser(event: EventDTO) {
+    this.eventService.unenrollUser(this.user, event).subscribe(resp => {
+      this.upcomingEvents = resp;
+      this.processPlacesLeftToEnroll();
+      this.getStatusEnrollment();
     });
 
   }
@@ -69,13 +80,12 @@ export class EventsComponent implements OnInit {
   private processPlacesLeftToEnroll() {
     this.upcomingEvents.forEach(event => {
       if (event.maxEnrolledUsers !== undefined) {
-        let x = event.placesLeft = event.meetingHall.capacity - event.enrolledUsers.length;
-
-        if (x <= 0) {
-          x = 0;
+        let placesLeft = event.placesLeft = event.meetingHall.capacity - event.enrolledUsers.length;
+        if (placesLeft <= 0) {
+          placesLeft = 0;
           this.canEnroll = false;
         }
-        event.placesLeft = x;
+        event.placesLeft = placesLeft;
       }
     });
   }
@@ -84,5 +94,10 @@ export class EventsComponent implements OnInit {
     const queryParams: Params = Object.assign({'keyword': keyword}, this.route.snapshot.queryParams);
     queryParams['keyword'] = keyword;
     this.router.navigate(['/events/viewEvents'], {queryParams: queryParams});
+  }
+
+  private getStatusEnrollment() {
+    this.upcomingEvents.forEach(ev => this.eventService.getStatusEnrollmentForUser(this.user, ev).subscribe(bool=>ev.isUserEnrolled=bool));
+
   }
 }

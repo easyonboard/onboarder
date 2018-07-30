@@ -30,11 +30,17 @@
             </i>{{upcoming.meetingHall.hallName}}, {{upcoming.meetingHall.location.locationName}}, floor:
             {{upcoming.meetingHall.floor}}
           </div>
+
         </mat-card-subtitle>
         <mat-card-content>
-          <div style="float: right">
-            <p *ngIf="upcoming.placesLeft!=undefined">Places left: {{upcoming.placesLeft}}</p><br/>
-            <button mat-button (click)="enrollUser(upcoming)" color="primary" *ngIf="canEnroll">Enroll to event</button>
+          <div style="float: right;" *ngIf="!upcoming.isUserEnrolled">
+            <label *ngIf="upcoming.placesLeft!=undefined">Places left: {{upcoming.placesLeft}}</label><br/>
+            <button mat-button (click)="enrollUser(upcoming)" color="primary" *ngIf="canEnroll" >Enroll to event</button>
+          </div>
+
+          <div style="float: right;" *ngIf="upcoming.isUserEnrolled">
+            <label *ngIf="upcoming.placesLeft!=undefined">Places left: {{upcoming.placesLeft}}</label><br/>
+            <button mat-button (click)="unenrollUser(upcoming)" color="primary" *ngIf="canEnroll" >Unenroll from event</button>
           </div>
           <i class="material-icons">
             calendar_today
@@ -114,5 +120,5 @@
 
     </mat-card>
 
-  </mat-grid-tile>
+    </mat-grid-tile>
 </mat-grid-list>

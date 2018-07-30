@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewEncapsulation, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {RootConst} from '../util/RootConst';
 import {TutorialDTO} from '../domain/tutorial';
 import {TutorialService} from '../service/tutorial.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {PageEvent} from '@angular/material';
+import {MatSnackBar, PageEvent} from '@angular/material';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -21,23 +21,33 @@ export class TutorialsComponent implements OnDestroy, OnInit {
   pageEvent: PageEvent;
   pageSize = 9;
   pageSizeOptions = [9, 18, 36, 99];
+  noDraftsMessage: string;
 
   private httpSubscription: Subscription;
   private pageIndex = 0;
 
   constructor(private tutorialService: TutorialService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router, private snackBar: MatSnackBar) {
     this.rootConst = new RootConst();
   }
 
   ngOnInit(): void {
+
+    this.noDraftsMessage = '';
     this.route.queryParams.subscribe(
       queryParams => {
         this.pageIndex = +queryParams['page'];
         if (!this.pageIndex) {
           this.pageIndex = 0;
         }
+        this.httpSubscription = this.decision(queryParams).subscribe(tutorials => {
+            this.tutorials = tutorials;
+            this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
+          },
+          err => {
+            this.noDraftsMessage = err.error.message;
+          });
 
         this.pageSize = +queryParams['pageSize'];
         if (!this.pageSize) {
@@ -91,7 +101,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
     queryParams['pageSize'] = event.pageSize;
     let root = '/';
     this.route.snapshot.pathFromRoot.forEach(el => root = root.concat(el.url.toString()));
-    root=root.replace(',', '/');
+    root = root.replace(',', '/');
     console.log(root + '  ' + queryParams);
     this.router.navigate([root], {queryParams: queryParams});
   }
@@ -107,7 +117,18 @@ export class TutorialsComponent implements OnDestroy, OnInit {
         tutorials => {
           this.tutorials = tutorials;
           this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
+        },
+        err => {
+          this.snackBarMessagePopup(err.error.message);
         });
+
     }
   }
+
+  snackBarMessagePopup(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 3000
+    });
+  }
+
 }

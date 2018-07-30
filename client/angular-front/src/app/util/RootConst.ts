@@ -5,7 +5,10 @@ export class RootConst {
   public SERVER_EVENTS_URL = this.WEB_SERVICE_ENDPOINT + 'events';
 
   public SERVER_ALL_USERS = this.WEB_SERVICE_ENDPOINT + 'allUsers';
-  public SERVER_ALL_USERS_NAME_EMAIL = this.WEB_SERVICE_ENDPOINT + 'getAllMsgMails';
+
+
+  public SERVER_ALL_MSG_MAILS = this.WEB_SERVICE_ENDPOINT + 'getAllMsgMails';
+
   public SERVER_ADD_USER = this.WEB_SERVICE_ENDPOINT + 'user/addUser';
   public SERVER_UPDATE_USER_INFO = this.WEB_SERVICE_ENDPOINT + '/user/updateUserInfo';
   public SERVER_UPDATE_USER_PASSWORD = this.WEB_SERVICE_ENDPOINT + '/user/updateUserPassword';
@@ -53,5 +56,6 @@ export class RootConst {
   public SERVER_GET_DRAFTS_TUTORIAL = this.SERVER_TUTORIALS_URL + '/draft?idUser=';
   public SERVER_PAST_EVENT_FILTER_BY_KEYWORD = this.SERVER_PAST_EVENT + '?keyword=';
   public SERVER_UPCOMING_EVENT_FILTER_BY_KEYWORD = this.SERVER_UPCOMING_EVENT + '?keyword=';
-
+  SERVER_UNENROLL_USER = this.SERVER_EVENTS_URL + '/unenrollUser';
+  SERVER_IS_ENROLLED = this.SERVER_EVENTS_URL + '/isEnrolled';
 }

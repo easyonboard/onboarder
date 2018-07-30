@@ -1,6 +1,7 @@
 package controller;
 
 import dao.UserInformationDAO;
+import dao.UserInformationRepository;
 import entity.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,16 +28,19 @@ public class ReminderEmailForBuddy {
     @Autowired
     private UserInformationDAO userInformationDAO;
 
+    @Autowired
+    private UserInformationRepository userInformationRepository;
+
     // @Scheduled(cron = "0 59 8 * * MON-FRI")
     @RequestMapping(value = "/reminderBuddy", method = RequestMethod.GET)
     public void reminderForBuddy() {
-        List<UserInformation> usersInfoForUserWhoStartTomorrow = userInformationDAO.usersWhoStartOnGivenDate(getTomorrowDate());
+        List<UserInformation> usersInfoForUserWhoStartTomorrow = userInformationRepository.usersWhoStartOnGivenDate(getTomorrowDate());
         usersInfoForUserWhoStartTomorrow.stream()
                 .filter(ui -> ui.getBuddyUser() != null);
 
         usersInfoForUserWhoStartTomorrow
                 .forEach(ui -> {
-                            String emailBody = createEmailBodyForBuddy(ui.getBuddyUser().getName(), ui.getUserAccount().getName(), "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam() );
+                            String emailBody = createEmailBodyForBuddy(ui.getBuddyUser().getName(), ui.getUserAccount().getName(), "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
                             sendEmail(ui.getBuddyUser().getEmail(), BUDDY_MAIL_SUBJECT, emailBody);
                         }
                 );
@@ -55,7 +59,7 @@ public class ReminderEmailForBuddy {
 
     private Date getTomorrowDate() {
         LocalDate today = LocalDate.now();
-        return Date.from( today.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return Date.from(today.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
 }

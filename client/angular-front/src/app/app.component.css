@@ -132,3 +132,6 @@ footer {
     font-size: large;
     color: white
 }
+.mat-chip{
+  cursor: pointer !important;
+}

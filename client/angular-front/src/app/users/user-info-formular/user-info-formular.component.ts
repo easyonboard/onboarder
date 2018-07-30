@@ -17,6 +17,7 @@ import {LocationDTO} from '../../domain/location';
   styleUrls: ['./user-info-formular.component.css']
 })
 export class UserInfoFormularComponent implements OnInit {
+  [x: string]: any;
   public today: Date;
 
   public locations: string[];
@@ -42,7 +43,7 @@ export class UserInfoFormularComponent implements OnInit {
     this.userInformationService.getAllLocations().subscribe(resp => {
       this.locationDtos = resp;
       resp.forEach(l => this.locations.push(l.locationName));
-    });
+    }, error => this.snackBarMessagePopup(error.error.message));
 
     if (this.userInformation.buddyUser === undefined || this.userInformation.buddyUser === null) {
       this.userInformation.buddyUser = new UserDTO();

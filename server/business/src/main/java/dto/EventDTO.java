@@ -1,7 +1,5 @@
 package dto;
 
-import org.apache.tomcat.jni.Time;
-
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +11,7 @@ public class EventDTO {
 
     private List<UserDTO> enrolledUsers;
 
-    private UserDTO contactPerson;
+    private List<UserDTO> contactPerson;
 
     private Integer maxEnrolledUsers;
 
@@ -25,12 +23,12 @@ public class EventDTO {
 
     private String eventTime;
 
-    private MeetingHallDto meetingHall;
+    private MeetingHallDTO meetingHall;
 
     public EventDTO() {
     }
 
-    public EventDTO(Integer idEvent, String titleEvent, String overview, List<UserDTO> enrolledUsers, UserDTO contactPerson, Integer maxEnrolledUsers, LocationDto location, String keywords, Date eventDate, MeetingHallDto meetingHall) {
+    public EventDTO(Integer idEvent, String titleEvent, String overview, List<UserDTO> enrolledUsers, List<UserDTO> contactPerson, Integer maxEnrolledUsers, LocationDto location, String keywords, Date eventDate, MeetingHallDTO meetingHall) {
         this.idEvent = idEvent;
         this.titleEvent = titleEvent;
         this.overview = overview;
@@ -75,11 +73,11 @@ public class EventDTO {
         this.enrolledUsers = enrolledUsers;
     }
 
-    public UserDTO getContactPerson() {
+    public List<UserDTO> getContactPersons() {
         return contactPerson;
     }
 
-    public void setContactPerson(UserDTO contactPerson) {
+    public void setContactPersons(List<UserDTO> contactPerson) {
         this.contactPerson = contactPerson;
     }
 
@@ -125,11 +123,11 @@ public class EventDTO {
         this.eventTime = eventTime;
     }
 
-    public MeetingHallDto getMeetingHall() {
+    public MeetingHallDTO getMeetingHall() {
         return meetingHall;
     }
 
-    public void setMeetingHall(MeetingHallDto meetingHall) {
+    public void setMeetingHall(MeetingHallDTO meetingHall) {
         this.meetingHall = meetingHall;
     }
 }

@@ -30,7 +30,6 @@ export class UserService {
   addUser(user: UserDTO, role: RoleType, userInfo: UserInformationDTO) {
     const body = JSON.stringify({user: user, role: role, userInfo: userInfo});
     const result = this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
-    console.log(result);
     return result;
   }
 
@@ -49,8 +48,8 @@ export class UserService {
   }
 
   /** !TODO */
-  getAllUsernames(): Observable<String[]> {
-    return this.http.get<String[]>(this.rootConst.SERVER_ALL_USERS_NAME_EMAIL);
+  getAllMsgMails(): Observable<String[]> {
+    return this.http.get<String[]>(this.rootConst.SERVER_ALL_MSG_MAILS);
   }
 
   searchUsers(term: string): Observable<UserDTO[]> {
