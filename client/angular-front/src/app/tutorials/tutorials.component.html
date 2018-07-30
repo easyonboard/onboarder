@@ -9,12 +9,15 @@
   <p fxFlex *ngIf="tutorials?.length === 0" style="text-align: center">
     <b>No tutorials.</b>
   </p>
+  <p fxFlex *ngIf="noDraftsMessage.length>0" style="text-align: center">
+    <b>{{noDraftsMessage}}</b>
+  </p>
   <div *ngFor="let tutorial of tutorialsPerPage" fxFlex="20" fxFlexOffset="10">
     <mat-card class="tutorial">
       <mat-card-header class="tutorialHeader">
         <mat-chip-list class="mat-chip-list" *ngIf="tutorial.keywords!=null">
           <mat-chip *ngFor="let keyword of tutorial.keywords.split(' ')" [selectable]="selectable"
-                    (click)="searchByKeyword(keyword)">{{ keyword }}
+                    (click)="filterByKeyword(keyword)">{{ keyword }}
           </mat-chip>
         </mat-chip-list>
         <div id="buttonDelete" fxFlex="" fxLayoutAlign="end start">
@@ -25,7 +28,7 @@
         </div>
       </mat-card-header>
 
-      <mat-card-title routerLink="/tutorials/{{tutorial.idTutorial}}">
+      <mat-card-title routerLink="/tutorials/{{tutorial.idTutorial}}" style="cursor: pointer">
         <mat-chip *ngIf="tutorial.draft" [ngStyle]="{ backgroundColor: '#71ABFF', float:'right' }" selected="true">
           Draft
         </mat-chip>
@@ -35,7 +38,7 @@
         <mat-divider></mat-divider>
       </mat-card-title>
 
-      <mat-card-content *ngIf="tutorial.overview" routerLink="/tutorials/{{tutorial.idTutorial}}">
+      <mat-card-content *ngIf="tutorial.overview" routerLink="/tutorials/{{tutorial.idTutorial}}" style="cursor: pointer">
         <p class="overview"> {{ tutorial.overview}} </p>
       </mat-card-content>
     </mat-card>

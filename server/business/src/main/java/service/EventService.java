@@ -123,7 +123,6 @@ public class EventService {
     }
 
     public List<EventDTO> getAllUpcomingEvents() throws EntityNotFoundException {
-
         List<Event> upcoming = eventRepository.findAllUpcomingEvents(
                 Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         if (upcoming.isEmpty()) {
@@ -133,10 +132,31 @@ public class EventService {
         return upcoming.stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
     }
 
-    public List<EventDTO> getAllPastEvents() throws EntityNotFoundException {
+    public List<EventDTO> getAllUpcomingEventsFilterByKeyword(String keyword) throws EntityNotFoundException {
+        List<Event> upcoming = eventRepository.findAllUpcomingEventsFilterByKeyword(
+                Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                keyword);
+        if (upcoming.isEmpty()) {
+            throw new EntityNotFoundException(UPCOMING_EVENTS_NOT_FOUND_EXCEPTION);
+        }
 
+        return upcoming.stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+    }
+
+    public List<EventDTO> getAllPastEvents() throws EntityNotFoundException {
         List<Event> past = eventRepository.findAllPastEvents(
                 Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        if (past.isEmpty()) {
+            throw new EntityNotFoundException(PAST_EVENTS_NOT_FOUND_EXCEPTION);
+        }
+
+        return past.stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+    }
+
+    public List<EventDTO> getAllPastEventsFilterByKeyword(String keyword) throws EntityNotFoundException {
+        List<Event> past = eventRepository.findAllPastEventsFilterByKeyword(
+                Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                keyword);
         if (past.isEmpty()) {
             throw new EntityNotFoundException(PAST_EVENTS_NOT_FOUND_EXCEPTION);
         }
@@ -184,4 +204,6 @@ public class EventService {
 
         return meetingHallMapper.entitiesToDTOs(meetingHallList);
     }
+
+
 }

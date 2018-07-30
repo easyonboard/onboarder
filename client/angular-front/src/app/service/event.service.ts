@@ -28,11 +28,17 @@ export class EventService implements OnInit {
     return this.http.post<EventDTO>(this.rootConst.SERVER_ADD_EVENT, body, this.httpOptions);
   }
 
-  getPastEvents(): Observable<EventDTO[]> {
+  getPastEvents(keyword?: string): Observable<EventDTO[]> {
+    if (keyword) {
+      return this.http.get<EventDTO[]>(`${this.rootConst.SERVER_PAST_EVENT_FILTER_BY_KEYWORD}${keyword}`);
+    }
     return this.http.get<EventDTO[]>(`${this.rootConst.SERVER_PAST_EVENT}`);
   }
 
-  getUpcomingEvents(): Observable<EventDTO[]> {
+  getUpcomingEvents(keyword?: string): Observable<EventDTO[]> {
+    if (keyword) {
+      return this.http.get<EventDTO[]>(`${this.rootConst.SERVER_UPCOMING_EVENT_FILTER_BY_KEYWORD}${keyword}`);
+    }
     return this.http.get<EventDTO[]>(`${this.rootConst.SERVER_UPCOMING_EVENT}`);
   }
 

@@ -1,6 +1,5 @@
 package service;
 
-import dao.UserInformationDAO;
 import dao.UserInformationRepository;
 import dao.UserRepository;
 import dto.UserInformationDTO;
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserInformationService {
 
-    @Autowired
-    private UserInformationDAO userInformationDAO;
 
     @Autowired
     private UserInformationRepository userInformationRepository;
@@ -61,7 +58,7 @@ public class UserInformationService {
             userInformation.setBuddyUser(buddyUser);
         }
 
-        userInformationDAO.persistEntity(userInformation);
+        userInformationRepository.save(userInformation);
     }
 
 }
