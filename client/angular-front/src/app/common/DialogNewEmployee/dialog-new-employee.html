@@ -10,7 +10,7 @@
 <mat-dialog-content style="height:550px; overflow: initial">
     <mat-card *ngFor="let userInfo of newEmployees;  let i = index">
         <div *ngIf="isMailSent[i]==true">
-            <i class="material-icons" style="padding: 10px" title="Mail sent">done</i> {{userInfo.userAccount.name}}
+            <i class="material-icons" style="padding: 10px" matTooltip="Mail is sent to user"  matTooltipPosition="below" matTooltipClass="tool-tip-class">done</i> {{userInfo.userAccount.name}}
             <br/>
             <i class="material-icons" style="padding: 10px">
         calendar_today
@@ -19,7 +19,7 @@
         </div>
         <br/>
         <div *ngIf="isMailSent[i]==false">
-            <i class="material-icons" *ngIf="!mailSent" style="padding: 10px" title="Mail not sent">error_outline</i> {{userInfo.userAccount.name}}
+            <i class="material-icons" *ngIf="!mailSent" style="padding: 10px" matTooltip="Mail is not sent to user" matTooltipPosition="below" matTooltipClass="tool-tip-class">error_outline</i> {{userInfo.userAccount.name}}
             <br/>
             <i class="material-icons" style="padding: 10px">
         calendar_today
