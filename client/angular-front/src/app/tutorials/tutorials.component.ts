@@ -33,24 +33,31 @@ export class TutorialsComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.noDraftsMessage='';
-    this.route.params.subscribe(params => {
-      this.route.queryParams.subscribe(
-        queryParams => {
-          this.pageIndex = +queryParams['page'];
-          if (!this.pageIndex) {
-            this.pageIndex = 0;
-          }
-          this.httpSubscription = this.decision(params).subscribe(tutorials => {
+
+    this.noDraftsMessage = '';
+    this.route.queryParams.subscribe(
+      queryParams => {
+        this.pageIndex = +queryParams['page'];
+        if (!this.pageIndex) {
+          this.pageIndex = 0;
+        }
+        this.httpSubscription = this.decision(queryParams).subscribe(tutorials => {
             this.tutorials = tutorials;
             this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
           },
-          err=>{
-            this.noDraftsMessage=err.error.message;
+          err => {
+            this.noDraftsMessage = err.error.message;
           });
+
+        this.pageSize = +queryParams['pageSize'];
+        if (!this.pageSize) {
+          this.pageSize = 9;
         }
-      );
-    });
+        this.httpSubscription = this.decision(queryParams).subscribe(tutorials => {
+          this.tutorials = tutorials;
+          this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
+        });
+      });
   }
 
   ngOnDestroy(): void {
@@ -60,13 +67,11 @@ export class TutorialsComponent implements OnDestroy, OnInit {
   private decision(params: any): any {
     const keyword = params['keyword'];
 
-    if (keyword) {
-      return this.tutorialService.searchByKeyword(keyword);
-    } else if (this.router.url.indexOf('draft') >= 0) {
+    if (this.router.url.indexOf('draft') >= 0) {
       const userId = +localStorage.getItem('userLoggedId');
-      return this.tutorialService.getDraftsTutorialsForUser(userId);
+      return this.tutorialService.getDraftsTutorialsForUser(userId, keyword);
     } else {
-      return this.tutorialService.getTutorials();
+      return this.tutorialService.getTutorials(keyword);
     }
   }
 
@@ -75,17 +80,29 @@ export class TutorialsComponent implements OnDestroy, OnInit {
   }
 
   filterByKeyword(keyword: string) {
-    if (keyword !== 'addTutorialRouterLink') {
-      this.router.navigate(['tutorials/keywords/' + keyword]);
+    const queryParams: Params = Object.assign({}, this.route.snapshot.queryParams);
+
+    this.tutorials = [];
+    this.tutorialsPerPage = [];
+    queryParams['keyword'] = keyword;
+    queryParams['page'] = 0;
+    if ((this.route.snapshot.url.toString()).indexOf('draft') >= 0) {
+      this.router.navigate(['/tutorials/draft'], {queryParams: queryParams});
+    } else {
+      this.router.navigate(['/tutorials'], {queryParams: queryParams});
     }
   }
 
   public getServerData(event?: PageEvent) {
     const queryParams: Params = Object.assign({}, this.route.snapshot.queryParams);
 
+    this.pageSize = event.pageSize;
     queryParams['page'] = event.pageIndex;
+    queryParams['pageSize'] = event.pageSize;
     let root = '/';
     this.route.snapshot.pathFromRoot.forEach(el => root = root.concat(el.url.toString()));
+    root = root.replace(',', '/');
+    console.log(root + '  ' + queryParams);
     this.router.navigate([root], {queryParams: queryParams});
   }
 

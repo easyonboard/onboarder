@@ -152,4 +152,8 @@ public class TutorialService {
         } else
             return draftTutorials;
     }
+
+    public List<TutorialDto> allDraftTutorialsForUserFilterByKeyword(Integer idUser, String keyword) {
+        return this.allDraftTutorialsForUser(idUser).stream().filter(tutorial -> tutorial.getKeywords().indexOf(keyword) >= 0).collect(Collectors.toList());
+    }
 }

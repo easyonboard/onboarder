@@ -20,7 +20,6 @@ const routes: Routes = [
   {path: 'userinfo', component: UserInfoFormularComponent},
   {path: 'tutorials', component: TutorialsComponent},
   {path: 'tutorials/draft', component: TutorialsComponent},
-  {path: 'tutorials/keywords/:keyword', component: TutorialsComponent},
   {path: 'tutorials/addTutorialRouterLink', component: AddUpdateTutorialComponent},
   {path: 'tutorials/addTutorialRouterLink/:id', component: AddUpdateTutorialComponent},
   {path: 'events/addEventRouterLink', component: AddEventComponent},
