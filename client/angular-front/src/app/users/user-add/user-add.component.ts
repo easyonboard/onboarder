@@ -42,8 +42,8 @@ export class UserAddComponent implements OnInit {
         this.snackBarMessagePopup('Please choose a location');
       } else {
         this.userService.checkUnicity(this.user.username, this.user.msgMail).subscribe(
-          value => {
-            unique = value;
+          value1 => {
+            unique = value1;
 
             if (unique === true) {
               this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
