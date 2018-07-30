@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewEncapsulation, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {RootConst} from '../util/RootConst';
 import {TutorialDTO} from '../domain/tutorial';
 import {TutorialService} from '../service/tutorial.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {PageEvent} from '@angular/material';
+import {MatSnackBar, PageEvent} from '@angular/material';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -27,7 +27,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
 
   constructor(private tutorialService: TutorialService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router, private snackBar: MatSnackBar) {
     this.rootConst = new RootConst();
   }
 
@@ -95,7 +95,17 @@ export class TutorialsComponent implements OnDestroy, OnInit {
         tutorials => {
           this.tutorials = tutorials;
           this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
+        },
+        err => {
+          this.snackBarMessagePopup(err.error.message);
         });
     }
   }
+
+  snackBarMessagePopup(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 3000
+    });
+  }
+
 }

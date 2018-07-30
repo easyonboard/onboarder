@@ -25,7 +25,7 @@
         </div>
       </mat-card-header>
 
-      <mat-card-title routerLink="/tutorials/{{tutorial.idTutorial}}">
+      <mat-card-title routerLink="/tutorials/{{tutorial.idTutorial}}" style="cursor: pointer">
         <mat-chip *ngIf="tutorial.draft" [ngStyle]="{ backgroundColor: '#71ABFF', float:'right' }" selected="true">
           Draft
         </mat-chip>
@@ -35,7 +35,7 @@
         <mat-divider></mat-divider>
       </mat-card-title>
 
-      <mat-card-content *ngIf="tutorial.overview" routerLink="/tutorials/{{tutorial.idTutorial}}">
+      <mat-card-content *ngIf="tutorial.overview" routerLink="/tutorials/{{tutorial.idTutorial}}" style="cursor: pointer">
         <p class="overview"> {{ tutorial.overview}} </p>
       </mat-card-content>
     </mat-card>
