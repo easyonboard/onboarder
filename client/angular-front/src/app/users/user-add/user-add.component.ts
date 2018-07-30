@@ -37,28 +37,36 @@ export class UserAddComponent implements OnInit {
     this.user.name = this.firstName.trim() + ' ' + this.lastName.trim();
 
     let unique: boolean;
-    this.userService.checkUnicity(this.user.username, this.user.msgMail).subscribe(
-      value => {
-        unique = value;
+    if (this.user.username !== '' && this.user.msgMail !== '') {
+      if (this.childUserInfoFormularComponent.userInformation.location.locationName === '') {
+        this.snackBarMessagePopup('Please choose a location');
+      } else {
+        this.userService.checkUnicity(this.user.username, this.user.msgMail).subscribe(
+          value => {
+            unique = value;
 
-        if (unique === true) {
-          this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
-            value2 => {
-              if (this.childUserInfoFormularComponent.userInformation.startDate === undefined) {
-                this.snackBarMessagePopup('You must specify the starting date!');
-              } else {
-                this.snackBarMessagePopup('Succes! You just add a new employee!');
-                this.dialog.closeAll();
-              }
-            },
-            error => this.snackBarMessagePopup(error.error.message)
-          );
-        } else {
-          this.snackBarMessagePopup('Failed! Duplicated username or .msg email!');
-        }
-      },
-      error => this.snackBarMessagePopup(error.error.message)
-    );
+            if (unique === true) {
+              this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
+                value2 => {
+                  if (this.childUserInfoFormularComponent.userInformation.startDate === undefined) {
+                    this.snackBarMessagePopup('You must specify the starting date!');
+                  } else {
+                    this.snackBarMessagePopup('Succes! You just add a new employee!');
+                    this.dialog.closeAll();
+                  }
+                },
+                error => this.snackBarMessagePopup(error.error.message)
+              );
+            } else {
+              this.snackBarMessagePopup('Failed! Username or .msg email already exists!');
+            }
+          },
+          error => this.snackBarMessagePopup(error.error.message)
+        );
+      }
+    } else {
+      this.snackBarMessagePopup('You must provide the username and .msg email!');
+    }
   }
 
   selectRoleValue(event: MatSelectChange) {

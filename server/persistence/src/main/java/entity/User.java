@@ -8,16 +8,9 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
-@NamedQueries({@NamedQuery(name = User.FIND_USER_BY_USERNAME, query = "select u from User u where u.username=:username"),
-               @NamedQuery(name = User.FIND_USER_BY_EMAIL, query = "select u from User u where u.email=:email"),
-               @NamedQuery(name = User.FIND_USER_BY_MSG_EMAIL, query = "select u from User u where u.msgMail=:msgMail")})
 @Entity
 @Table(name = "app_user")
 public class User implements Serializable {
-
-    public static final String FIND_USER_BY_USERNAME = "User.findUserByUsername";
-    public static final String FIND_USER_BY_MSG_EMAIL = "User.findUserByMsgEmail";
-    public static final String FIND_USER_BY_EMAIL = "User.findUserByEmail";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

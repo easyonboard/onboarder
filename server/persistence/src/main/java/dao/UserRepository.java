@@ -190,8 +190,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findByMsgMail(String msgMail);
 
-    @Query("select u from User u where u.name like :name")
-    List<User> findAllByName(@Param("name") String name);
+    @Query("select u from User u where u.name LIKE %:name%")
+    List<User> findAllLikeName(@Param("name") String name);
 
     @Query("select ui.userAccount from UserInformation ui where ui.department=:department")
     List<User> findAllByDepartment(@Param("department") DepartmentType department);
