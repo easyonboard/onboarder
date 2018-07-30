@@ -1,24 +1,24 @@
 export class RootConst {
   public WEB_SERVICE_ENDPOINT = 'http://localhost:8090/';
 
-
   public SERVER_COURSES_URL = this.WEB_SERVICE_ENDPOINT + 'courses';
   public SERVER_COURSE_OVERVIEW = this.SERVER_COURSES_URL + '/course?overview=';
   public SERVER_FILTER_COURSES_BY_KEYWORD = this.WEB_SERVICE_ENDPOINT + '/courses?keyword=';
-
 
   public SERVER_DETAILED_COURSE = this.SERVER_COURSES_URL + '/detailedCourse?id=';
   public SERVER_COURSES_BY_PAGE_NUMBER_URL = this.SERVER_COURSES_URL + 'FromPage/?pageNumber=';
   public SERVER_COURSES_NUMBER_OF_OBJECT_PER_PAGE = '&numberOfObjectsPerPage=';
 
+  public SERVER_TUTORIALS_URL = this.WEB_SERVICE_ENDPOINT + 'tutorials';
+  public SERVER_EVENTS_URL = this.WEB_SERVICE_ENDPOINT + 'events';
 
   public SERVER_TEST_IF_USER_IS_ENROLLED = this.SERVER_COURSES_URL + '/isEnrolledOnCourse?idCourse=';
   public SERVER_ENROLLE_USER_ON_COURSE = this.SERVER_COURSES_URL + '/enrollUserOnCourse?idCourse=';
   public SERVER_ALL_USERS = this.WEB_SERVICE_ENDPOINT + 'allUsers';
+  public SERVER_ALL_USERS_NAME_EMAIL = this.WEB_SERVICE_ENDPOINT + 'getAllMsgMails';
   public SERVER_UNENROLLE_USER_ON_COURSE = this.SERVER_COURSES_URL + '/unenrollUserFromCourse?idCourse=';
   public SERVER_ADD_USER = this.WEB_SERVICE_ENDPOINT + 'user/addUser';
   public SERVER_UPDATE_USER_INFO = this.WEB_SERVICE_ENDPOINT + '/user/updateUserInfo';
-  // public SERVER_ADD_USER_INFO = this.WEB_SERVICE_ENDPOINT + 'user/addUserInfo';
   public SERVER_UPDATE_USER = this.WEB_SERVICE_ENDPOINT + '/user/updateUser';
   public SERVER_UPDATE_USER_PASSWORD = this.WEB_SERVICE_ENDPOINT + '/user/updateUserPassword';
   public SERVER_USER_COURSES = this.WEB_SERVICE_ENDPOINT + '/user/courses?username=';
@@ -28,7 +28,6 @@ export class RootConst {
   public SERVER_LOGGED_USER_DEPARTMENT = this.WEB_SERVICE_ENDPOINT + 'user/department?username=';
 
   public VOTEUP = this.WEB_SERVICE_ENDPOINT + 'voteUp';
-
 
   public SERVER_AUTHENTIFICATION = this.WEB_SERVICE_ENDPOINT + '/auth';
   public SERVER_DELETE_CONTACT_PERSON = this.WEB_SERVICE_ENDPOINT + 'deleteContactPerson';
@@ -40,6 +39,12 @@ export class RootConst {
   public SERVER_SUBJECT_URL = this.WEB_SERVICE_ENDPOINT + 'courses/subject?id=';
   public SERVER_ADD_COURSE = this.SERVER_COURSES_URL + '/addCourse';
 
+  public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/add';
+  public SERVER_ADD_EVENT = this.SERVER_EVENTS_URL + '/addEvent';
+
+  public SERVER_PAST_EVENT = this.SERVER_EVENTS_URL + '/pastEvent';
+  public SERVER_UPCOMING_EVENT = this.SERVER_EVENTS_URL + '/upcomingEvent';
+  SERVER_ENROLL_USER = this.SERVER_EVENTS_URL + '/enrollUser';
   public SERVER_DELETE_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'deleteCourseSubject';
   public WEB_SERVER_PROGRESS = this.WEB_SERVICE_ENDPOINT + 'progress';
   public WEB_SERVICE_MARK_AS_FINISHED = this.WEB_SERVICE_ENDPOINT + 'markAsFinished';
@@ -60,6 +65,8 @@ export class RootConst {
 
   public FRONT_COURSES_PAGE = '/courses';
   public FRONT_ADD_COURSE = this.FRONT_COURSES_PAGE + '/addCourse';
+  public FRONT_TUTORIALS_PAGE = '/tutorials';
+  public FRONT_ADD_TUTORIAL = this.FRONT_TUTORIALS_PAGE + '/addTutorialRouterLink';
   public FRONT_COURSES_PAGE_SEARCH_BY_KEYWORD = '/courses?keyword=';
   public FRONT_DETAILED_COURSE = this.FRONT_COURSES_PAGE + '/detailedCourse';
   public FRONT_DETAILED_SUBJECT = '/subject';
@@ -69,14 +76,31 @@ export class RootConst {
   public FRONT_CONTACT_PERSON_SECTION = 'contactPerson';
   public FRONT_RATINGS_REVIEW_SECTION = 'ratingsReview';
   public FRONT_LOGIN_PAGE = '';
-  public FRONT_INFOS_PAGE = '/infos';
-  public FRONT_TUTORIALS_PAGE = '/tutorials';
+
+  public FRONT_INFOS_PAGE = '/info';
+  public FRONT_EVENTS_PAGE= 'events/viewEvents';
 
   public SERVER_ADD_USER_INFO_URL = this.WEB_SERVICE_ENDPOINT + '/info';
   public REMOVE_USER = this.WEB_SERVICE_ENDPOINT + 'user/removeUser';
+  // ***********************************************
+  public CHECK_USER_UNICITY = this.WEB_SERVICE_ENDPOINT + 'user/checkUnicity';
+  // ***********************************************
   WEB_SERVER_USERINFORMATION = this.WEB_SERVICE_ENDPOINT + 'getUserInformation';
   WEB_SERVER_STATUS_MAIL = this.WEB_SERVICE_ENDPOINT + 'isMailSent';
   WEB_SERVER_LEAVE_CHECKLIST = this.WEB_SERVICE_ENDPOINT + 'leaveCheckList';
   WEB_SERVER_SAVE_LEAVE_CHECKLIST = this.WEB_SERVICE_ENDPOINT + 'saveLeaveCheckList';
   WEB_SERVER_LOCATIONS = this.WEB_SERVICE_ENDPOINT + 'locations';
+  WEB_SERVER_ROOMS = this.WEB_SERVICE_ENDPOINT + 'meetingHalls';
+
+  public SERVER_PING_TUTORIALS = this.SERVER_TUTORIALS_URL + '/ping';
+  public SERVER_ADD_TUTORIAL_MATERIAL = this.SERVER_TUTORIALS_URL + '/addTutorialMaterial';
+  public SERVER_FIND_TUTORIAL_MATERIAL_BY_ID = this.SERVER_TUTORIALS_URL + '/materialTutorial?id=';
+  public SERVER_GET_MATERIALS_FOR_TUTORIAL = this.SERVER_TUTORIALS_URL + '/materialsForTutorial?id=';
+  public SERVER_SEARCH_TUTORIAL_BY_KEYWORD = this.SERVER_TUTORIALS_URL + '?keyword=';
+  public SERVER_SEARCH_TUTORIAL_BY_ID = this.SERVER_TUTORIALS_URL + '/';
+  public SERVER_DELETE_TUTORIAL = this.SERVER_TUTORIALS_URL + '/deleteTutorial';
+  public SERVER_DELETE_MATERIAL = this.WEB_SERVICE_ENDPOINT + 'material/delete?id=';
+  public SERVER_UPADATE_TUTORIAL = this.SERVER_TUTORIALS_URL + '/update';
+  public SERVER_GET_DRAFTS_TUTORIAL = this.SERVER_TUTORIALS_URL + '/draft?idUser=';
+
 }

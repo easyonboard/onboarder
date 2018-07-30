@@ -10,6 +10,7 @@ import {UserService} from '../../service/user.service';
   templateUrl: './dialog-check-list.component.html',
 })
 export class DialogCheckListComponent implements OnInit {
+  [x: string]: any;
   public dialogTitle: string;
   public checkList: TSMap<string, boolean>;
   public checkListProperties: CheckListProperties;
@@ -23,12 +24,13 @@ export class DialogCheckListComponent implements OnInit {
     this.checkListProperties = new CheckListProperties();
     this.userService.getCheckListForUser(this.user).subscribe(
       data => {
-
         Object.keys(data).forEach(key => {
           this.checkList.set(key, data[key]);
-
         });
-      });
+      },
+        err => {
+          this.snackBarMessagePopup(err.error.message);
+        });
   }
 
   get checkListKeys() {
@@ -43,7 +45,10 @@ export class DialogCheckListComponent implements OnInit {
 
   saveStatus() {
 
-    this.userService.saveCheckList(this.user.username, this.checkList).subscribe();
+    this.userService.saveCheckList(this.user.username, this.checkList).subscribe(value => {},
+      err => {
+      this.snackBarMessagePopup(err.error.message);
+    });
   }
 
 }

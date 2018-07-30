@@ -1,55 +1,5 @@
 <div class="form">
-
-  <ul class="tab-group">
-    <li class="tab"><a (click)="createNewAccount(true)" id="signUp">Sign Up</a></li>
-    <li class="tab active"><a (click)="createNewAccount(false)" id="login">Log In</a></li>
-  </ul>
-
-  <form novalidate>
-    <div class="tab-content">
-      <div [hidden]="option==false">
-
-        <div class="alert alert-danger" [hidden]="!errorMessage">
-          {{errorMessage}}
-        </div>
-        <div [hidden]="errorMessage">
-          <h1> {{messageSignIn}}</h1>
-        </div>
-        <div class="top-row ">
-          <div class="field-wrap input-group form-group">
-            <i class="input-group-addon glyphicon  glyphicon-user"></i>
-            <input #Name type="text" placeholder="Name" class="form-control" title="Name"/>
-          </div>
-
-          <div class="field-wrap input-group form-group">
-            <i class="input-group-addon glyphicon  glyphicon-user"></i>
-            <input #UsernameSignIn name="UsernameSignIn" type="text" placeholder="Username" class="form-control" title="Username"/>
-          </div>
-        </div>
-
-        <div class="field-wrap input-group form-group">
-          <span class="input-group-addon glyphicon glyphicon-envelope"></span>
-          <input #Email type="email" ng-model="string" placeholder="Email" required class="form-control" title="Email"/>
-        </div>
-
-        <div class="field-wrap input-group form-group">
-          <span class="input-group-addon glyphicon glyphicon-lock"></span>
-          <input #PasswordSignIn type="password" placeholder="Password" class="form-control" title="Password"/>
-        </div>
-        <div class="field-wrap input-group form-group">
-          <span class="input-group-addon glyphicon glyphicon glyphicon-lock"></span>
-          <input #PasswordII type="password" placeholder="Repeat password" class="form-control" title="Repeat password"/>
-        </div>
-
-        <button id="buttonAdd" class="button button-block"
-                (click)="addUser(Name.value, UsernameSignIn.value, Email.value, PasswordSignIn.value,PasswordII.value)">
-          Get Started
-        </button>
-
-      </div>
-    </div>
-  </form>
-  <form novalidate>
+  <form>
     <div class="tab-content">
 
       <div [hidden]="option==true">
@@ -64,7 +14,8 @@
 
         <div class="field-wrap input-group form-group">
           <span class="input-group-addon glyphicon glyphicon-lock"></span>
-          <input #Password type="password" placeholder="Password" class="form-control" required autocomplete="off" title="Password"/>
+          <input #Password type="password" placeholder="Password" class="form-control" required autocomplete="off"
+                 title="Password"/>
         </div>
 
         <button id="buttonLogin" class="button button-block" (click)="login(Username.value,Password.value)">Log In
@@ -77,4 +28,4 @@
   </form>
 </div> <!-- /form -->
 
-<!--<app-user-info-formular></app-user-info-formular>-->
+<!--<app-user-inf-formular></app-user-inf-formular>-->

@@ -1,5 +1,7 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -7,61 +9,64 @@ import java.io.Serializable;
 import java.util.List;
 
 @NamedQueries({@NamedQuery(name = User.FIND_USER_BY_USERNAME, query = "select u from User u where u.username=:username"),
-        @NamedQuery(name = User.FIND_USER_BY_EMAIL, query = "select u from User u where u.email=:email")})
+               @NamedQuery(name = User.FIND_USER_BY_EMAIL, query = "select u from User u where u.email=:email"),
+               @NamedQuery(name = User.FIND_USER_BY_MSG_EMAIL, query = "select u from User u where u.msgMail=:msgMail")})
 @Entity
 @Table(name = "app_user")
 public class User implements Serializable {
 
-    public static final String FIND_USER_BY_USERNAME = "User.findUSerByUsername";
-    public static final String FIND_USER_BY_EMAIL = "User.findUSerByEmail";
+    public static final String FIND_USER_BY_USERNAME = "User.findUserByUsername";
+    public static final String FIND_USER_BY_MSG_EMAIL = "User.findUserByMsgEmail";
+    public static final String FIND_USER_BY_EMAIL = "User.findUserByEmail";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idUser;
-
     @NotNull
     @Column
     private String name;
-
     @NotNull
     @Size(min = 6)
     private String username;
-
     @NotNull
     @Size(min = 6)
     @Column(nullable = false)
     private String password;
-
     @Column(nullable = false)
     @NotNull
     private String email;
-
     @Column
     private String msgMail;
 
     @ManyToOne
     private Role role;
 
-    public User(Integer idUser,@NotNull String name, @NotNull @Size(min = 6) String username, @NotNull String email) {
+    @JsonBackReference(value="user-event-contact-person")
+    @OneToMany(mappedBy = "contactPerson", cascade = CascadeType.ALL)
+    private List<Event> events;
+
+    @JsonBackReference(value="user-information")
+    @OneToOne(mappedBy = "userAccount", targetEntity = UserInformation.class)
+    public UserInformation userAccount;
+
+    public User(Integer idUser, @NotNull String name, @NotNull @Size(min = 6) String username, @NotNull String email, String msgMail) {
+        this.idUser = idUser;
         this.name = name;
         this.username = username;
         this.email = email;
+        this.msgMail = msgMail;
     }
 
     public User() {
     }
 
-    @OneToOne( mappedBy = "userAccount", targetEntity = UserInformation.class)
-    public UserInformation userAccount;
+    public List<Event> getEvents() {
+        return events;
+    }
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "contactPersons", targetEntity = Course.class)
-    private List<Course> contactForCourses;
-
-    @ManyToMany(mappedBy = "owners", targetEntity = Course.class)
-    private List<Course> ownerForCourses;
-
-    @ManyToMany(mappedBy = "enrolledUsers", targetEntity = Course.class)
-    private List<Course> enrolledCourses;
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
 
     public int getIdUser() {
         return idUser;
@@ -103,30 +108,6 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    public List<Course> getContactForCourses() {
-        return contactForCourses;
-    }
-
-    public void setContactForCourses(List<Course> contactForCourses) {
-        this.contactForCourses = contactForCourses;
-    }
-
-    public List<Course> getOwnerForCourses() {
-        return ownerForCourses;
-    }
-
-    public void setOwnerForCourses(List<Course> ownerForCourses) {
-        this.ownerForCourses = ownerForCourses;
-    }
-
-    public List<Course> getEnrolledCourses() {
-        return enrolledCourses;
-    }
-
-    public void setEnrolledCourses(List<Course> enrolledCourses) {
-        this.enrolledCourses = enrolledCourses;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -134,8 +115,6 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
-
 
     public UserInformation getUserAccount() {
         return userAccount;

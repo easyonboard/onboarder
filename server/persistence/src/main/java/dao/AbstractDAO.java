@@ -23,7 +23,8 @@ public abstract class AbstractDAO<E> {
         em.persist(entity);
         em.flush();
         return entity;
-    }
+}
+
     @Transactional
     public E update(E entity) {
         em.merge(entity);
@@ -39,6 +40,7 @@ public abstract class AbstractDAO<E> {
     @Transactional
     public E findEntity(int id) {
         return em.find(getEntityClass(), id);
+
     }
 
     @PersistenceContext

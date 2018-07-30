@@ -1,12 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 import {UserDTO} from '../../domain/user';
 import {UserService} from '../../service/user.service';
-import {MatDialog, MatSnackBar} from "@angular/material";
-import {DialogLeaveCheckListComponent} from "../DialogLeaveCheckList/dialog-leave-check-list.component";
+import {MatDialog, MatSnackBar} from '@angular/material';
+import {DialogLeaveCheckListComponent} from '../DialogLeaveCheckList/dialog-leave-check-list.component';
+import {LocalStorageConst} from '../../util/LocalStorageConst';
 
 @Component({
   selector: 'app-dialog-delete-users',
   templateUrl: './dialog-delete-users.html',
+  styleUrls: ['./dialog-delete-users.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DialogDeleteUsersComponent implements OnInit {
   public searchValue = '';
@@ -21,6 +24,7 @@ export class DialogDeleteUsersComponent implements OnInit {
   ngOnInit(): void {
     this.dialogDeleteUsers = 'My title!';
     this.getAllUsers();
+
   }
 
   remove(username: String) {
@@ -31,14 +35,26 @@ export class DialogDeleteUsersComponent implements OnInit {
         this.snackBarMessagePopup('User ' + username + ' removed!');
         this.getAllUsers();
       }
+    },
+    err => {
+      this.snackBarMessagePopup(err.error.message);
     });
   }
 
   getAllUsers() {
     this.userService.getAllUsers().subscribe(users => {
       this.allUsers = users;
+      this.allUsers.forEach(user => {
+        if (user.username === localStorage.getItem(LocalStorageConst._USER_LOGGED)) {
+          this.allUsers.splice(this.allUsers.indexOf(user), 1);
+        }
+      });
       this.searchByName();
+    },
+    err => {
+      this.snackBarMessagePopup(err.error.message);
     });
+
   }
 
   searchByName() {
@@ -51,8 +67,8 @@ export class DialogDeleteUsersComponent implements OnInit {
 
   openLeaveCheckList(user: string) {
     this.dialog.open(DialogLeaveCheckListComponent, {
-      height: '650px',
-      width: '900px',
+      height: '350px',
+      width: '700px',
       data: user
     });
   }

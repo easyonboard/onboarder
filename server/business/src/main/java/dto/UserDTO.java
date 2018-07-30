@@ -1,7 +1,4 @@
 package dto;
-
-import java.util.List;
-
 public class UserDTO {
 
     private Integer idUser;
@@ -12,9 +9,6 @@ public class UserDTO {
     private RoleDTO role;
     private String msgMail;
 
-    private List<CourseDTO> contactForCourses;
-    private List<CourseDTO> ownerForCourses;
-    private List<CourseDTO> enrolledCourses;
 
     public Integer getIdUser() {
         return idUser;
@@ -54,30 +48,6 @@ public class UserDTO {
 
     public void setRole(RoleDTO role) {
         this.role = role;
-    }
-
-    public List<CourseDTO> getContactForCourses() {
-        return contactForCourses;
-    }
-
-    public void setContactForCourses(List<CourseDTO> contactForCourses) {
-        this.contactForCourses = contactForCourses;
-    }
-
-    public List<CourseDTO> getOwnerForCourses() {
-        return ownerForCourses;
-    }
-
-    public void setOwnerForCourses(List<CourseDTO> ownerForCourses) {
-        this.ownerForCourses = ownerForCourses;
-    }
-
-    public List<CourseDTO> getEnrolledCourses() {
-        return enrolledCourses;
-    }
-
-    public void setEnrolledCourses(List<CourseDTO> enrolledCourses) {
-        this.enrolledCourses = enrolledCourses;
     }
 
     public String getEmail() {

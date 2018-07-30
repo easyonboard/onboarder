@@ -9,12 +9,12 @@ export class ExcelService {
   }
 
   public exportAsExcelFile(list: UserDetailsToExport[], excelFileName: string): void {
-    var csvData = this.ConvertToCSV(list);
-    var a = document.createElement("a");
+    const csvData = this.ConvertToCSV(list);
+    const a = document.createElement('a');
     a.setAttribute('style', 'display:none;');
     document.body.appendChild(a);
-    var blob = new Blob([csvData], {type: 'text/csv'});
-    var url = window.URL.createObjectURL(blob);
+    const blob = new Blob([csvData], {type: 'text/csv'});
+    const url = window.URL.createObjectURL(blob);
     a.href = url;
     a.download = 'User_Results.csv';
     a.click();
@@ -23,21 +23,20 @@ export class ExcelService {
   }
 
   ConvertToCSV(objArray) {
-    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-    var str = '';
-    var row = "";
+    let array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+    let str = '';
+    let row = '';
 
-    debugger
-    for (var index in objArray[0]) {
+    for (let index in objArray[0]) {
       row += index + ',';
     }
     row = row.slice(0, -1);
     str += row + '\r\n';
 
-    for (var i = 0; i < array.length; i++) {
-      var line = '';
-      for (var index in array[i]) {
-        if (line != '') line += ','
+    for (let i = 0; i < array.length; i++) {
+      let line = '';
+      for (let index in array[i]) {
+        if (line !== '') line += ',';
         {
           line += array[i][index];
         }

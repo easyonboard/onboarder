@@ -1,10 +1,11 @@
 import {RoleDTO} from './role';
 import {DepartmentType} from './departmentType';
-import {LocationDTO} from "./location";
+import {LocationDTO} from './location';
 
 export class UserDTO {
   idUser: number;
   email: string;
+  msgMail: string;
   name: string;
   username: string;
   password: string;
@@ -22,6 +23,7 @@ export class UserInformationDTO {
   userAccount: UserDTO;
   mailSent: boolean;
   startDate: Date;
+  startDateString: String;
 }
 
 export class UserDetailsToExport {
@@ -34,11 +36,14 @@ export class UserDetailsToExport {
 
 }
 
-
 export class LeaveCheckList {
   userAccount: UserDTO;
   inventoryObjects: boolean;
   resignationForm: boolean;
   cards: boolean;
+}
 
+export class ContactPersonDto {
+  username: string;
+  msgMail: string;
 }

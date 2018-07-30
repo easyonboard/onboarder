@@ -1,35 +1,31 @@
 <h2 mat-dialog-title>Delete Employee</h2>
 
 <mat-dialog-content>
-  <mat-form-field style="float: right;">
-    <input matInput type="search" placeholder="Search by name" (input)="searchByName()" [(ngModel)]="searchValue">
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
+    <mat-form-field style="float: right;">
+        <input matInput type="search" placeholder="Search by name" (input)="searchByName()" [(ngModel)]="searchValue">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-content style="height:550px; overflow: initial">
-  <mat-card *ngFor="let user of filteredUsers">
-
-    <span> <i class="material-icons">account_box</i></span>
-    <label style="margin-left: 10px"></label> {{user.name}}
-    <br/>
-
-
-    <span><i class="material-icons">mail_outline</i>
+    <mat-card *ngFor="let user of filteredUsers">
+        <span> <i class="material-icons">account_box</i></span>
+        <label style="margin-left: 10px"></label> {{user.name}}
+        <br/>
+        <span><i class="material-icons">mail_outline</i>
 </span>
-    <label style="margin-left: 10px"></label> {{user.email}}
-    <br/>
-    <br/>
-    <br/>
-    <button mat-raised-button (click)="openLeaveCheckList(user.username)" title="Open check list">
+        <label style="margin-left: 10px"></label> {{user.email}}
+        <br/>
+        <br/>
+        <br/>
+        <button mat-raised-button (click)="openLeaveCheckList(user.username)" title="Open check list">
       Open Leave Check List
     </button>
-    <br/>
-    <br/>
-    <button mat-raised-button (click)="remove(user.username)" title="Remove user">
+        <br/>
+        <br/>
+        <button mat-raised-button (click)="remove(user.username)" title="Remove user">
       Remove user {{user.name}}
     </button>
-
-  </mat-card>
-  <br>
+    </mat-card>
+    <br>
 </mat-dialog-content>

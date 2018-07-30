@@ -1,7 +1,3 @@
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
-<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-
 <head></head>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -12,120 +8,114 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <div class="modal" id="myCustom">
-
-  <div class="modal-content">
-    <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
-    <br/> {{successMessage}}
-  </div>
+    <div class="modal-content">
+        <button class="close" style="font-size: 15px;" (click)="closeModal('myCustom')">Close</button>
+        <br/> {{successMessage}}
+    </div>
 </div>
 
 <router-outlet>
+    <div class="headerDiv" fxLayout="row" fxFlexAlign="start center">
 
-  <div class="headerDiv">
+        <div fxFlex="20" fxFlexAlign="start center">
+            <div fxFlexOffset="8" fxFlexAlign="center" hidden>
+                <button (click)="redirectToInfoPage()" title="Home" id="homePage">
+                <i class="fa fa-home" style="margin-right: 8px"></i>
+                </button>
+            </div>
 
-    <button (click)="redirectToCoursePage()" title="Home" id="homePage">
-      <i class="fa fa-home" style="margin-right: 8px"></i>
-    </button>
+            <div fxFlexOffset="5" fxFlexAlign="center">
+                <button (click)="redirectToGeneralInfosPage()" title="General information" id="generalInfo">
+                <i class="fa fa-info" style="margin-right: 10%"></i>
+                </button>
+            </div>
+        </div>
 
-    <button (click)="redirectToGeneralInfosPage()" id="generalInfo" title="General informations">
-      <i class="fa fa-info" style="margin-right: 10%"></i>
-    </button>
+        <div fxFlex="50"></div>
 
-    <button (click)="redirectToTutorialsPage()" id="tutorials" title="Tutorials">
-      Tutorials
-    </button>
+        <div fxFlex fxLayout="row" fxFlexAlign="end end" *ngIf="userIsLogged()==true">
+            <div fxFlex fxLayout="row">
+                <button mat-button [matMenuTriggerFor]="tutorials" class="menuItemButton">
+          Tutorials
+          <span class="caret" style="margin-left: 3px"></span>
+        </button>
+                <mat-menu #tutorials="matMenu" style="margin-top: 10%">
+                    <button mat-menu-item (click)="redirectToTutorialsPage()">View tutorials</button>
+                    <button mat-menu-item (click)="redirectToAddTutorialPage()">Add tutorial</button>
+                    <button mat-menu-item (click)="redirectToDraftPage()"> Drafts</button>
+                    <button mat-menu-item hidden>  tutorial</button>
+                </mat-menu>
+            </div>
 
-    <button id="logOut" (click)="logout()" *ngIf="userIsLogged()==true">
-      <span class="glyphicon glyphicon-log-out"></span> Log out
-    </button>
-
-    <button id="logIn" (click)="redirectToLoginPage()" *ngIf="userIsLogged()==false">
-      <i class="fa fa-sign-in"
-         style="margin-right: 8px"></i> Log in
-    </button>
-
-
-    <ul class="dropdown" id="userManagmentDropDown" *ngIf="userManagementPermission()">
-      <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown"
-         style="color: white; cursor: pointer; ">
-        <i class="fa fa-user-circle-o" style="margin-right: 8px"> </i>
-        User management
-        <span class="caret" style="margin-left: 3px"></span>
-      </a>
-      <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
-        <li>
-          <a class="dropdown-menu-item" (click)="openModalAddNewUser()" title="Add New User"
-             *ngIf="addUserPermission()">
-            <i class="fa fa-user-plus"></i> Add User
-          </a>
-        </li>
-
-        <li class="divider"></li>
-
-        <li>
-          <a class="dropdown-menu-item" (click)="openModalNewEmployee()" title="New Employees List"
-             *ngIf="newEmployeesPermission()"><i class="material-icons">supervisor_account</i> New Employees
-          </a>
-        </li>
-
-        <li class="divider"></li>
-
-        <li>
-          <a class="dropdown-menu-item" (click)="openModalEmployeesInDepartment()"
-             title="Employees In Department List" *ngIf="viewUsersByDepartmentPermission()">
-            <i class="fa fa-users"></i> Employees in Department
-          </a>
-        </li>
-
-        <li class="divider"></li>
-
-        <li>
-          <a class="dropdown-menu-item" (click)="modalDeleteUser()" title="Employees In Department List"
-             *ngIf="deleteUserPermission()"><i class="fa fa-user-times"></i>Remove users
-          </a>
-        </li>
-      </ul>
-    </ul>
-
-    <ul class="dropdown" id="loggedUserButton">
-      <a class="dropdown-toggle" *ngIf="userIsLogged()==true" data-toggle="dropdown"
-         style="color: white; cursor: pointer; "><i
-        class="fa fa-user-circle-o"
-        style="margin-right: 8px"></i>{{username}}<span class="caret" style="margin-left: 3px"></span>
-      </a>
-      <ul class="dropdown-menu" style="margin-top: 18px" role="menu">
-        <li>
-          <a (click)="openEditProfileDialog()" class="dropdown-menu-item">
-            <span class="glyphicon glyphicon-pencil"></span> Change password
-          </a>
-        </li>
-        <li class="divider"></li>
-        <li><a mat-button (click)="openDialogCoursesForUser()" class="dropdown-menu-item"><i class="fa fa-book"></i>View
-          courses</a>
-        </li>
-
-        <li class="divider" *ngIf="isBuddy()===true"></li>
-        <li *ngIf="isBuddy()===true">
-          <a mat-button (click)="openToDoListForBuddy()" class="dropdown-menu-item">
-            <i class="fa fa-bars"> </i>Buddy TO DO List
-          </a>
-        </li>
-
-      </ul>
-    </ul>
+            <div fxFlex fxLayout="row">
+                <button mat-button [matMenuTriggerFor]="events" class="menuItemButton">
+          Events
+          <span class="caret" style="margin-left: 3px"></span>
+        </button>
+                <mat-menu #events="matMenu" style="margin-top: 10%">
+                    <button mat-menu-item (click)="redirectToEventsPage()">View events</button>
+                    <button mat-menu-item (click)="redirectToAddEventPage()">Add event</button>
+                    <button mat-menu-item hidden> Update event</button>
+                    <button mat-menu-item hidden> Delete event</button>
+                </mat-menu>
+            </div>
 
 
-  </div>
+            <div *ngIf="userManagementPermission()" fxFlex fxLayout="row">
+                <button mat-button [matMenuTriggerFor]="userManagement" class="menuItemButton">
+          <i class="fa fa-user-circle-o" style="margin-right: 8px"></i>
+          User management
+          <span class="caret" style="margin-left: 3px"></span>
+        </button>
+                <mat-menu #userManagement="matMenu">
+                    <button mat-menu-item (click)="openModalAddNewUser()" *ngIf="addUserPermission()"> Add User</button>
+                    <button mat-menu-item (click)="openModalNewEmployee()" *ngIf="newEmployeesPermission()">New Employees</button>
+                    <button mat-menu-item (click)="openModalEmployeesInDepartment()" *ngIf="viewUsersByDepartmentPermission()">
+            Employees in Department
+          </button>
+                    <button mat-menu-item (click)="modalDeleteUser()" *ngIf="deleteUserPermission()"> Remove users</button>
+                </mat-menu>
+            </div>
+
+            <div fxFlex fxLayout="row">
+                <button mat-button [matMenuTriggerFor]="userManagement" class="menuItemButton">
+          <i class="fa fa-user-circle-o"></i>
+          {{username}}
+          <span class="caret" style="margin-left: 3px"></span>
+        </button>
+                <mat-menu #userManagement="matMenu" xPosition="after">
+                    <button mat-menu-item (click)="openEditProfileDialog()"> Change password</button>
+                    <button mat-menu-item (click)="openToDoListForBuddy()">Buddy TO DO List</button>
+                </mat-menu>
+            </div>
+
+
+            <div fxFlex fxLayout="row">
+                <button mat-button (click)="logout()" *ngIf="userIsLogged()==true" class="menuItemButton">
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </button>
+            </div>
+
+        </div>
+
+
+        <div *ngIf="userIsLogged()==false" style="position: absolute;right:5%; top:0.5%">
+            <button mat-button (click)="redirectToLoginPage()" class="menuItemButton">
+        <i class="glyphicon glyphicon-log-in"></i> Log in
+      </button>
+        </div>
+    </div>
+
+
 </router-outlet>
 
-<div class="footerDiv">
-  <footer>
-    <div class="social">
-      <a href="https://www.facebook.com/msg.systems.romania/" target="_blank"> <i class="fa fa-facebook-square"
-                                                                                  id="facebookIcon">   </i> </a>
-      <a href="https://github.com/easyonboard/onboarder" target="_blank"> <i class="fa fa-git-square" id="gitIcon">
+<div class="footerDiv" style="padding-top: 30px">
+    <footer>
+        <div class="social">
+            <a href="https://www.facebook.com/msg.systems.romania/" target="_blank"> <i class="fa fa-facebook-square" id="facebookIcon">   </i> </a>
+            <a href="https://github.com/easyonboard/onboarder" target="_blank"> <i class="fa fa-git-square" id="gitIcon">
           </i> </a>
-      <a> <i class="fa fa-youtube-square" id="youtubeIcon">   </i> </a>
-    </div>
-  </footer>
+            <a> <i class="fa fa-youtube-square" id="youtubeIcon">   </i> </a>
+        </div>
+    </footer>
 </div>

@@ -17,37 +17,33 @@ public class TutorialMaterial implements Serializable {
     @NotNull
     @Enumerated(EnumType.STRING)
     private MaterialType materialType;
-
     @Column
     private String link;
-
     @Lob
     @Column
     private byte[] fileMaterial;
-
     @Column
     private String title;
-
     @Column
     @Size(max = 2500)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idTutorial")
     private Tutorial tutorial;
 
     public TutorialMaterial() {
     }
 
-    public TutorialMaterial(Integer idTutorialMaterial, @NotNull MaterialType materialType, String link, byte[] fileMaterial, String title, @Size(max = 2500) String description, Tutorial tutorial) {
-        this.idTutorialMaterial = idTutorialMaterial;
-        this.materialType = materialType;
-        this.link = link;
-        this.fileMaterial = fileMaterial;
-        this.title = title;
-        this.description = description;
-        this.tutorial = tutorial;
-    }
+//    public TutorialMaterial(Integer idTutorialMaterial, @NotNull MaterialType materialType, String link, byte[] fileMaterial, String title, @Size(max = 2500) String description, Tutorial tutorial) {
+//        this.idTutorialMaterial = idTutorialMaterial;
+//        this.materialType = materialType;
+//        this.link = link;
+//        this.fileMaterial = fileMaterial;
+//        this.title = title;
+//        this.description = description;
+//        this.tutorial = tutorial;
+//    }
 
     public Tutorial getTutorial() {
         return tutorial;

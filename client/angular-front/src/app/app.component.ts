@@ -1,18 +1,19 @@
-import {Component, ElementRef} from '@angular/core';
+import {Component, ElementRef, ViewEncapsulation} from '@angular/core';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
 import {UserService} from './service/user.service';
-import {UtilityService} from './service/utility.service';
 import {MatDialog} from '@angular/material';
 import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
-
+import {LocalStorageConst} from './util/LocalStorageConst';
+import {UtilityService} from './service/utility.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class AppComponent {
@@ -29,29 +30,26 @@ export class AppComponent {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
-
   }
 
   logout(): void {
     if (confirm('Do you really want to logout?')) {
-      localStorage.removeItem('userLogged');
-      localStorage.removeItem('userLoggedId');
-      localStorage.removeItem('userRole');
+      localStorage.removeItem(LocalStorageConst._USER_LOGGED);
+      localStorage.removeItem(LocalStorageConst._USER_LOGGED_ID);
+      localStorage.removeItem(LocalStorageConst._USER_ROLE);
+      localStorage.removeItem(LocalStorageConst._USER_FIRSTNAME);
+      localStorage.removeItem(LocalStorageConst._MSG_MAIL);
+
       this.redirectToLoginPage();
     }
   }
-
-  redirectToAddCourse(): void {
-    location.replace(this.rootConst.FRONT_ADD_COURSE);
-  }
-
 
   closeModal(id: string) {
     this.utilityService.closeModal(id);
   }
 
   userIsLogged(): boolean {
-    this.username = localStorage.getItem('userLogged');
+    this.username = localStorage.getItem(LocalStorageConst._USER_FIRSTNAME);
     if (this.username !== null) {
       return true;
     }
@@ -59,7 +57,7 @@ export class AppComponent {
   }
 
   newEmployeesPermission(): boolean {
-    this.role = localStorage.getItem('userRole');
+    this.role = localStorage.getItem(LocalStorageConst._USER_ROLE);
     if (!this.userIsLogged()) {
       return false;
     }
@@ -71,7 +69,7 @@ export class AppComponent {
   }
 
   addUserPermission(): boolean {
-    this.role = localStorage.getItem('userRole');
+    this.role = localStorage.getItem(LocalStorageConst._USER_ROLE);
     if (!this.userIsLogged()) {
       return false;
     }
@@ -83,7 +81,7 @@ export class AppComponent {
   }
 
   viewUsersByDepartmentPermission(): boolean {
-    this.role = localStorage.getItem('userRole');
+    this.role = localStorage.getItem(LocalStorageConst._USER_ROLE);
     if (!this.userIsLogged()) {
       return false;
     }
@@ -92,11 +90,10 @@ export class AppComponent {
     } else {
       return false;
     }
-
   }
 
   deleteUserPermission(): boolean {
-    this.role = localStorage.getItem('userRole');
+    this.role = localStorage.getItem(LocalStorageConst._USER_ROLE);
     if (!this.userIsLogged()) {
       return false;
     }
@@ -105,18 +102,11 @@ export class AppComponent {
     } else {
       return false;
     }
-
-
   }
 
   redirectToLoginPage(): void {
     location.replace(this.rootConst.FRONT_LOGIN_PAGE);
   }
-
-  openDialogCoursesForUser() {
-    this.commonComponent.openDialogCoursesForUser();
-  }
-
   openModalNewEmployee() {
     this.commonComponent.openModalNewEmployee();
   }
@@ -125,9 +115,8 @@ export class AppComponent {
     this.commonComponent.openModalAddNewUser();
   }
 
-
-  redirectToCoursePage() {
-    location.replace(this.rootConst.FRONT_COURSES_PAGE);
+  redirectToInfoPage() {
+    location.replace(this.rootConst.FRONT_INFOS_PAGE);
   }
 
   redirectToGeneralInfosPage() {
@@ -140,7 +129,7 @@ export class AppComponent {
 
 
   isBuddy(): boolean {
-    return localStorage.getItem('userRole') === 'ROLE_BUDDY';
+    return localStorage.getItem(LocalStorageConst._USER_ROLE) === 'ROLE_BUDDY';
   }
 
   openToDoListForBuddy() {
@@ -163,6 +152,27 @@ export class AppComponent {
   }
 
   userManagementPermission(): boolean {
-    return this.addUserPermission() || this.newEmployeesPermission() || this.deleteUserPermission() || this.viewUsersByDepartmentPermission();
+    return this.addUserPermission() || this.newEmployeesPermission()
+      || this.deleteUserPermission() || this.viewUsersByDepartmentPermission();
+  }
+
+  redirectToAddTutorialPage() {
+    this.router.navigate(['/tutorials/addTutorialRouterLink']);
+  }
+
+  redirectToEventsPage() {
+    this.router.navigate(['/events/viewEvents']);
+  }
+
+  redirectToAddEvent() {
+
+  }
+
+  redirectToAddEventPage() {
+    this.router.navigate(['/events/addEventRouterLink']);
+  }
+
+  redirectToDraftPage() {
+    this.router.navigate(['/tutorials/draft']);
   }
 }

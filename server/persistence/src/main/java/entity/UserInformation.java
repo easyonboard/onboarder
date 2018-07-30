@@ -36,7 +36,7 @@ public class UserInformation implements Serializable {
     @JoinColumn(name = "user_buddy_id")
     private User buddyUser;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_account")
     private User userAccount;
 
@@ -55,8 +55,6 @@ public class UserInformation implements Serializable {
     public String getTeam() {
         return team;
     }
-
-
 
     public String getFloor() {
         return floor;
@@ -86,7 +84,6 @@ public class UserInformation implements Serializable {
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
-
 
     public User getBuddyUser() {
         return buddyUser;

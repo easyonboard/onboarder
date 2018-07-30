@@ -1,6 +1,5 @@
 package dto;
 
-import entity.Tutorial;
 import entity.enums.MaterialType;
 
 public class TutorialMaterialDTO {
@@ -8,20 +7,15 @@ public class TutorialMaterialDTO {
     private Integer idTutorialMaterial;
 
     private MaterialType materialType;
-
     private String link;
-
     private byte[] fileMaterial;
-
     private String title;
-
     private String description;
-
-    private TutorialDTO tutorial;
+    private TutorialDto tutorial;
 
     public TutorialMaterialDTO(){}
 
-    public TutorialMaterialDTO(Integer idTutorialMaterial, MaterialType materialType, String link, byte[] fileMaterial, String title, String description, TutorialDTO tutorial) {
+    public TutorialMaterialDTO(Integer idTutorialMaterial, MaterialType materialType, String link, byte[] fileMaterial, String title, String description, TutorialDto tutorial) {
         this.idTutorialMaterial = idTutorialMaterial;
         this.materialType = materialType;
         this.link = link;
@@ -79,11 +73,11 @@ public class TutorialMaterialDTO {
         this.description = description;
     }
 
-    public TutorialDTO getTutorial() {
+    public TutorialDto getTutorial() {
         return tutorial;
     }
 
-    public void setTutorial(TutorialDTO tutorial) {
+    public void setTutorial(TutorialDto tutorial) {
         this.tutorial = tutorial;
     }
 }

@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {RootConst} from '../util/RootConst';
 import {UserInformationDTO} from '../domain/user';
-import {LocationDTO} from "../domain/location";
+import {LocationDTO} from '../domain/location';
 
 @Injectable()
 export class UserInformationService {

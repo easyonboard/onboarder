@@ -1,22 +1,23 @@
 import {UserDTO, UserInformationDTO} from '../../domain/user';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {UserInformationService} from '../../service/user-information.service';
 import {DialogCheckListComponent} from '../DialogCheckList/dialog-check-list.component';
 import {UserInfoUpdateComponent} from '../../users/user-info-update/user-info-update.component';
 import {UserService} from '../../service/user.service';
 
-
 @Component({
   selector: 'app-dialog-new-employee',
-  templateUrl: './dialog-new-employee.html'
+  templateUrl: './dialog-new-employee.html',
+  styleUrls: ['./dialog-new-employee.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DialogNewEmployeeComponent implements OnInit {
+  [x: string]: any;
 
   public newEmployees: UserInformationDTO[];
 
   public isMailSent: Boolean[];
-
   public allNewEmployees: UserInformationDTO[];
   public searchValue = '';
 
@@ -31,6 +32,10 @@ export class DialogNewEmployeeComponent implements OnInit {
       this.allNewEmployees = newEmployees;
       this.newEmployees = newEmployees;
       this.getStatus();
+      this.setStartDate();
+    },
+    err => {
+      this.snackBarMessagePopup(err.error.message);
     });
   }
 
@@ -44,8 +49,6 @@ export class DialogNewEmployeeComponent implements OnInit {
   }
 
   openUserInfoModal(userInformation: UserInformationDTO) {
-    console.log('user inainte de modal');
-    console.log(userInformation);
     this.dialog.open(UserInfoUpdateComponent, {
       height: '650px',
       width: '900px',
@@ -55,11 +58,8 @@ export class DialogNewEmployeeComponent implements OnInit {
 
   private getStatus() {
     this.newEmployees.forEach(user => {
-      console.log(user.team + '\n');
-      console.log(user.userAccount.name + '\n');
       this.userService.isMailSent(user.userAccount).subscribe(value => {
         this.isMailSent.push(value);
-        console.log(value);
       });
     });
   }
@@ -72,4 +72,10 @@ export class DialogNewEmployeeComponent implements OnInit {
     }
   }
 
+  private setStartDate() {
+    this.newEmployees.forEach(user => {
+      const myDate = new Date(user.startDate).toDateString();
+      user.startDateString = myDate;
+    });
+  }
 }

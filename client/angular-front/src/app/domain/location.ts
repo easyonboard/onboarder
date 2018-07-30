@@ -4,6 +4,6 @@ export class LocationDTO {
   locationName: string;
   locationAddress: string;
   locationCity: string;
-  getLocationContactPhone: string;
+  locationContactPhone: string;
   locationContactEmail: string;
 }

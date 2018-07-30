@@ -7,15 +7,13 @@ export class UtilityService {
   }
 
   openModal(id: string): void {
-    let modal = document.getElementById(id);
-
+    const modal = document.getElementById(id);
     modal.style.display = 'block';
 
   }
 
   closeModal(myModal: string): void {
-
-    let modal = document.getElementById(myModal);
+    const modal = document.getElementById(myModal);
     modal.style.display = 'none';
 
   }

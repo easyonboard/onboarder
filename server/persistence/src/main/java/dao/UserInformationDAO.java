@@ -22,7 +22,7 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
     }
 
     @Autowired
-    UserDAO userDAO;
+    UserRepository userRepository;
 
     /**
      * @return list of all users whose startingDate is greater than today
@@ -36,7 +36,7 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
     }
 
     public UserInformation getUserInformationForUserAccount(User userAccount) {
-        User userAccount2 = userDAO.userByUsername(userAccount.getUsername());
+        User userAccount2 = userRepository.findByUsername(userAccount.getUsername()).get();
 
         Query q = em.createQuery("select o from UserInformation o where o.userAccount =:userAccount");
         q.setParameter("userAccount", userAccount2);
@@ -52,6 +52,7 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         actualUserInfo.setLocation(userInfo.getLocation());
         actualUserInfo.setFloor(userInfo.getFloor());
         actualUserInfo.setProject(userInfo.getProject());
+<<<<<<< HEAD
         actualUserInfo.setDepartment(userInfo.getDepartment());
         actualUserInfo.setStartDate(userInfo.getStartDate());
         if (userInfo.getBuddyUser().getUsername() != null)
@@ -59,26 +60,52 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         {
             Optional<User> newUser = userDAO.findUserByUsername(userInfo.getBuddyUser().getUsername());
             actualUserInfo.setBuddyUser(newUser.get());
+=======
+
+        actualUserInfo.setDepartment(userInfo.getDepartment());
+        actualUserInfo.setStartDate(userInfo.getStartDate());
+        if (userInfo.getBuddyUser().getUsername() != null) {
+            User newUser = userRepository.findByUsername(userInfo.getBuddyUser().getUsername()).get();
+            actualUserInfo.setBuddyUser(newUser);
+>>>>>>> master
         }
 
         return em.merge(actualUserInfo);
     }
 
-  public List<UserInformation> usersWhoStartOnGivenDate(Date givenDate) {
+    public List<UserInformation> usersWhoStartOnGivenDate(Date givenDate) {
         Query q = em.createQuery("select o from UserInformation o where o.startDate = :givenDate ");
         q.setParameter("givenDate", givenDate, TemporalType.DATE);
 
         return q.getResultList();
     }
 
-
-
-    public UserInformation findUserInformationByUser(User userEntity){
-        Query q=em.createQuery("select us from UserInformation us where us.userAccount=:userEntity");
+    public UserInformation findUserInformationByUser(User userEntity) {
+        Query q = em.createQuery("select us from UserInformation us where us.userAccount=:userEntity");
         q.setParameter("userEntity", userEntity);
-        try {return (UserInformation) q.getSingleResult();}
-        catch (NoResultException e){
+        try {
+            return (UserInformation) q.getSingleResult();
+        } catch (NoResultException e) {
             return null;
+        }
+    }
+
+    @Transactional
+    public void setBuddyToNull(User buddyUser) {
+        Query q = em.createQuery("select us from UserInformation us where us.buddyUser=:buddyUser");
+        q.setParameter("buddyUser", buddyUser);
+        try {
+            List<UserInformation> userInformationsList = (List<UserInformation>) q.getResultList();
+            if (userInformationsList != null) {
+                for (int i = 0; i < userInformationsList.size(); i++) {
+                    UserInformation userInformation = userInformationsList.get(i);
+                    userInformation.setBuddyUser(null);
+                    persistEntity(userInformation);
+                }
+            }
+        } catch (NoResultException e) {
+
+            System.out.println("User is not buddy");
         }
     }
 

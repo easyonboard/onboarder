@@ -1,0 +1,38 @@
+.overview {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.tutorial {
+    height: 22vh;
+    margin-bottom: 9%;
+    border: 3px #841439 solid;
+    border-radius: 8px !important;
+    padding: 10px;
+    box-shadow: 3px 6px 4px 6px #888888 !important;
+    overflow: hidden;
+}
+
+.mat-mini-fab {
+    width: 20px;
+    height: 20px;
+    color: white;
+    padding-top: 0;
+}
+
+.confirm {
+    background-color: #5e1f32;
+}
+
+.tutorialHeader {
+    padding-bottom: 2%;
+}
+
+.tutorialTitle {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}

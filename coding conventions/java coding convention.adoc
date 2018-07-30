@@ -1,0 +1,63 @@
+*EasyOnboarder coding conventions*
+---------------------------------
+
+`IMPORTANT`
+~~~~~~~~~~
+* before working on any-task, any-bug, any-thing: `GIT PULL`
+
+`Java naming conventions`
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+. Names representing `*packages*` should be in all lower case.
+    * example: *dto.mapper;*
+. `*Class*` names must be *nouns* written in CamelCase starting with an uppercase.
+    * example: *AbstractMapper*
+. `*Variables*` names must be in cammelCase starting with a lowercase.
+    * example: *userAccount*
+. `*Constants*` names must be all uppercase.
+    * example: *BUDDY_MAIL_SUBJECT*
+. Names representing `*methods*` must contain a verb and must be written in camelCase starting with a lowercase.
+    * example: *addUser*
+. Names representing `*boolean*` types must contain an adjective and must be written in camelCase starting with a lowercase.
+    * example: *everyTermAgreed*
+. Abbreviations and acronyms should not be uppercase when used as name.
+    * example: TutorialDao NOT TutorialDAO
+. Generic variables should have the same name as their type.
+    * example: findByUser(User user)
+. The term `*compute*` can be used in methods where something is computed.
+. The term `*find*` can be used in methods where something is looked up.
+. The term `*initialize*` can be used where an object or a concept is established.
+. Plural form should be used on names representing a collection of objects.
+    * example: *List<String> contactPersons*
+. Negated boolean variable names must be avoided.
+. Associated constants (final variables) should be prefixed by a common type name.
+    * example:  *final int  COLOR_RED   = 1;*
+                *final int  COLOR_GREEN = 2;*
+                *final int  COLOR_BLUE  = 3;*
+. Exception classes should be suffixed with Exception.
+
+`Stetements`
+~~~~~~~~~~~
+. The package statement must be the first statement of the file. All files should belong to a specific package.
+. The import statements must follow the package statement. import statements should be sorted with the most fundamental packages first, and grouped with associated packages together and one blank line between groups.
+. Variables should be initialized where they are declared and they should be declared in the smallest scope possible.
+. Variables must never have dual meaning.
+
+
+`Comments`
+~~~~~~~~~
+. Javadoc comments should have the following form:
+----------------------
+    /**                     
+      * This is a javadoc        
+      * comment
+      */  
+----------------------
+. Use // for all non-JavaDoc comments, including multi-line comments.
+----------------------
+// Comment spanning
+// more than one line.
+----------------------
+
+for further guidelines, see https://petroware.no/javastyle.html#General_Recommendations[this link^]
+
+

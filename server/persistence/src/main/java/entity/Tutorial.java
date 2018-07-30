@@ -5,8 +5,11 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
+@NamedQueries({@NamedQuery(name = Tutorial.FIND_TUTORIAL_BY_ID, query = "select t from Tutorial t where t.idTutorial=:idTutorial")})
 @Entity
 public class Tutorial implements Serializable {
+
+    public static final String FIND_TUTORIAL_BY_ID = "Tutorial.findTutorialById";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -14,19 +17,20 @@ public class Tutorial implements Serializable {
 
     @Column
     private String titleTutorial;
-
     @Lob
-    @Size(min = 50)
+    @Size(max = 500)
     @Column
     private String overview;
-
     @Column
     private String keywords;
+
+    @Column(columnDefinition="NUMBER(1) default '0'")
+    private Boolean isDraft;
 
     @ManyToMany(targetEntity = User.class)
     @JoinTable(name = "tutorial_contactPerson", joinColumns = @JoinColumn(name = "idTutorial"), inverseJoinColumns = @JoinColumn(name = "idUser"))
     private List<User> contactPersons;
-
+    
     @OneToMany(mappedBy = "tutorial", cascade = CascadeType.ALL)
     private List<TutorialMaterial> tutorialMaterials;
 
@@ -48,6 +52,7 @@ public class Tutorial implements Serializable {
         this.contactPersons = contactPersons;
         this.tutorialMaterials = tutorialMaterials;
     }
+
 
     public List<TutorialMaterial> getTutorialMaterials() {
         return tutorialMaterials;
@@ -95,5 +100,13 @@ public class Tutorial implements Serializable {
 
     public void setContactPersons(List<User> contactPersons) {
         this.contactPersons = contactPersons;
+    }
+
+    public Boolean getDraft() {
+        return isDraft;
+    }
+
+    public void setDraft(Boolean draft) {
+        isDraft = draft;
     }
 }

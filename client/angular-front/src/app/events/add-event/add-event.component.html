@@ -1,0 +1,117 @@
+<div id="addComponent" [ngSwitch]="getCurrentStep()">
+    <div *ngSwitchCase="'one'" class="stepDiv">
+        <div class="pageTitle"> Add event</div>
+
+        <hr class="separator">
+        <table>
+            <tr>
+                <td>
+                    <label>Event title</label>
+                </td>
+                <td>
+                    <mat-form-field style="width: 100%;">
+                        <input matInput placeholder="Event title" [(ngModel)]="event.titleEvent">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Overview</label>
+                </td>
+                <td>
+                    <textarea matInput placeholder="Event description" [(ngModel)]="event.overview"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Enrolled persons</label></td>
+                <td>
+                    <mat-select [(value)]="selectedEnrolledPersonsItems" name="enroll" placeholder="select enrolled persons" multiple>
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let user of usersOptions" [value]="user.username">{{user.name}}</mat-option>
+                    </mat-select>
+                </td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td><label>Contact person</label></td>
+                <td>
+                    <mat-select [(value)]="selectedContactPerson" name="contact" placeholder="select contact person">
+                        <mat-option *ngFor="let user of usersOptions" [value]="user.username">{{user.name}}</mat-option>
+                    </mat-select>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Event date</label></td>
+                <td>
+                    <mat-form-field>
+                        <input [(ngModel)]="event.eventDate" matInput [min]="today" [matDatepicker]="datePicker" placeholder="Choose a date" [value]="getDate()" required/>
+                        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #datePicker color="primary"></mat-datepicker>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Hour (optional)</label></td>
+                <td>
+                    <mat-form-field>
+                        <input matInput #timeInput [matTimepicker]="timePicker" placeholder="Choose a time" />
+                        <mat-timepicker-toggle matSuffix [for]="timePicker"></mat-timepicker-toggle>
+                        <mat-timepicker #timePicker color="primary"></mat-timepicker>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Location (optional)</label></td>
+                <td>
+                    <mat-select (selectionChange)="filterHalls($event.value)" [(value)]="selectedLocation.idLocation" name="location" placeholder="select location">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let loc of locationOptions" [value]="loc.idLocation">{{loc.locationName}}</mat-option>
+                    </mat-select>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Meeting Hall (optional)</label></td>
+                <td>
+                    <mat-select (selectionChange)="filterLocations($event.value)" [(value)]="selectedRoom.idMeetingHall" name="meeting" placeholder="select room">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let hall of meetingHallOptions " [value]="hall.idMeetingHall">{{hall.hallName}}</mat-option>
+                    </mat-select>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Maximum number of participants (optional)</label></td>
+                <td>
+                    <mat-form-field style="width: 100%;">
+                        <input matInput placeholder="Max. number of participants" [(ngModel)]="event.maxEnrolledUsers">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Keywords </label></td>
+                <td>
+                    <mat-form-field class="keyword-list">
+                        <mat-chip-list #chipList>
+                            <mat-chip *ngFor="let keyword of keywords" [selectable]="true" [removable]="true" (remove)="removeKeyword(keyword)">
+                                {{keyword}}
+                                <mat-icon matChipRemove *ngIf="true"><i class="fa fa-times" aria-hidden="true"></i></mat-icon>
+                            </mat-chip>
+                            <input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="addKeyword($event)" />
+                        </mat-chip-list>
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+        <button (click)="addEvent(timeInput.value)" class="nextStepButton"><span class="fa fa-caret-square-o-right"></span> Next
+    </button>
+    </div>
+
+    <div *ngSwitchCase="'two'" class="stepDiv">
+
+        <div id="addCourseMessage">
+            Event added!
+        </div>
+        <div id="backToCourses">
+            <a (click)="redirectToEventPage()" style="color: white; cursor: pointer">Back to events!</a>
+        </div>
+    </div>
+</div>
