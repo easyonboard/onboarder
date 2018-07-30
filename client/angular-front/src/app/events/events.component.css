@@ -32,3 +32,8 @@
 .mat-header-cell.mat-sort-header-sorted {
   color: black;
 }
+
+.noItemsInList{
+  text-align: center;
+  margin-top: 5%
+}

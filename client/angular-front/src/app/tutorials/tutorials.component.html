@@ -17,7 +17,7 @@
       <mat-card-header class="tutorialHeader">
         <mat-chip-list class="mat-chip-list" *ngIf="tutorial.keywords!=null">
           <mat-chip *ngFor="let keyword of tutorial.keywords.split(' ')" [selectable]="selectable"
-                    (click)="searchByKeyword(keyword)">{{ keyword }}
+                    (click)="filterByKeyword(keyword)">{{ keyword }}
           </mat-chip>
         </mat-chip-list>
         <div id="buttonDelete" fxFlex="" fxLayoutAlign="end start">

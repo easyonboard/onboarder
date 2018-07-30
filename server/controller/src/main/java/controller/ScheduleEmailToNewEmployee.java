@@ -1,7 +1,8 @@
 package controller;
 
-import dao.UserRepository;
 import dao.UserInformationDAO;
+import dao.UserInformationRepository;
+import dao.UserRepository;
 import entity.User;
 import entity.UserInformation;
 import exception.types.EntityNotFoundException;
@@ -13,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import service.CheckListService;
 import utilityService.MailSender;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.text.MessageFormat;
@@ -26,8 +24,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.logging.Logger;
 
-import static entity.enums.RoleType.ROLE_ABTEILUNGSLEITER;
-
 //@Component
 @Controller
 public class ScheduleEmailToNewEmployee {
@@ -35,6 +31,9 @@ public class ScheduleEmailToNewEmployee {
     private static final String NEW_EMPLOYEE_MAIL_SUBJECT = "Data inceput msg";
     @Autowired
     private UserInformationDAO userInformationDAO;
+
+    @Autowired
+    private UserInformationRepository userInformationRepository;
 
     @Autowired
     private CheckListService checkListService;
@@ -54,7 +53,7 @@ public class ScheduleEmailToNewEmployee {
     // @Scheduled(cron = "0 0 19 * * MON-FRI")
     @RequestMapping(value = "/emailsch", method = RequestMethod.GET)
     public ResponseEntity reportCurrentTime() {
-        List<UserInformation> usersInfoForUserWhoStartNextWeek = userInformationDAO.usersWhoStartOnGivenDate(getNextWeekDate());
+        List<UserInformation> usersInfoForUserWhoStartNextWeek = userInformationRepository.usersWhoStartOnGivenDate(getNextWeekDate());
         List<User> usersWhoStartNextWeek = new ArrayList<>();
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -104,6 +103,8 @@ public class ScheduleEmailToNewEmployee {
 //                        }
 //                    }
                 });
+
+
         return null;
     }
 

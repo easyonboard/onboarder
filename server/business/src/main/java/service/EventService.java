@@ -45,14 +45,15 @@ public class EventService {
     @Autowired
     private MeetingHallRepository meetingHallRepository;
 
-    public EventDTO addEvent(EventDTO eventDTO, List<String> enrolledUsersUsernames, String contactPerson,
+    public EventDTO addEvent(EventDTO eventDTO, List<String> enrolledPersonMsgMails, List<String> contactPersonMsgMails,
                              LocationDto locationDto,
                              MeetingHallDto meetingHallDto) throws DatabaseException, EntityNotFoundException {
 
         List<UserDTO> enrolledUsersDTO = new ArrayList<>();
+        List<UserDTO> contactUsersDTO = new ArrayList<>();
 
-        for (int i = 0; i < enrolledUsersUsernames.size(); i++) {
-            Optional<User> user = userRepository.findByUsername(enrolledUsersUsernames.get(i));
+        for (int i = 0; i < enrolledPersonMsgMails.size(); i++) {
+            Optional<User> user = userRepository.findByMsgMail(enrolledPersonMsgMails.get(i));
 
             if (!user.isPresent()) {
                 throw new EntityNotFoundException(userNotFound(user.get().getUsername()));
@@ -62,11 +63,16 @@ public class EventService {
             enrolledUsersDTO.add(userDTO);
         }
 
-        Optional<User> user = userRepository.findByUsername(contactPerson);
-        if (!user.isPresent()) {
-            throw new EntityNotFoundException(userNotFound(user.get().getUsername()));
+
+        for (int i = 0; i < contactPersonMsgMails.size(); i++) {
+            Optional<User> user = userRepository.findByMsgMail(contactPersonMsgMails.get(i));
+            if (!user.isPresent()) {
+                throw new EntityNotFoundException(userNotFound(user.get().getUsername()));
+            }
+            UserDTO contactPersonEntityDTO = userMapper.mapToDTO(user.get());
+            contactUsersDTO.add(contactPersonEntityDTO);
         }
-        UserDTO contactPersonEntityDTO = userMapper.mapToDTO(user.get());
+
 
         if (locationDto.getIdLocation() != null) {
             Location location = locationRepository.findOne(locationDto.getIdLocation());
@@ -86,7 +92,7 @@ public class EventService {
             eventDTO.setMeetingHall(selectedHallDTO);
         }
 
-        eventDTO.setContactPerson(contactPersonEntityDTO);
+        eventDTO.setContactPersons(contactUsersDTO);
         eventDTO.setEnrolledUsers(enrolledUsersDTO);
 
         Event event = eventRepository.save(eventMapper.mapToNewEntity(eventDTO));
@@ -117,7 +123,6 @@ public class EventService {
     }
 
     public List<EventDTO> getAllUpcomingEvents() throws EntityNotFoundException {
-
         List<Event> upcoming = eventRepository.findAllUpcomingEvents(
                 Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         if (upcoming.isEmpty()) {
@@ -127,10 +132,31 @@ public class EventService {
         return upcoming.stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
     }
 
-    public List<EventDTO> getAllPastEvents() throws EntityNotFoundException {
+    public List<EventDTO> getAllUpcomingEventsFilterByKeyword(String keyword) throws EntityNotFoundException {
+        List<Event> upcoming = eventRepository.findAllUpcomingEventsFilterByKeyword(
+                Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                keyword);
+        if (upcoming.isEmpty()) {
+            throw new EntityNotFoundException(UPCOMING_EVENTS_NOT_FOUND_EXCEPTION);
+        }
 
+        return upcoming.stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+    }
+
+    public List<EventDTO> getAllPastEvents() throws EntityNotFoundException {
         List<Event> past = eventRepository.findAllPastEvents(
                 Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        if (past.isEmpty()) {
+            throw new EntityNotFoundException(PAST_EVENTS_NOT_FOUND_EXCEPTION);
+        }
+
+        return past.stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+    }
+
+    public List<EventDTO> getAllPastEventsFilterByKeyword(String keyword) throws EntityNotFoundException {
+        List<Event> past = eventRepository.findAllPastEventsFilterByKeyword(
+                Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                keyword);
         if (past.isEmpty()) {
             throw new EntityNotFoundException(PAST_EVENTS_NOT_FOUND_EXCEPTION);
         }
@@ -178,4 +204,6 @@ public class EventService {
 
         return meetingHallMapper.entitiesToDTOs(meetingHallList);
     }
+
+
 }
