@@ -5,7 +5,7 @@ import {RootConst} from '../util/RootConst';
 import {TutorialDTO} from '../domain/tutorial';
 import {Observable} from 'rxjs/Observable';
 import {TutorialMaterialDTO} from '../domain/tutorialMaterial';
-import { ContactPersonDto } from '../domain/user';
+import {ContactPersonDto} from '../domain/user';
 
 @Injectable()
 export class TutorialService implements OnInit {
@@ -32,11 +32,14 @@ export class TutorialService implements OnInit {
       contactPersonMsgMails.push(cp);
     });
 
-    const body = JSON.stringify({tutorial: tutorial, contactPersonMsgMails:  contactPersonMsgMails});
+    const body = JSON.stringify({tutorial: tutorial, contactPersonMsgMails: contactPersonMsgMails});
     return this.http.post<TutorialDTO>(this.rootConst.SERVER_ADD_TUTORIAL, body, this.httpOptions);
   }
 
-  getTutorials(): Observable<TutorialDTO[]> {
+  getTutorials(keyword?: string): Observable<TutorialDTO[]> {
+    if (keyword) {
+      return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_SEARCH_TUTORIAL_BY_KEYWORD}${keyword}`);
+    }
     return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_TUTORIALS_URL}`);
   }
 
@@ -62,7 +65,11 @@ export class TutorialService implements OnInit {
     return this.http.post<TutorialDTO>(this.rootConst.SERVER_UPADATE_TUTORIAL, body, this.httpOptions);
   }
 
-  getDraftsTutorialsForUser(userId: number) {
-    return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_DRAFTS_TUTORIAL}${userId}`);
+  getDraftsTutorialsForUser(userId: number, keyword?: string) {
+    if (keyword) {
+      return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_DRAFTS_TUTORIAL}${userId}&keyword=${keyword}`);
+    } else {
+      return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_DRAFTS_TUTORIAL}${userId}`);
+    }
   }
 }

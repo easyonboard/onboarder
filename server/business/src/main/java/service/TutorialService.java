@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +45,7 @@ public class TutorialService {
     public TutorialDto addTutorial(TutorialDto tutorialDto, List<String> contactPersonMsgMail) {
         Tutorial tutorial = tutorialMapper.mapToEntity(tutorialDto, new Tutorial());
         tutorial.setContactPersons(getUsersByMsgEmail(contactPersonMsgMail));
-        if (tutorial.getDraft()==null) {
+        if (tutorial.getDraft() == null) {
             tutorial.setDraft(false);
         }
         return tutorialMapper.mapToDTO(tutorialDAO.persistEntity(tutorial));
@@ -105,5 +106,9 @@ public class TutorialService {
 
     public List<TutorialDto> allDraftTutorialsForUser(Integer idUser) {
         return tutorialMapper.entitiesToDTOs(tutorialDAO.getAllDraftTutorialsForUser(userRepository.findOne(idUser)));
+    }
+
+    public List<TutorialDto> allDraftTutorialsForUserFilterByKeyword(Integer idUser, String keyword) {
+        return this.allDraftTutorialsForUser(idUser).stream().filter(tutorial -> tutorial.getKeywords().indexOf(keyword) >= 0).collect(Collectors.toList());
     }
 }

@@ -40,7 +40,7 @@ public class TutorialController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<TutorialDto>> allTutorials(
-            @RequestParam(value = "/keyword", required = false) String keyword) {
+            @RequestParam(value = "keyword", required = false) String keyword) {
 
         if (keyword != null && keyword.length() > 0) {
             return new ResponseEntity<>(tutorialService.filterByKeyword(keyword), HttpStatus.OK);
@@ -59,7 +59,8 @@ public class TutorialController {
             JsonNode nodeTutorial = node.get("tutorial");
             JsonNode nodeContactPersonMsgMails = node.get("contactPersonMsgMails");
             TutorialDto tutorialDto = mapper.convertValue(nodeTutorial, TutorialDto.class);
-            List<String> contactPersonMsgMails = mapper.readValue(nodeContactPersonMsgMails.toString(), new TypeReference<List<String>>(){});
+            List<String> contactPersonMsgMails = mapper.readValue(nodeContactPersonMsgMails.toString(), new TypeReference<List<String>>() {
+            });
 
             return new ResponseEntity(tutorialService.addTutorial(tutorialDto, contactPersonMsgMails), HttpStatus.OK);
         } catch (InvalidDataException e) {
@@ -144,8 +145,13 @@ public class TutorialController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/draft", method = RequestMethod.GET)
     public ResponseEntity<List<TutorialDto>> allDraftTutorialsForUser(
-            @RequestParam(value = "idUser", required = false) Integer idUser) {
+            @RequestParam(value = "idUser", required = false) Integer idUser,
+            @RequestParam(value = "keyword", required = false) Optional<String> keyword) {
 
-        return new ResponseEntity<>(tutorialService.allDraftTutorialsForUser(idUser), HttpStatus.OK);
+        if (keyword.isPresent()) {
+            return new ResponseEntity<>(tutorialService.allDraftTutorialsForUserFilterByKeyword(idUser,keyword.get()), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(tutorialService.allDraftTutorialsForUser(idUser), HttpStatus.OK);
+        }
     }
 }
