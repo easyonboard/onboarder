@@ -21,6 +21,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
   pageEvent: PageEvent;
   pageSize = 9;
   pageSizeOptions = [9, 18, 36, 99];
+  noDraftsMessage: string;
 
   private httpSubscription: Subscription;
   private pageIndex = 0;
@@ -32,6 +33,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
+    this.noDraftsMessage='';
     this.route.params.subscribe(params => {
       this.route.queryParams.subscribe(
         queryParams => {
@@ -42,6 +44,9 @@ export class TutorialsComponent implements OnDestroy, OnInit {
           this.httpSubscription = this.decision(params).subscribe(tutorials => {
             this.tutorials = tutorials;
             this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
+          },
+          err=>{
+            this.noDraftsMessage=err.error.message;
           });
         }
       );

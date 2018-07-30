@@ -9,6 +9,9 @@
   <p fxFlex *ngIf="tutorials?.length === 0" style="text-align: center">
     <b>No tutorials.</b>
   </p>
+  <p fxFlex *ngIf="noDraftsMessage.length>0" style="text-align: center">
+    <b>{{noDraftsMessage}}</b>
+  </p>
   <div *ngFor="let tutorial of tutorialsPerPage" fxFlex="20" fxFlexOffset="10">
     <mat-card class="tutorial">
       <mat-card-header class="tutorialHeader">

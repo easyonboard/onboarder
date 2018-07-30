@@ -254,7 +254,6 @@ export class AddUpdateTutorialComponent implements OnInit {
       });
     } catch (e) {
       if (e instanceof Error) {
-        console.log(e);
         this.snackBarMessagePopup(e.message);
       }
     }
