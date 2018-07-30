@@ -4,10 +4,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {LeaveCheckList, UserDTO, UserInformationDTO} from '../domain/user';
 import {RootConst} from '../util/RootConst';
-import {Course} from '../domain/course';
-
-import {of} from 'rxjs/observable/of';
-import {tap} from 'rxjs/operators';
 import {TSMap} from 'typescript-map';
 import {RoleType} from '../domain/role';
 
@@ -48,23 +44,13 @@ export class UserService {
     return result;
   }
 
-  updateUser(userDTO: UserDTO): any {
-    const body = JSON.stringify({
-      username: userDTO.username,
-      password: userDTO.password,
-      email: userDTO.email,
-      name: userDTO.name
-    });
-    return this.http.post<UserDTO>(this.rootConst.SERVER_UPDATE_USER, body, this.httpOptions);
-  }
-
   getAllUsers(): Observable<UserDTO[]> {
     return this.http.get<UserDTO[]>(`${this.allUsers}`);
   }
 
   /** !TODO */
-  getAllUsernames(): Observable<String[]> {
-    return this.http.get<String[]>(this.rootConst.SERVER_ALL_USERS_NAME_EMAIL);
+  getAllMsgMails(): Observable<String[]> {
+    return this.http.get<String[]>(this.rootConst.SERVER_ALL_MSG_MAILS);
   }
 
   searchUsers(term: string): Observable<UserDTO[]> {
@@ -81,20 +67,6 @@ export class UserService {
     return Observable.empty<UserDTO[]>();
   }
 
-  getProgress(course: Course, user: UserDTO): Observable<number> {
-    const body = JSON.stringify({user: user, course: course});
-    return this.http.post<number>(this.rootConst.WEB_SERVER_PROGRESS, body, this.httpOptions);
-
-  }
-
-  getUserByUsername(term: string): Observable<UserDTO[]> {
-    if (!term.trim()) {
-      // if not search term, return empty hero array.
-      return of([]);
-    }
-    return this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_NAME + term)
-      .pipe(tap(_ => console.log(`found heroes matching '${term}'`)));
-  }
 
   getCheckListForUser(user: UserDTO): Observable<Map<string, boolean>> {
     const body = JSON.stringify(user);

@@ -74,7 +74,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
     location.replace(this.rootConst.FRONT_ADD_TUTORIAL);
   }
 
-  searchByKeyword(keyword: string) {
+  filterByKeyword(keyword: string) {
     if (keyword !== 'addTutorialRouterLink') {
       this.router.navigate(['tutorials/keywords/' + keyword]);
     }
@@ -104,6 +104,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
         err => {
           this.snackBarMessagePopup(err.error.message);
         });
+
     }
   }
 

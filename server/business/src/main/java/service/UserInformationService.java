@@ -1,6 +1,7 @@
 package service;
 
-import dao.UserInformationDAO;
+import dao.UserInformationRepository;
+import dao.UserRepository;
 import dto.UserInformationDTO;
 import dto.mapper.UserInformationMapper;
 import entity.User;
@@ -11,9 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserInformationService {
 
-    @Autowired
-    private UserInformationDAO userInformationDAO;
 
+    @Autowired
+    private UserInformationRepository userInformationRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
 
     private UserInformationMapper userInformationMapper = UserInformationMapper.INSTANCE;
@@ -21,9 +25,22 @@ public class UserInformationService {
 
     public void updateUserInfo(UserInformationDTO userInfo) {
 
-        userInformationDAO
-                .updateUserInformation(userInformationMapper.mapToNewEntity(userInfo));
+        UserInformation actualUserInfo = userInformationRepository.findOne(userInfo.getIdUserInformation());
 
+        actualUserInfo.setTeam(userInfo.getTeam());
+        actualUserInfo.setLocation(userInfo.getLocation());
+        actualUserInfo.setFloor(userInfo.getFloor());
+        actualUserInfo.setProject(userInfo.getProject());
+
+        actualUserInfo.setDepartment(userInfo.getDepartment());
+        actualUserInfo.setStartDate(userInfo.getStartDate());
+
+        if (userInfo.getBuddyUser().getUsername() != null) {
+            User newUser = userRepository.findByUsername(userInfo.getBuddyUser().getUsername()).get();
+            actualUserInfo.setBuddyUser(newUser);
+        }
+
+        userInformationRepository.save(actualUserInfo);
     }
 
     public void addUserInfo(UserInformationDTO userInformationDTO, User appUser, User buddyUser) {
@@ -37,12 +54,11 @@ public class UserInformationService {
         userInformation.setStartDate(userInformationDTO.getStartDate());
         userInformation.setUserAccount(appUser);
 
-        if (buddyUser != null)
-        {
+        if (buddyUser != null) {
             userInformation.setBuddyUser(buddyUser);
         }
 
-        userInformationDAO.persistEntity(userInformation);
+        userInformationRepository.save(userInformation);
     }
 
 }

@@ -255,7 +255,7 @@ public class UserController {
     public ResponseEntity<List<String>> getAllUsersNameAndEmail() {
 
         try {
-            return new ResponseEntity<>(userService.getAllUserames(), HttpStatus.OK);
+            return new ResponseEntity<>(userService.getAllMsgMails(), HttpStatus.OK);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         }
