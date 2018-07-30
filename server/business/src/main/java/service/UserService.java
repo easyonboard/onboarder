@@ -6,17 +6,24 @@ import dto.CheckListDTO;
 import dto.LeaveCheckListDTO;
 import dto.UserDTO;
 import dto.UserInformationDTO;
-import dto.mapper.*;
+import dto.mapper.CheckListMapper;
+import dto.mapper.LeaveCheckListMapper;
+import dto.mapper.UserInformationMapper;
+import dto.mapper.UserMapper;
 import entity.CheckList;
 import entity.LeaveCheckList;
 import entity.User;
 import entity.UserInformation;
 import entity.enums.DepartmentType;
-import exception.types.*;
+import exception.types.DatabaseException;
+import exception.types.EntityNotFoundException;
+import exception.types.FieldNotFoundException;
+import exception.types.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
 
+import javax.persistence.NoResultException;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -37,6 +44,9 @@ public class UserService {
 
     @Autowired
     private UserInformationDAO userInformationDAO;
+
+    @Autowired
+    private UserInformationRepository userInformationRepository;
 
     @Autowired
     private CheckListRepository checkListRepository;
@@ -134,7 +144,7 @@ public class UserService {
 
     public List<UserInformationDTO> getAllNewUsers() throws EntityNotFoundException {
 
-        List<UserInformation> newUsers = userInformationDAO.getAllNewUsers();
+        List<UserInformation> newUsers = userInformationRepository.getAllNewUsers(new Date());
         if (newUsers.isEmpty()) {
             throw new EntityNotFoundException(NEW_USERS_NOT_FOUND_EXCEPTION);
         }
@@ -239,7 +249,7 @@ public class UserService {
 
             if (canUserBeDeleted(userEntity)) {
 
-                UserInformation userInformationEntity = userInformationDAO.findUserInformationByUser(userEntity);
+                UserInformation userInformationEntity = userInformationRepository.findUserInformationByUser(userEntity);
                 if (userInformationEntity != null) {
                     userInformationEntity.setBuddyUser(null);
                     userInformationEntity.setLocation(null);
@@ -264,7 +274,7 @@ public class UserService {
                 tutorialDAO.removeUserFromTutorialContactList(userEntity);
                 eventRepository.removeUserFromEnrolledList(userEntity);
                 eventRepository.removeContactPersonFromEvents(userEntity);
-                userInformationDAO.setBuddyToNull(userEntity);
+                setBuddyToNull(userEntity);
                 userRepository.delete(userEntity);
                 return true;
             } else {
@@ -275,13 +285,30 @@ public class UserService {
         }
     }
 
+    public void setBuddyToNull(User userEntity) {
+        try {
+            List<UserInformation> userInformationsList = userInformationRepository.findUsersByBuddyUser(userEntity);
+            if (userInformationsList != null) {
+                for (int i = 0; i < userInformationsList.size(); i++) {
+                    UserInformation userInformation = userInformationsList.get(i);
+                    userInformation.setBuddyUser(null);
+                    userInformationRepository.save(userInformation);
+                }
+            }
+        } catch (NoResultException e) {
+
+            System.out.println("User is not buddy");
+        }
+    }
+
+
     public UserInformationDTO getUserInformationForUser(String username) throws EntityNotFoundException {
 
         User user = userRepository.findByUsername(username).get();
         if (user == null) {
             throw new EntityNotFoundException(userNotFound(username));
         }
-        UserInformation userInformation = userInformationDAO.findUserInformationByUser(user);
+        UserInformation userInformation = userInformationRepository.findUserInformationByUser(user);
         if (user == null) {
             throw new EntityNotFoundException("Information for user " + username + "not found");
         }
@@ -289,7 +316,7 @@ public class UserService {
         return userInformationMapper.mapToDTO(userInformation);
     }
 
-    public List<String> getAllUserames() throws EntityNotFoundException {
+    public List<String> getAllMsgMails() throws EntityNotFoundException {
 
         List<User> users = userRepository.findAll();
         if (users.isEmpty()) {

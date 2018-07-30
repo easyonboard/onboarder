@@ -5,7 +5,12 @@ export class RootConst {
   public SERVER_EVENTS_URL = this.WEB_SERVICE_ENDPOINT + 'events';
 
   public SERVER_ALL_USERS = this.WEB_SERVICE_ENDPOINT + 'allUsers';
+
   public SERVER_ALL_USERS_NAME_EMAIL = this.WEB_SERVICE_ENDPOINT + 'getAllMsgMails';
+
+  public SERVER_ALL_MSG_MAILS = this.WEB_SERVICE_ENDPOINT + 'getAllMsgMails';
+  public SERVER_UNENROLLE_USER_ON_COURSE = this.SERVER_COURSES_URL + '/unenrollUserFromCourse?idCourse=';
+
   public SERVER_ADD_USER = this.WEB_SERVICE_ENDPOINT + 'user/addUser';
   public SERVER_UPDATE_USER_INFO = this.WEB_SERVICE_ENDPOINT + '/user/updateUserInfo';
   public SERVER_UPDATE_USER_PASSWORD = this.WEB_SERVICE_ENDPOINT + '/user/updateUserPassword';

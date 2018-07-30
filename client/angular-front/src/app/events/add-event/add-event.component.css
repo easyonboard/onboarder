@@ -1,7 +1,3 @@
-#bigDiv {
-    overflow-y: auto;
-}
-
 #addComponent {
     margin: auto;
     width: 70%;
@@ -25,16 +21,6 @@
     border-radius: 10px;
 }
 
-#tutorialTable td,
-#materialTable td {
-    padding-left: 5%;
-}
-
-#tutorialTable td,
-#materialTable td {
-    padding-top: 5%;
-}
-
 .pageTitle {
     font-size: 170%;
     font-weight: bold;
@@ -45,24 +31,11 @@
     align-self: auto;
 }
 
-table {
-    color: #0e0008;
-    opacity: revert;
-    font-weight: bold;
-    font-size: medium;
-}
-
 input[type~="text"],
 select {
     border-radius: 2px;
     height: 100%;
     width: 100%;
-}
-
-textarea {
-    border-radius: 5px;
-    height: 100px;
-    width: 500px;
 }
 
 input[type~="submit"] {
@@ -80,35 +53,10 @@ input[type~="submit"] {
     left: 16px;
 }
 
-#tutorialTable {
-    margin-top: 5%;
-}
-
-#materialTable {
-    margin-top: 15%;
-    margin-left: 1%;
-    margin-right: 10%;
-}
-
 .separator {
     margin-left: 5%;
     width: 90%;
     margin-bottom: 1%;
-}
-
-thead>tr>th {
-    border-bottom: 3px solid #841439;
-}
-
-.row {
-    margin-bottom: 5%;
-}
-
-.container-fluid .row .input-group-addon {
-    border-radius: 10px;
-    text-align: left;
-    opacity: 1;
-    background-color: #cccccc;
 }
 
 .keyword-list {
@@ -157,8 +105,4 @@ thead>tr>th {
     width: 100%;
     margin-top: 500px;
     padding: 30px;
-}
-
-tr {
-    margin-bottom: 50px;
 }

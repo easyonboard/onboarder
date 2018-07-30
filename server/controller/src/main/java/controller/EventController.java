@@ -1,5 +1,6 @@
 package controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.EventDTO;
@@ -35,12 +36,14 @@ public class EventController {
             node = mapper.readTree(courseJson);
             EventDTO eventDTO = mapper.convertValue(node.get("event"), EventDTO.class);
             MeetingHallDto meetingHall = mapper.convertValue(node.get("hall"), MeetingHallDto.class);
-            List<String> enrolledUsers = mapper.convertValue(node.get("enrolledPersons"), List.class);
-            String contactPerson = mapper.convertValue(node.get("contactPersons"), String.class);
+            JsonNode nodeEnrolledPersonMsgMails = node.get("enrolledPersons");
+            List<String> enrolledPersonMsgMails = mapper.readValue(nodeEnrolledPersonMsgMails.toString(), new TypeReference<List<String>>(){});
+            JsonNode nodeContactPersonMsgMails = node.get("contactPersons");
+            List<String> contactPersonMsgMails = mapper.readValue(nodeContactPersonMsgMails.toString(), new TypeReference<List<String>>(){});
             LocationDto locationDto = mapper.convertValue(node.get("location"), LocationDto.class);
 
             return new ResponseEntity<>(
-                    eventService.addEvent(eventDTO, enrolledUsers, contactPerson, locationDto, meetingHall),
+                    eventService.addEvent(eventDTO, enrolledPersonMsgMails, contactPersonMsgMails, locationDto, meetingHall),
                     HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
