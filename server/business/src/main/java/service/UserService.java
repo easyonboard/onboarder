@@ -6,13 +6,16 @@ import dto.CheckListDTO;
 import dto.LeaveCheckListDTO;
 import dto.UserDTO;
 import dto.UserInformationDTO;
-import dto.mapper.*;
-import entity.CheckList;
-import entity.LeaveCheckList;
-import entity.User;
-import entity.UserInformation;
+import dto.mapper.CheckListMapper;
+import dto.mapper.LeaveCheckListMapper;
+import dto.mapper.UserInformationMapper;
+import dto.mapper.UserMapper;
+import entity.*;
 import entity.enums.DepartmentType;
-import exception.types.*;
+import exception.types.DatabaseException;
+import exception.types.EntityNotFoundException;
+import exception.types.FieldNotFoundException;
+import exception.types.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
@@ -54,7 +57,7 @@ public class UserService {
     private EventRepository eventRepository;
 
     @Autowired
-    private TutorialDAO tutorialDAO;
+    private TutorialRepository tutorialRepository;
 
     private UserMapper userMapper = UserMapper.INSTANCE;
 
@@ -63,7 +66,6 @@ public class UserService {
     private LeaveCheckListMapper leaveCheckListMapper = LeaveCheckListMapper.INSTANCE;
 
     private UserInformationMapper userInformationMapper = UserInformationMapper.INSTANCE;
-
 
     public UserDTO findUserByUsername(String username) throws EntityNotFoundException {
 
@@ -74,7 +76,8 @@ public class UserService {
         return userMapper.mapToDTO(entity.get());
     }
 
-    public void addUser(UserDTO userDTO, UserInformationDTO userInformationDTO) throws InvalidDataException, DatabaseException {
+    public void addUser(UserDTO userDTO,
+                        UserInformationDTO userInformationDTO) throws InvalidDataException, DatabaseException {
 
         userDTO.setPassword(encrypt(userDTO.getUsername()));
         userValidator.validateUsername(userDTO.getUsername());
@@ -95,7 +98,6 @@ public class UserService {
             userInformationService.addUserInfo(userInformationDTO, appUser, null);
         }
 
-
         checkListService.addCheckList(userInformationDTO, appUser);
     }
 
@@ -104,7 +106,8 @@ public class UserService {
         return Hashing.sha256().hashString(initString, StandardCharsets.UTF_8).toString();
     }
 
-    public void updateUser(UserDTO userUpdated) throws InvalidDataException, EntityNotFoundException, DatabaseException {
+    public void updateUser(
+            UserDTO userUpdated) throws InvalidDataException, EntityNotFoundException, DatabaseException {
 
         Optional<User> user = userRepository.findByUsername(userUpdated.getUsername());
 
@@ -152,7 +155,8 @@ public class UserService {
         return userMapper.entitiesToDTOs(users);
     }
 
-    public List<UserDTO> getUsersInDepartmentForUser(String username) throws EntityNotFoundException, FieldNotFoundException {
+    public List<UserDTO> getUsersInDepartmentForUser(
+            String username) throws EntityNotFoundException, FieldNotFoundException {
 
         String department = getDepartmentForUser(username);
         DepartmentType departmentType = DepartmentType.valueOf(department);
@@ -175,6 +179,7 @@ public class UserService {
     }
 
     public Map getCheckList(UserDTO userDTO) throws EntityNotFoundException {
+
         User user = userRepository.findOne(userDTO.getIdUser());
         CheckList checkList = userRepository.getCheckListForUser(user);
 
@@ -201,7 +206,8 @@ public class UserService {
         return checkListMap;
     }
 
-    public void saveCheckListForUser(String username, CheckListDTO checkList) throws EntityNotFoundException, DatabaseException {
+    public void saveCheckListForUser(String username,
+                                     CheckListDTO checkList) throws EntityNotFoundException, DatabaseException {
 
         User userEntity = userRepository.findByUsername(username).get();
         if (userEntity == null) {
@@ -254,14 +260,20 @@ public class UserService {
                     throw new EntityNotFoundException(checklistForUserNotFound(username));
                 }
 
-                LeaveCheckList leavecheckListEntity = leaveCheckListRepository.findLeaveCheckListByUserAccount(userEntity);
+                LeaveCheckList leavecheckListEntity = leaveCheckListRepository.findLeaveCheckListByUserAccount(
+                        userEntity);
                 if (leavecheckListEntity != null) {
                     leaveCheckListRepository.delete(leavecheckListEntity);
                 } else {
                     checklistForUserNotFound(username);
                 }
 
-                tutorialDAO.removeUserFromTutorialContactList(userEntity);
+                List<Tutorial> tutorialsForUser = tutorialRepository.getTutorialsForUser(userEntity);
+                for (Tutorial aTutorialsForUser : tutorialsForUser) {
+                    aTutorialsForUser.getContactPersons().remove(userEntity);
+                    tutorialRepository.save(aTutorialsForUser);
+
+                }
                 eventRepository.removeUserFromEnrolledList(userEntity);
                 eventRepository.removeContactPersonFromEvents(userEntity);
                 userInformationDAO.setBuddyToNull(userEntity);

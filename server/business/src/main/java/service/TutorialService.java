@@ -1,9 +1,8 @@
 package service;
 
-import dao.TutorialDAO;
 import dao.TutorialMaterialDAO;
+import dao.TutorialRepository;
 import dao.UserRepository;
-import dto.ContactPersonDto;
 import dto.TutorialDto;
 import dto.TutorialMaterialDTO;
 import dto.mapper.TutorialMapper;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 public class TutorialService {
 
     @Autowired
-    private TutorialDAO tutorialDAO;
+    private TutorialRepository tutorialRepository;
 
     @Autowired
     private TutorialMaterialDAO tutorialMaterialDAO;
@@ -34,11 +33,11 @@ public class TutorialService {
     private TutorialMaterialMapper tutorialMaterialMapper = TutorialMaterialMapper.INSTANCE;
 
     public List<TutorialDto> getAllPublicTutorials() {
-        return tutorialMapper.entitiesToDTOs(tutorialDAO.allPublicTutorials());
+        return tutorialMapper.entitiesToDTOs(tutorialRepository.findByIsDraft(false));
     }
 
     public List<TutorialDto> filterByKeyword(String keyword) {
-        return tutorialMapper.entitiesToDTOs(tutorialDAO.filterByKeyword(keyword));
+        return tutorialMapper.entitiesToDTOs(tutorialRepository.findByKeywordsContainingIgnoreCase(keyword));
     }
 
     public TutorialDto addTutorial(TutorialDto tutorialDto, List<String> contactPersonMsgMail) {
@@ -47,7 +46,7 @@ public class TutorialService {
         if (tutorial.getDraft()==null) {
             tutorial.setDraft(false);
         }
-        return tutorialMapper.mapToDTO(tutorialDAO.persistEntity(tutorial));
+        return tutorialMapper.mapToDTO(tutorialRepository.save(tutorial));
     }
 
     private List<User> getUsersByIds(List<Integer> contactPersonsIds) {
@@ -72,7 +71,7 @@ public class TutorialService {
     }
 
     public TutorialDto getTutorialById(Integer tutorialId) {
-        Tutorial tutorialEntity = tutorialDAO.findTutorialById(tutorialId);
+        Tutorial tutorialEntity = tutorialRepository.findOne(tutorialId);
         return tutorialMapper.mapToDTO(tutorialEntity);
     }
 
@@ -83,7 +82,7 @@ public class TutorialService {
     public List<TutorialMaterialDTO> getAllMaterialsForTutorial(Integer idTutorial) {
         List<TutorialMaterialDTO> tutorialMaterialDTOS;
 
-        List<TutorialMaterial> tutorialMaterials = tutorialDAO.findTutorialById(idTutorial).getTutorialMaterials();
+        List<TutorialMaterial> tutorialMaterials = tutorialRepository.findOne(idTutorial).getTutorialMaterials();
         tutorialMaterialDTOS = tutorialMaterials.stream().map(tutorial -> tutorialMaterialMapper.mapToDTO(tutorial)).collect(Collectors.toList());
 
         return tutorialMaterialDTOS;
@@ -91,8 +90,8 @@ public class TutorialService {
 
     public List<TutorialDto> deleteTutorial(TutorialDto tutorial) {
 
-        Tutorial entity = tutorialDAO.findEntity(tutorial.getIdTutorial());
-        tutorialDAO.deleteEntity(entity);
+        Tutorial entity = tutorialRepository.findOne(tutorial.getIdTutorial());
+        tutorialRepository.delete(entity);
         return getAllPublicTutorials();
     }
 
@@ -100,10 +99,10 @@ public class TutorialService {
         Tutorial tutorial = new Tutorial();
         tutorialMapper.mapToEntity(tutorialDto, tutorial);
         tutorial.setContactPersons(getUsersByMsgEmail(contactPersons));
-        return tutorialMapper.mapToDTO(tutorialDAO.update(tutorial));
+        return tutorialMapper.mapToDTO(tutorialRepository.save(tutorial));
     }
 
     public List<TutorialDto> allDraftTutorialsForUser(Integer idUser) {
-        return tutorialMapper.entitiesToDTOs(tutorialDAO.getAllDraftTutorialsForUser(userRepository.findOne(idUser)));
+        return tutorialMapper.entitiesToDTOs(tutorialRepository.getAllDraftTurorialsForUser(userRepository.findOne(idUser)));
     }
 }

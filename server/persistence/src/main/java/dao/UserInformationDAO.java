@@ -52,22 +52,12 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
         actualUserInfo.setLocation(userInfo.getLocation());
         actualUserInfo.setFloor(userInfo.getFloor());
         actualUserInfo.setProject(userInfo.getProject());
-<<<<<<< HEAD
-        actualUserInfo.setDepartment(userInfo.getDepartment());
-        actualUserInfo.setStartDate(userInfo.getStartDate());
-        if (userInfo.getBuddyUser().getUsername() != null)
-
-        {
-            Optional<User> newUser = userDAO.findUserByUsername(userInfo.getBuddyUser().getUsername());
-            actualUserInfo.setBuddyUser(newUser.get());
-=======
 
         actualUserInfo.setDepartment(userInfo.getDepartment());
         actualUserInfo.setStartDate(userInfo.getStartDate());
         if (userInfo.getBuddyUser().getUsername() != null) {
             User newUser = userRepository.findByUsername(userInfo.getBuddyUser().getUsername()).get();
             actualUserInfo.setBuddyUser(newUser);
->>>>>>> master
         }
 
         return em.merge(actualUserInfo);
