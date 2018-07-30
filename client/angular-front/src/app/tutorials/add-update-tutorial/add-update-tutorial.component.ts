@@ -59,7 +59,7 @@ export class AddUpdateTutorialComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getUsers();
+    this.getUserMsgMails();
 
     if (this.tutorialId) {
       this.getTutorialInformation();
@@ -91,8 +91,8 @@ export class AddUpdateTutorialComponent implements OnInit {
     this.selectedUsers.push(localStorage.getItem(LocalStorageConst._MSG_MAIL));
   }
 
-  private getUsers() {
-    this.userService.getAllUsernames().subscribe((users: String[]) => {
+  private getUserMsgMails() {
+    this.userService.getAllMsgMails().subscribe((users: String[]) => {
       this.allUsers = users;
     });
   }

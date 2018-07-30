@@ -10,10 +10,6 @@ import {RootConst} from '../../util/RootConst';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 import {LocationDTO} from '../../domain/location';
 import {debug} from 'util';
-import { TimepickerDirective, ITime, TimeFormat } from 'angular5-time-picker';
-import { Item } from 'angular2-multiselect-dropdown';
-import { DEFAULT_RESIZE_TIME } from '@angular/cdk/scrolling';
-import { Timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-add-event',
@@ -24,10 +20,10 @@ export class AddEventComponent implements OnInit {
 
   private rootConst: RootConst;
 
-  public selectedContactPerson: string;
-  public dropdownContactPersonsSettings = {};
-  public selectedEnrolledPersonsItems = [];
-  public dropdownEnrolledPersonsSettings = {};
+  public dropdownSettings = {};
+  public allUsers: String[] = [];
+  public selectedContactPersons: string[] = [];
+  public selectedEnrolledPersons: string[] = [];
   public selectedLocation: LocationDTO;
   public selectedRoom: MeetingHall;
 
@@ -50,8 +46,6 @@ export class AddEventComponent implements OnInit {
 
   public inputKeyword: any;
 
-  public contactPersonUsername: string;
-  public enrolledPersonUsername: string[];
   public today: Date;
   separatorKeysCodes = [ENTER, COMMA, SPACE];
 
@@ -64,7 +58,6 @@ export class AddEventComponent implements OnInit {
     this.event.titleEvent = '';
     this.eventErrorMessage = '';
     this.saved = false;
-    this.enrolledPersonUsername = [];
     this.userService.getAllUsers().subscribe(us => {
       this.usersOptions = us;
     });
@@ -73,18 +66,10 @@ export class AddEventComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getUserMsgMails();
+
     this.currentStep = 'one';
     this.today = new Date(Date.now());
-
-    this.dropdownContactPersonsSettings = {
-      singleSelection: true,
-      allowSearchFilter: true
-    };
-
-    this.dropdownEnrolledPersonsSettings = {
-      singleSelection: false,
-      allowSearchFilter: true
-    };
 
     this.dropdownLocationSettings = {
       singleSelection: true,
@@ -103,6 +88,20 @@ export class AddEventComponent implements OnInit {
       this.allMeetingHallOptions = resp;
       this.meetingHallOptions = this.allMeetingHallOptions;
       console.log(this.meetingHallOptions [0]);
+    });
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      allowSearchFilter: true,
+      selectAllText: 'Select All',
+      unSelectAllText: 'Unselect All',
+      itemsShowLimit: 1,
+    };
+  }
+
+  private getUserMsgMails() {
+    this.userService.getAllMsgMails().subscribe((users: String[]) => {
+      this.allUsers = users;
     });
   }
 
@@ -125,7 +124,9 @@ export class AddEventComponent implements OnInit {
     }
 
     this.event.keywords = this.keywords.join(' ');
-    this.eventService.addEvent(this.event, this.selectedContactPerson, this.selectedEnrolledPersonsItems,
+
+    console.log(this.selectedContactPersons + ' ' + this.selectedEnrolledPersons);
+    this.eventService.addEvent(this.event, this.selectedContactPersons, this.selectedEnrolledPersons,
                                this.selectedLocation, this.selectedRoom).subscribe(event => {
       this.event = event;
       this.saved = true;
