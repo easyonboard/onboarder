@@ -154,7 +154,7 @@ public class UserService {
 
     public List<UserDTO> searchByName(String name) throws EntityNotFoundException {
 
-        List<User> users = userRepository.findAllByName(name);
+        List<User> users = userRepository.findByNameContainingIgnoreCase(name);
         if (users.isEmpty()) {
             throw new EntityNotFoundException(USERS_MATCHING_STRING_NOT_FOUND_EXCEPTION);
         }
