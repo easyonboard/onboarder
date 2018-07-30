@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 import {MatChipInputEvent, MatSnackBar} from '@angular/material';
 import {DOCUMENT, Location} from '@angular/common';
@@ -114,7 +114,10 @@ export class AddUpdateTutorialComponent implements OnInit {
         this.snackBarMessagePopup(err.error.message);
       });
     } catch (e) {
-      this.snackBarMessagePopup(e.error.message);
+      if (e instanceof Error) {
+        console.log(e);
+        this.snackBarMessagePopup(e.message);
+      }
     }
   }
 
@@ -250,7 +253,9 @@ export class AddUpdateTutorialComponent implements OnInit {
         this.snackBarMessagePopup(err.error.message);
       });
     } catch (e) {
-      this.snackBarMessagePopup(e.error.message);
+      if (e instanceof Error) {
+        this.snackBarMessagePopup(e.message);
+      }
     }
   }
 

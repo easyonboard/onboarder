@@ -6,10 +6,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sun.media.sound.InvalidDataException;
-import dto.ContactPersonDto;
 import dto.TutorialDto;
 
 import dto.TutorialMaterialDTO;
+import exception.types.EntityNotFoundException;
+import exception.types.NoDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import static exception.Constants.PARSING_EXCEPTION;
+
 @RestController
 @RequestMapping("/tutorials")
 public class TutorialController {
+
+
 
     @Autowired
     private TutorialService tutorialService;
@@ -50,7 +55,7 @@ public class TutorialController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/add", consumes = "application/json", method = RequestMethod.POST)
-    public ResponseEntity addTutorial(@RequestBody String tutorialJSON) {
+    public ResponseEntity<Object> addTutorial(@RequestBody String tutorialJSON) {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -61,11 +66,14 @@ public class TutorialController {
             TutorialDto tutorialDto = mapper.convertValue(nodeTutorial, TutorialDto.class);
             List<String> contactPersonMsgMails = mapper.readValue(nodeContactPersonMsgMails.toString(), new TypeReference<List<String>>(){});
 
-            return new ResponseEntity(tutorialService.addTutorial(tutorialDto, contactPersonMsgMails), HttpStatus.OK);
-        } catch (InvalidDataException e) {
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+            try {
+                return new ResponseEntity<>(tutorialService.addTutorial(tutorialDto, contactPersonMsgMails),
+                                                HttpStatus.OK);
+            } catch (EntityNotFoundException e) {
+                return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+            }
         } catch (IOException e) {
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(PARSING_EXCEPTION, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -73,16 +81,25 @@ public class TutorialController {
     @RequestMapping(value = "/addTutorialMaterial", method = RequestMethod.POST)
     public ResponseEntity addTutorialMaterial(@RequestParam(name = "material") String mat,
                                               @RequestParam(name = "file") Optional<MultipartFile> file, @RequestParam(
-            name = "idTutorial") Integer idTutorial) throws IOException {
+            name = "idTutorial") Integer idTutorial) {
 
         final GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
         TutorialMaterialDTO material = gson.fromJson(mat, TutorialMaterialDTO.class);
 
-        TutorialDto tutorial = tutorialService.getTutorialById(idTutorial);
+        TutorialDto tutorial = null;
+        try {
+            tutorial = tutorialService.getTutorialById(idTutorial);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
         material.setTutorial(tutorial);
         if (file.isPresent()) {
-            material.setFileMaterial(file.get().getBytes());
+            try {
+                material.setFileMaterial(file.get().getBytes());
+            } catch (IOException e) {
+                return new ResponseEntity<>(PARSING_EXCEPTION, HttpStatus.BAD_REQUEST);
+            }
         }
         tutorialService.addTutorialMaterial(material);
 
@@ -104,7 +121,11 @@ public class TutorialController {
     @RequestMapping(value = "/materialsForTutorial", method = RequestMethod.GET)
     public ResponseEntity<List<TutorialMaterialDTO>> allTutorials(@RequestParam(value = "id") Integer idTutorial) {
 
-        return new ResponseEntity<>(tutorialService.getAllMaterialsForTutorial(idTutorial), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(tutorialService.getAllMaterialsForTutorial(idTutorial), HttpStatus.OK);
+        } catch (EntityNotFoundException | NoDataException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -112,19 +133,27 @@ public class TutorialController {
     public ResponseEntity<TutorialDto> getTutorialById(
             @PathVariable(value = "id", required = true) Integer idTutorial) {
 
-        return new ResponseEntity<>(tutorialService.getTutorialById(idTutorial), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(tutorialService.getTutorialById(idTutorial), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/deleteTutorial", method = RequestMethod.POST)
     public ResponseEntity<List<TutorialDto>> deleteTutorial(@RequestBody TutorialDto tutorial) {
 
-        return new ResponseEntity<>(tutorialService.deleteTutorial(tutorial), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(tutorialService.deleteTutorial(tutorial), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ResponseEntity updateTutorial(@RequestBody String tutorialJSON) {
+    public ResponseEntity<Object> updateTutorial(@RequestBody String tutorialJSON) {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -133,11 +162,13 @@ public class TutorialController {
             TutorialDto tutorialDto = mapper.convertValue(node.get("tutorial"), TutorialDto.class);
             List<String> contactPersons = mapper.convertValue(node.get("contactPersons"), List.class);
 
-            return new ResponseEntity(tutorialService.updateTutorial(tutorialDto, contactPersons), HttpStatus.OK);
+            return new ResponseEntity<>(tutorialService.updateTutorial(tutorialDto, contactPersons), HttpStatus.OK);
         } catch (InvalidDataException e) {
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(PARSING_EXCEPTION, HttpStatus.BAD_REQUEST);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -146,6 +177,10 @@ public class TutorialController {
     public ResponseEntity<List<TutorialDto>> allDraftTutorialsForUser(
             @RequestParam(value = "idUser", required = false) Integer idUser) {
 
-        return new ResponseEntity<>(tutorialService.allDraftTutorialsForUser(idUser), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(tutorialService.allDraftTutorialsForUser(idUser), HttpStatus.OK);
+        } catch (NoDataException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewEncapsulation, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {RootConst} from '../util/RootConst';
 import {TutorialDTO} from '../domain/tutorial';
 import {TutorialService} from '../service/tutorial.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {PageEvent} from '@angular/material';
+import {MatSnackBar, PageEvent} from '@angular/material';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -21,17 +21,19 @@ export class TutorialsComponent implements OnDestroy, OnInit {
   pageEvent: PageEvent;
   pageSize = 9;
   pageSizeOptions = [9, 18, 36, 99];
+  noDraftsMessage: string;
 
   private httpSubscription: Subscription;
   private pageIndex = 0;
 
   constructor(private tutorialService: TutorialService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router, private snackBar: MatSnackBar) {
     this.rootConst = new RootConst();
   }
 
   ngOnInit(): void {
+    this.noDraftsMessage='';
     this.route.params.subscribe(params => {
       this.route.queryParams.subscribe(
         queryParams => {
@@ -42,6 +44,9 @@ export class TutorialsComponent implements OnDestroy, OnInit {
           this.httpSubscription = this.decision(params).subscribe(tutorials => {
             this.tutorials = tutorials;
             this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
+          },
+          err=>{
+            this.noDraftsMessage=err.error.message;
           });
         }
       );
@@ -91,8 +96,22 @@ export class TutorialsComponent implements OnDestroy, OnInit {
 
   deleteTutorial(idTutorial: number) {
     if (confirm('Do you want to delete this tutorial?')) {
-      this.tutorialService.deleteTutorial(idTutorial).subscribe(tutorials =>
-        location.reload());
+      this.tutorialService.deleteTutorial(idTutorial).subscribe(
+        tutorials => {
+          this.tutorials = tutorials;
+          this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
+        },
+        err => {
+          this.snackBarMessagePopup(err.error.message);
+        });
+
     }
   }
+
+  snackBarMessagePopup(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 3000
+    });
+  }
+
 }
