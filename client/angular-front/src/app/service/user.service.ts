@@ -63,8 +63,8 @@ export class UserService {
   }
 
   /** !TODO */
-  getAllUsernames(): Observable<String[]> {
-    return this.http.get<String[]>(this.rootConst.SERVER_ALL_USERS_NAME_EMAIL);
+  getAllMsgMails(): Observable<String[]> {
+    return this.http.get<String[]>(this.rootConst.SERVER_ALL_MSG_MAILS);
   }
 
   searchUsers(term: string): Observable<UserDTO[]> {
