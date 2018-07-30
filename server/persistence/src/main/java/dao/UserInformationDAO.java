@@ -21,24 +21,24 @@ public class UserInformationDAO extends AbstractDAO<UserInformation> {
     @Autowired
     UserRepository userRepository;
 
-    @Transactional
-    public UserInformation updateUserInformation(UserInformation userInfo) {
-        UserInformation actualUserInfo = findEntity(userInfo.getIdUserInformation());
-
-        actualUserInfo.setTeam(userInfo.getTeam());
-        actualUserInfo.setLocation(userInfo.getLocation());
-        actualUserInfo.setFloor(userInfo.getFloor());
-        actualUserInfo.setProject(userInfo.getProject());
-
-        actualUserInfo.setDepartment(userInfo.getDepartment());
-        actualUserInfo.setStartDate(userInfo.getStartDate());
-        if (userInfo.getBuddyUser().getUsername() != null) {
-            User newUser = userRepository.findByUsername(userInfo.getBuddyUser().getUsername()).get();
-            actualUserInfo.setBuddyUser(newUser);
-        }
-
-        return em.merge(actualUserInfo);
-    }
+//    @Transactional
+//    public UserInformation updateUserInformation(UserInformation userInfo) {
+//        UserInformation actualUserInfo = findEntity(userInfo.getIdUserInformation());
+//
+//        actualUserInfo.setTeam(userInfo.getTeam());
+//        actualUserInfo.setLocation(userInfo.getLocation());
+//        actualUserInfo.setFloor(userInfo.getFloor());
+//        actualUserInfo.setProject(userInfo.getProject());
+//
+//        actualUserInfo.setDepartment(userInfo.getDepartment());
+//        actualUserInfo.setStartDate(userInfo.getStartDate());
+//        if (userInfo.getBuddyUser().getUsername() != null) {
+//            User newUser = userRepository.findByUsername(userInfo.getBuddyUser().getUsername()).get();
+//            actualUserInfo.setBuddyUser(newUser);
+//        }
+//
+//        return em.merge(actualUserInfo);
+//    }
 
     @Transactional
     public void setBuddyToNull(User buddyUser) {

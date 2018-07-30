@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
 
+import javax.persistence.NoResultException;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -273,7 +274,7 @@ public class UserService {
                 tutorialDAO.removeUserFromTutorialContactList(userEntity);
                 eventRepository.removeUserFromEnrolledList(userEntity);
                 eventRepository.removeContactPersonFromEvents(userEntity);
-                userInformationDAO.setBuddyToNull(userEntity);
+                setBuddyToNull(userEntity);
                 userRepository.delete(userEntity);
                 return true;
             } else {
@@ -283,6 +284,23 @@ public class UserService {
             throw new EntityNotFoundException(userNotFound(username));
         }
     }
+
+    public void setBuddyToNull(User userEntity) {
+        try {
+            List<UserInformation> userInformationsList = userInformationRepository.findUsersByBuddyUser(userEntity);
+            if (userInformationsList != null) {
+                for (int i = 0; i < userInformationsList.size(); i++) {
+                    UserInformation userInformation = userInformationsList.get(i);
+                    userInformation.setBuddyUser(null);
+                    userInformationRepository.save(userInformation);
+                }
+            }
+        } catch (NoResultException e) {
+
+            System.out.println("User is not buddy");
+        }
+    }
+
 
     public UserInformationDTO getUserInformationForUser(String username) throws EntityNotFoundException {
 
