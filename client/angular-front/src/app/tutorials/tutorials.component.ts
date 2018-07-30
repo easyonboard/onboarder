@@ -69,7 +69,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
     location.replace(this.rootConst.FRONT_ADD_TUTORIAL);
   }
 
-  searchByKeyword(keyword: string) {
+  filterByKeyword(keyword: string) {
     if (keyword !== 'addTutorialRouterLink') {
       this.router.navigate(['tutorials/keywords/' + keyword]);
     }
@@ -91,11 +91,8 @@ export class TutorialsComponent implements OnDestroy, OnInit {
 
   deleteTutorial(idTutorial: number) {
     if (confirm('Do you want to delete this tutorial?')) {
-      this.tutorialService.deleteTutorial(idTutorial).subscribe(
-        tutorials => {
-          this.tutorials = tutorials;
-          this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
-        });
+      this.tutorialService.deleteTutorial(idTutorial).subscribe(tutorials =>
+        location.reload());
     }
   }
 }
