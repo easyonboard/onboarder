@@ -1,4 +1,4 @@
-import {UserDTO} from './user';
+import {UserDTO, ContactPersonDto} from './user';
 import {TutorialMaterialDTO} from './tutorialMaterial';
 
 export class TutorialDTO {
@@ -9,4 +9,11 @@ export class TutorialDTO {
   contactPersons: UserDTO[];
   tutorialMaterials: TutorialMaterialDTO[];
   draft: boolean;
+}
+
+export class TutorialDto {
+  titleTutorial: string;
+  overview: string;
+  keywords: string;
+  contactPersons: ContactPersonDto[];
 }

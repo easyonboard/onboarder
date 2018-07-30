@@ -13,6 +13,7 @@ import {UserService} from '../../service/user.service';
   encapsulation: ViewEncapsulation.None
 })
 export class DialogNewEmployeeComponent implements OnInit {
+  [x: string]: any;
 
   public newEmployees: UserInformationDTO[];
 
@@ -32,6 +33,9 @@ export class DialogNewEmployeeComponent implements OnInit {
       this.newEmployees = newEmployees;
       this.getStatus();
       this.setStartDate();
+    },
+    err => {
+      this.snackBarMessagePopup(err.error.message);
     });
   }
 
@@ -45,8 +49,6 @@ export class DialogNewEmployeeComponent implements OnInit {
   }
 
   openUserInfoModal(userInformation: UserInformationDTO) {
-    console.log('user inainte de modal');
-    console.log(userInformation);
     this.dialog.open(UserInfoUpdateComponent, {
       height: '650px',
       width: '900px',
@@ -56,11 +58,8 @@ export class DialogNewEmployeeComponent implements OnInit {
 
   private getStatus() {
     this.newEmployees.forEach(user => {
-      console.log(user.team + '\n');
-      console.log(user.userAccount.name + '\n');
       this.userService.isMailSent(user.userAccount).subscribe(value => {
         this.isMailSent.push(value);
-        console.log(value);
       });
     });
   }

@@ -10,6 +10,7 @@ import {UserInformationService} from '../../service/user-information.service';
   styleUrls: ['./users-in-department-list.component.css']
 })
 export class UsersInDepartmentListComponent implements OnInit {
+  [x: string]: any;
 
   public employeesInDepartment: UserDTO[];
   private department = '';
@@ -44,6 +45,8 @@ export class UsersInDepartmentListComponent implements OnInit {
       this.getAllInformation();
       this.getUserTeamAndStartDate();
       this.userDetails = this.allUserDetails;
+    }, err => {
+      this.snackBarMessagePopup(err.error.message);
     });
 
 
@@ -72,6 +75,8 @@ export class UsersInDepartmentListComponent implements OnInit {
         const myDate = new Date(user.startDate).toDateString();
         userInfo.startDate = myDate;
         userInfo.project = user.project;
+      }, err => {
+        this.snackBarMessagePopup(err.error.message);
       });
     });
 

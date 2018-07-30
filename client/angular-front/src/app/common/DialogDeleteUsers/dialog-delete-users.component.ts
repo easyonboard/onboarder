@@ -35,22 +35,24 @@ export class DialogDeleteUsersComponent implements OnInit {
         this.snackBarMessagePopup('User ' + username + ' removed!');
         this.getAllUsers();
       }
+    },
+    err => {
+      this.snackBarMessagePopup(err.error.message);
     });
   }
 
   getAllUsers() {
     this.userService.getAllUsers().subscribe(users => {
-
-      this.allUsers = users
-      // console.log(this.allUsers);
-      // this.allUsers.forEach(user => {
-      //   if (user.username === localStorage.getItem(LocalStorageConst._USER_LOGGED)) {
-      //     debugger
-      //     this.allUsers.splice(this.allUsers.indexOf(user),1 );
-      //   }
-      // });
-
+      this.allUsers = users;
+      this.allUsers.forEach(user => {
+        if (user.username === localStorage.getItem(LocalStorageConst._USER_LOGGED)) {
+          this.allUsers.splice(this.allUsers.indexOf(user), 1);
+        }
+      });
       this.searchByName();
+    },
+    err => {
+      this.snackBarMessagePopup(err.error.message);
     });
 
   }

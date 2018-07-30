@@ -1,9 +1,8 @@
-import {AfterViewChecked, Component, Inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 import {MatChipInputEvent, MatSnackBar} from '@angular/material';
 import {DOCUMENT, Location} from '@angular/common';
 
-import {UserDTO} from '../../domain/user';
 import {MaterialType} from '../../domain/materialType';
 import {TutorialMaterialDTO} from '../../domain/tutorialMaterial';
 import {TutorialDTO} from '../../domain/tutorial';
@@ -13,29 +12,26 @@ import {TutorialService} from '../../service/tutorial.service';
 import {MaterialService} from '../../service/material.service';
 import {RootConst} from '../../util/RootConst';
 
-import {map} from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import {ActivatedRoute} from '@angular/router';
 import {LocalStorageConst} from '../../util/LocalStorageConst';
-import {MyException} from 'ng-multiselect-dropdown/multiselect.model';
 import {FormControl, Validators} from '@angular/forms';
-
 
 @Component({
   selector: 'app-add-tutorial',
   templateUrl: './add-update-tutorial.component.html',
-  styleUrls: ['./add-update-tutorial.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./add-update-tutorial.component.css']
 })
-export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
+export class AddUpdateTutorialComponent implements OnInit {
   private rootConst = new RootConst();
 
-  public selectedContactPersonsIds: number[] = [];
+  // contact person users
   public dropdownSettings = {};
-  public usersOptions: UserDTO[] = [];
+  public selectedUsers: String[] = [];
+  public allUsers: String[] = [];
 
-  tutorial = new TutorialDTO();
+  public tutorial = new TutorialDTO();
   public materialsForCurrentTutorial: TutorialMaterialDTO[] = [];
   public materialType = MaterialType;
   public files: File[] = [];
@@ -47,7 +43,6 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
   public onUpdateTutorialMode = false;
   private tutorialId: number = null;
 
-  public show;
   titleFormControl = new FormControl('', [
     Validators.required,
     Validators.min(5)
@@ -61,26 +56,24 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
               public snackBar: MatSnackBar,
               private route: ActivatedRoute) {
     this.tutorialId = +this.route.snapshot.paramMap.get('id');
-    this.show = LocalStorageConst.IS_DEMO_ENABLED;
   }
-
 
   ngOnInit() {
     this.getUsers();
+
     if (this.tutorialId) {
       this.getTutorialInformation();
+    } else {
+      this.setCurrentUserAsContactPerson();
     }
+
     this.dropdownSettings = {
       singleSelection: false,
       allowSearchFilter: true,
       selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
+      unSelectAllText: 'Unselect All',
       itemsShowLimit: 1,
     };
-  }
-
-  ngAfterViewChecked() {
-    this.show = LocalStorageConst.IS_DEMO_ENABLED;
   }
 
   private getTutorialInformation() {
@@ -88,26 +81,21 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
     const tutorialId = +this.route.snapshot.paramMap.get('id');
     this.tutorialService.getTutorialWithId(tutorialId).subscribe(tutorial => {
       this.tutorial = tutorial;
-      this.selectedContactPersonsIds = this.tutorial.contactPersons.map(cp => cp.idUser);
+      this.selectedUsers = this.tutorial.contactPersons.map(cp => cp.msgMail);
       this.keywords = this.tutorial.keywords.split(' ');
       this.materialsForCurrentTutorial = this.tutorial.tutorialMaterials.slice(0);
     });
   }
 
   private setCurrentUserAsContactPerson() {
-    const currentUser = this.usersOptions.find(u => u.msgMail === localStorage.getItem('msgMail'));
-    this.selectedContactPersonsIds.push(currentUser.idUser);
+    this.selectedUsers.push(localStorage.getItem(LocalStorageConst._MSG_MAIL));
   }
 
   private getUsers() {
-    this.userService.getAllUsers().subscribe(us => {
-      this.usersOptions = us;
-      if (!this.tutorialId) {
-        this.setCurrentUserAsContactPerson();
-      }
+    this.userService.getAllUsernames().subscribe((users: String[]) => {
+      this.allUsers = users;
     });
   }
-
 
   addTutorial(): void {
     try {
@@ -118,15 +106,15 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
 
       this.tutorial.keywords = this.keywords.join(' ');
 
-      this.tutorialService.addTutorial(this.tutorial, this.selectedContactPersonsIds).subscribe(tutorial => {
+      this.tutorialService.addTutorial(this.tutorial, this.selectedUsers).subscribe(tutorial => {
         this.tutorial = tutorial;
         this.addMaterials();
         this.redirectToTutorialPage(this.tutorial.idTutorial);
       }, err => {
-        this.snackBarMessagePopup('Error!');
+        this.snackBarMessagePopup(err.error.message);
       });
     } catch (e) {
-      this.snackBarMessagePopup(e);
+      this.snackBarMessagePopup(e.error.message);
     }
   }
 
@@ -253,17 +241,18 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
 
       this.tutorial.keywords = this.keywords.join(' ');
 
-      this.tutorialService.updateTutorial(this.tutorial, this.selectedContactPersonsIds).subscribe(tutorial => {
+      this.tutorialService.updateTutorial(this.tutorial, this.selectedUsers).subscribe(tutorial => {
         this.tutorial = tutorial;
         this.addMaterials();
         this.deleteFromServerMaterials();
         this.redirectToTutorialPage(this.tutorial.idTutorial);
+      }, err => {
+        this.snackBarMessagePopup(err.error.message);
       });
     } catch (e) {
-      this.snackBarMessagePopup(e);
+      this.snackBarMessagePopup(e.error.message);
     }
   }
-
 
   private deleteFromServerMaterials() {
     const ids = this.materialsForCurrentTutorial.map(ma => ma.idTutorialMaterial);
@@ -297,6 +286,5 @@ export class AddUpdateTutorialComponent implements OnInit, AfterViewChecked {
   goBack() {
     history.go(-1);
   }
-
 
 }

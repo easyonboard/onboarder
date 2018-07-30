@@ -28,11 +28,14 @@
     "@fortawesome/fontawesome": "^1.1.4",
     "@types/bootbox": "^4.4.36",
     "@types/web-animations-js": "^2.2.5",
+    "angular-2-dropdown-multiselect": "latest",
     "angular-inviewport": "^0.2.3",
     "angular-material-datepicker": "^1.0.2",
     "angular-scroll": "^1.0.2",
     "angular-star-rating": "^3.0.8",
     "angular2-http-file-upload": "^1.0.6",
+    "angular2-multiselect-dropdown": "^2.9.0",
+    "angular5-time-picker": "^1.0.8",
     "bootbox": "^4.4.0",
     "bootstrap": "^4.0.0",
     "bootstrap-sass": "^3.3.7",
@@ -55,10 +58,7 @@
     "typescript-map": "0.0.5",
     "web-animations-js": "^2.3.1",
     "xlsx": "^0.12.10",
-    "zone.js": "^0.8.20",
-    "angular2-multiselect-dropdown": "latest",
-    "angular-2-dropdown-multiselect": "latest",
-    "angular-2-dropdown-multiselect": "latest"
+    "zone.js": "^0.8.20"
   },
   "devDependencies": {
     "@angular/cli": "^1.5.4",

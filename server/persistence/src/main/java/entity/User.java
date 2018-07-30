@@ -9,12 +9,14 @@ import java.io.Serializable;
 import java.util.List;
 
 @NamedQueries({@NamedQuery(name = User.FIND_USER_BY_USERNAME, query = "select u from User u where u.username=:username"),
-        @NamedQuery(name = User.FIND_USER_BY_EMAIL, query = "select u from User u where u.email=:email")})
+               @NamedQuery(name = User.FIND_USER_BY_EMAIL, query = "select u from User u where u.email=:email"),
+               @NamedQuery(name = User.FIND_USER_BY_MSG_EMAIL, query = "select u from User u where u.msgMail=:msgMail")})
 @Entity
 @Table(name = "app_user")
 public class User implements Serializable {
 
     public static final String FIND_USER_BY_USERNAME = "User.findUserByUsername";
+    public static final String FIND_USER_BY_MSG_EMAIL = "User.findUserByMsgEmail";
     public static final String FIND_USER_BY_EMAIL = "User.findUserByEmail";
 
     @Id
@@ -38,9 +40,14 @@ public class User implements Serializable {
 
     @ManyToOne
     private Role role;
+
     @JsonBackReference(value="user-event-contact-person")
     @OneToMany(mappedBy = "contactPerson", cascade = CascadeType.ALL)
     private List<Event> events;
+
+    @JsonBackReference(value="user-information")
+    @OneToOne(mappedBy = "userAccount", targetEntity = UserInformation.class)
+    public UserInformation userAccount;
 
     public User(Integer idUser, @NotNull String name, @NotNull @Size(min = 6) String username, @NotNull String email, String msgMail) {
         this.idUser = idUser;
@@ -52,10 +59,6 @@ public class User implements Serializable {
 
     public User() {
     }
-
-    @JsonBackReference(value="user-information")
-    @OneToOne(mappedBy = "userAccount", targetEntity = UserInformation.class)
-    public UserInformation userAccount;
 
     public List<Event> getEvents() {
         return events;

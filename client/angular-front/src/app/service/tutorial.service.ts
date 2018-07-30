@@ -5,6 +5,7 @@ import {RootConst} from '../util/RootConst';
 import {TutorialDTO} from '../domain/tutorial';
 import {Observable} from 'rxjs/Observable';
 import {TutorialMaterialDTO} from '../domain/tutorialMaterial';
+import { ContactPersonDto } from '../domain/user';
 
 @Injectable()
 export class TutorialService implements OnInit {
@@ -21,15 +22,23 @@ export class TutorialService implements OnInit {
   ngOnInit(): void {
   }
 
-  addTutorial(tutorial: TutorialDTO, contactPersons: number[]): any {
-    const body = JSON.stringify({tutorial: tutorial, contactPersons: contactPersons});
+  /** !TODO */
+  addTutorial(tutorial: TutorialDTO, contactPersons: String[]): any {
+    // tslint:disable-next-line:prefer-const
+    let contactPersonMsgMails: String[] = [];
+
+    contactPersons.forEach(cp => {
+      // tslint:disable-next-line:prefer-const
+      contactPersonMsgMails.push(cp);
+    });
+
+    const body = JSON.stringify({tutorial: tutorial, contactPersonMsgMails:  contactPersonMsgMails});
     return this.http.post<TutorialDTO>(this.rootConst.SERVER_ADD_TUTORIAL, body, this.httpOptions);
   }
 
   getTutorials(): Observable<TutorialDTO[]> {
-    return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_TUTORIAL}`);
+    return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_TUTORIALS_URL}`);
   }
-
 
   getMaterialsForTutorialId(idTutorial: number): Observable<TutorialMaterialDTO[]> {
     return this.http.get<TutorialMaterialDTO[]>(`${this.rootConst.SERVER_GET_MATERIALS_FOR_TUTORIAL}${idTutorial}`);
@@ -46,13 +55,11 @@ export class TutorialService implements OnInit {
   deleteTutorial(idTutorial: number): Observable<TutorialDTO[]> {
     const body = JSON.stringify({idTutorial: idTutorial});
     return this.http.post<TutorialDTO[]>(this.rootConst.SERVER_DELETE_TUTORIAL, body, this.httpOptions);
-
   }
 
-  updateTutorial(tutorial: TutorialDTO, contactPersons: number[]) {
+  updateTutorial(tutorial: TutorialDTO, contactPersons: String[]) {
     const body = JSON.stringify({tutorial: tutorial, contactPersons: contactPersons});
     return this.http.post<TutorialDTO>(this.rootConst.SERVER_UPADATE_TUTORIAL, body, this.httpOptions);
-
   }
 
   getDraftsTutorialsForUser(userId: number) {

@@ -1,27 +1,32 @@
 package service;
 
-import dao.EventDAO;
-import dao.LocationDAO;
-import dao.MeetingHallDAO;
-import dao.UserDAO;
+import dao.EventRepository;
+import dao.LocationRepository;
+import dao.MeetingHallRepository;
+import dao.UserRepository;
 import dto.EventDTO;
-import dto.LocationDTO;
-import dto.MeetingHallDTO;
+import dto.LocationDto;
+import dto.MeetingHallDto;
 import dto.UserDTO;
 import dto.mapper.EventMapper;
 import dto.mapper.LocationMapper;
 import dto.mapper.MeetingHallMapper;
 import dto.mapper.UserMapper;
 import entity.Event;
+import entity.Location;
+import entity.MeetingHall;
 import entity.User;
+import exception.types.DatabaseException;
+import exception.types.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.StringTokenizer;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static exception.Constants.*;
 
 @Service
 public class EventService {
@@ -32,71 +37,70 @@ public class EventService {
     private UserMapper userMapper = UserMapper.INSTANCE;
 
     @Autowired
-    private UserDAO userDAO;
-
+    private UserRepository userRepository;
     @Autowired
-    private LocationDAO locationDAO;
-
+    private LocationRepository locationRepository;
     @Autowired
-    private EventDAO eventDAO;
-
+    private EventRepository eventRepository;
     @Autowired
-    private MeetingHallDAO meetingHallDAO;
+    private MeetingHallRepository meetingHallRepository;
 
-    public EventDTO addEvent(EventDTO eventDTO, List<String> enrolledUsersUsernames, String contactPerson, LocationDTO location, MeetingHallDTO meetingHall) {
-//        List<String> enrolledUsersUsernames = extractUsernamesFromEmails(enrolledUsersEmails);
-//        Event event = eventMapper.mapToNewEntity(eventDTO);
-//
-//        List<User> enrolledUsers = new ArrayList<>();
-//
-//        for (int i = 0; i < enrolledUsersUsernames.size(); i++) {
-//            User user = userDAO.findUserByUsername(enrolledUsersUsernames.get(i)).get();
-//            enrolledUsers.add(user);
-//        }
-//
-//        User contactPersonEntity = userDAO.findUserByUsername(contactPerson).get();
-//        if (location.getIdLocation() != null) {
-//            Location selectedLocation = locationDAO.findEntity(location.getIdLocation());
-//            event.setLocation(selectedLocation);
-//        }
-//        if (meetingHall.getIdMeetingHall() != 0) {
-//            MeetingHall selectedHall = meetingHallDAO.findEntity(meetingHall.getIdMeetingHall());
-//            event.setMeetingHall(selectedHall);
-//        }
-//
-//        event.setContactPerson(contactPersonEntity);
-//        Event resultedEvent = eventDAO.persistEntity(event);
-//        EventDTO eventDTO1 = eventMapper.mapToDTO(resultedEvent);
-//
-//        resultedEvent.setEnrolledUsers(enrolledUsers);
+    public EventDTO addEvent(EventDTO eventDTO, List<String> enrolledUsersUsernames, String contactPerson,
+                             LocationDto locationDto,
+                             MeetingHallDto meetingHallDto) throws DatabaseException, EntityNotFoundException {
 
         List<UserDTO> enrolledUsersDTO = new ArrayList<>();
 
         for (int i = 0; i < enrolledUsersUsernames.size(); i++) {
-            UserDTO userDTO = userMapper.mapToDTO(userDAO.findUserByUsername(enrolledUsersUsernames.get(i)).get());
+            Optional<User> user = userRepository.findByUsername(enrolledUsersUsernames.get(i));
+
+            if (!user.isPresent()) {
+                throw new EntityNotFoundException(userNotFound(user.get().getUsername()));
+            }
+
+            UserDTO userDTO = userMapper.mapToDTO(user.get());
             enrolledUsersDTO.add(userDTO);
         }
 
-        UserDTO contactPersonEntityDTO = userMapper.mapToDTO(userDAO.findUserByUsername(contactPerson).get());
-        if (location.getIdLocation() != null) {
-            LocationDTO selectedLocationDTO = locationMapper.mapToDTO(locationDAO.findEntity(location.getIdLocation()));
-            eventDTO.setLocation(selectedLocationDTO);
+        Optional<User> user = userRepository.findByUsername(contactPerson);
+        if (!user.isPresent()) {
+            throw new EntityNotFoundException(userNotFound(user.get().getUsername()));
         }
-        if (meetingHall.getIdMeetingHall() != 0) {
-            MeetingHallDTO selectedHallDTO = meetingHallMapper.mapToDTO(meetingHallDAO.findEntity(meetingHall.getIdMeetingHall()));
+        UserDTO contactPersonEntityDTO = userMapper.mapToDTO(user.get());
+
+        if (locationDto.getIdLocation() != null) {
+            Location location = locationRepository.findOne(locationDto.getIdLocation());
+            if (location == null) {
+                throw new EntityNotFoundException(LOCATIONS_NOT_FOUND_EXCEPTION);
+            }
+            LocationDto selectedLocationDto = locationMapper.mapToDTO(location);
+            eventDTO.setLocation(selectedLocationDto);
+        }
+
+        if (meetingHallDto.getIdMeetingHall() != 0) {
+            MeetingHall meetingHall = meetingHallRepository.findOne(meetingHallDto.getIdMeetingHall());
+            if (meetingHall == null) {
+                throw new EntityNotFoundException(HALLS_NOT_FOUND_EXCEPTION);
+            }
+            MeetingHallDto selectedHallDTO = meetingHallMapper.mapToDTO(meetingHall);
             eventDTO.setMeetingHall(selectedHallDTO);
         }
+
         eventDTO.setContactPerson(contactPersonEntityDTO);
         eventDTO.setEnrolledUsers(enrolledUsersDTO);
-        return eventMapper.mapToDTO(eventDAO.update(eventMapper.mapToNewEntity(eventDTO)));
 
+        Event event = eventRepository.save(eventMapper.mapToNewEntity(eventDTO));
+        if (event == null) {
+            throw new DatabaseException(EVENT_SAVE_DATABASE_EXCEPTION);
+        }
+
+        return eventMapper.mapToDTO(event);
     }
 
-
     private List<String> extractUsernamesFromEmails(List<String> nameUsernamesEmail) {
+
         List<String> usernames = new ArrayList<>();
         StringTokenizer st;
-        String username;
 
         for (int i = 0; i < nameUsernamesEmail.size(); i++) {
             st = new StringTokenizer(nameUsernamesEmail.get(i), "()");
@@ -112,41 +116,66 @@ public class EventService {
         return usernames;
     }
 
-    public List<EventDTO> getAllUpcomingEvents() {
+    public List<EventDTO> getAllUpcomingEvents() throws EntityNotFoundException {
 
-        return eventDAO.findAllUpcomingEvents().stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+        List<Event> upcoming = eventRepository.findAllUpcomingEvents(
+                Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        if (upcoming.isEmpty()) {
+            throw new EntityNotFoundException(UPCOMING_EVENTS_NOT_FOUND_EXCEPTION);
+        }
 
+        return upcoming.stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
     }
 
-    public List<EventDTO> getAllPastEvents() {
+    public List<EventDTO> getAllPastEvents() throws EntityNotFoundException {
 
-        return eventDAO.findAllPastEvents().stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
+        List<Event> past = eventRepository.findAllPastEvents(
+                Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        if (past.isEmpty()) {
+            throw new EntityNotFoundException(PAST_EVENTS_NOT_FOUND_EXCEPTION);
+        }
 
+        return past.stream().map(eventEntity -> eventMapper.mapToDTO(eventEntity)).collect(Collectors.toList());
     }
 
-    public List<EventDTO> enrollUser(UserDTO userDTO, int eventDTO) {
-        Optional<User> userOptional = userDAO.findUserByUsername(userDTO.getUsername());
+    public List<EventDTO> enrollUser(UserDTO userDTO, int eventDTO) throws EntityNotFoundException, DatabaseException {
+
+        Optional<User> userOptional = userRepository.findByUsername(userDTO.getUsername());
         if (userOptional.isPresent()) {
             User userEntity = userOptional.get();
-            Event eventEntity = eventDAO.findEntity(eventDTO);
+            Event eventEntity = eventRepository.findOne(eventDTO);
             if (eventEntity != null) {
                 if (!eventEntity.getEnrolledUsers().contains(userEntity)) {
                     eventEntity.getEnrolledUsers().add(userEntity);
-                    eventDAO.persistEntity(eventEntity);
+                    if (eventRepository.save(eventEntity) == null) {
+                        throw new DatabaseException(EVENT_SAVE_DATABASE_EXCEPTION);
+                    }
                 }
             }
+        } else {
+            throw new EntityNotFoundException(userNotFound(userDTO.getUsername()));
         }
+
         return getAllUpcomingEvents();
-
     }
 
-    public List<LocationDTO> getAllLocations() {
+    public List<LocationDto> getAllLocations() throws EntityNotFoundException {
 
-        return locationMapper.entitiesToDTOs(locationDAO.getAllLocations());
+        List<Location> locationList = locationRepository.findAll();
+        if (locationList.isEmpty()) {
+            throw new EntityNotFoundException(LOCATIONS_NOT_FOUND_EXCEPTION);
+        }
 
+        return locationMapper.entitiesToDTOs(locationList);
     }
 
-    public List<MeetingHallDTO> getAllMeetingHalls() {
-        return meetingHallMapper.entitiesToDTOs(meetingHallDAO.getAllRooms());
+    public List<MeetingHallDto> getAllMeetingHalls() throws EntityNotFoundException {
+
+        List<MeetingHall> meetingHallList = meetingHallRepository.findAll();
+        if (meetingHallList.isEmpty()) {
+            throw new EntityNotFoundException(HALLS_NOT_FOUND_EXCEPTION);
+        }
+
+        return meetingHallMapper.entitiesToDTOs(meetingHallList);
     }
 }

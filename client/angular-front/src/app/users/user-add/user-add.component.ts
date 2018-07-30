@@ -29,22 +29,35 @@ export class UserAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user.msgMail = '@msg.group';
   }
 
   addUser(): void {
     this.user.username = this.firstName.trim() + this.lastName.trim();
     this.user.name = this.firstName.trim() + ' ' + this.lastName.trim();
 
-    this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
+    let unique: boolean;
+    this.userService.checkUnicity(this.user.username, this.user.msgMail).subscribe(
       value => {
-        if (this.childUserInfoFormularComponent.userInformation.startDate === undefined) {
-          this.snackBarMessagePopup('You must specify the starting date!');
+        unique = value;
+
+        if (unique === true) {
+          this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
+            value2 => {
+              if (this.childUserInfoFormularComponent.userInformation.startDate === undefined) {
+                this.snackBarMessagePopup('You must specify the starting date!');
+              } else {
+                this.snackBarMessagePopup('Succes! You just add a new employee!');
+                this.dialog.closeAll();
+              }
+            },
+            error => this.snackBarMessagePopup(error.error.message)
+          );
         } else {
-          this.snackBarMessagePopup('Succes! You just add a new employee!');
-          this.dialog.closeAll();
+          this.snackBarMessagePopup('Failed! Duplicated username or .msg email!');
         }
       },
-      error => this.snackBarMessagePopup('Failed! An error has ocurred!')
+      error => this.snackBarMessagePopup(error.error.message)
     );
   }
 

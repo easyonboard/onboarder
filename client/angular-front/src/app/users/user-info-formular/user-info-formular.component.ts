@@ -19,7 +19,8 @@ import {LocationDTO} from '../../domain/location';
 export class UserInfoFormularComponent implements OnInit {
   public today: Date;
 
-  public locations: LocationDTO[];
+  public locations: string[];
+  public locationDtos: LocationDTO[];
   @Input()
   show = true;
   @Input()
@@ -38,13 +39,19 @@ export class UserInfoFormularComponent implements OnInit {
     this.today = new Date(Date.now());
     this.locations = [];
 
-
-    this.userInformationService.getAllLocations().subscribe(resp => this.locations = resp);
-
+    this.userInformationService.getAllLocations().subscribe(resp => {
+      this.locationDtos = resp;
+      resp.forEach(l => this.locations.push(l.locationName));
+    });
 
     if (this.userInformation.buddyUser === undefined || this.userInformation.buddyUser === null) {
       this.userInformation.buddyUser = new UserDTO();
       this.userInformation.buddyUser.name = '';
+    }
+
+    if (this.userInformation.location === undefined || this.userInformation.location === null) {
+      this.userInformation.location = new LocationDTO();
+      this.userInformation.location.locationName = '';
     }
 
     this.users$ = this.searchTerms.pipe(
@@ -73,7 +80,11 @@ export class UserInfoFormularComponent implements OnInit {
 
   selectLocationValue(event: MatSelectChange) {
 
-    this.userInformation.location = event.value;
+    this.locationDtos.forEach(l => {
+      if (l.locationName === event.value) {
+        this.userInformation.location = l;
+      }
+    });
   }
   getDepartment(): String {
     return this.userInformation.department;

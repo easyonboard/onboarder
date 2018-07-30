@@ -1,4 +1,4 @@
-package exception;
+package exception.types;
 
 /**
  * Exception thrown when an entry is not found in database

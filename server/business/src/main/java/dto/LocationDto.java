@@ -2,7 +2,7 @@ package dto;
 
 import entity.enums.LocationName;
 
-public class LocationDTO {
+public class LocationDto {
 
 
     private Integer idLocation;

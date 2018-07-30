@@ -3,9 +3,11 @@ package controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.EventDTO;
-import dto.LocationDTO;
-import dto.MeetingHallDTO;
+import dto.LocationDto;
+import dto.MeetingHallDto;
 import dto.UserDTO;
+import exception.types.DatabaseException;
+import exception.types.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,16 +36,20 @@ public class EventController {
             JsonNode node = null;
             node = mapper.readTree(courseJson);
             EventDTO eventDTO = mapper.convertValue(node.get("event"), EventDTO.class);
-            MeetingHallDTO meetingHall = mapper.convertValue(node.get("hall"), MeetingHallDTO.class);
+            MeetingHallDto meetingHall = mapper.convertValue(node.get("hall"), MeetingHallDto.class);
             List<String> enrolledUsers = mapper.convertValue(node.get("enrolledPersons"), List.class);
             String contactPerson = mapper.convertValue(node.get("contactPersons"), String.class);
-            LocationDTO locationDTO = mapper.convertValue(node.get("location"), LocationDTO.class);
+            LocationDto locationDto = mapper.convertValue(node.get("location"), LocationDto.class);
 
             return new ResponseEntity<>(
-                    eventService.addEvent(eventDTO, enrolledUsers, contactPerson, locationDTO, meetingHall),
+                    eventService.addEvent(eventDTO, enrolledUsers, contactPerson, locationDto, meetingHall),
                     HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
+        } catch (DatabaseException e) {
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -51,15 +57,22 @@ public class EventController {
     @RequestMapping(value = "/events/pastEvent", method = RequestMethod.GET)
     public ResponseEntity<List<EventDTO>> getPastEvents() {
 
-        return new ResponseEntity<>(eventService.getAllPastEvents(), HttpStatus.OK);
-
+        try {
+            return new ResponseEntity<>(eventService.getAllPastEvents(), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
+        }
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/events/upcomingEvent", method = RequestMethod.GET)
     public ResponseEntity<List<EventDTO>> getUpcomingEvents() {
 
-        return new ResponseEntity<>(eventService.getAllUpcomingEvents(), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(eventService.getAllUpcomingEvents(), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
+        }
 
     }
 
@@ -72,24 +85,38 @@ public class EventController {
             JsonNode node = mapper.readTree(courseJson);
             int eventDTO = mapper.convertValue(node.get("eventID"), Integer.class);
             UserDTO userDTO = mapper.convertValue(node.get("user"), UserDTO.class);
-            return new ResponseEntity<>(eventService.enrollUser(userDTO, eventDTO), HttpStatus.OK);
+            try {
+                return new ResponseEntity<>(eventService.enrollUser(userDTO, eventDTO), HttpStatus.OK);
+            } catch (DatabaseException e) {
+                return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         } catch (IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "locations", method = RequestMethod.GET)
+    public ResponseEntity<List<LocationDto>> getAllLocations() {
+
+        try {
+            return new ResponseEntity<>(eventService.getAllLocations(), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         }
 
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "locations", method = RequestMethod.GET)
-    public ResponseEntity<List<dto.LocationDTO>> getAllLocations() {
-
-        return new ResponseEntity<>(eventService.getAllLocations(), HttpStatus.OK);
-    }
-
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "meetingHalls", method = RequestMethod.GET)
-    public ResponseEntity<List<dto.MeetingHallDTO>> getAllMeetingHalls() {
-        System.out.println("HALLS");
-        return new ResponseEntity<>(eventService.getAllMeetingHalls(), HttpStatus.OK);
+    public ResponseEntity<List<MeetingHallDto>> getAllMeetingHalls() {
+
+        try {
+            return new ResponseEntity<>(eventService.getAllMeetingHalls(), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
+        }
     }
 }

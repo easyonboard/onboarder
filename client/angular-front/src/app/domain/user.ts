@@ -36,11 +36,14 @@ export class UserDetailsToExport {
 
 }
 
-
 export class LeaveCheckList {
   userAccount: UserDTO;
   inventoryObjects: boolean;
   resignationForm: boolean;
   cards: boolean;
+}
 
+export class ContactPersonDto {
+  username: string;
+  msgMail: string;
 }

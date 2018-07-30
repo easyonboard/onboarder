@@ -1,7 +1,6 @@
 import {UserDTO} from './user';
 import {LocationDTO} from './location';
 
-
 export class EventDTO {
   idEvent: number;
   titleEvent: string;
@@ -12,11 +11,10 @@ export class EventDTO {
   maxEnrolledUsers: number;
   location: LocationDTO;
   stringDate: string;
-  stringHour: string;
   eventDate: Date;
+  eventTime: string;
   placesLeft: number;
   meetingHall: MeetingHall;
-
 }
 
 export class MeetingHall {

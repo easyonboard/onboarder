@@ -1,14 +1,14 @@
 package dto;
 
+import org.apache.tomcat.jni.Time;
+
 import java.util.Date;
 import java.util.List;
 
 public class EventDTO {
 
     private Integer idEvent;
-
     private String titleEvent;
-
     private String overview;
 
     private List<UserDTO> enrolledUsers;
@@ -17,17 +17,20 @@ public class EventDTO {
 
     private Integer maxEnrolledUsers;
 
-    private LocationDTO location;
+    private LocationDto location;
 
     private String keywords;
 
     private Date eventDate;
-    private MeetingHallDTO meetingHall;
+
+    private String eventTime;
+
+    private MeetingHallDto meetingHall;
 
     public EventDTO() {
     }
 
-    public EventDTO(Integer idEvent, String titleEvent,  String overview, List<UserDTO> enrolledUsers, UserDTO contactPerson, Integer maxEnrolledUsers, LocationDTO location, String keywords, Date eventDate, MeetingHallDTO meetingHall) {
+    public EventDTO(Integer idEvent, String titleEvent, String overview, List<UserDTO> enrolledUsers, UserDTO contactPerson, Integer maxEnrolledUsers, LocationDto location, String keywords, Date eventDate, MeetingHallDto meetingHall) {
         this.idEvent = idEvent;
         this.titleEvent = titleEvent;
         this.overview = overview;
@@ -88,11 +91,11 @@ public class EventDTO {
         this.maxEnrolledUsers = maxEnrolledUsers;
     }
 
-    public LocationDTO getLocation() {
+    public LocationDto getLocation() {
         return location;
     }
 
-    public void setLocation(LocationDTO location) {
+    public void setLocation(LocationDto location) {
         this.location = location;
     }
 
@@ -112,11 +115,21 @@ public class EventDTO {
         this.eventDate = eventDate;
     }
 
-    public MeetingHallDTO getMeetingHall() {
+    public String getEventTime() {
+
+        return eventTime;
+    }
+
+    public void setEventTime(String eventTime) {
+
+        this.eventTime = eventTime;
+    }
+
+    public MeetingHallDto getMeetingHall() {
         return meetingHall;
     }
 
-    public void setMeetingHall(MeetingHallDTO meetingHall) {
+    public void setMeetingHall(MeetingHallDto meetingHall) {
         this.meetingHall = meetingHall;
     }
 }

@@ -2,8 +2,9 @@ package service;
 
 import dao.TutorialDAO;
 import dao.TutorialMaterialDAO;
-import dao.UserDAO;
-import dto.TutorialDTO;
+import dao.UserRepository;
+import dto.ContactPersonDto;
+import dto.TutorialDto;
 import dto.TutorialMaterialDTO;
 import dto.mapper.TutorialMapper;
 import dto.mapper.TutorialMaterialMapper;
@@ -27,22 +28,22 @@ public class TutorialService {
     private TutorialMaterialDAO tutorialMaterialDAO;
 
     @Autowired
-    private UserDAO userDAO;
+    private UserRepository userRepository;
 
     private TutorialMapper tutorialMapper = TutorialMapper.INSTANCE;
     private TutorialMaterialMapper tutorialMaterialMapper = TutorialMaterialMapper.INSTANCE;
 
-    public List<TutorialDTO> getAllPublicTutorials() {
+    public List<TutorialDto> getAllPublicTutorials() {
         return tutorialMapper.entitiesToDTOs(tutorialDAO.allPublicTutorials());
     }
 
-    public List<TutorialDTO> filterByKeyword(String keyword) {
+    public List<TutorialDto> filterByKeyword(String keyword) {
         return tutorialMapper.entitiesToDTOs(tutorialDAO.filterByKeyword(keyword));
     }
 
-    public TutorialDTO addTutorial(TutorialDTO tutorialDTO, List<Integer> contactPersonsIds) {
-        Tutorial tutorial = tutorialMapper.mapToEntity(tutorialDTO, new Tutorial());
-        tutorial.setContactPersons(getUsersByIds(contactPersonsIds));
+    public TutorialDto addTutorial(TutorialDto tutorialDto, List<String> contactPersonMsgMail) {
+        Tutorial tutorial = tutorialMapper.mapToEntity(tutorialDto, new Tutorial());
+        tutorial.setContactPersons(getUsersByMsgEmail(contactPersonMsgMail));
         if (tutorial.getDraft()==null) {
             tutorial.setDraft(false);
         }
@@ -52,7 +53,15 @@ public class TutorialService {
     private List<User> getUsersByIds(List<Integer> contactPersonsIds) {
         List<User> users = new ArrayList<>();
         for (Integer id : contactPersonsIds) {
-            users.add(userDAO.findEntity(id));
+            users.add(userRepository.findOne(id));
+        }
+        return users;
+    }
+
+    private List<User> getUsersByMsgEmail(List<String> contactPersonMsgMails) {
+        List<User> users = new ArrayList<>();
+        for (String contactPersonMsgMail : contactPersonMsgMails) {
+            users.add(userRepository.findByMsgMail(contactPersonMsgMail).get());
         }
         return users;
     }
@@ -62,14 +71,9 @@ public class TutorialService {
         return tutorialMaterialMapper.mapToDTO(tutorialMaterialDAO.persistEntity(tutorialMaterial));
     }
 
-    public TutorialDTO getTutorialById(Integer tutorialId) {
+    public TutorialDto getTutorialById(Integer tutorialId) {
         Tutorial tutorialEntity = tutorialDAO.findTutorialById(tutorialId);
         return tutorialMapper.mapToDTO(tutorialEntity);
-    }
-
-
-    public TutorialDTO findTutorialById(Integer idTutorial) {
-        return tutorialMapper.mapToDTO(tutorialDAO.findTutorialById(idTutorial));
     }
 
     public TutorialMaterialDTO getMaterialById(Integer id) {
@@ -85,21 +89,21 @@ public class TutorialService {
         return tutorialMaterialDTOS;
     }
 
-    public List<TutorialDTO> deleteTutorial(TutorialDTO tutorial) {
+    public List<TutorialDto> deleteTutorial(TutorialDto tutorial) {
 
         Tutorial entity = tutorialDAO.findEntity(tutorial.getIdTutorial());
         tutorialDAO.deleteEntity(entity);
         return getAllPublicTutorials();
     }
 
-    public TutorialDTO updateTutorial(TutorialDTO tutorialDTO, List<Integer> contactPersons) {
+    public TutorialDto updateTutorial(TutorialDto tutorialDto, List<String> contactPersons) {
         Tutorial tutorial = new Tutorial();
-        tutorialMapper.mapToEntity(tutorialDTO, tutorial);
-        tutorial.setContactPersons(getUsersByIds(contactPersons));
+        tutorialMapper.mapToEntity(tutorialDto, tutorial);
+        tutorial.setContactPersons(getUsersByMsgEmail(contactPersons));
         return tutorialMapper.mapToDTO(tutorialDAO.update(tutorial));
     }
 
-    public List<TutorialDTO> allDraftTutorialsForUser(Integer idUser) {
-        return tutorialMapper.entitiesToDTOs(tutorialDAO.getAllDraftTutorialsForUser(userDAO.findEntity(idUser)));
+    public List<TutorialDto> allDraftTutorialsForUser(Integer idUser) {
+        return tutorialMapper.entitiesToDTOs(tutorialDAO.getAllDraftTutorialsForUser(userRepository.findOne(idUser)));
     }
 }

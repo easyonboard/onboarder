@@ -2,15 +2,13 @@
     <label for="Team">Team</label>
     <input #Team type="text" [(ngModel)]="userInformation.team" [ngModelOptions]="{standalone: true}" placeholder="Team" class="form-control" id="Team" [value]="userInformation.team" />
 </div>
-
 <div>
     <label for="Building">Location</label>
-    <mat-select placeholder="Select location" (selectionChange)="selectLocationValue($event)" id="Building">
+    <mat-select placeholder="Select location" [(ngModel)]="userInformation.location.locationName" (selectionChange)="selectLocationValue($event)">
         <mat-option *ngFor="let location of locations" [value]="location">
-            {{location.locationName}}
+            {{location}}
         </mat-option>
     </mat-select>
-    <!--<input #Building type="text" [(ngModel)]="userInformation.building" [ngModelOptions]="{standalone: true}" placeholder="Location" class="form-control" id="Building" [value]="userInformation.location" />-->
 </div>
 <div>
     <label for="Floor">Floor</label>
@@ -20,17 +18,14 @@
     <label for="Project">Project</label>
     <input #Project type="text" [(ngModel)]="userInformation.project" [ngModelOptions]="{standalone: true}" placeholder="Project" class="form-control" id="Project" [value]="userInformation.project" />
 </div>
-
 <div>
     <label>Department</label>
-    <mat-select placeholder="Select department" (selectionChange)="selectValue($event)">
-
+    <mat-select placeholder="Select department" [(ngModel)]="userInformation.department" (selectionChange)="selectValue($event)">
         <mat-option *ngFor="let departmentValue of departments" [value]="departmentValue">
             {{departmentValue}}
         </mat-option>
     </mat-select>
 </div>
-
 <div id="search-component">
     <label for="search-box">Buddy </label>
     <input #searchBox id="search-box" (keyup)="search(searchBox.value)" class="form-control" placeholder="Type in here" [value]="getUserBuddy()" />
@@ -40,7 +35,6 @@
         </li>
     </ul>
 </div>
-
 <div>
     <input [(ngModel)]="userInformation.startDate" matInput [min]="today" [matDatepicker]="picker" placeholder="Choose a date" [value]="getDate()" required/>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
