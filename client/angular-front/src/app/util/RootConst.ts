@@ -1,86 +1,36 @@
 export class RootConst {
   public WEB_SERVICE_ENDPOINT = 'http://localhost:8090/';
 
-  public SERVER_COURSES_URL = this.WEB_SERVICE_ENDPOINT + 'courses';
-  public SERVER_COURSE_OVERVIEW = this.SERVER_COURSES_URL + '/course?overview=';
-  public SERVER_FILTER_COURSES_BY_KEYWORD = this.WEB_SERVICE_ENDPOINT + '/courses?keyword=';
-
-  public SERVER_DETAILED_COURSE = this.SERVER_COURSES_URL + '/detailedCourse?id=';
-  public SERVER_COURSES_BY_PAGE_NUMBER_URL = this.SERVER_COURSES_URL + 'FromPage/?pageNumber=';
-  public SERVER_COURSES_NUMBER_OF_OBJECT_PER_PAGE = '&numberOfObjectsPerPage=';
-
   public SERVER_TUTORIALS_URL = this.WEB_SERVICE_ENDPOINT + 'tutorials';
   public SERVER_EVENTS_URL = this.WEB_SERVICE_ENDPOINT + 'events';
 
-  public SERVER_TEST_IF_USER_IS_ENROLLED = this.SERVER_COURSES_URL + '/isEnrolledOnCourse?idCourse=';
-  public SERVER_ENROLLE_USER_ON_COURSE = this.SERVER_COURSES_URL + '/enrollUserOnCourse?idCourse=';
   public SERVER_ALL_USERS = this.WEB_SERVICE_ENDPOINT + 'allUsers';
   public SERVER_ALL_USERS_NAME_EMAIL = this.WEB_SERVICE_ENDPOINT + 'getAllMsgMails';
-  public SERVER_UNENROLLE_USER_ON_COURSE = this.SERVER_COURSES_URL + '/unenrollUserFromCourse?idCourse=';
   public SERVER_ADD_USER = this.WEB_SERVICE_ENDPOINT + 'user/addUser';
   public SERVER_UPDATE_USER_INFO = this.WEB_SERVICE_ENDPOINT + '/user/updateUserInfo';
-  public SERVER_UPDATE_USER = this.WEB_SERVICE_ENDPOINT + '/user/updateUser';
   public SERVER_UPDATE_USER_PASSWORD = this.WEB_SERVICE_ENDPOINT + '/user/updateUserPassword';
-  public SERVER_USER_COURSES = this.WEB_SERVICE_ENDPOINT + '/user/courses?username=';
   public SERVER_USER_NAME = this.WEB_SERVICE_ENDPOINT + '/user?name=';
-  public SERVER_USER_BUDDIES = this.WEB_SERVICE_ENDPOINT + '/buddies?username=';
-  public SERVER_USERS_IN_DEPARTMENT = this.WEB_SERVICE_ENDPOINT + '/department?department=';
   public SERVER_LOGGED_USER_DEPARTMENT = this.WEB_SERVICE_ENDPOINT + 'user/department?username=';
 
-  public VOTEUP = this.WEB_SERVICE_ENDPOINT + 'voteUp';
-
   public SERVER_AUTHENTIFICATION = this.WEB_SERVICE_ENDPOINT + '/auth';
-  public SERVER_DELETE_CONTACT_PERSON = this.WEB_SERVICE_ENDPOINT + 'deleteContactPerson';
-  public SERVER_DELETE_OWNER_PERSON = this.WEB_SERVICE_ENDPOINT + 'deleteOwnerPerson';
-  public SERVER_ADD_CONTACT_PERSON = this.WEB_SERVICE_ENDPOINT + 'addContactPerson';
-  public SERVER_DELETE_COURSE = this.WEB_SERVICE_ENDPOINT + 'courses/deleteCourse';
-  public SERVER_ADD_OWNER_PERSON = this.WEB_SERVICE_ENDPOINT + 'addOwnerPerson';
-  public SERVER_SUBJECT_URL2 = '&idSubject=';
-  public SERVER_SUBJECT_URL = this.WEB_SERVICE_ENDPOINT + 'courses/subject?id=';
-  public SERVER_ADD_COURSE = this.SERVER_COURSES_URL + '/addCourse';
-
   public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/add';
   public SERVER_ADD_EVENT = this.SERVER_EVENTS_URL + '/addEvent';
 
   public SERVER_PAST_EVENT = this.SERVER_EVENTS_URL + '/pastEvent';
   public SERVER_UPCOMING_EVENT = this.SERVER_EVENTS_URL + '/upcomingEvent';
   SERVER_ENROLL_USER = this.SERVER_EVENTS_URL + '/enrollUser';
-  public SERVER_DELETE_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'deleteCourseSubject';
-  public WEB_SERVER_PROGRESS = this.WEB_SERVICE_ENDPOINT + 'progress';
-  public WEB_SERVICE_MARK_AS_FINISHED = this.WEB_SERVICE_ENDPOINT + 'markAsFinished';
-  public SERVER_ADD_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'subject/addSubject';
-  public SERVER_FIND_MATERIAL_BY_ID = this.SERVER_COURSES_URL + '/material?id=';
-  public SERVER_MATERIALS_UPLOADED_BY_USE = this.WEB_SERVICE_ENDPOINT + '/material/uploadedMaterial?username=';
-  public WEB_SERVICE_SUBJECT_STATUS = this.WEB_SERVICE_ENDPOINT + 'subjectStatus';
-
-  public WEB_SERVER_GET_STATUS = this.WEB_SERVICE_ENDPOINT + 'isSubjectFinished';
-  public SERVER_MATERIALS_FROM_SUBJECT = this.WEB_SERVICE_ENDPOINT + 'materials?idSubject=';
-  public SERVER_ADD_MATERIAL = this.WEB_SERVICE_ENDPOINT + 'createMaterial';
-  public WEB_SERVICE_RATING = this.WEB_SERVICE_ENDPOINT + 'generalRating';
-  public WEB_SERVICE_ADD_REVIEW = this.WEB_SERVICE_ENDPOINT + 'course/addReview';
-  public WEB_SERVICE_ALL_REVIEWS = this.WEB_SERVICE_ENDPOINT + 'allReviews';
   public WEB_SERVER_NEWUSERS = this.WEB_SERVICE_ENDPOINT + 'newUsers';
   public WEB_SERVER_CHECKLIST = this.WEB_SERVICE_ENDPOINT + 'checkList';
   public WEB_SERVER_SAVE_CHECKLIST = this.WEB_SERVICE_ENDPOINT + 'saveCheckList';
 
-  public FRONT_COURSES_PAGE = '/courses';
-  public FRONT_ADD_COURSE = this.FRONT_COURSES_PAGE + '/addCourse';
   public FRONT_TUTORIALS_PAGE = '/tutorials';
   public FRONT_ADD_TUTORIAL = this.FRONT_TUTORIALS_PAGE + '/addTutorialRouterLink';
-  public FRONT_COURSES_PAGE_SEARCH_BY_KEYWORD = '/courses?keyword=';
-  public FRONT_DETAILED_COURSE = this.FRONT_COURSES_PAGE + '/detailedCourse';
-  public FRONT_DETAILED_SUBJECT = '/subject';
-  public FRONT_OVERVIEW_SECTION = 'overview';
-  public FRONT_SYLLABUS_SECTION = 'syllabus';
-  public FRONT_OWNER_SECTION = 'owner';
-  public FRONT_CONTACT_PERSON_SECTION = 'contactPerson';
-  public FRONT_RATINGS_REVIEW_SECTION = 'ratingsReview';
   public FRONT_LOGIN_PAGE = '';
 
   public FRONT_INFOS_PAGE = '/info';
-  public FRONT_EVENTS_PAGE= 'events/viewEvents';
+  public FRONT_EVENTS_PAGE = 'events/viewEvents';
 
-  public SERVER_ADD_USER_INFO_URL = this.WEB_SERVICE_ENDPOINT + '/info';
+
   public REMOVE_USER = this.WEB_SERVICE_ENDPOINT + 'user/removeUser';
   // ***********************************************
   public CHECK_USER_UNICITY = this.WEB_SERVICE_ENDPOINT + 'user/checkUnicity';
@@ -92,7 +42,6 @@ export class RootConst {
   WEB_SERVER_LOCATIONS = this.WEB_SERVICE_ENDPOINT + 'locations';
   WEB_SERVER_ROOMS = this.WEB_SERVICE_ENDPOINT + 'meetingHalls';
 
-  public SERVER_PING_TUTORIALS = this.SERVER_TUTORIALS_URL + '/ping';
   public SERVER_ADD_TUTORIAL_MATERIAL = this.SERVER_TUTORIALS_URL + '/addTutorialMaterial';
   public SERVER_FIND_TUTORIAL_MATERIAL_BY_ID = this.SERVER_TUTORIALS_URL + '/materialTutorial?id=';
   public SERVER_GET_MATERIALS_FOR_TUTORIAL = this.SERVER_TUTORIALS_URL + '/materialsForTutorial?id=';
@@ -102,5 +51,7 @@ export class RootConst {
   public SERVER_DELETE_MATERIAL = this.WEB_SERVICE_ENDPOINT + 'material/delete?id=';
   public SERVER_UPADATE_TUTORIAL = this.SERVER_TUTORIALS_URL + '/update';
   public SERVER_GET_DRAFTS_TUTORIAL = this.SERVER_TUTORIALS_URL + '/draft?idUser=';
+  public SERVER_PAST_EVENT_FILTER_BY_KEYWORD = this.SERVER_PAST_EVENT + '?keyword=';
+  public SERVER_UPCOMING_EVENT_FILTER_BY_KEYWORD = this.SERVER_UPCOMING_EVENT + '?keyword=';
 
 }

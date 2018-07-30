@@ -23,19 +23,31 @@ export class EventService implements OnInit {
   }
 
   addEvent(event: EventDTO, contactPerson: string, enrolledPersons: string[], selectedLocation: LocationDTO, hall: MeetingHall): any {
-    const body = JSON.stringify({event: event, contactPersons: contactPerson, enrolledPersons: enrolledPersons, location: selectedLocation, hall: hall});
+    const body = JSON.stringify({
+      event: event,
+      contactPersons: contactPerson,
+      enrolledPersons: enrolledPersons,
+      location: selectedLocation,
+      hall: hall
+    });
     return this.http.post<EventDTO>(this.rootConst.SERVER_ADD_EVENT, body, this.httpOptions);
   }
 
-  getPastEvents(): Observable<EventDTO[]> {
+  getPastEvents(keyword?: string): Observable<EventDTO[]> {
+    if (keyword) {
+      return this.http.get<EventDTO[]>(`${this.rootConst.SERVER_PAST_EVENT_FILTER_BY_KEYWORD}${keyword}`);
+    }
     return this.http.get<EventDTO[]>(`${this.rootConst.SERVER_PAST_EVENT}`);
   }
 
-  getUpcomingEvents(): Observable<EventDTO[]> {
+  getUpcomingEvents(keyword?: string): Observable<EventDTO[]> {
+    if (keyword) {
+      return this.http.get<EventDTO[]>(`${this.rootConst.SERVER_UPCOMING_EVENT_FILTER_BY_KEYWORD}${keyword}`);
+    }
     return this.http.get<EventDTO[]>(`${this.rootConst.SERVER_UPCOMING_EVENT}`);
   }
 
-  enrollUser(user: UserDTO, event: EventDTO):Observable<EventDTO[]> {
+  enrollUser(user: UserDTO, event: EventDTO): Observable<EventDTO[]> {
     const body = JSON.stringify({eventID: event.idEvent, user: user});
     return this.http.post<EventDTO[]>(this.rootConst.SERVER_ENROLL_USER, body, this.httpOptions);
   }
