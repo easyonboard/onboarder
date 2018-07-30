@@ -1,7 +1,5 @@
-import {Injectable, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-
-import {Material} from '../domain/material';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {TutorialMaterialDTO} from '../domain/tutorialMaterial';
 import {Observable} from 'rxjs/Observable';
 import {RootConst} from '../util/RootConst';
