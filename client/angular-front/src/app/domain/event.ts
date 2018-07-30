@@ -15,6 +15,7 @@ export class EventDTO {
   eventTime: string;
   placesLeft: number;
   meetingHall: MeetingHall;
+  isUserEnrolled: Boolean;
 }
 
 export class MeetingHall {

@@ -10,6 +10,7 @@ import dto.mapper.TutorialMaterialMapper;
 import entity.Tutorial;
 import entity.TutorialMaterial;
 import entity.User;
+import exception.types.DatabaseException;
 import exception.types.EntityNotFoundException;
 import exception.types.NoDataException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,14 +48,18 @@ public class TutorialService {
         return tutorialMapper.entitiesToDTOs(tutorialRepository.findByKeywordsContainingIgnoreCase(keyword));
     }
 
-    public TutorialDto addTutorial(TutorialDto tutorialDto, List<String> contactPersonMsgMail) throws EntityNotFoundException {
+    public TutorialDto addTutorial(TutorialDto tutorialDto, List<String> contactPersonMsgMail) throws EntityNotFoundException, DatabaseException {
 
         Tutorial tutorial = tutorialMapper.mapToEntity(tutorialDto, new Tutorial());
         tutorial.setContactPersons(getUsersByMsgEmail(contactPersonMsgMail));
         if (tutorial.getDraft() == null) {
             tutorial.setDraft(false);
         }
-        return tutorialMapper.mapToDTO(tutorialRepository.save(tutorial));
+       Tutorial tutorialSaved= tutorialRepository.save(tutorial);
+        if(tutorialSaved==null){
+            throw new DatabaseException(TUTORIAL_SAVE_EXCEPTION);
+        }
+        return tutorialMapper.mapToDTO(tutorialSaved);
     }
 
     private List<User> getUsersByIds(List<Integer> contactPersonsIds) {

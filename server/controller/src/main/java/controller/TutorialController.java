@@ -9,6 +9,7 @@ import com.sun.media.sound.InvalidDataException;
 import dto.TutorialDto;
 
 import dto.TutorialMaterialDTO;
+import exception.types.DatabaseException;
 import exception.types.EntityNotFoundException;
 import exception.types.NoDataException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,7 @@ public class TutorialController {
             try {
                 return new ResponseEntity<>(tutorialService.addTutorial(tutorialDto, contactPersonMsgMails),
                                                 HttpStatus.OK);
-            } catch (EntityNotFoundException e) {
+            } catch (EntityNotFoundException  | DatabaseException e) {
                 return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
             }
         } catch (IOException e) {

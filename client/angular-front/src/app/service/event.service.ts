@@ -46,4 +46,12 @@ export class EventService implements OnInit {
     const body = JSON.stringify({eventID: event.idEvent, user: user});
     return this.http.post<EventDTO[]>(this.rootConst.SERVER_ENROLL_USER, body, this.httpOptions);
   }
+  unenrollUser(user: UserDTO, event: EventDTO): Observable<EventDTO[]> {
+    const body = JSON.stringify({eventID: event.idEvent, user: user});
+    return this.http.post<EventDTO[]>(this.rootConst.SERVER_UNENROLL_USER, body, this.httpOptions);
+  }
+  getStatusEnrollmentForUser(user: UserDTO, event: EventDTO): Observable<Boolean> {
+    const body = JSON.stringify({eventID: event.idEvent, user: user});
+    return this.http.post<Boolean>(this.rootConst.SERVER_IS_ENROLLED, body, this.httpOptions);
+  }
 }

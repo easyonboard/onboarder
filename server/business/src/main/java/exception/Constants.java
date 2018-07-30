@@ -77,4 +77,7 @@ public class Constants {
         return "Tutorial " + title + NO_MATERIALS;
     }
 
+    //database
+    public static final String TUTORIAL_SAVE_EXCEPTION="Could not save tutorial!";
+
 }
