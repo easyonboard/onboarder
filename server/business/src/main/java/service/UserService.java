@@ -6,13 +6,19 @@ import dto.CheckListDTO;
 import dto.LeaveCheckListDTO;
 import dto.UserDTO;
 import dto.UserInformationDTO;
-import dto.mapper.*;
+import dto.mapper.CheckListMapper;
+import dto.mapper.LeaveCheckListMapper;
+import dto.mapper.UserInformationMapper;
+import dto.mapper.UserMapper;
 import entity.CheckList;
 import entity.LeaveCheckList;
 import entity.User;
 import entity.UserInformation;
 import entity.enums.DepartmentType;
-import exception.types.*;
+import exception.types.DatabaseException;
+import exception.types.EntityNotFoundException;
+import exception.types.FieldNotFoundException;
+import exception.types.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
@@ -37,6 +43,9 @@ public class UserService {
 
     @Autowired
     private UserInformationDAO userInformationDAO;
+
+    @Autowired
+    private UserInformationRepository userInformationRepository;
 
     @Autowired
     private CheckListRepository checkListRepository;
@@ -134,7 +143,7 @@ public class UserService {
 
     public List<UserInformationDTO> getAllNewUsers() throws EntityNotFoundException {
 
-        List<UserInformation> newUsers = userInformationDAO.getAllNewUsers();
+        List<UserInformation> newUsers = userInformationRepository.getAllNewUsers(new Date());
         if (newUsers.isEmpty()) {
             throw new EntityNotFoundException(NEW_USERS_NOT_FOUND_EXCEPTION);
         }
@@ -239,7 +248,7 @@ public class UserService {
 
             if (canUserBeDeleted(userEntity)) {
 
-                UserInformation userInformationEntity = userInformationDAO.findUserInformationByUser(userEntity);
+                UserInformation userInformationEntity = userInformationRepository.findUserInformationByUser(userEntity);
                 if (userInformationEntity != null) {
                     userInformationEntity.setBuddyUser(null);
                     userInformationEntity.setLocation(null);
@@ -281,7 +290,7 @@ public class UserService {
         if (user == null) {
             throw new EntityNotFoundException(userNotFound(username));
         }
-        UserInformation userInformation = userInformationDAO.findUserInformationByUser(user);
+        UserInformation userInformation = userInformationRepository.findUserInformationByUser(user);
         if (user == null) {
             throw new EntityNotFoundException("Information for user " + username + "not found");
         }
