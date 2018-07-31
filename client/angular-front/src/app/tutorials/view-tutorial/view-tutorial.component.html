@@ -10,7 +10,7 @@
 
             <div fxFlex>
                 <mat-chip-list class="mat-chip-list" id="keywordsList">
-                    <mat-chip *ngFor="let keyword of tutorial.keywords.split(' ')" [selectable]="selectable" (click)="searchByKeyword(keyword)">{{keyword}}
+                    <mat-chip *ngFor="let keyword of tutorial.keywords.split(' ')" style="cursor: default !important;">{{keyword}}
                     </mat-chip>
                 </mat-chip-list>
             </div>
