@@ -3,7 +3,7 @@ package dto;
 import entity.Location;
 import entity.MeetingHall;
 
-public class MeetingHallDTO {
+public class MeetingHallDto {
 
     private int idMeetingHall;
     private String hallName;

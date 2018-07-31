@@ -31,7 +31,6 @@ import static exception.Constants.PARSING_EXCEPTION;
 public class TutorialController {
 
 
-
     @Autowired
     private TutorialService tutorialService;
 
@@ -70,8 +69,8 @@ public class TutorialController {
 
             try {
                 return new ResponseEntity<>(tutorialService.addTutorial(tutorialDto, contactPersonMsgMails),
-                                                HttpStatus.OK);
-            } catch (EntityNotFoundException  | DatabaseException e) {
+                        HttpStatus.OK);
+            } catch (EntityNotFoundException | DatabaseException e) {
                 return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
             }
         } catch (IOException e) {
@@ -179,19 +178,14 @@ public class TutorialController {
     public ResponseEntity<List<TutorialDto>> allDraftTutorialsForUser(
             @RequestParam(value = "idUser", required = false) Integer idUser,
             @RequestParam(value = "keyword", required = false) Optional<String> keyword) {
-
-        if (keyword.isPresent()) {
-            try {
-                return new ResponseEntity<>(tutorialService.allDraftTutorialsForUserFilterByKeyword(idUser,keyword.get()), HttpStatus.OK);
-            } catch (NoDataException e) {
-                return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
-            }
-        } else {
-            try {
+        try {
+            if (keyword.isPresent()) {
+                return new ResponseEntity<>(tutorialService.allDraftTutorialsForUserFilterByKeyword(idUser, keyword.get()), HttpStatus.OK);
+            } else {
                 return new ResponseEntity<>(tutorialService.allDraftTutorialsForUser(idUser), HttpStatus.OK);
-            } catch (NoDataException e) {
-                return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
             }
+        } catch (NoDataException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
 }

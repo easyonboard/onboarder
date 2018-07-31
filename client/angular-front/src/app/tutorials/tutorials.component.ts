@@ -41,6 +41,11 @@ export class TutorialsComponent implements OnDestroy, OnInit {
         if (!this.pageIndex) {
           this.pageIndex = 0;
         }
+        this.pageSize = +queryParams['pageSize'];
+        if (!this.pageSize) {
+          this.pageSize = 9;
+        }
+
         this.httpSubscription = this.decision(queryParams).subscribe(tutorials => {
             this.tutorials = tutorials;
             this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
@@ -48,15 +53,6 @@ export class TutorialsComponent implements OnDestroy, OnInit {
           err => {
             this.noDraftsMessage = err.error.message;
           });
-
-        this.pageSize = +queryParams['pageSize'];
-        if (!this.pageSize) {
-          this.pageSize = 9;
-        }
-        this.httpSubscription = this.decision(queryParams).subscribe(tutorials => {
-          this.tutorials = tutorials;
-          this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
-        });
       });
   }
 
@@ -81,9 +77,6 @@ export class TutorialsComponent implements OnDestroy, OnInit {
 
   filterByKeyword(keyword: string) {
     const queryParams: Params = Object.assign({}, this.route.snapshot.queryParams);
-
-    this.tutorials = [];
-    this.tutorialsPerPage = [];
     queryParams['keyword'] = keyword;
     queryParams['page'] = 0;
     if ((this.route.snapshot.url.toString()).indexOf('draft') >= 0) {
@@ -102,7 +95,6 @@ export class TutorialsComponent implements OnDestroy, OnInit {
     let root = '/';
     this.route.snapshot.pathFromRoot.forEach(el => root = root.concat(el.url.toString()));
     root = root.replace(',', '/');
-    console.log(root + '  ' + queryParams);
     this.router.navigate([root], {queryParams: queryParams});
   }
 
