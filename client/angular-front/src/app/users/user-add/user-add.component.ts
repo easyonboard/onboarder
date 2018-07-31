@@ -46,22 +46,32 @@ export class UserAddComponent implements OnInit {
             unique = value1;
 
             if (unique === true) {
-              this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
-                value2 => {
-                  if (this.childUserInfoFormularComponent.userInformation.startDate === undefined) {
-                    this.snackBarMessagePopup('You must specify the starting date!');
-                  } else {
-                    this.snackBarMessagePopup('Succes! You just add a new employee!');
-                    this.dialog.closeAll();
+              if (this.childUserInfoFormularComponent.userInformation.startDate !== undefined) {
+                this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
+                  value2 => {
+                    if (this.childUserInfoFormularComponent.userInformation.startDate === undefined) {
+                      this.snackBarMessagePopup('You must specify the starting date!');
+                    } else {
+                      this.snackBarMessagePopup('Succes! You just add a new employee!');
+                      this.dialog.closeAll();
+                    }
+                  },
+                  error => {
+                    this.snackBarMessagePopup(error.error.message);
+                    console.log('error1 ' + error.error.message);
                   }
-                },
-                error => this.snackBarMessagePopup(error.error.message)
-              );
+                );
+              } else {
+                this.snackBarMessagePopup('You must provide the starting date!');
+              }
             } else {
               this.snackBarMessagePopup('Failed! Username or .msg email already exists!');
             }
           },
-          error => this.snackBarMessagePopup(error.error.message)
+          error => {
+            this.snackBarMessagePopup(error.error.message);
+            console.log('error2 ' + error.error.message);
+          }
         );
       }
     } else {
