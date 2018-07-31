@@ -14,6 +14,3 @@ INSERT INTO MEETING_HALL(ID_MEETING_HALL, CAPACITY, FLOOR, HALL_NAME, LOCATION_I
 INSERT INTO MEETING_HALL(ID_MEETING_HALL, CAPACITY, FLOOR, HALL_NAME, LOCATION_ID_LOCATION) VALUES (3005, 2, 0, 'Moldoveanu', 2002);
 INSERT INTO MEETING_HALL(ID_MEETING_HALL, CAPACITY, FLOOR, HALL_NAME, LOCATION_ID_LOCATION) VALUES (3006, 25, 0, 'Hymalaya', 2002);
 INSERT INTO MEETING_HALL(ID_MEETING_HALL, CAPACITY, FLOOR, HALL_NAME, LOCATION_ID_LOCATION) VALUES (3007, 15, 0, 'Fuji', 2002);
-
-INSERT INTO APP_USER(id_user, email, msg_mail, name, password, username, role_id_role) VALUES (1000, 'admin@db.test', 'admin@msg.test', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'admin', 1);
-INSERT INTO USER_INFORMATION(id_user_information, department, floor, project, start_date, team, user_buddy_id, location_id_location, user_account) VALUES (1001, 'GENERAL', null, null, CURRENT_TIMESTAMP, 'Gillardon', null, null, 1000);

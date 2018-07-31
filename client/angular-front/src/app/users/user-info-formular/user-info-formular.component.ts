@@ -87,6 +87,7 @@ export class UserInfoFormularComponent implements OnInit {
       }
     });
   }
+
   getDepartment(): String {
     return this.userInformation.department;
   }
