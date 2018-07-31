@@ -125,7 +125,6 @@ public class EventController {
         }
     }
 
-
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/events/isEnrolled", method = RequestMethod.POST)
     public ResponseEntity isUserEnrolled(@RequestBody String courseJson) {
@@ -142,7 +141,6 @@ public class EventController {
             return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         }
     }
-
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "locations", method = RequestMethod.GET)
