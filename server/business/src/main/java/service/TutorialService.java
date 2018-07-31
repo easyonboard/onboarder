@@ -44,7 +44,6 @@ public class TutorialService {
     }
 
     public List<TutorialDto> filterByKeyword(String keyword) {
-
         return tutorialMapper.entitiesToDTOs(tutorialRepository.findByKeywordsContainingIgnoreCase(keyword));
     }
 

@@ -1,6 +1,6 @@
 package dto;
 
-public class ContactPersonDTO {
+public class ContactPersonDto {
 
     private String username;
     private String msgMail;
