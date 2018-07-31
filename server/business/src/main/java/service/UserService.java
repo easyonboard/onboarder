@@ -11,10 +11,6 @@ import dto.mapper.LeaveCheckListMapper;
 import dto.mapper.UserInformationMapper;
 import dto.mapper.UserMapper;
 import entity.*;
-import entity.CheckList;
-import entity.LeaveCheckList;
-import entity.User;
-import entity.UserInformation;
 import entity.enums.DepartmentType;
 import exception.types.DatabaseException;
 import exception.types.EntityNotFoundException;
@@ -264,16 +260,12 @@ public class UserService {
                 CheckList checkListEntity = checkListRepository.findByUserAccount(userEntity);
                 if (checkListEntity != null) {
                     checkListRepository.delete(checkListEntity);
-                } else {
-                    throw new EntityNotFoundException(checklistForUserNotFound(username));
                 }
 
                 LeaveCheckList leavecheckListEntity = leaveCheckListRepository.findLeaveCheckListByUserAccount(
                         userEntity);
                 if (leavecheckListEntity != null) {
                     leaveCheckListRepository.delete(leavecheckListEntity);
-                } else {
-                    checklistForUserNotFound(username);
                 }
 
                 List<Tutorial> tutorialsForUser = tutorialRepository.getTutorialsForUser(userEntity);
@@ -282,8 +274,16 @@ public class UserService {
                     tutorialRepository.save(aTutorialsForUser);
 
                 }
-                eventRepository.removeUserFromEnrolledList(userEntity);
-                eventRepository.removeContactPersonFromEvents(userEntity);
+                List<Event> eventsEnrolled = eventRepository.removeUserFromEnrolledList(userEntity);
+                for (Event enrolled : eventsEnrolled) {
+                    enrolled.getEnrolledUsers().remove(userEntity);
+                    eventRepository.save(enrolled);
+                }
+                List<Event> contactPerson = eventRepository.removeContactPersonFromEvents(userEntity);
+                for (Event enrolled : contactPerson) {
+                    enrolled.getEnrolledUsers().remove(userEntity);
+                    eventRepository.save(enrolled);
+                }
                 setBuddyToNull(userEntity);
                 userRepository.delete(userEntity);
                 return true;
@@ -296,6 +296,7 @@ public class UserService {
     }
 
     public void setBuddyToNull(User userEntity) {
+
         try {
             List<UserInformation> userInformationsList = userInformationRepository.findUsersByBuddyUser(userEntity);
             if (userInformationsList != null) {
@@ -310,7 +311,6 @@ public class UserService {
             System.out.println("User is not buddy");
         }
     }
-
 
     public UserInformationDto getUserInformationForUser(String username) throws EntityNotFoundException {
 
