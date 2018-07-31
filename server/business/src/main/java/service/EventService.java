@@ -45,12 +45,11 @@ public class EventService {
     @Autowired
     private MeetingHallRepository meetingHallRepository;
 
-    public EventDto addEvent(EventDto eventDto, List<String> enrolledPersonMsgMails, List<String> contactPersonMsgMails,
+    public EventDto addEvent(EventDto eventDto, List<String> enrolledPersonMsgMails, String contactPersonMsgMail,
                              LocationDto locationDto,
                              MeetingHallDto meetingHallDto) throws DatabaseException, EntityNotFoundException {
 
         List<UserDto> enrolledUsersDTO = new ArrayList<>();
-        List<UserDto> contactUsersDTO = new ArrayList<>();
 
         for (int i = 0; i < enrolledPersonMsgMails.size(); i++) {
             Optional<User> user = userRepository.findByMsgMail(enrolledPersonMsgMails.get(i));
@@ -63,14 +62,13 @@ public class EventService {
             enrolledUsersDTO.add(userDto);
         }
 
-        for (int i = 0; i < contactPersonMsgMails.size(); i++) {
-            Optional<User> user = userRepository.findByMsgMail(contactPersonMsgMails.get(i));
+
+            Optional<User> user = userRepository.findByMsgMail(contactPersonMsgMail);
             if (!user.isPresent()) {
                 throw new EntityNotFoundException(userNotFound(user.get().getUsername()));
             }
             UserDto contactPersonEntityDTO = userMapper.mapToDTO(user.get());
-            contactUsersDTO.add(contactPersonEntityDTO);
-        }
+
 
         if (locationDto.getIdLocation() != null) {
             Location location = locationRepository.findOne(locationDto.getIdLocation());
@@ -90,7 +88,7 @@ public class EventService {
             eventDto.setMeetingHall(selectedHallDto);
         }
 
-        eventDto.setContactPersons(contactUsersDTO);
+        eventDto.setContactPerson(contactPersonEntityDTO);
         eventDto.setEnrolledUsers(enrolledUsersDTO);
 
         Event event = eventRepository.save(eventMapper.mapToNewEntity(eventDto));

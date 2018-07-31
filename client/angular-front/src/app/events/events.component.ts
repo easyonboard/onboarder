@@ -99,7 +99,7 @@ export class EventsComponent implements OnInit {
 
   private getStatusEnrollment() {
     this.upcomingEvents.forEach(ev => this.eventService.getStatusEnrollmentForUser(this.user, ev).subscribe(bool => ev.isUserEnrolled = bool));
-
+console.log(this.upcomingEvents)
   }
 
 

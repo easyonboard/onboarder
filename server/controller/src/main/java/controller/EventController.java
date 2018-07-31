@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import service.EventService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,11 +40,11 @@ public class EventController {
             JsonNode nodeEnrolledPersonMsgMails = node.get("enrolledPersons");
             List<String> enrolledPersonMsgMails = mapper.readValue(nodeEnrolledPersonMsgMails.toString(), new TypeReference<List<String>>(){});
             JsonNode nodeContactPersonMsgMails = node.get("contactPersons");
-            List<String> contactPersonMsgMails = mapper.readValue(nodeContactPersonMsgMails.toString(), new TypeReference<List<String>>(){});
+            List<String> contactPersonMsgMail = mapper.readValue(nodeContactPersonMsgMails.toString(), new TypeReference<List<String>>(){});
             LocationDto locationDto = mapper.convertValue(node.get("location"), LocationDto.class);
 
             return new ResponseEntity<>(
-                    eventService.addEvent(eventDto, enrolledPersonMsgMails, contactPersonMsgMails, locationDto, meetingHall),
+                    eventService.addEvent(eventDto, enrolledPersonMsgMails, contactPersonMsgMail.get(0), locationDto, meetingHall),
                     HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
