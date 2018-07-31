@@ -2,7 +2,7 @@ package dto;
 
 import entity.enums.RoleType;
 
-public class RoleDTO {
+public class RoleDto {
 
     private int idRole;
     private RoleType role;

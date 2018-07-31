@@ -1,7 +1,7 @@
 package validator;
 
 import dao.UserRepository;
-import dto.UserDTO;
+import dto.UserDto;
 import exception.types.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Validator for {@link UserDTO}
+ * Validator for {@link UserDto}
  */
 @Service
 public class UserValidator {
@@ -29,7 +29,7 @@ public class UserValidator {
     private static final String USERNAME_EXISTS_ERROR = "Username already exists ";
     private static final int MIN_NUMBER_CHARACTERS = 6;
 
-    public void validateUserData(UserDTO user) throws InvalidDataException {
+    public void validateUserData(UserDto user) throws InvalidDataException {
 
         validateName(user.getName());
         validateEmail(user.getEmail());

@@ -2,7 +2,7 @@ package dto;
 
 import entity.enums.MaterialType;
 
-public class TutorialMaterialDTO {
+public class TutorialMaterialDto {
 
     private Integer idTutorialMaterial;
 
@@ -13,9 +13,9 @@ public class TutorialMaterialDTO {
     private String description;
     private TutorialDto tutorial;
 
-    public TutorialMaterialDTO(){}
+    public TutorialMaterialDto(){}
 
-    public TutorialMaterialDTO(Integer idTutorialMaterial, MaterialType materialType, String link, byte[] fileMaterial, String title, String description, TutorialDto tutorial) {
+    public TutorialMaterialDto(Integer idTutorialMaterial, MaterialType materialType, String link, byte[] fileMaterial, String title, String description, TutorialDto tutorial) {
         this.idTutorialMaterial = idTutorialMaterial;
         this.materialType = materialType;
         this.link = link;

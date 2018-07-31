@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder;
 import com.sun.media.sound.InvalidDataException;
 import dto.TutorialDto;
 
-import dto.TutorialMaterialDTO;
+import dto.TutorialMaterialDto;
 import exception.types.DatabaseException;
 import exception.types.EntityNotFoundException;
 import exception.types.NoDataException;
@@ -86,7 +86,7 @@ public class TutorialController {
 
         final GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
-        TutorialMaterialDTO material = gson.fromJson(mat, TutorialMaterialDTO.class);
+        TutorialMaterialDto material = gson.fromJson(mat, TutorialMaterialDto.class);
 
         TutorialDto tutorial = null;
         try {
@@ -112,7 +112,7 @@ public class TutorialController {
     public @ResponseBody
     byte[] getMaterialById(@RequestParam(value = "id") Integer id, HttpServletResponse response) {
 
-        TutorialMaterialDTO materialDTO = tutorialService.getMaterialById(id);
+        TutorialMaterialDto materialDTO = tutorialService.getMaterialById(id);
         response.setHeader("Content-Disposition", "inline; filename=" + materialDTO.getTitle());
         response.setContentType("application/pdf");
         return materialDTO.getFileMaterial();
@@ -120,7 +120,7 @@ public class TutorialController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/materialsForTutorial", method = RequestMethod.GET)
-    public ResponseEntity<List<TutorialMaterialDTO>> allTutorials(@RequestParam(value = "id") Integer idTutorial) {
+    public ResponseEntity<List<TutorialMaterialDto>> allTutorials(@RequestParam(value = "id") Integer idTutorial) {
 
         try {
             return new ResponseEntity<>(tutorialService.getAllMaterialsForTutorial(idTutorial), HttpStatus.OK);

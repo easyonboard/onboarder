@@ -5,7 +5,7 @@ import entity.enums.DepartmentType;
 
 import java.util.Date;
 
-public class UserInformationDTO {
+public class UserInformationDto {
 
     private int idUserInformation;
 
@@ -17,10 +17,10 @@ public class UserInformationDTO {
     private DepartmentType department;
     private int mailSent;
 
-    private UserDTO buddyUser;
-    private UserDTO userAccount;
+    private UserDto buddyUser;
+    private UserDto userAccount;
 
-    public UserInformationDTO() {
+    public UserInformationDto() {
     }
 
     public String getTeam() {
@@ -55,11 +55,11 @@ public class UserInformationDTO {
         this.startDate = startDate;
     }
 
-    public UserDTO getBuddyUser() {
+    public UserDto getBuddyUser() {
         return buddyUser;
     }
 
-    public void setBuddyUser(UserDTO buddyUser) {
+    public void setBuddyUser(UserDto buddyUser) {
         this.buddyUser = buddyUser;
     }
 
@@ -79,11 +79,11 @@ public class UserInformationDTO {
         this.idUserInformation = idUserInformation;
     }
 
-    public UserDTO getUserAccount() {
+    public UserDto getUserAccount() {
         return userAccount;
     }
 
-    public void setUserAccount(UserDTO userAccount) {
+    public void setUserAccount(UserDto userAccount) {
         this.userAccount = userAccount;
     }
 

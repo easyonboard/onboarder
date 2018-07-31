@@ -1,8 +1,8 @@
 package service;
 
 import dao.CheckListRepository;
-import dto.CheckListDTO;
-import dto.UserInformationDTO;
+import dto.CheckListDto;
+import dto.UserInformationDto;
 import dto.mapper.CheckListMapper;
 import entity.CheckList;
 import entity.User;
@@ -19,20 +19,20 @@ public class CheckListService {
 
     private CheckListMapper checkListMapper = CheckListMapper.INSTANCE;
 
-    public CheckListDTO addCheckList(UserInformationDTO userInformationDTO, User appUser) throws InvalidDataException {
+    public CheckListDto addCheckList(UserInformationDto userInformationDto, User appUser) throws InvalidDataException {
 
-        if (userInformationDTO == null || appUser == null){
+        if (userInformationDto == null || appUser == null){
             throw new InvalidDataException("Checklist data is invalid");
         }
         CheckList checkList = new CheckList();
-        checkList.setHasBuddyAssigned(userInformationDTO.getBuddyUser() != null);
+        checkList.setHasBuddyAssigned(userInformationDto.getBuddyUser() != null);
         checkList.setUserAccount(appUser);
         checkListRepository.save(checkList);
 
         return checkListMapper.mapToDTO(checkListRepository.save(checkList));
     }
 
-    public CheckListDTO findByUser(User userEntity) throws  EntityNotFoundException {
+    public CheckListDto findByUser(User userEntity) throws  EntityNotFoundException {
         CheckList checkList = checkListRepository.findByUserAccount(userEntity);
         if (checkList == null){
             throw new EntityNotFoundException("checklist could not be found in the database");
