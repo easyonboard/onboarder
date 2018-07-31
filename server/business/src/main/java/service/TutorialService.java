@@ -44,7 +44,6 @@ public class TutorialService {
     }
 
     public List<TutorialDto> filterByKeyword(String keyword) {
-
         return tutorialMapper.entitiesToDTOs(tutorialRepository.findByKeywordsContainingIgnoreCase(keyword));
     }
 
@@ -153,7 +152,7 @@ public class TutorialService {
             return draftTutorials;
     }
 
-    public List<TutorialDto> allDraftTutorialsForUserFilterByKeyword(Integer idUser, String keyword) {
+    public List<TutorialDto> allDraftTutorialsForUserFilterByKeyword(Integer idUser, String keyword) throws NoDataException {
         return this.allDraftTutorialsForUser(idUser).stream().filter(tutorial -> tutorial.getKeywords().indexOf(keyword) >= 0).collect(Collectors.toList());
     }
 }
