@@ -2,7 +2,7 @@ package service;
 
 import dao.UserInformationRepository;
 import dao.UserRepository;
-import dto.UserInformationDTO;
+import dto.UserInformationDto;
 import dto.mapper.UserInformationMapper;
 import entity.User;
 import entity.UserInformation;
@@ -23,7 +23,7 @@ public class UserInformationService {
     private UserInformationMapper userInformationMapper = UserInformationMapper.INSTANCE;
 
 
-    public void updateUserInfo(UserInformationDTO userInfo) {
+    public void updateUserInfo(UserInformationDto userInfo) {
 
         UserInformation actualUserInfo = userInformationRepository.findOne(userInfo.getIdUserInformation());
 
@@ -43,15 +43,15 @@ public class UserInformationService {
         userInformationRepository.save(actualUserInfo);
     }
 
-    public void addUserInfo(UserInformationDTO userInformationDTO, User appUser, User buddyUser) {
+    public void addUserInfo(UserInformationDto userInformationDto, User appUser, User buddyUser) {
         UserInformation userInformation = new UserInformation();
 
-        userInformation.setTeam(userInformationDTO.getTeam());
-        userInformation.setLocation(userInformationDTO.getLocation());
-        userInformation.setFloor(userInformationDTO.getFloor());
-        userInformation.setDepartment(userInformationDTO.getDepartment());
-        userInformation.setProject(userInformationDTO.getProject());
-        userInformation.setStartDate(userInformationDTO.getStartDate());
+        userInformation.setTeam(userInformationDto.getTeam());
+        userInformation.setLocation(userInformationDto.getLocation());
+        userInformation.setFloor(userInformationDto.getFloor());
+        userInformation.setDepartment(userInformationDto.getDepartment());
+        userInformation.setProject(userInformationDto.getProject());
+        userInformation.setStartDate(userInformationDto.getStartDate());
         userInformation.setUserAccount(appUser);
 
         if (buddyUser != null) {

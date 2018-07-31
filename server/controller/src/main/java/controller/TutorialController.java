@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder;
 import com.sun.media.sound.InvalidDataException;
 import dto.TutorialDto;
 
-import dto.TutorialMaterialDTO;
+import dto.TutorialMaterialDto;
 import exception.types.DatabaseException;
 import exception.types.EntityNotFoundException;
 import exception.types.NoDataException;
@@ -87,7 +87,7 @@ public class TutorialController {
 
         final GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
-        TutorialMaterialDTO material = gson.fromJson(mat, TutorialMaterialDTO.class);
+        TutorialMaterialDto material = gson.fromJson(mat, TutorialMaterialDto.class);
 
         TutorialDto tutorial = null;
         try {
@@ -113,7 +113,7 @@ public class TutorialController {
     public @ResponseBody
     byte[] getMaterialById(@RequestParam(value = "id") Integer id, HttpServletResponse response) {
 
-        TutorialMaterialDTO materialDTO = tutorialService.getMaterialById(id);
+        TutorialMaterialDto materialDTO = tutorialService.getMaterialById(id);
         response.setHeader("Content-Disposition", "inline; filename=" + materialDTO.getTitle());
         response.setContentType("application/pdf");
         return materialDTO.getFileMaterial();
@@ -121,7 +121,7 @@ public class TutorialController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/materialsForTutorial", method = RequestMethod.GET)
-    public ResponseEntity<List<TutorialMaterialDTO>> allTutorials(@RequestParam(value = "id") Integer idTutorial) {
+    public ResponseEntity<List<TutorialMaterialDto>> allTutorials(@RequestParam(value = "id") Integer idTutorial) {
 
         try {
             return new ResponseEntity<>(tutorialService.getAllMaterialsForTutorial(idTutorial), HttpStatus.OK);
@@ -180,17 +180,18 @@ public class TutorialController {
             @RequestParam(value = "idUser", required = false) Integer idUser,
             @RequestParam(value = "keyword", required = false) Optional<String> keyword) {
 
-<<<<<<< HEAD
         if (keyword.isPresent()) {
-            return new ResponseEntity<>(tutorialService.allDraftTutorialsForUserFilterByKeyword(idUser,keyword.get()), HttpStatus.OK);
+            try {
+                return new ResponseEntity<>(tutorialService.allDraftTutorialsForUserFilterByKeyword(idUser,keyword.get()), HttpStatus.OK);
+            } catch (NoDataException e) {
+                return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+            }
         } else {
-            return new ResponseEntity<>(tutorialService.allDraftTutorialsForUser(idUser), HttpStatus.OK);
-=======
-        try {
-            return new ResponseEntity<>(tutorialService.allDraftTutorialsForUser(idUser), HttpStatus.OK);
-        } catch (NoDataException e) {
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
->>>>>>> master
+            try {
+                return new ResponseEntity<>(tutorialService.allDraftTutorialsForUser(idUser), HttpStatus.OK);
+            } catch (NoDataException e) {
+                return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+            }
         }
     }
 }

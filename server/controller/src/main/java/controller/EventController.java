@@ -3,10 +3,10 @@ package controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dto.EventDTO;
+import dto.EventDto;
 import dto.LocationDto;
-import dto.MeetingHallDTO;
-import dto.UserDTO;
+import dto.MeetingHallDto;
+import dto.UserDto;
 import exception.types.DatabaseException;
 import exception.types.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +34,8 @@ public class EventController {
         try {
             JsonNode node = null;
             node = mapper.readTree(courseJson);
-            EventDTO eventDTO = mapper.convertValue(node.get("event"), EventDTO.class);
-            MeetingHallDTO meetingHall = mapper.convertValue(node.get("hall"), MeetingHallDTO.class);
+            EventDto eventDto = mapper.convertValue(node.get("event"), EventDto.class);
+            MeetingHallDto meetingHall = mapper.convertValue(node.get("hall"), MeetingHallDto.class);
             JsonNode nodeEnrolledPersonMsgMails = node.get("enrolledPersons");
             List<String> enrolledPersonMsgMails = mapper.readValue(nodeEnrolledPersonMsgMails.toString(), new TypeReference<List<String>>(){});
             JsonNode nodeContactPersonMsgMails = node.get("contactPersons");
@@ -43,7 +43,7 @@ public class EventController {
             LocationDto locationDto = mapper.convertValue(node.get("location"), LocationDto.class);
 
             return new ResponseEntity<>(
-                    eventService.addEvent(eventDTO, enrolledPersonMsgMails, contactPersonMsgMails, locationDto, meetingHall),
+                    eventService.addEvent(eventDto, enrolledPersonMsgMails, contactPersonMsgMails, locationDto, meetingHall),
                     HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
@@ -56,7 +56,7 @@ public class EventController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/events/pastEvent", method = RequestMethod.GET)
-    public ResponseEntity<List<EventDTO>> getPastEvents(@RequestParam(name = "keyword") Optional<String> keyword) {
+    public ResponseEntity<List<EventDto>> getPastEvents(@RequestParam(name = "keyword") Optional<String> keyword) {
 
         try {
             if(keyword.isPresent()){
@@ -70,7 +70,7 @@ public class EventController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/events/upcomingEvent", method = RequestMethod.GET)
-    public ResponseEntity<List<EventDTO>> getUpcomingEvents(@RequestParam(name = "keyword") Optional<String> keyword) {
+    public ResponseEntity<List<EventDto>> getUpcomingEvents(@RequestParam(name = "keyword") Optional<String> keyword) {
 
         try {
             if(keyword.isPresent()){
@@ -91,9 +91,9 @@ public class EventController {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(courseJson);
             int eventDTO = mapper.convertValue(node.get("eventID"), Integer.class);
-            UserDTO userDTO = mapper.convertValue(node.get("user"), UserDTO.class);
+            UserDto userDto = mapper.convertValue(node.get("user"), UserDto.class);
             try {
-                return new ResponseEntity<>(eventService.enrollUser(userDTO, eventDTO), HttpStatus.OK);
+                return new ResponseEntity<>(eventService.enrollUser(userDto, eventDTO), HttpStatus.OK);
             } catch (DatabaseException e) {
                 return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -112,9 +112,9 @@ public class EventController {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(courseJson);
             int eventDTO = mapper.convertValue(node.get("eventID"), Integer.class);
-            UserDTO userDTO = mapper.convertValue(node.get("user"), UserDTO.class);
+            UserDto userDto = mapper.convertValue(node.get("user"), UserDto.class);
             try {
-                return new ResponseEntity<>(eventService.unenrollUser(userDTO, eventDTO), HttpStatus.OK);
+                return new ResponseEntity<>(eventService.unenrollUser(userDto, eventDTO), HttpStatus.OK);
             } catch (DatabaseException e) {
                 return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -134,8 +134,8 @@ public class EventController {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(courseJson);
             int eventDTO = mapper.convertValue(node.get("eventID"), Integer.class);
-            UserDTO userDTO = mapper.convertValue(node.get("user"), UserDTO.class);
-            return new ResponseEntity<>(eventService.getStatusEnrollment(userDTO, eventDTO), HttpStatus.OK);
+            UserDto userDto = mapper.convertValue(node.get("user"), UserDto.class);
+            return new ResponseEntity<>(eventService.getStatusEnrollment(userDto, eventDTO), HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         } catch (EntityNotFoundException e) {
@@ -158,7 +158,7 @@ public class EventController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "meetingHalls", method = RequestMethod.GET)
-    public ResponseEntity<List<MeetingHallDTO>> getAllMeetingHalls() {
+    public ResponseEntity<List<MeetingHallDto>> getAllMeetingHalls() {
 
         try {
             return new ResponseEntity<>(eventService.getAllMeetingHalls(), HttpStatus.OK);

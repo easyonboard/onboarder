@@ -1,7 +1,7 @@
 package service;
 
 import dao.RoleDAO;
-import dto.RoleDTO;
+import dto.RoleDto;
 import dto.mapper.RoleMapper;
 import entity.Role;
 import entity.enums.RoleType;
@@ -17,7 +17,7 @@ public class RoleService {
     private RoleDAO roleDAO;
     private RoleMapper roleMapper = RoleMapper.INSTANCE;
 
-    public RoleDTO findRoleByType(RoleType roleType) {
+    public RoleDto findRoleByType(RoleType roleType) {
         Optional<Role> searchedRole = roleDAO.getAllRoles().stream().filter(r -> r.getRole().name().equals(roleType.name())).findFirst();
         if (searchedRole.isPresent()) {
             return roleMapper.mapToDTO(searchedRole.get());

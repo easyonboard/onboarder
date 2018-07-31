@@ -3,15 +3,15 @@ package dto;
 import java.util.Date;
 import java.util.List;
 
-public class EventDTO {
+public class EventDto {
 
     private Integer idEvent;
     private String titleEvent;
     private String overview;
 
-    private List<UserDTO> enrolledUsers;
+    private List<UserDto> enrolledUsers;
 
-    private List<UserDTO> contactPerson;
+    private List<UserDto> contactPerson;
 
     private Integer maxEnrolledUsers;
 
@@ -23,12 +23,12 @@ public class EventDTO {
 
     private String eventTime;
 
-    private MeetingHallDTO meetingHall;
+    private MeetingHallDto meetingHall;
 
-    public EventDTO() {
+    public EventDto() {
     }
 
-    public EventDTO(Integer idEvent, String titleEvent, String overview, List<UserDTO> enrolledUsers, List<UserDTO> contactPerson, Integer maxEnrolledUsers, LocationDto location, String keywords, Date eventDate, MeetingHallDTO meetingHall) {
+    public EventDto(Integer idEvent, String titleEvent, String overview, List<UserDto> enrolledUsers, List<UserDto> contactPerson, Integer maxEnrolledUsers, LocationDto location, String keywords, Date eventDate, MeetingHallDto meetingHall) {
         this.idEvent = idEvent;
         this.titleEvent = titleEvent;
         this.overview = overview;
@@ -65,19 +65,19 @@ public class EventDTO {
         this.overview = overview;
     }
 
-    public List<UserDTO> getEnrolledUsers() {
+    public List<UserDto> getEnrolledUsers() {
         return enrolledUsers;
     }
 
-    public void setEnrolledUsers(List<UserDTO> enrolledUsers) {
+    public void setEnrolledUsers(List<UserDto> enrolledUsers) {
         this.enrolledUsers = enrolledUsers;
     }
 
-    public List<UserDTO> getContactPersons() {
+    public List<UserDto> getContactPersons() {
         return contactPerson;
     }
 
-    public void setContactPersons(List<UserDTO> contactPerson) {
+    public void setContactPersons(List<UserDto> contactPerson) {
         this.contactPerson = contactPerson;
     }
 
@@ -123,11 +123,11 @@ public class EventDTO {
         this.eventTime = eventTime;
     }
 
-    public MeetingHallDTO getMeetingHall() {
+    public MeetingHallDto getMeetingHall() {
         return meetingHall;
     }
 
-    public void setMeetingHall(MeetingHallDTO meetingHall) {
+    public void setMeetingHall(MeetingHallDto meetingHall) {
         this.meetingHall = meetingHall;
     }
 }

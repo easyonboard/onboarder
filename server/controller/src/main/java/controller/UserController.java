@@ -38,10 +38,10 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/auth", method = RequestMethod.POST)
-    public ResponseEntity login(@RequestBody UserDTO user) {
+    public ResponseEntity login(@RequestBody UserDto user) {
 
         try {
-            UserDTO userLogged = userService.findUserByUsername(user.getUsername());
+            UserDto userLogged = userService.findUserByUsername(user.getUsername());
             String password = userService.encrypt(user.getPassword());
             if (userLogged.getPassword().equals(password))
                 return new ResponseEntity<>(userLogged, HttpStatus.OK);
@@ -59,14 +59,14 @@ public class UserController {
 
         try {
             JsonNode node = mapper.readTree(userJson);
-            UserDTO userDTO = mapper.convertValue(node.get("user"), UserDTO.class);
+            UserDto userDto = mapper.convertValue(node.get("user"), UserDto.class);
             RoleType role = mapper.convertValue(node.get("role"), RoleType.class);
-            UserInformationDTO userInformationDTO = mapper.convertValue(node.get("userInfo"), UserInformationDTO.class);
+            UserInformationDto userInformationDto = mapper.convertValue(node.get("userInfo"), UserInformationDto.class);
 
-            RoleDTO roleDTO = roleService.findRoleByType(role);
-            userDTO.setRole(roleDTO);
+            RoleDto roleDto = roleService.findRoleByType(role);
+            userDto.setRole(roleDto);
 
-            userService.addUser(userDTO, userInformationDTO);
+            userService.addUser(userDto, userInformationDto);
         } catch (InvalidDataException exception) {
             return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
         } catch (JsonProcessingException e) {
@@ -81,7 +81,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/updateUser", method = RequestMethod.POST)
-    public ResponseEntity updateUser(@RequestBody UserDTO user) {
+    public ResponseEntity updateUser(@RequestBody UserDto user) {
 
         try {
             userService.updateUser(user);
@@ -97,7 +97,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/updateUserPassword", method = RequestMethod.POST)
-    public ResponseEntity updateUserPassword(@RequestBody UserDTO user) {
+    public ResponseEntity updateUserPassword(@RequestBody UserDto user) {
 
         try {
             userService.updateUserPassword(user.getUsername(), user.getPassword());
@@ -111,9 +111,9 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/allUsers", method = RequestMethod.GET)
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
+    public ResponseEntity<List<UserDto>> getAllUsers() {
 
-        List<UserDTO> users = null;
+        List<UserDto> users = null;
         try {
             users = userService.getAllUsers();
         } catch (EntityNotFoundException e) {
@@ -124,9 +124,9 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/newUsers", method = RequestMethod.GET)
-    public ResponseEntity<List<UserInformationDTO>> getAllNewUsers() {
+    public ResponseEntity<List<UserInformationDto>> getAllNewUsers() {
 
-        List<UserInformationDTO> newUsers = new ArrayList<>();
+        List<UserInformationDto> newUsers = new ArrayList<>();
         try {
             newUsers = userService.getAllNewUsers();
         } catch (EntityNotFoundException e) {
@@ -144,10 +144,10 @@ public class UserController {
      */
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user/updateUserInfo", method = RequestMethod.POST)
-    public ResponseEntity updateUserInformation(@RequestBody UserInformationDTO userInformationDTO) {
+    public ResponseEntity updateUserInformation(@RequestBody UserInformationDto userInformationDto) {
 
         try {
-            userInformationService.updateUserInfo(userInformationDTO);
+            userInformationService.updateUserInfo(userInformationDto);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -157,9 +157,9 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public ResponseEntity<List<UserDTO>> getUserByName(@RequestParam(value = "name") String name) {
+    public ResponseEntity<List<UserDto>> getUserByName(@RequestParam(value = "name") String name) {
 
-        List<UserDTO> users = null;
+        List<UserDto> users = null;
         try {
             users = userService.searchByName(name);
         } catch (EntityNotFoundException e) {
@@ -170,7 +170,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/checkList", method = RequestMethod.POST)
-    public ResponseEntity getCheckList(@RequestBody UserDTO user) {
+    public ResponseEntity getCheckList(@RequestBody UserDto user) {
 
         try {
             return new ResponseEntity(userService.getCheckList(user), HttpStatus.OK);
@@ -202,19 +202,19 @@ public class UserController {
         return mapper.convertValue(node.get("user"), String.class);
     }
 
-    private CheckListDTO getCheckListMsp(String str) throws IOException {
+    private CheckListDto getCheckListMsp(String str) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);
-        return mapper.convertValue(node.get("check"), CheckListDTO.class);
+        return mapper.convertValue(node.get("check"), CheckListDto.class);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "user/department", method = RequestMethod.GET)
-    public ResponseEntity<List<UserDTO>> getUsersInDepartmentForUser(
+    public ResponseEntity<List<UserDto>> getUsersInDepartmentForUser(
             @RequestParam(value = "username") String username) {
 
-        List<UserDTO> users = null;
+        List<UserDto> users = null;
         try {
             users = userService.getUsersInDepartmentForUser(username);
         } catch (EntityNotFoundException e) {
@@ -285,7 +285,7 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "saveLeaveCheckList", method = RequestMethod.POST)
-    public ResponseEntity saveLeaveCheckList(@RequestBody LeaveCheckListDTO leaveCheckList) {
+    public ResponseEntity saveLeaveCheckList(@RequestBody LeaveCheckListDto leaveCheckList) {
 
         try {
             return new ResponseEntity<>(userService.saveLeaveCheckList(leaveCheckList), HttpStatus.OK);
