@@ -20,7 +20,9 @@ public class UserValidator {
 
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
             "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-    private static final String EMAIL_FORMAT_ERROR = "Email not valid ";
+    private static final Pattern VALID_MSG_MAIL_ADDRESS_REGEX = Pattern.compile(
+            "^[A-Z0-9._%+-]+@msg.group$", Pattern.CASE_INSENSITIVE);
+    private static final String EMAIL_FORMAT_ERROR = ".msg or personal mail not valid ";
     private static final String EMAIL_EMPTY_ERROR = "Email can not be empty";
     private static final String NAME_EMPTY_ERROR = "Name can not be empty";
     private static final String PASSWORD_LENGTH_ERROR = "Password must have at least 6 characters";
@@ -33,6 +35,7 @@ public class UserValidator {
 
         validateName(user.getName());
         validateEmail(user.getEmail());
+        validateMsgMail(user.getMsgMail());
         validatePassword(user.getPassword());
     }
 
@@ -54,11 +57,21 @@ public class UserValidator {
 
     private void validateEmail(String email) throws InvalidDataException {
 
+        if (checkIfEmpty(email))
+            throw new InvalidDataException(EMAIL_EMPTY_ERROR);
+
         if (!emailPatternMatcher(email)) {
             throw new InvalidDataException(EMAIL_FORMAT_ERROR);
         }
-        if (checkIfEmpty(email))
+    }
+
+    private void validateMsgMail(String msgMail) throws InvalidDataException {
+
+        if (checkIfEmpty(msgMail))
             throw new InvalidDataException(EMAIL_EMPTY_ERROR);
+        if (!msgMailPatternMatcher(msgMail)) {
+            throw new InvalidDataException(EMAIL_FORMAT_ERROR);
+        }
     }
 
     private void validateName(String name) throws InvalidDataException {
@@ -70,7 +83,12 @@ public class UserValidator {
     private boolean checkIfEmpty(String value) {
 
         return (value == null || value == "");
+    }
 
+    private boolean msgMailPatternMatcher(String msgMail) {
+
+        Matcher matcher = VALID_MSG_MAIL_ADDRESS_REGEX.matcher(msgMail);
+        return matcher.find();
     }
 
     private boolean emailPatternMatcher(String email) {

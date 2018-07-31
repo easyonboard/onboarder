@@ -63,18 +63,23 @@ public class UserController {
             RoleType role = mapper.convertValue(node.get("role"), RoleType.class);
             UserInformationDto userInformationDto = mapper.convertValue(node.get("userInfo"), UserInformationDto.class);
 
-            RoleDto roleDto = roleService.findRoleByType(role);
+            RoleDto roleDto = null;
+            try {
+                roleDto = roleService.findRoleByType(role);
+            } catch (FieldNotFoundException e) {
+                return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
+            }
             userDto.setRole(roleDto);
 
             userService.addUser(userDto, userInformationDto);
         } catch (InvalidDataException exception) {
-            return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(exception, HttpStatus.BAD_REQUEST);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {
-            e.printStackTrace();
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         } catch (DatabaseException e) {
-            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
