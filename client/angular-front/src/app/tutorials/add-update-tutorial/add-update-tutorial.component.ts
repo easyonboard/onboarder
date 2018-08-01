@@ -100,12 +100,9 @@ export class AddUpdateTutorialComponent implements OnInit {
   addTutorial(): void {
     try {
       this.getUploadedFiles();
-
+      this.tutorial.keywords = this.keywords.join(' ');
       this.verifyConstraintsForTutorial();
       this.materialsForCurrentTutorial.forEach((material, index) => this.verifyConstraintsForMaterial(index + 1, material));
-
-      this.tutorial.keywords = this.keywords.join(' ');
-
       this.tutorialService.addTutorial(this.tutorial, this.selectedUsers).subscribe(tutorial => {
         this.tutorial = tutorial;
         this.addMaterials();
@@ -204,6 +201,9 @@ export class AddUpdateTutorialComponent implements OnInit {
     }
     if (!this.tutorial.overview || this.tutorial.overview.length > 500) {
       tutorialErrorMessage += 'Description must contain at most 500 characters!\n';
+    }
+    if (!this.tutorial.keywords || this.tutorial.keywords.length>1) {
+      tutorialErrorMessage += 'Tutorial must have at least one keyword!\n';
     }
     if (tutorialErrorMessage !== '') {
       throw new Error(tutorialErrorMessage);

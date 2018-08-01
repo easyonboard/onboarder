@@ -182,6 +182,12 @@ public class UserService {
         return department;
     }
 
+    /**
+     * TODO refactoring for hasBuddyAssigned
+     * @param userDto
+     * @return
+     * @throws EntityNotFoundException
+     */
     public Map getCheckList(UserDto userDto) throws EntityNotFoundException {
 
         User user = userRepository.findOne(userDto.getIdUser());
@@ -207,6 +213,12 @@ public class UserService {
             checkListMap.put(attribute, value);
         }
 
+        UserInformation userInfo=userInformationRepository.findUserInformationByUser(user);
+        if(userInfo.getBuddyUser()==null){
+            checkListMap.put("hasBuddyAssigned", false);
+            checkList.setHasBuddyAssigned(false);
+            checkListRepository.save(checkList);
+        }
         return checkListMap;
     }
 

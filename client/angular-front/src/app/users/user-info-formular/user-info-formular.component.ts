@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 
@@ -8,7 +8,7 @@ import {UserDTO, UserInformationDTO} from '../../domain/user';
 import {DepartmentType} from '../../domain/departmentType';
 
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
-import {MatSelectChange} from '@angular/material';
+import {MAT_DIALOG_DATA, MatSelectChange} from '@angular/material';
 import {LocationDTO} from '../../domain/location';
 
 @Component({
@@ -32,14 +32,17 @@ export class UserInfoFormularComponent implements OnInit {
   public users$: Observable<UserDTO[]>;
   private searchTerms = new Subject<string>();
 
-  constructor(private userInformationService: UserInformationService, private userService: UserService) {
+  constructor(private userInformationService: UserInformationService, private userService: UserService, @Inject(MAT_DIALOG_DATA) public userInfo: UserInformationDTO) {
   }
 
   ngOnInit() {
     this.departments = Object.keys(DepartmentType);
     this.today = new Date(Date.now());
     this.locations = [];
-
+    if (this.userInfo != null) {
+      debugger
+      this.userInformation = this.userInfo;
+    }
     this.userInformationService.getAllLocations().subscribe(resp => {
       this.locationDtos = resp;
       resp.forEach(l => this.locations.push(l.locationName));
@@ -86,10 +89,6 @@ export class UserInfoFormularComponent implements OnInit {
         this.userInformation.location = l;
       }
     });
-  }
-
-  getDepartment(): String {
-    return this.userInformation.department;
   }
 
   getUserBuddy(): String {

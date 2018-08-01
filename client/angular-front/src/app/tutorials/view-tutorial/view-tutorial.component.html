@@ -79,7 +79,7 @@
             <span>
               If you want to send email using Outlook you need to set Outlook as default app for emails.
               You can do that following next tutorial.
-              <a href="link tutorial pentru setare outlook"> link tutorial pentru setare outlook </a>
+              <a href="http://localhost:4200/tutorials/3251"> link tutorial for setting outlook </a>
             </span>
         </div>
       </div>
@@ -91,33 +91,34 @@
     </div>
 
 
-    <div fxLayout="row" style="margin-top: 5%; margin-left: 2%" *ngIf="tutorial.tutorialMaterials.length!=0">
-      <div fxFlex="15">
-        <i class="fa fa-users icon" aria-hidden="true"></i>
-        <label class="subtitle">Materials: </label>
-      </div>
-      <div fxFlex style="font-size: larger">
-        <div fxLayout="row" *ngFor="let material of tutorial.tutorialMaterials">
-          <div fxFlex>
-            <div fxLayout="colum">
-              <div fxFlex="5"> Type:</div>
-              <div fxFlex="10" fxFlexOffset="1">{{material.materialType}}</div>
+              <div fxLayout="row" style="margin-top: 5%; margin-left: 2%" *ngIf="tutorial.tutorialMaterials.length!=0">
+                <div fxFlex="15">
+                  <i class="fa fa-users icon" aria-hidden="true"></i>
+                  <label class="subtitle">Materials: </label>
 
-              <div fxFlex="10" fxFlexOffset="2">Material:</div>
-              <div fxFlex fxFlexOffset="1" *ngIf="material.link">
-                <a  href="{{material.link}}" target="_blank">{{material.title}}</a>
+                </div>
+                <div fxFlex style="font-size: larger">
+                  <div fxLayout="row" *ngFor="let material of tutorial.tutorialMaterials">
+                    <div fxFlex>
+                      <div fxLayout="colum">
+                        <div fxFlex="5"> Type:</div>
+                        <div fxFlex="10" fxFlexOffset="1">{{material.materialType}}</div>
+
+                        <div fxFlex="10" fxFlexOffset="2">Material:</div>
+                        <div fxFlex fxFlexOffset="1" *ngIf="material.link">
+                          <a href="{{material.link}}" target="_blank">{{material.title}}</a>
+                        </div>
+                        <div fxFlex fxFlexOffset="1" *ngIf="!material.link"
+                             (click)="getFileWithId(material.idTutorialMaterial)">
+                          <a>{{material.title}}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div fxFlex="10"></div>
               </div>
-              <div fxFlex fxFlexOffset="1" *ngIf="!material.link" (click)="getFileWithId(material.idTutorialMaterial)">
-                <a>{{material.title}}</a>
-              </div>
+
             </div>
           </div>
-        </div>
-
-      </div>
-      <div fxFlex="10"></div>
-    </div>
-
-  </div>
-</div>
-

@@ -1,39 +1,38 @@
-<h2 mat-dialog-title>Edit profile</h2>
+<h2 mat-dialog-title>Change password</h2>
 <mat-dialog-content>
-  <form class="example-form">
-    <table class="table">
-      <tr>
-        <td><label>Username</label></td>
-        <td>
-          <mat-form-field>
-            <input matInput value="{{username}}" readonly>
-          </mat-form-field>
-        </td>
-      </tr>
+    <form class="example-form">
+        <table class="table">
+            <tr>
+                <td><label>Username</label></td>
+                <td>
+                    <mat-form-field>
+                        <input matInput value="{{username}}" readonly>
+                    </mat-form-field>
+                </td>
+            </tr>
 
-      <tr>
-        <td><label>Password </label></td>
-        <td>
-          <mat-form-field>
-            <input #pass matInput type="password"/>
-          </mat-form-field>
-        </td>
-      </tr>
-      <tr>
-        <td><label>Repeat Password </label>
-        </td>
-        <td>
-          <mat-form-field>
-            <input #passII matInput type="password" />
-          </mat-form-field>
-        </td>
-      </tr>
+            <tr>
+                <td><label>New Password </label></td>
+                <td>
+                    <mat-form-field>
+                        <input #pass matInput type="password" />
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Repeat New Password </label>
+                </td>
+                <td>
+                    <mat-form-field>
+                        <input #passII matInput type="password" />
+                    </mat-form-field>
+                </td>
+            </tr>
 
-    </table>
+        </table>
 
-    <button class="btn btn-info" (click)="updateUser(pass.value,passII.value)"
-            style="background:#841439; border:none">
+        <button class="btn btn-info" (click)="updateUser(pass.value,passII.value)" style="background:#841439; border:none">
       <span class="glyphicon  glyphicon-edit"></span> Save
     </button>
-  </form>
+    </form>
 </mat-dialog-content>

@@ -17,7 +17,7 @@ export class UserInfoUpdateComponent implements OnInit {
   private childUserInfoFormularComponent: UserInfoFormularComponent;
 
   constructor(@Inject(MAT_DIALOG_DATA) public userInformation: UserInformationDTO,
-              private userInformationService: UserInformationService,  private snackBar: MatSnackBar) {
+              private userInformationService: UserInformationService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -35,7 +35,22 @@ export class UserInfoUpdateComponent implements OnInit {
 
   updateUserInformation(): void {
     this.userInformationService.updateUserInformation(this.childUserInfoFormularComponent.userInformation).subscribe(
-      value => this.snackBarMessagePopup('User info updated!'),
+      value => {
+        this.snackBarMessagePopup('User info updated!');
+        this.userInformationService.getUserInformation(this.userInformation.userAccount.username).subscribe(resp => {
+          this.userInformation = resp;
+          this.childUserInfoFormularComponent.userInformation.idUserInformation = this.userInformation.idUserInformation;
+          this.childUserInfoFormularComponent.userInformation.team = this.userInformation.team;
+          this.childUserInfoFormularComponent.userInformation.location = this.userInformation.location;
+          this.childUserInfoFormularComponent.userInformation.floor = this.userInformation.floor;
+          this.childUserInfoFormularComponent.userInformation.project = this.userInformation.project;
+          this.childUserInfoFormularComponent.userInformation.department = this.userInformation.department;
+          this.childUserInfoFormularComponent.userInformation.buddyUser = this.userInformation.buddyUser;
+          this.childUserInfoFormularComponent.userInformation.startDate = this.userInformation.startDate;
+          this.childUserInfoFormularComponent.userInformation.userAccount = this.userInformation.userAccount;
+        });
+
+      },
       error => this.snackBarMessagePopup(error.error.message)
     );
   }
