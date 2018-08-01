@@ -12,7 +12,7 @@ import {MaterialService} from '../../service/material.service';
 export class ViewTutorialComponent implements OnInit {
   private tutorialId: number;
   public tutorial: TutorialDTO;
-  showInfo= false;
+  showInfo = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -46,7 +46,9 @@ export class ViewTutorialComponent implements OnInit {
   }
 
   openURL(link: string) {
-    window.open(link);
+    // window.
+    window.open(link, '_blank');
+    // location.replace(link);
   }
 
   redirectToUpdateTutorial(idTutorial: number) {

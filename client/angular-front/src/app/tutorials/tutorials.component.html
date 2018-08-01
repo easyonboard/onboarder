@@ -1,10 +1,14 @@
-<div fxFlex="95">
+
+<div fxFlex="15" id="removeFilterButton" *ngIf="isFiltered()">
+  <button mat-raised-button color="primary" (click)="removeFilter()" style="background-color: #841439"> Remove filter</button>
+</div>
+  <div fxFlex="95" >
   <mat-paginator *ngIf="tutorials?.length>0" mat [length]="this.tutorials.length" [pageSize]="pageSize"
                  [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getServerData($event)">
   </mat-paginator>
 </div>
 
-<div fxLayout="row wrap" fxLayoutAlign="start start" style="padding-top: 30px">
+<div fxLayout="row wrap" fxLayoutAlign="start start" style="padding-top: 3%">
 
   <p fxFlex *ngIf="tutorials?.length === 0" style="text-align: center">
     <b>No tutorials.</b>
