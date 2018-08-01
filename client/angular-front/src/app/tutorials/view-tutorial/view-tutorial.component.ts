@@ -12,6 +12,7 @@ import {MaterialService} from '../../service/material.service';
 export class ViewTutorialComponent implements OnInit {
   private tutorialId: number;
   public tutorial: TutorialDTO;
+  showInfo= false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -55,5 +56,9 @@ export class ViewTutorialComponent implements OnInit {
   userCanEditThisTutorial() {
     const currentUserEmail = localStorage.getItem('msgMail');
     return this.tutorial.contactPersons.map(cp => cp.msgMail).indexOf(currentUserEmail) >= 0;
+  }
+
+  displayInfo() {
+    this.showInfo = !this.showInfo;
   }
 }
