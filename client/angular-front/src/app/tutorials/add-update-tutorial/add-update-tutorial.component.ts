@@ -102,7 +102,9 @@ export class AddUpdateTutorialComponent implements OnInit {
       this.getUploadedFiles();
 
       this.verifyConstraintsForTutorial();
-      this.materialsForCurrentTutorial.forEach((material, index) => this.verifyConstraintsForMaterial(index + 1, material));
+      this.materialsForCurrentTutorial.forEach((material, index) => {
+        this.verifyConstraintsForMaterial(index + 1, material);
+      });
 
       this.tutorial.keywords = this.keywords.join(' ');
 
@@ -216,6 +218,11 @@ export class AddUpdateTutorialComponent implements OnInit {
       materialErrorMessage += `Title is required for material with number ${positionInList}!`;
     } else if (material.title.length < 5) {
       materialErrorMessage += `Title is too short for material with number ${positionInList}! Required at least 5 characters`;
+    }
+
+    // console.log('file sie ' + this.files[0].size);
+    if (this.files[0].size > 800000) {
+      materialErrorMessage = 'File ' + material.title + ' is too large!';
     }
 
     if (!material.materialType) {
