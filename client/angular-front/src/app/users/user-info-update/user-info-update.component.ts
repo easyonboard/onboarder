@@ -39,7 +39,15 @@ export class UserInfoUpdateComponent implements OnInit {
         this.snackBarMessagePopup('User info updated!');
         this.userInformationService.getUserInformation(this.userInformation.userAccount.username).subscribe(resp => {
           this.userInformation = resp;
-          this.ngOnInit();
+          this.childUserInfoFormularComponent.userInformation.idUserInformation = this.userInformation.idUserInformation;
+          this.childUserInfoFormularComponent.userInformation.team = this.userInformation.team;
+          this.childUserInfoFormularComponent.userInformation.location = this.userInformation.location;
+          this.childUserInfoFormularComponent.userInformation.floor = this.userInformation.floor;
+          this.childUserInfoFormularComponent.userInformation.project = this.userInformation.project;
+          this.childUserInfoFormularComponent.userInformation.department = this.userInformation.department;
+          this.childUserInfoFormularComponent.userInformation.buddyUser = this.userInformation.buddyUser;
+          this.childUserInfoFormularComponent.userInformation.startDate = this.userInformation.startDate;
+          this.childUserInfoFormularComponent.userInformation.userAccount = this.userInformation.userAccount;
         });
 
       },
