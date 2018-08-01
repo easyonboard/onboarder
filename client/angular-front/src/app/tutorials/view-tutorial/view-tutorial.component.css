@@ -56,3 +56,16 @@
 .editIcon {
     margin-right: 2%;
 }
+
+#sendEmailInfo {
+  border: 2px solid #6b233b;
+  border-radius: 5px;
+  padding: 2%;
+
+  /*z-index: 10;*/
+  position: absolute;
+  /*right: 5%;*/
+  /*bottom:20%;*/
+  /*bottom: 25%;*/
+  width: 25%;
+}
