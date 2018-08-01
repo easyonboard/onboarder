@@ -218,6 +218,12 @@ export class AddUpdateTutorialComponent implements OnInit {
       materialErrorMessage += `Title is too short for material with number ${positionInList}! Required at least 5 characters`;
     }
 
+    // console.log('file sie ' + this.files[0].size);
+    if (this.files[0].size > 800000) {
+      // materialErrorMessage = 'File ' + material.title + ' is too large!';
+      // materialErrorMessage = 'One of the files is too large';
+    }
+
     if (!material.materialType) {
       materialErrorMessage += `Material type is required for material with number ${positionInList}!`;
     }
