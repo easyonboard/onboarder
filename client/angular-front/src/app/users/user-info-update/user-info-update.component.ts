@@ -17,7 +17,7 @@ export class UserInfoUpdateComponent implements OnInit {
   private childUserInfoFormularComponent: UserInfoFormularComponent;
 
   constructor(@Inject(MAT_DIALOG_DATA) public userInformation: UserInformationDTO,
-              private userInformationService: UserInformationService,  private snackBar: MatSnackBar) {
+              private userInformationService: UserInformationService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -35,7 +35,14 @@ export class UserInfoUpdateComponent implements OnInit {
 
   updateUserInformation(): void {
     this.userInformationService.updateUserInformation(this.childUserInfoFormularComponent.userInformation).subscribe(
-      value => this.snackBarMessagePopup('User info updated!'),
+      value => {
+        this.snackBarMessagePopup('User info updated!');
+        this.userInformationService.getUserInformation(this.userInformation.userAccount.username).subscribe(resp => {
+          this.userInformation = resp;
+          this.ngOnInit();
+        });
+
+      },
       error => this.snackBarMessagePopup(error.error.message)
     );
   }
