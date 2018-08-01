@@ -58,27 +58,37 @@
             <div fxFlex="10"></div>
         </div>
 
-
-        <div fxLayout="row" style="margin-top: 5%; margin-left: 2%" *ngIf="tutorial.contactPersons.length!=0">
-            <div fxFlex="15">
-                <i class="fa fa-users icon" aria-hidden="true"></i>
-                <label class="subtitle">Contact persons: </label>
-            </div>
-            <div fxFlex style="font-size: larger">
-                <div fxLayout="row" *ngFor="let cp of tutorial.contactPersons">
-                    <div fxFlex>
-                        <div fxLayout="colum">
-                            <div fxFlex="5" style="color: #000000"> Name:</div>
-                            <div fxFlex="10" fxFlexOffset="2">{{cp.name}}</div>
-                            <div fxFlex="10" style="color: #000000" fxFlexOffset="2" *ngIf="cp.msgMail">Email adress:</div>
-                            <div fxFlex fxFlexOffset="2">
-                                <a data-role="touch" href="mailto:{{cp.msgMail}}?subject=About tutorial: {{tutorial.titleTutorial}}" data-rel="external">{{cp.msgMail}}</a>
-                            </div>
-                        </div>
-                    </div>
+    <div fxLayout="row" style="margin-top: 5%; margin-left: 2%" *ngIf="tutorial.contactPersons.length!=0">
+      <div fxFlex="18">
+        <i class="fa fa-users icon" aria-hidden="true"></i>
+        <label class="subtitle">Contact persons: </label>
+      </div>
+      <div fxFlex="50" style="font-size: larger">
+        <div *ngFor="let cp of tutorial.contactPersons" fxLayout="colum">
+          <div fxFlex="7" style="color: #000000"> Name:</div>
+          <div fxFlex="12" fxFlexOffset="2">{{cp.name}}</div>
+          <div fxFlex="15" style="color: #000000" fxFlexOffset="2" *ngIf="cp.msgMail">Email address:</div>
+          <div fxFlex="10" fxFlexOffset="2">
+            <a data-role="touch" href="mailto:{{cp.msgMail}}?subject=About tutorial: {{tutorial.titleTutorial}}"
+               data-rel="external">{{cp.msgMail}}</a>
+          </div>
+        </div>
+      </div>
+      <div fxFlex="8">
+        <div *ngIf="showInfo" id="sendEmailInfo">
+            <span>
+              If you want to send email using Outlook you need to set Outlook as default app for emails.
+              You can do that following next tutorial.
+              <a href="http://localhost:4200/tutorials/3251"> link tutorial for setting outlook </a>
+            </span>
                 </div>
             </div>
-            <div fxFlex="10"></div>
+            <div fxFlex="5" fxFlexOffset="20">
+                <mat-icon matTooltip="Send email info" (click)="displayInfo()">info</mat-icon>
+            </div>
+
+
+
         </div>
 
 
