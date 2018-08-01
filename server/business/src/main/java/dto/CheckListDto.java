@@ -1,13 +1,12 @@
 package dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import entity.User;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CheckListDTO {
+public class CheckListDto {
 
     private Integer idCheckList;
-    private UserDTO userAccount;
+    private UserDto userAccount;
 
     private boolean initialPassword;
 
@@ -33,11 +32,11 @@ public class CheckListDTO {
         this.idCheckList = idCheckList;
     }
 
-    public UserDTO getUserAccount() {
+    public UserDto getUserAccount() {
         return userAccount;
     }
 
-    public void setUserAccount(UserDTO userAccount) {
+    public void setUserAccount(UserDto userAccount) {
         this.userAccount = userAccount;
     }
 

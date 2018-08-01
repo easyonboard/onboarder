@@ -1,6 +1,6 @@
-import {Component, OnInit, ANALYZE_FOR_ENTRY_COMPONENTS} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserDTO} from '../../domain/user';
-import {Location, Time} from '@angular/common';
+import {Location} from '@angular/common';
 import {UserService} from '../../service/user.service';
 import {EventDTO, MeetingHall} from '../../domain/event';
 import {EventService} from '../../service/event.service';
@@ -20,9 +20,10 @@ export class AddEventComponent implements OnInit {
 
   private rootConst: RootConst;
 
-  public dropdownSettings = {};
+  public dropdownSettingsEnrolled = {};
+  public dropdownSettingsContact = {};
   public allUsers: String[] = [];
-  public selectedContactPersons: string[] = [];
+  public selectedContactPerson: string = '';
   public selectedEnrolledPersons: string[] = [];
   public selectedLocation: LocationDTO;
   public selectedRoom: MeetingHall;
@@ -90,13 +91,22 @@ export class AddEventComponent implements OnInit {
       console.log(this.meetingHallOptions [0]);
     });
 
-    this.dropdownSettings = {
+    this.dropdownSettingsEnrolled = {
       singleSelection: false,
       allowSearchFilter: true,
       selectAllText: 'Select All',
       unSelectAllText: 'Unselect All',
       itemsShowLimit: 1,
     };
+
+    this.dropdownSettingsContact = {
+      singleSelection: true,
+      allowSearchFilter: true,
+      selectAllText: 'Select All',
+      unSelectAllText: 'Unselect All',
+      itemsShowLimit: 1,
+    };
+
   }
 
   private getUserMsgMails() {
@@ -124,10 +134,8 @@ export class AddEventComponent implements OnInit {
     }
 
     this.event.keywords = this.keywords.join(' ');
-
-    console.log(this.selectedContactPersons + ' ' + this.selectedEnrolledPersons);
-    this.eventService.addEvent(this.event, this.selectedContactPersons, this.selectedEnrolledPersons,
-                               this.selectedLocation, this.selectedRoom).subscribe(event => {
+    this.eventService.addEvent(this.event, this.selectedContactPerson, this.selectedEnrolledPersons,
+      this.selectedLocation, this.selectedRoom).subscribe(event => {
       this.event = event;
       this.saved = true;
       this.incStep();

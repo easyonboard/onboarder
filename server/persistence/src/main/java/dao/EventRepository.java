@@ -24,10 +24,10 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     List<Event> findAllPastEventsFilterByKeyword(@Param("today")Date today,@Param("keyword") String keyword);
 
     @Query("select e from Event e where :user member of e.enrolledUsers")
-    User removeUserFromEnrolledList(@Param("user") User user);
+    List<Event> removeUserFromEnrolledList(@Param("user") User user);
 
     @Query("select e from Event e where :user = e.contactPerson")
-    User removeContactPersonFromEvents(@Param("user")User user);
+    List<Event> removeContactPersonFromEvents(@Param("user")User user);
 
 
 

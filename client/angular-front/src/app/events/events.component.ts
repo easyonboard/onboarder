@@ -41,7 +41,7 @@ export class EventsComponent implements OnInit {
       this.eventService.getUpcomingEvents(keyword).subscribe(upcomingEvents => {
         this.upcomingEvents = upcomingEvents;
         this.processDateAndTime(this.upcomingEvents);
-        this.processPlacesLeftToEnroll();
+        this.processPlacesToEnroll();
         this.getStatusEnrollment();
       }, error => {
         this.upcomingEvents = [];
@@ -62,7 +62,7 @@ export class EventsComponent implements OnInit {
     this.eventService.enrollUser(this.user, event).subscribe(resp => {
       this.upcomingEvents = resp;
       this.processDateAndTime(this.upcomingEvents);
-      this.processPlacesLeftToEnroll();
+      this.processPlacesToEnroll();
       this.getStatusEnrollment();
     });
 
@@ -71,21 +71,23 @@ export class EventsComponent implements OnInit {
   unenrollUser(event: EventDTO) {
     this.eventService.unenrollUser(this.user, event).subscribe(resp => {
       this.upcomingEvents = resp;
-      this.processPlacesLeftToEnroll();
+      this.processDateAndTime(this.upcomingEvents);
+      this.processPlacesToEnroll();
       this.getStatusEnrollment();
     });
 
   }
 
-  private processPlacesLeftToEnroll() {
+  private processPlacesToEnroll() {
     this.upcomingEvents.forEach(event => {
-      if (event.maxEnrolledUsers !== undefined) {
-        let placesLeft = event.placesLeft = event.meetingHall.capacity - event.enrolledUsers.length;
-        if (placesLeft <= 0) {
-          placesLeft = 0;
-          this.canEnroll = false;
+      if (event.maxEnrolledUsers === null) {
+        if (event.meetingHall != null) {
+          event.placesLeft = event.placesLeft = event.meetingHall.capacity - event.enrolledUsers.length;
         }
-        event.placesLeft = placesLeft;
+      }
+      else {
+        event.placesLeft = event.maxEnrolledUsers - event.enrolledUsers.length;
+        ;
       }
     });
   }
@@ -97,7 +99,9 @@ export class EventsComponent implements OnInit {
   }
 
   private getStatusEnrollment() {
-    this.upcomingEvents.forEach(ev => this.eventService.getStatusEnrollmentForUser(this.user, ev).subscribe(bool=>ev.isUserEnrolled=bool));
-
+    this.upcomingEvents.forEach(ev => this.eventService.getStatusEnrollmentForUser(this.user, ev).subscribe(bool => ev.isUserEnrolled = bool));
+    console.log(this.upcomingEvents);
   }
+
+
 }

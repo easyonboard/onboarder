@@ -16,11 +16,11 @@
             </div>
             <div fxLayout="row" fxLayoutAlign="stretch">
                 <label fxFlex="30">Enrolled persons</label>
-                <ng-multiselect-dropdown fxFlex style="width: 53%;" [placeholder]="'choose one or more persones to enroll'" [data]="allUsers" [(ngModel)]="selectedEnrolledPersons" [settings]="dropdownSettings"></ng-multiselect-dropdown>
+                <ng-multiselect-dropdown fxFlex style="width: 53%;" [placeholder]="'choose one or more persons to enroll'" [data]="allUsers" [(ngModel)]="selectedEnrolledPersons" [settings]="dropdownSettingsEnrolled"></ng-multiselect-dropdown>
             </div>
             <div fxLayout="row" fxLayoutAlign="stretch">
                 <label fxFlex="30">Contact person</label>
-                <ng-multiselect-dropdown fxFlex style="width: 53%;" [placeholder]="'choose one or more contact persons'" [data]="allUsers" [(ngModel)]="selectedContactPersons" [settings]="dropdownSettings"></ng-multiselect-dropdown>
+                <ng-multiselect-dropdown fxFlex style="width: 53%;" [placeholder]="'choose one contact person'" [data]="allUsers" [(ngModel)]="selectedContactPerson" [settings]="dropdownSettingsContact"></ng-multiselect-dropdown>
             </div>
             <div fxLayout="row" fxLayoutAlign="stretch">
                 <label fxFlex="30">Event date</label>

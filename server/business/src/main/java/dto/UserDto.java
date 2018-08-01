@@ -1,12 +1,12 @@
 package dto;
-public class UserDTO {
+public class UserDto {
 
     private Integer idUser;
     private String name;
     private String username;
     private String password;
     private String email;
-    private RoleDTO role;
+    private RoleDto role;
     private String msgMail;
 
 
@@ -42,11 +42,11 @@ public class UserDTO {
         this.password = password;
     }
 
-    public RoleDTO getRole() {
+    public RoleDto getRole() {
         return role;
     }
 
-    public void setRole(RoleDTO role) {
+    public void setRole(RoleDto role) {
         this.role = role;
     }
 

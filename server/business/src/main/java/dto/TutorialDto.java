@@ -14,9 +14,9 @@ public class TutorialDto {
 
     private Boolean isDraft;
 
-    private List<UserDTO> contactPersons;
+    private List<UserDto> contactPersons;
 
-    private List<TutorialMaterialDTO> tutorialMaterials;
+    private List<TutorialMaterialDto> tutorialMaterials;
 
     public TutorialDto() {
     }
@@ -28,7 +28,7 @@ public class TutorialDto {
         this.keywords = keywords;
     }
 
-    public TutorialDto(Integer idTutorial, String titleTutorial, String overview, String keywords, List<UserDTO> contactPersons, List<TutorialMaterialDTO> tutorialMaterials) {
+    public TutorialDto(Integer idTutorial, String titleTutorial, String overview, String keywords, List<UserDto> contactPersons, List<TutorialMaterialDto> tutorialMaterials) {
         this.idTutorial = idTutorial;
         this.titleTutorial = titleTutorial;
         this.overview = overview;
@@ -37,7 +37,7 @@ public class TutorialDto {
         this.tutorialMaterials = tutorialMaterials;
     }
 
-    public TutorialDto(Integer idTutorial, String titleTutorial, String overview, String keywords, Boolean isDraft, List<UserDTO> contactPersons, List<TutorialMaterialDTO> tutorialMaterials) {
+    public TutorialDto(Integer idTutorial, String titleTutorial, String overview, String keywords, Boolean isDraft, List<UserDto> contactPersons, List<TutorialMaterialDto> tutorialMaterials) {
         this.idTutorial = idTutorial;
         this.titleTutorial = titleTutorial;
         this.overview = overview;
@@ -87,19 +87,19 @@ public class TutorialDto {
         isDraft = draft;
     }
 
-    public List<UserDTO> getContactPersons() {
+    public List<UserDto> getContactPersons() {
         return contactPersons;
     }
 
-    public void setContactPersons(List<UserDTO> contactPersons) {
+    public void setContactPersons(List<UserDto> contactPersons) {
         this.contactPersons = contactPersons;
     }
 
-    public List<TutorialMaterialDTO> getTutorialMaterials() {
+    public List<TutorialMaterialDto> getTutorialMaterials() {
         return tutorialMaterials;
     }
 
-    public void setTutorialMaterials(List<TutorialMaterialDTO> tutorialMaterials) {
+    public void setTutorialMaterials(List<TutorialMaterialDto> tutorialMaterials) {
         this.tutorialMaterials = tutorialMaterials;
     }
 }

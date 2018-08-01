@@ -1,9 +1,9 @@
 package dto;
 
-public class LeaveCheckListDTO {
+public class LeaveCheckListDto {
 
     private Integer idCheckList;
-    private UserDTO userAccount;
+    private UserDto userAccount;
     private boolean inventoryObjects;
     private boolean resignationForm;
     private boolean cards;
@@ -17,11 +17,11 @@ public class LeaveCheckListDTO {
         this.idCheckList = idCheckList;
     }
 
-    public UserDTO getUserAccount() {
+    public UserDto getUserAccount() {
         return userAccount;
     }
 
-    public void setUserAccount(UserDTO userAccount) {
+    public void setUserAccount(UserDto userAccount) {
         this.userAccount = userAccount;
     }
 

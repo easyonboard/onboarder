@@ -1,7 +1,6 @@
 package dto;
 
 import entity.Location;
-import entity.MeetingHall;
 
 public class MeetingHallDto {
 

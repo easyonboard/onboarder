@@ -6,7 +6,7 @@ export class EventDTO {
   titleEvent: string;
   overview: string;
   keywords: string;
-  contactPersons: UserDTO[];
+  contactPerson: UserDTO;
   enrolledUsers: UserDTO[];
   maxEnrolledUsers: number;
   location: LocationDTO;
