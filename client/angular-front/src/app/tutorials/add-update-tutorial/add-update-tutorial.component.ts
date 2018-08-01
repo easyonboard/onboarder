@@ -222,7 +222,8 @@ export class AddUpdateTutorialComponent implements OnInit {
 
     // console.log('file sie ' + this.files[0].size);
     if (this.files[0].size > 800000) {
-      materialErrorMessage = 'File ' + material.title + ' is too large!';
+      // materialErrorMessage = 'File ' + material.title + ' is too large!';
+      // materialErrorMessage = 'One of the files is too large';
     }
 
     if (!material.materialType) {
