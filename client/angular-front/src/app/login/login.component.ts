@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
 
   ngOnInit() {
     this.userNotfound = '';
-    this.message = 'Welcome back!';
+    this.message = 'Welcome!';
     this.rootConst = new RootConst();
   }
 
