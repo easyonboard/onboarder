@@ -1,6 +1,6 @@
 import {Component, ElementRef, ViewEncapsulation} from '@angular/core';
 import {Location} from '@angular/common';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {RootConst} from './util/RootConst';
 import {UserService} from './service/user.service';
 import {MatDialog} from '@angular/material';
@@ -24,9 +24,14 @@ export class AppComponent {
   public username: String;
   public role: string;
 
-  constructor(private location: Location, private router: Router, private elemRef: ElementRef,
-              private utilityService: UtilityService, private userService: UserService, private dialog: MatDialog,
-              private commonComponent: CommonComponentsService) {
+  constructor(private location: Location,
+              private router: Router,
+              private elemRef: ElementRef,
+              private utilityService: UtilityService,
+              private userService: UserService,
+              private dialog: MatDialog,
+              private commonComponent: CommonComponentsService,
+              private route: ActivatedRoute) {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
@@ -107,6 +112,7 @@ export class AppComponent {
   redirectToLoginPage(): void {
     location.replace(this.rootConst.FRONT_LOGIN_PAGE);
   }
+
   openModalNewEmployee() {
     this.commonComponent.openModalNewEmployee();
   }
@@ -174,5 +180,20 @@ export class AppComponent {
 
   redirectToDraftPage() {
     this.router.navigate(['/tutorials/draft']);
+  }
+
+  isFiltered(): boolean {
+    return location.href.indexOf('keyword') >= 0;
+  }
+
+  removeFilter() {
+    const pageURL = window.location.href;
+    if (pageURL.indexOf('draft') >= 0) {
+      this.router.navigate(['/tutorials/draft']);
+    } else if (pageURL.indexOf('tutorials') >= 0) {
+      this.router.navigate(['/tutorials']);
+    } else if (pageURL.indexOf('events') >= 0) {
+      this.router.navigate(['/events/viewEvents']);
+    }
   }
 }

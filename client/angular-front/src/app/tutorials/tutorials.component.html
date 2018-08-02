@@ -1,8 +1,4 @@
-
-<div fxFlex="15" id="removeFilterButton" *ngIf="isFiltered()">
-  <button mat-raised-button color="primary" (click)="removeFilter()" style="background-color: #841439"> Remove filter</button>
-</div>
-  <div fxFlex="95" >
+<div fxFlex="95">
   <mat-paginator *ngIf="tutorials?.length>0" mat [length]="this.tutorials.length" [pageSize]="pageSize"
                  [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = getServerData($event)">
   </mat-paginator>
@@ -42,7 +38,8 @@
         <mat-divider></mat-divider>
       </mat-card-title>
 
-      <mat-card-content *ngIf="tutorial.overview" routerLink="/tutorials/{{tutorial.idTutorial}}" style="cursor: pointer">
+      <mat-card-content *ngIf="tutorial.overview" routerLink="/tutorials/{{tutorial.idTutorial}}"
+                        style="cursor: pointer">
         <p class="overview"> {{ tutorial.overview}} </p>
       </mat-card-content>
     </mat-card>

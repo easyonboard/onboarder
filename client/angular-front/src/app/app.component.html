@@ -31,6 +31,10 @@
       </div>
     </div>
 
+    <div fxFlex *ngIf="isFiltered()">
+      <button mat-raised-button color="primary" (click)="removeFilter()" id="removeFilterButton"> Remove filter</button>
+    </div>
+
     <div fxFlex="50"></div>
 
     <div fxFlex fxLayout="row" fxFlexAlign="end end" *ngIf="userIsLogged()==true">

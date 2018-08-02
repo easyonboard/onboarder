@@ -122,16 +122,4 @@ export class TutorialsComponent implements OnDestroy, OnInit {
       duration: 3000
     });
   }
-
-  isFiltered(): boolean {
-    return location.href.indexOf('keyword') >= 0;
-  }
-
-  removeFilter() {
-    if ((this.route.snapshot.url.toString()).indexOf('draft') >= 0) {
-      this.router.navigate(['/tutorials/draft']);
-    } else {
-      this.router.navigate(['/tutorials']);
-    }
-  }
 }

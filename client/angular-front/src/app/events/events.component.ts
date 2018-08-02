@@ -84,8 +84,7 @@ export class EventsComponent implements OnInit {
         if (event.meetingHall != null) {
           event.placesLeft = event.placesLeft = event.meetingHall.capacity - event.enrolledUsers.length;
         }
-      }
-      else {
+      } else {
         event.placesLeft = event.maxEnrolledUsers - event.enrolledUsers.length;
         ;
       }
@@ -100,7 +99,6 @@ export class EventsComponent implements OnInit {
 
   private getStatusEnrollment() {
     this.upcomingEvents.forEach(ev => this.eventService.getStatusEnrollmentForUser(this.user, ev).subscribe(bool => ev.isUserEnrolled = bool));
-    console.log(this.upcomingEvents);
   }
 
 
