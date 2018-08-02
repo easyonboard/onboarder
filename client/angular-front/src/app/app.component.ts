@@ -163,7 +163,7 @@ export class AppComponent {
   }
 
   redirectToAddTutorialPage() {
-    this.router.navigate(['/tutorials/addTutorialRouterLink']);
+    this.router.navigate(['/tutorials/addTutorial']);
   }
 
   redirectToEventsPage() {
@@ -175,7 +175,7 @@ export class AppComponent {
   }
 
   redirectToAddEventPage() {
-    this.router.navigate(['/events/addEventRouterLink']);
+    this.router.navigate(['/events/addEvent']);
   }
 
   redirectToDraftPage() {

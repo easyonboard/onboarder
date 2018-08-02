@@ -27,7 +27,7 @@ export class RootConst {
   public WEB_SERVER_SAVE_CHECKLIST = this.WEB_SERVICE_ENDPOINT + 'saveCheckList';
 
   public FRONT_TUTORIALS_PAGE = '/tutorials';
-  public FRONT_ADD_TUTORIAL = this.FRONT_TUTORIALS_PAGE + '/addTutorialRouterLink';
+  public FRONT_ADD_TUTORIAL = this.FRONT_TUTORIALS_PAGE + '/addTutorial';
   public FRONT_LOGIN_PAGE = '';
 
   public FRONT_INFOS_PAGE = '/info';

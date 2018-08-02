@@ -28,7 +28,7 @@ export class ViewTutorialComponent implements OnInit {
   }
 
   searchByKeyword(keyword: string) {
-    if (keyword !== 'addTutorialRouterLink') {
+    if (keyword !== 'addTutorial') {
       this.router.navigate(['tutorials/keywords/' + keyword]);
     }
   }
@@ -52,7 +52,7 @@ export class ViewTutorialComponent implements OnInit {
   }
 
   redirectToUpdateTutorial(idTutorial: number) {
-    this.router.navigate(['/tutorials/addTutorialRouterLink/' + idTutorial]);
+    this.router.navigate(['/tutorials/addTutorial/' + idTutorial]);
   }
 
   userCanEditThisTutorial() {
