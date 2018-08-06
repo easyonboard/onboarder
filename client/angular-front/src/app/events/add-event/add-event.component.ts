@@ -9,7 +9,6 @@ import {MatChipInputEvent, MatSnackBar} from '@angular/material';
 import {RootConst} from '../../util/RootConst';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 import {LocationDTO} from '../../domain/location';
-import {debug} from 'util';
 
 @Component({
   selector: 'app-add-event',
@@ -115,21 +114,30 @@ export class AddEventComponent implements OnInit {
   addEvent(time: string): void {
 
     this.event.eventTime = time;
-
-    if (this.event.titleEvent.length < 5) {
+    this.event.keywords = this.keywords.join(' ');
+    if (!this.event.titleEvent || this.event.titleEvent.length < 5) {
       this.eventErrorMessage += 'Title is too short!\n';
+
     }
-    if (this.event.overview.length > 500) {
+    if (!this.event.overview || this.event.overview.length > 500) {
       this.eventErrorMessage += 'Description must contain at most 500 characters!\n';
     }
-
+    if (!this.selectedContactPerson) {
+      this.eventErrorMessage += 'Please select a contact person!\n';
+    }
+    if (!this.event.eventDate) {
+      this.eventErrorMessage += 'Please select the event date!\n';
+    }
+    if (!this.event.keywords || this.event.keywords.length < 1) {
+      this.eventErrorMessage += 'Please add at least one keyword!\n';
+    }
     if (this.eventErrorMessage !== '') {
       this.snackBarMessagePopup(this.eventErrorMessage, 'Close');
       this.eventErrorMessage = '';
       return;
     }
 
-    this.event.keywords = this.keywords.join(' ');
+
     this.eventService.addEvent(this.event, this.selectedContactPerson, this.selectedEnrolledPersons,
       this.selectedLocation, this.selectedRoom).subscribe(event => {
       this.event = event;
