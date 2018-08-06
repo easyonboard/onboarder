@@ -205,6 +205,9 @@ export class AddUpdateTutorialComponent implements OnInit {
     if (!this.tutorial.keywords || this.tutorial.keywords.length < 1) {
       tutorialErrorMessage += 'Tutorial must have at least one keyword!\n';
     }
+    if (!this.tutorial.contactPersons || this.tutorial.contactPersons.length < 1) {
+      tutorialErrorMessage += 'Tutorial must have at least one contact person!\n';
+    }
     if (tutorialErrorMessage !== '') {
       throw new Error(tutorialErrorMessage);
     }
