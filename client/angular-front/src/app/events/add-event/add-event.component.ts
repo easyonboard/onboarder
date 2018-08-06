@@ -39,9 +39,6 @@ export class AddEventComponent implements OnInit {
   public event: EventDTO;
   public eventErrorMessage: string;
   public keywords: String[];
-
-  public time: any;
-
   public saved: Boolean;
   private currentStep: string;
 
@@ -116,7 +113,6 @@ export class AddEventComponent implements OnInit {
   }
 
   addEvent(time: string): void {
-    debug;
 
     this.event.eventTime = time;
 
@@ -128,7 +124,7 @@ export class AddEventComponent implements OnInit {
     }
 
     if (this.eventErrorMessage !== '') {
-      this.snackBarMessagePopup(this.eventErrorMessage);
+      this.snackBarMessagePopup(this.eventErrorMessage, 'Close');
       this.eventErrorMessage = '';
       return;
     }
@@ -169,9 +165,9 @@ export class AddEventComponent implements OnInit {
     }
   }
 
-  snackBarMessagePopup(message: string) {
-    this.snackBar.open(message, null, {
-      duration: 3000
+  snackBarMessagePopup(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 6000
     });
   }
 

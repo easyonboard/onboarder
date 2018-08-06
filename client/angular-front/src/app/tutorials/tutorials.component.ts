@@ -71,9 +71,9 @@ export class TutorialsComponent implements OnDestroy, OnInit {
     }
   }
 
-  addTutorialRouterLink(): void {
-    location.replace(this.rootConst.FRONT_ADD_TUTORIAL);
-  }
+  // addTutorialRouterLink(): void {
+  //   location.replace(this.rootConst.FRONT_ADD_TUTORIAL);
+  // }
 
   filterByKeyword(keyword: string) {
     const queryParams: Params = Object.assign({}, this.route.snapshot.queryParams);
@@ -111,15 +111,15 @@ export class TutorialsComponent implements OnDestroy, OnInit {
           this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
         },
         err => {
-          this.snackBarMessagePopup(err.error.message);
+          this.snackBarMessagePopup(err.error.message, 'Close');
         });
 
     }
   }
 
-  snackBarMessagePopup(message: string) {
-    this.snackBar.open(message, null, {
-      duration: 3000
+  snackBarMessagePopup(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 6000
     });
   }
 }

@@ -108,12 +108,12 @@ export class AddUpdateTutorialComponent implements OnInit {
         this.addMaterials();
         this.redirectToTutorialPage(this.tutorial.idTutorial);
       }, err => {
-        this.snackBarMessagePopup(err.error.message);
+        this.snackBarMessagePopup(err.error.message, 'Close');
       });
     } catch (e) {
       if (e instanceof Error) {
         console.log(e);
-        this.snackBarMessagePopup(e.message);
+        this.snackBarMessagePopup(e.message, 'Close');
       }
     }
   }
@@ -256,11 +256,11 @@ export class AddUpdateTutorialComponent implements OnInit {
         this.deleteFromServerMaterials();
         this.redirectToTutorialPage(this.tutorial.idTutorial);
       }, err => {
-        this.snackBarMessagePopup(err.error.message);
+        this.snackBarMessagePopup(err.error.message, 'Close');
       });
     } catch (e) {
       if (e instanceof Error) {
-        this.snackBarMessagePopup(e.message);
+        this.snackBarMessagePopup(e.message, 'Close');
       }
     }
   }
@@ -274,9 +274,9 @@ export class AddUpdateTutorialComponent implements OnInit {
     });
   }
 
-  snackBarMessagePopup(message: string) {
-    this.snackBar.open(message, null, {
-      duration: 3000
+  snackBarMessagePopup(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 6000
     });
   }
 

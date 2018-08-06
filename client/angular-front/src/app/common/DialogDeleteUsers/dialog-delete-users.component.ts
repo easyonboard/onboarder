@@ -30,14 +30,14 @@ export class DialogDeleteUsersComponent implements OnInit {
   remove(username: String) {
     this.userService.removeUser(username).subscribe(res => {
       if (res === false) {
-        this.snackBarMessagePopup('User can not be removed! Please verify Leave Check List');
+        this.snackBarMessagePopup('User can not be removed! Please verify Leave Check List', 'Close');
       } else {
-        this.snackBarMessagePopup('User ' + username + ' removed!');
+        this.snackBarMessagePopup('User ' + username + ' removed!', 'Close');
         this.getAllUsers();
       }
     },
     err => {
-      this.snackBarMessagePopup(err.error.message);
+      this.snackBarMessagePopup(err.error.message, 'Close');
     });
   }
 
@@ -52,7 +52,7 @@ export class DialogDeleteUsersComponent implements OnInit {
       this.searchByName();
     },
     err => {
-      this.snackBarMessagePopup(err.error.message);
+      this.snackBarMessagePopup(err.error.message, 'Close');
     });
 
   }
@@ -73,9 +73,9 @@ export class DialogDeleteUsersComponent implements OnInit {
     });
   }
 
-  snackBarMessagePopup(message: string) {
-    this.snackBarDelete.open(message, null, {
-      duration: 3000
+  snackBarMessagePopup(message: string, action: string) {
+    this.snackBarDelete.open(message, action, {
+      duration: 6000
     });
   }
 }

@@ -39,7 +39,7 @@ export class UserAddComponent implements OnInit {
     let unique: boolean;
     if (this.user.username !== '' && this.user.msgMail !== '') {
       if (this.childUserInfoFormularComponent.userInformation.location.locationName === '') {
-        this.snackBarMessagePopup('Please choose a location');
+        this.snackBarMessagePopup('Please choose a location', 'Close');
       } else {
         this.userService.checkUnicity(this.user.username, this.user.msgMail).subscribe(
           value1 => {
@@ -50,32 +50,32 @@ export class UserAddComponent implements OnInit {
                 this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
                   value2 => {
                     if (this.childUserInfoFormularComponent.userInformation.startDate === undefined) {
-                      this.snackBarMessagePopup('You must specify the starting date!');
+                      this.snackBarMessagePopup('You must specify the starting date!', 'Close');
                     } else {
-                      this.snackBarMessagePopup('Succes! You just add a new employee!');
+                      this.snackBarMessagePopup('Succes! You just add a new employee!', 'Close');
                       this.dialog.closeAll();
                     }
                   },
                   error => {
-                    this.snackBarMessagePopup(error.error.message);
+                    this.snackBarMessagePopup(error.error.message, 'Close');
                     console.log('error1 ' + error.error.message);
                   }
                 );
               } else {
-                this.snackBarMessagePopup('You must provide the starting date!');
+                this.snackBarMessagePopup('You must provide the starting date!', 'Close');
               }
             } else {
-              this.snackBarMessagePopup('Failed! Username or .msg email already exists!');
+              this.snackBarMessagePopup('Failed! Username or .msg email already exists!', 'Close');
             }
           },
           error => {
-            this.snackBarMessagePopup(error.error.message);
+            this.snackBarMessagePopup(error.error.message, 'Close');
             console.log('error2 ' + error.error.message);
           }
         );
       }
     } else {
-      this.snackBarMessagePopup('You must provide the username and .msg email!');
+      this.snackBarMessagePopup('You must provide the name and .msg email!', 'Close');
     }
   }
 
@@ -83,10 +83,11 @@ export class UserAddComponent implements OnInit {
     this.selectedRole = event.value;
   }
 
-  snackBarMessagePopup(message: string) {
-    this.snackBar.open(message, null, {
-      duration: 3000
-    });
+  snackBarMessagePopup(message: string, action: string) {
+      this.snackBar.open(message, action, {
+        duration: 6000
+      });
+
   }
 
 }

@@ -36,7 +36,7 @@ export class UserInfoUpdateComponent implements OnInit {
   updateUserInformation(): void {
     this.userInformationService.updateUserInformation(this.childUserInfoFormularComponent.userInformation).subscribe(
       value => {
-        this.snackBarMessagePopup('User info updated!');
+        this.snackBarMessagePopup('User info updated!', 'Close');
         this.userInformationService.getUserInformation(this.userInformation.userAccount.username).subscribe(resp => {
           this.userInformation = resp;
           this.childUserInfoFormularComponent.userInformation.idUserInformation = this.userInformation.idUserInformation;
@@ -51,13 +51,13 @@ export class UserInfoUpdateComponent implements OnInit {
         });
 
       },
-      error => this.snackBarMessagePopup(error.error.message)
+      error => this.snackBarMessagePopup(error.error.message, 'Close')
     );
   }
 
-  snackBarMessagePopup(message: string) {
-    this.snackBar.open(message, null, {
-      duration: 3000
+  snackBarMessagePopup(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 6000
     });
   }
 

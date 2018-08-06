@@ -25,24 +25,24 @@ export class DialogEditProfileComponent implements OnInit {
     passwordII = passwordII.trim();
 
     if (password === '' || passwordII === '') {
-      this.snackBarMessagePopup('Password can not be null');
+      this.snackBarMessagePopup('Password can not be null', 'Close');
     } else if (password !== '' && (password !== passwordII || password.length < 6)) {
-      this.snackBarMessagePopup('Password not matching or does not have 6 characters');
+      this.snackBarMessagePopup('Password not matching or does not have 6 characters', 'Close');
       return;
     } else {
       this.userService.updatePassword(this.username, password).subscribe(
         res => {
           this.dialog.closeAll();
-          this.snackBarMessagePopup('Succes!');
+          this.snackBarMessagePopup('Succes!', 'Close');
         },
         err => {
-          this.snackBarMessagePopup(err.error.message);
+          this.snackBarMessagePopup(err.error.message, 'Close');
         });
     }
   }
 
-  snackBarMessagePopup(message: string) {
-    this.snackBar.open(message, null, {
+  snackBarMessagePopup(message: string, action: string) {
+    this.snackBar.open(message, action, {
       duration: 3000
     });
   }

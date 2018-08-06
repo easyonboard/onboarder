@@ -33,7 +33,7 @@ this.userInformationService.getUserInformation(this.user.username).subscribe(res
         });
       },
       err => {
-        this.snackBarMessagePopup(err.error.message);
+        this.snackBarMessagePopup(err.error.message, 'Close');
       });
   }
 
@@ -43,7 +43,7 @@ this.userInformationService.getUserInformation(this.user.username).subscribe(res
 
   onCheck(key: string) {
     if(this.userInfo.buddyUser==null && key=="hasBuddyAssigned"){
-      this.snackBarMessagePopup("User has no buddy assigned!");
+      this.snackBarMessagePopup("User has no buddy assigned!", 'Close');
       return;
     }
     this.checkList.set(key, !this.checkList.get(key));
@@ -53,20 +53,20 @@ this.userInformationService.getUserInformation(this.user.username).subscribe(res
 
   saveStatus() {
     if(this.userInfo.buddyUser==null && this.checkList.get("hasBuddyAssigned")){
-      this.snackBarMessagePopup("User has no buddy assigned!");
+      this.snackBarMessagePopup("User has no buddy assigned!", 'Close');
       return;
     }
     this.userService.saveCheckList(this.user.username, this.checkList).subscribe(value => {
       },
       err => {
-        this.snackBarMessagePopup(err.error.message);
+        this.snackBarMessagePopup(err.error.message, 'Close');
       });
   }
 
 
-  snackBarMessagePopup(message: string) {
-    this.snackBarCheck.open(message, null, {
-      duration: 3000
+  snackBarMessagePopup(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 6000
     });
   }
 

@@ -40,13 +40,12 @@ export class UserInfoFormularComponent implements OnInit {
     this.today = new Date(Date.now());
     this.locations = [];
     if (this.userInfo != null) {
-      debugger
       this.userInformation = this.userInfo;
     }
     this.userInformationService.getAllLocations().subscribe(resp => {
       this.locationDtos = resp;
       resp.forEach(l => this.locations.push(l.locationName));
-    }, error => this.snackBarMessagePopup(error.error.message));
+    }, error => this.snackBarMessagePopup(error.error.message, 'Close'));
 
     if (this.userInformation.buddyUser === undefined || this.userInformation.buddyUser === null) {
       this.userInformation.buddyUser = new UserDTO();
@@ -93,5 +92,10 @@ export class UserInfoFormularComponent implements OnInit {
 
   getUserBuddy(): String {
     return this.userInformation.buddyUser !== null ? this.userInformation.buddyUser.name : '';
+  }
+  snackBarMessagePopup(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 6000
+    });
   }
 }
