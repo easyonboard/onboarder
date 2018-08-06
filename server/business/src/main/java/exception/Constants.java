@@ -51,6 +51,7 @@ public class Constants {
     public static final String PAST_EVENTS_NOT_FOUND_EXCEPTION = "There are no past events";
     // DATABASE
     public static final String EVENT_SAVE_DATABASE_EXCEPTION = "The event could not be saved. Please retry later.";
+    public static final String EVENT_DATE_FUTURE = "Event date must be in the future!";
 
     /**
      * Used in UserService
