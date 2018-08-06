@@ -57,7 +57,7 @@ export class UserAddComponent implements OnInit {
                     if (this.childUserInfoFormularComponent.userInformation.startDate === undefined) {
                       this.snackBarMessagePopup('You must specify the starting date!', 'Close');
                     } else {
-                      this.snackBarMessagePopup('Succes! You just add a new employee!', 'Close');
+                      this.snackBarMessagePopup('Success! You just add a new employee!', 'Close');
                       this.dialog.closeAll();
                     }
                   },

@@ -21,6 +21,7 @@ import exception.types.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -62,13 +63,11 @@ public class EventService {
             enrolledUsersDTO.add(userDto);
         }
 
-
-            Optional<User> user = userRepository.findByMsgMail(contactPersonMsgMail);
-            if (!user.isPresent()) {
-                throw new EntityNotFoundException(userNotFound(user.get().getUsername()));
-            }
-            UserDto contactPersonEntityDTO = userMapper.mapToDTO(user.get());
-
+        Optional<User> user = userRepository.findByMsgMail(contactPersonMsgMail);
+        if (!user.isPresent()) {
+            throw new EntityNotFoundException(userNotFound(user.get().getUsername()));
+        }
+        UserDto contactPersonEntityDTO = userMapper.mapToDTO(user.get());
 
         if (locationDto.getIdLocation() != null) {
             Location location = locationRepository.findOne(locationDto.getIdLocation());
@@ -90,13 +89,15 @@ public class EventService {
 
         eventDto.setContactPerson(contactPersonEntityDTO);
         eventDto.setEnrolledUsers(enrolledUsersDTO);
-
-        Event event = eventRepository.save(eventMapper.mapToNewEntity(eventDto));
-        if (event == null) {
-            throw new DatabaseException(EVENT_SAVE_DATABASE_EXCEPTION);
+        if(eventDto.getEventDate().before(new Date())){
+            throw new DatabaseException(EVENT_DATE_FUTURE);
         }
+            Event event = eventRepository.save(eventMapper.mapToNewEntity(eventDto));
+            if (event == null) {
+                throw new DatabaseException(EVENT_SAVE_DATABASE_EXCEPTION);
+            }
 
-        return eventMapper.mapToDTO(event);
+            return eventMapper.mapToDTO(event);
     }
 
     private List<String> extractUsernamesFromEmails(List<String> nameUsernamesEmail) {
