@@ -217,10 +217,11 @@ export class AddUpdateTutorialComponent implements OnInit {
     let materialErrorMessage = '';
     if (!material.title) {
       materialErrorMessage += `Title is required for material with number ${positionInList}!`;
-    } else if (material.title.length < 5) {
-      materialErrorMessage += `Title is too short for material with number ${positionInList}! Required at least 5 characters`;
+    } else {
+      if (material.title.length < 5) {
+        materialErrorMessage += `Title is too short for material with number ${positionInList}! Required at least 5 characters`;
+      }
     }
-
     // console.log('file sie ' + this.files[0].size);
     if (this.files[0].size > 800000) {
       // materialErrorMessage = 'File ' + material.title + ' is too large!';
@@ -231,10 +232,10 @@ export class AddUpdateTutorialComponent implements OnInit {
       materialErrorMessage += `Material type is required for material with number ${positionInList}!`;
     }
 
-    if (materialErrorMessage !== '') {
-      throw new Error(materialErrorMessage);
-    }
-  }
+  if (materialErrorMessage !== '') {
+  throw new Error(materialErrorMessage);
+}
+}
 
   getFileWithId(idFile: number) {
     this.materialService.getFileWithId(idFile).subscribe((response) => {
