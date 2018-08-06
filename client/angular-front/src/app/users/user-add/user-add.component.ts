@@ -46,6 +46,11 @@ export class UserAddComponent implements OnInit {
             unique = value1;
 
             if (unique === true) {
+              if(this.childUserInfoFormularComponent.userInformation.department===undefined){
+                this.snackBarMessagePopup('You must specify a department', 'Close');
+                return;
+              }
+              debugger
               if (this.childUserInfoFormularComponent.userInformation.startDate !== undefined) {
                 this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
                   value2 => {
