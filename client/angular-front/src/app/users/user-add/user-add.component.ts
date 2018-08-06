@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MatDialog, MatSelectChange, MatSnackBar} from '@angular/material';
 
-import {RoleType} from '../../domain/role';
+import {RoleType, RoleDTO} from '../../domain/role';
 import {UserDTO} from '../../domain/user';
 import {UserService} from '../../service/user.service';
 import {UserInfoFormularComponent} from '../user-info-formular/user-info-formular.component';
@@ -37,50 +37,72 @@ export class UserAddComponent implements OnInit {
     this.user.name = this.firstName.trim() + ' ' + this.lastName.trim();
 
     let unique: boolean;
-    if (this.user.username !== '' && this.user.msgMail !== '') {
-      if (this.childUserInfoFormularComponent.userInformation.location.locationName === '') {
-        this.snackBarMessagePopup('Please choose a location', 'Close');
-      } else {
-        this.userService.checkUnicity(this.user.username, this.user.msgMail).subscribe(
-          value1 => {
-            unique = value1;
+    try {
+      this.checkUserConstraints();
 
-            if (unique === true) {
-              if(this.childUserInfoFormularComponent.userInformation.department===undefined){
-                this.snackBarMessagePopup('You must specify a department', 'Close');
-                return;
-              }
-              debugger
-              if (this.childUserInfoFormularComponent.userInformation.startDate !== undefined) {
-                this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
-                  value2 => {
-                    if (this.childUserInfoFormularComponent.userInformation.startDate === undefined) {
-                      this.snackBarMessagePopup('You must specify the starting date!', 'Close');
-                    } else {
-                      this.snackBarMessagePopup('Succes! You just add a new employee!', 'Close');
-                      this.dialog.closeAll();
-                    }
-                  },
-                  error => {
-                    this.snackBarMessagePopup(error.error.message, 'Close');
-                    console.log('error1 ' + error.error.message);
-                  }
-                );
-              } else {
-                this.snackBarMessagePopup('You must provide the starting date!', 'Close');
-              }
-            } else {
-              this.snackBarMessagePopup('Failed! Username or .msg email already exists!', 'Close');
-            }
-          },
-          error => {
-            this.snackBarMessagePopup(error.error.message, 'Close');
-            console.log('error2 ' + error.error.message);
+      this.userService.checkUnicity(this.user.username, this.user.msgMail).subscribe(
+        value1 => {
+          unique = value1;
+
+          if (unique === true) {
+            this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
+                value2 => {
+                    this.snackBarMessagePopup('Succes! You just add a new employee!', 'Close');
+                    this.dialog.closeAll();
+                },
+                error => {
+                  this.snackBarMessagePopup(error.error.message, 'Close');
+                }
+              );
+          } else {
+            this.snackBarMessagePopup('Failed! Username or .msg email already exists!', 'Close');
           }
-        );
+        },
+        error => {
+          this.snackBarMessagePopup(error.error.message, 'Close');
+        }
+      );
+    } catch (e) {
+      if (e instanceof Error) {
+        this.snackBarMessagePopup(e.message, 'Close');
       }
+    }
+  }
+
+  private checkUserConstraints() {
+    let addUserErrorMessage = '';
+    if (this.user.username === '') {
+      addUserErrorMessage += 'You must give the user\'s first and last name.\n';
     } else {
-      this.snackBarMessagePopup('You must provide the name and .msg email!', 'Close');
+      if (this.firstName === '') {
+        addUserErrorMessage += 'You must give the user\'s first name.\n';
+      }
+      if (this.lastName === '') {
+        addUserErrorMessage += 'You must give the user\'s last name.\n';
+      }
+    }
+    if (this.user.msgMail === '') {
+      addUserErrorMessage += 'You must give the user\'s msg E-mail.\n';
+    }
+    if (!this.childUserInfoFormularComponent.userInformation.location ||
+      this.childUserInfoFormularComponent.userInformation.location.locationName === '') {
+      addUserErrorMessage += 'Please choose a location for the new user.\n';
+    }
+    if (!this.childUserInfoFormularComponent.userInformation.startDate) {
+      addUserErrorMessage += 'You must specify the starting date!\n';
+    }
+    if (!this.selectedRole) {
+      addUserErrorMessage += 'You must give the user\'s role.\n';
+    }
+    if (this.user.email === '') {
+      addUserErrorMessage += 'You must give the user\'s personal e-mail.\n';
+    }
+    if (this.user.msgMail === '' || this.user.msgMail === '@msg.group') {
+      addUserErrorMessage += 'You must give the user\'s .msg e-mail.\n';
+    }
+
+    if (addUserErrorMessage !== '') {
+      throw new Error(addUserErrorMessage);
     }
   }
 
@@ -92,7 +114,6 @@ export class UserAddComponent implements OnInit {
       this.snackBar.open(message, action, {
         duration: 6000
       });
-
   }
 
 }

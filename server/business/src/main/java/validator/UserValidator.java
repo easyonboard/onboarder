@@ -22,8 +22,10 @@ public class UserValidator {
             "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     private static final Pattern VALID_MSG_MAIL_ADDRESS_REGEX = Pattern.compile(
             "^[A-Z0-9._%+-]+@msg.group$", Pattern.CASE_INSENSITIVE);
-    private static final String EMAIL_FORMAT_ERROR = ".msg or personal mail not valid ";
-    private static final String EMAIL_EMPTY_ERROR = "Email can not be empty";
+    private static final String EMAIL_FORMAT_ERROR = "Personal e-mail not valid ";
+    private static final String MSG_EMAIL_FORMAT_ERROR = ".msg e-mail not valid ";
+    private static final String EMAIL_EMPTY_ERROR = "Personal e-mail can not be empty";
+    private static final String MSG_EMAIL_EMPTY_ERROR = ".msg e-mail can not be empty";
     private static final String NAME_EMPTY_ERROR = "Name can not be empty";
     private static final String PASSWORD_LENGTH_ERROR = "Password must have at least 6 characters";
     private static final String PASSWORD_EMPTY_ERROR = "Password  can not be empty";
@@ -68,9 +70,9 @@ public class UserValidator {
     private void validateMsgMail(String msgMail) throws InvalidDataException {
 
         if (checkIfEmpty(msgMail))
-            throw new InvalidDataException(EMAIL_EMPTY_ERROR);
+            throw new InvalidDataException(MSG_EMAIL_EMPTY_ERROR);
         if (!msgMailPatternMatcher(msgMail)) {
-            throw new InvalidDataException(EMAIL_FORMAT_ERROR);
+            throw new InvalidDataException(MSG_EMAIL_FORMAT_ERROR);
         }
     }
 
