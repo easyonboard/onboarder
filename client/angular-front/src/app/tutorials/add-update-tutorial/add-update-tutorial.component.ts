@@ -205,7 +205,7 @@ export class AddUpdateTutorialComponent implements OnInit {
     if (!this.tutorial.keywords || this.tutorial.keywords.length < 1) {
       tutorialErrorMessage += 'Tutorial must have at least one keyword!\n';
     }
-    if (!this.tutorial.contactPersons || this.tutorial.contactPersons.length < 1) {
+    if (!this.selectedUsers || this.selectedUsers.length < 1) {
       tutorialErrorMessage += 'Tutorial must have at least one contact person!\n';
     }
     if (tutorialErrorMessage !== '') {
@@ -232,10 +232,10 @@ export class AddUpdateTutorialComponent implements OnInit {
       materialErrorMessage += `Material type is required for material with number ${positionInList}!`;
     }
 
-  if (materialErrorMessage !== '') {
-  throw new Error(materialErrorMessage);
-}
-}
+    if (materialErrorMessage !== '') {
+      throw new Error(materialErrorMessage);
+    }
+  }
 
   getFileWithId(idFile: number) {
     this.materialService.getFileWithId(idFile).subscribe((response) => {

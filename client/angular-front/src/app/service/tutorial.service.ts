@@ -66,6 +66,7 @@ export class TutorialService implements OnInit {
 
   getDraftsTutorialsForUser(userId: number, keyword?: string) {
     if (keyword) {
+      keyword = keyword.replace(/[^\w\s]/gi, '');
       return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_DRAFTS_TUTORIAL}${userId}&keyword=${keyword}`);
     } else {
       return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_DRAFTS_TUTORIAL}${userId}`);

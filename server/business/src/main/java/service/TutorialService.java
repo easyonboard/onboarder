@@ -153,6 +153,6 @@ public class TutorialService {
     }
 
     public List<TutorialDto> allDraftTutorialsForUserFilterByKeyword(Integer idUser, String keyword) throws NoDataException {
-        return this.allDraftTutorialsForUser(idUser).stream().filter(tutorial -> tutorial.getKeywords().indexOf(keyword) >= 0).collect(Collectors.toList());
+        return this.allDraftTutorialsForUser(idUser).stream().filter(tutorial -> tutorial.getKeywords().replaceAll("[^\\w\\s]", "").indexOf(keyword) >= 0).collect(Collectors.toList());
     }
 }
