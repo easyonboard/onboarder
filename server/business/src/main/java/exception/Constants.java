@@ -62,6 +62,9 @@ public class Constants {
     public static final String USERS_MATCHING_STRING_NOT_FOUND_EXCEPTION = "No users matching the entered value.";
     // DATABASE
     public static final String USER_SAVE_DATABASE_EXCEPTION = "The user could not be saved. Please retry later.";
+    // DUPLICATED ~ already exists
+    public static final String USERNAME_DUPLICATED_EXCEPTION = "The username already exists!";
+    public static final String USER_MSG_MAIL_DUPLICATED_EXCEPTION = "The .msg e-mail already exists!";
 
     /**
      * constants for tutorial service exceptions

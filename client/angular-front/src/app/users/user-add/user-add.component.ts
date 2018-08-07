@@ -54,9 +54,10 @@ export class UserAddComponent implements OnInit {
                   this.snackBarMessagePopup(error.error.message, 'Close');
                 }
               );
-          } else {
-            this.snackBarMessagePopup('Failed! Username or .msg email already exists!', 'Close');
           }
+          // else {
+          //   this.snackBarMessagePopup('Failed! Username or .msg email already exists!', 'Close');
+          // }
         },
         error => {
           this.snackBarMessagePopup(error.error.message, 'Close');

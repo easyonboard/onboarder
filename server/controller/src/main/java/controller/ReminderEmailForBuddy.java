@@ -1,6 +1,5 @@
 package controller;
 
-import dao.UserInformationDAO;
 import dao.UserInformationRepository;
 import entity.UserInformation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,6 @@ public class ReminderEmailForBuddy {
     private static final String BUDDY_MAIL_SUBJECT = "Detalii inceput angajat nou";
     private final Logger LOGGER = Logger.getLogger(ScheduleEmailToNewEmployee.class.getName());
     MailSender sender = new MailSender();
-
-    @Autowired
-    private UserInformationDAO userInformationDAO;
 
     @Autowired
     private UserInformationRepository userInformationRepository;

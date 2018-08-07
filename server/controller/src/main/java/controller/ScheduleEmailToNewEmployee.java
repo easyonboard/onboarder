@@ -1,6 +1,5 @@
 package controller;
 
-import dao.UserInformationDAO;
 import dao.UserInformationRepository;
 import dao.UserRepository;
 import entity.User;
@@ -29,8 +28,6 @@ import java.util.logging.Logger;
 public class ScheduleEmailToNewEmployee {
     private static final String BUDDY_MAIL_SUBJECT = "Detalii inceput angajat nou";
     private static final String NEW_EMPLOYEE_MAIL_SUBJECT = "Data inceput msg";
-    @Autowired
-    private UserInformationDAO userInformationDAO;
 
     @Autowired
     private UserInformationRepository userInformationRepository;

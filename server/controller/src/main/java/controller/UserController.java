@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.*;
 import entity.enums.RoleType;
-import exception.types.DatabaseException;
-import exception.types.FieldNotFoundException;
-import exception.types.InvalidDataException;
-import exception.types.EntityNotFoundException;
+import exception.types.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -309,6 +306,10 @@ public class UserController {
         String username = mapper.convertValue(node.get("username"), String.class);
         String msgMail = mapper.convertValue(node.get("msgMail"), String.class);
 
-        return new ResponseEntity<>(userService.checkUnicity(username, msgMail), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(userService.checkUnicity(username, msgMail), HttpStatus.OK);
+        } catch (DuplicatedDataException e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
     }
 }

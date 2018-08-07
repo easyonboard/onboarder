@@ -12,10 +12,7 @@ import dto.mapper.UserInformationMapper;
 import dto.mapper.UserMapper;
 import entity.*;
 import entity.enums.DepartmentType;
-import exception.types.DatabaseException;
-import exception.types.EntityNotFoundException;
-import exception.types.FieldNotFoundException;
-import exception.types.InvalidDataException;
+import exception.types.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import validator.UserValidator;
@@ -38,9 +35,6 @@ public class UserService {
 
     @Autowired
     private UserValidator userValidator;
-
-    @Autowired
-    private UserInformationDAO userInformationDAO;
 
     @Autowired
     private UserInformationRepository userInformationRepository;
@@ -266,7 +260,7 @@ public class UserService {
                     userInformationEntity.setBuddyUser(null);
                     userInformationEntity.setLocation(null);
 
-                    userInformationDAO.deleteEntity(userInformationEntity);
+                    userInformationRepository.delete(userInformationEntity);
                 }
 
                 CheckList checkListEntity = checkListRepository.findByUserAccount(userEntity);
@@ -442,7 +436,14 @@ public class UserService {
         return false;
     }
 
-    public boolean checkUnicity(String username, String msgMail) {
+    public boolean checkUnicity(String username, String msgMail) throws DuplicatedDataException {
+
+        if (userRepository.findByUsername(username).isPresent()) {
+            throw new DuplicatedDataException(USERNAME_DUPLICATED_EXCEPTION);
+        }
+        if (userRepository.findByMsgMail(msgMail).isPresent()) {
+            throw new DuplicatedDataException(USER_MSG_MAIL_DUPLICATED_EXCEPTION);
+        }
 
         return !(userRepository.findByUsername(username).isPresent() || userRepository.findByMsgMail(
                 msgMail).isPresent());
