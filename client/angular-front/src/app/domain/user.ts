@@ -10,6 +10,7 @@ export class UserDTO {
   username: string;
   password: string;
   role: RoleDTO;
+
 }
 
 export class UserInformationDTO {
@@ -21,9 +22,10 @@ export class UserInformationDTO {
   department: DepartmentType;
   buddyUser: UserDTO;
   userAccount: UserDTO;
-  mailSent: boolean;
+  mailSent: Boolean;
   startDate: Date;
   startDateString: String;
+
 }
 
 export class UserDetailsToExport {

@@ -1,5 +1,5 @@
 import {UserDTO, UserInformationDTO} from '../../domain/user';
-import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {UserInformationService} from '../../service/user-information.service';
 import {DialogCheckListComponent} from '../DialogCheckList/dialog-check-list.component';
@@ -16,8 +16,6 @@ export class DialogNewEmployeeComponent implements OnInit {
   [x: string]: any;
 
   public newEmployees: UserInformationDTO[];
-
-  public isMailSent: Boolean[];
   public allNewEmployees: UserInformationDTO[];
   public searchValue = '';
 
@@ -27,16 +25,17 @@ export class DialogNewEmployeeComponent implements OnInit {
   ngOnInit(): void {
 
     this.newEmployees = [];
-    this.isMailSent = [];
+    this.allNewEmployees = [];
     this.userInformationService.getNewUsers().subscribe(newEmployees => {
-      this.allNewEmployees = newEmployees;
-      this.newEmployees = newEmployees;
-      this.getStatus();
-      this.setStartDate();
-    },
-    err => {
-      this.snackBarMessagePopup(err.error.message);
-    });
+        this.allNewEmployees = newEmployees;
+        this.newEmployees = newEmployees;
+        this.getStatus();
+
+        this.setStartDate();
+      },
+      err => {
+        this.snackBarMessagePopup(err.error.message);
+      });
   }
 
   openCheckList(user: UserDTO) {
@@ -59,7 +58,7 @@ export class DialogNewEmployeeComponent implements OnInit {
   private getStatus() {
     this.newEmployees.forEach(user => {
       this.userService.isMailSent(user.userAccount).subscribe(value => {
-        this.isMailSent.push(value);
+        user.mailSent = value;
       });
     });
   }
