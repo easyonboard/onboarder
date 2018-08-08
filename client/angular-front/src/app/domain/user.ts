@@ -22,7 +22,6 @@ export class UserInformationDTO {
   department: DepartmentType;
   buddyUser: UserDTO;
   userAccount: UserDTO;
-  mailSent: Boolean;
   startDate: Date;
   startDateString: String;
 

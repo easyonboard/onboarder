@@ -18,6 +18,7 @@ export class DialogNewEmployeeComponent implements OnInit {
   public newEmployees: UserInformationDTO[];
   public allNewEmployees: UserInformationDTO[];
   public searchValue = '';
+  public mailSentValueForUsers: Boolean[];
 
   constructor(private userInformationService: UserInformationService, private dialog: MatDialog, private userService: UserService) {
   }
@@ -26,6 +27,7 @@ export class DialogNewEmployeeComponent implements OnInit {
 
     this.newEmployees = [];
     this.allNewEmployees = [];
+    this.mailSentValueForUsers = [];
     this.userInformationService.getNewUsers().subscribe(newEmployees => {
         this.allNewEmployees = newEmployees;
         this.newEmployees = newEmployees;
@@ -56,11 +58,12 @@ export class DialogNewEmployeeComponent implements OnInit {
   }
 
   private getStatus() {
-    this.newEmployees.forEach(user => {
+    this.newEmployees.forEach((user, index) => {
       this.userService.isMailSent(user.userAccount).subscribe(value => {
-        user.mailSent = value;
+        this.mailSentValueForUsers[index]=value;
       });
     });
+
   }
 
   searchByName() {
