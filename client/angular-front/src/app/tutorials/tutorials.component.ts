@@ -33,7 +33,6 @@ export class TutorialsComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-
     this.noDraftsMessage = '';
     this.route.queryParams.subscribe(
       queryParams => {
@@ -62,7 +61,6 @@ export class TutorialsComponent implements OnDestroy, OnInit {
 
   private decision(params: any): any {
     const keyword = params['keyword'];
-
     if (this.router.url.indexOf('draft') >= 0) {
       const userId = +localStorage.getItem('userLoggedId');
       return this.tutorialService.getDraftsTutorialsForUser(userId, keyword);
