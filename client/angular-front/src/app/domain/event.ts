@@ -16,6 +16,7 @@ export class EventDTO {
   placesLeft: number;
   meetingHall: MeetingHall;
   isUserEnrolled: Boolean;
+  otherLocation: string;
 }
 
 export class MeetingHall {

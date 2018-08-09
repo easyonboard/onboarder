@@ -19,7 +19,7 @@
         </div>
         <br/>
         <div *ngIf="!mailSentValueForUsers.get(userInfo.idUserInformation)">
-            <i class="material-icons" *ngIf="!mailSent" style="padding: 10px" matTooltip="Mail is not sent to user" matTooltipPosition="below" matTooltipClass="tool-tip-class">error_outline</i> {{userInfo.userAccount.name}}
+            <i class="material-icons" *ngIf="!mailSentValueForUsers.get(userInfo.idUserInformation)" style="padding: 10px" matTooltip="Mail is not sent to user" matTooltipPosition="below" matTooltipClass="tool-tip-class">error_outline</i> {{userInfo.userAccount.name}}
             <br/>
             <i class="material-icons" style="padding: 10px">
         calendar_today

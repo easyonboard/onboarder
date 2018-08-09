@@ -34,7 +34,7 @@ export class AddEventComponent implements OnInit {
   public allMeetingHallOptions: MeetingHall[] = [];
   public locationOptions: LocationDTO[] = [];
   public meetingHallOptions: MeetingHall[] = [];
-
+  public otherLocation: LocationDTO;
   public event: EventDTO;
   public eventErrorMessage: string;
   public keywords: String[];
@@ -76,10 +76,16 @@ export class AddEventComponent implements OnInit {
     this.locationService.getLocations().subscribe(resp => {
       this.allLocationOptions = resp;
       this.locationOptions = this.allLocationOptions;
+      this.otherLocation = new LocationDTO();
+      this.otherLocation.idLocation=0;
+      this.otherLocation.locationName='Other';
+      this.locationOptions.push(this.otherLocation);
       console.log(this.locationOptions);
+
     }, err => {
       alert(err.error.message);
     });
+
 
     this.locationService.getRooms().subscribe(resp => {
       this.allMeetingHallOptions = resp;
@@ -130,6 +136,10 @@ export class AddEventComponent implements OnInit {
     }
     if (!this.event.keywords || this.event.keywords.length < 1) {
       this.eventErrorMessage += 'Please add at least one keyword!\n';
+    }
+    if(this.selectedLocation.idLocation==this.otherLocation.idLocation){
+      debugger
+      this.selectedLocation=new LocationDTO();
     }
     if (this.eventErrorMessage !== '') {
       this.snackBarMessagePopup(this.eventErrorMessage, 'Close');

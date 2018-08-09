@@ -24,6 +24,13 @@
             {{upcoming.location.locationName}}, {{upcoming.location.locationAddress}},
             {{upcoming.location.locationCity}} <br/>
           </div>
+
+
+          <div *ngIf="upcoming.otherLocation!=undefined && upcoming.otherLocation.length>1"><i class="material-icons"> place </i>
+            {{upcoming.otherLocation}}
+          </div>
+
+
           <div *ngIf="upcoming.meetingHall!=undefined">
             <i class="material-icons">
               meeting_room
