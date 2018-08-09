@@ -46,7 +46,7 @@
             calendar_today
           </i> {{upcoming.stringDate}}
           <br/>
-          <i class="material-icons">
+          <i class="material-icons" *ngIf="upcoming.eventTime">
             access_time
           </i> {{upcoming.eventTime}}
 
