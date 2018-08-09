@@ -137,9 +137,8 @@ export class AddEventComponent implements OnInit {
     if (!this.event.keywords || this.event.keywords.length < 1) {
       this.eventErrorMessage += 'Please add at least one keyword!\n';
     }
-    if(this.selectedLocation.idLocation==this.otherLocation.idLocation){
-      debugger
-      this.selectedLocation=new LocationDTO();
+    if (this.selectedLocation.idLocation === this.otherLocation.idLocation) {
+      this.selectedLocation = new LocationDTO();
     }
     if (this.eventErrorMessage !== '') {
       this.snackBarMessagePopup(this.eventErrorMessage, 'Close');
