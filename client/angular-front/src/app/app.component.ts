@@ -157,6 +157,10 @@ export class AppComponent {
     this.commonComponent.openEditProfileDialog();
   }
 
+  openProfileInfoDialog() {
+    this.commonComponent.openProfileInfoDialog();
+  }
+
   userManagementPermission(): boolean {
     return this.addUserPermission() || this.newEmployeesPermission()
       || this.deleteUserPermission() || this.viewUsersByDepartmentPermission();

@@ -62,6 +62,7 @@ import {
 } from '@angular/material';
 import {UtilityService} from './service/utility.service';
 import { TimepickerDirective, Angular5TimePickerModule } from 'angular5-time-picker';
+import { DialogProfileInfoComponent } from './common/DialogProfileInfoComponent/dialog-profile-info.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { TimepickerDirective, Angular5TimePickerModule } from 'angular5-time-pic
     UserInfoUpdateComponent,
     UsersInDepartmentListComponent,
     DialogEditProfileComponent,
+    DialogProfileInfoComponent,
     TutorialsComponent,
     AddUpdateTutorialComponent,
     AddEventComponent,
@@ -134,7 +136,8 @@ import { TimepickerDirective, Angular5TimePickerModule } from 'angular5-time-pic
     DialogDeleteUsersComponent,
     UserInfoUpdateComponent,
     UserInfoFormularComponent,
-    DialogEditProfileComponent
+    DialogEditProfileComponent,
+    DialogProfileInfoComponent
   ],
   providers: [UserService,
     MaterialService,

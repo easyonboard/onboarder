@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {TutorialMaterialDTO} from '../domain/tutorialMaterial';
 import {Observable} from 'rxjs/Observable';
 import {RootConst} from '../util/RootConst';
-import 'rxjs/Rx';
+import 'rxjs';
 
 @Injectable()
 export class MaterialService {

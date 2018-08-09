@@ -114,4 +114,12 @@ export class UserService {
     const body = JSON.stringify({username: username, msgMail: msgMail});
     return this.http.post<boolean>(this.rootConst.CHECK_USER_UNICITY, body, this.httpOptions);
   }
+
+  getUserByUsername(username: string): Observable<UserDTO> {
+    // if (username) {
+      return this.http.get<UserDTO>(`${this.rootConst.USER_BY_USERNAME}${username}`);
+    // } else {
+      // throw error;
+    // }
+  }
 }

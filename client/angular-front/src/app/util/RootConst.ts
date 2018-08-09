@@ -37,6 +37,7 @@ export class RootConst {
   public REMOVE_USER = this.WEB_SERVICE_ENDPOINT + 'user/removeUser';
   // ***********************************************
   public CHECK_USER_UNICITY = this.WEB_SERVICE_ENDPOINT + 'user/checkUnicity';
+  public USER_BY_USERNAME = this.WEB_SERVICE_ENDPOINT + 'username/?username=';
   // ***********************************************
   WEB_SERVER_USERINFORMATION = this.WEB_SERVICE_ENDPOINT + 'getUserInformation';
   WEB_SERVER_STATUS_MAIL = this.WEB_SERVICE_ENDPOINT + 'isMailSent';

@@ -312,4 +312,20 @@ public class UserController {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/username", method = RequestMethod.GET)
+    public ResponseEntity<UserDto> getUserByUsername(@RequestParam(value = "username") String username) {
+
+        UserDto userDto = null;
+
+        try {
+            userDto = userService.findUserByUsername(username);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
 }

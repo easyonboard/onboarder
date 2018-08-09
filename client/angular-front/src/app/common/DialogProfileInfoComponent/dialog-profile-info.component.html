@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Profile information</h2>
+<mat-dialog-content>
+    <form>
+        <ul>
+            <li>
+                <p style="margin-left: 50px;">Username : {{userDetails.username}}</p>
+            </li>
+            <li>
+                <p style="margin-left: 50px;">Complete name: {{userDetails.name}}</p>
+            </li>
+
+            <li>
+                <p style="margin-left: 50px;">Personal email : {{userDetails.email}}</p>
+            </li>
+            <li>
+                <p style="margin-left: 50px;">.msg email : {{userDetails.msgMail}}</p>
+            </li>
+            <li>
+                <p style="margin-left: 50px;">Your department : {{userInformationsDetails.department}}</p>
+            </li>
+            <li>
+                <p style="margin-left: 50px;">Your team : {{userInformationsDetails.team}}</p>
+            </li>
+            <li>
+                <p style="margin-left: 50px;">Your project : {{userInformationsDetails.project}}</p>
+            </li>
+            <li>
+                <p style="margin-left: 50px;">Your location</p>
+            </li>
+
+            <p style="margin-left: 80px;">City : {{userInformationsDetails.location.locationCity}}</p>
+
+            <p style="margin-left: 80px;">Address : {{userInformationsDetails.location.locationAddress}}</p>
+
+            <p style="margin-left: 80px;">Floor : {{userInformationsDetails.floor}}</p>
+        </ul>
+    </form>
+</mat-dialog-content>

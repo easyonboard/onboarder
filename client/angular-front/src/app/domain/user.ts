@@ -10,7 +10,6 @@ export class UserDTO {
   username: string;
   password: string;
   role: RoleDTO;
-
 }
 
 export class UserInformationDTO {
@@ -24,7 +23,6 @@ export class UserInformationDTO {
   userAccount: UserDTO;
   startDate: Date;
   startDateString: String;
-
 }
 
 export class UserDetailsToExport {
@@ -34,7 +32,6 @@ export class UserDetailsToExport {
   startDate: string;
   team: string;
   project: string;
-
 }
 
 export class LeaveCheckList {
@@ -48,3 +45,21 @@ export class ContactPersonDto {
   username: string;
   msgMail: string;
 }
+
+// export class UserDetails {
+//   email: string;
+//   msgMail: string;
+//   name: string;
+//   username: string;
+// }
+
+
+// export class UserInformationsDetails {
+//   team: string;
+//   location: LocationDTO;
+//   floor: string;
+//   project: string;
+//   department: DepartmentType;
+//   buddyUser: UserDTO;
+//   startDateString: Date;
+// }

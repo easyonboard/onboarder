@@ -25,7 +25,7 @@ export class DialogCheckListComponent implements OnInit {
     this.dialogTitle = 'Check list for ' + this.user.name;
     this.checkList = new TSMap<string, boolean>();
     this.checkListProperties = new CheckListProperties();
-this.userInformationService.getUserInformation(this.user.username).subscribe(resp=>this.userInfo=resp);
+    this.userInformationService.getUserInformation(this.user.username).subscribe(resp => this.userInfo = resp);
     this.userService.getCheckListForUser(this.user).subscribe(
       data => {
         Object.keys(data).forEach(key => {

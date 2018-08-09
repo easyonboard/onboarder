@@ -5,6 +5,7 @@ import {DialogEditProfileComponent} from './DialogEditProfile/dialog-edit-profil
 import {DialogNewEmployeeComponent} from './DialogNewEmployee/dialog-new-employee.component';
 import {UserAddComponent} from '../users/user-add/user-add.component';
 import {DialogDeleteUsersComponent} from './DialogDeleteUsers/dialog-delete-users.component';
+import { DialogProfileInfoComponent } from './DialogProfileInfoComponent/dialog-profile-info.component';
 
 @Injectable()
 export class CommonComponentsService {
@@ -48,5 +49,10 @@ export class CommonComponentsService {
     });
   }
 
-
+  openProfileInfoDialog() {
+    this.dialog.open(DialogProfileInfoComponent, {
+      height: '50%',
+      width: '600px'
+    });
+  }
 }
