@@ -36,6 +36,8 @@ public class Event implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idLocation")
     private Location location;
+    @Column
+    private String otherLocation;
 
     @ManyToOne
     @JoinColumn(name = "idMeetingHall")
@@ -55,7 +57,7 @@ public class Event implements Serializable {
     }
 
     public Event(String titleEvent, @Size(max = 500) String overview, List<User> enrolledUsers, User contactPerson,
-                 Integer maxEnrolledUsers, Location location, String keywords, Date eventDate, String eventTime) {
+                 Integer maxEnrolledUsers, Location location, String otherLocation, String keywords, Date eventDate, String eventTime) {
 
         this.titleEvent = titleEvent;
         this.overview = overview;
@@ -63,6 +65,7 @@ public class Event implements Serializable {
         this.contactPerson = contactPerson;
         this.maxEnrolledUsers = maxEnrolledUsers;
         this.location = location;
+        this.otherLocation=otherLocation;
         this.keywords = keywords;
         this.eventDate = eventDate;
         this.eventTime = eventTime;
@@ -168,6 +171,16 @@ public class Event implements Serializable {
         this.eventTime = eventTime;
     }
 
+    public String getOtherLocation() {
+
+        return otherLocation;
+    }
+
+    public void setOtherLocation(String otherLocation) {
+
+        this.otherLocation = otherLocation;
+    }
+
     public MeetingHall getMeetingHall() {
 
         return meetingHall;
@@ -177,4 +190,7 @@ public class Event implements Serializable {
 
         this.meetingHall = meetingHall;
     }
+
+
+
 }

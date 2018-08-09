@@ -50,8 +50,8 @@ public class EventService {
 
         List<UserDto> enrolledUsersDTO = new ArrayList<>();
 
-        for (int i = 0; i < enrolledPersonMsgMails.size(); i++) {
-            Optional<User> user = userRepository.findByMsgMail(enrolledPersonMsgMails.get(i));
+        for (String enrolledPersonMsgMail : enrolledPersonMsgMails) {
+            Optional<User> user = userRepository.findByMsgMail(enrolledPersonMsgMail);
 
             if (!user.isPresent()) {
                 throw new EntityNotFoundException(userNotFound(user.get().getUsername()));

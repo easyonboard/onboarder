@@ -45,6 +45,14 @@
                     <mat-option *ngFor="let loc of locationOptions" [value]="loc.idLocation">{{loc.locationName}}</mat-option>
                 </mat-select>
             </div>
+
+          <div fxLayout="row" fxLayoutAlign="stretch" *ngIf="selectedLocation.idLocation==0">
+            <label fxFlex="30">Other Location</label>
+            <mat-form-field fxFlex style="width: 100%;">
+              <input matInput placeholder="Enter the name and address of the location" [(ngModel)]="event.otherLocation">
+            </mat-form-field>
+          </div>
+
             <div fxLayout="row" fxLayoutAlign="stretch">
                 <label fxFlex="30">Meeting Hall (optional)</label>
                 <mat-select fxFlex (selectionChange)="filterLocations($event.value)" [(value)]="selectedRoom.idMeetingHall" name="meeting" placeholder="select room">

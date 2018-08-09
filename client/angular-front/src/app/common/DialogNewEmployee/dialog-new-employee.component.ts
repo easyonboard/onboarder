@@ -5,6 +5,7 @@ import {UserInformationService} from '../../service/user-information.service';
 import {DialogCheckListComponent} from '../DialogCheckList/dialog-check-list.component';
 import {UserInfoUpdateComponent} from '../../users/user-info-update/user-info-update.component';
 import {UserService} from '../../service/user.service';
+import {TSMap} from 'typescript-map';
 
 @Component({
   selector: 'app-dialog-new-employee',
@@ -18,7 +19,7 @@ export class DialogNewEmployeeComponent implements OnInit {
   public newEmployees: UserInformationDTO[];
   public allNewEmployees: UserInformationDTO[];
   public searchValue = '';
-  public mailSentValueForUsers: Boolean[];
+  public mailSentValueForUsers: TSMap<number, Boolean>;
 
   constructor(private userInformationService: UserInformationService, private dialog: MatDialog, private userService: UserService) {
   }
@@ -27,7 +28,7 @@ export class DialogNewEmployeeComponent implements OnInit {
 
     this.newEmployees = [];
     this.allNewEmployees = [];
-    this.mailSentValueForUsers = [];
+    this.mailSentValueForUsers = new TSMap<number, Boolean>();
     this.userInformationService.getNewUsers().subscribe(newEmployees => {
         this.allNewEmployees = newEmployees;
         this.newEmployees = newEmployees;
@@ -60,7 +61,7 @@ export class DialogNewEmployeeComponent implements OnInit {
   private getStatus() {
     this.newEmployees.forEach((user, index) => {
       this.userService.isMailSent(user.userAccount).subscribe(value => {
-        this.mailSentValueForUsers[index]=value;
+        this.mailSentValueForUsers.set(user.idUserInformation, value);
       });
     });
 
@@ -72,6 +73,7 @@ export class DialogNewEmployeeComponent implements OnInit {
     } else {
       this.newEmployees = this.allNewEmployees;
     }
+
   }
 
   private setStartDate() {

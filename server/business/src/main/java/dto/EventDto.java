@@ -16,6 +16,7 @@ public class EventDto {
     private Integer maxEnrolledUsers;
 
     private LocationDto location;
+    private String otherLocation;
 
     private String keywords;
 
@@ -30,7 +31,7 @@ public class EventDto {
     }
 
     public EventDto(Integer idEvent, String titleEvent, String overview, List<UserDto> enrolledUsers,
-                    UserDto contactPerson, Integer maxEnrolledUsers, LocationDto location, String keywords,
+                    UserDto contactPerson, Integer maxEnrolledUsers, LocationDto location, String otherLocation, String keywords,
                     Date eventDate, MeetingHallDto meetingHall) {
 
         this.idEvent = idEvent;
@@ -40,6 +41,7 @@ public class EventDto {
         this.contactPerson = contactPerson;
         this.maxEnrolledUsers = maxEnrolledUsers;
         this.location = location;
+        this.otherLocation = otherLocation;
         this.keywords = keywords;
         this.eventDate = eventDate;
         this.meetingHall = meetingHall;
@@ -153,5 +155,15 @@ public class EventDto {
     public void setMeetingHall(MeetingHallDto meetingHall) {
 
         this.meetingHall = meetingHall;
+    }
+
+    public String getOtherLocation() {
+
+        return otherLocation;
+    }
+
+    public void setOtherLocation(String otherLocation) {
+
+        this.otherLocation = otherLocation;
     }
 }

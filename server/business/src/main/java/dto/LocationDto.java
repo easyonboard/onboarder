@@ -64,4 +64,5 @@ public class LocationDto {
     public void setLocationContactEmail(String locationContactEmail) {
         this.locationContactEmail = locationContactEmail;
     }
+    
 }
