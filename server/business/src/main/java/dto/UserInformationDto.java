@@ -1,5 +1,4 @@
 package dto;
-
 import entity.Location;
 import entity.enums.DepartmentType;
 

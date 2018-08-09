@@ -187,13 +187,18 @@ export class AppComponent {
   }
 
   removeFilter() {
-    const pageURL = window.location.href;
-    if (pageURL.indexOf('draft') >= 0) {
-      this.router.navigate(['/tutorials/draft']);
-    } else if (pageURL.indexOf('tutorials') >= 0) {
-      this.router.navigate(['/tutorials']);
-    } else if (pageURL.indexOf('events') >= 0) {
-      this.router.navigate(['/events/viewEvents']);
-    }
+     // return location.replace(location.protocol + '//' + location.host + location.pathname);
+    this.router.navigate([location.pathname]);
+
+
+    // const pageURL = window.location.href;
+    // if (pageURL.indexOf('draft') >= 0) {
+    //   this.router.navigate(['/tutorials/draft']);
+    // } else if (pageURL.indexOf('tutorials') >= 0) {
+    //   this.router.navigate(['/tutorials']);
+    // } else if (pageURL.indexOf('events') >= 0) {
+    //   this.router.navigate(['/events/viewEvents']);
+    // }
+
   }
 }

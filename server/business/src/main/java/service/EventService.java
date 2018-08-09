@@ -20,8 +20,6 @@ import exception.types.DatabaseException;
 import exception.types.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
