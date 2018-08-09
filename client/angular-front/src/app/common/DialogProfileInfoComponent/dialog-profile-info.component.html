@@ -2,37 +2,40 @@
 <mat-dialog-content>
     <form>
         <ul>
-            <li>
-                <p style="margin-left: 50px;">Username : {{userDetails.username}}</p>
-            </li>
-            <li>
-                <p style="margin-left: 50px;">Complete name: {{userDetails.name}}</p>
-            </li>
+            <div>
+                <i class="fa fa-users icon" aria-hidden="true"></i>
+                <label>{{user.username}}</label>
+            </div>
+            <br>
+            <div>
+                <li style="margin-left: 30px;">complete name : {{user.name}}</li>
+            </div>
+            <div>
+                <li style="margin-left: 30px;">personal email : {{user.email}}</li>
+            </div>
+            <div>
+                <li style="margin-left: 30px;">msg email : {{user.msgMail}}</li>
+            </div>
+            <div>
+                <li style="margin-left: 30px;">your department : {{userInformation.department}}</li>
+            </div>
+            <div>
+                <li style="margin-left: 30px;">your team : {{userInformation.team}}</li>
+            </div>
+            <div>
+                <li style="margin-left: 30px;">your project : {{userInformation.project}}</li>
+            </div>
+            <br>
+            <div>
+                <i class="material-icons" style="margin-left: 30px;"> meeting_room </i>
+                <label>your team's location</label>
+            </div>
 
-            <li>
-                <p style="margin-left: 50px;">Personal email : {{userDetails.email}}</p>
-            </li>
-            <li>
-                <p style="margin-left: 50px;">.msg email : {{userDetails.msgMail}}</p>
-            </li>
-            <li>
-                <p style="margin-left: 50px;">Your department : {{userInformationsDetails.department}}</p>
-            </li>
-            <li>
-                <p style="margin-left: 50px;">Your team : {{userInformationsDetails.team}}</p>
-            </li>
-            <li>
-                <p style="margin-left: 50px;">Your project : {{userInformationsDetails.project}}</p>
-            </li>
-            <li>
-                <p style="margin-left: 50px;">Your location</p>
-            </li>
+            <li style="margin-left: 50px;">city : {{userInformation.location.locationCity}}</li>
 
-            <p style="margin-left: 80px;">City : {{userInformationsDetails.location.locationCity}}</p>
+            <li style="margin-left: 50px;">address : {{userInformation.location.locationAddress}}</li>
 
-            <p style="margin-left: 80px;">Address : {{userInformationsDetails.location.locationAddress}}</p>
-
-            <p style="margin-left: 80px;">Floor : {{userInformationsDetails.floor}}</p>
+            <li style="margin-left: 50px;">floor : {{userInformation.floor}}</li>
         </ul>
     </form>
 </mat-dialog-content>
