@@ -119,7 +119,7 @@ public class EventService {
 
     public List<EventDto> getAllUpcomingEvents() throws EntityNotFoundException {
 
-        List<Event> upcoming = eventRepository.findAllUpcomingEvents(
+        List<Event> upcoming = eventRepository.findByEventDateAfter(
                 Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         if (upcoming.isEmpty()) {
             throw new EntityNotFoundException(UPCOMING_EVENTS_NOT_FOUND_EXCEPTION);
@@ -130,7 +130,7 @@ public class EventService {
 
     public List<EventDto> getAllUpcomingEventsFilterByKeyword(String keyword) throws EntityNotFoundException {
 
-        List<Event> upcoming = eventRepository.findAllUpcomingEventsFilterByKeyword(
+        List<Event> upcoming = eventRepository.findByEventDateAfterAndKeywordsContainingIgnoreCase(
                 Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()), keyword);
         if (upcoming.isEmpty()) {
             throw new EntityNotFoundException(UPCOMING_EVENTS_NOT_FOUND_EXCEPTION);
@@ -141,7 +141,7 @@ public class EventService {
 
     public List<EventDto> getAllPastEvents() throws EntityNotFoundException {
 
-        List<Event> past = eventRepository.findAllPastEvents(
+        List<Event> past = eventRepository.findByEventDateBefore(
                 Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         if (past.isEmpty()) {
             throw new EntityNotFoundException(PAST_EVENTS_NOT_FOUND_EXCEPTION);
@@ -152,7 +152,7 @@ public class EventService {
 
     public List<EventDto> getAllPastEventsFilterByKeyword(String keyword) throws EntityNotFoundException {
 
-        List<Event> past = eventRepository.findAllPastEventsFilterByKeyword(
+        List<Event> past = eventRepository.findByEventDateBeforeAndKeywordsContainingIgnoreCase(
                 Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()), keyword);
         if (past.isEmpty()) {
             throw new EntityNotFoundException(PAST_EVENTS_NOT_FOUND_EXCEPTION);

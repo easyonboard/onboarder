@@ -11,17 +11,35 @@ import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Integer> {
 
-    @Query("select e from Event e where e.eventDate > :today")
-    List<Event> findAllUpcomingEvents(@Param("today")Date today);
+    /**
+     * returns list of upcoming events, events after today date
+     * @param today: date
+     * @return list of all upcoming events
+     */
+    List<Event> findByEventDateAfter(@Param("today")Date today);
 
-    @Query("select e from Event e where e.eventDate > :today and e.keywords like %:keyword%")
-    List<Event> findAllUpcomingEventsFilterByKeyword(@Param("today")Date today,@Param("keyword") String keyword);
+    /**
+     * returns list of past events, events before today date
+     * @param eventDate: today date
+     * @return all past events
+     */
+    List<Event> findByEventDateBefore(Date eventDate);
 
-    @Query("select e from Event e where e.eventDate <= :today")
-    List<Event> findAllPastEvents(@Param("today") Date today);
+    /**
+     *  all upcoming event with specific keyword
+     * @param today: today Date
+     * @param keyword: string
+     * @return list of upcoming events filtered
+     */
+    List<Event> findByEventDateAfterAndKeywordsContainingIgnoreCase(@Param("today")Date today,@Param("keyword") String keyword);
 
-    @Query("select e from Event e where e.eventDate <= :today and e.keywords like %:keyword%")
-    List<Event> findAllPastEventsFilterByKeyword(@Param("today")Date today,@Param("keyword") String keyword);
+    /**
+     *  all past event with specific keyword
+     * @param today: Date
+     * @param keyword: String
+     * @return list of past events
+     */
+    List<Event> findByEventDateBeforeAndKeywordsContainingIgnoreCase(@Param("today")Date today,@Param("keyword") String keyword);
 
     @Query("select e from Event e where :user member of e.enrolledUsers")
     List<Event> removeUserFromEnrolledList(@Param("user") User user);
@@ -29,5 +47,5 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     @Query("select e from Event e where :user = e.contactPerson")
     List<Event> removeContactPersonFromEvents(@Param("user")User user);
 
-    List<Event> findByEventDateBefore(Date eventDate);
+
 }

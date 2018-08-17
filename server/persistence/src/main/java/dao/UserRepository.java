@@ -24,7 +24,4 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select ui.department from UserInformation ui where ui.userAccount.username=:username")
     String findDepartmentByUsername(@Param("username") String username);
 
-    @Query("select cl from CheckList cl where cl.userAccount=:user")
-    CheckList getCheckListForUser(@Param("user") User userAccount);
-
 }

@@ -18,9 +18,9 @@ import static org.mockito.Mockito.*;
 
 
 /**
-  * @author - albc
-  *
-  */
+ * @author - albc
+ *
+ */
 
 /** Un exemplu de test pentru modulul de persistence
  * Asa va trebui sa se faca pentru fiecare clasa
@@ -49,9 +49,9 @@ public class EventRepositoryTest {
         List<Event> list = new ArrayList<>();
         list.add(futureEvent);
 
-        when(eventRepositoryMock.findAllUpcomingEvents(any(Date.class))).thenReturn(list);
+        when(eventRepositoryMock.findByEventDateAfter(any(Date.class))).thenReturn(list);
 
-        int eventsCount = eventRepositoryMock.findAllUpcomingEvents(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())).size();
+        int eventsCount = eventRepositoryMock.findByEventDateAfter(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())).size();
 
         assertEquals(1, eventsCount);
     }
@@ -68,9 +68,9 @@ public class EventRepositoryTest {
         List<Event> list = new ArrayList<>();
         list.add(pastEvent);
 
-        when(eventRepositoryMock.findAllUpcomingEvents(any(Date.class))).thenReturn(list);
+        when(eventRepositoryMock.findByEventDateBefore(any(Date.class))).thenReturn(list);
 
-        int eventsCount = eventRepositoryMock.findAllUpcomingEvents(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())).size();
+        int eventsCount = eventRepositoryMock.findByEventDateBefore(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant())).size();
 
         assertEquals(1, eventsCount);
     }

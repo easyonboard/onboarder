@@ -185,7 +185,7 @@ public class UserService {
     public Map getCheckList(UserDto userDto) throws EntityNotFoundException {
 
         User user = userRepository.findOne(userDto.getIdUser());
-        CheckList checkList = userRepository.getCheckListForUser(user);
+        CheckList checkList = checkListRepository.findByUserAccount(user);
 
         if (checkList == null) {
             throw new EntityNotFoundException(checklistForUserNotFound(userDto.getUsername()));

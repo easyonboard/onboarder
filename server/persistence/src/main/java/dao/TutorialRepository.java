@@ -11,8 +11,6 @@ import java.util.List;
 public interface TutorialRepository extends JpaRepository<Tutorial, Integer> {
 
     List<Tutorial> findByIsDraft(Boolean isDraft);
-
-    @Query("select t from Tutorial t where t.isDraft=false and t.keywords like %:keyword%")
     List<Tutorial> findByKeywordsContainingIgnoreCase(@Param("keyword") String keyword);
 
     @Query("select t from Tutorial t where t.isDraft=true and :user member of t.contactPersons ")
