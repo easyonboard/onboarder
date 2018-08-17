@@ -30,7 +30,7 @@ public class ReminderEmailForBuddy {
     // @Scheduled(cron = "0 59 8 * * MON-FRI")
     @RequestMapping(value = "/reminderBuddy", method = RequestMethod.GET)
     public void reminderForBuddy() {
-        List<UserInformation> usersInfoForUserWhoStartTomorrow = userInformationRepository.usersWhoStartOnGivenDate(getTomorrowDate());
+        List<UserInformation> usersInfoForUserWhoStartTomorrow = userInformationRepository.findByStartDate(getTomorrowDate());
         usersInfoForUserWhoStartTomorrow.stream()
                 .filter(ui -> ui.getBuddyUser() != null);
 

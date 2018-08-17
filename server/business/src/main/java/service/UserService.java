@@ -135,7 +135,7 @@ public class UserService {
 
     public List<UserInformationDto> getAllNewUsers() throws EntityNotFoundException {
 
-        List<UserInformation> newUsers = userInformationRepository.getAllNewUsers(new Date());
+        List<UserInformation> newUsers = userInformationRepository.findByStartDateAfter(new Date());
         if (newUsers.isEmpty()) {
             throw new EntityNotFoundException(NEW_USERS_NOT_FOUND_EXCEPTION);
         }
@@ -158,7 +158,7 @@ public class UserService {
 
         String department = getDepartmentForUser(username);
         DepartmentType departmentType = DepartmentType.valueOf(department);
-        List<User> users = userRepository.findAllByDepartment(departmentType);
+        List<User> users = userRepository.findByDepartment(departmentType);
         if (users.isEmpty()) {
             throw new EntityNotFoundException(userForDepartmentNotFound(department));
         }
@@ -178,6 +178,7 @@ public class UserService {
 
     /**
      * TODO refactoring for hasBuddyAssigned
+     *
      * @param userDto
      * @return
      * @throws EntityNotFoundException
@@ -207,8 +208,8 @@ public class UserService {
             checkListMap.put(attribute, value);
         }
 
-        UserInformation userInfo=userInformationRepository.findUserInformationByUser(user);
-        if(userInfo.getBuddyUser()==null){
+        UserInformation userInfo = userInformationRepository.findByUserAccount(user);
+        if (userInfo.getBuddyUser() == null) {
             checkListMap.put("hasBuddyAssigned", false);
             checkList.setHasBuddyAssigned(false);
             checkListRepository.save(checkList);
@@ -255,7 +256,7 @@ public class UserService {
 
             if (canUserBeDeleted(userEntity)) {
 
-                UserInformation userInformationEntity = userInformationRepository.findUserInformationByUser(userEntity);
+                UserInformation userInformationEntity = userInformationRepository.findByUserAccount(userEntity);
                 if (userInformationEntity != null) {
                     userInformationEntity.setBuddyUser(null);
                     userInformationEntity.setLocation(null);
@@ -285,7 +286,7 @@ public class UserService {
                     enrolled.getEnrolledUsers().remove(userEntity);
                     eventRepository.save(enrolled);
                 }
-                List<Event> contactPerson = eventRepository.removeContactPersonFromEvents(userEntity);
+                List<Event> contactPerson = eventRepository.findByContactPerson(userEntity);
                 for (Event enrolled : contactPerson) {
                     enrolled.getEnrolledUsers().remove(userEntity);
                     eventRepository.save(enrolled);
@@ -304,7 +305,7 @@ public class UserService {
     public void setBuddyToNull(User userEntity) {
 
         try {
-            List<UserInformation> userInformationsList = userInformationRepository.findUsersByBuddyUser(userEntity);
+            List<UserInformation> userInformationsList = userInformationRepository.findByBuddyUser(userEntity);
             if (userInformationsList != null) {
                 for (int i = 0; i < userInformationsList.size(); i++) {
                     UserInformation userInformation = userInformationsList.get(i);
@@ -324,7 +325,7 @@ public class UserService {
         if (user == null) {
             throw new EntityNotFoundException(userNotFound(username));
         }
-        UserInformation userInformation = userInformationRepository.findUserInformationByUser(user);
+        UserInformation userInformation = userInformationRepository.findByUserAccount(user);
         if (user == null) {
             throw new EntityNotFoundException("Information for user " + username + "not found");
         }

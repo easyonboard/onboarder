@@ -50,7 +50,7 @@ public class ScheduleEmailToNewEmployee {
     // @Scheduled(cron = "0 0 19 * * MON-FRI")
     @RequestMapping(value = "/emailsch", method = RequestMethod.GET)
     public ResponseEntity reportCurrentTime() {
-        List<UserInformation> usersInfoForUserWhoStartNextWeek = userInformationRepository.usersWhoStartOnGivenDate(getNextWeekDate());
+        List<UserInformation> usersInfoForUserWhoStartNextWeek = userInformationRepository.findByStartDate(getNextWeekDate());
         List<User> usersWhoStartNextWeek = new ArrayList<>();
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 

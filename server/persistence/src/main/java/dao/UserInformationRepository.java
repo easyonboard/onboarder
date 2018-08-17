@@ -11,17 +11,32 @@ import java.util.List;
 
 public interface UserInformationRepository extends JpaRepository<UserInformation, Integer> {
 
+    /**
+     *  query for retrieving users that start after a given date
+     * @param date: given date
+     * @return list of users
+     */
+    List<UserInformation> findByStartDateAfter(Date date);
 
-    @Query("select o from UserInformation o where o.startDate > :today ")
-    List<UserInformation> getAllNewUsers(@Param("today") Date date);
+    /**
+     * query for retrieving users that start at a given date
+     * @param date: given Date
+     * @return list of users
+     */
+    List<UserInformation> findByStartDate(Date date);
 
-    @Query("select o from UserInformation o where o.startDate = :givenDate ")
-    List<UserInformation> usersWhoStartOnGivenDate(@Param("givenDate") Date date);
+    /**
+     *
+     * @param userEntity: User
+     * @return user information of user param
+     */
+    UserInformation findByUserAccount(User userEntity);
 
-    @Query("select us from UserInformation us where us.userAccount=:userEntity ")
-    UserInformation findUserInformationByUser(@Param("userEntity") User userEntity);
-
-    @Query("select us from UserInformation us where us.buddyUser=:buddyUser")
-    List<UserInformation> findUsersByBuddyUser(@Param("buddyUser") User buddyUser);
+    /**
+     *
+     * @param buddyUser: User
+     * @return list of user information with user param assigned as buddy
+     */
+    List<UserInformation> findByBuddyUser(User buddyUser);
 
 }
