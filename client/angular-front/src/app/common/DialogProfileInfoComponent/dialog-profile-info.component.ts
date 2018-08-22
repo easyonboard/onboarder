@@ -24,7 +24,7 @@ export class DialogProfileInfoComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUserByUsername(this.username).subscribe(
-      resp => { 
+      resp => {
         this.user = resp;
         // this.getUserDetails();
       },
