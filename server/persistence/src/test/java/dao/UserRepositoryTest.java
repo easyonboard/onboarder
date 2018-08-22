@@ -1,10 +1,12 @@
 package dao;
 
 import entity.User;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +15,17 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(JUnit4.class)
+@RunWith(MockitoJUnitRunner.class)
 public class UserRepositoryTest {
 
-    private static UserRepository userRepositoryMock;
+    @Mock
+    private  UserRepository userRepositoryMock;
 
-    @BeforeClass
-    public static void setup() {
-
-        userRepositoryMock = mock(UserRepository.class);
+    @Before
+    public  void setup() {
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
