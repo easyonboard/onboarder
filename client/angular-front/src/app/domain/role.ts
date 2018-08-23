@@ -3,7 +3,7 @@ export enum RoleType {
   'ROLE_CONTENT_MANAGER' = 'Content Manager',
   'ROLE_ABTEILUNGSLEITER' = 'Abteilungsleiter',
   'ROLE_HR' = 'Human Resources',
-  'ROLE_BUDDY' = 'Buddy',
+  'ROLE_MATE' = 'Mate',
   'ROLE_USER' = 'Employee'
 }
 

@@ -5,7 +5,7 @@ public enum RoleType {
     ROLE_CONTENT_MANAGER(2),
     ROLE_ABTEILUNGSLEITER(3),
     ROLE_HR(4),
-    ROLE_BUDDY(5),
+    ROLE_MATE(5),
     ROLE_USER(6);
 
     private int roleTypeId;
