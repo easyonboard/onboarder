@@ -40,7 +40,7 @@ public class UserController {
         try {
             UserDto userLogged = userService.findUserByUsername(user.getUsername());
             String password = userService.encrypt(user.getPassword());
-            if (userLogged.getPassword().equals(password))
+            if (userLogged.getPassword().equalsIgnoreCase(password))
                 return new ResponseEntity<>(userLogged, HttpStatus.OK);
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         } catch (EntityNotFoundException exception) {

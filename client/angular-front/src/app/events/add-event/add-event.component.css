@@ -106,3 +106,8 @@ input[type~="submit"] {
     margin-top: 500px;
     padding: 30px;
 }
+
+
+textarea{
+  resize: none;
+}
