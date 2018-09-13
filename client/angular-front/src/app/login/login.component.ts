@@ -1,10 +1,7 @@
 import {AfterContentInit, Component, ElementRef, OnInit} from '@angular/core';
-import {UserService} from '../service/user.service';
 import {UserDTO} from '../domain/user';
 import {RootConst} from '../util/RootConst';
 import {Router} from '@angular/router';
-import {CommonComponentsService} from '../common/common-components.service';
-import {MatSnackBar} from '@angular/material';
 import {LocalStorageConst} from '../util/LocalStorageConst';
 import {AuthService} from '../common/core-auth/auth.service';
 import {TokenStorage} from '../common/core-auth/token.storage';
@@ -34,24 +31,35 @@ export class LoginComponent implements OnInit, AfterContentInit {
   }
 
   ngOnInit() {
+    if (!this.tokenStorage.getToken()) {
+      this.router.navigate(['/']);
+    }
     this.userNotfound = '';
     this.message = 'Welcome!';
     this.rootConst = new RootConst();
   }
 
   ngAfterContentInit() {
+    if (!this.tokenStorage.getToken()) {
+      this.setVisibileHeaderAndFooter('hidden');
+    } else {
+      this.setVisibileHeaderAndFooter('visible');
+    }
+  }
+
+
+  private setVisibileHeaderAndFooter(visility: string) {
     this.currentComponentElement = this.elemRef.nativeElement.previousElementSibling;
     this.footerDiv = this.currentComponentElement.parentElement.getElementsByClassName('footerDiv').item(0);
 
     this.headerDiv = this.currentComponentElement.getElementsByClassName('headerDiv');
     for (let index = 0; index < this.headerDiv.length; index++) {
-      (<HTMLElement>this.headerDiv.item(index)).style.visibility = 'hidden';
+      (<HTMLElement>this.headerDiv.item(index)).style.visibility = visility;
     }
     if (this.footerDiv != null) {
-      (<HTMLElement>this.footerDiv).style.visibility = 'hidden';
+      (<HTMLElement>this.footerDiv).style.visibility = visility;
     }
   }
-
 
   login(username: string, password: string): void {
     username = username.trim();
@@ -59,7 +67,9 @@ export class LoginComponent implements OnInit, AfterContentInit {
     this.authService.attemptAuth(username, password).subscribe(
       data => {
         this.tokenStorage.saveToken(data.token);
-        window.location.href = '/info';
+        localStorage.setItem(LocalStorageConst._USER_USERNAME, username);
+        this.setVisibileHeaderAndFooter('visible');
+        this.router.navigate(['/info']);
       }, error => {
         console.log(error);
       }

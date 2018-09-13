@@ -38,11 +38,13 @@ export class AppComponent {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
+    this.username = localStorage.getItem(LocalStorageConst._USER_USERNAME);
   }
 
   logout(): void {
     if (confirm('Do you really want to logout?')) {
       this.tokenStorage.signOut();
+      localStorage.clear();
       this.redirectToLoginPage();
     }
   }
@@ -107,7 +109,7 @@ export class AppComponent {
   }
 
   redirectToLoginPage(): void {
-    location.replace(this.rootConst.FRONT_LOGIN_PAGE);
+    this.router.navigate([this.rootConst.FRONT_LOGIN_PAGE]);
   }
 
   openModalNewEmployee() {
@@ -119,15 +121,16 @@ export class AppComponent {
   }
 
   redirectToInfoPage() {
-    location.replace(this.rootConst.FRONT_INFOS_PAGE);
+    this.router.navigate([this.rootConst.FRONT_INFOS_PAGE]);
   }
 
   redirectToGeneralInfosPage() {
-    location.replace(this.rootConst.FRONT_INFOS_PAGE);
+    this.router.navigate([this.rootConst.FRONT_INFOS_PAGE]);
   }
 
   redirectToTutorialsPage() {
-    location.replace(this.rootConst.FRONT_TUTORIALS_PAGE);
+    this.router.navigate([this.rootConst.FRONT_TUTORIALS_PAGE]);
+    // location.replace(this.rootConst.FRONT_TUTORIALS_PAGE);
   }
 
 
