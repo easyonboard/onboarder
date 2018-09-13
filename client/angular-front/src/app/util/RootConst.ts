@@ -59,4 +59,7 @@ export class RootConst {
   public SERVER_UPCOMING_EVENT_FILTER_BY_KEYWORD = this.SERVER_UPCOMING_EVENT + '?keyword=';
   SERVER_UNENROLL_USER = this.SERVER_EVENTS_URL + '/unenrollUser';
   SERVER_IS_ENROLLED = this.SERVER_EVENTS_URL + '/isEnrolled';
+
+
+  public GENERATE_TOKEN_URL = 'http://localhost:8090/token/generate-token';
 }

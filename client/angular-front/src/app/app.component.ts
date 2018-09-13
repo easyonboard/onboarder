@@ -8,6 +8,8 @@ import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 import {LocalStorageConst} from './util/LocalStorageConst';
 import {UtilityService} from './service/utility.service';
+import {AuthService} from './common/core-auth/auth.service';
+import {TokenStorage} from './common/core-auth/token.storage';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +33,8 @@ export class AppComponent {
               private userService: UserService,
               private dialog: MatDialog,
               private commonComponent: CommonComponentsService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private tokenStorage: TokenStorage) {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
@@ -39,12 +42,7 @@ export class AppComponent {
 
   logout(): void {
     if (confirm('Do you really want to logout?')) {
-      localStorage.removeItem(LocalStorageConst._USER_LOGGED);
-      localStorage.removeItem(LocalStorageConst._USER_LOGGED_ID);
-      localStorage.removeItem(LocalStorageConst._USER_ROLE);
-      localStorage.removeItem(LocalStorageConst._USER_FIRSTNAME);
-      localStorage.removeItem(LocalStorageConst._MSG_MAIL);
-
+      this.tokenStorage.signOut();
       this.redirectToLoginPage();
     }
   }
@@ -54,8 +52,7 @@ export class AppComponent {
   }
 
   userIsLogged(): boolean {
-    this.username = localStorage.getItem(LocalStorageConst._USER_FIRSTNAME);
-    if (this.username !== null) {
+    if (null !== this.tokenStorage.getToken()) {
       return true;
     }
     return false;
@@ -191,7 +188,7 @@ export class AppComponent {
   }
 
   removeFilter() {
-     // return location.replace(location.protocol + '//' + location.host + location.pathname);
+    // return location.replace(location.protocol + '//' + location.host + location.pathname);
     this.router.navigate([location.pathname]);
 
 
