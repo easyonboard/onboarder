@@ -17,7 +17,7 @@ export class DialogCheckListComponent implements OnInit {
   public checkListProperties: CheckListProperties;
   private userInfo: UserInformationDTO;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService,public snackBarCheck: MatSnackBar, private userInformationService: UserInformationService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService, public snackBarCheck: MatSnackBar, private userInformationService: UserInformationService) {
   }
 
   ngOnInit() {
@@ -42,8 +42,8 @@ export class DialogCheckListComponent implements OnInit {
   }
 
   onCheck(key: string) {
-    if(this.userInfo.buddyUser==null && key=="hasBuddyAssigned"){
-      this.snackBarMessagePopup("User has no buddy assigned!", 'Close');
+    if (this.userInfo.buddyUser === null && key === 'hasBuddyAssigned') {
+      this.snackBarMessagePopup('User has no buddy assigned!', 'Close');
       return;
     }
     this.checkList.set(key, !this.checkList.get(key));
@@ -52,8 +52,8 @@ export class DialogCheckListComponent implements OnInit {
   }
 
   saveStatus() {
-    if(this.userInfo.buddyUser==null && this.checkList.get("hasBuddyAssigned")){
-      this.snackBarMessagePopup("User has no buddy assigned!", 'Close');
+    if (this.userInfo.buddyUser == null && this.checkList.get('hasBuddyAssigned')) {
+      this.snackBarMessagePopup('User has no buddy assigned!', 'Close');
       return;
     }
     this.userService.saveCheckList(this.user.username, this.checkList).subscribe(value => {
