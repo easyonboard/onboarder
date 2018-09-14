@@ -34,13 +34,6 @@ public class TutorialController {
     @Autowired
     private TutorialService tutorialService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/ping", method = RequestMethod.GET)
-    @ResponseBody
-    public String pingTutorials() {
-
-        return "Hello form Tutorials! :)";
-    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET)

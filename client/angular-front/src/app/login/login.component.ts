@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {LocalStorageConst} from '../util/LocalStorageConst';
 import {AuthService} from '../common/core-auth/auth.service';
 import {TokenStorage} from '../common/core-auth/token.storage';
+import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit, AfterContentInit {
   constructor(private authService: AuthService,
               private router: Router,
               private elemRef: ElementRef,
-              private tokenStorage: TokenStorage) {
+              private tokenStorage: TokenStorage,
+              private userService: UserService) {
     this.option = false;
   }
 
@@ -69,6 +71,9 @@ export class LoginComponent implements OnInit, AfterContentInit {
         this.tokenStorage.saveToken(data.token);
         localStorage.setItem(LocalStorageConst._USER_USERNAME, username);
         this.setVisibileHeaderAndFooter('visible');
+        this.userService.getUserByUsername(username).subscribe(user => {
+          localStorage.setItem(LocalStorageConst._USER_ROLE, user.role.role);
+        });
         this.router.navigate(['/info']);
       }, error => {
         console.log(error);
