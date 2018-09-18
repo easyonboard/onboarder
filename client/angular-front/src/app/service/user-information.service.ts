@@ -23,16 +23,16 @@ export class UserInformationService {
   }
 
   getNewUsers(): Observable<UserInformationDTO[]> {
-    return this.http.get<UserInformationDTO[]>(this.rootConst.WEB_SERVER_NEWUSERS);
+    return this.http.get<UserInformationDTO[]>(this.rootConst.SERVER_NEWUSERS);
   }
 
   getUserInformation(username: string): Observable<UserInformationDTO> {
 
-    return this.http.post<UserInformationDTO>(this.rootConst.WEB_SERVER_USERINFORMATION, username, this.httpOptions);
+    return this.http.post<UserInformationDTO>(this.rootConst.SERVER_USERINFORMATION, username, this.httpOptions);
 
   }
 
   getAllLocations(): Observable<LocationDTO[]> {
-    return this.http.get<LocationDTO[]>(this.rootConst.WEB_SERVER_LOCATIONS);
+    return this.http.get<LocationDTO[]>(this.rootConst.SERVER_LOCATIONS);
   }
 }
