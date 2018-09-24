@@ -14,28 +14,28 @@ public class CheckList implements Serializable{
     @JoinColumn(name = "user_account")
     private User userAccount;
 
-    @Column(columnDefinition="NUMBER(1)")
+    @Column(columnDefinition="NUMERIC(1)")
     private boolean initialPassword;
 
-    @Column(columnDefinition="NUMBER(1)")
+    @Column(columnDefinition="NUMERIC(1)")
     private boolean laptopOrder;
 
-    @Column(columnDefinition="NUMBER(1)")
+    @Column(columnDefinition="NUMERIC(1)")
     private boolean hasBuddyAssigned;
 
-    @Column(columnDefinition="NUMBER(1)")
+    @Column(columnDefinition="NUMERIC(1)")
     private boolean mailSentToBuddy;
 
-    @Column(columnDefinition="NUMBER(1)")
+    @Column(columnDefinition="NUMERIC(1)")
     private boolean mailSent;
 
-    @Column(columnDefinition="NUMBER(1)")
+    @Column(columnDefinition="NUMERIC(1)")
     private boolean isUserInOVA;
 
-    @Column(columnDefinition="NUMBER(1)")
+    @Column(columnDefinition="NUMERIC(1)")
     private boolean hasGermanCourseAssigned;
 
-    @Column(columnDefinition="NUMBER(1)")
+    @Column(columnDefinition="NUMERIC(1)")
     private boolean isAddedToVerteiler;
 
     public Integer getIdCheckList() {
