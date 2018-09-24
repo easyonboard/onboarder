@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {UserService} from './service/user.service';
 import {LoginComponent} from './login/login.component';
@@ -61,8 +61,11 @@ import {
   MatTooltipModule,
 } from '@angular/material';
 import {UtilityService} from './service/utility.service';
-import { TimepickerDirective, Angular5TimePickerModule } from 'angular5-time-picker';
-import { DialogProfileInfoComponent } from './common/DialogProfileInfoComponent/dialog-profile-info.component';
+import {TimepickerDirective, Angular5TimePickerModule} from 'angular5-time-picker';
+import {DialogProfileInfoComponent} from './common/DialogProfileInfoComponent/dialog-profile-info.component';
+import {Interceptor} from './common/core-auth/interceptor';
+import {AuthService} from './common/core-auth/auth.service';
+import {TokenStorage} from './common/core-auth/token.storage';
 
 @NgModule({
   declarations: [
@@ -147,7 +150,16 @@ import { DialogProfileInfoComponent } from './common/DialogProfileInfoComponent/
     ExcelService,
     TutorialService,
     EventService,
-    LocationService],
+    LocationService,
+    AuthService,
+    TokenStorage,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true
+    }
+
+  ],
   bootstrap: [AppComponent]
 })
 

@@ -21,6 +21,7 @@ public class Location implements Serializable {
     private LocationName locationName;
     @NotNull
     @Column
+    @Embedded
     private String locationAddress;
     @NotNull
     @Column

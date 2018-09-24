@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
 @EntityScan(basePackages = {"entity"})
-@ComponentScan(basePackages = {"controller", "dao", "service", "validator"})
+@ComponentScan(basePackages = {"controller", "dao", "service", "validator", "config"})
 @EnableJpaRepositories(basePackages = "dao")
 @SpringBootApplication
 public class SpringBootApp extends ResourceServerConfigurerAdapter {

@@ -50,7 +50,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
             this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
           },
           err => {
-            this.noDraftsMessage = err.error.message;
+            this.router.navigate(['/login']);
           });
       });
   }

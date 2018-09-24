@@ -6,11 +6,14 @@ buildscript {
     }
     dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") }
 }
-
+plugins {
+    id 'org.springframework.boot' version '1.4.5.RELEASE'
+}
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 bootRepackage.enabled=false
+
 jar {
     baseName = 'onborder-server'
 }
@@ -20,6 +23,7 @@ repositories {
     mavenCentral()
     mavenLocal()
 }
+
 dependencies {
     compile project(':persistence')
     compile project(':business')
@@ -42,6 +46,10 @@ dependencies {
 
 
 //    compile 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.2.0.RELEASE'
+
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.6.0'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '2.0.0.RELEASE', ext: 'pom'
 
 
 }

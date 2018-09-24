@@ -22,11 +22,6 @@ export class UserService {
     this.message = '';
   }
 
-  login(user: UserDTO): Observable<UserDTO> {
-    const body = JSON.stringify({username: user.username, password: user.password});
-    return this.http.post<UserDTO>(this.rootConst.SERVER_AUTHENTIFICATION, body, this.httpOptions);
-  }
-
   addUser(user: UserDTO, role: RoleType, userInfo: UserInformationDTO) {
     const body = JSON.stringify({user: user, role: role, userInfo: userInfo});
     const result = this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
@@ -69,57 +64,54 @@ export class UserService {
 
   getCheckListForUser(user: UserDTO): Observable<Map<string, boolean>> {
     const body = JSON.stringify(user);
-    return this.http.post<Map<string, boolean>>(this.rootConst.WEB_SERVER_CHECKLIST, body, this.httpOptions);
+    return this.http.post<Map<string, boolean>>(this.rootConst.SERVER_CHECKLIST, body, this.httpOptions);
 
   }
 
   saveCheckList(user: string, checkList: TSMap<string, boolean>): Observable<Map<string, boolean>> {
     const body = JSON.stringify({user: user, check: checkList.toJSON()});
-    return this.http.post<Map<string, boolean>>(this.rootConst.WEB_SERVER_SAVE_CHECKLIST, body, this.httpOptions);
+    return this.http.post<Map<string, boolean>>(this.rootConst.SERVER_SAVE_CHECKLIST, body, this.httpOptions);
   }
 
   getUsersInDepartment(username: string): Observable<UserDTO[]> {
     return this.http.get<UserDTO[]>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
   }
 
-  // getDepartmentForUsername(username): Observable<any> {
-  //   return this.http.get<any>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
-  // }
 
   removeUser(username: String): Observable<Boolean> {
 
-    return this.http.post<Boolean>(this.rootConst.REMOVE_USER, username, this.httpOptions);
+    return this.http.post<Boolean>(this.rootConst.SERVER_REMOVE_USER, username, this.httpOptions);
 
   }
 
   isMailSent(userAccount: UserDTO): Observable<Boolean> {
 
-    return this.http.post<Boolean>(this.rootConst.WEB_SERVER_STATUS_MAIL, userAccount.username, this.httpOptions);
+    return this.http.post<Boolean>(this.rootConst.SERVER_STATUS_MAIL, userAccount.username, this.httpOptions);
 
   }
 
   getUserLeaveCheckList(user: string): Observable<LeaveCheckList> {
 
-    return this.http.post<LeaveCheckList>(this.rootConst.WEB_SERVER_LEAVE_CHECKLIST, user, this.httpOptions);
+    return this.http.post<LeaveCheckList>(this.rootConst.SERVER_LEAVE_CHECKLIST, user, this.httpOptions);
   }
 
   saveLeaveCheckList(leaveCheckList: LeaveCheckList): Observable<LeaveCheckList> {
     const body = JSON.stringify(leaveCheckList);
-    const result = this.http.post<LeaveCheckList>(this.rootConst.WEB_SERVER_SAVE_LEAVE_CHECKLIST, body, this.httpOptions);
+    const result = this.http.post<LeaveCheckList>(this.rootConst.SERVER_SAVE_LEAVE_CHECKLIST, body, this.httpOptions);
     console.log(result);
     return result;
   }
 
   checkUnicity(username: String, msgMail: String): Observable<boolean> {
     const body = JSON.stringify({username: username, msgMail: msgMail});
-    return this.http.post<boolean>(this.rootConst.CHECK_USER_UNICITY, body, this.httpOptions);
+    return this.http.post<boolean>(this.rootConst.SERVER_CHECK_USER_UNICITY, body, this.httpOptions);
   }
 
   getUserByUsername(username: string): Observable<UserDTO> {
     // if (username) {
-      return this.http.get<UserDTO>(`${this.rootConst.USER_BY_USERNAME}${username}`);
+    return this.http.get<UserDTO>(`${this.rootConst.SERVER_USER_BY_USERNAME}${username}`);
     // } else {
-      // throw error;
+    // throw error;
     // }
   }
 }
