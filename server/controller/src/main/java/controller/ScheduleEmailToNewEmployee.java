@@ -1,9 +1,7 @@
 package controller;
 
-import dao.UserInformationRepository;
 import dao.UserRepository;
 import entity.User;
-import entity.UserInformation;
 import exception.types.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,14 +21,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.logging.Logger;
 
-//@Component
 @Controller
 public class ScheduleEmailToNewEmployee {
     private static final String BUDDY_MAIL_SUBJECT = "Detalii inceput angajat nou";
     private static final String NEW_EMPLOYEE_MAIL_SUBJECT = "Data inceput msg";
 
-    @Autowired
-    private UserInformationRepository userInformationRepository;
 
     @Autowired
     private CheckListService checkListService;
@@ -50,13 +45,13 @@ public class ScheduleEmailToNewEmployee {
     // @Scheduled(cron = "0 0 19 * * MON-FRI")
     @RequestMapping(value = "/emailsch", method = RequestMethod.GET)
     public ResponseEntity reportCurrentTime() {
-        List<UserInformation> usersInfoForUserWhoStartNextWeek = userInformationRepository.findByStartDate(getNextWeekDate());
+        List<User> usersInfoForUserWhoStartNextWeek = userRepository.findByStartDate(getNextWeekDate());
         List<User> usersWhoStartNextWeek = new ArrayList<>();
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
         usersInfoForUserWhoStartNextWeek.stream()
                 .filter(userInformation -> hasNotNullFields(mandatoryFieldsFromUserInfoEntity, userInformation))
-                .forEach(userInformation -> usersWhoStartNextWeek.add(userInformation.getUserAccount()));
+                .forEach(usersWhoStartNextWeek::add);
 
         usersWhoStartNextWeek.stream()
                 .filter(user -> {
@@ -69,22 +64,21 @@ public class ScheduleEmailToNewEmployee {
                 })
                 .filter(user -> hasNotNullFields(mandatoryFieldsFromUserEntity, user))
                 .forEach(user -> {
-                    UserInformation ui = findUserInfoByUser(usersInfoForUserWhoStartNextWeek, user).get();
                     String dateWithZeroTime = null;
-                    dateWithZeroTime = formatter.format(ui.getStartDate());
-                    String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", ui.getBuddyUser().getName(), ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getLocation().getLocationAddress());
+                    dateWithZeroTime = formatter.format(user.getStartDate());
+                    String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", user.getBuddyUser().getName(), user.getFloor(), user.getLocation().getLocationName().name(), user.getLocation().getLocationAddress());
 
 //                    MailSender sender = new MailSender();
 //                    sender.sendMail(user.getEmail(), null, "", emailBody);
 
-                    Optional<User> abteilungsleiterForUser = findAbteilungsleiter(ui);
+                    Optional<User> abteilungsleiterForUser = findAbteilungsleiter(user);
                     if (abteilungsleiterForUser.isPresent()) {
                         sendEmail(user.getEmail(), abteilungsleiterForUser.get(), NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);
                     }
-                    User buddy = ui.getBuddyUser();
+                    User buddy = user.getBuddyUser();
                     if (buddy != null) {
                         String names[] = buddy.getName().split(" ");
-                        String emailBodyForBuddy = createEmailBodyForBuddy(names[0], user.getName(), dateWithZeroTime, "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
+                        String emailBodyForBuddy = createEmailBodyForBuddy(names[0], user.getName(), dateWithZeroTime, "09:00", user.getFloor(), user.getLocation().getLocationName().name(), user.getTeam());
                         sendEmail(buddy.getMsgMail(), null, BUDDY_MAIL_SUBJECT, emailBodyForBuddy);
                     }
 //                    List<User> abteilungsleiters = userRepository.getAbteilungsleiters();
@@ -106,7 +100,7 @@ public class ScheduleEmailToNewEmployee {
     }
 
     // TODO: findAbteilungsleiter ??
-    private Optional<User> findAbteilungsleiter(UserInformation user) {
+    private Optional<User> findAbteilungsleiter(User user) {
 //        return userRepository.getAbteilungsleiters().stream().filter(abteilungsleiter -> {
 //            UserInformation userInfo = this.userInformationDAO.getUserInformationForUserAccount(abteilungsleiter);
 //            return userInfo.getDepartment().equals(user.getDepartment());
@@ -152,12 +146,6 @@ public class ScheduleEmailToNewEmployee {
             LOGGER.info("Error while parse date  " + e.getMessage());
             return null;
         }
-    }
-
-    private Optional<UserInformation> findUserInfoByUser(List<UserInformation> usersInfoForUserWhoStartNextWeek, User user) {
-        return usersInfoForUserWhoStartNextWeek.stream()
-                .filter(userInformation -> userInformation.getUserAccount() == user)
-                .findFirst();
     }
 
     private boolean hasNotNullFields(List<String> mandatoryFieldsFromEntity, Object object) {

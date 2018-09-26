@@ -1,8 +1,11 @@
 package entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Data
 @Entity
 public class MeetingHall implements Serializable {
 
@@ -22,43 +25,4 @@ public class MeetingHall implements Serializable {
     @ManyToOne
     private Location location;
 
-    public int getIdMeetingHall() {
-        return idMeetingHall;
-    }
-
-    public void setIdMeetingHall(int idMeetingHall) {
-        this.idMeetingHall = idMeetingHall;
-    }
-
-    public String getHallName() {
-        return hallName;
-    }
-
-    public void setHallName(String hallName) {
-        this.hallName = hallName;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public int getFloor() {
-        return floor;
-    }
-
-    public void setFloor(int floor) {
-        this.floor = floor;
-    }
 }

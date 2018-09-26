@@ -15,9 +15,6 @@ public interface TutorialWithoutMateriallMapper extends AbstractMapper<Tutorial,
     })
     TutorialDto mapToDTO(Tutorial entity);
 
-    @Mappings({
-            @Mapping(target = "tutorialMaterials",ignore = true),
-    })
     Tutorial mapToEntity(TutorialDto tutorialDto, @MappingTarget Tutorial tutorial);
 
 }

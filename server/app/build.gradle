@@ -8,6 +8,7 @@ buildscript {
 }
 plugins {
     id 'org.springframework.boot' version '1.4.5.RELEASE'
+    id 'io.franzbecker.gradle-lombok' version '1.8'
 }
 apply plugin: 'java'
 apply plugin: 'eclipse'

@@ -1,12 +1,17 @@
 package entity;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 public class Department {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int idDepartment;
@@ -16,30 +21,6 @@ public class Department {
     private String departmentName;
 
     @OneToMany
-    @JoinColumn(name="idDepartment")
+    @JoinColumn(name = "idDepartment")
     private List<Department> childDepartments;
-
-    public int getIdDepartment() {
-        return idDepartment;
-    }
-
-    public void setIdDepartment(int idDepartment) {
-        this.idDepartment = idDepartment;
-    }
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
-    public List<Department> getChildDepartments() {
-        return childDepartments;
-    }
-
-    public void setChildDepartments(List<Department> childDepartments) {
-        this.childDepartments = childDepartments;
-    }
 }

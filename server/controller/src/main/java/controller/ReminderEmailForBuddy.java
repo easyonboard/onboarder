@@ -1,7 +1,7 @@
 package controller;
 
-import dao.UserInformationRepository;
-import entity.UserInformation;
+import dao.UserRepository;
+import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,19 +24,21 @@ public class ReminderEmailForBuddy {
     private final Logger LOGGER = Logger.getLogger(ScheduleEmailToNewEmployee.class.getName());
     MailSender sender = new MailSender();
 
+
     @Autowired
-    private UserInformationRepository userInformationRepository;
+    private UserRepository userRepository;
+
 
     // @Scheduled(cron = "0 59 8 * * MON-FRI")
     @RequestMapping(value = "/reminderBuddy", method = RequestMethod.GET)
     public void reminderForBuddy() {
-        List<UserInformation> usersInfoForUserWhoStartTomorrow = userInformationRepository.findByStartDate(getTomorrowDate());
-        usersInfoForUserWhoStartTomorrow.stream()
+        List<User> usersWhoStartTomorrow = userRepository.findByStartDate(getTomorrowDate());
+        usersWhoStartTomorrow.stream()
                 .filter(ui -> ui.getBuddyUser() != null);
 
-        usersInfoForUserWhoStartTomorrow
+        usersWhoStartTomorrow
                 .forEach(ui -> {
-                            String emailBody = createEmailBodyForBuddy(ui.getBuddyUser().getName(), ui.getUserAccount().getName(), "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
+                            String emailBody = createEmailBodyForBuddy(ui.getBuddyUser().getName(), ui.getName(), "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
                             sendEmail(ui.getBuddyUser().getEmail(), BUDDY_MAIL_SUBJECT, emailBody);
                         }
                 );

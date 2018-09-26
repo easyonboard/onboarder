@@ -1,68 +1,56 @@
 package dto;
+
+import entity.Department;
+import entity.Location;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Date;
+
+@Data
 public class UserDto {
 
+    @Getter
     private Integer idUser;
+
+    @Getter
+    @Setter
     private String name;
+    @Getter
+    @Setter
     private String username;
+    @Getter
+    @Setter
     private String password;
+    @Getter
+    @Setter
     private String email;
+    @Getter
+    @Setter
     private RoleDto role;
+    @Getter
+    @Setter
     private String msgMail;
-
-
-    public Integer getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public RoleDto getRole() {
-        return role;
-    }
-
-    public void setRole(RoleDto role) {
-        this.role = role;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getMsgMail() {
-        return msgMail;
-    }
-
-    public void setMsgMail(String msgMail) {
-        this.msgMail = msgMail;
-    }
+    @Getter
+    @Setter
+    private Date startDate;
+    @Getter
+    @Setter
+    private Department department;
+    @Getter
+    @Setter
+    private UserDto buddyUser;
+    @Getter
+    @Setter
+    private String team;
+    @Getter
+    @Setter
+    private Location location;
+    @Getter
+    @Setter
+    private String floor;
+    @Getter
+    @Setter
+    private String project;
 }

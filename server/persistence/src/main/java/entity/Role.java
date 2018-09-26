@@ -1,11 +1,17 @@
 package entity;
 
 import entity.enums.RoleType;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
+
+@Getter
+@Setter
 
 @Entity
 @NamedQueries({@NamedQuery(name = Role.FIND_ROLE_BY_ID, query = "select r from Role r where r.idRole=:idRole")})
@@ -27,22 +33,6 @@ public class Role implements Serializable {
 
     public Role(@NotNull RoleType role) {
         this.role = role;
-    }
-
-    public int getIdRole() {
-        return idRole;
-    }
-
-    public RoleType getRole() {
-        return role;
-    }
-
-    public void setRole(RoleType role) {
-        this.role = role;
-    }
-
-    public void setIdRole(int idRole) {
-        this.idRole = idRole;
     }
 
 }
