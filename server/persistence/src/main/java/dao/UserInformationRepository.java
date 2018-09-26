@@ -23,7 +23,7 @@ public interface UserInformationRepository extends JpaRepository<UserInformation
      * @param date: given Date
      * @return list of users
      */
-    List<UserInformation> findByStartDate(Date date);
+    List<UserInformation> findByStartDateBefore(Date date);
 
     /**
      *

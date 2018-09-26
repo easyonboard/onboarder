@@ -104,13 +104,5 @@ public class MailSender {
         }
     }
 
-
-
-
-//    public static void main(String[] args) {
-////        MailSender sender = new MailSender("senderMail","senderPassword");
-//        MailSender sender = new MailSender();
-//        sender.sendMail("receiverMail","subject","content");
-//    }
 }
 
