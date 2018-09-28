@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserDetailsToExport, UserDTO, UserInformationDTO} from '../../domain/user';
+import {UserDetailsToExport, UserDTO} from '../../domain/user';
 import {UserService} from '../../service/user.service';
 import {ExcelService} from '../../service/excel.service';
 import {UserInformationService} from '../../service/user-information.service';
@@ -13,12 +13,10 @@ export class UsersInDepartmentListComponent implements OnInit {
   [x: string]: any;
 
   public employeesInDepartment: UserDTO[];
-  private department = '';
   panelOpenState = false;
   allUserDetails: UserDetailsToExport[] = [];
   userDetails: UserDetailsToExport[] = [];
   userDetail: UserDetailsToExport;
-  userInformation: UserInformationDTO;
 
   public searchValue = '';
 

@@ -4,7 +4,7 @@ import {MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 import {UserInformationService} from '../../service/user-information.service';
 
 import {UserInfoFormularComponent} from '../user-info-formular/user-info-formular.component';
-import {UserInformationDTO} from '../../domain/user';
+import {UserDTO} from '../../domain/user';
 
 @Component({
   selector: 'app-user-info-update',
@@ -16,13 +16,13 @@ export class UserInfoUpdateComponent implements OnInit {
   @ViewChild(UserInfoFormularComponent)
   private childUserInfoFormularComponent: UserInfoFormularComponent;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public userInformation: UserInformationDTO,
+  constructor(@Inject(MAT_DIALOG_DATA) public userInformation: UserDTO,
               private userInformationService: UserInformationService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
     console.log(this.userInformation);
-    this.childUserInfoFormularComponent.userInformation.idUserInformation = this.userInformation.idUserInformation;
+    this.childUserInfoFormularComponent.userInformation.idUser = this.userInformation.idUser;
     this.childUserInfoFormularComponent.userInformation.team = this.userInformation.team;
     this.childUserInfoFormularComponent.userInformation.location = this.userInformation.location;
     this.childUserInfoFormularComponent.userInformation.floor = this.userInformation.floor;
@@ -30,16 +30,15 @@ export class UserInfoUpdateComponent implements OnInit {
     this.childUserInfoFormularComponent.userInformation.department = this.userInformation.department;
     this.childUserInfoFormularComponent.userInformation.buddyUser = this.userInformation.buddyUser;
     this.childUserInfoFormularComponent.userInformation.startDate = this.userInformation.startDate;
-    this.childUserInfoFormularComponent.userInformation.userAccount = this.userInformation.userAccount;
   }
 
   updateUserInformation(): void {
     this.userInformationService.updateUserInformation(this.childUserInfoFormularComponent.userInformation).subscribe(
       value => {
         this.snackBarMessagePopup('User info updated!', 'Close');
-        this.userInformationService.getUserInformation(this.userInformation.userAccount.username).subscribe(resp => {
+        this.userInformationService.getUserInformation(this.userInformation.username).subscribe(resp => {
           this.userInformation = resp;
-          this.childUserInfoFormularComponent.userInformation.idUserInformation = this.userInformation.idUserInformation;
+          this.childUserInfoFormularComponent.userInformation.idUser = this.userInformation.idUser;
           this.childUserInfoFormularComponent.userInformation.team = this.userInformation.team;
           this.childUserInfoFormularComponent.userInformation.location = this.userInformation.location;
           this.childUserInfoFormularComponent.userInformation.floor = this.userInformation.floor;
@@ -47,7 +46,6 @@ export class UserInfoUpdateComponent implements OnInit {
           this.childUserInfoFormularComponent.userInformation.department = this.userInformation.department;
           this.childUserInfoFormularComponent.userInformation.buddyUser = this.userInformation.buddyUser;
           this.childUserInfoFormularComponent.userInformation.startDate = this.userInformation.startDate;
-          this.childUserInfoFormularComponent.userInformation.userAccount = this.userInformation.userAccount;
         });
 
       },

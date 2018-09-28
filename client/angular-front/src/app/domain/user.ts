@@ -18,7 +18,7 @@ export class UserDTO {
   location: LocationDTO;
   floor: string;
   project: string;
-
+  startDateString: String;
 
 
 }

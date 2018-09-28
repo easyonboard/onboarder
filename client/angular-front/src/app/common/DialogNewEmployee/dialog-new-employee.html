@@ -8,9 +8,9 @@
 </mat-dialog-content>
 
 <mat-dialog-content style="height:550px; overflow: initial">
-    <mat-card *ngFor="let userInfo of newEmployees;  let i = index">
-        <div *ngIf="mailSentValueForUsers.get(userInfo.idUserInformation)">
-            <i class="material-icons" style="padding: 10px" matTooltip="Mail is sent to user"  matTooltipPosition="below" matTooltipClass="tool-tip-class">done</i> {{userInfo.userAccount.name}}
+    <mat-card *ngFor="let userInfo of newEmployees">
+        <div *ngIf="mailSentValueForUsers.get(userInfo.idUser)">
+            <i class="material-icons" style="padding: 10px" matTooltip="Mail is sent to user"  matTooltipPosition="below" matTooltipClass="tool-tip-class">done</i> {{userInfo.name}}
             <br/>
             <i class="material-icons" style="padding: 10px">
         calendar_today
@@ -18,8 +18,8 @@
             <br/>
         </div>
         <br/>
-        <div *ngIf="!mailSentValueForUsers.get(userInfo.idUserInformation)">
-            <i class="material-icons" *ngIf="!mailSentValueForUsers.get(userInfo.idUserInformation)" style="padding: 10px" matTooltip="Mail is not sent to user" matTooltipPosition="below" matTooltipClass="tool-tip-class">error_outline</i> {{userInfo.userAccount.name}}
+        <div *ngIf="!mailSentValueForUsers.get(userInfo.idUser)">
+            <i class="material-icons" *ngIf="!mailSentValueForUsers.get(userInfo.idUser)" style="padding: 10px" matTooltip="Mail is not sent to user" matTooltipPosition="below" matTooltipClass="tool-tip-class">error_outline</i> {{userInfo.name}}
             <br/>
             <i class="material-icons" style="padding: 10px">
         calendar_today
@@ -29,8 +29,8 @@
             <button mat-button color="warn" (click)="openUserInfoModal(userInfo)">User data or checklist is not complete</button>
         </div>
         <br/>
-        <button mat-raised-button (click)="openCheckList(userInfo.userAccount)" title="Check list for user">
-      Open check list for {{userInfo.userAccount.name}}
+        <button mat-raised-button (click)="openCheckList(userInfo)" title="Check list for user">
+      Open check list for {{userInfo.name}}
     </button>
     </mat-card>
     <br>
