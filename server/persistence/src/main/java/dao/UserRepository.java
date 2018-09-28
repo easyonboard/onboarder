@@ -1,7 +1,7 @@
 package dao;
 
+import entity.Department;
 import entity.User;
-import entity.enums.DepartmentType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,10 +18,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findByNameContainingIgnoreCase(String name);
 
-    @Query("select ui.userAccount from UserInformation ui where ui.department=:department")
-    List<User> findByDepartment(@Param("department") DepartmentType department);
+    List<User> findByDepartment(Department department);
 
-    @Query("select ui.department from UserInformation ui where ui.userAccount.username=:username")
+    @Query("select ui.department from User ui where ui.username=:username")
     String findDepartmentByUsername(@Param("username") String username);
 
 

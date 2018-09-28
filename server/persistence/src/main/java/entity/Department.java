@@ -1,19 +1,19 @@
 package entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
-public class Department {
+public class Department implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idDepartment;
 
     @Column
@@ -23,4 +23,7 @@ public class Department {
     @OneToMany
     @JoinColumn(name = "idDepartment")
     private List<Department> childDepartments;
+
+    public Department(){}
+
 }

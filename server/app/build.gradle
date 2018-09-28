@@ -32,24 +32,13 @@ dependencies {
 
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-web')
-    // https://mvnrepository.com/artifact/xml-apis/xml-apis
     compile group: 'xml-apis', name: 'xml-apis', version: '1.4.01'
     testCompile('org.springframework.boot:spring-boot-starter-test')
     compile files("ojdbc6.jar")
-//    compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.1.0.RELEASE'
-//    compile group: 'org.springframework.security', name: 'spring-security-config', version: '4.2.3.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
-//    compile 'org.springframework.boot:spring-boot-starter-security'
-    // https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2
     compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.2.0.RELEASE'
-    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-config
     compile group: 'org.springframework.security', name: 'spring-security-config'
-
-
-//    compile 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.2.0.RELEASE'
-
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.6.0'
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '2.0.0.RELEASE', ext: 'pom'
     compile group: 'org.postgresql', name: 'postgresql', version: '42.1.1'
 

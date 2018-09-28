@@ -9,7 +9,6 @@ import dto.mapper.CheckListMapper;
 import dto.mapper.LeaveCheckListMapper;
 import dto.mapper.UserMapper;
 import entity.*;
-import entity.enums.DepartmentType;
 import exception.types.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +39,9 @@ public class UserService {
 
     @Autowired
     private LeaveCheckListRepository leaveCheckListRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
 
     @Autowired
@@ -186,8 +188,7 @@ public class UserService {
             String username) throws EntityNotFoundException, FieldNotFoundException {
 
         String department = getDepartmentForUser(username);
-        DepartmentType departmentType = DepartmentType.valueOf(department);
-        List<User> users = userRepository.findByDepartment(departmentType);
+        List<User> users = userRepository.findByDepartment(departmentRepository.findByDepartmentName(department));
         if (users.isEmpty()) {
             throw new EntityNotFoundException(userForDepartmentNotFound(department));
         }
