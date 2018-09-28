@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {RootConst} from '../util/RootConst';
 import {LocationDTO} from '../domain/location';
 import {UserDTO} from '../domain/user';
+import {Department} from '../domain/Department';
 
 @Injectable()
 export class UserInformationService {
@@ -34,5 +35,9 @@ export class UserInformationService {
 
   getAllLocations(): Observable<LocationDTO[]> {
     return this.http.get<LocationDTO[]>(this.rootConst.SERVER_LOCATIONS);
+  }
+
+  getAllDepartments(): Observable<Department[]> {
+    return this.http.get<Department[]>(this.rootConst.SERVER_DEPARTMENTS);
   }
 }

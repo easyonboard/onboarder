@@ -48,15 +48,14 @@ export class RootConst {
 
   public SERVER_LOCATIONS = this.SERVER_ENDPOINT + 'locations';
   public SERVER_ROOMS = this.SERVER_ENDPOINT + 'meetingHalls';
+  public SERVER_DEPARTMENTS = this.SERVER_ENDPOINT + 'departments';
 
 
   public GENERATE_TOKEN_URL = 'http://localhost:8090/token/generate-token';
-
-
   public FRONT_TUTORIALS_PAGE = '/tutorials';
-
   public FRONT_LOGIN_PAGE = '/login';
-
   public FRONT_INFOS_PAGE = '/info';
   public FRONT_EVENTS_PAGE = 'events/viewEvents';
+
+
 }

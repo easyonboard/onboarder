@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.*;
+import entity.Department;
 import entity.enums.RoleType;
 import exception.types.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -293,6 +294,15 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "departments", method = RequestMethod.GET)
+    public ResponseEntity<List<Department>> getUserByName() {
+
+        return new ResponseEntity(userService.getAllDepartments(), HttpStatus.OK);
+    }
+
     private String getUser(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);
@@ -305,4 +315,5 @@ public class UserController {
         JsonNode node = mapper.readTree(str);
         return mapper.convertValue(node.get("check"), CheckListDto.class);
     }
+
 }

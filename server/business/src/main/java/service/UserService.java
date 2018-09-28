@@ -466,4 +466,8 @@ public class UserService {
         return !(userRepository.findByUsername(username).isPresent() || userRepository.findByMsgMail(
                 msgMail).isPresent());
     }
+
+    public List<Department> getAllDepartments() {
+        return departmentRepository.findAll();
+    }
 }
