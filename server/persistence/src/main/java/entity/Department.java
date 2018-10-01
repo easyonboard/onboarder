@@ -1,15 +1,15 @@
 package entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
-@Getter
-@Setter
+@NoArgsConstructor
+@Data
 @Entity
 public class Department implements Serializable {
     @Id
@@ -20,10 +20,10 @@ public class Department implements Serializable {
     @NotNull
     private String departmentName;
 
-    @OneToMany
-    @JoinColumn(name = "idDepartment")
-    private List<Department> childDepartments;
+    @ManyToOne
+    private Department parent;
 
-    public Department(){}
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    private List<Department> childDepartments;
 
 }
