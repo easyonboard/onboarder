@@ -39,8 +39,9 @@ public class User implements Serializable {
 
     @Column
     private Date startDate;
-
-    @Column
+    
+    @ManyToOne
+    @JoinColumn(name = "idDepartment")
     private Department department;
 
     @ManyToOne

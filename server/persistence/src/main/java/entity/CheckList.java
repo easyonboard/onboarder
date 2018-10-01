@@ -17,27 +17,27 @@ public class CheckList implements Serializable{
     @JoinColumn(name = "user_account")
     private User userAccount;
 
-    @Column(columnDefinition="NUMERIC(1)")
+    @Column
     private boolean initialPassword;
 
-    @Column(columnDefinition="NUMERIC(1)")
+    @Column
     private boolean laptopOrder;
 
-    @Column(columnDefinition="NUMERIC(1)")
+    @Column
     private boolean hasBuddyAssigned;
 
-    @Column(columnDefinition="NUMERIC(1)")
+    @Column
     private boolean mailSentToBuddy;
 
-    @Column(columnDefinition="NUMERIC(1)")
+    @Column
     private boolean mailSent;
 
-    @Column(columnDefinition="NUMERIC(1)")
+    @Column
     private boolean isUserInOVA;
 
-    @Column(columnDefinition="NUMERIC(1)")
+    @Column
     private boolean hasGermanCourseAssigned;
 
-    @Column(columnDefinition="NUMERIC(1)")
+    @Column
     private boolean isAddedToVerteiler;
 }
