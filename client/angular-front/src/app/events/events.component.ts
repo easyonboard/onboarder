@@ -3,6 +3,7 @@ import {EventService} from '../service/event.service';
 import {EventDTO} from '../domain/event';
 import {UserDTO} from '../domain/user';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {LocalStorageConst} from '../util/LocalStorageConst';
 
 @Component({
   selector: 'app-events',
@@ -24,7 +25,7 @@ export class EventsComponent implements OnInit {
     this.upcomingEvents = [];
     this.canEnroll = true;
     this.user = new UserDTO();
-    this.user.username = localStorage.getItem('userLogged');
+    this.user.username = localStorage.getItem(LocalStorageConst._USER_USERNAME);
   }
 
   ngOnInit() {

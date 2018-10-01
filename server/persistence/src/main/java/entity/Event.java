@@ -1,6 +1,6 @@
 package entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -8,7 +8,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
+@Builder
 @Entity
 public class Event implements Serializable {
 
@@ -19,8 +25,6 @@ public class Event implements Serializable {
     @Column
     private String titleEvent;
 
-    @Lob
-    @Size(max = 500)
     @Column
     private String overview;
 

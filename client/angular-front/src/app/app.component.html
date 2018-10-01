@@ -80,18 +80,18 @@
                 </mat-menu>
             </div>
 
-            <!--<div fxFlex fxLayout="row">-->
-                <!--<button mat-button [matMenuTriggerFor]="userManagement" class="menuItemButton">-->
-          <!--<i class="fa fa-user-circle-o"></i>-->
-          <!--{{username}}-->
-          <!--<span class="caret" style="margin-left: 3px"></span>-->
-        <!--</button>-->
-                <!--<mat-menu #userManagement="matMenu" xPosition="after">-->
-                    <!--<button mat-menu-item (click)="openEditProfileDialog()"> Change password</button>-->
-                    <!--<button mat-menu-item (click)="openProfileInfoDialog()"> Profile information</button>-->
-                    <!--<button mat-menu-item (click)="openToDoListForBuddy()">Mate TO DO List</button>-->
-                <!--</mat-menu>-->
-            <!--</div>-->
+            <div fxFlex fxLayout="row">
+                <button mat-button [matMenuTriggerFor]="profile" class="menuItemButton">
+          <i class="fa fa-user-circle-o"></i>
+          {{username}}
+          <span class="caret" style="margin-left: 3px"></span>
+        </button>
+                <mat-menu #profile="matMenu" xPosition="after">
+                    <button mat-menu-item (click)="openEditProfileDialog()"> Change password</button>
+                    <button mat-menu-item (click)="openProfileInfoDialog()"> Profile information</button>
+                    <button mat-menu-item (click)="openToDoListForBuddy()">Mate TO DO List</button>
+                </mat-menu>
+            </div>
 
 
             <div fxFlex fxLayout="row">

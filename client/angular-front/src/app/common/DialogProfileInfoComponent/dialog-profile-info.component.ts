@@ -15,10 +15,12 @@ export class DialogProfileInfoComponent implements OnInit {
   username: string;
 
   constructor(private userService: UserService, private userInfoService: UserInformationService, private dialog: MatDialog) {
-    this.username = localStorage.getItem('userLogged');
+
   }
 
   ngOnInit() {
+    this.username = localStorage.getItem('username');
+    console.log(this.username)
     this.userService.getUserByUsername(this.username).subscribe(
       resp => {
         this.user = resp;
