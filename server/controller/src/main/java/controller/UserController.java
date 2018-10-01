@@ -183,7 +183,7 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "users/getUserInformation", method = RequestMethod.POST)
+    @RequestMapping(value = "getUserInformation", method = RequestMethod.POST)
     public ResponseEntity getUserInformationForUser(@RequestBody String username) {
 
         try {
