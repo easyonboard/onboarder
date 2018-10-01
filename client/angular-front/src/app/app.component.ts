@@ -101,7 +101,7 @@ export class AppComponent {
     if (!this.userIsLogged()) {
       return false;
     }
-    if (this.role === 'ROLE_HR' || this.role === 'ROLE_ADMIN') {
+    if (this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN') {
       return true;
     } else {
       return false;
