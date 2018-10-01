@@ -22,7 +22,7 @@
     <label>Department</label>
     <mat-select placeholder="Select department" [(ngModel)]="userInformation.department" (selectionChange)="selectValue($event)">
         <mat-option *ngFor="let departmentValue of departments" [value]="departmentValue">
-            {{departmentValue}}
+            {{departmentValue.departmentName}}
         </mat-option>
     </mat-select>
 </div>

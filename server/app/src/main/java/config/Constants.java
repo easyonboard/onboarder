@@ -1,9 +1,7 @@
 package config;
 
-import java.nio.charset.Charset;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Random;
 
 public final class Constants {
     private static Map<String, String> signinKeysForUser;

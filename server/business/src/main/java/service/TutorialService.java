@@ -51,8 +51,8 @@ public class TutorialService {
 
         Tutorial tutorial = tutorialMapper.mapToEntity(tutorialDto, new Tutorial());
         tutorial.setContactPersons(getUsersByMsgEmail(contactPersonMsgMail));
-        if (tutorial.getDraft() == null) {
-            tutorial.setDraft(false);
+        if (tutorial.getIsDraft() == null) {
+            tutorial.setIsDraft(false);
         }
        Tutorial tutorialSaved= tutorialRepository.save(tutorial);
         if(tutorialSaved==null){

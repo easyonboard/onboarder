@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserDetailsToExport, UserDTO, UserInformationDTO} from '../../domain/user';
+import {UserDetailsToExport, UserDTO} from '../../domain/user';
 import {UserService} from '../../service/user.service';
 import {ExcelService} from '../../service/excel.service';
 import {UserInformationService} from '../../service/user-information.service';
@@ -13,12 +13,10 @@ export class UsersInDepartmentListComponent implements OnInit {
   [x: string]: any;
 
   public employeesInDepartment: UserDTO[];
-  private department = '';
   panelOpenState = false;
   allUserDetails: UserDetailsToExport[] = [];
   userDetails: UserDetailsToExport[] = [];
   userDetail: UserDetailsToExport;
-  userInformation: UserInformationDTO;
 
   public searchValue = '';
 
@@ -30,15 +28,6 @@ export class UsersInDepartmentListComponent implements OnInit {
   ngOnInit() {
 
     const userLogged: string = localStorage.getItem('userLogged');
-
-    // console.log('inainte de get department');
-    // this.userService.getDepartmentForUsername(userLogged).subscribe(value => {
-    //   console.log('-------------->' + value);
-    //   this.department = value;
-    //   console.log(this.department);
-    // });
-    // console.log('---->' + this.department);
-    // console.log('dupa get department');
     this.employeesInDepartment = [];
     this.userService.getUsersInDepartment(userLogged).subscribe(employeesInDepartment => {
       this.employeesInDepartment = employeesInDepartment;

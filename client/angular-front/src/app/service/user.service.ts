@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
-import {LeaveCheckList, UserDTO, UserInformationDTO} from '../domain/user';
+import {LeaveCheckList, UserDTO} from '../domain/user';
 import {RootConst} from '../util/RootConst';
 import {TSMap} from 'typescript-map';
 import {RoleType} from '../domain/role';
@@ -22,7 +22,7 @@ export class UserService {
     this.message = '';
   }
 
-  addUser(user: UserDTO, role: RoleType, userInfo: UserInformationDTO) {
+  addUser(user: UserDTO, role: RoleType, userInfo: UserDTO) {
     const body = JSON.stringify({user: user, role: role, userInfo: userInfo});
     const result = this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
     return result;
