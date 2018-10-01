@@ -15,5 +15,4 @@ public class TutorialMaterialDto {
     private String description;
     private TutorialDto tutorial;
 
-    public TutorialMaterialDto(){}
 }

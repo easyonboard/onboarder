@@ -12,7 +12,6 @@ import java.util.List;
 
 @Getter
 @Setter
-
 @Entity
 @NamedQueries({@NamedQuery(name = Role.FIND_ROLE_BY_ID, query = "select r from Role r where r.idRole=:idRole")})
 public class Role implements Serializable {

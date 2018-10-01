@@ -61,11 +61,14 @@ import {
   MatTooltipModule,
 } from '@angular/material';
 import {UtilityService} from './service/utility.service';
-import {TimepickerDirective, Angular5TimePickerModule} from 'angular5-time-picker';
+import {Angular5TimePickerModule} from 'angular5-time-picker';
 import {DialogProfileInfoComponent} from './common/DialogProfileInfoComponent/dialog-profile-info.component';
 import {Interceptor} from './common/core-auth/interceptor';
 import {AuthService} from './common/core-auth/auth.service';
 import {TokenStorage} from './common/core-auth/token.storage';
+
+import {LoggedInGuard} from './guard/logged-in.guard';
+
 
 @NgModule({
   declarations: [
@@ -153,6 +156,7 @@ import {TokenStorage} from './common/core-auth/token.storage';
     LocationService,
     AuthService,
     TokenStorage,
+    LoggedInGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
