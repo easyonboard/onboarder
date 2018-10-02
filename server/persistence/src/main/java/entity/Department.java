@@ -9,7 +9,13 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
+@Builder
 @Entity
 public class Department implements Serializable {
     @Id
@@ -27,35 +33,4 @@ public class Department implements Serializable {
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Department> childDepartments;
 
-    public int getIdDepartment() {
-        return idDepartment;
-    }
-
-    public void setIdDepartment(int idDepartment) {
-        this.idDepartment = idDepartment;
-    }
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
-    public Department getParent() {
-        return parent;
-    }
-
-    public void setParent(Department parent) {
-        this.parent = parent;
-    }
-
-    public List<Department> getChildDepartments() {
-        return childDepartments;
-    }
-
-    public void setChildDepartments(List<Department> childDepartments) {
-        this.childDepartments = childDepartments;
-    }
 }

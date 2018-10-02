@@ -1,21 +1,10 @@
 package entity.enums;
 
 public enum RoleType {
-    ROLE_ADMIN(1),
-    ROLE_CONTENT_MANAGER(2),
-    ROLE_ABTEILUNGSLEITER(3),
-    ROLE_HR(4),
-    ROLE_MATE(5),
-    ROLE_USER(6);
-
-    private int roleTypeId;
-
-    RoleType(int roleTypeId) {
-        this.roleTypeId = roleTypeId;
-    }
-
-    public int getRoleTypeId() {
-        return roleTypeId;
-    }
-
+    ROLE_ADMIN,
+    ROLE_CONTENT_MANAGER,
+    ROLE_ABTEILUNGSLEITER,
+    ROLE_HR,
+    ROLE_MATE,
+    ROLE_USER;
 }

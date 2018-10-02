@@ -1,6 +1,7 @@
 package entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import entity.enums.RoleType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -52,6 +53,7 @@ public class User implements Serializable {
     @JoinColumn(name = "idDepartment")
     private Department department;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_buddy_id")
     private User buddyUser;
@@ -62,9 +64,8 @@ public class User implements Serializable {
     private String floor;
     @Column
     private String project;
-
-    @ManyToOne
-    private Role role;
+    @Column
+    private RoleType role;
 
 
     @JsonBackReference(value = "user-event-contact-person")

@@ -78,7 +78,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Optional<User> userLogged = userRepository.findByUsername(username);
         String role = null;
         if (userLogged.isPresent()) {
-            role = userLogged.get().getRole().getRole().name();
+            role = userLogged.get().getRole().name();
         }
         return role;
     }

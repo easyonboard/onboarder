@@ -24,6 +24,6 @@ public class AuthUserService implements UserDetailsService {
         } catch (EntityNotFoundException e) {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), AuthorityUtils.createAuthorityList(user.getRole().getRole().name()));
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), AuthorityUtils.createAuthorityList(user.getRole().name()));
     }
 }

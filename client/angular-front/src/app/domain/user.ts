@@ -1,4 +1,4 @@
-import {RoleDTO} from './role';
+import {RoleDTO, RoleType} from './role';
 import {DepartmentType} from './departmentType';
 import {LocationDTO} from './location';
 import {Department} from './Department';
@@ -10,7 +10,6 @@ export class UserDTO {
   name: string;
   username: string;
   password: string;
-  role: RoleDTO;
   startDate: Date;
   department: Department;
   buddyUser: UserDTO;
@@ -19,6 +18,7 @@ export class UserDTO {
   floor: string;
   project: string;
   startDateString: String;
+  role: RoleType;
 
 
 }

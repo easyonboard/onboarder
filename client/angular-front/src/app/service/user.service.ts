@@ -22,8 +22,9 @@ export class UserService {
     this.message = '';
   }
 
-  addUser(user: UserDTO, role: RoleType, userInfo: UserDTO) {
-    const body = JSON.stringify({user: user, role: role, userInfo: userInfo});
+  addUser(user: UserDTO, role: RoleType) {
+
+    const body = JSON.stringify({user: user, role: role});
     const result = this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
     return result;
   }

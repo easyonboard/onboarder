@@ -45,7 +45,8 @@ export class UserAddComponent implements OnInit {
           unique = value1;
 
           if (unique === true) {
-            this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
+            this.setUserInfosFields()
+            this.userService.addUser(this.user, this.selectedRole).subscribe(
                 value2 => {
                     this.snackBarMessagePopup('Succes! You just add a new employee!', 'Close');
                     this.dialog.closeAll();
@@ -114,4 +115,14 @@ export class UserAddComponent implements OnInit {
       });
   }
 
+  private setUserInfosFields() {
+   this.user.buddyUser=this.childUserInfoFormularComponent.userInformation.buddyUser;
+   this.user.department=this.childUserInfoFormularComponent.userInformation.department;
+   this.user.floor=this.childUserInfoFormularComponent.userInformation.floor;
+   this.user.location=this.childUserInfoFormularComponent.userInformation.location;
+   this.user.project=this.childUserInfoFormularComponent.userInformation.project;
+   this.user.startDate=this.childUserInfoFormularComponent.userInformation.startDate;
+   this.user.team=this.childUserInfoFormularComponent.userInformation.team;
+
+  }
 }

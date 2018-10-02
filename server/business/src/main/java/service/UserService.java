@@ -9,6 +9,7 @@ import dto.mapper.CheckListMapper;
 import dto.mapper.LeaveCheckListMapper;
 import dto.mapper.UserMapper;
 import entity.*;
+import entity.enums.RoleType;
 import exception.types.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,7 @@ public class UserService {
     @Autowired
     private TutorialRepository tutorialRepository;
 
+
     private UserMapper userMapper = UserMapper.INSTANCE;
 
     private CheckListMapper checkListMapper = CheckListMapper.INSTANCE;
@@ -68,28 +70,25 @@ public class UserService {
         return userMapper.mapToDTO(entity.get());
     }
 
-    public void addUser(UserDto userDto) throws InvalidDataException, DatabaseException {
+    public void addUser(UserDto userDto, RoleType role) throws InvalidDataException {
 
         userDto.setPassword(encrypt(userDto.getUsername()));
         userValidator.validateUsername(userDto.getUsername());
         userValidator.validateUserData(userDto);
-
+        Department department = departmentRepository.findByDepartmentName(userDto.getDepartment().getDepartmentName());
         User user = new User();
-        User appUser = userRepository.save(userMapper.mapToEntity(userDto, user));
+        userDto.setRole(role);
+        userDto.setDepartment(department);
 
-        if (appUser == null) {
-            throw new DatabaseException(USER_SAVE_DATABASE_EXCEPTION);
-        }
-
+        User mappedUser = userMapper.mapToEntity(userDto, user);
         Optional<User> optionalUser = userRepository.findByUsername(userDto.getBuddyUser().getUsername());
         if (optionalUser.isPresent()) {
             User buddyUser = optionalUser.get();
-           addUserInfo(userDto, appUser, buddyUser);
-        } else {
-           addUserInfo(userDto, appUser, null);
-        }
+            mappedUser.setBuddyUser(buddyUser);
 
-        checkListService.addCheckList(userDto, appUser);
+        }
+        userRepository.save(mappedUser);
+
     }
 
 

@@ -8,6 +8,5 @@ export enum RoleType {
 }
 
 export class RoleDTO {
-  idRole: number;
   role: RoleType;
 }

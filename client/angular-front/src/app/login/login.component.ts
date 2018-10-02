@@ -72,43 +72,15 @@ export class LoginComponent implements OnInit, AfterContentInit {
         localStorage.setItem(LocalStorageConst._USER_USERNAME, username);
         this.setVisibileHeaderAndFooter('visible');
         this.userService.getUserByUsername(username).subscribe(user => {
-          localStorage.setItem(LocalStorageConst._USER_ROLE, user.role.role);
+          localStorage.setItem(LocalStorageConst._USER_ROLE, user.role.toString());
+          console.log(user)
         });
         this.router.navigate(['/info']);
       }, error => {
         console.log(error);
       }
     );
-    // this.userService.login({username, password} as UserDTO).subscribe((res: UserDTO) => {
-    //     if (res.username.length > 0) {
-    //       localStorage.setItem(LocalStorageConst._USER_LOGGED, res.username);
-    //       localStorage.setItem(LocalStorageConst._USER_LOGGED_ID, res.idUser.toString());
-    //       localStorage.setItem(LocalStorageConst._USER_ROLE, res.role.role);
-    //       localStorage.setItem(LocalStorageConst._MSG_MAIL, res.msgMail);
-    //       localStorage.setItem(LocalStorageConst._USER_FIRSTNAME, res.name.split(' ')[0]);
-    //       localStorage.setItem(LocalStorageConst._DEMO_ENABLED, LocalStorageConst._DISABLED);
-    //       for (let index = 0; index < this.headerDiv.length; index++) {
-    //         (<HTMLElement>this.headerDiv.item(index)).style.visibility = 'visible';
-    //       }
-    //       if (this.footerDiv != null) {
-    //         (<HTMLElement>this.footerDiv).style.visibility = 'visible';
-    //       }
-    //       this.router.navigateByUrl(this.rootConst.FRONT_INFOS_PAGE);
-    //       if (username === password) {
-    //         this.router.navigateByUrl(this.rootConst.FRONT_INFOS_PAGE);
-    //         this.snackBar.open('Please change your password', null, {
-    //           duration: 4000
-    //         });
-    //         this.commonService.openEditProfileDialog();
-    //       }
-    //     }
-    //   },
-    //   err => {
-    //     if (err.status === 403) {
-    //       this.userNotfound = 'Username or password wrong! Please try again.';
-    //     }
-    //     console.log(err);
-    //   });
+
 
   }
 }

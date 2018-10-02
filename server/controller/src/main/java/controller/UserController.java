@@ -3,7 +3,9 @@ package controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dto.*;
+import dto.CheckListDto;
+import dto.LeaveCheckListDto;
+import dto.UserDto;
 import entity.Department;
 import entity.enums.RoleType;
 import exception.types.*;
@@ -12,11 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import service.RoleService;
 import service.UserService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,10 +24,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private RoleService roleService;
-
-
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "users/addUser", method = RequestMethod.POST)
@@ -40,23 +36,14 @@ public class UserController {
             UserDto userDto = mapper.convertValue(node.get("user"), UserDto.class);
             RoleType role = mapper.convertValue(node.get("role"), RoleType.class);
 
-            RoleDto roleDto = null;
-            try {
-                roleDto = roleService.findRoleByType(role);
-            } catch (FieldNotFoundException e) {
-                return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-            }
-            userDto.setRole(roleDto);
 
-            userService.addUser(userDto);
+            userService.addUser(userDto,role);
         } catch (InvalidDataException exception) {
             return new ResponseEntity(exception, HttpStatus.BAD_REQUEST);
         } catch (JsonProcessingException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
-        } catch (DatabaseException e) {
-            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
