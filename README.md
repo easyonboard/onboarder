@@ -8,10 +8,10 @@ Use Case doc:
 * https://github.com/easyonboard/onboarder/blob/master/documentation/User%20Case%20doc.docx
 
 Installation requirements:
-* Oracle 11g Express Edition
-  * download link: http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html
-* SQL Developer
-  * http://www.oracle.com/technetwork/developer-tools/sql-developer/downloads/index.html
+* PostreSQL, version 10.5
+  * download link: https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+* dbForce Studio for PostreSQL
+  * https://www.devart.com/dbforge/postgresql/studio/download.html
 * Gradle
   * version: 4.3.1
   * link:
