@@ -1,15 +1,15 @@
-import {UserDTO} from './user';
-import {LocationDTO} from './location';
+import {User} from './user';
+import {Location} from './location';
 
-export class EventDTO {
+export class Event {
   idEvent: number;
   titleEvent: string;
   overview: string;
   keywords: string;
-  contactPerson: UserDTO;
-  enrolledUsers: UserDTO[];
+  contactPerson: User;
+  enrolledUsers: User[];
   maxEnrolledUsers: number;
-  location: LocationDTO;
+  location: Location;
   stringDate: string;
   eventDate: Date;
   eventTime: string;
@@ -23,6 +23,6 @@ export class MeetingHall {
   idMeetingHall: number;
   hallName: string;
   capacity: number;
-  location: LocationDTO;
+  location: Location;
   floor: number;
 }

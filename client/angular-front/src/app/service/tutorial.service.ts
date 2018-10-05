@@ -2,9 +2,9 @@ import {Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {RootConst} from '../util/RootConst';
-import {TutorialDTO} from '../domain/tutorial';
+import {Tutorial} from '../domain/tutorial';
 import {Observable} from 'rxjs/Observable';
-import {TutorialMaterialDTO} from '../domain/tutorialMaterial';
+import {Material} from '../domain/tutorialMaterial';
 
 @Injectable()
 export class TutorialService implements OnInit {
@@ -22,7 +22,7 @@ export class TutorialService implements OnInit {
   }
 
   /** !TODO */
-  addTutorial(tutorial: TutorialDTO, contactPersons: String[]): any {
+  addTutorial(tutorial: Tutorial, contactPersons: String[]): any {
     // tslint:disable-next-line:prefer-const
     let contactPersonMsgMails: String[] = [];
 
@@ -32,44 +32,36 @@ export class TutorialService implements OnInit {
     });
 
     const body = JSON.stringify({tutorial: tutorial, contactPersonMsgMails: contactPersonMsgMails});
-    return this.http.post<TutorialDTO>(this.rootConst.SERVER_ADD_TUTORIAL, body, this.httpOptions);
+    return this.http.post<Tutorial>(this.rootConst.SERVER_ADD_TUTORIAL, body, this.httpOptions);
   }
 
-  getTutorials(keyword?: string): Observable<TutorialDTO[]> {
+  getTutorials(keyword?: string): Observable<Tutorial[]> {
     if (keyword) {
-      return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_SEARCH_TUTORIAL_BY_KEYWORD}${keyword}`);
+      return this.http.get<Tutorial[]>(`${this.rootConst.SERVER_SEARCH_TUTORIAL_BY_KEYWORD}${keyword}`);
     }
-    return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_TUTORIALS_URL}`);
+    return this.http.get<Tutorial[]>(`${this.rootConst.SERVER_TUTORIALS_URL}`);
   }
 
-  getMaterialsForTutorialId(idTutorial: number): Observable<TutorialMaterialDTO[]> {
-    return this.http.get<TutorialMaterialDTO[]>(`${this.rootConst.SERVER_GET_MATERIALS_FOR_TUTORIAL}${idTutorial}`);
+  getMaterialsForTutorialId(idTutorial: number): Observable<Material[]> {
+    return this.http.get<Material[]>(`${this.rootConst.SERVER_GET_MATERIALS_FOR_TUTORIAL}${idTutorial}`);
   }
 
-  searchByKeyword(keyword: string): Observable<TutorialDTO[]> {
-    return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_SEARCH_TUTORIAL_BY_KEYWORD}${keyword}`);
+  searchByKeyword(keyword: string): Observable<Tutorial[]> {
+    return this.http.get<Tutorial[]>(`${this.rootConst.SERVER_SEARCH_TUTORIAL_BY_KEYWORD}${keyword}`);
   }
 
-  getTutorialWithId(tutorialId: number): Observable<TutorialDTO> {
-    return this.http.get<TutorialDTO>(`${this.rootConst.SERVER_SEARCH_TUTORIAL_BY_ID}${tutorialId}`);
+  getTutorialWithId(tutorialId: number): Observable<Tutorial> {
+    return this.http.get<Tutorial>(`${this.rootConst.SERVER_SEARCH_TUTORIAL_BY_ID}${tutorialId}`);
   }
 
-  deleteTutorial(idTutorial: number): Observable<TutorialDTO[]> {
+  deleteTutorial(idTutorial: number): Observable<Tutorial[]> {
     const body = JSON.stringify({idTutorial: idTutorial});
-    return this.http.post<TutorialDTO[]>(this.rootConst.SERVER_DELETE_TUTORIAL, body, this.httpOptions);
+    return this.http.post<Tutorial[]>(this.rootConst.SERVER_DELETE_TUTORIAL, body, this.httpOptions);
   }
 
-  updateTutorial(tutorial: TutorialDTO, contactPersons: String[]) {
+  updateTutorial(tutorial: Tutorial, contactPersons: String[]) {
     const body = JSON.stringify({tutorial: tutorial, contactPersons: contactPersons});
-    return this.http.post<TutorialDTO>(this.rootConst.SERVER_UPDATE_TUTORIAL, body, this.httpOptions);
+    return this.http.post<Tutorial>(this.rootConst.SERVER_UPDATE_TUTORIAL, body, this.httpOptions);
   }
 
-  getDraftsTutorialsForUser(userId: number, keyword?: string) {
-    if (keyword) {
-      keyword = keyword.replace(/[^\w\s]/gi, '');
-      return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_DRAFTS_TUTORIAL}${userId}&keyword=${keyword}`);
-    } else {
-      return this.http.get<TutorialDTO[]>(`${this.rootConst.SERVER_GET_DRAFTS_TUTORIAL}${userId}`);
-    }
-  }
 }

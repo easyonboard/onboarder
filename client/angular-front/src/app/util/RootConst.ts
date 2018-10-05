@@ -6,7 +6,7 @@ export class RootConst {
 
 
   public SERVER_ALL_USERS = this.SERVER_ENDPOINT + 'users/allUsers';
-  public SERVER_ALL_MSG_MAILS = this.SERVER_ENDPOINT + 'users/getAllMsgMails';
+  public SERVER_ALL_MSG_MAILS = this.SERVER_ENDPOINT + 'getAllMsgMails';
   public SERVER_ADD_USER = this.SERVER_ENDPOINT + 'users/addUser';
   public SERVER_UPDATE_USER_INFO = this.SERVER_ENDPOINT + 'users/updateUserInfo';
   public SERVER_UPDATE_USER_PASSWORD = this.SERVER_ENDPOINT + '/updateUserPassword';
@@ -25,7 +25,7 @@ export class RootConst {
 
 
   public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/add';
-  public SERVER_ADD_TUTORIAL_MATERIAL = this.SERVER_TUTORIALS_URL + '/addTutorialMaterial';
+  public SERVER_ADD_TUTORIAL_MATERIAL = this.SERVER_TUTORIALS_URL + '/addMaterial';
   public SERVER_FIND_TUTORIAL_MATERIAL_BY_ID = this.SERVER_TUTORIALS_URL + '/materialTutorial?id=';
   public SERVER_GET_MATERIALS_FOR_TUTORIAL = this.SERVER_TUTORIALS_URL + '/materialsForTutorial?id=';
   public SERVER_SEARCH_TUTORIAL_BY_KEYWORD = this.SERVER_TUTORIALS_URL + '?keyword=';
@@ -33,7 +33,6 @@ export class RootConst {
   public SERVER_DELETE_TUTORIAL = this.SERVER_TUTORIALS_URL + '/deleteTutorial';
   public SERVER_DELETE_MATERIAL = this.SERVER_ENDPOINT + 'material/delete?id=';
   public SERVER_UPDATE_TUTORIAL = this.SERVER_TUTORIALS_URL + '/update';
-  public SERVER_GET_DRAFTS_TUTORIAL = this.SERVER_TUTORIALS_URL + '/draft?idUser=';
 
 
   public SERVER_ADD_EVENT = this.SERVER_EVENTS_URL + '/addEvent';

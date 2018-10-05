@@ -15,12 +15,7 @@ public class TutorialDto {
 
     private String keywords;
 
-    private Boolean isDraft;
-
     private List<UserDto> contactPersons;
 
-    private List<TutorialMaterialDto> tutorialMaterials;
-
-    public TutorialDto() {
-    }
+    private List<MaterialDto> materials;
 }

@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {RootConst} from '../util/RootConst';
 import {Observable} from 'rxjs/Observable';
-import {LocationDTO} from '../domain/location';
+import {Location} from '../domain/location';
 import {MeetingHall} from '../domain/event';
 import {debug} from 'util';
 
@@ -22,8 +22,8 @@ export class LocationService implements OnInit {
   ngOnInit(): void {
   }
 
-  getLocations(): Observable<LocationDTO[]> {
-    return this.http.get<LocationDTO[]>(`${this.rootConst.SERVER_LOCATIONS}`);
+  getLocations(): Observable<Location[]> {
+    return this.http.get<Location[]>(`${this.rootConst.SERVER_LOCATIONS}`);
   }
 
   getRooms(): Observable<MeetingHall[]> {

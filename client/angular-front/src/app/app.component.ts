@@ -182,27 +182,16 @@ export class AppComponent {
     this.router.navigate(['/events/addEvent']);
   }
 
-  redirectToDraftPage() {
-    this.router.navigate(['/tutorials/draft']);
-  }
 
   isFiltered(): boolean {
     return location.href.indexOf('keyword') >= 0;
   }
 
   removeFilter() {
-    // return location.replace(location.protocol + '//' + location.host + location.pathname);
     this.router.navigate([location.pathname]);
 
 
-    // const pageURL = window.location.href;
-    // if (pageURL.indexOf('draft') >= 0) {
-    //   this.router.navigate(['/tutorials/draft']);
-    // } else if (pageURL.indexOf('tutorials') >= 0) {
-    //   this.router.navigate(['/tutorials']);
-    // } else if (pageURL.indexOf('events') >= 0) {
-    //   this.router.navigate(['/events/viewEvents']);
-    // }
+
 
   }
 }

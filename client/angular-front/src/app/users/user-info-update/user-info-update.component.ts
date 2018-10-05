@@ -4,7 +4,7 @@ import {MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 import {UserInformationService} from '../../service/user-information.service';
 
 import {UserInfoFormularComponent} from '../user-info-formular/user-info-formular.component';
-import {UserDTO} from '../../domain/user';
+import {User} from '../../domain/user';
 
 @Component({
   selector: 'app-user-info-update',
@@ -16,7 +16,7 @@ export class UserInfoUpdateComponent implements OnInit {
   @ViewChild(UserInfoFormularComponent)
   private childUserInfoFormularComponent: UserInfoFormularComponent;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public userInformation: UserDTO,
+  constructor(@Inject(MAT_DIALOG_DATA) public userInformation: User,
               private userInformationService: UserInformationService, private snackBar: MatSnackBar) {
   }
 

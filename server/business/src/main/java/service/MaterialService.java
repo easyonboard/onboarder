@@ -1,18 +1,28 @@
 package service;
 
-import dao.TutorialMaterialDAO;
-import entity.TutorialMaterial;
+import dao.MaterialRepository;
+import dto.MaterialDto;
+import dto.mapper.MaterialMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MaterialService {
+    private MaterialMapper materialMapper = MaterialMapper.INSTANCE;
 
     @Autowired
-    private TutorialMaterialDAO tutorialMaterialDAO;
+    private MaterialRepository materialRepository;
+
 
     public void deleteTutorial(Integer materialId) {
-        TutorialMaterial tutorialMaterial = tutorialMaterialDAO.findEntity(materialId);
-        tutorialMaterialDAO.deleteEntity(tutorialMaterial);
+        materialRepository.delete(materialId);
+    }
+
+    public void saveMaterial(MaterialDto materialDto) {
+        materialRepository.save(materialMapper.mapToNewEntity(materialDto));
+    }
+
+    public MaterialDto getMaterialById(Integer materialId) {
+        return materialMapper.mapToDTO(materialRepository.findOne(materialId));
     }
 }

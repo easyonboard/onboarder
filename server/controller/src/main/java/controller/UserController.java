@@ -181,7 +181,7 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "users/getAllMsgMails", method = RequestMethod.GET)
+    @RequestMapping(value = "getAllMsgMails", method = RequestMethod.GET)
     public ResponseEntity<List<String>> getAllUsersNameAndEmail() {
 
         try {

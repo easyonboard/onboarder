@@ -1,14 +1,14 @@
 package service;
 
-import dao.TutorialMaterialDAO;
+import dao.MaterialRepository;
 import dao.TutorialRepository;
 import dao.UserRepository;
 import dto.TutorialDto;
-import dto.TutorialMaterialDto;
+import dto.MaterialDto;
 import dto.mapper.TutorialMapper;
-import dto.mapper.TutorialMaterialMapper;
+import dto.mapper.MaterialMapper;
+import entity.Material;
 import entity.Tutorial;
-import entity.TutorialMaterial;
 import entity.User;
 import exception.types.DatabaseException;
 import exception.types.EntityNotFoundException;
@@ -29,18 +29,15 @@ public class TutorialService {
     @Autowired
     private TutorialRepository tutorialRepository;
 
-    @Autowired
-    private TutorialMaterialDAO tutorialMaterialDAO;
 
     @Autowired
     private UserRepository userRepository;
 
     private TutorialMapper tutorialMapper = TutorialMapper.INSTANCE;
-    private TutorialMaterialMapper tutorialMaterialMapper = TutorialMaterialMapper.INSTANCE;
+    private MaterialMapper materialMapper = MaterialMapper.INSTANCE;
 
     public List<TutorialDto> getAllPublicTutorials() {
-
-        return tutorialMapper.entitiesToDTOs(tutorialRepository.findByIsDraft(false));
+        return tutorialMapper.entitiesToDTOs(tutorialRepository.findAll());
     }
 
     public List<TutorialDto> filterByKeyword(String keyword) {
@@ -51,24 +48,13 @@ public class TutorialService {
 
         Tutorial tutorial = tutorialMapper.mapToEntity(tutorialDto, new Tutorial());
         tutorial.setContactPersons(getUsersByMsgEmail(contactPersonMsgMail));
-        if (tutorial.getIsDraft() == null) {
-            tutorial.setIsDraft(false);
-        }
-       Tutorial tutorialSaved= tutorialRepository.save(tutorial);
-        if(tutorialSaved==null){
+        Tutorial tutorialSaved = tutorialRepository.save(tutorial);
+        if (tutorialSaved == null) {
             throw new DatabaseException(TUTORIAL_SAVE_EXCEPTION);
         }
         return tutorialMapper.mapToDTO(tutorialSaved);
     }
 
-    private List<User> getUsersByIds(List<Integer> contactPersonsIds) {
-
-        List<User> users = new ArrayList<>();
-        for (Integer id : contactPersonsIds) {
-            users.add(userRepository.findOne(id));
-        }
-        return users;
-    }
 
     private List<User> getUsersByMsgEmail(List<String> contactPersonMsgMails) throws EntityNotFoundException {
 
@@ -83,44 +69,33 @@ public class TutorialService {
         return users;
     }
 
-    public TutorialMaterialDto addTutorialMaterial(TutorialMaterialDto tutorialMaterialDto) {
-
-        TutorialMaterial tutorialMaterial = tutorialMaterialMapper.mapToEntity(tutorialMaterialDto,
-                                                                               new TutorialMaterial());
-        return tutorialMaterialMapper.mapToDTO(tutorialMaterialDAO.persistEntity(tutorialMaterial));
-    }
 
     public TutorialDto getTutorialById(Integer tutorialId) throws EntityNotFoundException {
 
         Tutorial tutorialEntity = tutorialRepository.findOne(tutorialId);
-        if(tutorialEntity==null){
+        if (tutorialEntity == null) {
             throw new EntityNotFoundException(TUTORIAL_NOT_FOUND);
         }
         return tutorialMapper.mapToDTO(tutorialEntity);
     }
 
-    public TutorialMaterialDto getMaterialById(Integer id)  {
 
-        TutorialMaterial tutorialMaterial = tutorialMaterialDAO.findEntity(id);
-        return tutorialMaterialMapper.mapToDTO(tutorialMaterial);
-    }
-
-    public List<TutorialMaterialDto> getAllMaterialsForTutorial(
+    public List<MaterialDto> getAllMaterialsForTutorial(
             Integer idTutorial) throws EntityNotFoundException, NoDataException {
 
-        List<TutorialMaterialDto> tutorialMaterialDtos;
+        List<MaterialDto> materialDtos;
         Tutorial tutorialEntity = tutorialRepository.findOne(idTutorial);
         if (tutorialEntity == null) {
             throw new EntityNotFoundException(TUTORIAL_NOT_FOUND);
         }
-        List<TutorialMaterial> tutorialMaterials = tutorialEntity.getTutorialMaterials();
-        if (tutorialMaterials.isEmpty()) {
+        List<Material> materials = tutorialEntity.getMaterials();
+        if (materials.isEmpty()) {
             throw new NoDataException(noMaterials(tutorialEntity.getTitleTutorial()));
         }
-        tutorialMaterialDtos = tutorialMaterials.stream().map(
-                tutorial -> tutorialMaterialMapper.mapToDTO(tutorial)).collect(Collectors.toList());
+        materialDtos = materials.stream().map(
+                tutorial -> materialMapper.mapToDTO(tutorial)).collect(Collectors.toList());
 
-        return tutorialMaterialDtos;
+        return materialDtos;
     }
 
     public List<TutorialDto> deleteTutorial(TutorialDto tutorial) throws EntityNotFoundException {
@@ -140,19 +115,5 @@ public class TutorialService {
         tutorialMapper.mapToEntity(tutorialDto, tutorial);
         tutorial.setContactPersons(getUsersByMsgEmail(contactPersons));
         return tutorialMapper.mapToDTO(tutorialRepository.save(tutorial));
-    }
-
-    public List<TutorialDto> allDraftTutorialsForUser(Integer idUser) throws NoDataException {
-
-        List<TutorialDto> draftTutorials = tutorialMapper.entitiesToDTOs(
-                tutorialRepository.getAllDraftTurorialsForUser(userRepository.findOne(idUser)));
-        if (draftTutorials.isEmpty()) {
-            throw new NoDataException(NO_DRAFT);
-        } else
-            return draftTutorials;
-    }
-
-    public List<TutorialDto> allDraftTutorialsForUserFilterByKeyword(Integer idUser, String keyword) throws NoDataException {
-        return this.allDraftTutorialsForUser(idUser).stream().filter(tutorial -> tutorial.getKeywords().replaceAll("[^\\w\\s]", "").indexOf(keyword) >= 0).collect(Collectors.toList());
     }
 }

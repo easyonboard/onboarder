@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TutorialDTO} from '../../domain/tutorial';
+import {Tutorial} from '../../domain/tutorial';
 import {TutorialService} from '../../service/tutorial.service';
 import {MaterialService} from '../../service/material.service';
 
@@ -11,7 +11,7 @@ import {MaterialService} from '../../service/material.service';
 })
 export class ViewTutorialComponent implements OnInit {
   private tutorialId: number;
-  public tutorial: TutorialDTO;
+  public tutorial: Tutorial;
   showInfo = false;
 
   constructor(private route: ActivatedRoute,

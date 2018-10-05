@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {EventService} from '../service/event.service';
-import {EventDTO} from '../domain/event';
-import {UserDTO} from '../domain/user';
+import {Event} from '../domain/event';
+import {User} from '../domain/user';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {LocalStorageConst} from '../util/LocalStorageConst';
 
@@ -12,10 +12,10 @@ import {LocalStorageConst} from '../util/LocalStorageConst';
 })
 export class EventsComponent implements OnInit {
   panelOpenState = false;
-  pastEvents: EventDTO[];
-  upcomingEvents: EventDTO[];
+  pastEvents: Event[];
+  upcomingEvents: Event[];
   canEnroll: boolean;
-  user: UserDTO;
+  user: User;
 
 
   constructor(private eventService: EventService,
@@ -24,7 +24,7 @@ export class EventsComponent implements OnInit {
     this.pastEvents = [];
     this.upcomingEvents = [];
     this.canEnroll = true;
-    this.user = new UserDTO();
+    this.user = new User();
     this.user.username = localStorage.getItem(LocalStorageConst._USER_USERNAME);
   }
 
@@ -50,7 +50,7 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  private processDateAndTime(events: EventDTO[]) {
+  private processDateAndTime(events: Event[]) {
     events.forEach(event => {
       const myDate = new Date(event.eventDate).toDateString();
       event.stringDate = myDate;
@@ -59,7 +59,7 @@ export class EventsComponent implements OnInit {
   }
 
 
-  enrollUser(event: EventDTO) {
+  enrollUser(event: Event) {
     this.eventService.enrollUser(this.user, event).subscribe(resp => {
       this.upcomingEvents = resp;
       this.processDateAndTime(this.upcomingEvents);
@@ -69,7 +69,7 @@ export class EventsComponent implements OnInit {
 
   }
 
-  unenrollUser(event: EventDTO) {
+  unenrollUser(event: Event) {
     this.eventService.unenrollUser(this.user, event).subscribe(resp => {
       this.upcomingEvents = resp;
       this.processDateAndTime(this.upcomingEvents);

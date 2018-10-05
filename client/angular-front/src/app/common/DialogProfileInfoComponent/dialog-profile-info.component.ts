@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {UserService} from '../../service/user.service';
 import {UserInformationService} from '../../service/user-information.service';
-import {UserDTO} from '../../domain/user';
+import {User} from '../../domain/user';
 
 @Component({
   selector: 'app-dialog-profile-info',
@@ -11,7 +11,7 @@ import {UserDTO} from '../../domain/user';
 export class DialogProfileInfoComponent implements OnInit {
   [x: string]: any;
 
-  public user: UserDTO;
+  public user: User;
   username: string;
 
   constructor(private userService: UserService, private userInfoService: UserInformationService, private dialog: MatDialog) {

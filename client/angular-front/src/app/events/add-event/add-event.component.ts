@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {UserDTO} from '../../domain/user';
-import {Location} from '@angular/common';
+import {User} from '../../domain/user';
 import {UserService} from '../../service/user.service';
-import {EventDTO, MeetingHall} from '../../domain/event';
+import {Event, MeetingHall} from '../../domain/event';
 import {EventService} from '../../service/event.service';
 import {LocationService} from '../../service/location.service';
 import {MatChipInputEvent, MatSnackBar} from '@angular/material';
 import {RootConst} from '../../util/RootConst';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
-import {LocationDTO} from '../../domain/location';
+import {Location} from '../../domain/location';
 
 @Component({
   selector: 'app-add-event',
@@ -22,20 +21,20 @@ export class AddEventComponent implements OnInit {
   public dropdownSettingsEnrolled = {};
   public dropdownSettingsContact = {};
   public allUsers: String[] = [];
-  public selectedContactPerson: string = '';
+  public selectedContactPerson = '';
   public selectedEnrolledPersons: string[] = [];
-  public selectedLocation: LocationDTO;
+  public selectedLocation: Location;
   public selectedRoom: MeetingHall;
 
   public dropdownLocationSettings = {};
-  public usersOptions: UserDTO[];
+  public usersOptions: User[];
 
-  public allLocationOptions: LocationDTO[] = [];
+  public allLocationOptions: Location[] = [];
   public allMeetingHallOptions: MeetingHall[] = [];
-  public locationOptions: LocationDTO[] = [];
+  public locationOptions: Location[] = [];
   public meetingHallOptions: MeetingHall[] = [];
-  public otherLocation: LocationDTO;
-  public event: EventDTO;
+  public otherLocation: Location;
+  public event: Event;
   public eventErrorMessage: string;
   public keywords: String[];
   public saved: Boolean;
@@ -46,11 +45,11 @@ export class AddEventComponent implements OnInit {
   public today: Date;
   separatorKeysCodes = [ENTER, COMMA, SPACE];
 
-  constructor(private location: Location, private eventService: EventService, private userService: UserService,
+  constructor(private eventService: EventService, private userService: UserService,
               private locationService: LocationService, public snackBar: MatSnackBar) {
     this.keywords = [];
     this.rootConst = new RootConst();
-    this.event = new EventDTO();
+    this.event = new Event();
     this.event.overview = '';
     this.event.titleEvent = '';
     this.eventErrorMessage = '';
@@ -59,7 +58,7 @@ export class AddEventComponent implements OnInit {
       this.usersOptions = us;
     });
     this.selectedRoom = new MeetingHall();
-    this.selectedLocation = new LocationDTO();
+    this.selectedLocation = new Location();
   }
 
   ngOnInit() {
@@ -76,9 +75,9 @@ export class AddEventComponent implements OnInit {
     this.locationService.getLocations().subscribe(resp => {
       this.allLocationOptions = resp;
       this.locationOptions = this.allLocationOptions;
-      this.otherLocation = new LocationDTO();
-      this.otherLocation.idLocation=0;
-      this.otherLocation.locationName='Other';
+      this.otherLocation = new Location();
+      this.otherLocation.idLocation = 0;
+      this.otherLocation.locationName = 'Other';
       this.locationOptions.push(this.otherLocation);
       console.log(this.locationOptions);
 
@@ -138,7 +137,7 @@ export class AddEventComponent implements OnInit {
       this.eventErrorMessage += 'Please add at least one keyword!\n';
     }
     if (this.selectedLocation.idLocation === this.otherLocation.idLocation) {
-      this.selectedLocation = new LocationDTO();
+      this.selectedLocation = new Location();
     }
     if (this.eventErrorMessage !== '') {
       this.snackBarMessagePopup(this.eventErrorMessage, 'Close');
@@ -202,7 +201,7 @@ export class AddEventComponent implements OnInit {
   }
 
   removeKeyword(keyword: any): void {
-    let index = this.keywords.indexOf(keyword);
+    const index = this.keywords.indexOf(keyword);
     if (index >= 0) {
       this.keywords.splice(index, 1);
       if (this.inputKeyword.hidden === true) {
@@ -213,7 +212,7 @@ export class AddEventComponent implements OnInit {
 
   addKeyword(event: MatChipInputEvent): void {
     this.inputKeyword = event.input;
-    let value = event.value;
+    const value = event.value;
 
     if ((value || '').trim() && this.keywords.length < 4) {
       this.keywords.push(value.trim());
