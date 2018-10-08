@@ -78,7 +78,7 @@ public class ScheduleEmailToNewEmployee {
                     String emailBody = createEmailBody(user.getName(), dateWithZeroTime, START_HOUR, ui.getBuddyUser().getName(), ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getLocation().getLocationAddress());
 
                     MailSender sender = new MailSender();
-                    sender.sendMail(user.getEmail(), "iulia.tica@msg.group", "", emailBody);
+                    sender.sendMail(user.getEmail(), NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);
                     checkListService.updateFieldMailSent(user.getIdUser(), true);
 //                    Optional<User> abteilungsleiterForUser = findAbteilungsleiter(ui);
 //                    if (abteilungsleiterForUser.isPresent()) {
