@@ -21,4 +21,9 @@ public interface CheckListRepository extends JpaRepository<CheckList, Integer> {
     @Query("UPDATE CheckList c SET c.mailSent = :value  WHERE c.userAccount.idUser = :idUser")
     void updateFieldMailSent(@Param("idUser") Integer idUser,  @Param("value") boolean value);
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE CheckList c SET c.mailSentToBuddy = :value  WHERE c.userAccount.idUser = :idUser")
+    void updateFieldMailSentToBuddy(@Param("idUser") Integer idUser,  @Param("value") boolean value);
+
 }

@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 @Controller
 public class ScheduleEmailToNewEmployee {
     private static final String BUDDY_MAIL_SUBJECT = "Detalii inceput angajat nou";
-    private static final String NEW_EMPLOYEE_MAIL_SUBJECT = "Data inceput msg";
+    private static final String NEW_EMPLOYEE_MAIL_SUBJECT = "Prima zi la MSG";
     private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
     public static final String START_HOUR = "09:00";
     public static final String BUDDY_EMAIL_TEMPLATE_FILE_NAME = "buddy_email_template";
@@ -89,6 +89,7 @@ public class ScheduleEmailToNewEmployee {
                         String names[] = buddy.getName().split(" ");
                         String emailBodyForBuddy = createEmailBodyForBuddy(names[0], user.getName(), dateWithZeroTime, START_HOUR, ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
                         sendEmail(buddy.getMsgMail(), null, BUDDY_MAIL_SUBJECT, emailBodyForBuddy);
+                        checkListService.updateFieldMailSentToBuddy(user.getIdUser(),true);
                     }
 //                    List<User> abteilungsleiters = userRepository.getAbteilungsleiters();
 //                    for (User ab : abteilungsleiters) {

@@ -9,7 +9,11 @@ import entity.User;
 import exception.types.EntityNotFoundException;
 import exception.types.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CheckListService {
@@ -46,6 +50,10 @@ public class CheckListService {
 
     public void updateFieldMailSent(Integer idUser, boolean value){
         checkListRepository.updateFieldMailSent(idUser,value);
+    }
+
+    public void updateFieldMailSentToBuddy(Integer idUser, boolean value){
+        checkListRepository.updateFieldMailSentToBuddy(idUser,value);
     }
 
 }
