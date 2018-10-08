@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 
 
 const TOKEN_KEY = 'AuthToken';
+const TOKEN_HEADER_KEY = 'Authorization';
+const BEARER_STRING = 'Bearer ';
 
 @Injectable()
 export class TokenStorage {
@@ -21,5 +23,9 @@ export class TokenStorage {
 
   public getToken(): string {
     return window.sessionStorage.getItem(TOKEN_KEY);
+  }
+
+  public getTokenBearerString(): string {
+    return BEARER_STRING;
   }
 }

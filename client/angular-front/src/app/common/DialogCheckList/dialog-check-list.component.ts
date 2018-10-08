@@ -1,5 +1,5 @@
 import {TSMap} from 'typescript-map';
-import {UserDTO} from '../../domain/user';
+import {User} from '../../domain/user';
 import {MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 import {Component, Inject, OnInit} from '@angular/core';
 import {CheckListProperties} from '../../util/CheckListProperties';
@@ -15,13 +15,13 @@ export class DialogCheckListComponent implements OnInit {
   public dialogTitle: string;
   public checkList: TSMap<string, boolean>;
   public checkListProperties: CheckListProperties;
-  private userInfo: UserDTO;
+  private userInfo: User;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private user: UserDTO, private userService: UserService, public snackBarCheck: MatSnackBar, private userInformationService: UserInformationService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private user: User, private userService: UserService, public snackBarCheck: MatSnackBar, private userInformationService: UserInformationService) {
   }
 
   ngOnInit() {
-    this.userInfo = new UserDTO();
+    this.userInfo = new User();
     this.dialogTitle = 'Check list for ' + this.user.name;
     this.checkList = new TSMap<string, boolean>();
     this.checkListProperties = new CheckListProperties();

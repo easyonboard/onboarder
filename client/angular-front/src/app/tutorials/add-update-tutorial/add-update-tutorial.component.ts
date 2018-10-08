@@ -4,8 +4,8 @@ import {MatChipInputEvent, MatSnackBar} from '@angular/material';
 import {DOCUMENT, Location} from '@angular/common';
 
 import {MaterialType} from '../../domain/materialType';
-import {TutorialMaterialDTO} from '../../domain/tutorialMaterial';
-import {TutorialDTO} from '../../domain/tutorial';
+import {Material} from '../../domain/tutorialMaterial';
+import {Tutorial} from '../../domain/tutorial';
 
 import {UserService} from '../../service/user.service';
 import {TutorialService} from '../../service/tutorial.service';
@@ -14,7 +14,7 @@ import {RootConst} from '../../util/RootConst';
 
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {LocalStorageConst} from '../../util/LocalStorageConst';
 import {FormControl, Validators} from '@angular/forms';
 
@@ -31,8 +31,8 @@ export class AddUpdateTutorialComponent implements OnInit {
   public selectedUsers: String[] = [];
   public allUsers: String[] = [];
 
-  public tutorial = new TutorialDTO();
-  public materialsForCurrentTutorial: TutorialMaterialDTO[] = [];
+  public tutorial = new Tutorial();
+  public materialsForCurrentTutorial: Material[] = [];
   public materialType = MaterialType;
   public files: File[] = [];
 
@@ -54,7 +54,8 @@ export class AddUpdateTutorialComponent implements OnInit {
               private materialService: MaterialService,
               @Inject(DOCUMENT) private document: any,
               public snackBar: MatSnackBar,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
     this.tutorialId = +this.route.snapshot.paramMap.get('id');
   }
 
@@ -83,12 +84,12 @@ export class AddUpdateTutorialComponent implements OnInit {
       this.tutorial = tutorial;
       this.selectedUsers = this.tutorial.contactPersons.map(cp => cp.msgMail);
       this.keywords = this.tutorial.keywords.split(' ');
-      this.materialsForCurrentTutorial = this.tutorial.tutorialMaterials.slice(0);
+      this.materialsForCurrentTutorial = this.tutorial.materials.slice(0);
     });
   }
 
   private setCurrentUserAsContactPerson() {
-    this.selectedUsers.push(localStorage.getItem(LocalStorageConst._MSG_MAIL));
+     this.selectedUsers.push(localStorage.getItem(LocalStorageConst._MSG_MAIL));
   }
 
   private getUserMsgMails() {
@@ -119,9 +120,10 @@ export class AddUpdateTutorialComponent implements OnInit {
   }
 
   private addMaterials() {
+    debugger
     if (this.materialsForCurrentTutorial.length > 0) {
       for (const material of this.materialsForCurrentTutorial) {
-        if (!material.idTutorialMaterial) {
+        if (!material.idMaterial) {
           if (material.materialType.valueOf().toString() === MaterialType[MaterialType.LINK].toString()) {
             this.materialService.addMaterialToTutorial(material, null, this.tutorial.idTutorial);
           } else {
@@ -166,7 +168,8 @@ export class AddUpdateTutorialComponent implements OnInit {
   }
 
   private redirectToTutorialPage(tutorialId: number) {
-    location.replace(this.rootConst.FRONT_TUTORIALS_PAGE + '/' + `${tutorialId}`);
+    this.router.navigate([this.rootConst.FRONT_TUTORIALS_PAGE + '/' + `${tutorialId}`]);
+    // location.replace(this.rootConst.FRONT_TUTORIALS_PAGE + '/' + `${tutorialId}`);
   }
 
   openFile(position: number): void {
@@ -177,7 +180,7 @@ export class AddUpdateTutorialComponent implements OnInit {
   }
 
   addNewEmptyMaterial() {
-    this.materialsForCurrentTutorial.push(new TutorialMaterialDTO());
+    this.materialsForCurrentTutorial.push(new Material());
   }
 
   removeMaterialFromUI(positionInList: number) {
@@ -213,7 +216,7 @@ export class AddUpdateTutorialComponent implements OnInit {
     }
   }
 
-  private verifyConstraintsForMaterial(positionInList: number, material: TutorialMaterialDTO) {
+  private verifyConstraintsForMaterial(positionInList: number, material: Material) {
     let materialErrorMessage = '';
     if (!material.title) {
       materialErrorMessage += `Title is required for material with number ${positionInList}!`;
@@ -265,10 +268,10 @@ export class AddUpdateTutorialComponent implements OnInit {
   }
 
   private deleteFromServerMaterials() {
-    const ids = this.materialsForCurrentTutorial.map(ma => ma.idTutorialMaterial);
-    this.tutorial.tutorialMaterials.forEach(mat => {
-      if (mat.idTutorialMaterial && ids.indexOf(mat.idTutorialMaterial) < 0) {
-        this.materialService.deleteMaterialWithId(mat.idTutorialMaterial).subscribe();
+    const ids = this.materialsForCurrentTutorial.map(ma => ma.idMaterial);
+    this.tutorial.materials.forEach(mat => {
+      if (mat.idMaterial && ids.indexOf(mat.idMaterial) < 0) {
+        this.materialService.deleteMaterialWithId(mat.idMaterial).subscribe();
       }
     });
   }
@@ -277,20 +280,6 @@ export class AddUpdateTutorialComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 6000
     });
-  }
-
-  saveAsDraft() {
-    this.tutorial.draft = true;
-    if (this.tutorial.idTutorial) {
-      this.updateTutorial();
-    } else {
-      this.addTutorial();
-    }
-  }
-
-  publishDraft() {
-    this.tutorial.draft = false;
-    this.updateTutorial();
   }
 
   goBack() {

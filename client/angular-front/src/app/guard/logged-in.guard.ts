@@ -9,7 +9,6 @@ export class LoggedInGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    debugger
     if (sessionStorage.getItem('AuthToken')) {
       return true;
     } else {

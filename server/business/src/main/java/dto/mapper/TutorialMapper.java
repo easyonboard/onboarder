@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = {UserMapper.class, TutorialMaterialMapper.class}, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+@Mapper(uses = {UserMapper.class, MaterialMapper.class}, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface TutorialMapper extends AbstractMapper<Tutorial, TutorialDto> {
 
     TutorialMapper INSTANCE = Mappers.getMapper(TutorialMapper.class);

@@ -57,13 +57,18 @@ public class User implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_buddy_id")
     private User buddyUser;
+
+    @Column
     private String team;
+
     @ManyToOne
     private Location location;
     @Column
     private String floor;
     @Column
     private String project;
+
+    @Enumerated(EnumType.STRING)
     @Column
     private RoleType role;
 

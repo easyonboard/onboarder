@@ -1,5 +1,5 @@
 import {AfterContentInit, Component, ElementRef, OnInit} from '@angular/core';
-import {UserDTO} from '../domain/user';
+import {User} from '../domain/user';
 import {RootConst} from '../util/RootConst';
 import {Router} from '@angular/router';
 import {LocalStorageConst} from '../util/LocalStorageConst';
@@ -15,7 +15,7 @@ import {UserService} from '../service/user.service';
 export class LoginComponent implements OnInit, AfterContentInit {
 
   public option: boolean;
-  public userLogged: UserDTO;
+  public userLogged: User;
   public message: string;
   private errorMessage: string;
   public rootConst: RootConst;

@@ -1,4 +1,4 @@
-import {UserDTO} from '../../domain/user';
+import {User} from '../../domain/user';
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {UserInformationService} from '../../service/user-information.service';
@@ -16,8 +16,8 @@ import {TSMap} from 'typescript-map';
 export class DialogNewEmployeeComponent implements OnInit {
   [x: string]: any;
 
-  public newEmployees: UserDTO[];
-  public allNewEmployees: UserDTO[];
+  public newEmployees: User[];
+  public allNewEmployees: User[];
   public searchValue = '';
   public mailSentValueForUsers: TSMap<number, Boolean>;
 
@@ -41,7 +41,7 @@ debugger
       });
   }
 
-  openCheckList(user: UserDTO) {
+  openCheckList(user: User) {
 
     this.dialog.open(DialogCheckListComponent, {
       height: '650px',
@@ -50,7 +50,7 @@ debugger
     });
   }
 
-  openUserInfoModal(userInformation: UserDTO) {
+  openUserInfoModal(userInformation: User) {
     this.dialog.open(UserInfoUpdateComponent, {
       height: '650px',
       width: '900px',

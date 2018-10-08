@@ -21,17 +21,17 @@ public class Location implements Serializable {
     @Column
     @Enumerated(EnumType.STRING)
     private LocationName locationName;
-    @NotNull
-    @Column
 
-    private String locationAddress;
     @NotNull
     @Column
-    private String locationCity;
+    private String locationAddress;
+
     @Column
     private String locationContactPhone;
+
     @Column
     private String locationContactEmail;
+
     @JsonBackReference(value = "event-list")
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
     private List<Event> events;
