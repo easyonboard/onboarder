@@ -1,13 +1,23 @@
 package entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import entity.enums.RoleType;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
+@Builder
 @Entity
 @Table(name = "app_user")
 public class User implements Serializable {
@@ -15,113 +25,56 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idUser;
+
     @NotNull
     @Column
     private String name;
+
     @NotNull
     @Size(min = 6)
     private String username;
+
     @NotNull
     @Size(min = 6)
     @Column(nullable = false)
     private String password;
+
     @Column(nullable = false)
     @NotNull
     private String email;
+
     @Column
     private String msgMail;
 
-    @ManyToOne
-    private Role role;
+    @Column
+    private Date startDate;
 
-    @JsonBackReference(value="user-event-contact-person")
+    @ManyToOne
+    @JoinColumn(name = "idDepartment")
+    private Department department;
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "user_buddy_id")
+    private User buddyUser;
+
+    @Column
+    private String team;
+
+    @ManyToOne
+    private Location location;
+    @Column
+    private String floor;
+    @Column
+    private String project;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private RoleType role;
+
+
+    @JsonBackReference(value = "user-event-contact-person")
     @OneToMany(mappedBy = "contactPerson", cascade = CascadeType.ALL)
     private List<Event> events;
 
-    @JsonBackReference(value="user-information")
-    @OneToOne(mappedBy = "userAccount", targetEntity = UserInformation.class)
-    public UserInformation userAccount;
-
-    public User(Integer idUser, @NotNull String name, @NotNull @Size(min = 6) String username, @NotNull String email, String msgMail) {
-        this.idUser = idUser;
-        this.name = name;
-        this.username = username;
-        this.email = email;
-        this.msgMail = msgMail;
-    }
-
-    public User() {
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
-
-    public int getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public UserInformation getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(UserInformation userAccount) {
-        this.userAccount = userAccount;
-    }
-
-    public String getMsgMail() {
-        return msgMail;
-    }
-
-    public void setMsgMail(String msgMail) {
-        this.msgMail = msgMail;
-    }
 }

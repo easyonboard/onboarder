@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {RootConst} from '../util/RootConst';
-import {UserInformationDTO} from '../domain/user';
-import {LocationDTO} from '../domain/location';
+import {Location} from '../domain/location';
+import {User} from '../domain/user';
+import {Department} from '../domain/Department';
 
 @Injectable()
 export class UserInformationService {
@@ -16,23 +17,27 @@ export class UserInformationService {
   constructor(private http: HttpClient) {
   }
 
-  updateUserInformation(userInfo: UserInformationDTO): Observable<UserInformationDTO> {
+  updateUserInformation(userInfo: User): Observable<User> {
     const body = JSON.stringify(userInfo);
-    return this.http.post<UserInformationDTO>(this.rootConst.SERVER_UPDATE_USER_INFO, body, this.httpOptions);
+    return this.http.post<User>(this.rootConst.SERVER_UPDATE_USER_INFO, body, this.httpOptions);
 
   }
 
-  getNewUsers(): Observable<UserInformationDTO[]> {
-    return this.http.get<UserInformationDTO[]>(this.rootConst.SERVER_NEWUSERS);
+  getNewUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.rootConst.SERVER_NEWUSERS);
   }
 
-  getUserInformation(username: string): Observable<UserInformationDTO> {
+  getUserInformation(username: string): Observable<User> {
 
-    return this.http.post<UserInformationDTO>(this.rootConst.SERVER_USERINFORMATION, username, this.httpOptions);
+    return this.http.post<User>(this.rootConst.SERVER_USERINFORMATION, username, this.httpOptions);
 
   }
 
-  getAllLocations(): Observable<LocationDTO[]> {
-    return this.http.get<LocationDTO[]>(this.rootConst.SERVER_LOCATIONS);
+  getAllLocations(): Observable<Location[]> {
+    return this.http.get<Location[]>(this.rootConst.SERVER_LOCATIONS);
+  }
+
+  getAllDepartments(): Observable<Department[]> {
+    return this.http.get<Department[]>(this.rootConst.SERVER_DEPARTMENTS);
   }
 }

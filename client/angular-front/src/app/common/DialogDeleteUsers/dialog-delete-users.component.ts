@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
-import {UserDTO} from '../../domain/user';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {User} from '../../domain/user';
 import {UserService} from '../../service/user.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {DialogLeaveCheckListComponent} from '../DialogLeaveCheckList/dialog-leave-check-list.component';
@@ -14,8 +14,8 @@ import {LocalStorageConst} from '../../util/LocalStorageConst';
 export class DialogDeleteUsersComponent implements OnInit {
   public searchValue = '';
   dialogDeleteUsers: string;
-  public filteredUsers: UserDTO[];
-  public allUsers: UserDTO[];
+  public filteredUsers: User[];
+  public allUsers: User[];
   public canUserBeDeleted: Boolean;
 
   constructor(private userService: UserService, private dialog: MatDialog, public snackBarDelete: MatSnackBar) {

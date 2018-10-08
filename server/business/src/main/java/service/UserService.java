@@ -5,13 +5,11 @@ import dao.*;
 import dto.CheckListDto;
 import dto.LeaveCheckListDto;
 import dto.UserDto;
-import dto.UserInformationDto;
 import dto.mapper.CheckListMapper;
 import dto.mapper.LeaveCheckListMapper;
-import dto.mapper.UserInformationMapper;
 import dto.mapper.UserMapper;
 import entity.*;
-import entity.enums.DepartmentType;
+import entity.enums.RoleType;
 import exception.types.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,8 +34,6 @@ public class UserService {
     @Autowired
     private UserValidator userValidator;
 
-    @Autowired
-    private UserInformationRepository userInformationRepository;
 
     @Autowired
     private CheckListRepository checkListRepository;
@@ -46,7 +42,8 @@ public class UserService {
     private LeaveCheckListRepository leaveCheckListRepository;
 
     @Autowired
-    private UserInformationService userInformationService;
+    private DepartmentRepository departmentRepository;
+
 
     @Autowired
     private CheckListService checkListService;
@@ -57,13 +54,12 @@ public class UserService {
     @Autowired
     private TutorialRepository tutorialRepository;
 
+
     private UserMapper userMapper = UserMapper.INSTANCE;
 
     private CheckListMapper checkListMapper = CheckListMapper.INSTANCE;
 
     private LeaveCheckListMapper leaveCheckListMapper = LeaveCheckListMapper.INSTANCE;
-
-    private UserInformationMapper userInformationMapper = UserInformationMapper.INSTANCE;
 
     public UserDto findUserByUsername(String username) throws EntityNotFoundException {
 
@@ -74,29 +70,63 @@ public class UserService {
         return userMapper.mapToDTO(entity.get());
     }
 
-    public void addUser(UserDto userDto,
-                        UserInformationDto userInformationDto) throws InvalidDataException, DatabaseException {
+    public void addUser(UserDto userDto, RoleType role) throws InvalidDataException {
 
         userDto.setPassword(encrypt(userDto.getUsername()));
         userValidator.validateUsername(userDto.getUsername());
         userValidator.validateUserData(userDto);
-
+        Department department = departmentRepository.findByDepartmentName(userDto.getDepartment().getDepartmentName());
         User user = new User();
-        User appUser = userRepository.save(userMapper.mapToEntity(userDto, user));
+        userDto.setRole(role);
+        userDto.setDepartment(department);
 
-        if (appUser == null) {
-            throw new DatabaseException(USER_SAVE_DATABASE_EXCEPTION);
-        }
-
-        Optional<User> optionalUser = userRepository.findByUsername(userInformationDto.getBuddyUser().getUsername());
+        User mappedUser = userMapper.mapToEntity(userDto, user);
+        Optional<User> optionalUser = userRepository.findByUsername(userDto.getBuddyUser().getUsername());
         if (optionalUser.isPresent()) {
             User buddyUser = optionalUser.get();
-            userInformationService.addUserInfo(userInformationDto, appUser, buddyUser);
-        } else {
-            userInformationService.addUserInfo(userInformationDto, appUser, null);
+            mappedUser.setBuddyUser(buddyUser);
+
+        }
+        userRepository.save(mappedUser);
+
+    }
+
+
+    public void updateUserInfo(UserDto userInfo) {
+
+        User actualUserInfo = userRepository.findOne(userInfo.getIdUser());
+
+        actualUserInfo.setTeam(userInfo.getTeam());
+        actualUserInfo.setLocation(userInfo.getLocation());
+        actualUserInfo.setFloor(userInfo.getFloor());
+        actualUserInfo.setProject(userInfo.getProject());
+
+        actualUserInfo.setDepartment(userInfo.getDepartment());
+        actualUserInfo.setStartDate(userInfo.getStartDate());
+
+        if (userInfo.getBuddyUser().getUsername() != null) {
+            User newUser = userRepository.findByUsername(userInfo.getBuddyUser().getUsername()).get();
+            actualUserInfo.setBuddyUser(newUser);
         }
 
-        checkListService.addCheckList(userInformationDto, appUser);
+        userRepository.save(actualUserInfo);
+    }
+
+    public void addUserInfo(UserDto userInformationDto, User appUser, User buddyUser) {
+        User userInformation = new User();
+
+        userInformation.setTeam(userInformationDto.getTeam());
+        userInformation.setLocation(userInformationDto.getLocation());
+        userInformation.setFloor(userInformationDto.getFloor());
+        userInformation.setDepartment(userInformationDto.getDepartment());
+        userInformation.setProject(userInformationDto.getProject());
+        userInformation.setStartDate(userInformationDto.getStartDate());
+
+        if (buddyUser != null) {
+            userInformation.setBuddyUser(buddyUser);
+        }
+
+        userRepository.save(userInformation);
     }
 
     public String encrypt(String initString) {
@@ -133,14 +163,14 @@ public class UserService {
         return userMapper.entitiesToDTOs(allUsersFromDb);
     }
 
-    public List<UserInformationDto> getAllNewUsers() throws EntityNotFoundException {
+    public List<UserDto> getAllNewUsers() throws EntityNotFoundException {
 
-        List<UserInformation> newUsers = userInformationRepository.findByStartDateAfter(new Date());
+        List<User> newUsers = userRepository.findByStartDateAfter(new Date());
         if (newUsers.isEmpty()) {
             throw new EntityNotFoundException(NEW_USERS_NOT_FOUND_EXCEPTION);
         }
 
-        return userInformationMapper.entitiesToDTOs(newUsers);
+        return userMapper.entitiesToDTOs(newUsers);
     }
 
     public List<UserDto> searchByName(String name) throws EntityNotFoundException {
@@ -157,8 +187,7 @@ public class UserService {
             String username) throws EntityNotFoundException, FieldNotFoundException {
 
         String department = getDepartmentForUser(username);
-        DepartmentType departmentType = DepartmentType.valueOf(department);
-        List<User> users = userRepository.findByDepartment(departmentType);
+        List<User> users = userRepository.findByDepartment(departmentRepository.findByDepartmentName(department));
         if (users.isEmpty()) {
             throw new EntityNotFoundException(userForDepartmentNotFound(department));
         }
@@ -208,8 +237,7 @@ public class UserService {
             checkListMap.put(attribute, value);
         }
 
-        UserInformation userInfo = userInformationRepository.findByUserAccount(user);
-        if (userInfo.getBuddyUser() == null) {
+        if (user.getBuddyUser() == null) {
             checkListMap.put("hasBuddyAssigned", false);
             checkList.setHasBuddyAssigned(false);
             checkListRepository.save(checkList);
@@ -256,14 +284,6 @@ public class UserService {
 
             if (canUserBeDeleted(userEntity)) {
 
-                UserInformation userInformationEntity = userInformationRepository.findByUserAccount(userEntity);
-                if (userInformationEntity != null) {
-                    userInformationEntity.setBuddyUser(null);
-                    userInformationEntity.setLocation(null);
-
-                    userInformationRepository.delete(userInformationEntity);
-                }
-
                 CheckList checkListEntity = checkListRepository.findByUserAccount(userEntity);
                 if (checkListEntity != null) {
                     checkListRepository.delete(checkListEntity);
@@ -276,9 +296,9 @@ public class UserService {
                 }
 
                 List<Tutorial> tutorialsForUser = tutorialRepository.getTutorialsForUser(userEntity);
-                for (Tutorial aTutorialsForUser : tutorialsForUser) {
-                    aTutorialsForUser.getContactPersons().remove(userEntity);
-                    tutorialRepository.save(aTutorialsForUser);
+                for (Tutorial aTutorialForUser : tutorialsForUser) {
+                    aTutorialForUser.getContactPersons().remove(userEntity);
+                    tutorialRepository.save(aTutorialForUser);
 
                 }
                 List<Event> eventsEnrolled = eventRepository.removeUserFromEnrolledList(userEntity);
@@ -305,12 +325,12 @@ public class UserService {
     public void setBuddyToNull(User userEntity) {
 
         try {
-            List<UserInformation> userInformationsList = userInformationRepository.findByBuddyUser(userEntity);
+            List<User> userInformationsList = userRepository.findByBuddyUser(userEntity);
             if (userInformationsList != null) {
                 for (int i = 0; i < userInformationsList.size(); i++) {
-                    UserInformation userInformation = userInformationsList.get(i);
+                    User userInformation = userInformationsList.get(i);
                     userInformation.setBuddyUser(null);
-                    userInformationRepository.save(userInformation);
+                    userRepository.save(userInformation);
                 }
             }
         } catch (NoResultException e) {
@@ -319,18 +339,14 @@ public class UserService {
         }
     }
 
-    public UserInformationDto getUserInformationForUser(String username) throws EntityNotFoundException {
+    public UserDto getUserInformationForUser(String username) throws EntityNotFoundException {
 
-        User user = userRepository.findByUsername(username).get();
-        if (user == null) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (!user.isPresent()) {
             throw new EntityNotFoundException(userNotFound(username));
         }
-        UserInformation userInformation = userInformationRepository.findByUserAccount(user);
-        if (user == null) {
-            throw new EntityNotFoundException("Information for user " + username + "not found");
-        }
 
-        return userInformationMapper.mapToDTO(userInformation);
+        return userMapper.mapToDTO(user.get());
     }
 
     public List<String> getAllMsgMails() throws EntityNotFoundException {
@@ -448,5 +464,9 @@ public class UserService {
 
         return !(userRepository.findByUsername(username).isPresent() || userRepository.findByMsgMail(
                 msgMail).isPresent());
+    }
+
+    public List<Department> getAllDepartments() {
+        return departmentRepository.findAll();
     }
 }

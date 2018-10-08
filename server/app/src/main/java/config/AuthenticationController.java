@@ -42,7 +42,7 @@ public class AuthenticationController {
         } catch (EntityNotFoundException e) {
            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-        final String token = jwtTokenUtil.generateToken(testUser.getUsername(), testUser.getRole().getRole().name());
+        final String token = jwtTokenUtil.generateToken(testUser.getUsername(), testUser.getRole().name());
         return ResponseEntity.ok(new AuthToken(token));
     }
 

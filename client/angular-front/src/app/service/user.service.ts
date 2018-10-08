@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
-import {LeaveCheckList, UserDTO, UserInformationDTO} from '../domain/user';
+import {LeaveCheckList, User} from '../domain/user';
 import {RootConst} from '../util/RootConst';
 import {TSMap} from 'typescript-map';
 import {RoleType} from '../domain/role';
@@ -22,9 +22,10 @@ export class UserService {
     this.message = '';
   }
 
-  addUser(user: UserDTO, role: RoleType, userInfo: UserInformationDTO) {
-    const body = JSON.stringify({user: user, role: role, userInfo: userInfo});
-    const result = this.http.post<UserDTO>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
+  addUser(user: User, role: RoleType) {
+
+    const body = JSON.stringify({user: user, role: role});
+    const result = this.http.post<User>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
     return result;
   }
 
@@ -33,13 +34,13 @@ export class UserService {
       username: username,
       password: password,
     });
-    const result = this.http.post<UserDTO>(this.rootConst.SERVER_UPDATE_USER_PASSWORD, body, this.httpOptions);
+    const result = this.http.post<User>(this.rootConst.SERVER_UPDATE_USER_PASSWORD, body, this.httpOptions);
     console.log(result);
     return result;
   }
 
-  getAllUsers(): Observable<UserDTO[]> {
-    return this.http.get<UserDTO[]>(`${this.allUsers}`);
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.allUsers}`);
   }
 
   /** !TODO */
@@ -47,22 +48,22 @@ export class UserService {
     return this.http.get<String[]>(this.rootConst.SERVER_ALL_MSG_MAILS);
   }
 
-  searchUsers(term: string): Observable<UserDTO[]> {
+  searchUsers(term: string): Observable<User[]> {
 
     if (term && term.length > 0) {
       if ((!term.trim())) {
         return;
       }
 
-      const users = this.http.get<UserDTO[]>(this.rootConst.SERVER_USER_NAME + term);
+      const users = this.http.get<User[]>(this.rootConst.SERVER_USER_NAME + term);
       return users;
     }
     // in case term is undefined, we don't want to make a request to the server with a null param, so we return an empty observable
-    return Observable.empty<UserDTO[]>();
+    return Observable.empty<User[]>();
   }
 
 
-  getCheckListForUser(user: UserDTO): Observable<Map<string, boolean>> {
+  getCheckListForUser(user: User): Observable<Map<string, boolean>> {
     const body = JSON.stringify(user);
     return this.http.post<Map<string, boolean>>(this.rootConst.SERVER_CHECKLIST, body, this.httpOptions);
 
@@ -73,8 +74,8 @@ export class UserService {
     return this.http.post<Map<string, boolean>>(this.rootConst.SERVER_SAVE_CHECKLIST, body, this.httpOptions);
   }
 
-  getUsersInDepartment(username: string): Observable<UserDTO[]> {
-    return this.http.get<UserDTO[]>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
+  getUsersInDepartment(username: string): Observable<User[]> {
+    return this.http.get<User[]>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
   }
 
 
@@ -84,7 +85,7 @@ export class UserService {
 
   }
 
-  isMailSent(userAccount: UserDTO): Observable<Boolean> {
+  isMailSent(userAccount: User): Observable<Boolean> {
 
     return this.http.post<Boolean>(this.rootConst.SERVER_STATUS_MAIL, userAccount.username, this.httpOptions);
 
@@ -107,9 +108,9 @@ export class UserService {
     return this.http.post<boolean>(this.rootConst.SERVER_CHECK_USER_UNICITY, body, this.httpOptions);
   }
 
-  getUserByUsername(username: string): Observable<UserDTO> {
+  getUserByUsername(username: string): Observable<User> {
     // if (username) {
-    return this.http.get<UserDTO>(`${this.rootConst.SERVER_USER_BY_USERNAME}${username}`);
+    return this.http.get<User>(`${this.rootConst.SERVER_USER_BY_USERNAME}${username}`);
     // } else {
     // throw error;
     // }

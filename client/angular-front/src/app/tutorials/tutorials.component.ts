@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {RootConst} from '../util/RootConst';
-import {TutorialDTO} from '../domain/tutorial';
+import {Tutorial} from '../domain/tutorial';
 import {TutorialService} from '../service/tutorial.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {MatSnackBar, PageEvent} from '@angular/material';
@@ -16,12 +16,11 @@ export class TutorialsComponent implements OnDestroy, OnInit {
 
   private rootConst: RootConst;
 
-  tutorials: TutorialDTO[];
-  tutorialsPerPage: TutorialDTO[];
+  tutorials: Tutorial[];
+  tutorialsPerPage: Tutorial[];
   pageEvent: PageEvent;
   pageSize = 9;
   pageSizeOptions = [9, 18, 36, 99];
-  noDraftsMessage: string;
 
   private httpSubscription: Subscription;
   private pageIndex = 0;
@@ -33,7 +32,6 @@ export class TutorialsComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.noDraftsMessage = '';
     this.route.queryParams.subscribe(
       queryParams => {
         this.pageIndex = +queryParams['page'];
@@ -61,12 +59,9 @@ export class TutorialsComponent implements OnDestroy, OnInit {
 
   private decision(params: any): any {
     const keyword = params['keyword'];
-    if (this.router.url.indexOf('draft') >= 0) {
-      const userId = +localStorage.getItem('userLoggedId');
-      return this.tutorialService.getDraftsTutorialsForUser(userId, keyword);
-    } else {
-      return this.tutorialService.getTutorials(keyword);
-    }
+    debugger
+    return this.tutorialService.getTutorials(keyword);
+
   }
 
   // addTutorialRouterLink(): void {
@@ -77,11 +72,8 @@ export class TutorialsComponent implements OnDestroy, OnInit {
     const queryParams: Params = Object.assign({}, this.route.snapshot.queryParams);
     queryParams['keyword'] = keyword;
     queryParams['page'] = 0;
-    if ((this.route.snapshot.url.toString()).indexOf('draft') >= 0) {
-      this.router.navigate(['/tutorials/draft'], {queryParams: queryParams});
-    } else {
-      this.router.navigate(['/tutorials'], {queryParams: queryParams});
-    }
+    this.router.navigate(['/tutorials'], {queryParams: queryParams});
+
   }
 
   public getServerData(event?: PageEvent) {

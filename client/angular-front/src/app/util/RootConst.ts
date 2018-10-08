@@ -6,7 +6,7 @@ export class RootConst {
 
 
   public SERVER_ALL_USERS = this.SERVER_ENDPOINT + 'users/allUsers';
-  public SERVER_ALL_MSG_MAILS = this.SERVER_ENDPOINT + 'users/getAllMsgMails';
+  public SERVER_ALL_MSG_MAILS = this.SERVER_ENDPOINT + 'getAllMsgMails';
   public SERVER_ADD_USER = this.SERVER_ENDPOINT + 'users/addUser';
   public SERVER_UPDATE_USER_INFO = this.SERVER_ENDPOINT + 'users/updateUserInfo';
   public SERVER_UPDATE_USER_PASSWORD = this.SERVER_ENDPOINT + '/updateUserPassword';
@@ -18,14 +18,14 @@ export class RootConst {
   public SERVER_REMOVE_USER = this.SERVER_ENDPOINT + 'users/removeUser';
   public SERVER_CHECK_USER_UNICITY = this.SERVER_ENDPOINT + 'users/checkUnicity';
   public SERVER_USER_BY_USERNAME = this.SERVER_ENDPOINT + 'username/?username=';
-  public SERVER_USERINFORMATION = this.SERVER_ENDPOINT + 'users/getUserInformation';
+  public SERVER_USERINFORMATION = this.SERVER_ENDPOINT + 'getUserInformation';
   public SERVER_STATUS_MAIL = this.SERVER_ENDPOINT + 'users/isMailSent';
   public SERVER_LEAVE_CHECKLIST = this.SERVER_ENDPOINT + 'users/leaveCheckList';
   public SERVER_SAVE_LEAVE_CHECKLIST = this.SERVER_ENDPOINT + 'users/saveLeaveCheckList';
 
 
   public SERVER_ADD_TUTORIAL = this.SERVER_TUTORIALS_URL + '/add';
-  public SERVER_ADD_TUTORIAL_MATERIAL = this.SERVER_TUTORIALS_URL + '/addTutorialMaterial';
+  public SERVER_ADD_TUTORIAL_MATERIAL = this.SERVER_TUTORIALS_URL + '/addMaterial';
   public SERVER_FIND_TUTORIAL_MATERIAL_BY_ID = this.SERVER_TUTORIALS_URL + '/materialTutorial?id=';
   public SERVER_GET_MATERIALS_FOR_TUTORIAL = this.SERVER_TUTORIALS_URL + '/materialsForTutorial?id=';
   public SERVER_SEARCH_TUTORIAL_BY_KEYWORD = this.SERVER_TUTORIALS_URL + '?keyword=';
@@ -33,7 +33,6 @@ export class RootConst {
   public SERVER_DELETE_TUTORIAL = this.SERVER_TUTORIALS_URL + '/deleteTutorial';
   public SERVER_DELETE_MATERIAL = this.SERVER_ENDPOINT + 'material/delete?id=';
   public SERVER_UPDATE_TUTORIAL = this.SERVER_TUTORIALS_URL + '/update';
-  public SERVER_GET_DRAFTS_TUTORIAL = this.SERVER_TUTORIALS_URL + '/draft?idUser=';
 
 
   public SERVER_ADD_EVENT = this.SERVER_EVENTS_URL + '/addEvent';
@@ -48,15 +47,14 @@ export class RootConst {
 
   public SERVER_LOCATIONS = this.SERVER_ENDPOINT + 'locations';
   public SERVER_ROOMS = this.SERVER_ENDPOINT + 'meetingHalls';
+  public SERVER_DEPARTMENTS = this.SERVER_ENDPOINT + 'departments';
 
 
   public GENERATE_TOKEN_URL = 'http://localhost:8090/token/generate-token';
-
-
   public FRONT_TUTORIALS_PAGE = '/tutorials';
-
   public FRONT_LOGIN_PAGE = '/login';
-
   public FRONT_INFOS_PAGE = '/info';
   public FRONT_EVENTS_PAGE = 'events/viewEvents';
+
+
 }

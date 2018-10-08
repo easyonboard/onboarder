@@ -8,15 +8,17 @@ import com.google.gson.GsonBuilder;
 import com.sun.media.sound.InvalidDataException;
 import dto.TutorialDto;
 
-import dto.TutorialMaterialDto;
+import dto.MaterialDto;
 import exception.types.DatabaseException;
 import exception.types.EntityNotFoundException;
 import exception.types.NoDataException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import service.MaterialService;
 import service.TutorialService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -30,9 +32,12 @@ import static exception.Constants.PARSING_EXCEPTION;
 @RequestMapping("/tutorials")
 public class TutorialController {
 
-
     @Autowired
     private TutorialService tutorialService;
+
+
+    @Autowired
+    private MaterialService materialService;
 
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -48,7 +53,7 @@ public class TutorialController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/add", consumes = "application/json", method = RequestMethod.POST)
-    public ResponseEntity<Object> addTutorial(@RequestBody String tutorialJSON) {
+    public ResponseEntity<Object> addTutorial(@RequestBody String tutorialJSON,  @RequestHeader HttpHeaders headers) {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -72,14 +77,14 @@ public class TutorialController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/addTutorialMaterial", method = RequestMethod.POST)
+    @RequestMapping(value = "/addMaterial", method = RequestMethod.POST)
     public ResponseEntity addTutorialMaterial(@RequestParam(name = "material") String mat,
                                               @RequestParam(name = "file") Optional<MultipartFile> file, @RequestParam(
             name = "idTutorial") Integer idTutorial) {
 
         final GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
-        TutorialMaterialDto material = gson.fromJson(mat, TutorialMaterialDto.class);
+        MaterialDto material = gson.fromJson(mat, MaterialDto.class);
 
         TutorialDto tutorial = null;
         try {
@@ -95,7 +100,7 @@ public class TutorialController {
                 return new ResponseEntity<>(PARSING_EXCEPTION, HttpStatus.BAD_REQUEST);
             }
         }
-        tutorialService.addTutorialMaterial(material);
+        materialService.saveMaterial(material);
 
         return null;
     }
@@ -105,7 +110,7 @@ public class TutorialController {
     public @ResponseBody
     byte[] getMaterialById(@RequestParam(value = "id") Integer id, HttpServletResponse response) {
 
-        TutorialMaterialDto materialDTO = tutorialService.getMaterialById(id);
+        MaterialDto materialDTO = materialService.getMaterialById(id);
         response.setHeader("Content-Disposition", "inline; filename=" + materialDTO.getTitle());
         response.setContentType("application/pdf");
         return materialDTO.getFileMaterial();
@@ -113,7 +118,7 @@ public class TutorialController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/materialsForTutorial", method = RequestMethod.GET)
-    public ResponseEntity<List<TutorialMaterialDto>> allTutorials(@RequestParam(value = "id") Integer idTutorial) {
+    public ResponseEntity<List<MaterialDto>> allTutorials(@RequestParam(value = "id") Integer idTutorial) {
 
         try {
             return new ResponseEntity<>(tutorialService.getAllMaterialsForTutorial(idTutorial), HttpStatus.OK);
@@ -163,22 +168,6 @@ public class TutorialController {
             return new ResponseEntity<>(PARSING_EXCEPTION, HttpStatus.BAD_REQUEST);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/draft", method = RequestMethod.GET)
-    public ResponseEntity<List<TutorialDto>> allDraftTutorialsForUser(
-            @RequestParam(value = "idUser", required = false) Integer idUser,
-            @RequestParam(value = "keyword", required = false) Optional<String> keyword) {
-        try {
-            if (keyword.isPresent()) {
-                return new ResponseEntity<>(tutorialService.allDraftTutorialsForUserFilterByKeyword(idUser, keyword.get()), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(tutorialService.allDraftTutorialsForUser(idUser), HttpStatus.OK);
-            }
-        } catch (NoDataException e) {
-            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         }
     }
 }

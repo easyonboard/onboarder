@@ -11,12 +11,12 @@ public interface TutorialWithoutMateriallMapper extends AbstractMapper<Tutorial,
     TutorialWithoutMateriallMapper INSTANCE = Mappers.getMapper(TutorialWithoutMateriallMapper.class);
 
     @Mappings({
-            @Mapping(target = "tutorialMaterials",ignore = true)
+            @Mapping(target = "materials",ignore = true)
     })
     TutorialDto mapToDTO(Tutorial entity);
 
     @Mappings({
-            @Mapping(target = "tutorialMaterials",ignore = true),
+            @Mapping(target = "materials",ignore = true),
     })
     Tutorial mapToEntity(TutorialDto tutorialDto, @MappingTarget Tutorial tutorial);
 

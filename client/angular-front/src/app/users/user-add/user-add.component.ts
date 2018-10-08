@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MatDialog, MatSelectChange, MatSnackBar} from '@angular/material';
 
-import {RoleType, RoleDTO} from '../../domain/role';
-import {UserDTO} from '../../domain/user';
+import {RoleType, Role} from '../../domain/role';
+import {User} from '../../domain/user';
 import {UserService} from '../../service/user.service';
 import {UserInfoFormularComponent} from '../user-info-formular/user-info-formular.component';
 
@@ -22,7 +22,7 @@ export class UserAddComponent implements OnInit {
   public roleType = RoleType;
   public selectedRole: RoleType;
 
-  public user = new UserDTO();
+  public user = new User();
   public roles = Object.keys(RoleType);
 
   constructor(private userService: UserService, public snackBar: MatSnackBar, private dialog: MatDialog) {
@@ -45,7 +45,8 @@ export class UserAddComponent implements OnInit {
           unique = value1;
 
           if (unique === true) {
-            this.userService.addUser(this.user, this.selectedRole, this.childUserInfoFormularComponent.userInformation).subscribe(
+            this.setUserInfosFields()
+            this.userService.addUser(this.user, this.selectedRole).subscribe(
                 value2 => {
                     this.snackBarMessagePopup('Succes! You just add a new employee!', 'Close');
                     this.dialog.closeAll();
@@ -114,4 +115,14 @@ export class UserAddComponent implements OnInit {
       });
   }
 
+  private setUserInfosFields() {
+   this.user.buddyUser=this.childUserInfoFormularComponent.userInformation.buddyUser;
+   this.user.department=this.childUserInfoFormularComponent.userInformation.department;
+   this.user.floor=this.childUserInfoFormularComponent.userInformation.floor;
+   this.user.location=this.childUserInfoFormularComponent.userInformation.location;
+   this.user.project=this.childUserInfoFormularComponent.userInformation.project;
+   this.user.startDate=this.childUserInfoFormularComponent.userInformation.startDate;
+   this.user.team=this.childUserInfoFormularComponent.userInformation.team;
+
+  }
 }

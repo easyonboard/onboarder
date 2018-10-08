@@ -4,12 +4,11 @@ import {Subject} from 'rxjs/Subject';
 
 import {UserInformationService} from '../../service/user-information.service';
 import {UserService} from '../../service/user.service';
-import {UserDTO, UserInformationDTO} from '../../domain/user';
-import {DepartmentType} from '../../domain/departmentType';
-
+import {User} from '../../domain/user';
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import {MAT_DIALOG_DATA, MatSelectChange} from '@angular/material';
-import {LocationDTO} from '../../domain/location';
+import {Location} from '../../domain/location';
+import {Department} from '../../domain/Department';
 
 @Component({
   selector: 'app-user-info-formular',
@@ -21,22 +20,22 @@ export class UserInfoFormularComponent implements OnInit {
   public today: Date;
 
   public locations: string[];
-  public locationDtos: LocationDTO[];
+  public locationDtos: Location[];
   @Input()
   show = true;
   @Input()
-  userInformation = new UserInformationDTO();
+  userInformation = new User();
 
-  public departments: string[];
+  public departments: Department[];
 
-  public users$: Observable<UserDTO[]>;
+  public users$: Observable<User[]>;
   private searchTerms = new Subject<string>();
 
-  constructor(private userInformationService: UserInformationService, private userService: UserService, @Inject(MAT_DIALOG_DATA) public userInfo: UserInformationDTO) {
+  constructor(private userInformationService: UserInformationService, private userService: UserService, @Inject(MAT_DIALOG_DATA) public userInfo: User) {
   }
 
   ngOnInit() {
-    this.departments = Object.keys(DepartmentType);
+    this.userInformationService.getAllDepartments().subscribe(resp=>this.departments=resp);
     this.today = new Date(Date.now());
     this.locations = [];
     if (this.userInfo != null) {
@@ -48,12 +47,12 @@ export class UserInfoFormularComponent implements OnInit {
     }, error => this.snackBarMessagePopup(error.error.message, 'Close'));
 
     if (this.userInformation.buddyUser === undefined || this.userInformation.buddyUser === null) {
-      this.userInformation.buddyUser = new UserDTO();
+      this.userInformation.buddyUser = new User();
       this.userInformation.buddyUser.name = '';
     }
 
     if (this.userInformation.location === undefined || this.userInformation.location === null) {
-      this.userInformation.location = new LocationDTO();
+      this.userInformation.location = new Location();
       this.userInformation.location.locationName = '';
     }
 

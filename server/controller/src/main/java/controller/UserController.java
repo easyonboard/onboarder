@@ -3,7 +3,10 @@ package controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dto.*;
+import dto.CheckListDto;
+import dto.LeaveCheckListDto;
+import dto.UserDto;
+import entity.Department;
 import entity.enums.RoleType;
 import exception.types.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import service.CheckListService;
-import service.RoleService;
-import service.UserInformationService;
 import service.UserService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,11 +24,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private RoleService roleService;
-    @Autowired
-    private UserInformationService userInformationService;
-
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "users/addUser", method = RequestMethod.POST)
@@ -41,25 +35,15 @@ public class UserController {
             JsonNode node = mapper.readTree(userJson);
             UserDto userDto = mapper.convertValue(node.get("user"), UserDto.class);
             RoleType role = mapper.convertValue(node.get("role"), RoleType.class);
-            UserInformationDto userInformationDto = mapper.convertValue(node.get("userInfo"), UserInformationDto.class);
 
-            RoleDto roleDto = null;
-            try {
-                roleDto = roleService.findRoleByType(role);
-            } catch (FieldNotFoundException e) {
-                return new ResponseEntity<>(e, HttpStatus.NOT_FOUND);
-            }
-            userDto.setRole(roleDto);
 
-            userService.addUser(userDto, userInformationDto);
+            userService.addUser(userDto,role);
         } catch (InvalidDataException exception) {
             return new ResponseEntity(exception, HttpStatus.BAD_REQUEST);
         } catch (JsonProcessingException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {
             return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
-        } catch (DatabaseException e) {
-            return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -95,9 +79,9 @@ public class UserController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "users/newUsers", method = RequestMethod.GET)
-    public ResponseEntity<List<UserInformationDto>> getAllNewUsers() {
+    public ResponseEntity<List<UserDto>> getAllNewUsers() {
 
-        List<UserInformationDto> newUsers = new ArrayList<>();
+        List<UserDto> newUsers;
         try {
             newUsers = userService.getAllNewUsers();
         } catch (EntityNotFoundException e) {
@@ -115,10 +99,10 @@ public class UserController {
      */
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "users/updateUserInfo", method = RequestMethod.POST)
-    public ResponseEntity updateUserInformation(@RequestBody UserInformationDto userInformationDto) {
+    public ResponseEntity updateUserInformation(@RequestBody UserDto userInformationDto) {
 
         try {
-            userInformationService.updateUserInfo(userInformationDto);
+            userService.updateUserInfo(userInformationDto);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -186,7 +170,7 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "users/getUserInformation", method = RequestMethod.POST)
+    @RequestMapping(value = "getUserInformation", method = RequestMethod.POST)
     public ResponseEntity getUserInformationForUser(@RequestBody String username) {
 
         try {
@@ -197,7 +181,7 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "users/getAllMsgMails", method = RequestMethod.GET)
+    @RequestMapping(value = "getAllMsgMails", method = RequestMethod.GET)
     public ResponseEntity<List<String>> getAllUsersNameAndEmail() {
 
         try {
@@ -297,6 +281,15 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "departments", method = RequestMethod.GET)
+    public ResponseEntity<List<Department>> getUserByName() {
+
+        return new ResponseEntity(userService.getAllDepartments(), HttpStatus.OK);
+    }
+
     private String getUser(String str) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);
@@ -309,4 +302,5 @@ public class UserController {
         JsonNode node = mapper.readTree(str);
         return mapper.convertValue(node.get("check"), CheckListDto.class);
     }
+
 }

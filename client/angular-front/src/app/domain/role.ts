@@ -7,7 +7,6 @@ export enum RoleType {
   'ROLE_USER' = 'Employee'
 }
 
-export class RoleDTO {
-  idRole: number;
+export class Role {
   role: RoleType;
 }

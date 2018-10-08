@@ -1,4 +1,4 @@
-import {UserDTO, UserInformationDTO} from '../../domain/user';
+import {User} from '../../domain/user';
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {UserInformationService} from '../../service/user-information.service';
@@ -16,8 +16,8 @@ import {TSMap} from 'typescript-map';
 export class DialogNewEmployeeComponent implements OnInit {
   [x: string]: any;
 
-  public newEmployees: UserInformationDTO[];
-  public allNewEmployees: UserInformationDTO[];
+  public newEmployees: User[];
+  public allNewEmployees: User[];
   public searchValue = '';
   public mailSentValueForUsers: TSMap<number, Boolean>;
 
@@ -33,7 +33,7 @@ export class DialogNewEmployeeComponent implements OnInit {
         this.allNewEmployees = newEmployees;
         this.newEmployees = newEmployees;
         this.getStatus();
-
+debugger
         this.setStartDate();
       },
       err => {
@@ -41,7 +41,7 @@ export class DialogNewEmployeeComponent implements OnInit {
       });
   }
 
-  openCheckList(user: UserDTO) {
+  openCheckList(user: User) {
 
     this.dialog.open(DialogCheckListComponent, {
       height: '650px',
@@ -50,7 +50,7 @@ export class DialogNewEmployeeComponent implements OnInit {
     });
   }
 
-  openUserInfoModal(userInformation: UserInformationDTO) {
+  openUserInfoModal(userInformation: User) {
     this.dialog.open(UserInfoUpdateComponent, {
       height: '650px',
       width: '900px',
@@ -60,8 +60,8 @@ export class DialogNewEmployeeComponent implements OnInit {
 
   private getStatus() {
     this.newEmployees.forEach((user, index) => {
-      this.userService.isMailSent(user.userAccount).subscribe(value => {
-        this.mailSentValueForUsers.set(user.idUserInformation, value);
+      this.userService.isMailSent(user).subscribe(value => {
+        this.mailSentValueForUsers.set(user.idUser, value);
       });
     });
 
@@ -69,7 +69,7 @@ export class DialogNewEmployeeComponent implements OnInit {
 
   searchByName() {
     if (this.searchValue !== '' && this.searchValue !== null) {
-      this.newEmployees = this.allNewEmployees.filter(user => user.userAccount.name.toLowerCase().includes(this.searchValue.toLowerCase()));
+      this.newEmployees = this.allNewEmployees.filter(user => user.name.toLowerCase().includes(this.searchValue.toLowerCase()));
     } else {
       this.newEmployees = this.allNewEmployees;
     }

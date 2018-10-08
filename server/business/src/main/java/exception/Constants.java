@@ -72,7 +72,6 @@ public class Constants {
 
     //not found
     private static final String NO_MATERIALS = " does not have materials added";
-    public static final String NO_DRAFT = "No tutorials with draft status";
     public static final String TUTORIAL_NOT_FOUND = "Tutorial not found";
 
     //no data

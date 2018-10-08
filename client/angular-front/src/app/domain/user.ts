@@ -1,29 +1,40 @@
-import {RoleDTO} from './role';
+import {Role, RoleType} from './role';
 import {DepartmentType} from './departmentType';
-import {LocationDTO} from './location';
+import {Location} from './location';
+import {Department} from './Department';
 
-export class UserDTO {
+export class User {
   idUser: number;
   email: string;
   msgMail: string;
   name: string;
   username: string;
   password: string;
-  role: RoleDTO;
-}
-
-export class UserInformationDTO {
-  idUserInformation: number;
+  startDate: Date;
+  department: Department;
+  buddyUser: User;
   team: string;
-  location: LocationDTO;
+  location: Location;
   floor: string;
   project: string;
-  department: DepartmentType;
-  buddyUser: UserDTO;
-  userAccount: UserDTO;
-  startDate: Date;
   startDateString: String;
+  role: RoleType;
+
+
 }
+
+// export class UserInformationDTO {
+//   idUserInformation: number;
+//   team: string;
+//   location: LocationDTO;
+//   floor: string;
+//   project: string;
+//   department: DepartmentType;
+//   buddyUser: User;
+//   userAccount: User;
+//   startDate: Date;
+//   startDateString: String;
+// }
 
 export class UserDetailsToExport {
   name: string;
@@ -35,7 +46,7 @@ export class UserDetailsToExport {
 }
 
 export class LeaveCheckList {
-  userAccount: UserDTO;
+  userAccount: User;
   inventoryObjects: boolean;
   resignationForm: boolean;
   cards: boolean;
@@ -60,6 +71,6 @@ export class ContactPersonDto {
 //   floor: string;
 //   project: string;
 //   department: DepartmentType;
-//   buddyUser: UserDTO;
+//   buddyUser: User;
 //   startDateString: Date;
 // }
