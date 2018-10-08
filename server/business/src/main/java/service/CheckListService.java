@@ -39,9 +39,16 @@ public class CheckListService {
         }
         return checkListMapper.mapToDTO(checkList);
     }
-
+git
     public boolean isMailSentToUser(User userEntity) throws EntityNotFoundException {
         return this.findByUser(userEntity).isMailSent();
     }
 
+    public void updateFieldMailSent(Integer idUser, boolean value){
+        checkListRepository.updateFieldMailSent(idUser,value);
+    }
+
+    public void updateFieldMailSentToBuddy(Integer idUser, boolean value){
+        checkListRepository.updateFieldMailSentToBuddy(idUser,value);
+    }
 }

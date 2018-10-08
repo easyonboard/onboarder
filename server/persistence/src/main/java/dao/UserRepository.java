@@ -27,6 +27,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      */
     List<User> findByStartDateAfter(Date date);
 
+    List<User> findByStartDateBefore(Date date);
+
     /**
      * query for retrieving users that start at a given date
      * @param date: given Date

@@ -24,7 +24,12 @@ import java.util.logging.Logger;
 @Controller
 public class ScheduleEmailToNewEmployee {
     private static final String BUDDY_MAIL_SUBJECT = "Detalii inceput angajat nou";
-    private static final String NEW_EMPLOYEE_MAIL_SUBJECT = "Data inceput msg";
+    private static final String NEW_EMPLOYEE_MAIL_SUBJECT = "Prima zi la MSG";
+    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd/MM/yyyy");
+    public static final String START_HOUR = "09:00";
+    public static final String BUDDY_EMAIL_TEMPLATE_FILE_NAME = "buddy_email_template";
+    public static final String EMAIL_TEMPLATE_FILE_NAME = "email_template";
+    public static final String EMAIL_BODY_VARIABLE_NAME = "email_body";
 
 
     @Autowired
@@ -34,8 +39,7 @@ public class ScheduleEmailToNewEmployee {
     private UserRepository userRepository;
 
     private final Logger LOGGER = Logger.getLogger(ScheduleEmailToNewEmployee.class.getName());
-    private final List<String> mandatoryFieldsFromUserEntity = Arrays.asList("name", "username", "password", "email");
-    private final List<String> mandatoryFieldsFromUserInfoEntity = Arrays.asList("team", "floor", "startDate");
+    private final List<String> mandatoryFieldsFromUserEntity = Arrays.asList("name", "username", "password", "email","team", "floor", "startDate");
 
 
     /**
@@ -45,15 +49,15 @@ public class ScheduleEmailToNewEmployee {
     // @Scheduled(cron = "0 0 19 * * MON-FRI")
     @RequestMapping(value = "/emailsch", method = RequestMethod.GET)
     public ResponseEntity reportCurrentTime() {
-        List<User> usersInfoForUserWhoStartNextWeek = userRepository.findByStartDate(getNextWeekDate());
-        List<User> usersWhoStartNextWeek = new ArrayList<>();
+        List<User> usersWhoStartNextWeek  = userRepository.findByStartDateBefore(getTwoWeeksAfterCurrentDate());
+        List<User> usersWhoStartNextWeekValidated = new ArrayList<>();
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-        usersInfoForUserWhoStartNextWeek.stream()
-                .filter(userInformation -> hasNotNullFields(mandatoryFieldsFromUserInfoEntity, userInformation))
-                .forEach(usersWhoStartNextWeek::add);
+        usersWhoStartNextWeek .stream()
+                .filter(userInformation -> hasNotNullFields(mandatoryFieldsFromUserEntity, userInformation))
+                .forEach(usersWhoStartNextWeekValidated::add);
 
-        usersWhoStartNextWeek.stream()
+        usersWhoStartNextWeekValidated.stream()
                 .filter(user -> {
                     try {
                         return !checkListService.isMailSentToUser(user);
@@ -68,18 +72,20 @@ public class ScheduleEmailToNewEmployee {
                     dateWithZeroTime = formatter.format(user.getStartDate());
                     String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", user.getBuddyUser().getName(), user.getFloor(), user.getLocation().getLocationName().name(), user.getLocation().getLocationAddress());
 
-//                    MailSender sender = new MailSender();
-//                    sender.sendMail(user.getEmail(), null, "", emailBody);
+                    MailSender sender = new MailSender();
+                    sender.sendMail(user.getEmail(), NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);
+                    checkListService.updateFieldMailSent(user.getIdUser(), true);
 
-                    Optional<User> abteilungsleiterForUser = findAbteilungsleiter(user);
-                    if (abteilungsleiterForUser.isPresent()) {
-                        sendEmail(user.getEmail(), abteilungsleiterForUser.get(), NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);
-                    }
+//                    Optional<User> abteilungsleiterForUser = findAbteilungsleiter(user);
+//                    if (abteilungsleiterForUser.isPresent()) {
+//                        sendEmail(user.getEmail(), abteilungsleiterForUser.get(), NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);
+//                    }
                     User buddy = user.getBuddyUser();
                     if (buddy != null) {
                         String names[] = buddy.getName().split(" ");
-                        String emailBodyForBuddy = createEmailBodyForBuddy(names[0], user.getName(), dateWithZeroTime, "09:00", user.getFloor(), user.getLocation().getLocationName().name(), user.getTeam());
+                        String emailBodyForBuddy = createEmailBodyForBuddy(names[0], user.getName(), dateWithZeroTime, START_HOUR, user.getFloor(), user.getLocation().getLocationName().name(), user.getTeam());
                         sendEmail(buddy.getMsgMail(), null, BUDDY_MAIL_SUBJECT, emailBodyForBuddy);
+                        checkListService.updateFieldMailSentToBuddy(user.getIdUser(), true);
                     }
 //                    List<User> abteilungsleiters = userRepository.getAbteilungsleiters();
 //                    for (User ab : abteilungsleiters) {
@@ -142,6 +148,16 @@ public class ScheduleEmailToNewEmployee {
         try {
             LocalDate today = LocalDate.now();
             return new SimpleDateFormat("yyyy-MM-dd").parse(today.plus(1, ChronoUnit.WEEKS).toString());
+        } catch (ParseException e) {
+            LOGGER.info("Error while parse date  " + e.getMessage());
+            return null;
+        }
+    }
+
+    private Date getTwoWeeksAfterCurrentDate() {
+        try {
+            LocalDate today = LocalDate.now();
+            return new SimpleDateFormat("yyyy-MM-dd").parse(today.plus(2, ChronoUnit.WEEKS).toString());
         } catch (ParseException e) {
             LOGGER.info("Error while parse date  " + e.getMessage());
             return null;
