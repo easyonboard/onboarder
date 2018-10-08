@@ -3,6 +3,7 @@ import {UserDetailsToExport, User} from '../../domain/user';
 import {UserService} from '../../service/user.service';
 import {ExcelService} from '../../service/excel.service';
 import {UserInformationService} from '../../service/user-information.service';
+import {LocalStorageConst} from '../../util/LocalStorageConst';
 
 @Component({
   selector: 'app-users-in-department-list',
@@ -27,7 +28,7 @@ export class UsersInDepartmentListComponent implements OnInit {
 
   ngOnInit() {
 
-    const userLogged: string = localStorage.getItem('userLogged');
+    const userLogged: string = localStorage.getItem(LocalStorageConst._USER_USERNAME);
     this.employeesInDepartment = [];
     this.userService.getUsersInDepartment(userLogged).subscribe(employeesInDepartment => {
       this.employeesInDepartment = employeesInDepartment;
@@ -53,6 +54,7 @@ export class UsersInDepartmentListComponent implements OnInit {
       this.userDetail.name = user.name;
       this.userDetail.email = user.email;
       this.userDetail.username = user.username;
+      this.userDetail.department=user.department.departmentName;
       this.allUserDetails.push(this.userDetail);
     });
   }

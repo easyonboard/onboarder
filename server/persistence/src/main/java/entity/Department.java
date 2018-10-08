@@ -13,8 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
-@ToString
 @Builder
 @Entity
 public class Department implements Serializable {

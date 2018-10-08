@@ -20,10 +20,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findByDepartment(Department department);
 
-    @Query("select ui.department from User ui where ui.username=:username")
-    String findDepartmentByUsername(@Param("username") String username);
-
-
     /**
      *  query for retrieving users that start after a given date
      * @param date: given date

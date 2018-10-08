@@ -43,6 +43,7 @@ export class UserDetailsToExport {
   startDate: string;
   team: string;
   project: string;
+  department:string
 }
 
 export class LeaveCheckList {

@@ -185,33 +185,50 @@ public class UserService {
 
     public List<UserDto> getUsersInDepartmentForUser(
             String username) throws EntityNotFoundException, FieldNotFoundException {
+        List<User> usersInDepartment = new ArrayList<>();
+        Department department = getDepartmentForUser(username);
+        if (department != null) {
+            usersInDepartment.addAll(userRepository.findByDepartment(department));
+            List<Department> allChildDepartments = getAllChildDepartments(department);
+            if (allChildDepartments != null) {
+                for (Department d : allChildDepartments) {
+                    if (d != null) {
+                        usersInDepartment.addAll(userRepository.findByDepartment(d));
 
-        String department = getDepartmentForUser(username);
-        List<User> users = userRepository.findByDepartment(departmentRepository.findByDepartmentName(department));
-        if (users.isEmpty()) {
-            throw new EntityNotFoundException(userForDepartmentNotFound(department));
+                    }
+                }
+            }
+        } else {
+            throw new EntityNotFoundException(departmentForUserNotFound(username));
         }
 
-        return userMapper.entitiesToDTOs(users);
+
+        return userMapper.entitiesToDTOs(usersInDepartment);
     }
 
-    public String getDepartmentForUser(String username) throws FieldNotFoundException {
+    private List<Department> getAllChildDepartments(Department department) {
 
-        String department = userRepository.findDepartmentByUsername(username);
-        if (department.isEmpty()) {
-            throw new FieldNotFoundException(departmentForUserNotFound(username));
+        List<Department> allDepartments = new ArrayList<>(departmentRepository.findByParent(department));
+
+        for (int i=0;i<allDepartments.size();i++) {
+            allDepartments.addAll(departmentRepository.findByParent(allDepartments.get(i)));
+        }
+        return allDepartments;
+    }
+
+    private Department getDepartmentForUser(String username) throws FieldNotFoundException {
+
+        Optional<User> userEntity = userRepository.findByUsername(username);
+        if (!userEntity.isPresent()) {
+
+            throw new FieldNotFoundException(userNotFound(username));
         }
 
-        return department;
+        return userEntity.get().getDepartment();
+
+
     }
 
-    /**
-     * TODO refactoring for hasBuddyAssigned
-     *
-     * @param userDto
-     * @return
-     * @throws EntityNotFoundException
-     */
     public Map getCheckList(UserDto userDto) throws EntityNotFoundException {
 
         User user = userRepository.findOne(userDto.getIdUser());
