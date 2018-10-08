@@ -34,8 +34,8 @@ public class ScheduleEmailToNewEmployee {
     private UserRepository userRepository;
 
     private final Logger LOGGER = Logger.getLogger(ScheduleEmailToNewEmployee.class.getName());
-    private final List<String> mandatoryFieldsFromUserEntity = Arrays.asList("name", "username", "password", "email");
-    private final List<String> mandatoryFieldsFromUserInfoEntity = Arrays.asList("team", "floor", "startDate");
+    private final List<String> mandatoryFieldsFromUserEntity = Arrays.asList("name", "username", "password", "email", "team", "floor", "startDate");
+
 
 
     /**
@@ -45,15 +45,11 @@ public class ScheduleEmailToNewEmployee {
     // @Scheduled(cron = "0 0 19 * * MON-FRI")
     @RequestMapping(value = "/emailsch", method = RequestMethod.GET)
     public ResponseEntity reportCurrentTime() {
-        List<User> usersInfoForUserWhoStartNextWeek = userRepository.findByStartDate(getNextWeekDate());
-        List<User> usersWhoStartNextWeek = new ArrayList<>();
+        List<User> usersInfoForUserWhoStartNextWeek = userRepository.findByStartDateBefore(getNextWeekDate());
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-        usersInfoForUserWhoStartNextWeek.stream()
-                .filter(userInformation -> hasNotNullFields(mandatoryFieldsFromUserInfoEntity, userInformation))
-                .forEach(usersWhoStartNextWeek::add);
 
-        usersWhoStartNextWeek.stream()
+        usersInfoForUserWhoStartNextWeek.stream()
                 .filter(user -> {
                     try {
                         return !checkListService.isMailSentToUser(user);

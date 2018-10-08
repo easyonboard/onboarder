@@ -32,7 +32,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @param date: given Date
      * @return list of users
      */
-    List<User> findByStartDate(Date date);
+    List<User> findByStartDateBefore(Date date);
 
     /**
      *
