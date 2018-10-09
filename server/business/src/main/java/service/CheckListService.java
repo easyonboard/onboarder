@@ -25,7 +25,7 @@ public class CheckListService {
             throw new InvalidDataException("Checklist data is invalid");
         }
         CheckList checkList = new CheckList();
-        checkList.setHasBuddyAssigned(userInformationDto.getBuddyUser() != null);
+        checkList.setHasBuddyAssigned(userInformationDto.getMate() != null);
         checkList.setUserAccount(appUser);
         checkListRepository.save(checkList);
 

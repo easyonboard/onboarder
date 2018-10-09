@@ -62,13 +62,13 @@ public class ScheduleEmailToNewEmployee {
                 .forEach(user -> {
                     String dateWithZeroTime = null;
                     dateWithZeroTime = formatter.format(user.getStartDate());
-                    String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", user.getBuddyUser().getName(), user.getFloor(), user.getLocation().getLocationName().name(), user.getLocation().getLocationAddress());
-                    String emailBodyBuddy = createEmailBodyForBuddy(user.getName(), user.getName(), dateWithZeroTime, user.getBuddyUser().getName(), user.getFloor(), user.getLocation().getLocationName().name(), user.getTeam());
+                    String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", user.getMate().getName(), user.getFloor(), user.getLocation().getLocationName().name(), user.getLocation().getLocationAddress());
+                    String emailBodyBuddy = createEmailBodyForBuddy(user.getName(), user.getName(), dateWithZeroTime, user.getMate().getName(), user.getFloor(), user.getLocation().getLocationName().name(), user.getTeam());
 
 
                     sendEmail(user.getEmail(), null, NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);
                     checkListService.updateFieldMailSent(user.getIdUser(),true);
-                    sendEmail(user.getBuddyUser().getMsgMail(), null, BUDDY_MAIL_SUBJECT, emailBodyBuddy);
+                    sendEmail(user.getMate().getMsgMail(), null, BUDDY_MAIL_SUBJECT, emailBodyBuddy);
                     checkListService.updateFieldMailSentToBuddy(user.getIdUser(),true);
 
                 });

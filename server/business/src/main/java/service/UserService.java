@@ -81,10 +81,10 @@ public class UserService {
         userDto.setDepartment(department);
 
         User mappedUser = userMapper.mapToEntity(userDto, user);
-        Optional<User> optionalUser = userRepository.findByUsername(userDto.getBuddyUser().getUsername());
+        Optional<User> optionalUser = userRepository.findByUsername(userDto.getMate().getUsername());
         if (optionalUser.isPresent()) {
             User buddyUser = optionalUser.get();
-            mappedUser.setBuddyUser(buddyUser);
+            mappedUser.setMate(buddyUser);
 
         }
         userRepository.save(mappedUser);
@@ -104,9 +104,9 @@ public class UserService {
         actualUserInfo.setDepartment(userInfo.getDepartment());
         actualUserInfo.setStartDate(userInfo.getStartDate());
 
-        if (userInfo.getBuddyUser().getUsername() != null) {
-            User newUser = userRepository.findByUsername(userInfo.getBuddyUser().getUsername()).get();
-            actualUserInfo.setBuddyUser(newUser);
+        if (userInfo.getMate().getUsername() != null) {
+            User newUser = userRepository.findByUsername(userInfo.getMate().getUsername()).get();
+            actualUserInfo.setMate(newUser);
         }
 
         userRepository.save(actualUserInfo);
@@ -123,7 +123,7 @@ public class UserService {
         userInformation.setStartDate(userInformationDto.getStartDate());
 
         if (buddyUser != null) {
-            userInformation.setBuddyUser(buddyUser);
+            userInformation.setMate(buddyUser);
         }
 
         userRepository.save(userInformation);
@@ -254,7 +254,7 @@ public class UserService {
             checkListMap.put(attribute, value);
         }
 
-        if (user.getBuddyUser() == null) {
+        if (user.getMate() == null) {
             checkListMap.put("hasBuddyAssigned", false);
             checkList.setHasBuddyAssigned(false);
             checkListRepository.save(checkList);
@@ -342,11 +342,11 @@ public class UserService {
     public void setBuddyToNull(User userEntity) {
 
         try {
-            List<User> userInformationsList = userRepository.findByBuddyUser(userEntity);
+            List<User> userInformationsList = userRepository.findByMate(userEntity);
             if (userInformationsList != null) {
                 for (int i = 0; i < userInformationsList.size(); i++) {
                     User userInformation = userInformationsList.get(i);
-                    userInformation.setBuddyUser(null);
+                    userInformation.setMate(null);
                     userRepository.save(userInformation);
                 }
             }
