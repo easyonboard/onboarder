@@ -44,4 +44,12 @@ public class CheckListService {
         return this.findByUser(userEntity).isMailSent();
     }
 
+    public void updateFieldMailSentToBuddy(Integer idUser, boolean value){
+        checkListRepository.updateFieldMailSentToBuddy(idUser,value);
+    }
+
+    public void updateFieldMailSent(Integer idUser, boolean value){
+        checkListRepository.updateFieldMailSentToNewEmployee(idUser,value);
+    }
+
 }
