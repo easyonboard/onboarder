@@ -37,7 +37,6 @@ public class ScheduleEmailToNewEmployee {
     private final List<String> mandatoryFieldsFromUserEntity = Arrays.asList("name", "username", "password", "email", "team", "floor", "startDate");
 
 
-
     /**
      * try to send email for new employees on 19:00 every weekday
      */
@@ -51,13 +50,26 @@ public class ScheduleEmailToNewEmployee {
 
         usersInfoForUserWhoStartNextWeek.stream()
                 .filter(user -> hasNotNullFields(mandatoryFieldsFromUserEntity, user))
+                .filter(user -> {
+                            try {
+                                return !checkListService.isMailSentToUser(user);
+                            } catch (EntityNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                            return false;
+                        }
+                )
                 .forEach(user -> {
                     String dateWithZeroTime = null;
                     dateWithZeroTime = formatter.format(user.getStartDate());
                     String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", user.getBuddyUser().getName(), user.getFloor(), user.getLocation().getLocationName().name(), user.getLocation().getLocationAddress());
+                    String emailBodyBuddy = createEmailBodyForBuddy(user.getName(), user.getName(), dateWithZeroTime, user.getBuddyUser().getName(), user.getFloor(), user.getLocation().getLocationName().name(), user.getTeam());
 
 
-                        sendEmail(user.getEmail(),null, NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);
+                    sendEmail(user.getEmail(), null, NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);
+                    checkListService.updateFieldMailSent(user.getIdUser(),true);
+                    sendEmail(user.getBuddyUser().getMsgMail(), null, BUDDY_MAIL_SUBJECT, emailBodyBuddy);
+                    checkListService.updateFieldMailSentToBuddy(user.getIdUser(),true);
 
                 });
 
