@@ -10,3 +10,4 @@ export enum RoleType {
 export class Role {
   role: RoleType;
 }
+
