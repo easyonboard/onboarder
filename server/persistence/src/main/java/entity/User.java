@@ -1,6 +1,7 @@
 package entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import entity.enums.RoleType;
 import lombok.*;
 
@@ -15,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
 @Builder
 @Entity
@@ -53,10 +53,16 @@ public class User implements Serializable {
     @JoinColumn(name = "idDepartment")
     private Department department;
 
-    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "user_buddy_id")
-    private User buddyUser;
+    @JoinColumn(name = "mate_id", referencedColumnName = "idUser")
+    private User mate;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "mate",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<User> mateForUsers;
+
+
+
 
     @Column
     private String team;

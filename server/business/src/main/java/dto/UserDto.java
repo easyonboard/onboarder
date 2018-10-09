@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,7 +23,8 @@ public class UserDto {
     private String msgMail;
     private Date startDate;
     private Department department;
-    private User buddyUser;
+    private User mate;
+    private List<User> mateForUsers;
     private String team;
     private Location location;
     private String floor;

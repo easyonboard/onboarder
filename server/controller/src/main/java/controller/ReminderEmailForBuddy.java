@@ -34,12 +34,12 @@ public class ReminderEmailForBuddy {
     public void reminderForBuddy() {
         List<User> usersWhoStartTomorrow = userRepository.findByStartDateBefore(getTomorrowDate());
         usersWhoStartTomorrow.stream()
-                .filter(ui -> ui.getBuddyUser() != null);
+                .filter(ui -> ui.getMate() != null);
 
         usersWhoStartTomorrow
                 .forEach(ui -> {
-                            String emailBody = createEmailBodyForBuddy(ui.getBuddyUser().getName(), ui.getName(), "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
-                            sendEmail(ui.getBuddyUser().getEmail(), BUDDY_MAIL_SUBJECT, emailBody);
+                            String emailBody = createEmailBodyForBuddy(ui.getMate().getName(), ui.getName(), "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
+                            sendEmail(ui.getMate().getEmail(), BUDDY_MAIL_SUBJECT, emailBody);
                         }
                 );
     }
