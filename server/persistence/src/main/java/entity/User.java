@@ -54,7 +54,7 @@ public class User implements Serializable {
     private Department department;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_buddy_id")
     private User buddyUser;
 
