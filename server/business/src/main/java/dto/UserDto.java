@@ -2,6 +2,7 @@ package dto;
 
 import entity.Department;
 import entity.Location;
+import entity.User;
 import entity.enums.RoleType;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +22,7 @@ public class UserDto {
     private String msgMail;
     private Date startDate;
     private Department department;
-    private UserDto buddyUser;
+    private User buddyUser;
     private String team;
     private Location location;
     private String floor;
