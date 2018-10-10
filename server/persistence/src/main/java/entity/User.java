@@ -20,6 +20,10 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "app_user")
+@NamedQueries({
+        @NamedQuery(name = "User.findUserByRoleAndDepartment", query = "SELECT u FROM User u where u.role = ? AND u.department = ?"),
+
+})
 public class User implements Serializable {
 
     @Id

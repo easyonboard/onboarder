@@ -2,6 +2,7 @@ package dao;
 
 import entity.Department;
 import entity.User;
+import entity.enums.RoleType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -40,6 +41,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @return list of user information with user param assigned as buddy
      */
     List<User> findByMate(User mate);
+
+    User findUserByRoleAndDepartment(RoleType role, Department department);
 
 
 }
