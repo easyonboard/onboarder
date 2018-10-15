@@ -2,6 +2,7 @@ package controller;
 
 import dao.UserRepository;
 import entity.User;
+import entity.enums.RoleType;
 import exception.types.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -62,20 +63,19 @@ public class ScheduleEmailToNewEmployee {
                 .forEach(user -> {
                     String dateWithZeroTime = null;
                     dateWithZeroTime = formatter.format(user.getStartDate());
-
-
                     Optional<User> userOptional = userRepository.findByUsername(user.getMateUsername());
                     if (userOptional.isPresent()) {
                         User mateUser=userOptional.get();
                         String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", mateUser.getName(), user.getFloor(), user.getLocation().getLocationName().name(), user.getLocation().getLocationAddress());
                         String emailBodyBuddy = createEmailBodyForBuddy(mateUser.getName(), user.getName(), dateWithZeroTime, "09:00", user.getFloor(), user.getLocation().getLocationName().name(), user.getTeam());
-
-
-                        sendEmail(user.getEmail(), null, NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);
+                        
+                        User abteilungsleiter = userRepository.findUserByRoleAndDepartment(RoleType.ROLE_ABTEILUNGSLEITER,user.getDepartment());
+                        sendEmail(user.getEmail(), abteilungsleiter, NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);
                         checkListService.updateFieldMailSent(user.getIdUser(),true);
                         sendEmail(mateUser.getMsgMail(), null, BUDDY_MAIL_SUBJECT, emailBodyBuddy);
                         checkListService.updateFieldMailSentToBuddy(user.getIdUser(),true);
                     }
+
 
 
                 });
