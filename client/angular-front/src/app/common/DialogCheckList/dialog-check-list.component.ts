@@ -42,7 +42,7 @@ export class DialogCheckListComponent implements OnInit {
   }
 
   onCheck(key: string) {
-    if (this.userInfo.buddyUser === null && key === 'hasBuddyAssigned') {
+    if (this.userInfo.mateUsername === null && key === 'hasBuddyAssigned') {
       this.snackBarMessagePopup('User has no buddy assigned!', 'Close');
       return;
     }
@@ -52,7 +52,7 @@ export class DialogCheckListComponent implements OnInit {
   }
 
   saveStatus() {
-    if (this.userInfo.buddyUser == null && this.checkList.get('hasBuddyAssigned')) {
+    if (this.userInfo.mateUsername == null && this.checkList.get('hasBuddyAssigned')) {
       this.snackBarMessagePopup('User has no buddy assigned!', 'Close');
       return;
     }

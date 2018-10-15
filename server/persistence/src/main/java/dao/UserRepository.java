@@ -33,13 +33,4 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @return list of users
      */
     List<User> findByStartDateBefore(Date date);
-
-    /**
-     *
-     * @param mate: User
-     * @return list of user information with user param assigned as buddy
-     */
-    List<User> findByMate(User mate);
-
-
 }
