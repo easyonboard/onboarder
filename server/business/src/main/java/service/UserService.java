@@ -394,7 +394,7 @@ public class UserService {
 
     }
 
-    public boolean getStatusMailForUser(String username) throws EntityNotFoundException {
+    public Boolean getStatusMailForUser(String username) throws EntityNotFoundException {
 
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {

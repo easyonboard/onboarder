@@ -23,7 +23,7 @@ export class UserService {
   }
 
   addUser(user: User, role: RoleType) {
-
+    debugger;
     const body = JSON.stringify({user: user, role: role});
     const result = this.http.post<User>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
     return result;

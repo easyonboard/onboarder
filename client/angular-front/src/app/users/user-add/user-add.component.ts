@@ -13,27 +13,27 @@ import {UserInfoFormularComponent} from '../user-info-formular/user-info-formula
   encapsulation: ViewEncapsulation.None
 })
 export class UserAddComponent implements OnInit {
-
-  @ViewChild(UserInfoFormularComponent)
-  private childUserInfoFormularComponent: UserInfoFormularComponent;
-
+  private MSG_MAIL = '@msg.group';
   public firstName = '';
   public lastName = '';
   public roleType = RoleType;
-  public selectedRole: RoleType;
 
+  public selectedRole: RoleType;
   public user = new User();
+
   public roles = Object.keys(RoleType);
+
+  @ViewChild(UserInfoFormularComponent)
+  private childUserInfoFormularComponent: UserInfoFormularComponent;
 
   constructor(private userService: UserService, public snackBar: MatSnackBar, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.user.msgMail = '@msg.group';
+    // this.user.msgMail = this.MSG_MAIL;
   }
 
   addUser(): void {
-    this.user.username = this.firstName.trim() + this.lastName.trim();
     this.user.name = this.firstName.trim() + ' ' + this.lastName.trim();
 
     let unique: boolean;
@@ -45,16 +45,16 @@ export class UserAddComponent implements OnInit {
           unique = value1;
 
           if (unique === true) {
-            this.setUserInfosFields()
+            this.setUserInfosFields();
             this.userService.addUser(this.user, this.selectedRole).subscribe(
-                value2 => {
-                    this.snackBarMessagePopup('Succes! You just add a new employee!', 'Close');
-                    this.dialog.closeAll();
-                },
-                error => {
-                  this.snackBarMessagePopup(error.error.message, 'Close');
-                }
-              );
+              value2 => {
+                this.snackBarMessagePopup('Succes! You just add a new employee!', 'Close');
+                this.dialog.closeAll();
+              },
+              error => {
+                this.snackBarMessagePopup(error.error.message, 'Close');
+              }
+            );
           }
         },
         error => {
@@ -83,11 +83,11 @@ export class UserAddComponent implements OnInit {
     if (this.user.msgMail === '') {
       addUserErrorMessage += 'You must give the user\'s msg E-mail.\n';
     }
-    if (!this.childUserInfoFormularComponent.userInformation.location ||
-      this.childUserInfoFormularComponent.userInformation.location.locationName === '') {
+    if (!this.childUserInfoFormularComponent.user.location ||
+      this.childUserInfoFormularComponent.user.location.locationName === '') {
       addUserErrorMessage += 'Please choose a location for the new user.\n';
     }
-    if (!this.childUserInfoFormularComponent.userInformation.startDate) {
+    if (!this.childUserInfoFormularComponent.user.startDate) {
       addUserErrorMessage += 'You must specify the starting date!\n';
     }
     if (!this.selectedRole) {
@@ -110,19 +110,21 @@ export class UserAddComponent implements OnInit {
   }
 
   snackBarMessagePopup(message: string, action: string) {
-      this.snackBar.open(message, action, {
-        duration: 6000
-      });
+    this.snackBar.open(message, action, {
+      duration: 6000
+    });
   }
 
   private setUserInfosFields() {
-   this.user.buddyUser=this.childUserInfoFormularComponent.userInformation.buddyUser;
-   this.user.department=this.childUserInfoFormularComponent.userInformation.department;
-   this.user.floor=this.childUserInfoFormularComponent.userInformation.floor;
-   this.user.location=this.childUserInfoFormularComponent.userInformation.location;
-   this.user.project=this.childUserInfoFormularComponent.userInformation.project;
-   this.user.startDate=this.childUserInfoFormularComponent.userInformation.startDate;
-   this.user.team=this.childUserInfoFormularComponent.userInformation.team;
+    console.log(this.childUserInfoFormularComponent.user);
+    this.user.mate = this.childUserInfoFormularComponent.user.mate;
+    this.user.department = this.childUserInfoFormularComponent.user.department;
+    this.user.floor = this.childUserInfoFormularComponent.user.floor;
+    this.user.location = this.childUserInfoFormularComponent.user.location;
+    this.user.project = this.childUserInfoFormularComponent.user.project;
+    this.user.startDate = this.childUserInfoFormularComponent.user.startDate;
+    this.user.team = this.childUserInfoFormularComponent.user.team;
+    console.log(this.user);
 
   }
 }

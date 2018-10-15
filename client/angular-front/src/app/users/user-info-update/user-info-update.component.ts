@@ -28,7 +28,7 @@ export class UserInfoUpdateComponent implements OnInit {
     this.childUserInfoFormularComponent.userInformation.floor = this.userInformation.floor;
     this.childUserInfoFormularComponent.userInformation.project = this.userInformation.project;
     this.childUserInfoFormularComponent.userInformation.department = this.userInformation.department;
-    this.childUserInfoFormularComponent.userInformation.buddyUser = this.userInformation.buddyUser;
+    this.childUserInfoFormularComponent.userInformation.mate = this.userInformation.mate;
     this.childUserInfoFormularComponent.userInformation.startDate = this.userInformation.startDate;
   }
 
@@ -44,7 +44,7 @@ export class UserInfoUpdateComponent implements OnInit {
           this.childUserInfoFormularComponent.userInformation.floor = this.userInformation.floor;
           this.childUserInfoFormularComponent.userInformation.project = this.userInformation.project;
           this.childUserInfoFormularComponent.userInformation.department = this.userInformation.department;
-          this.childUserInfoFormularComponent.userInformation.buddyUser = this.userInformation.buddyUser;
+          this.childUserInfoFormularComponent.userInformation.mate = this.userInformation.mate;
           this.childUserInfoFormularComponent.userInformation.startDate = this.userInformation.startDate;
         });
 

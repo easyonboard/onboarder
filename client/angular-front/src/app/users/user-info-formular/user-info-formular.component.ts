@@ -24,36 +24,37 @@ export class UserInfoFormularComponent implements OnInit {
   @Input()
   show = true;
   @Input()
-  userInformation = new User();
+  user = new User();
 
   public departments: Department[];
 
   public users$: Observable<User[]>;
   private searchTerms = new Subject<string>();
 
-  constructor(private userInformationService: UserInformationService, private userService: UserService, @Inject(MAT_DIALOG_DATA) public userInfo: User) {
+  constructor(private userInformationService: UserInformationService, private userService: UserService) {
   }
 
   ngOnInit() {
-    this.userInformationService.getAllDepartments().subscribe(resp=>this.departments=resp);
+    this.userInformationService.getAllDepartments().subscribe(resp => this.departments = resp);
     this.today = new Date(Date.now());
     this.locations = [];
     if (this.userInfo != null) {
-      this.userInformation = this.userInfo;
+      this.user = this.userInfo;
     }
     this.userInformationService.getAllLocations().subscribe(resp => {
       this.locationDtos = resp;
       resp.forEach(l => this.locations.push(l.locationName));
+      console.log(this.locations);
     }, error => this.snackBarMessagePopup(error.error.message, 'Close'));
 
-    if (this.userInformation.buddyUser === undefined || this.userInformation.buddyUser === null) {
-      this.userInformation.buddyUser = new User();
-      this.userInformation.buddyUser.name = '';
+    if (this.user.mate === undefined || this.user.mate === null) {
+      this.user.mate = new User();
+      this.user.mate.name = '';
     }
 
-    if (this.userInformation.location === undefined || this.userInformation.location === null) {
-      this.userInformation.location = new Location();
-      this.userInformation.location.locationName = '';
+    if (this.user.location === undefined || this.user.location === null) {
+      this.user.location = new Location();
+      this.user.location.locationName = '';
     }
 
     this.users$ = this.searchTerms.pipe(
@@ -73,25 +74,25 @@ export class UserInfoFormularComponent implements OnInit {
 
   selectValue(event: MatSelectChange) {
 
-    this.userInformation.department = event.value;
+    this.user.department = event.value;
   }
 
   getDate(): Date {
-    return new Date(this.userInformation.startDate);
+    return new Date(this.user.startDate);
   }
 
   selectLocationValue(event: MatSelectChange) {
-
     this.locationDtos.forEach(l => {
       if (l.locationName === event.value) {
-        this.userInformation.location = l;
+        this.user.location = l;
       }
     });
   }
 
-  getUserBuddy(): String {
-    return this.userInformation.buddyUser !== null ? this.userInformation.buddyUser.name : '';
+  getUserMate(): String {
+    return this.user.mate !== null ? this.user.mate.name : '';
   }
+
   snackBarMessagePopup(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 6000

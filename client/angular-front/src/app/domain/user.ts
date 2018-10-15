@@ -12,7 +12,7 @@ export class User {
   password: string;
   startDate: Date;
   department: Department;
-  buddyUser: User;
+  mate: User;
   team: string;
   location: Location;
   floor: string;
@@ -30,7 +30,7 @@ export class User {
 //   floor: string;
 //   project: string;
 //   department: DepartmentType;
-//   buddyUser: User;
+//   mate: User;
 //   userAccount: User;
 //   startDate: Date;
 //   startDateString: String;
@@ -43,7 +43,7 @@ export class UserDetailsToExport {
   startDate: string;
   team: string;
   project: string;
-  department:string
+  department: string;
 }
 
 export class LeaveCheckList {
@@ -72,6 +72,6 @@ export class ContactPersonDto {
 //   floor: string;
 //   project: string;
 //   department: DepartmentType;
-//   buddyUser: User;
+//   mate: User;
 //   startDateString: Date;
 // }

@@ -48,6 +48,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "users/updateUser", method = RequestMethod.POST)
     public ResponseEntity updateUser(@RequestBody UserDto user) {

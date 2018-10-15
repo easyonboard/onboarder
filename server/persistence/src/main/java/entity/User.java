@@ -62,8 +62,6 @@ public class User implements Serializable {
     private List<User> mateForUsers;
 
 
-
-
     @Column
     private String team;
 

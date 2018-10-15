@@ -13,8 +13,6 @@ public class LocationDto {
 
     private String locationAddress;
 
-    private String locationCity;
-
     private String locationContactPhone;
 
     private String locationContactEmail;
