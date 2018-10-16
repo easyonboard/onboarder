@@ -11,10 +11,7 @@ import utilityService.MailSender;
 import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Logger;
 
 //@Component
@@ -33,13 +30,18 @@ public class ReminderEmailForBuddy {
     @RequestMapping(value = "/reminderBuddy", method = RequestMethod.GET)
     public void reminderForBuddy() {
         List<User> usersWhoStartTomorrow = userRepository.findByStartDateBefore(getTomorrowDate());
+
         usersWhoStartTomorrow.stream()
-                .filter(ui -> ui.getMate() != null);
+                .filter(ui -> ui.getMateUsername() != null);
 
         usersWhoStartTomorrow
                 .forEach(ui -> {
-                            String emailBody = createEmailBodyForBuddy(ui.getMate().getName(), ui.getName(), "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
-                            sendEmail(ui.getMate().getEmail(), BUDDY_MAIL_SUBJECT, emailBody);
+                    Optional<User> userOptional = userRepository.findByUsername(ui.getMateUsername());
+                    if (userOptional.isPresent()) {
+                        User mateUser=userOptional.get();
+                        String emailBody = createEmailBodyForBuddy(mateUser.getName(), ui.getName(), "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
+                        sendEmail(mateUser.getEmail(), BUDDY_MAIL_SUBJECT, emailBody);
+                    }
                         }
                 );
     }

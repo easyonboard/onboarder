@@ -28,7 +28,7 @@ public class Department implements Serializable {
     private Department parent;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Department> childDepartments;
 
 }

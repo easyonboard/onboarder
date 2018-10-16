@@ -12,7 +12,7 @@ export class User {
   password: string;
   startDate: Date;
   department: Department;
-  buddyUser: User;
+  mateUsername: string;
   team: string;
   location: Location;
   floor: string;

@@ -23,8 +23,7 @@ public class UserDto {
     private String msgMail;
     private Date startDate;
     private Department department;
-    private User mate;
-    private List<User> mateForUsers;
+    private String mateUsername;
     private String team;
     private Location location;
     private String floor;

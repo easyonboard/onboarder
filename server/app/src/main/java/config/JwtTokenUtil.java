@@ -18,7 +18,7 @@ public class JwtTokenUtil implements Serializable {
     public String generateToken(String username, String role) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("scopes", Arrays.asList(new SimpleGrantedAuthority(role)));
-        String signInKey=Constants.generateSigningKey(username);
+        String signInKey=Constants.generateSigningKey();
         String token= Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -38,7 +38,7 @@ public class JwtTokenUtil implements Serializable {
         return getExpirationDateFromToken(token).before(new Date());
     }
 
-    public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+    private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
     }
@@ -54,7 +54,7 @@ public class JwtTokenUtil implements Serializable {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
-    public Date getExpirationDateFromToken(String token) {
+    private Date getExpirationDateFromToken(String token) {
         return getClaimFromToken(token, Claims::getExpiration);
     }
 

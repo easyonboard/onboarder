@@ -116,7 +116,7 @@ export class UserAddComponent implements OnInit {
   }
 
   private setUserInfosFields() {
-   this.user.buddyUser=this.childUserInfoFormularComponent.userInformation.buddyUser;
+   this.user.mateUsername=this.childUserInfoFormularComponent.userInformation.mateUsername;
    this.user.department=this.childUserInfoFormularComponent.userInformation.department;
    this.user.floor=this.childUserInfoFormularComponent.userInformation.floor;
    this.user.location=this.childUserInfoFormularComponent.userInformation.location;

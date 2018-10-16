@@ -46,9 +46,9 @@ export class UserInfoFormularComponent implements OnInit {
       resp.forEach(l => this.locations.push(l.locationName));
     }, error => this.snackBarMessagePopup(error.error.message, 'Close'));
 
-    if (this.userInformation.buddyUser === undefined || this.userInformation.buddyUser === null) {
-      this.userInformation.buddyUser = new User();
-      this.userInformation.buddyUser.name = '';
+    if (this.userInformation.mateUsername === undefined || this.userInformation.mateUsername === null) {
+
+      this.userInformation.mateUsername = '';
     }
 
     if (this.userInformation.location === undefined || this.userInformation.location === null) {
@@ -90,7 +90,7 @@ export class UserInfoFormularComponent implements OnInit {
   }
 
   getUserBuddy(): String {
-    return this.userInformation.buddyUser !== null ? this.userInformation.buddyUser.name : '';
+    return this.userInformation.mateUsername !== null ? this.userInformation.mateUsername : '';
   }
   snackBarMessagePopup(message: string, action: string) {
     this.snackBar.open(message, action, {
