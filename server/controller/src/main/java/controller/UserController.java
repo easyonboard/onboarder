@@ -28,16 +28,11 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "users/addUser", method = RequestMethod.POST)
     public ResponseEntity addUser(@RequestBody String userJson) {
-
         ObjectMapper mapper = new ObjectMapper();
-
         try {
             JsonNode node = mapper.readTree(userJson);
             UserDto userDto = mapper.convertValue(node.get("user"), UserDto.class);
-            RoleType role = mapper.convertValue(node.get("role"), RoleType.class);
-
-
-            userService.addUser(userDto,role);
+            userService.addUser(userDto);
         } catch (InvalidDataException exception) {
             return new ResponseEntity(exception, HttpStatus.BAD_REQUEST);
         } catch (JsonProcessingException e) {
@@ -91,26 +86,6 @@ public class UserController {
         return new ResponseEntity(newUsers, HttpStatus.OK);
     }
 
-    /**
-     * Method used for adding/updating the user information, represented by the info the user needs to know
-     * for his first day.
-     *
-     * @return HTTP STATUS OK for successfully adding the info,
-     * or HTTP STATUS BAD REQUEST for exception
-     */
-    @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "users/updateUserInfo", method = RequestMethod.POST)
-    public ResponseEntity updateUserInformation(@RequestBody UserDto userInformationDto) {
-
-        try {
-            userService.updateUserInfo(userInformationDto);
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
-        }
-    }
-
 
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -129,7 +104,7 @@ public class UserController {
     public ResponseEntity saveCheckList(@RequestBody String userAndChecklist) {
 
         try {
-            userService.saveCheckListForUser(getUser(userAndChecklist), getCheckListMsp(userAndChecklist));
+            userService.saveCheckListForUser(getUser(userAndChecklist), getCheckListMap(userAndChecklist));
             return new ResponseEntity(HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
@@ -297,7 +272,7 @@ public class UserController {
         return mapper.convertValue(node.get("user"), String.class);
     }
 
-    private CheckListDto getCheckListMsp(String str) throws IOException {
+    private CheckListDto getCheckListMap(String str) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(str);

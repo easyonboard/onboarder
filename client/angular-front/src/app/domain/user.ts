@@ -1,5 +1,4 @@
-import {Role, RoleType} from './role';
-import {DepartmentType} from './departmentType';
+import {RoleType} from './role';
 import {Location} from './location';
 import {Department} from './Department';
 
@@ -19,22 +18,7 @@ export class User {
   project: string;
   startDateString: String;
   role: RoleType;
-
-
 }
-
-// export class UserInformationDTO {
-//   idUserInformation: number;
-//   team: string;
-//   location: LocationDTO;
-//   floor: string;
-//   project: string;
-//   department: DepartmentType;
-//   mate: User;
-//   userAccount: User;
-//   startDate: Date;
-//   startDateString: String;
-// }
 
 export class UserDetailsToExport {
   name: string;
@@ -57,21 +41,3 @@ export class ContactPersonDto {
   username: string;
   msgMail: string;
 }
-
-// export class UserDetails {
-//   email: string;
-//   msgMail: string;
-//   name: string;
-//   username: string;
-// }
-
-
-// export class UserInformationsDetails {
-//   team: string;
-//   location: LocationDTO;
-//   floor: string;
-//   project: string;
-//   department: DepartmentType;
-//   mate: User;
-//   startDateString: Date;
-// }

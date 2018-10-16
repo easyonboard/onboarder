@@ -4,20 +4,20 @@ import {MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 import {Component, Inject, OnInit} from '@angular/core';
 import {CheckListProperties} from '../../util/CheckListProperties';
 import {UserService} from '../../service/user.service';
-import {UserInformationService} from '../../service/user-information.service';
 
 @Component({
   selector: 'app-dialog-check-list-user',
   templateUrl: './dialog-check-list.component.html',
 })
 export class DialogCheckListComponent implements OnInit {
-  [x: string]: any;
   public dialogTitle: string;
   public checkList: TSMap<string, boolean>;
   public checkListProperties: CheckListProperties;
   private userInfo: User;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private user: User, private userService: UserService, public snackBarCheck: MatSnackBar, private userInformationService: UserInformationService) {
+  constructor(@Inject(MAT_DIALOG_DATA) private user: User,
+              private userService: UserService,
+              public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -25,7 +25,6 @@ export class DialogCheckListComponent implements OnInit {
     this.dialogTitle = 'Check list for ' + this.user.name;
     this.checkList = new TSMap<string, boolean>();
     this.checkListProperties = new CheckListProperties();
-    this.userInformationService.getUserInformation(this.user.username).subscribe(resp => this.userInfo = resp);
     this.userService.getCheckListForUser(this.user).subscribe(
       data => {
         Object.keys(data).forEach(key => {

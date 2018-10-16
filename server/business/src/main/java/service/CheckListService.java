@@ -19,13 +19,9 @@ public class CheckListService {
 
     private CheckListMapper checkListMapper = CheckListMapper.INSTANCE;
 
-    public CheckListDto addCheckList(UserDto userInformationDto, User appUser) throws InvalidDataException {
-
-        if (userInformationDto == null || appUser == null) {
-            throw new InvalidDataException("Checklist data is invalid");
-        }
+    public CheckListDto addCheckList(User appUser) throws InvalidDataException {
         CheckList checkList = new CheckList();
-        checkList.setHasBuddyAssigned(userInformationDto.getMate() != null);
+        checkList.setHasBuddyAssigned(appUser.getMate() != null);
         checkList.setUserAccount(appUser);
         checkListRepository.save(checkList);
 
