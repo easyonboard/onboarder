@@ -74,41 +74,12 @@ public class UserService {
         userDto.setPassword(encrypt(userDto.getUsername()));
         userValidator.validateUsername(userDto.getUsername());
         userValidator.validateUserData(userDto);
-<<<<<<< HEAD
         User mappedUser = userMapper.mapToNewEntity(userDto);
         mappedUser = userRepository.save(mappedUser);
         checkListService.addCheckList(mappedUser);
-=======
-        Department department = departmentRepository.findByDepartmentName(userDto.getDepartment().getDepartmentName());
-        User user = new User();
-        userDto.setRole(role);
-        userDto.setDepartment(department);
-
-        User mappedUser = userMapper.mapToEntity(userDto, user);
-        userRepository.save(mappedUser);
-
->>>>>>> master
     }
 
 
-    public void updateUserInfo(UserDto userInfo) {
-
-        User actualUserInfo = userRepository.findOne(userInfo.getIdUser());
-
-        actualUserInfo.setTeam(userInfo.getTeam());
-        actualUserInfo.setLocation(userInfo.getLocation());
-        actualUserInfo.setFloor(userInfo.getFloor());
-        actualUserInfo.setProject(userInfo.getProject());
-
-        actualUserInfo.setDepartment(userInfo.getDepartment());
-        actualUserInfo.setStartDate(userInfo.getStartDate());
-        userRepository.save(actualUserInfo);
-    }
-
-<<<<<<< HEAD
-=======
-
->>>>>>> master
     public String encrypt(String initString) {
 
         return Hashing.sha256().hashString(initString, StandardCharsets.UTF_8).toString();

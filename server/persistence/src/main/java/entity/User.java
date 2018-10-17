@@ -18,10 +18,6 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "app_user")
-@NamedQueries({
-        @NamedQuery(name = "User.findUserByRoleAndDepartment", query = "SELECT u FROM User u where u.role = ? AND u.department = ?"),
-
-})
 public class User implements Serializable {
 
     @Id
@@ -55,19 +51,8 @@ public class User implements Serializable {
     @JoinColumn(name = "idDepartment")
     private Department department;
 
-<<<<<<< HEAD
-    @ManyToOne
-    @JoinColumn(name = "mate_id", referencedColumnName = "idUser")
-    private User mate;
-
-    @JsonBackReference
-    @OneToMany(mappedBy = "mate",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<User> mateForUsers;
-
-=======
     @Column
     private String mateUsername;
->>>>>>> master
 
     @Column
     private String team;

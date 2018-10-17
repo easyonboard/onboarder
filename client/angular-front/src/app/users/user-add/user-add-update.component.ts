@@ -110,7 +110,6 @@ export class UserAddComponent implements OnInit, OnDestroy {
 
   private createNameForUser() {
     this.user.name = this.firstName.trim() + ' ' + this.lastName.trim();
-    alert(this.user.name);
   }
 
   updateUser() {

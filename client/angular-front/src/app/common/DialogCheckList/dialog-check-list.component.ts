@@ -13,7 +13,6 @@ export class DialogCheckListComponent implements OnInit {
   public dialogTitle: string;
   public checkList: TSMap<string, boolean>;
   public checkListProperties: CheckListProperties;
-  private userInfo: User;
 
   constructor(@Inject(MAT_DIALOG_DATA) private user: User,
               private userService: UserService,
@@ -21,7 +20,6 @@ export class DialogCheckListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userInfo = new User();
     this.dialogTitle = 'Check list for ' + this.user.name;
     this.checkList = new TSMap<string, boolean>();
     this.checkListProperties = new CheckListProperties();
@@ -41,11 +39,7 @@ export class DialogCheckListComponent implements OnInit {
   }
 
   onCheck(key: string) {
-<<<<<<< HEAD
-    if (this.userInfo.mate === null && key === 'hasBuddyAssigned') {
-=======
-    if (this.userInfo.mateUsername === null && key === 'hasBuddyAssigned') {
->>>>>>> master
+    if (this.user.mateUsername === null && key === 'hasBuddyAssigned') {
       this.snackBarMessagePopup('User has no buddy assigned!', 'Close');
       return;
     }
@@ -55,11 +49,7 @@ export class DialogCheckListComponent implements OnInit {
   }
 
   saveStatus() {
-<<<<<<< HEAD
-    if (this.userInfo.mate == null && this.checkList.get('hasBuddyAssigned')) {
-=======
-    if (this.userInfo.mateUsername == null && this.checkList.get('hasBuddyAssigned')) {
->>>>>>> master
+    if (this.user.mateUsername == null && this.checkList.get('hasBuddyAssigned')) {
       this.snackBarMessagePopup('User has no buddy assigned!', 'Close');
       return;
     }
