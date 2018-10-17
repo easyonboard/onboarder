@@ -2,8 +2,7 @@ package dto.mapper;
 
 import dto.UserDto;
 import entity.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
@@ -13,4 +12,6 @@ public interface UserMapper extends AbstractMapper<User, UserDto> {
 
     @Override
     User mapToNewEntity(UserDto userDto);
+
+
 }

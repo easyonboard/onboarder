@@ -74,9 +74,20 @@ public class UserService {
         userDto.setPassword(encrypt(userDto.getUsername()));
         userValidator.validateUsername(userDto.getUsername());
         userValidator.validateUserData(userDto);
+<<<<<<< HEAD
         User mappedUser = userMapper.mapToNewEntity(userDto);
         mappedUser = userRepository.save(mappedUser);
         checkListService.addCheckList(mappedUser);
+=======
+        Department department = departmentRepository.findByDepartmentName(userDto.getDepartment().getDepartmentName());
+        User user = new User();
+        userDto.setRole(role);
+        userDto.setDepartment(department);
+
+        User mappedUser = userMapper.mapToEntity(userDto, user);
+        userRepository.save(mappedUser);
+
+>>>>>>> master
     }
 
 
@@ -91,15 +102,13 @@ public class UserService {
 
         actualUserInfo.setDepartment(userInfo.getDepartment());
         actualUserInfo.setStartDate(userInfo.getStartDate());
-
-        if (userInfo.getMate().getUsername() != null) {
-            User newUser = userRepository.findByUsername(userInfo.getMate().getUsername()).get();
-            actualUserInfo.setMate(newUser);
-        }
-
         userRepository.save(actualUserInfo);
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
     public String encrypt(String initString) {
 
         return Hashing.sha256().hashString(initString, StandardCharsets.UTF_8).toString();
@@ -205,7 +214,7 @@ public class UserService {
             throw new EntityNotFoundException(checklistForUserNotFound(userDto.getUsername()));
         }
 
-        Map checkListMap = new HashMap();
+        Map<String, Boolean> checkListMap = new HashMap();
         Field fields[] = checkList.getClass().getDeclaredFields();
         boolean value = false;
         String attribute;
@@ -221,7 +230,7 @@ public class UserService {
             checkListMap.put(attribute, value);
         }
 
-        if (user.getMate() == null) {
+        if (user.getMateUsername()==null) {
             checkListMap.put("hasBuddyAssigned", false);
             checkList.setHasBuddyAssigned(false);
             checkListRepository.save(checkList);
@@ -295,7 +304,6 @@ public class UserService {
                     enrolled.getEnrolledUsers().remove(userEntity);
                     eventRepository.save(enrolled);
                 }
-                setBuddyToNull(userEntity);
                 userRepository.delete(userEntity);
                 return true;
             } else {
@@ -306,22 +314,6 @@ public class UserService {
         }
     }
 
-    public void setBuddyToNull(User userEntity) {
-
-        try {
-            List<User> userInformationsList = userRepository.findByMate(userEntity);
-            if (userInformationsList != null) {
-                for (int i = 0; i < userInformationsList.size(); i++) {
-                    User userInformation = userInformationsList.get(i);
-                    userInformation.setMate(null);
-                    userRepository.save(userInformation);
-                }
-            }
-        } catch (NoResultException e) {
-
-            System.out.println("User is not buddy");
-        }
-    }
 
     public UserDto getUserInformationForUser(String username) throws EntityNotFoundException {
 
@@ -346,7 +338,7 @@ public class UserService {
         return usersList;
     }
 
-    public void updateUserPassword(String username, String password) throws EntityNotFoundException, DatabaseException {
+    public void updateUserPassword(String username, String password) throws DatabaseException {
 
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
@@ -383,11 +375,11 @@ public class UserService {
                 leaveCheckList.setUserAccount(userEntity);
                 Field[] fields = LeaveCheckList.class.getDeclaredFields();
 
-                for (int i = 0; i < fields.length; i++) {    // all fields are set to false, except id and userAccount
-                    fields[i].setAccessible(true);
+                for (Field field : fields) {    // all fields are set to false, except id and userAccount
+                    field.setAccessible(true);
                     try {
-                        if (fields[i].getType() == Boolean.class) {
-                            fields[i].set(leaveCheckList, false);
+                        if (field.getType() == Boolean.class) {
+                            field.set(leaveCheckList, false);
                         }
                         return leaveCheckListMapper.mapToDTO(leaveCheckListRepository.save(leaveCheckList));
 

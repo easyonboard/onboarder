@@ -11,7 +11,7 @@ export class User {
   password: string;
   startDate: Date;
   department: Department;
-  mate: User;
+  mateUsername: string;
   team: string;
   location: Location;
   floor: string;

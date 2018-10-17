@@ -5,6 +5,8 @@ import {TutorialService} from '../service/tutorial.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {MatSnackBar, PageEvent} from '@angular/material';
 import {Subscription} from 'rxjs/Subscription';
+import {LocalStorageConst} from '../util/LocalStorageConst';
+import {RoleType} from '../domain/role';
 
 @Component({
   selector: 'app-tutorials',
@@ -15,7 +17,7 @@ import {Subscription} from 'rxjs/Subscription';
 export class TutorialsComponent implements OnDestroy, OnInit {
 
   private rootConst: RootConst;
-
+  hasDeleteTutorialsPermission: boolean;
   tutorials: Tutorial[];
   tutorialsPerPage: Tutorial[];
   pageEvent: PageEvent;
@@ -32,6 +34,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
+    this.canDeleteTutorials();
     this.route.queryParams.subscribe(
       queryParams => {
         this.pageIndex = +queryParams['page'];
@@ -53,13 +56,14 @@ export class TutorialsComponent implements OnDestroy, OnInit {
       });
   }
 
+
   ngOnDestroy(): void {
     this.httpSubscription.unsubscribe();
   }
 
   private decision(params: any): any {
     const keyword = params['keyword'];
-    debugger
+    debugger;
     return this.tutorialService.getTutorials(keyword);
 
   }
@@ -111,5 +115,14 @@ export class TutorialsComponent implements OnDestroy, OnInit {
     this.snackBar.open(message, action, {
       duration: 6000
     });
+  }
+
+  private canDeleteTutorials() {
+    if (localStorage.getItem(LocalStorageConst._USER_ROLE) == RoleType.ROLE_CONTENT_MANAGER || localStorage.getItem(LocalStorageConst._USER_ROLE) == RoleType.ROLE_ADMIN) {
+      this.hasDeleteTutorialsPermission=true;
+    }
+    else {
+      this.hasDeleteTutorialsPermission=false;
+    }
   }
 }

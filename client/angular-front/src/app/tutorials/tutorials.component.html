@@ -19,7 +19,7 @@
                     (click)="filterByKeyword(keyword)">{{ keyword }}
           </mat-chip>
         </mat-chip-list>
-        <div id="buttonDelete" fxFlex="" fxLayoutAlign="end start">
+        <div id="buttonDelete" fxFlex="" fxLayoutAlign="end start" *ngIf="hasDeleteTutorialsPermission">
           <i class="material-icons" (click)="deleteTutorial(tutorial.idTutorial)"
              style="color:  #841439; cursor: pointer">
             delete_forever

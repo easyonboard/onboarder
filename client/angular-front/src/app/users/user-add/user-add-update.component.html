@@ -75,8 +75,8 @@
       <input matInput #searchBox (keyup)="search(searchBox.value)" placeholder="Choose a mate"
              [value]="getUserMate()"/>
       <ul class="search-result" *ngIf="show">
-        <li *ngFor="let buddy of users$ | async" (click)="user.mate=buddy;show = false">
-          <span>{{buddy.name}}</span>
+        <li *ngFor="let mate of users$ | async" (click)="user.mateUsername=mate.username;show = false">
+          <span>{{mate.name}}</span>
         </li>
       </ul>
     </mat-form-field>

@@ -237,8 +237,6 @@ public class UserController {
         try {
             userService.updateUserPassword(user.getUsername(), user.getPassword());
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (EntityNotFoundException e) {
-            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         } catch (DatabaseException e) {
             return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -1,19 +1,22 @@
 buildscript {
     ext { springBootVersion = '1.4.2.RELEASE' }
     repositories {
+        maven {
+            url "https://mvnrepository.com/artifact/org.springframework.boot/spring-boot/1.4.2.RELEASE"
+        }
         mavenCentral()
         mavenLocal()
     }
     dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") }
 }
 plugins {
-    id 'org.springframework.boot' version '1.4.5.RELEASE'
+    id 'org.springframework.boot' version '1.4.2.RELEASE'
     id 'io.franzbecker.gradle-lombok' version '1.8'
 }
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
-bootRepackage.enabled=false
+bootRepackage.enabled = false
 
 jar {
     baseName = 'onborder-server'

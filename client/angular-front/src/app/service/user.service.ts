@@ -120,7 +120,7 @@ export class UserService {
 
   updateUser(user: any) {
     const body = JSON.stringify({user: user});
-    console.log(body)
+    console.log(body);
     return this.http.post<User>(this.rootConst.SERVER_UPDATE_USER, user, this.httpOptions);
   }
 }

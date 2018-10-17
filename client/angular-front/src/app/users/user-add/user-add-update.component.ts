@@ -157,7 +157,7 @@ export class UserAddComponent implements OnInit, OnDestroy {
   }
 
   getUserMate(): String {
-    return typeof this.user.mate !== 'undefined' ? this.user.mate.name : '';
+    return typeof this.user.mateUsername !== 'undefined' ? this.user.mateUsername : '';
   }
 
 
