@@ -3,6 +3,7 @@ package config;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public final class Constants {
     private static Map<String, String> signinKeysForUser;
@@ -27,10 +28,9 @@ public final class Constants {
     }
 
     public static String generateSigningKey() {
-        Random randomIndex = new Random();
         StringBuilder signInKey = new StringBuilder();
         for (int i = 0; i < 6; i++) {
-            signInKey.append(randomIndex.nextInt(alphabet.length()));
+            signInKey.append(ThreadLocalRandom.current().nextInt(alphabet.length()+1)); //+1 because nextInt method excludes the upper bound
         }
         return signInKey.toString();
     }

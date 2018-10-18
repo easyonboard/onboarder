@@ -32,7 +32,6 @@ dependencies {
     compile project(':persistence')
     compile project(':business')
     compile project(':controller')
-
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile group: 'xml-apis', name: 'xml-apis', version: '1.4.01'
@@ -44,6 +43,6 @@ dependencies {
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.6.0'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-parent', version: '2.0.0.RELEASE', ext: 'pom'
     compile group: 'org.postgresql', name: 'postgresql', version: '42.1.1'
-
+    compile group: 'com.google.guava', name: 'guava', version: '11.0.2'
 
 }

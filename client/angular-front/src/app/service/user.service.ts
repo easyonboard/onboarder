@@ -6,6 +6,7 @@ import {LeaveCheckList, User} from '../domain/user';
 import {RootConst} from '../util/RootConst';
 import {TSMap} from 'typescript-map';
 import {RoleType} from '../domain/role';
+import {InterceptorExpiredTokenGuard} from '../guard/interceptor-expired-token.guard';
 
 @Injectable()
 export class UserService {
@@ -18,15 +19,13 @@ export class UserService {
 
   private allUsers: string = this.rootConst.SERVER_ALL_USERS;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private interceptorExpiredToken: InterceptorExpiredTokenGuard) {
     this.message = '';
   }
 
   addUser(user: User, role: RoleType) {
-
     const body = JSON.stringify({user: user, role: role});
-    const result = this.http.post<User>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
-    return result;
+    return this.http.post<User>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }
 
   updatePassword(username: string, password: string) {

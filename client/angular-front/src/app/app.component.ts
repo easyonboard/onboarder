@@ -54,10 +54,8 @@ export class AppComponent {
   }
 
   userIsLogged(): boolean {
-    if (null !== this.tokenStorage.getToken()) {
-      return true;
-    }
-    return false;
+    return null !== this.tokenStorage.getToken();
+
   }
 
   newEmployeesPermission(): boolean {

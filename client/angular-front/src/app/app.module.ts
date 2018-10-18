@@ -68,6 +68,7 @@ import {AuthService} from './common/core-auth/auth.service';
 import {TokenStorage} from './common/core-auth/token.storage';
 
 import {LoggedInGuard} from './guard/logged-in.guard';
+import {InterceptorExpiredTokenGuard} from './guard/interceptor-expired-token.guard';
 
 
 @NgModule({
@@ -157,6 +158,7 @@ import {LoggedInGuard} from './guard/logged-in.guard';
     AuthService,
     TokenStorage,
     LoggedInGuard,
+    InterceptorExpiredTokenGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
