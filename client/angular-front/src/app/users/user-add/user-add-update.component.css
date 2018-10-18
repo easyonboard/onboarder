@@ -1,0 +1,22 @@
+.btn-add-user {
+  background-color: #841439;
+  color: #fff;
+  width: 45%;
+  height: 35px;
+  align-content: center;
+  text-align: center;
+  display: block;
+  margin-top: 5px;
+  float: right;
+  /*bottom: 2px;*/
+}
+
+
+.form-field {
+  width: 80%;
+}
+
+
+/*.mat-form-field-wrapper{*/
+  /*padding-bottom: 1em;*/
+/*}*/

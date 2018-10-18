@@ -3,7 +3,7 @@ import {MatDialog} from '@angular/material';
 import {ToDoListForBuddyComponent} from './DialogToDoListForBuddy/dialog-to-do-list-for-buddy.component';
 import {DialogEditProfileComponent} from './DialogEditProfile/dialog-edit-profile.component';
 import {DialogNewEmployeeComponent} from './DialogNewEmployee/dialog-new-employee.component';
-import {UserAddComponent} from '../users/user-add/user-add.component';
+import {UserAddComponent} from '../users/user-add/user-add-update.component';
 import {DialogDeleteUsersComponent} from './DialogDeleteUsers/dialog-delete-users.component';
 import { DialogProfileInfoComponent } from './DialogProfileInfoComponent/dialog-profile-info.component';
 
@@ -23,8 +23,8 @@ export class CommonComponentsService {
 
   openModalAddNewUser() {
     this.dialog.open(UserAddComponent, {
-      height: '90%',
-      width: '670px',
+      height: '95%',
+      width: '570px',
     });
   }
 

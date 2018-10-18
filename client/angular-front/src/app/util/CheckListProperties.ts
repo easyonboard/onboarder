@@ -6,10 +6,10 @@ export class CheckListProperties {
     this.mapAttributes.set('isUserInOVA', 'User is registred in OVA')
       .set('hasGermanCourseAssigned', 'User assigned for first german course')
       .set('initialPassword', 'User has initial password')
-      .set('hasBuddyAssigned', 'User has buddy assigned')
+      .set('hasBuddyAssigned', 'User has mate assigned')
       .set('laptopOrder', 'Laptop order')
       .set('mailSent', 'Mail sent to user')
-      .set('mailSentToBuddy', 'Mail sent to buddy')
+      .set('mailSentToBuddy', 'Mail sent to mate')
       .set('isAddedToVerteiler', 'User is added to Vertailer');
   }
 

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {UserService} from '../../service/user.service';
-import {UserInformationService} from '../../service/user-information.service';
 import {User} from '../../domain/user';
 
 @Component({
@@ -14,19 +13,18 @@ export class DialogProfileInfoComponent implements OnInit {
   public user: User;
   username: string;
 
-  constructor(private userService: UserService, private userInfoService: UserInformationService, private dialog: MatDialog) {
-
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
     this.username = localStorage.getItem('username');
-    console.log(this.username)
+    console.log(this.username);
     this.userService.getUserByUsername(this.username).subscribe(
       resp => {
         this.user = resp;
       },
       err => this.snackBarMessagePopup(err.error.message));
-    this.userInfoService.getUserInformation(this.username).subscribe(
+    this.userService.getUserByUsername(this.username).subscribe(
       resp => {
         this.userInformation = resp;
 
