@@ -23,8 +23,9 @@ export class UserService {
     this.message = '';
   }
 
-  addUser(user: User, role: RoleType) {
-    const body = JSON.stringify({user: user, role: role});
+  addUser(user: User) {
+    const body = JSON.stringify({user: user});
+
     return this.http.post<User>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }
 
@@ -113,5 +114,15 @@ export class UserService {
     // } else {
     // throw error;
     // }
+  }
+
+  getNewUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.rootConst.SERVER_NEWUSERS);
+  }
+
+  updateUser(user: any) {
+    const body = JSON.stringify({user: user});
+    console.log(body);
+    return this.http.post<User>(this.rootConst.SERVER_UPDATE_USER, user, this.httpOptions);
   }
 }

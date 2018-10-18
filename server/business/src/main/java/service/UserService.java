@@ -70,34 +70,13 @@ public class UserService {
         return userMapper.mapToDTO(entity.get());
     }
 
-    public void addUser(UserDto userDto, RoleType role) throws InvalidDataException {
-
+    public void addUser(UserDto userDto) throws InvalidDataException {
         userDto.setPassword(encrypt(userDto.getUsername()));
         userValidator.validateUsername(userDto.getUsername());
         userValidator.validateUserData(userDto);
-        Department department = departmentRepository.findByDepartmentName(userDto.getDepartment().getDepartmentName());
-        User user = new User();
-        userDto.setRole(role);
-        userDto.setDepartment(department);
-
-        User mappedUser = userMapper.mapToEntity(userDto, user);
-        userRepository.save(mappedUser);
-
-    }
-
-
-    public void updateUserInfo(UserDto userInfo) {
-
-        User actualUserInfo = userRepository.findOne(userInfo.getIdUser());
-
-        actualUserInfo.setTeam(userInfo.getTeam());
-        actualUserInfo.setLocation(userInfo.getLocation());
-        actualUserInfo.setFloor(userInfo.getFloor());
-        actualUserInfo.setProject(userInfo.getProject());
-
-        actualUserInfo.setDepartment(userInfo.getDepartment());
-        actualUserInfo.setStartDate(userInfo.getStartDate());
-        userRepository.save(actualUserInfo);
+        User mappedUser = userMapper.mapToNewEntity(userDto);
+        mappedUser = userRepository.save(mappedUser);
+        checkListService.addCheckList(mappedUser);
     }
 
 
@@ -106,15 +85,11 @@ public class UserService {
         return Hashing.sha256().hashString(initString, StandardCharsets.UTF_8).toString();
     }
 
-    public void updateUser(
-            UserDto userUpdated) throws InvalidDataException, EntityNotFoundException, DatabaseException {
+    public void updateUser(UserDto userUpdated) throws InvalidDataException, EntityNotFoundException, DatabaseException {
 
         Optional<User> user = userRepository.findByUsername(userUpdated.getUsername());
 
         if (user.isPresent()) {
-            if (userUpdated.getPassword() != null) {
-                userUpdated.setPassword(encrypt(userUpdated.getPassword()));
-            }
             User entity = userMapper.mapToEntity(userUpdated, user.get());
             userValidator.validateUserData(userMapper.mapToDTO(entity));
             if (userRepository.save(entity) == null) {
@@ -182,7 +157,7 @@ public class UserService {
 
         List<Department> allDepartments = new ArrayList<>(departmentRepository.findByParent(department));
 
-        for (int i=0;i<allDepartments.size();i++) {
+        for (int i = 0; i < allDepartments.size(); i++) {
             allDepartments.addAll(departmentRepository.findByParent(allDepartments.get(i)));
         }
         return allDepartments;
@@ -349,7 +324,7 @@ public class UserService {
 
     }
 
-    public boolean getStatusMailForUser(String username) throws EntityNotFoundException {
+    public Boolean getStatusMailForUser(String username) throws EntityNotFoundException {
 
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {

@@ -1,11 +1,10 @@
 import {User} from '../../domain/user';
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {MatDialog} from '@angular/material';
-import {UserInformationService} from '../../service/user-information.service';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {DialogCheckListComponent} from '../DialogCheckList/dialog-check-list.component';
-import {UserInfoUpdateComponent} from '../../users/user-info-update/user-info-update.component';
 import {UserService} from '../../service/user.service';
 import {TSMap} from 'typescript-map';
+import {UserAddComponent} from '../../users/user-add/user-add-update.component';
 
 @Component({
   selector: 'app-dialog-new-employee',
@@ -14,14 +13,14 @@ import {TSMap} from 'typescript-map';
   encapsulation: ViewEncapsulation.None
 })
 export class DialogNewEmployeeComponent implements OnInit {
-  [x: string]: any;
-
   public newEmployees: User[];
   public allNewEmployees: User[];
   public searchValue = '';
   public mailSentValueForUsers: TSMap<number, Boolean>;
 
-  constructor(private userInformationService: UserInformationService, private dialog: MatDialog, private userService: UserService) {
+  constructor(private dialog: MatDialog,
+              private userService: UserService,
+              private snackBar: MatSnackBar,) {
   }
 
   ngOnInit(): void {
@@ -29,20 +28,18 @@ export class DialogNewEmployeeComponent implements OnInit {
     this.newEmployees = [];
     this.allNewEmployees = [];
     this.mailSentValueForUsers = new TSMap<number, Boolean>();
-    this.userInformationService.getNewUsers().subscribe(newEmployees => {
+    this.userService.getNewUsers().subscribe(newEmployees => {
         this.allNewEmployees = newEmployees;
         this.newEmployees = newEmployees;
         this.getStatus();
-debugger
         this.setStartDate();
       },
       err => {
-        this.snackBarMessagePopup(err.error.message);
+        this.snackBarMessagePopup(err.error.message, 'Close');
       });
   }
 
   openCheckList(user: User) {
-
     this.dialog.open(DialogCheckListComponent, {
       height: '650px',
       width: '900px',
@@ -50,11 +47,11 @@ debugger
     });
   }
 
-  openUserInfoModal(userInformation: User) {
-    this.dialog.open(UserInfoUpdateComponent, {
-      height: '650px',
-      width: '900px',
-      data: userInformation
+  openUserInfoModal(user: User) {
+    this.dialog.open(UserAddComponent, {
+      height: '95%',
+      width: '570px',
+      data: user
     });
   }
 
@@ -64,7 +61,6 @@ debugger
         this.mailSentValueForUsers.set(user.idUser, value);
       });
     });
-
   }
 
   searchByName() {
@@ -80,6 +76,12 @@ debugger
     this.newEmployees.forEach(user => {
       const myDate = new Date(user.startDate).toDateString();
       user.startDateString = myDate;
+    });
+  }
+
+  private snackBarMessagePopup(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 6000
     });
   }
 }

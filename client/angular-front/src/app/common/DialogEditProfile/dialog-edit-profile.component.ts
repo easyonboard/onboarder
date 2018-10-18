@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {UserService} from '../../service/user.service';
-import {UserInformationService} from '../../service/user-information.service';
 
 @Component({
   selector: 'app-dialog-edit-profile',
@@ -12,7 +11,9 @@ export class DialogEditProfileComponent implements OnInit {
   public username: string;
   public email: string;
 
-  constructor(private userService: UserService, private userInfoService: UserInformationService, public snackBar: MatSnackBar, private dialog: MatDialog) {
+  constructor(private userService: UserService,
+              public snackBar: MatSnackBar,
+              private dialog: MatDialog) {
     this.username = localStorage.getItem('userLogged');
   }
 

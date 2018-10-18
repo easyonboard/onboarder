@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {UserDetailsToExport, User} from '../../domain/user';
 import {UserService} from '../../service/user.service';
 import {ExcelService} from '../../service/excel.service';
-import {UserInformationService} from '../../service/user-information.service';
 import {LocalStorageConst} from '../../util/LocalStorageConst';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-users-in-department-list',
@@ -11,8 +11,6 @@ import {LocalStorageConst} from '../../util/LocalStorageConst';
   styleUrls: ['./users-in-department-list.component.css']
 })
 export class UsersInDepartmentListComponent implements OnInit {
-  [x: string]: any;
-
   public employeesInDepartment: User[];
   panelOpenState = false;
   allUserDetails: UserDetailsToExport[] = [];
@@ -21,8 +19,9 @@ export class UsersInDepartmentListComponent implements OnInit {
 
   public searchValue = '';
 
-  constructor(private userService: UserService, private excelService: ExcelService,
-              private userInformationService: UserInformationService) {
+  constructor(private userService: UserService,
+              private excelService: ExcelService,
+              public snackBar: MatSnackBar) {
     this.excelService = excelService;
   }
 
@@ -33,19 +32,16 @@ export class UsersInDepartmentListComponent implements OnInit {
     this.userService.getUsersInDepartment(userLogged).subscribe(employeesInDepartment => {
       this.employeesInDepartment = employeesInDepartment;
       this.getAllInformation();
-      this.getUserTeamAndStartDate();
       this.userDetails = this.allUserDetails;
     }, err => {
-      this.snackBarMessagePopup(err.error.message);
+      this.snackBarMessagePopup(err.error.message, 'Close');
     });
 
 
   }
 
   export() {
-
     this.excelService.exportAsExcelFile(this.userDetails, 'Users');
-
   }
 
   getAllInformation() {
@@ -54,24 +50,10 @@ export class UsersInDepartmentListComponent implements OnInit {
       this.userDetail.name = user.name;
       this.userDetail.email = user.email;
       this.userDetail.username = user.username;
-      this.userDetail.department=user.department.departmentName;
+      this.userDetail.department = user.department.departmentName;
+      this.userDetail.project = user.project;
       this.allUserDetails.push(this.userDetail);
     });
-  }
-
-  getUserTeamAndStartDate() {
-    this.allUserDetails.forEach(userInfo => {
-      this.userInformationService.getUserInformation(userInfo.username).subscribe(user => {
-        userInfo.team = user.team;
-        const myDate = new Date(user.startDate).toDateString();
-        userInfo.startDate = myDate;
-        userInfo.project = user.project;
-      }, err => {
-        this.snackBarMessagePopup(err.error.message);
-      });
-    });
-
-
   }
 
   searchByName() {
@@ -80,5 +62,11 @@ export class UsersInDepartmentListComponent implements OnInit {
     } else {
       this.userDetails = this.allUserDetails;
     }
+  }
+
+  snackBarMessagePopup(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 6000
+    });
   }
 }

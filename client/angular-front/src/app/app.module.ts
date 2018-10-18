@@ -9,10 +9,8 @@ import {LoginComponent} from './login/login.component';
 import {MaterialService} from './service/material.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ScrollEventModule} from 'ngx-scroll-event';
-import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
-import {UserInformationService} from './service/user-information.service';
 import {GeneralInfosComponent} from './general-infos/general-infos.component';
-import {UserAddComponent} from './users/user-add/user-add.component';
+import {UserAddComponent} from './users/user-add/user-add-update.component';
 import {CommonComponentsService} from './common/common-components.service';
 import {ToDoListForBuddyComponent} from './common/DialogToDoListForBuddy/dialog-to-do-list-for-buddy.component';
 import {DialogCheckListComponent} from './common/DialogCheckList/dialog-check-list.component';
@@ -20,7 +18,6 @@ import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 import {DialogDeleteUsersComponent} from './common/DialogDeleteUsers/dialog-delete-users.component';
 import {ExcelService} from './service/excel.service';
-import {UserInfoUpdateComponent} from './users/user-info-update/user-info-update.component';
 import {DialogEditProfileComponent} from './common/DialogEditProfile/dialog-edit-profile.component';
 import {TutorialsComponent} from './tutorials/tutorials.component';
 import {DialogLeaveCheckListComponent} from './common/DialogLeaveCheckList/dialog-leave-check-list.component';
@@ -66,16 +63,13 @@ import {DialogProfileInfoComponent} from './common/DialogProfileInfoComponent/di
 import {Interceptor} from './common/core-auth/interceptor';
 import {AuthService} from './common/core-auth/auth.service';
 import {TokenStorage} from './common/core-auth/token.storage';
-
 import {LoggedInGuard} from './guard/logged-in.guard';
 import {InterceptorExpiredTokenGuard} from './guard/interceptor-expired-token.guard';
-
-
+import {DepartmentService} from './service/department.service';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    UserInfoFormularComponent,
     GeneralInfosComponent,
     UserAddComponent,
     //  dialogs
@@ -83,8 +77,6 @@ import {InterceptorExpiredTokenGuard} from './guard/interceptor-expired-token.gu
     DialogNewEmployeeComponent,
     ToDoListForBuddyComponent,
     DialogDeleteUsersComponent,
-    UserInfoFormularComponent,
-    UserInfoUpdateComponent,
     UsersInDepartmentListComponent,
     DialogEditProfileComponent,
     DialogProfileInfoComponent,
@@ -141,15 +133,13 @@ import {InterceptorExpiredTokenGuard} from './guard/interceptor-expired-token.gu
     UserAddComponent,
     UsersInDepartmentListComponent,
     DialogDeleteUsersComponent,
-    UserInfoUpdateComponent,
-    UserInfoFormularComponent,
     DialogEditProfileComponent,
     DialogProfileInfoComponent
   ],
   providers: [UserService,
     MaterialService,
     UtilityService,
-    UserInformationService,
+    DepartmentService,
     CommonComponentsService,
     ExcelService,
     TutorialService,
