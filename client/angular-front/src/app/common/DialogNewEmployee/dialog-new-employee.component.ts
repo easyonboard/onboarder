@@ -65,7 +65,7 @@ export class DialogNewEmployeeComponent implements OnInit {
 
   searchByName() {
     if (this.searchValue !== '' && this.searchValue !== null) {
-      this.newEmployees = this.allNewEmployees.filter(user => user.name.toLowerCase().includes(this.searchValue.toLowerCase()));
+      this.newEmployees = this.allNewEmployees.filter(user => user.lastName.toLowerCase().includes(this.searchValue.toLowerCase()));
     } else {
       this.newEmployees = this.allNewEmployees;
     }

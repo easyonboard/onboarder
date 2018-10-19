@@ -39,7 +39,7 @@ public class ReminderEmailForBuddy {
                     Optional<User> userOptional = userRepository.findByUsername(ui.getMateUsername());
                     if (userOptional.isPresent()) {
                         User mateUser=userOptional.get();
-                        String emailBody = createEmailBodyForBuddy(mateUser.getName(), ui.getName(), "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
+                        String emailBody = createEmailBodyForBuddy(mateUser.getFirstName(), ui.getFirstName(), "09:00", ui.getFloor(), ui.getLocation().getLocationName().name(), ui.getTeam());
                         sendEmail(mateUser.getEmail(), BUDDY_MAIL_SUBJECT, emailBody);
                     }
                         }

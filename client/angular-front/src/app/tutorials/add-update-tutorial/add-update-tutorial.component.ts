@@ -89,7 +89,7 @@ export class AddUpdateTutorialComponent implements OnInit {
   }
 
   private setCurrentUserAsContactPerson() {
-     this.selectedUsers.push(localStorage.getItem(LocalStorageConst._MSG_MAIL));
+    this.selectedUsers.push(localStorage.getItem(LocalStorageConst._MSG_MAIL));
   }
 
   private getUserMsgMails() {
@@ -120,7 +120,6 @@ export class AddUpdateTutorialComponent implements OnInit {
   }
 
   private addMaterials() {
-    debugger
     if (this.materialsForCurrentTutorial.length > 0) {
       for (const material of this.materialsForCurrentTutorial) {
         if (!material.idMaterial) {
