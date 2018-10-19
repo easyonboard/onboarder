@@ -53,6 +53,8 @@ export class UsersInDepartmentListComponent implements OnInit {
       this.userDetail.username = user.username;
       this.userDetail.department = user.department.departmentName;
       this.userDetail.project = user.project;
+      this.userDetail.startDate = new Date(user.startDate).toDateString();
+      this.userDetail.team = user.team;
       this.allUserDetails.push(this.userDetail);
     });
   }
