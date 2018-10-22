@@ -153,9 +153,6 @@ export class AppComponent {
     this.commonComponent.modalDeleteUser();
   }
 
-  openEditProfileDialog() {
-    this.commonComponent.openEditProfileDialog();
-  }
 
   openProfileInfoDialog() {
     this.commonComponent.openProfileInfoDialog();
