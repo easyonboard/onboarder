@@ -1,0 +1,90 @@
+<h4>Add a new user</h4>
+<div style="margin-left: 10px;">
+  <form>
+    <mat-form-field class="form-field">
+      <input matInput placeholder="First name" [ngModelOptions]="{standalone: true}" [(ngModel)]="firstName">
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Last name" [ngModelOptions]="{standalone: true}" [(ngModel)]="lastName">
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Username" [ngModelOptions]="{standalone: true}" [(ngModel)]="user.username">
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Personal email" [ngModelOptions]="{standalone: true}" [(ngModel)]="user.email">
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Msg email" [ngModelOptions]="{standalone: true}" [(ngModel)]="user.msgMail">
+    </mat-form-field>
+
+
+    <mat-form-field class="form-field">
+      <mat-select class="form-field" placeholder="Role"
+                  (selectionChange)="selectRoleValue($event)" [value]="user.role">
+        <mat-option *ngFor="let roleValue of roles" [value]="roleValue">
+          {{roleType[roleValue]}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Team" [(ngModel)]="user.team" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-select placeholder="Location" [(value)]="user.location"
+                  (selectionChange)="selectLocationValue($event)">
+        <mat-option *ngFor="let location of locations" [value]="location">
+          {{location.locationName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Floor" [(ngModel)]="user.floor" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput placeholder="Project" [(ngModel)]="user.project" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-select placeholder="Department" [value]="user.department"
+                  (selectionChange)="selectDepartmentValue($event)">
+        <mat-option *ngFor="let departmentValue of departments" [value]="departmentValue">
+          {{departmentValue.departmentName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field class="form-field">
+      <input [(ngModel)]="user.startDate" matInput [min]="today" [matDatepicker]="picker" placeholder="Choose a date"
+             [ngModelOptions]="{standalone: true}"
+             [value]="getDate()" required/>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <input matInput #searchBox (keyup)="search(searchBox.value)" placeholder="Choose a mate"
+             [value]="getUserMate()"/>
+      <ul class="search-result" *ngIf="show">
+        <li *ngFor="let mate of users$ | async" (click)="user.mateUsername=mate.username;show = false">
+          <span>{{mate.name}}</span>
+        </li>
+      </ul>
+    </mat-form-field>
+
+  </form>
+  <button class="btn-add-user" (click)="addUser()" *ngIf="existingUser==null">ADD USER</button>
+  <button class="btn-add-user" (click)="updateUser()" [mat-dialog-close] *ngIf="existingUser!==null">Update user
+  </button>
+</div>
+
+

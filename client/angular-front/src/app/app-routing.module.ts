@@ -4,7 +4,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {StarRatingModule} from 'angular-star-rating';
 import {GeneralInfosComponent} from './general-infos/general-infos.component';
-import {UserInfoFormularComponent} from './users/user-info-formular/user-info-formular.component';
 import {TutorialsComponent} from './tutorials/tutorials.component';
 import {ToDoListForBuddyComponent} from './common/DialogToDoListForBuddy/dialog-to-do-list-for-buddy.component';
 import {AddUpdateTutorialComponent} from './tutorials/add-update-tutorial/add-update-tutorial.component';
@@ -18,7 +17,6 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: '', component: LoginComponent},
   {path: 'info', component: GeneralInfosComponent, canActivate: [LoggedInGuard]},
-  {path: 'userinfo', component: UserInfoFormularComponent, canActivate: [LoggedInGuard]},
   {path: 'tutorials', component: TutorialsComponent, canActivate: [LoggedInGuard]},
   {path: 'tutorials/draft', component: TutorialsComponent, canActivate: [LoggedInGuard]},
   {path: 'tutorials/addTutorial', component: AddUpdateTutorialComponent, canActivate: [LoggedInGuard]},

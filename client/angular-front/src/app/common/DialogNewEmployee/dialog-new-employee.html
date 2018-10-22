@@ -8,30 +8,32 @@
 </mat-dialog-content>
 
 <mat-dialog-content style="height:550px; overflow: initial">
-    <mat-card *ngFor="let userInfo of newEmployees">
-        <div *ngIf="mailSentValueForUsers.get(userInfo.idUser)">
-            <i class="material-icons" style="padding: 10px" matTooltip="Mail is sent to user"  matTooltipPosition="below" matTooltipClass="tool-tip-class">done</i> {{userInfo.name}}
-            <br/>
+    <mat-card *ngFor="let user of newEmployees">
+        <div *ngIf="mailSentValueForUsers.get(user.idUser)">
+            <i class="material-icons" style="padding: 10px" matTooltip="Mail is sent to user"  matTooltipPosition="below" matTooltipClass="tool-tip-class">done</i>
+          {{user.name}}
+          <br/>
             <i class="material-icons" style="padding: 10px">
         calendar_today
-      </i> Start date: {{userInfo.startDateString}}
-            <br/>
+      </i> Start date: {{user.startDateString}}
+          <br/>
         </div>
         <br/>
-        <div *ngIf="!mailSentValueForUsers.get(userInfo.idUser)">
-            <i class="material-icons" *ngIf="!mailSentValueForUsers.get(userInfo.idUser)" style="padding: 10px" matTooltip="Mail is not sent to user" matTooltipPosition="below" matTooltipClass="tool-tip-class">error_outline</i> {{userInfo.name}}
-            <br/>
+        <div *ngIf="!mailSentValueForUsers.get(user.idUser)">
+            <i class="material-icons" *ngIf="!mailSentValueForUsers.get(user.idUser)" style="padding: 10px" matTooltip="Mail is not sent to user" matTooltipPosition="below" matTooltipClass="tool-tip-class">error_outline</i>
+          {{user.name}}
+          <br/>
             <i class="material-icons" style="padding: 10px">
         calendar_today
-      </i> Start date: {{userInfo.startDateString}}
-            <br/>
+      </i> Start date: {{user.startDateString}}
+          <br/>
 
-            <button mat-button color="warn" (click)="openUserInfoModal(userInfo)">User data or checklist is not complete</button>
+            <button mat-button color="warn" (click)="openUserInfoModal(user)">User data or checklist is not complete</button>
         </div>
         <br/>
-        <button mat-raised-button (click)="openCheckList(userInfo)" title="Check list for user">
-      Open check list for {{userInfo.name}}
-    </button>
+        <button mat-raised-button (click)="openCheckList(user)" title="Check list for user">
+          Open check list for {{user.name}}
+        </button>
     </mat-card>
     <br>
 </mat-dialog-content>

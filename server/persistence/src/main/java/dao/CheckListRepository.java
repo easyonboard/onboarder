@@ -13,7 +13,7 @@ public interface CheckListRepository extends JpaRepository<CheckList, Integer> {
     CheckList findByUserAccount(User userAccount);
 
     @Query("Select c.mailSent from CheckList c where c.userAccount=:user")
-    boolean getValueForMailSent(@Param("user") User user);
+    Boolean getValueForMailSent(@Param("user") User user);
 
     @Transactional
     @Modifying
