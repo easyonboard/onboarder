@@ -14,12 +14,6 @@
           </mat-chip>
         </mat-chip-list>
       </div>
-
-      <div fxFlex="5" class="editIcon" *ngIf="userCanEditThisTutorial()">
-        <button mat-button (click)="redirectToUpdateTutorial(tutorial.idTutorial)">
-          <mat-icon matTooltip="Edit tutorial">edit</mat-icon>
-        </button>
-      </div>
     </div>
 
     <div fxLayout="row" *ngIf="tutorial.titleTutorial" fxLayoutAlign="center center">

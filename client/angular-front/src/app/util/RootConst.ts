@@ -30,7 +30,6 @@ export class RootConst {
   public SERVER_SEARCH_TUTORIAL_BY_ID = this.SERVER_TUTORIALS_URL + '/';
   public SERVER_DELETE_TUTORIAL = this.SERVER_TUTORIALS_URL + '/deleteTutorial';
   public SERVER_DELETE_MATERIAL = this.SERVER_ENDPOINT + 'material/delete?id=';
-  public SERVER_UPDATE_TUTORIAL = this.SERVER_TUTORIALS_URL + '/update';
 
 
   public SERVER_ADD_EVENT = this.SERVER_EVENTS_URL + '/addEvent';
