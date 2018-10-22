@@ -17,13 +17,13 @@
                 <li style="margin-left: 30px;">msg email : {{user?.msgMail}}</li>
             </div>
             <div>
-                <li style="margin-left: 30px;">your department : {{userInformation?.department}}</li>
+                <li style="margin-left: 30px;">your department : {{user?.department}}</li>
             </div>
             <div>
-                <li style="margin-left: 30px;">your team : {{userInformation?.team}}</li>
+                <li style="margin-left: 30px;">your team : {{user?.team}}</li>
             </div>
             <div>
-                <li style="margin-left: 30px;">your project : {{userInformation?.project}}</li>
+                <li style="margin-left: 30px;">your project : {{user?.project}}</li>
             </div>
             <br>
             <div>
@@ -31,11 +31,10 @@
                 <label>your team's location</label>
             </div>
 
-            <li style="margin-left: 50px;">city : {{userInformation?.location.locationCity}}</li>
 
-            <li style="margin-left: 50px;">address : {{userInformation?.location.locationAddress}}</li>
+            <li style="margin-left: 50px;">address : {{user?.location.locationAddress}}</li>
 
-            <li style="margin-left: 50px;">floor : {{userInformation?.floor}}</li>
+            <li style="margin-left: 50px;">floor : {{user?.floor}}</li>
         </ul>
     </form>
 </mat-dialog-content>

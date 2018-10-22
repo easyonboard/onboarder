@@ -8,7 +8,6 @@ import {LocalStorageConst} from '../../util/LocalStorageConst';
 @Component({
   selector: 'app-dialog-delete-users',
   templateUrl: './dialog-delete-users.html',
-  styleUrls: ['./dialog-delete-users.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class DialogDeleteUsersComponent implements OnInit {

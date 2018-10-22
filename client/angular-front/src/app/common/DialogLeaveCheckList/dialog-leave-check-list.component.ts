@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from "@angular/core";
-import {MAT_DIALOG_DATA} from "@angular/material";
-import {UserService} from "../../service/user.service";
-import {LeaveCheckList} from "../../domain/user";
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material';
+import {UserService} from '../../service/user.service';
+import {LeaveCheckList} from '../../domain/user';
 
 
 @Component({

@@ -1,10 +1,8 @@
 export class LocalStorageConst {
-  static _USER_USERNAME = 'username';
+  static _USER_FIRST_NAME = 'firstName';
   static _DEMO_ENABLED = 'demo_enabled';
-  static _USER_FIRSTNAME = 'userFirstname';
   static _MSG_MAIL = 'msgMail';
   static _USER_ROLE = 'userRole';
-  static _USER_LOGGED_ID = 'userLoggedId';
   static _USER_LOGGED = 'userLogged';
 
   static _ENABLED = 'enabled';
