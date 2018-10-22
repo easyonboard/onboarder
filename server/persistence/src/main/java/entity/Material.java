@@ -2,13 +2,13 @@ package entity;
 
 import entity.enums.MaterialType;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-
 
 
 @Data
@@ -26,7 +26,7 @@ public class Material implements Serializable {
     @Column
     private String link;
 
-    @Column(nullable = false, length = 2147483647)
+    @Column(length = 2147483647)
     @Lob
     private byte[] fileMaterial;
 
@@ -40,7 +40,6 @@ public class Material implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idTutorial")
     private Tutorial tutorial;
-
 
 
 }
