@@ -71,7 +71,7 @@ public class UserService {
     }
 
     public void addUser(UserDto userDto) throws InvalidDataException {
-        userDto.setPassword(encrypt(userDto.getUsername()));
+        userDto.setPassword("password");
         userValidator.validateUsername(userDto.getUsername());
         userValidator.validateUserData(userDto);
         User mappedUser = userMapper.mapToNewEntity(userDto);
@@ -80,10 +80,6 @@ public class UserService {
     }
 
 
-    public String encrypt(String initString) {
-
-        return Hashing.sha256().hashString(initString, StandardCharsets.UTF_8).toString();
-    }
 
     public void updateUser(UserDto userUpdated) throws InvalidDataException, EntityNotFoundException, DatabaseException {
 
@@ -309,23 +305,7 @@ public class UserService {
         return usersList;
     }
 
-    public void updateUserPassword(String username, String password) throws DatabaseException {
-
-        Optional<User> userOptional = userRepository.findByUsername(username);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            if (password != null) {
-                user.setPassword(encrypt(password));
-            }
-            if (userRepository.save(user) == null) {
-                throw new DatabaseException(USER_SAVE_DATABASE_EXCEPTION);
-            }
-        }
-
-    }
-
     public Boolean getStatusMailForUser(String username) throws EntityNotFoundException {
-
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -336,7 +316,6 @@ public class UserService {
     }
 
     public LeaveCheckListDto getLeaveCheckListForUser(String username) throws EntityNotFoundException {
-
         Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
             User userEntity = user.get();
@@ -367,7 +346,6 @@ public class UserService {
     }
 
     public LeaveCheckListDto saveLeaveCheckList(LeaveCheckListDto leaveCheckListDto) throws DatabaseException {
-
         LeaveCheckList leaveCheckList = new LeaveCheckList();
         leaveCheckListMapper.mapToEntity(leaveCheckListDto, leaveCheckList);
         if (leaveCheckListRepository.save(leaveCheckList) == null) {
@@ -377,7 +355,6 @@ public class UserService {
     }
 
     private boolean canUserBeDeleted(User user) {
-
         LeaveCheckList leaveCheckList = leaveCheckListRepository.findLeaveCheckListByUserAccount(user);
         if (leaveCheckList != null) {
             Field[] fields = LeaveCheckList.class.getDeclaredFields();
@@ -401,7 +378,6 @@ public class UserService {
     }
 
     public boolean checkUnicity(String username, String msgMail) throws DuplicatedDataException {
-
         if (userRepository.findByUsername(username).isPresent()) {
             throw new DuplicatedDataException(USERNAME_DUPLICATED_EXCEPTION);
         }

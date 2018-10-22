@@ -27,15 +27,6 @@ export class UserService {
     return this.http.post<User>(this.rootConst.SERVER_ADD_USER, body, this.httpOptions);
   }
 
-  updatePassword(username: string, password: string) {
-    const body = JSON.stringify({
-      username: username,
-      password: password,
-    });
-    const result = this.http.post<User>(this.rootConst.SERVER_UPDATE_USER_PASSWORD, body, this.httpOptions);
-    console.log(result);
-    return result;
-  }
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.allUsers}`);

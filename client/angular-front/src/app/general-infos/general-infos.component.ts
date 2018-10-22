@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-general-infos',
@@ -9,7 +9,8 @@ export class GeneralInfosComponent implements OnInit {
 
   public info: Map<string, string> = new Map<string, string>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     this.createInfosMap();
@@ -33,7 +34,7 @@ export class GeneralInfosComponent implements OnInit {
 
   }
 
-   get infosKeys(){
-    return  Array.from(this.info.keys());
+  get infosKeys() {
+    return Array.from(this.info.keys());
   }
 }
