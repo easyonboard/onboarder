@@ -47,18 +47,21 @@ export class UsersInDepartmentListComponent implements OnInit {
   getAllInformation() {
     this.employeesInDepartment.forEach(user => {
       this.userDetail = new UserDetailsToExport();
-      this.userDetail.name = user.name;
+      this.userDetail.firstName = user.firstName;
+      this.userDetail.lastName = user.lastName;
       this.userDetail.email = user.email;
       this.userDetail.username = user.username;
       this.userDetail.department = user.department.departmentName;
       this.userDetail.project = user.project;
+      this.userDetail.startDate = new Date(user.startDate).toDateString();
+      this.userDetail.team = user.team;
       this.allUserDetails.push(this.userDetail);
     });
   }
 
   searchByName() {
     if (this.searchValue !== '' && this.searchValue !== null) {
-      this.userDetails = this.allUserDetails.filter(user => user.name.toLowerCase().includes(this.searchValue.toLowerCase()));
+      this.userDetails = this.allUserDetails.filter(user => user.lastName.toLowerCase().includes(this.searchValue.toLowerCase()));
     } else {
       this.userDetails = this.allUserDetails;
     }

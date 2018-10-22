@@ -18,7 +18,6 @@ export class RootConst {
   public SERVER_REMOVE_USER = this.SERVER_ENDPOINT + 'users/removeUser';
   public SERVER_CHECK_USER_UNICITY = this.SERVER_ENDPOINT + 'users/checkUnicity';
   public SERVER_USER_BY_USERNAME = this.SERVER_ENDPOINT + 'username/?username=';
-  public SERVER_USERINFORMATION = this.SERVER_ENDPOINT + 'getUserInformation';
   public SERVER_STATUS_MAIL = this.SERVER_ENDPOINT + 'users/isMailSent';
   public SERVER_LEAVE_CHECKLIST = this.SERVER_ENDPOINT + 'users/leaveCheckList';
   public SERVER_SAVE_LEAVE_CHECKLIST = this.SERVER_ENDPOINT + 'users/saveLeaveCheckList';

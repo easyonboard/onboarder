@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit, AfterContentInit {
   public option: boolean;
   public userLogged: User;
   public message: string;
-  private errorMessage: string;
   public rootConst: RootConst;
   private currentComponentElement: HTMLElement;
   public userNotfound: string;
@@ -73,7 +72,6 @@ export class LoginComponent implements OnInit, AfterContentInit {
         this.setVisibileHeaderAndFooter('visible');
         this.userService.getUserByUsername(username).subscribe(user => {
           localStorage.setItem(LocalStorageConst._USER_ROLE, user.role.toString());
-          console.log(user)
         });
         this.router.navigate(['/info']);
       }, error => {

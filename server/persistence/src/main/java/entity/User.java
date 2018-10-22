@@ -24,9 +24,13 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idUser;
 
-    @NotNull
+//    @NotNull
     @Column
-    private String name;
+    private String firstName;
+
+//    @NotNull
+    @Column
+    private String lastName;
 
     @NotNull
     @Size(min = 6)

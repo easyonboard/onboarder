@@ -35,7 +35,8 @@ public class UserValidator {
 
     public void validateUserData(UserDto user) throws InvalidDataException {
 
-        validateName(user.getName());
+        validateName(user.getFirstName());
+        validateName(user.getLastName());
         validateEmail(user.getEmail());
         validateMsgMail(user.getMsgMail());
         validatePassword(user.getPassword());
