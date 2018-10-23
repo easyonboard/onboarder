@@ -1,16 +1,16 @@
 import {Component, ElementRef, ViewEncapsulation} from '@angular/core';
 import {Location} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
-import {RootConst} from './util/RootConst';
+import {ServerURLs} from './util/ServerURLs';
 import {UserService} from './service/user.service';
 import {MatDialog} from '@angular/material';
 import {CommonComponentsService} from './common/common-components.service';
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 import {LocalStorageConst} from './util/LocalStorageConst';
 import {UtilityService} from './service/utility.service';
-import {AuthService} from './common/core-auth/auth.service';
 import {TokenStorage} from './common/core-auth/token.storage';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {FrontURLs} from './util/FrontURLs';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +21,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 
 export class AppComponent {
 
-  private rootConst: RootConst;
+  private rootConst: ServerURLs;
   public message: string;
   public successMessage: string;
   public username: String;
@@ -37,7 +37,6 @@ export class AppComponent {
               private commonComponent: CommonComponentsService,
               private route: ActivatedRoute,
               private tokenStorage: TokenStorage) {
-    this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
     this.username = localStorage.getItem(LocalStorageConst._USER_FIRST_NAME);
@@ -93,14 +92,14 @@ export class AppComponent {
   }
 
   redirectToLoginPage(): void {
-    this.router.navigate([this.rootConst.FRONT_LOGIN_PAGE]);
+    this.router.navigate([FrontURLs.LOGIN_PAGE]);
   }
 
   openModalNewEmployee() {
     if (this.checkToken()) {
       localStorage.clear();
       sessionStorage.clear();
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl(FrontURLs.LOGIN_PAGE);
       return;
     } else {
       this.commonComponent.openModalNewEmployee();
@@ -111,7 +110,7 @@ export class AppComponent {
     if (this.checkToken()) {
       localStorage.clear();
       sessionStorage.clear();
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl(FrontURLs.LOGIN_PAGE);
       return;
     } else {
       this.commonComponent.openModalAddNewUser();
@@ -119,17 +118,11 @@ export class AppComponent {
   }
 
   redirectToInfoPage() {
-    this.router.navigate([this.rootConst.FRONT_INFOS_PAGE]);
-  }
-
-  redirectToGeneralInfosPage() {
-    this.router.navigate([this.rootConst.FRONT_INFOS_PAGE]);
+    this.router.navigate([FrontURLs.INFO_PAGE]);
   }
 
   redirectToTutorialsPage() {
-
-    this.router.navigate([this.rootConst.FRONT_TUTORIALS_PAGE]);
-    // location.replace(this.rootConst.FRONT_TUTORIALS_PAGE);
+    this.router.navigate([FrontURLs.TUTORIALS_PAGE]);
   }
 
 
@@ -147,7 +140,7 @@ export class AppComponent {
     if (this.checkToken()) {
       localStorage.clear();
       sessionStorage.clear();
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl(FrontURLs.LOGIN_PAGE);
       return;
     } else {
       this.commonComponent.openDialogWithToDOListForBuddy();
@@ -158,7 +151,7 @@ export class AppComponent {
     if (this.checkToken()) {
       localStorage.clear();
       sessionStorage.clear();
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl(FrontURLs.LOGIN_PAGE);
       return;
     } else {
     this.dialog.open(UsersInDepartmentListComponent, {
@@ -171,7 +164,7 @@ export class AppComponent {
     if (this.checkToken()) {
       localStorage.clear();
       sessionStorage.clear();
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl(FrontURLs.LOGIN_PAGE);
       return;
     } else {
       this.commonComponent.modalDeleteUser();
@@ -181,7 +174,7 @@ export class AppComponent {
     if (this.checkToken()) {
       localStorage.clear();
       sessionStorage.clear();
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl(FrontURLs.LOGIN_PAGE);
       return;
     } else {
       this.commonComponent.openProfileInfoDialog();
@@ -190,15 +183,15 @@ export class AppComponent {
 
 
   redirectToAddTutorialPage() {
-    this.router.navigate(['/tutorials/addTutorial']);
+    this.router.navigate([FrontURLs.ADD_TUTORIAL_PAGE]);
   }
 
   redirectToEventsPage() {
-    this.router.navigate(['/events/viewEvents']);
+    this.router.navigate([FrontURLs.EVENTS_PAGE]);
   }
 
   redirectToAddEventPage() {
-    this.router.navigate(['/events/addEvent']);
+    this.router.navigate([FrontURLs.ADD_EVENT]);
   }
 
 

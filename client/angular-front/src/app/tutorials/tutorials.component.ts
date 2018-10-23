@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {RootConst} from '../util/RootConst';
+import {ServerURLs} from '../util/ServerURLs';
 import {Tutorial} from '../domain/tutorial';
 import {TutorialService} from '../service/tutorial.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -7,6 +7,7 @@ import {MatSnackBar, PageEvent} from '@angular/material';
 import {Subscription} from 'rxjs/Subscription';
 import {LocalStorageConst} from '../util/LocalStorageConst';
 import {RoleType} from '../domain/role';
+import {FrontURLs} from '../util/FrontURLs';
 
 @Component({
   selector: 'app-tutorials',
@@ -16,7 +17,7 @@ import {RoleType} from '../domain/role';
 })
 export class TutorialsComponent implements OnDestroy, OnInit {
 
-  private rootConst: RootConst;
+  private rootConst: ServerURLs;
   tutorials: Tutorial[];
   tutorialsPerPage: Tutorial[];
   pageEvent: PageEvent;
@@ -29,7 +30,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
   constructor(private tutorialService: TutorialService,
               private route: ActivatedRoute,
               private router: Router, private snackBar: MatSnackBar) {
-    this.rootConst = new RootConst();
+    this.rootConst = new ServerURLs();
   }
 
   ngOnInit(): void {
@@ -49,7 +50,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
             this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
           },
           err => {
-            this.router.navigate(['/login']);
+            this.router.navigate([FrontURLs.LOGIN_PAGE]);
           });
       });
   }
@@ -69,7 +70,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
     const queryParams: Params = Object.assign({}, this.route.snapshot.queryParams);
     queryParams['keyword'] = keyword;
     queryParams['page'] = 0;
-    this.router.navigate(['/tutorials'], {queryParams: queryParams});
+    this.router.navigate([FrontURLs.TUTORIALS_PAGE], {queryParams: queryParams});
   }
 
   public getServerData(event?: PageEvent) {
