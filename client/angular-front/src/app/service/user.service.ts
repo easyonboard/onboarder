@@ -32,8 +32,7 @@ export class UserService {
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.allUsers}`);
   }
-
-  /** !TODO */
+  
   getAllMsgMails(): Observable<String[]> {
     return this.http.get<String[]>(ServerURLs.ALL_MSG_MAILS);
   }

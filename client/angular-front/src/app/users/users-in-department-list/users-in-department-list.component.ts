@@ -27,7 +27,7 @@ export class UsersInDepartmentListComponent implements OnInit {
 
   ngOnInit() {
 
-    const userLogged: string = localStorage.getItem(LocalStorageConst._USER_FIRST_NAME);
+    const userLogged: string = localStorage.getItem(LocalStorageConst._MSG_MAIL);
     this.employeesInDepartment = [];
     this.userService.getUsersInDepartment(userLogged).subscribe(employeesInDepartment => {
       this.employeesInDepartment = employeesInDepartment;

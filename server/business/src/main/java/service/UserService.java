@@ -127,9 +127,9 @@ public class UserService {
     }
 
     public List<UserDto> getUsersInDepartmentForUser(
-            String username) throws EntityNotFoundException, FieldNotFoundException {
+            String msgMail) throws EntityNotFoundException, FieldNotFoundException {
         List<User> usersInDepartment = new ArrayList<>();
-        Department department = getDepartmentForUser(username);
+        Department department = getDepartmentForUser(msgMail);
         if (department != null) {
             usersInDepartment.addAll(userRepository.findByDepartment(department));
             List<Department> allChildDepartments = getAllChildDepartments(department);
@@ -142,7 +142,7 @@ public class UserService {
                 }
             }
         } else {
-            throw new EntityNotFoundException(departmentForUserNotFound(username));
+            throw new EntityNotFoundException(departmentForUserNotFound(msgMail));
         }
 
 
@@ -159,12 +159,12 @@ public class UserService {
         return allDepartments;
     }
 
-    private Department getDepartmentForUser(String username) throws FieldNotFoundException {
+    private Department getDepartmentForUser(String msgMail) throws FieldNotFoundException {
 
-        Optional<User> userEntity = userRepository.findByUsername(username);
+        Optional<User> userEntity = userRepository.findByMsgMail(msgMail);
         if (!userEntity.isPresent()) {
 
-            throw new FieldNotFoundException(userNotFound(username));
+            throw new FieldNotFoundException(userNotFound(msgMail));
         }
 
         return userEntity.get().getDepartment();

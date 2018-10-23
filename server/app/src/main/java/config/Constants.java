@@ -1,8 +1,9 @@
 package config;
 
+import com.sun.media.jfxmedia.logging.Logger;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public final class Constants {
@@ -24,7 +25,12 @@ public final class Constants {
     }
 
     public static String getSigninKeyForUser(String token) {
-        return signinKeysForUser.get(token);
+        try {
+            return signinKeysForUser.get(token);
+        }catch (NullPointerException excecption){
+            Logger.logMsg(4, "No sign in information was found. ");
+            return "";
+        }
     }
 
     public static String generateSigningKey() {
