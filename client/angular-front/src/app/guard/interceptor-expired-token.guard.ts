@@ -14,6 +14,7 @@ export class InterceptorExpiredTokenGuard implements CanActivate {
               state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (this.jwtHelper.isTokenExpired(sessionStorage.getItem('AuthToken'))) {
       localStorage.clear();
+      sessionStorage.clear();
       this.router.navigateByUrl('/login');
       return false;
     } else {
