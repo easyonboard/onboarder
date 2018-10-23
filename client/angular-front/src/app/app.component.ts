@@ -10,6 +10,7 @@ import {LocalStorageConst} from './util/LocalStorageConst';
 import {UtilityService} from './service/utility.service';
 import {AuthService} from './common/core-auth/auth.service';
 import {TokenStorage} from './common/core-auth/token.storage';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ export class AppComponent {
   public successMessage: string;
   public username: String;
   public role: string;
+  jwtHelper: JwtHelperService = new JwtHelperService();
 
   constructor(private location: Location,
               private router: Router,
@@ -54,10 +56,8 @@ export class AppComponent {
   }
 
   userIsLogged(): boolean {
-    if (null !== this.tokenStorage.getToken()) {
-      return true;
-    }
-    return false;
+    return null !== this.tokenStorage.getToken();
+
   }
 
   newEmployeesPermission(): boolean {
@@ -65,11 +65,7 @@ export class AppComponent {
     if (!this.userIsLogged()) {
       return false;
     }
-    if (this.role === 'ROLE_ADMIN' || this.role === 'ROLE_ABTEILUNGSLEITER') {
-      return true;
-    } else {
-      return false;
-    }
+    return this.role === 'ROLE_ADMIN' || this.role === 'ROLE_ABTEILUNGSLEITER';
   }
 
   addUserPermission(): boolean {
@@ -77,11 +73,7 @@ export class AppComponent {
     if (!this.userIsLogged()) {
       return false;
     }
-    if (this.role === 'ROLE_HR' || this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN') {
-      return true;
-    } else {
-      return false;
-    }
+    return this.role === 'ROLE_HR' || this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN';
   }
 
   viewUsersByDepartmentPermission(): boolean {
@@ -89,11 +81,7 @@ export class AppComponent {
     if (!this.userIsLogged()) {
       return false;
     }
-    if (this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN') {
-      return true;
-    } else {
-      return false;
-    }
+    return this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN';
   }
 
   deleteUserPermission(): boolean {
@@ -101,11 +89,7 @@ export class AppComponent {
     if (!this.userIsLogged()) {
       return false;
     }
-    if (this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN') {
-      return true;
-    } else {
-      return false;
-    }
+    return this.role === 'ROLE_ABTEILUNGSLEITER' || this.role === 'ROLE_ADMIN';
   }
 
   redirectToLoginPage(): void {
@@ -113,11 +97,25 @@ export class AppComponent {
   }
 
   openModalNewEmployee() {
-    this.commonComponent.openModalNewEmployee();
+    if (this.checkToken()) {
+      localStorage.clear();
+      sessionStorage.clear();
+      this.router.navigateByUrl('/login');
+      return;
+    } else {
+      this.commonComponent.openModalNewEmployee();
+    }
   }
 
   openModalAddNewUser() {
-    this.commonComponent.openModalAddNewUser();
+    if (this.checkToken()) {
+      localStorage.clear();
+      sessionStorage.clear();
+      this.router.navigateByUrl('/login');
+      return;
+    } else {
+      this.commonComponent.openModalAddNewUser();
+    }
   }
 
   redirectToInfoPage() {
@@ -129,6 +127,7 @@ export class AppComponent {
   }
 
   redirectToTutorialsPage() {
+
     this.router.navigate([this.rootConst.FRONT_TUTORIALS_PAGE]);
     // location.replace(this.rootConst.FRONT_TUTORIALS_PAGE);
   }
@@ -138,30 +137,57 @@ export class AppComponent {
     return localStorage.getItem(LocalStorageConst._USER_ROLE) === 'ROLE_BUDDY';
   }
 
+
+  checkToken(): boolean {
+    return this.jwtHelper.isTokenExpired(sessionStorage.getItem('AuthToken'));
+  }
+
+
   openToDoListForBuddy() {
-    this.commonComponent.openDialogWithToDOListForBuddy();
+    if (this.checkToken()) {
+      localStorage.clear();
+      sessionStorage.clear();
+      this.router.navigateByUrl('/login');
+      return;
+    } else {
+      this.commonComponent.openDialogWithToDOListForBuddy();
+    }
   }
 
   openModalEmployeesInDepartment() {
+    if (this.checkToken()) {
+      localStorage.clear();
+      sessionStorage.clear();
+      this.router.navigateByUrl('/login');
+      return;
+    } else {
     this.dialog.open(UsersInDepartmentListComponent, {
       height: '90%',
       width: '900px',
     });
-  }
+  }}
 
   modalDeleteUser() {
-    this.commonComponent.modalDeleteUser();
+    if (this.checkToken()) {
+      localStorage.clear();
+      sessionStorage.clear();
+      this.router.navigateByUrl('/login');
+      return;
+    } else {
+      this.commonComponent.modalDeleteUser();
+    }
   }
-
-
   openProfileInfoDialog() {
-    this.commonComponent.openProfileInfoDialog();
+    if (this.checkToken()) {
+      localStorage.clear();
+      sessionStorage.clear();
+      this.router.navigateByUrl('/login');
+      return;
+    } else {
+      this.commonComponent.openProfileInfoDialog();
+    }
   }
 
-  userManagementPermission(): boolean {
-    return this.addUserPermission() || this.newEmployeesPermission()
-      || this.deleteUserPermission() || this.viewUsersByDepartmentPermission();
-  }
 
   redirectToAddTutorialPage() {
     this.router.navigate(['/tutorials/addTutorial']);
@@ -169,10 +195,6 @@ export class AppComponent {
 
   redirectToEventsPage() {
     this.router.navigate(['/events/viewEvents']);
-  }
-
-  redirectToAddEvent() {
-
   }
 
   redirectToAddEventPage() {
@@ -186,9 +208,5 @@ export class AppComponent {
 
   removeFilter() {
     this.router.navigate([location.pathname]);
-
-
-
-
   }
 }

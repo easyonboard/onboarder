@@ -22,7 +22,7 @@ public class JwtTokenUtil implements Serializable {
         String token= Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1800000))
+                .setExpiration(new Date(System.currentTimeMillis() + 7200000))
                 .signWith(SignatureAlgorithm.HS256, signInKey)
                 .compact();
         Constants.addToSigninKeysForUserMap(token, signInKey);

@@ -12,19 +12,20 @@ import {EventsComponent} from './events/events.component';
 import {AddEventComponent} from './events/add-event/add-event.component';
 import {NotFoundComponent} from './not-found-component/not-found-component.component';
 import {LoggedInGuard} from './guard/logged-in.guard';
+import {InterceptorExpiredTokenGuard} from './guard/interceptor-expired-token.guard';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: '', component: LoginComponent},
-  {path: 'info', component: GeneralInfosComponent, canActivate: [LoggedInGuard]},
-  {path: 'tutorials', component: TutorialsComponent, canActivate: [LoggedInGuard]},
-  {path: 'tutorials/draft', component: TutorialsComponent, canActivate: [LoggedInGuard]},
-  {path: 'tutorials/addTutorial', component: AddUpdateTutorialComponent, canActivate: [LoggedInGuard]},
-  {path: 'tutorials/addTutorial/:id', component: AddUpdateTutorialComponent, canActivate: [LoggedInGuard]},
-  {path: 'events/addEvent', component: AddEventComponent, canActivate: [LoggedInGuard]},
-  {path: 'tutorials/:id', component: ViewTutorialComponent, canActivate: [LoggedInGuard]},
-  {path: 'buddyMenu', component: ToDoListForBuddyComponent, canActivate: [LoggedInGuard]},
-  {path: 'events/viewEvents', component: EventsComponent, canActivate: [LoggedInGuard]},
+  {path: 'info', component: GeneralInfosComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
+  {path: 'tutorials', component: TutorialsComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
+  {path: 'tutorials/draft', component: TutorialsComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
+  {path: 'tutorials/addTutorial', component: AddUpdateTutorialComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
+  {path: 'tutorials/addTutorial/:id', component: AddUpdateTutorialComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
+  {path: 'events/addEvent', component: AddEventComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
+  {path: 'tutorials/:id', component: ViewTutorialComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
+  {path: 'buddyMenu', component: ToDoListForBuddyComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
+  {path: 'events/viewEvents', component: EventsComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
   {path: '404', component: NotFoundComponent},
   {path: '**', redirectTo: '/404'}
 ];

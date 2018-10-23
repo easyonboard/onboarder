@@ -25,6 +25,7 @@
     "@angular/platform-browser-dynamic": "^5.2.3",
     "@angular/router": "^5.2.3",
     "@angular2-material/core": "^2.0.0-alpha.8-3",
+    "@auth0/angular-jwt": "1.0.0",
     "@fortawesome/fontawesome": "^1.1.4",
     "@types/bootbox": "^4.4.36",
     "@types/web-animations-js": "^2.2.5",
