@@ -20,7 +20,7 @@ export class DialogCheckListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dialogTitle = 'Check list for ' + this.user.name;
+    this.dialogTitle = 'Check list for ' + this.user.firstName + ' ' + this.user.lastName;
     this.checkList = new TSMap<string, boolean>();
     this.checkListProperties = new CheckListProperties();
     this.userService.getCheckListForUser(this.user).subscribe(

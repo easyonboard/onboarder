@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {ToDoListForBuddyComponent} from './DialogToDoListForBuddy/dialog-to-do-list-for-buddy.component';
-import {DialogEditProfileComponent} from './DialogEditProfile/dialog-edit-profile.component';
 import {DialogNewEmployeeComponent} from './DialogNewEmployee/dialog-new-employee.component';
 import {UserAddComponent} from '../users/user-add/user-add-update.component';
 import {DialogDeleteUsersComponent} from './DialogDeleteUsers/dialog-delete-users.component';
@@ -43,12 +42,6 @@ export class CommonComponentsService {
     });
   }
 
-  openEditProfileDialog() {
-    this.dialog.open(DialogEditProfileComponent, {
-      height: '40%',
-      width: '600px'
-    });
-  }
 
   openProfileInfoDialog() {
     this.dialog.open(DialogProfileInfoComponent, {

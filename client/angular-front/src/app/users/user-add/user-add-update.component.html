@@ -2,11 +2,11 @@
 <div style="margin-left: 10px;">
   <form>
     <mat-form-field class="form-field">
-      <input matInput placeholder="First name" [ngModelOptions]="{standalone: true}" [(ngModel)]="firstName">
+      <input matInput placeholder="First name" [ngModelOptions]="{standalone: true}" [(ngModel)]="user.firstName">
     </mat-form-field>
 
     <mat-form-field class="form-field">
-      <input matInput placeholder="Last name" [ngModelOptions]="{standalone: true}" [(ngModel)]="lastName">
+      <input matInput placeholder="Last name" [ngModelOptions]="{standalone: true}" [(ngModel)]="user.lastName">
     </mat-form-field>
 
     <mat-form-field class="form-field">
@@ -76,7 +76,7 @@
              [value]="getUserMate()"/>
       <ul class="search-result" *ngIf="show">
         <li *ngFor="let mate of users$ | async" (click)="user.mateUsername=mate.username;show = false">
-          <span>{{mate.name}}</span>
+          <span>{{mate.firstName}} {{mate.lastName}}</span>
         </li>
       </ul>
     </mat-form-field>

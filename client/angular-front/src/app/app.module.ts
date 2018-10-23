@@ -18,7 +18,6 @@ import {DialogNewEmployeeComponent} from './common/DialogNewEmployee/dialog-new-
 import {UsersInDepartmentListComponent} from './users/users-in-department-list/users-in-department-list.component';
 import {DialogDeleteUsersComponent} from './common/DialogDeleteUsers/dialog-delete-users.component';
 import {ExcelService} from './service/excel.service';
-import {DialogEditProfileComponent} from './common/DialogEditProfile/dialog-edit-profile.component';
 import {TutorialsComponent} from './tutorials/tutorials.component';
 import {DialogLeaveCheckListComponent} from './common/DialogLeaveCheckList/dialog-leave-check-list.component';
 import {AddUpdateTutorialComponent} from './tutorials/add-update-tutorial/add-update-tutorial.component';
@@ -78,7 +77,6 @@ import {DepartmentService} from './service/department.service';
     ToDoListForBuddyComponent,
     DialogDeleteUsersComponent,
     UsersInDepartmentListComponent,
-    DialogEditProfileComponent,
     DialogProfileInfoComponent,
     TutorialsComponent,
     AddUpdateTutorialComponent,
@@ -133,7 +131,6 @@ import {DepartmentService} from './service/department.service';
     UserAddComponent,
     UsersInDepartmentListComponent,
     DialogDeleteUsersComponent,
-    DialogEditProfileComponent,
     DialogProfileInfoComponent
   ],
   providers: [UserService,

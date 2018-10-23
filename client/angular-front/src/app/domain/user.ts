@@ -6,7 +6,8 @@ export class User {
   idUser: number;
   email: string;
   msgMail: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   username: string;
   password: string;
   startDate: Date;
@@ -21,7 +22,8 @@ export class User {
 }
 
 export class UserDetailsToExport {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   username: string;
   startDate: string;

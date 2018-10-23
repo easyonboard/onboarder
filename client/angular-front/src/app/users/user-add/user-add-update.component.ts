@@ -25,14 +25,11 @@ export class UserAddComponent implements OnInit, OnDestroy {
   public user = new User();
 
   private MSG_MAIL = '@msg.group';
-  public firstName = '';
-  public lastName = '';
   public roleType = RoleType;
   public roles = Object.keys(RoleType);
   public today: Date;
   public locations: Location[];
   public departments: Department[];
-  public selectedLocation: Location;
 
   public users$: Observable<User[]>;
   private searchTerms = new Subject<string>();
@@ -49,8 +46,6 @@ export class UserAddComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (typeof this.existingUser !== 'undefined' && this.existingUser !== null) {
       this.user = this.existingUser;
-      this.firstName = this.user.name.split(' ')[0];
-      this.lastName = this.user.name.split(' ')[1];
     }
     // this.user.msgMail = this.MSG_MAIL;
     this.today = new Date(Date.now());
@@ -80,7 +75,6 @@ export class UserAddComponent implements OnInit, OnDestroy {
 
 
   addUser(): void {
-    this.createNameForUser();
     try {
       this.checkUserConstraints();
       this.userService.checkUnicity(this.user.username, this.user.msgMail).subscribe(
@@ -108,17 +102,14 @@ export class UserAddComponent implements OnInit, OnDestroy {
     }
   }
 
-  private createNameForUser() {
-    this.user.name = this.firstName.trim() + ' ' + this.lastName.trim();
-  }
 
   updateUser() {
-    this.createNameForUser();
     try {
       this.checkUserConstraints();
       this.userService.updateUser(this.user).subscribe(
         value2 => {
-          this.snackBarMessagePopup('Succes! You just updated info for employee ' + this.user.name + ' !', 'Close');
+          this.snackBarMessagePopup('Succes! You just updated info for employee ' +
+            this.user.firstName + ' ' + this.user.lastName + ' !', 'Close');
           this.dialog.closeAll();
         },
         error => {
@@ -189,10 +180,10 @@ export class UserAddComponent implements OnInit, OnDestroy {
     if (this.user.username === '') {
       addUserErrorMessage += 'You must give the user\'s first and last name.\n';
     } else {
-      if (this.firstName === '') {
+      if (this.user.firstName === '') {
         addUserErrorMessage += 'You must give the user\'s first name.\n';
       }
-      if (this.lastName === '') {
+      if (this.user.lastName === '') {
         addUserErrorMessage += 'You must give the user\'s last name.\n';
       }
     }

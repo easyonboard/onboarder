@@ -10,7 +10,7 @@
 <mat-dialog-content style="height:550px; overflow: initial">
     <mat-card *ngFor="let user of filteredUsers">
         <span> <i class="material-icons">account_box</i></span>
-        <label style="margin-left: 10px"></label> {{user.name}}
+        <label style="margin-left: 10px"></label> {{user.firstName}} {{user.lastName}}
         <br/>
         <span><i class="material-icons">mail_outline</i>
 </span>
@@ -24,7 +24,7 @@
         <br/>
         <br/>
         <button mat-raised-button (click)="remove(user.username)" title="Remove user">
-      Remove user {{user.name}}
+      Remove user {{user.firstName}} {{user.lastName}}
     </button>
     </mat-card>
     <br>

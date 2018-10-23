@@ -66,8 +66,8 @@ public class ScheduleEmailToNewEmployee {
                     Optional<User> userOptional = userRepository.findByUsername(user.getMateUsername());
                     if (userOptional.isPresent()) {
                         User mateUser=userOptional.get();
-                        String emailBody = createEmailBody(user.getName(), dateWithZeroTime, "09:00", mateUser.getName(), user.getFloor(), user.getLocation().getLocationName().name(), user.getLocation().getLocationAddress());
-                        String emailBodyBuddy = createEmailBodyForBuddy(mateUser.getName(), user.getName(), dateWithZeroTime, "09:00", user.getFloor(), user.getLocation().getLocationName().name(), user.getTeam());
+                        String emailBody = createEmailBody(user.getFirstName(), dateWithZeroTime, "09:00", mateUser.getFirstName(), user.getFloor(), user.getLocation().getLocationName().name(), user.getLocation().getLocationAddress());
+                        String emailBodyBuddy = createEmailBodyForBuddy(mateUser.getFirstName(), user.getFirstName(), dateWithZeroTime, "09:00", user.getFloor(), user.getLocation().getLocationName().name(), user.getTeam());
 
                         User abteilungsleiter = userRepository.findUserByRoleAndDepartment(RoleType.ROLE_ABTEILUNGSLEITER,user.getDepartment());
                         sendEmail(user.getEmail(), abteilungsleiter, NEW_EMPLOYEE_MAIL_SUBJECT, emailBody);

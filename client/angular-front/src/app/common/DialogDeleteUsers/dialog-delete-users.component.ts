@@ -59,7 +59,7 @@ export class DialogDeleteUsersComponent implements OnInit {
 
   searchByName() {
     if (this.searchValue !== '' && this.searchValue !== null) {
-      this.filteredUsers = this.allUsers.filter(user => user.name.toLowerCase().includes(this.searchValue.toLowerCase()));
+      this.filteredUsers = this.allUsers.filter(user => user.lastName.toLowerCase().includes(this.searchValue.toLowerCase()));
     } else {
       this.filteredUsers = this.allUsers;
     }

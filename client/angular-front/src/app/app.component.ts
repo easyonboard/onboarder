@@ -177,18 +177,6 @@ export class AppComponent {
       this.commonComponent.modalDeleteUser();
     }
   }
-
-  openEditProfileDialog() {
-    if (this.checkToken()) {
-      localStorage.clear();
-      sessionStorage.clear();
-      this.router.navigateByUrl('/login');
-      return;
-    } else {
-      this.commonComponent.openEditProfileDialog();
-    }
-  }
-
   openProfileInfoDialog() {
     if (this.checkToken()) {
       localStorage.clear();
