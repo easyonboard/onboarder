@@ -68,9 +68,10 @@ export class LoginComponent implements OnInit, AfterContentInit {
     this.authService.attemptAuth(username, password).subscribe(
       data => {
         this.tokenStorage.saveToken(data.token);
-        localStorage.setItem(LocalStorageConst._USER_USERNAME, username);
         this.setVisibileHeaderAndFooter('visible');
         this.userService.getUserByUsername(username).subscribe(user => {
+          localStorage.setItem(LocalStorageConst._USER_FIRST_NAME, user.firstName);
+          localStorage.setItem(LocalStorageConst._MSG_MAIL, user.msgMail);
           localStorage.setItem(LocalStorageConst._USER_ROLE, user.role.toString());
         });
         this.router.navigate(['/info']);

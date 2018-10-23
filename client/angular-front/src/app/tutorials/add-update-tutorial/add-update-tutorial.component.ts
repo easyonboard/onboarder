@@ -40,13 +40,7 @@ export class AddUpdateTutorialComponent implements OnInit {
   public inputKeyword: any;
 
   public separatorKeysCodes = [ENTER, COMMA, SPACE];
-  public onUpdateTutorialMode = false;
   private tutorialId: number = null;
-
-  titleFormControl = new FormControl('', [
-    Validators.required,
-    Validators.min(5)
-  ]);
 
   constructor(private location: Location,
               private tutorialService: TutorialService,
@@ -56,10 +50,10 @@ export class AddUpdateTutorialComponent implements OnInit {
               public snackBar: MatSnackBar,
               private route: ActivatedRoute,
               private router: Router) {
-    this.tutorialId = +this.route.snapshot.paramMap.get('id');
-  }
+      }
 
   ngOnInit() {
+    this.tutorialId = +this.route.snapshot.paramMap.get('id');
     this.getUserMsgMails();
 
     if (this.tutorialId) {
@@ -78,13 +72,12 @@ export class AddUpdateTutorialComponent implements OnInit {
   }
 
   private getTutorialInformation() {
-    this.onUpdateTutorialMode = true;
     const tutorialId = +this.route.snapshot.paramMap.get('id');
     this.tutorialService.getTutorialWithId(tutorialId).subscribe(tutorial => {
       this.tutorial = tutorial;
       this.selectedUsers = this.tutorial.contactPersons.map(cp => cp.msgMail);
       this.keywords = this.tutorial.keywords.split(' ');
-      this.materialsForCurrentTutorial = this.tutorial.materials.slice(0);
+      this.materialsForCurrentTutorial = this.tutorial.materials;
     });
   }
 
@@ -240,30 +233,6 @@ export class AddUpdateTutorialComponent implements OnInit {
       const fileURL = URL.createObjectURL(file);
       window.open(fileURL);
     });
-  }
-
-  updateTutorial() {
-    try {
-      this.getUploadedFiles();
-      this.verifyConstraintsForTutorial();
-
-      this.materialsForCurrentTutorial.forEach((material, index) => this.verifyConstraintsForMaterial(index + 1, material));
-
-      this.tutorial.keywords = this.keywords.join(' ');
-
-      this.tutorialService.updateTutorial(this.tutorial, this.selectedUsers).subscribe(tutorial => {
-        this.tutorial = tutorial;
-        this.addMaterials();
-        this.deleteFromServerMaterials();
-        this.redirectToTutorialPage(this.tutorial.idTutorial);
-      }, err => {
-        this.snackBarMessagePopup(err.error.message, 'Close');
-      });
-    } catch (e) {
-      if (e instanceof Error) {
-        this.snackBarMessagePopup(e.message, 'Close');
-      }
-    }
   }
 
   private deleteFromServerMaterials() {

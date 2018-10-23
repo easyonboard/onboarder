@@ -25,7 +25,7 @@ export class EventsComponent implements OnInit {
     this.upcomingEvents = [];
     this.canEnroll = true;
     this.user = new User();
-    this.user.username = localStorage.getItem(LocalStorageConst._USER_USERNAME);
+    this.user.username = localStorage.getItem(LocalStorageConst._USER_FIRST_NAME);
   }
 
   ngOnInit() {

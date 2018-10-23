@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Tutorial} from '../../domain/tutorial';
 import {TutorialService} from '../../service/tutorial.service';
 import {MaterialService} from '../../service/material.service';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-view-tutorial',
@@ -27,12 +28,6 @@ export class ViewTutorialComponent implements OnInit {
     });
   }
 
-  searchByKeyword(keyword: string) {
-    if (keyword !== 'addTutorial') {
-      this.router.navigate(['tutorials/keywords/' + keyword]);
-    }
-  }
-
   getFileWithId(idFile: number) {
     this.materialService.getFileWithId(idFile).subscribe((response) => {
       const file = new Blob([response], {type: 'application/pdf'});
@@ -49,15 +44,6 @@ export class ViewTutorialComponent implements OnInit {
     // window.
     window.open(link, '_blank');
     // location.replace(link);
-  }
-
-  redirectToUpdateTutorial(idTutorial: number) {
-    this.router.navigate(['/tutorials/addTutorial/' + idTutorial]);
-  }
-
-  userCanEditThisTutorial() {
-    const currentUserEmail = localStorage.getItem('msgMail');
-    return this.tutorial.contactPersons.map(cp => cp.msgMail).indexOf(currentUserEmail) >= 0;
   }
 
   displayInfo() {

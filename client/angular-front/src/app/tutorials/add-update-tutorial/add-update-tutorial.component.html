@@ -1,11 +1,9 @@
 <div fxLayout="column" id="addComponent">
   <div fxFlex>
-    <div *ngIf="!onUpdateTutorialMode" class="pageTitle">
+    <div class="pageTitle">
       Add tutorial
     </div>
-    <div *ngIf="onUpdateTutorialMode" class="pageTitle">
-      <p>Update tutorial</p>
-    </div>
+
     <p>
       <button style="margin-left:45%; margin-top: 4%" mat-raised-button color="primary" (click)="addNewEmptyMaterial()">
         Add material
@@ -135,7 +133,6 @@
             </form>
           </td>
 
-
         </tr>
 
 
@@ -154,17 +151,10 @@
         Cancel
       </button>
 
-      <button fxFlex mat-raised-button color="primary" *ngIf="!onUpdateTutorialMode" (click)="addTutorial()">
+      <button fxFlex mat-raised-button color="primary"  (click)="addTutorial()">
         <mat-icon>save</mat-icon>
         Save
       </button>
-      <button fxFlex mat-raised-button color="primary" *ngIf="onUpdateTutorialMode"
-              (click)="updateTutorial()">
-        <mat-icon>save</mat-icon>
-        Save
-      </button>
-
-
     </div>
   </div>
 

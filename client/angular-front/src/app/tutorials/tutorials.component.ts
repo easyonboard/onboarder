@@ -17,7 +17,6 @@ import {RoleType} from '../domain/role';
 export class TutorialsComponent implements OnDestroy, OnInit {
 
   private rootConst: RootConst;
-  hasDeleteTutorialsPermission: boolean;
   tutorials: Tutorial[];
   tutorialsPerPage: Tutorial[];
   pageEvent: PageEvent;
@@ -34,7 +33,6 @@ export class TutorialsComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.canDeleteTutorials();
     this.route.queryParams.subscribe(
       queryParams => {
         this.pageIndex = +queryParams['page'];
@@ -63,21 +61,15 @@ export class TutorialsComponent implements OnDestroy, OnInit {
 
   private decision(params: any): any {
     const keyword = params['keyword'];
-    debugger;
     return this.tutorialService.getTutorials(keyword);
-
   }
 
-  // addTutorialRouterLink(): void {
-  //   location.replace(this.rootConst.FRONT_ADD_TUTORIAL);
-  // }
 
   filterByKeyword(keyword: string) {
     const queryParams: Params = Object.assign({}, this.route.snapshot.queryParams);
     queryParams['keyword'] = keyword;
     queryParams['page'] = 0;
     this.router.navigate(['/tutorials'], {queryParams: queryParams});
-
   }
 
   public getServerData(event?: PageEvent) {
@@ -117,12 +109,9 @@ export class TutorialsComponent implements OnDestroy, OnInit {
     });
   }
 
-  private canDeleteTutorials() {
-    if (localStorage.getItem(LocalStorageConst._USER_ROLE) == RoleType.ROLE_CONTENT_MANAGER || localStorage.getItem(LocalStorageConst._USER_ROLE) == RoleType.ROLE_ADMIN) {
-      this.hasDeleteTutorialsPermission=true;
-    }
-    else {
-      this.hasDeleteTutorialsPermission=false;
-    }
+  hasDeleteTutorialsPermission(): boolean {
+    return localStorage.getItem(LocalStorageConst._USER_ROLE) === 'ROLE_CONTENT_MANAGER' ||
+      localStorage.getItem(LocalStorageConst._USER_ROLE) === 'ROLE_ADMIN';
   }
+
 }

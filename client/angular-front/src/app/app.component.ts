@@ -40,7 +40,7 @@ export class AppComponent {
     this.rootConst = new RootConst();
     this.message = '';
     this.successMessage = '';
-    this.username = localStorage.getItem(LocalStorageConst._USER_USERNAME);
+    this.username = localStorage.getItem(LocalStorageConst._USER_FIRST_NAME);
   }
 
   logout(): void {
