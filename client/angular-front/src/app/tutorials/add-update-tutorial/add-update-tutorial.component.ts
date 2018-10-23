@@ -75,9 +75,9 @@ export class AddUpdateTutorialComponent implements OnInit {
     const tutorialId = +this.route.snapshot.paramMap.get('id');
     this.tutorialService.getTutorialWithId(tutorialId).subscribe(tutorial => {
       this.tutorial = tutorial;
+      this.materialsForCurrentTutorial = this.tutorial.materials;
       this.selectedUsers = this.tutorial.contactPersons.map(cp => cp.msgMail);
       this.keywords = this.tutorial.keywords.split(' ');
-      this.materialsForCurrentTutorial = this.tutorial.materials;
     });
   }
 
@@ -159,9 +159,9 @@ export class AddUpdateTutorialComponent implements OnInit {
     }
   }
 
+  //
   private redirectToTutorialPage(tutorialId: number) {
-    this.router.navigate([this.rootConst.FRONT_TUTORIALS_PAGE + '/' + `${tutorialId}`]);
-    // location.replace(this.rootConst.FRONT_TUTORIALS_PAGE + '/' + `${tutorialId}`);
+    location.replace(this.rootConst.FRONT_TUTORIALS_PAGE + '/' + `${tutorialId}`);
   }
 
   openFile(position: number): void {
