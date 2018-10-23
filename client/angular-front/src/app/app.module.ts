@@ -62,11 +62,9 @@ import {DialogProfileInfoComponent} from './common/DialogProfileInfoComponent/di
 import {Interceptor} from './common/core-auth/interceptor';
 import {AuthService} from './common/core-auth/auth.service';
 import {TokenStorage} from './common/core-auth/token.storage';
-
 import {LoggedInGuard} from './guard/logged-in.guard';
+import {InterceptorExpiredTokenGuard} from './guard/interceptor-expired-token.guard';
 import {DepartmentService} from './service/department.service';
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -147,6 +145,7 @@ import {DepartmentService} from './service/department.service';
     AuthService,
     TokenStorage,
     LoggedInGuard,
+    InterceptorExpiredTokenGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
