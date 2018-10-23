@@ -226,7 +226,7 @@ public class EventService {
 
     public Boolean getStatusEnrollment(UserDto userDto, int eventDTO) throws EntityNotFoundException {
 
-        Optional<User> userOptional = userRepository.findByUsername(userDto.getUsername());
+        Optional<User> userOptional = userRepository.findByMsgMail(userDto.getMsgMail());
         if (userOptional.isPresent()) {
             User userEntity = userOptional.get();
             Event eventEntity = eventRepository.findOne(eventDTO);
@@ -234,5 +234,14 @@ public class EventService {
         } else {
             throw new EntityNotFoundException(userNotFound(userDto.getUsername()));
         }
+    }
+
+    public List<EventDto> deleteUpcomingEvent(int idEvent) throws EntityNotFoundException {
+        eventRepository.delete(idEvent);
+        return getAllUpcomingEvents();
+    }
+    public List<EventDto> deletePastEvent(int idEvent) throws EntityNotFoundException {
+        eventRepository.delete(idEvent);
+        return getAllPastEvents();
     }
 }

@@ -164,4 +164,27 @@ public class EventController {
             return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         }
     }
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/deleteEvent/upcoming", method = RequestMethod.POST)
+    public ResponseEntity<List<EventDto>> deleteUpcomingEvent(@RequestBody EventDto eventDto) {
+        try {
+            return new ResponseEntity<>(eventService.deleteUpcomingEvent(eventDto.getIdEvent()), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/deleteEvent/past", method = RequestMethod.POST)
+    public ResponseEntity<List<EventDto>> deletePastEvent(@RequestBody EventDto eventDto) {
+        try {
+            return new ResponseEntity<>(eventService.deletePastEvent(eventDto.getIdEvent()), HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
+        }
+
+    }
+
 }

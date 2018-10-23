@@ -4,6 +4,7 @@ import {Event} from '../domain/event';
 import {User} from '../domain/user';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {LocalStorageConst} from '../util/LocalStorageConst';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-events',
@@ -19,13 +20,13 @@ export class EventsComponent implements OnInit {
 
 
   constructor(private eventService: EventService,
-              private route: ActivatedRoute,
+              private route: ActivatedRoute, private snackBar: MatSnackBar,
               private router: Router) {
     this.pastEvents = [];
     this.upcomingEvents = [];
     this.canEnroll = true;
     this.user = new User();
-    this.user.username = localStorage.getItem(LocalStorageConst._USER_FIRST_NAME);
+    this.user.msgMail = localStorage.getItem(LocalStorageConst._MSG_MAIL);
   }
 
   ngOnInit() {
@@ -102,5 +103,34 @@ export class EventsComponent implements OnInit {
     this.upcomingEvents.forEach(ev => this.eventService.getStatusEnrollmentForUser(this.user, ev).subscribe(bool => ev.isUserEnrolled = bool));
   }
 
+
+  deletePastEvent(idEvent: number) {
+    this.eventService.deletePastEvent(idEvent).subscribe(
+      pastEvents => {
+        this.pastEvents = pastEvents;
+      },
+      err => {
+        this.snackBarMessagePopup(err.error.message, 'Close');
+      });
+  }
+
+  deleteUpcomingEvent(idEvent: number) {
+    this.eventService.deleteUpcomingEvent(idEvent).subscribe(
+      upcomingEvents => {
+        this.upcomingEvents = upcomingEvents;
+      }, err => {
+        this.snackBarMessagePopup(err.error.message, 'Close');
+      });
+  }
+
+  hasDeleteEventsPermission() {
+    return true;
+  }
+
+  snackBarMessagePopup(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 6000
+    });
+  }
 
 }

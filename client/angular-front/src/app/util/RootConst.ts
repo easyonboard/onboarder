@@ -40,6 +40,9 @@ export class RootConst {
   public SERVER_UPCOMING_EVENT_FILTER_BY_KEYWORD = this.SERVER_UPCOMING_EVENT + '?keyword=';
   public SERVER_UNENROLL_USER = this.SERVER_EVENTS_URL + '/unenrollUser';
   public SERVER_IS_ENROLLED = this.SERVER_EVENTS_URL + '/isEnrolled';
+  public SERVER_DELETE_UPCOMING_EVENT = this.SERVER_ENDPOINT + '/deleteEvent/upcoming';
+  public SERVER_DELETE_PAST_EVENT = this.SERVER_ENDPOINT + '/deleteEvent/past';
+
 
 
   public SERVER_LOCATIONS = this.SERVER_ENDPOINT + 'locations';
@@ -52,6 +55,7 @@ export class RootConst {
   public FRONT_LOGIN_PAGE = '/login';
   public FRONT_INFOS_PAGE = '/info';
   public FRONT_EVENTS_PAGE = 'events/viewEvents';
+
 
 
 }

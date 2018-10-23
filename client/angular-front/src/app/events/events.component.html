@@ -13,16 +13,27 @@
 
       <mat-card *ngFor="let upcoming of upcomingEvents">
         <mat-card-title> {{upcoming.titleEvent}}
+
+          <div style="float: right; margin-left: 10px" *ngIf="hasDeleteEventsPermission()">
+            <i class="material-icons" (click)="deleteUpcomingEvent(upcoming.idEvent)"
+               style="color:  #841439; cursor: pointer">
+              delete_forever
+            </i>
+          </div>
           <mat-chip-list class="mat-chip-list" *ngIf="upcoming.keywords!=null" style="float: right">
             <mat-chip *ngFor="let keyword of upcoming.keywords.split(' ')"
                       (click)="filterByKeyword(keyword)">{{keyword}}
             </mat-chip>
           </mat-chip-list>
+
+
+
+
+
         </mat-card-title>
         <mat-card-subtitle>
           <div *ngIf="upcoming.location !=undefined"><i class="material-icons"> place </i>
             {{upcoming.location.locationName}}, {{upcoming.location.locationAddress}},
-            {{upcoming.location.locationCity}} <br/>
           </div>
 
 
@@ -68,7 +79,7 @@
 
               <div fxFlex>
                 <div fxLayout="colum">
-                  <div fxFlex="20" fxFlexOffset="2">{{upcoming.contactPerson.name}}</div>
+                  <div fxFlex="20" fxFlexOffset="2">{{upcoming.contactPerson.firstName}} {{upcoming.contactPerson.lastName}}</div>
                   <div fxFlex fxFlexOffset="2">
                     <a data-role="touch" href="mailto:{{upcoming.contactPerson.msgMail}}?subject=About event: {{upcoming.titleEvent}}" data-rel="external">{{upcoming.contactPerson.msgMail}}</a>
                   </div>
@@ -105,16 +116,23 @@
 
       <mat-card *ngFor="let past of pastEvents">
         <mat-card-title> {{past.titleEvent}}
+          <div style="float: right; margin-left: 10px" *ngIf="hasDeleteEventsPermission()">
+            <i class="material-icons" (click)="deletePastEvent(past.idEvent)"
+               style="color:  #841439; cursor: pointer">
+              delete_forever
+            </i>
+          </div>
           <mat-chip-list class="mat-chip-list" *ngIf="past.keywords!=null" style="float: right;">
             <mat-chip *ngFor="let keyword of past.keywords.split(' ')"
                       (click)="filterByKeyword(keyword)">{{keyword}}
             </mat-chip>
           </mat-chip-list>
+
         </mat-card-title>
         <mat-card-subtitle>
 
           <div *ngIf="past.location !=undefined"><i class="material-icons"> place </i> {{past.location.locationName}},
-            {{past.location.locationAddress}}, {{past.location.locationCity}} <br/>
+            {{past.location.locationAddress}}<br/>
           </div>
           <div *ngIf="past.meetingHall!=undefined">
             <i class="material-icons">

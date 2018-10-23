@@ -54,4 +54,15 @@ export class EventService implements OnInit {
     const body = JSON.stringify({eventID: event.idEvent, user: user});
     return this.http.post<Boolean>(this.rootConst.SERVER_IS_ENROLLED, body, this.httpOptions);
   }
+
+
+  deleteUpcomingEvent(idEvent: number) {
+    const body = JSON.stringify({idEvent: idEvent});
+    return this.http.post<Event[]>(this.rootConst.SERVER_DELETE_UPCOMING_EVENT, body, this.httpOptions);
+  }
+
+  deletePastEvent(idEvent: number) {
+    const body = JSON.stringify({idEvent: idEvent});
+    return this.http.post<Event[]>(this.rootConst.SERVER_DELETE_PAST_EVENT, body, this.httpOptions);
+  }
 }
