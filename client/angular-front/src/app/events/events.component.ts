@@ -87,7 +87,6 @@ export class EventsComponent implements OnInit {
         }
       } else {
         event.placesLeft = event.maxEnrolledUsers - event.enrolledUsers.length;
-        ;
       }
     });
   }
@@ -99,7 +98,8 @@ export class EventsComponent implements OnInit {
   }
 
   private getStatusEnrollment() {
-    this.upcomingEvents.forEach(ev => this.eventService.getStatusEnrollmentForUser(this.user, ev).subscribe(bool => ev.isUserEnrolled = bool));
+    this.upcomingEvents.forEach(ev => this.eventService.getStatusEnrollmentForUser(this.user, ev)
+      .subscribe(bool => ev.isUserEnrolled = bool));
   }
 
 

@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import {RootConst} from '../util/RootConst';
+import {ServerURLs} from '../util/ServerURLs';
 import {Observable} from 'rxjs/Observable';
 import {Location} from '../domain/location';
 import {MeetingHall} from '../domain/event';
@@ -9,8 +9,6 @@ import {debug} from 'util';
 
 @Injectable()
 export class LocationService implements OnInit {
-
-  private rootConst: RootConst = new RootConst();
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -23,10 +21,10 @@ export class LocationService implements OnInit {
   }
 
   getLocations(): Observable<Location[]> {
-    return this.http.get<Location[]>(`${this.rootConst.SERVER_LOCATIONS}`);
+    return this.http.get<Location[]>(`${ServerURLs.SERVER_LOCATIONS}`);
   }
 
   getRooms(): Observable<MeetingHall[]> {
-    return this.http.get<MeetingHall[]>(`${this.rootConst.SERVER_ROOMS}`);
+    return this.http.get<MeetingHall[]>(`${ServerURLs.SERVER_ROOMS}`);
   }
 }

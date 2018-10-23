@@ -10,13 +10,13 @@ import {Tutorial} from '../../domain/tutorial';
 import {UserService} from '../../service/user.service';
 import {TutorialService} from '../../service/tutorial.service';
 import {MaterialService} from '../../service/material.service';
-import {RootConst} from '../../util/RootConst';
+import {ServerURLs} from '../../util/ServerURLs';
 
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LocalStorageConst} from '../../util/LocalStorageConst';
-import {FormControl, Validators} from '@angular/forms';
+import {FrontURLs} from '../../util/FrontURLs';
 
 @Component({
   selector: 'app-add-tutorial',
@@ -24,7 +24,7 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./add-update-tutorial.component.css']
 })
 export class AddUpdateTutorialComponent implements OnInit {
-  private rootConst = new RootConst();
+  private rootConst = new ServerURLs();
 
   // contact person users
   public dropdownSettings = {};
@@ -159,9 +159,9 @@ export class AddUpdateTutorialComponent implements OnInit {
     }
   }
 
-  //
+
   private redirectToTutorialPage(tutorialId: number) {
-    location.replace(this.rootConst.FRONT_TUTORIALS_PAGE + '/' + `${tutorialId}`);
+    location.replace(FrontURLs.FRONT_TUTORIALS_PAGE + '/' + `${tutorialId}`);
   }
 
   openFile(position: number): void {

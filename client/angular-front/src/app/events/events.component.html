@@ -21,8 +21,7 @@
         </mat-card-title>
         <mat-card-subtitle>
           <div *ngIf="upcoming.location !=undefined"><i class="material-icons"> place </i>
-            {{upcoming.location.locationName}}, {{upcoming.location.locationAddress}},
-            {{upcoming.location.locationCity}} <br/>
+            {{upcoming.location.locationName}}, {{upcoming.location.locationAddress}}<br/>
           </div>
 
 
@@ -68,7 +67,7 @@
 
               <div fxFlex>
                 <div fxLayout="colum">
-                  <div fxFlex="20" fxFlexOffset="2">{{upcoming.contactPerson.name}}</div>
+                  <div fxFlex="20" fxFlexOffset="2">{{upcoming.contactPerson.firstName}} {{upcoming.contactPerson.lastName}}</div>
                   <div fxFlex fxFlexOffset="2">
                     <a data-role="touch" href="mailto:{{upcoming.contactPerson.msgMail}}?subject=About event: {{upcoming.titleEvent}}" data-rel="external">{{upcoming.contactPerson.msgMail}}</a>
                   </div>
@@ -114,7 +113,7 @@
         <mat-card-subtitle>
 
           <div *ngIf="past.location !=undefined"><i class="material-icons"> place </i> {{past.location.locationName}},
-            {{past.location.locationAddress}}, {{past.location.locationCity}} <br/>
+            {{past.location.locationAddress}}<br/>
           </div>
           <div *ngIf="past.meetingHall!=undefined">
             <i class="material-icons">

@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {RootConst} from '../../util/RootConst';
+import {ServerURLs} from '../../util/ServerURLs';
+import {FrontURLs} from '../../util/FrontURLs';
 
 @Injectable()
 export class AuthService {
-  private rootConst = new RootConst();
+  private rootConst = new ServerURLs();
 
   constructor(private http: HttpClient) {
   }
@@ -14,6 +15,6 @@ export class AuthService {
     const credentials = {username: ussername, password: password};
     console.log('attempAuth ::');
 
-    return this.http.post<any>(this.rootConst.GENERATE_TOKEN_URL, credentials);
+    return this.http.post<any>(FrontURLs.GENERATE_TOKEN_URL, credentials);
   }
 }

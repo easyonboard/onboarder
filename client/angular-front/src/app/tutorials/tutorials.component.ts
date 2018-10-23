@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {RootConst} from '../util/RootConst';
+import {ServerURLs} from '../util/ServerURLs';
 import {Tutorial} from '../domain/tutorial';
 import {TutorialService} from '../service/tutorial.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
@@ -16,7 +16,7 @@ import {RoleType} from '../domain/role';
 })
 export class TutorialsComponent implements OnDestroy, OnInit {
 
-  private rootConst: RootConst;
+  private rootConst: ServerURLs;
   tutorials: Tutorial[];
   tutorialsPerPage: Tutorial[];
   pageEvent: PageEvent;
@@ -29,7 +29,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
   constructor(private tutorialService: TutorialService,
               private route: ActivatedRoute,
               private router: Router, private snackBar: MatSnackBar) {
-    this.rootConst = new RootConst();
+    this.rootConst = new ServerURLs();
   }
 
   ngOnInit(): void {

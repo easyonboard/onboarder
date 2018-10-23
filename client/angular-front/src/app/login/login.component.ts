@@ -1,6 +1,6 @@
 import {AfterContentInit, Component, ElementRef, OnInit} from '@angular/core';
 import {User} from '../domain/user';
-import {RootConst} from '../util/RootConst';
+import {ServerURLs} from '../util/ServerURLs';
 import {Router} from '@angular/router';
 import {LocalStorageConst} from '../util/LocalStorageConst';
 import {AuthService} from '../common/core-auth/auth.service';
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
   public option: boolean;
   public userLogged: User;
   public message: string;
-  public rootConst: RootConst;
+  public rootConst: ServerURLs;
   private currentComponentElement: HTMLElement;
   public userNotfound: string;
   private headerDiv: NodeListOf<Element>;
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
     }
     this.userNotfound = '';
     this.message = 'Welcome!';
-    this.rootConst = new RootConst();
+    this.rootConst = new ServerURLs();
   }
 
   ngAfterContentInit() {

@@ -5,9 +5,10 @@ import {Event, MeetingHall} from '../../domain/event';
 import {EventService} from '../../service/event.service';
 import {LocationService} from '../../service/location.service';
 import {MatChipInputEvent, MatSnackBar} from '@angular/material';
-import {RootConst} from '../../util/RootConst';
+import {ServerURLs} from '../../util/ServerURLs';
 import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
 import {Location} from '../../domain/location';
+import {FrontURLs} from '../../util/FrontURLs';
 
 @Component({
   selector: 'app-add-event',
@@ -16,7 +17,7 @@ import {Location} from '../../domain/location';
 })
 export class AddEventComponent implements OnInit {
 
-  private rootConst: RootConst;
+  private rootConst: ServerURLs;
 
   public dropdownSettingsEnrolled = {};
   public dropdownSettingsContact = {};
@@ -48,7 +49,7 @@ export class AddEventComponent implements OnInit {
   constructor(private eventService: EventService, private userService: UserService,
               private locationService: LocationService, public snackBar: MatSnackBar) {
     this.keywords = [];
-    this.rootConst = new RootConst();
+    this.rootConst = new ServerURLs();
     this.event = new Event();
     this.event.overview = '';
     this.event.titleEvent = '';
@@ -226,7 +227,7 @@ export class AddEventComponent implements OnInit {
   }
 
   redirectToEventPage() {
-    location.replace(this.rootConst.FRONT_EVENTS_PAGE);
+    location.replace(FrontURLs.FRONT_EVENTS_PAGE);
   }
 
   getDate(): Date {
