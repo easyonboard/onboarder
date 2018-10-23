@@ -113,11 +113,11 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "users/department", method = RequestMethod.GET)
     public ResponseEntity<List<UserDto>> getUsersInDepartmentForUser(
-            @RequestParam(value = "username") String username) {
+            @RequestParam(value = "msgMail") String msgMail) {
 
         List<UserDto> users = null;
         try {
-            users = userService.getUsersInDepartmentForUser(username);
+            users = userService.getUsersInDepartmentForUser(msgMail);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         } catch (FieldNotFoundException e) {

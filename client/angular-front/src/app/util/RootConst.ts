@@ -10,7 +10,7 @@ export class RootConst {
   public SERVER_ADD_USER = this.SERVER_ENDPOINT + 'users/addUser';
   public SERVER_UPDATE_USER = this.SERVER_ENDPOINT + 'users/updateUser';
   public SERVER_USER_NAME = this.SERVER_ENDPOINT + '/user?name=';
-  public SERVER_LOGGED_USER_DEPARTMENT = this.SERVER_ENDPOINT + 'users/department?username=';
+  public SERVER_LOGGED_USER_DEPARTMENT = this.SERVER_ENDPOINT + 'users/department?msgMail=';
   public SERVER_NEWUSERS = this.SERVER_ENDPOINT + 'users/newUsers';
   public SERVER_CHECKLIST = this.SERVER_ENDPOINT + 'users/checkList';
   public SERVER_SAVE_CHECKLIST = this.SERVER_ENDPOINT + 'users/saveCheckList';

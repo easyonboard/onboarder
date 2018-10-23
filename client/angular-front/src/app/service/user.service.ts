@@ -65,8 +65,8 @@ export class UserService {
     return this.http.post<Map<string, boolean>>(this.rootConst.SERVER_SAVE_CHECKLIST, body, this.httpOptions);
   }
 
-  getUsersInDepartment(username: string): Observable<User[]> {
-    return this.http.get<User[]>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + username);
+  getUsersInDepartment(msgMail: string): Observable<User[]> {
+    return this.http.get<User[]>(this.rootConst.SERVER_LOGGED_USER_DEPARTMENT + msgMail);
   }
 
 
