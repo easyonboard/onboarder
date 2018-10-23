@@ -1,7 +1,8 @@
 #tutorialDetails {
-  height: 75%;
+  height: 80%;
   width: 90%;
   margin: 5%;
+  margin-top: 3%;
   position: absolute;
   border: 3px #841439 solid;
   border-radius: 8px;
