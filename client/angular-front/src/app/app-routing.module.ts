@@ -13,21 +13,28 @@ import {AddEventComponent} from './events/add-event/add-event.component';
 import {NotFoundComponent} from './not-found-component/not-found-component.component';
 import {LoggedInGuard} from './guard/logged-in.guard';
 import {InterceptorExpiredTokenGuard} from './guard/interceptor-expired-token.guard';
+import {FrontURLs} from './util/FrontURLs';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
   {path: '', component: LoginComponent},
-  {path: 'info', component: GeneralInfosComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
-  {path: 'tutorials', component: TutorialsComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
-  {path: 'tutorials/draft', component: TutorialsComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
-  {path: 'tutorials/addTutorial', component: AddUpdateTutorialComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
-  {path: 'tutorials/addTutorial/:id', component: AddUpdateTutorialComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
-  {path: 'events/addEvent', component: AddEventComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
-  {path: 'tutorials/:id', component: ViewTutorialComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
-  {path: 'buddyMenu', component: ToDoListForBuddyComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
-  {path: 'events/viewEvents', component: EventsComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
-  {path: '404', component: NotFoundComponent},
-  {path: '**', redirectTo: '/404'}
+  {path: FrontURLs.LOGIN_PAGE, component: LoginComponent},
+  {path: FrontURLs.INFO_PAGE, component: GeneralInfosComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
+  {path: FrontURLs.TUTORIALS_PAGE, component: TutorialsComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
+  {
+    path: FrontURLs.VIEW_TUTORIAL_PAGE,
+    component: ViewTutorialComponent,
+    canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]
+  },
+  {
+    path: FrontURLs.ADD_TUTORIAL_PAGE,
+    component: AddUpdateTutorialComponent,
+    canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]
+  },
+  {path: FrontURLs.ADD_EVENT, component: AddEventComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
+  {path: FrontURLs.MATE_MENU, component: ToDoListForBuddyComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
+  {path: FrontURLs.EVENTS_PAGE, component: EventsComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
+  {path: FrontURLs.ERROR_404, component: NotFoundComponent},
+  {path: '**', redirectTo: '/' + FrontURLs.ERROR_404}
 ];
 
 @NgModule({

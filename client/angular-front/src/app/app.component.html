@@ -25,7 +25,7 @@
             </div>
 
             <div fxFlexOffset="5" fxFlexAlign="center">
-                <button (click)="redirectToGeneralInfosPage()" title="General information" id="generalInfo">
+                <button (click)="redirectToInfoPage()" title="General information" id="generalInfo">
           <i class="fa fa-info" style="margin-right: 10%"></i>
         </button>
             </div>
@@ -46,53 +46,53 @@
                 <mat-menu #tutorials="matMenu" style="margin-top: 10%">
                     <button mat-menu-item (click)="redirectToTutorialsPage()">View tutorials</button>
                     <button mat-menu-item (click)="redirectToAddTutorialPage()">Add tutorial</button>
-                    <button mat-menu-item hidden> tutorial</button>
-                </mat-menu>
-            </div>
+          <button mat-menu-item hidden> tutorial</button>
+          </mat-menu>
+        </div>
 
-            <div fxFlex fxLayout="row">
-                <button mat-button [matMenuTriggerFor]="events" class="menuItemButton">
+      <div fxFlex fxLayout="row">
+        <button mat-button [matMenuTriggerFor]="events" class="menuItemButton">
           Events
           <span class="caret" style="margin-left: 3px"></span>
         </button>
-                <mat-menu #events="matMenu" style="margin-top: 10%">
-                    <button mat-menu-item (click)="redirectToEventsPage()">View events</button>
-                    <button mat-menu-item (click)="redirectToAddEventPage()">Add event</button>
-                    <button mat-menu-item hidden> Update event</button>
-                    <button mat-menu-item hidden> Delete event</button>
-                </mat-menu>
-            </div>
+        <mat-menu #events="matMenu" style="margin-top: 10%">
+          <button mat-menu-item (click)="redirectToEventsPage()">View events</button>
+          <button mat-menu-item (click)="redirectToAddEventPage()">Add event</button>
+          <button mat-menu-item hidden> Update event</button>
+          <button mat-menu-item hidden> Delete event</button>
+        </mat-menu>
+      </div>
 
 
-            <div fxFlex fxLayout="row">
-                <button mat-button [matMenuTriggerFor]="userManagement" class="menuItemButton">
+      <div fxFlex fxLayout="row">
+        <button mat-button [matMenuTriggerFor]="userManagement" class="menuItemButton">
           User management
           <span class="caret" style="margin-left: 3px"></span>
         </button>
-                <mat-menu #userManagement="matMenu">
-                    <button mat-menu-item (click)="openModalAddNewUser()" *ngIf="addUserPermission()"> Add User</button>
-                    <button mat-menu-item (click)="openModalNewEmployee()" >New Employees</button>
-                    <button mat-menu-item (click)="openModalEmployeesInDepartment()" *ngIf="viewUsersByDepartmentPermission()">
+        <mat-menu #userManagement="matMenu">
+          <button mat-menu-item (click)="openModalAddNewUser()" *ngIf="addUserPermission()"> Add User</button>
+          <button mat-menu-item (click)="openModalNewEmployee()" >New Employees</button>
+          <button mat-menu-item (click)="openModalEmployeesInDepartment()" *ngIf="viewUsersByDepartmentPermission()">
             Employees in Department
           </button>
-                    <button mat-menu-item (click)="modalDeleteUser()" *ngIf="deleteUserPermission()"> Remove users</button>
-                </mat-menu>
-            </div>
+          <button mat-menu-item (click)="modalDeleteUser()" *ngIf="deleteUserPermission()"> Remove users</button>
+        </mat-menu>
+      </div>
 
-            <div fxFlex fxLayout="row">
-                <button mat-button [matMenuTriggerFor]="profile" class="menuItemButton">
+      <div fxFlex fxLayout="row">
+        <button mat-button [matMenuTriggerFor]="profile" class="menuItemButton">
           <i class="fa fa-user-circle-o"></i>
           {{username}}
           <span class="caret" style="margin-left: 3px"></span>
         </button>
-                <mat-menu #profile="matMenu" xPosition="after">
-                    <button mat-menu-item (click)="openProfileInfoDialog()"> Profile information</button>
-                    <button mat-menu-item (click)="openToDoListForBuddy()">Mate TO DO List</button>
-                </mat-menu>
-            </div>
+        <mat-menu #profile="matMenu" xPosition="after">
+          <button mat-menu-item (click)="openProfileInfoDialog()"> Profile information</button>
+          <button mat-menu-item (click)="openToDoListForBuddy()">Mate TO DO List</button>
+        </mat-menu>
+      </div>
 
 
-            <div fxFlex fxLayout="row">
+      <div fxFlex fxLayout="row">
                 <button mat-button (click)="logout()" *ngIf="userIsLogged()==true" class="menuItemButton">
           <span class="glyphicon glyphicon-log-out"></span> Log out
         </button>

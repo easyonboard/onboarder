@@ -8,6 +8,7 @@ import {Observable} from 'rxjs/Observable';
 import {TokenStorage} from './token.storage';
 import {Router} from '@angular/router';
 import 'rxjs/add/operator/do';
+import {FrontURLs} from '../../util/FrontURLs';
 
 const TOKEN_HEADER_KEY = 'Authorization';
 const BEARER_STRING = 'Bearer ';
@@ -30,7 +31,7 @@ export class Interceptor implements HttpInterceptor {
           console.log(err);
           console.log('req url :: ' + req.url);
           if (err.status === 401) {
-            this.router.navigate(['/']);
+            this.router.navigate([FrontURLs.LOGIN_PAGE]);
           }
         }
       }

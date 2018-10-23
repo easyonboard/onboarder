@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
+import {FrontURLs} from '../util/FrontURLs';
 
 @Injectable()
 export class LoggedInGuard implements CanActivate {
@@ -12,7 +13,7 @@ export class LoggedInGuard implements CanActivate {
     if (sessionStorage.getItem('AuthToken')) {
       return true;
     } else {
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl(FrontURLs.LOGIN_PAGE);
       return false;
     }
 

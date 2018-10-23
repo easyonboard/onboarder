@@ -9,7 +9,7 @@ export class ExcelService {
   }
 
   public exportAsExcelFile(list: UserDetailsToExport[], excelFileName: string): void {
-    const csvData = this.ConvertToCSV(list);
+    const csvData = this.convertToCSV(list);
     const a = document.createElement('a');
     a.setAttribute('style', 'display:none;');
     document.body.appendChild(a);
@@ -22,8 +22,8 @@ export class ExcelService {
 
   }
 
-  ConvertToCSV(objArray) {
-    let array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+  convertToCSV(objArray) {
+    const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
     let str = '';
     let row = '';
 

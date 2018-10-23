@@ -4,6 +4,7 @@ import {Event} from '../domain/event';
 import {User} from '../domain/user';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {LocalStorageConst} from '../util/LocalStorageConst';
+import {FrontURLs} from '../util/FrontURLs';
 
 @Component({
   selector: 'app-events',
@@ -87,7 +88,6 @@ export class EventsComponent implements OnInit {
         }
       } else {
         event.placesLeft = event.maxEnrolledUsers - event.enrolledUsers.length;
-        ;
       }
     });
   }
@@ -95,11 +95,12 @@ export class EventsComponent implements OnInit {
   filterByKeyword(keyword: string) {
     const queryParams: Params = Object.assign({'keyword': keyword}, this.route.snapshot.queryParams);
     queryParams['keyword'] = keyword;
-    this.router.navigate(['/events/viewEvents'], {queryParams: queryParams});
+    this.router.navigate([FrontURLs.EVENTS_PAGE], {queryParams: queryParams});
   }
 
   private getStatusEnrollment() {
-    this.upcomingEvents.forEach(ev => this.eventService.getStatusEnrollmentForUser(this.user, ev).subscribe(bool => ev.isUserEnrolled = bool));
+    this.upcomingEvents.forEach(ev => this.eventService.getStatusEnrollmentForUser(this.user, ev)
+      .subscribe(bool => ev.isUserEnrolled = bool));
   }
 
 
