@@ -40,7 +40,6 @@ export class AddUpdateTutorialComponent implements OnInit {
   public inputKeyword: any;
 
   public separatorKeysCodes = [ENTER, COMMA, SPACE];
-  private tutorialId: number = null;
 
   constructor(private location: Location,
               private tutorialService: TutorialService,
@@ -50,17 +49,12 @@ export class AddUpdateTutorialComponent implements OnInit {
               public snackBar: MatSnackBar,
               private route: ActivatedRoute,
               private router: Router) {
-      }
+  }
 
   ngOnInit() {
-    this.tutorialId = +this.route.snapshot.paramMap.get('id');
     this.getUserMsgMails();
 
-    if (this.tutorialId) {
-      this.getTutorialInformation();
-    } else {
-      this.setCurrentUserAsContactPerson();
-    }
+    this.setCurrentUserAsContactPerson();
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -161,7 +155,7 @@ export class AddUpdateTutorialComponent implements OnInit {
 
 
   private redirectToTutorialPage(tutorialId: number) {
-    location.replace(FrontURLs.FRONT_TUTORIALS_PAGE + '/' + `${tutorialId}`);
+    location.replace(FrontURLs.TUTORIALS_PAGE + '/' + `${tutorialId}`);
   }
 
   openFile(position: number): void {

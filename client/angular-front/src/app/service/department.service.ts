@@ -10,6 +10,6 @@ export class DepartmentService {
   }
 
   getAllDepartments(): Observable<Department[]> {
-    return this.http.get<Department[]>(ServerURLs.SERVER_DEPARTMENTS);
+    return this.http.get<Department[]>(ServerURLs.ALL_DEPARTMENTS);
   }
 }

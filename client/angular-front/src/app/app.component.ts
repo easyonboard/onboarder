@@ -92,14 +92,14 @@ export class AppComponent {
   }
 
   redirectToLoginPage(): void {
-    this.router.navigate([FrontURLs.FRONT_LOGIN_PAGE]);
+    this.router.navigate([FrontURLs.LOGIN_PAGE]);
   }
 
   openModalNewEmployee() {
     if (this.checkToken()) {
       localStorage.clear();
       sessionStorage.clear();
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl(FrontURLs.LOGIN_PAGE);
       return;
     } else {
       this.commonComponent.openModalNewEmployee();
@@ -110,7 +110,7 @@ export class AppComponent {
     if (this.checkToken()) {
       localStorage.clear();
       sessionStorage.clear();
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl(FrontURLs.LOGIN_PAGE);
       return;
     } else {
       this.commonComponent.openModalAddNewUser();
@@ -118,17 +118,11 @@ export class AppComponent {
   }
 
   redirectToInfoPage() {
-    this.router.navigate([FrontURLs.FRONT_INFOS_PAGE]);
-  }
-
-  redirectToGeneralInfosPage() {
-    this.router.navigate([FrontURLs.FRONT_INFOS_PAGE]);
+    this.router.navigate([FrontURLs.INFO_PAGE]);
   }
 
   redirectToTutorialsPage() {
-
-    this.router.navigate([FrontURLs.FRONT_TUTORIALS_PAGE]);
-    // location.replace(this.rootConst.FRONT_TUTORIALS_PAGE);
+    this.router.navigate([FrontURLs.TUTORIALS_PAGE]);
   }
 
 
@@ -146,7 +140,7 @@ export class AppComponent {
     if (this.checkToken()) {
       localStorage.clear();
       sessionStorage.clear();
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl(FrontURLs.LOGIN_PAGE);
       return;
     } else {
       this.commonComponent.openDialogWithToDOListForBuddy();
@@ -157,7 +151,7 @@ export class AppComponent {
     if (this.checkToken()) {
       localStorage.clear();
       sessionStorage.clear();
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl(FrontURLs.LOGIN_PAGE);
       return;
     } else {
     this.dialog.open(UsersInDepartmentListComponent, {
@@ -170,7 +164,7 @@ export class AppComponent {
     if (this.checkToken()) {
       localStorage.clear();
       sessionStorage.clear();
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl(FrontURLs.LOGIN_PAGE);
       return;
     } else {
       this.commonComponent.modalDeleteUser();
@@ -180,7 +174,7 @@ export class AppComponent {
     if (this.checkToken()) {
       localStorage.clear();
       sessionStorage.clear();
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl(FrontURLs.LOGIN_PAGE);
       return;
     } else {
       this.commonComponent.openProfileInfoDialog();
@@ -189,15 +183,15 @@ export class AppComponent {
 
 
   redirectToAddTutorialPage() {
-    this.router.navigate(['/tutorials/addTutorial']);
+    this.router.navigate([FrontURLs.ADD_TUTORIAL_PAGE]);
   }
 
   redirectToEventsPage() {
-    this.router.navigate(['/events/viewEvents']);
+    this.router.navigate([FrontURLs.EVENTS_PAGE]);
   }
 
   redirectToAddEventPage() {
-    this.router.navigate(['/events/addEvent']);
+    this.router.navigate([FrontURLs.ADD_EVENT]);
   }
 
 

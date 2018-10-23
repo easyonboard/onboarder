@@ -41,9 +41,7 @@ export class ViewTutorialComponent implements OnInit {
   }
 
   openURL(link: string) {
-    // window.
     window.open(link, '_blank');
-    // location.replace(link);
   }
 
   displayInfo() {

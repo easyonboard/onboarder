@@ -16,7 +16,7 @@ export class UserService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  private allUsers: string = ServerURLs.SERVER_ALL_USERS;
+  private allUsers: string = ServerURLs.ALL_USERS;
 
   constructor(private http: HttpClient, private interceptorExpiredToken: InterceptorExpiredTokenGuard) {
     this.message = '';
@@ -25,7 +25,7 @@ export class UserService {
   addUser(user: User) {
     const body = JSON.stringify({user: user});
 
-    return this.http.post<User>(ServerURLs.SERVER_ADD_USER, body, this.httpOptions);
+    return this.http.post<User>(ServerURLs.ADD_USER, body, this.httpOptions);
   }
 
 
@@ -35,7 +35,7 @@ export class UserService {
 
   /** !TODO */
   getAllMsgMails(): Observable<String[]> {
-    return this.http.get<String[]>(ServerURLs.SERVER_ALL_MSG_MAILS);
+    return this.http.get<String[]>(ServerURLs.ALL_MSG_MAILS);
   }
 
   searchUsers(term: string): Observable<User[]> {
@@ -45,7 +45,7 @@ export class UserService {
         return;
       }
 
-      const users = this.http.get<User[]>(ServerURLs.SERVER_USER_NAME + term);
+      const users = this.http.get<User[]>(ServerURLs.USER_NAME + term);
       return users;
     }
     // in case term is undefined, we don't want to make a request to the server with a null param, so we return an empty observable
@@ -55,64 +55,64 @@ export class UserService {
 
   getCheckListForUser(user: User): Observable<Map<string, boolean>> {
     const body = JSON.stringify(user);
-    return this.http.post<Map<string, boolean>>(ServerURLs.SERVER_CHECKLIST, body, this.httpOptions);
+    return this.http.post<Map<string, boolean>>(ServerURLs.CHECKLIST, body, this.httpOptions);
 
   }
 
   saveCheckList(user: string, checkList: TSMap<string, boolean>): Observable<Map<string, boolean>> {
     const body = JSON.stringify({user: user, check: checkList.toJSON()});
-    return this.http.post<Map<string, boolean>>(ServerURLs.SERVER_SAVE_CHECKLIST, body, this.httpOptions);
+    return this.http.post<Map<string, boolean>>(ServerURLs.SAVE_CHECKLIST, body, this.httpOptions);
   }
 
   getUsersInDepartment(username: string): Observable<User[]> {
-    return this.http.get<User[]>(ServerURLs.SERVER_LOGGED_USER_DEPARTMENT + username);
+    return this.http.get<User[]>(ServerURLs.USER_DEPARTMENT_FOR_USERNAME + username);
   }
 
 
   removeUser(username: String): Observable<Boolean> {
 
-    return this.http.post<Boolean>(ServerURLs.SERVER_REMOVE_USER, username, this.httpOptions);
+    return this.http.post<Boolean>(ServerURLs.REMOVE_USER, username, this.httpOptions);
 
   }
 
   isMailSent(userAccount: User): Observable<Boolean> {
 
-    return this.http.post<Boolean>(ServerURLs.SERVER_STATUS_MAIL, userAccount.username, this.httpOptions);
+    return this.http.post<Boolean>(ServerURLs.STATUS_MAIL, userAccount.username, this.httpOptions);
 
   }
 
   getUserLeaveCheckList(user: string): Observable<LeaveCheckList> {
 
-    return this.http.post<LeaveCheckList>(ServerURLs.SERVER_LEAVE_CHECKLIST, user, this.httpOptions);
+    return this.http.post<LeaveCheckList>(ServerURLs.LEAVE_CHECKLIST, user, this.httpOptions);
   }
 
   saveLeaveCheckList(leaveCheckList: LeaveCheckList): Observable<LeaveCheckList> {
     const body = JSON.stringify(leaveCheckList);
-    const result = this.http.post<LeaveCheckList>(ServerURLs.SERVER_SAVE_LEAVE_CHECKLIST, body, this.httpOptions);
+    const result = this.http.post<LeaveCheckList>(ServerURLs.SAVE_LEAVE_CHECKLIST, body, this.httpOptions);
     console.log(result);
     return result;
   }
 
   checkUnicity(username: String, msgMail: String): Observable<boolean> {
     const body = JSON.stringify({username: username, msgMail: msgMail});
-    return this.http.post<boolean>(ServerURLs.SERVER_CHECK_USER_UNICITY, body, this.httpOptions);
+    return this.http.post<boolean>(ServerURLs.CHECK_USER_UNICITY, body, this.httpOptions);
   }
 
   getUserByUsername(username: string): Observable<User> {
     // if (username) {
-    return this.http.get<User>(`${ServerURLs.SERVER_USER_BY_USERNAME}${username}`);
+    return this.http.get<User>(`${ServerURLs.USER_BY_USERNAME}${username}`);
     // } else {
     // throw error;
     // }
   }
 
   getNewUsers(): Observable<User[]> {
-    return this.http.get<User[]>(ServerURLs.SERVER_NEWUSERS);
+    return this.http.get<User[]>(ServerURLs.NEW_USERS);
   }
 
   updateUser(user: any) {
     const body = JSON.stringify({user: user});
     console.log(body);
-    return this.http.post<User>(ServerURLs.SERVER_UPDATE_USER, user, this.httpOptions);
+    return this.http.post<User>(ServerURLs.UPDATE_USER, user, this.httpOptions);
   }
 }

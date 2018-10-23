@@ -1,50 +1,51 @@
 export class ServerURLs {
 
-  public static SERVER_ENDPOINT = 'http://localhost:8090/';
-  public static SERVER_TUTORIALS_URL = ServerURLs.SERVER_ENDPOINT + 'tutorials';
-  public static SERVER_EVENTS_URL = ServerURLs.SERVER_ENDPOINT + 'events';
+  public static ENDPOINT = 'http://localhost:8090/';
+  public static ALL_TUTORIALS = ServerURLs.ENDPOINT + 'tutorials';
+  public static ALL_EVENTS = ServerURLs.ENDPOINT + 'events';
 
 
-  public static SERVER_ALL_USERS = ServerURLs.SERVER_ENDPOINT + 'users/allUsers';
-  public static SERVER_ALL_MSG_MAILS = ServerURLs.SERVER_ENDPOINT + 'getAllMsgMails';
-  public static SERVER_ADD_USER = ServerURLs.SERVER_ENDPOINT + 'users/addUser';
-  public static SERVER_UPDATE_USER = ServerURLs.SERVER_ENDPOINT + 'users/updateUser';
-  public static SERVER_USER_NAME = ServerURLs.SERVER_ENDPOINT + '/user?name=';
-  public static SERVER_LOGGED_USER_DEPARTMENT = ServerURLs.SERVER_ENDPOINT + 'users/department?username=';
-  public static SERVER_NEWUSERS = ServerURLs.SERVER_ENDPOINT + 'users/newUsers';
-  public static SERVER_CHECKLIST = ServerURLs.SERVER_ENDPOINT + 'users/checkList';
-  public static SERVER_SAVE_CHECKLIST = ServerURLs.SERVER_ENDPOINT + 'users/saveCheckList';
-  public static SERVER_REMOVE_USER = ServerURLs.SERVER_ENDPOINT + 'users/removeUser';
-  public static SERVER_CHECK_USER_UNICITY = ServerURLs.SERVER_ENDPOINT + 'users/checkUnicity';
-  public static SERVER_USER_BY_USERNAME = ServerURLs.SERVER_ENDPOINT + 'username/?username=';
-  public static SERVER_STATUS_MAIL = ServerURLs.SERVER_ENDPOINT + 'users/isMailSent';
-  public static SERVER_LEAVE_CHECKLIST = ServerURLs.SERVER_ENDPOINT + 'users/leaveCheckList';
-  public static SERVER_SAVE_LEAVE_CHECKLIST = ServerURLs.SERVER_ENDPOINT + 'users/saveLeaveCheckList';
+  public static ALL_USERS = ServerURLs.ENDPOINT + 'users/allUsers';
+  public static ALL_MSG_MAILS = ServerURLs.ENDPOINT + 'getAllMsgMails';
+  public static ADD_USER = ServerURLs.ENDPOINT + 'users/addUser';
+  public static UPDATE_USER = ServerURLs.ENDPOINT + 'users/updateUser';
+  public static USER_NAME = ServerURLs.ENDPOINT + '/user?name=';
+  public static USER_DEPARTMENT_FOR_USERNAME = ServerURLs.ENDPOINT + 'users/department?username=';
+  public static NEW_USERS = ServerURLs.ENDPOINT + 'users/newUsers';
+  public static CHECKLIST = ServerURLs.ENDPOINT + 'users/checkList';
+  public static SAVE_CHECKLIST = ServerURLs.ENDPOINT + 'users/saveCheckList';
+  public static REMOVE_USER = ServerURLs.ENDPOINT + 'users/removeUser';
+  public static CHECK_USER_UNICITY = ServerURLs.ENDPOINT + 'users/checkUnicity';
+  public static USER_BY_USERNAME = ServerURLs.ENDPOINT + 'username/?username=';
+  public static STATUS_MAIL = ServerURLs.ENDPOINT + 'users/isMailSent';
+  public static LEAVE_CHECKLIST = ServerURLs.ENDPOINT + 'users/leaveCheckList';
+  public static SAVE_LEAVE_CHECKLIST = ServerURLs.ENDPOINT + 'users/saveLeaveCheckList';
 
 
-  public static SERVER_ADD_TUTORIAL = ServerURLs.SERVER_TUTORIALS_URL + '/add';
-  public static SERVER_ADD_TUTORIAL_MATERIAL = ServerURLs.SERVER_TUTORIALS_URL + '/addMaterial';
-  public static SERVER_FIND_TUTORIAL_MATERIAL_BY_ID = ServerURLs.SERVER_TUTORIALS_URL + '/materialTutorial?id=';
-  public static SERVER_GET_MATERIALS_FOR_TUTORIAL = ServerURLs.SERVER_TUTORIALS_URL + '/materialsForTutorial?id=';
-  public static SERVER_SEARCH_TUTORIAL_BY_KEYWORD = ServerURLs.SERVER_TUTORIALS_URL + '?keyword=';
-  public static SERVER_SEARCH_TUTORIAL_BY_ID = ServerURLs.SERVER_TUTORIALS_URL + '/';
-  public static SERVER_DELETE_TUTORIAL = ServerURLs.SERVER_TUTORIALS_URL + '/deleteTutorial';
-  public static SERVER_DELETE_MATERIAL = ServerURLs.SERVER_ENDPOINT + 'material/delete?id=';
+  public static ADD_TUTORIAL = ServerURLs.ALL_TUTORIALS + '/add';
+  public static ADD_MATERIAL = ServerURLs.ALL_TUTORIALS + '/addMaterial';
+  public static FIND_MATERIAL_BY_ID = ServerURLs.ALL_TUTORIALS + '/materialTutorial?id=';
+  public static GET_MATERIALS_FOR_TUTORIAL = ServerURLs.ALL_TUTORIALS + '/materialsForTutorial?id=';
+  public static SEARCH_TUTORIAL_BY_KEYWORD = ServerURLs.ALL_TUTORIALS + '?keyword=';
+  public static SEARCH_TUTORIAL_BY_ID = ServerURLs.ALL_TUTORIALS + '/';
+  public static DELETE_TUTORIAL = ServerURLs.ALL_TUTORIALS + '/deleteTutorial';
+  public static DELETE_MATERIAL = ServerURLs.ENDPOINT + 'material/delete?id=';
 
 
-  public static SERVER_ADD_EVENT = ServerURLs.SERVER_EVENTS_URL + '/addEvent';
-  public static SERVER_PAST_EVENT = ServerURLs.SERVER_EVENTS_URL + '/pastEvent';
-  public static SERVER_UPCOMING_EVENT = ServerURLs.SERVER_EVENTS_URL + '/upcomingEvent';
-  public static SERVER_ENROLL_USER = ServerURLs.SERVER_EVENTS_URL + '/enrollUser';
-  public static SERVER_PAST_EVENT_FILTER_BY_KEYWORD = ServerURLs.SERVER_PAST_EVENT + '?keyword=';
-  public static SERVER_UPCOMING_EVENT_FILTER_BY_KEYWORD = ServerURLs.SERVER_UPCOMING_EVENT + '?keyword=';
-  public static SERVER_UNENROLL_USER = ServerURLs.SERVER_EVENTS_URL + '/unenrollUser';
-  public static SERVER_IS_ENROLLED = ServerURLs.SERVER_EVENTS_URL + '/isEnrolled';
+  public static ADD_EVENT = ServerURLs.ALL_EVENTS + '/addEvent';
+  public static PAST_EVENT = ServerURLs.ALL_EVENTS + '/pastEvent';
+  public static UPCOMING_EVENT = ServerURLs.ALL_EVENTS + '/upcomingEvent';
+  public static ENROLL_USER = ServerURLs.ALL_EVENTS + '/enrollUser';
+  public static PAST_EVENT_FILTER_BY_KEYWORD = ServerURLs.PAST_EVENT + '?keyword=';
+  public static UPCOMING_EVENT_FILTER_BY_KEYWORD = ServerURLs.UPCOMING_EVENT + '?keyword=';
+  public static UNENROLL_USER = ServerURLs.ALL_EVENTS + '/unenrollUser';
+  public static SERVER_IS_ENROLLED = ServerURLs.ALL_EVENTS + '/isEnrolled';
 
 
-  public static SERVER_LOCATIONS = ServerURLs.SERVER_ENDPOINT + 'locations';
-  public static SERVER_ROOMS = ServerURLs.SERVER_ENDPOINT + 'meetingHalls';
-  public static SERVER_DEPARTMENTS = ServerURLs.SERVER_ENDPOINT + 'departments';
+  public static ALL_LOCATIONS = ServerURLs.ENDPOINT + 'locations';
+  public static ALL_ROOMS = ServerURLs.ENDPOINT + 'meetingHalls';
+  public static ALL_DEPARTMENTS = ServerURLs.ENDPOINT + 'departments';
 
 
+  public static GENERATE_TOKEN_URL = 'http://localhost:8090/token/generate-token';
 }

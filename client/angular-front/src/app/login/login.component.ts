@@ -6,6 +6,7 @@ import {LocalStorageConst} from '../util/LocalStorageConst';
 import {AuthService} from '../common/core-auth/auth.service';
 import {TokenStorage} from '../common/core-auth/token.storage';
 import {UserService} from '../service/user.service';
+import {FrontURLs} from '../util/FrontURLs';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
 
   ngOnInit() {
     if (!this.tokenStorage.getToken()) {
-      this.router.navigate(['/']);
+      this.router.navigate([FrontURLs.LOGIN_PAGE]);
     }
     this.userNotfound = '';
     this.message = 'Welcome!';
@@ -74,7 +75,7 @@ export class LoginComponent implements OnInit, AfterContentInit {
           localStorage.setItem(LocalStorageConst._MSG_MAIL, user.msgMail);
           localStorage.setItem(LocalStorageConst._USER_ROLE, user.role.toString());
         });
-        this.router.navigate(['/info']);
+        this.router.navigate([FrontURLs.INFO_PAGE]);
       }, error => {
         console.log(error);
       }

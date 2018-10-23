@@ -21,10 +21,10 @@ export class LocationService implements OnInit {
   }
 
   getLocations(): Observable<Location[]> {
-    return this.http.get<Location[]>(`${ServerURLs.SERVER_LOCATIONS}`);
+    return this.http.get<Location[]>(`${ServerURLs.ALL_LOCATIONS}`);
   }
 
   getRooms(): Observable<MeetingHall[]> {
-    return this.http.get<MeetingHall[]>(`${ServerURLs.SERVER_ROOMS}`);
+    return this.http.get<MeetingHall[]>(`${ServerURLs.ALL_ROOMS}`);
   }
 }

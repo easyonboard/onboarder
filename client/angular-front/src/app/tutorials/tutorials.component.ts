@@ -7,6 +7,7 @@ import {MatSnackBar, PageEvent} from '@angular/material';
 import {Subscription} from 'rxjs/Subscription';
 import {LocalStorageConst} from '../util/LocalStorageConst';
 import {RoleType} from '../domain/role';
+import {FrontURLs} from '../util/FrontURLs';
 
 @Component({
   selector: 'app-tutorials',
@@ -49,7 +50,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
             this.initTutorialsPerPageList(this.pageSize, this.pageIndex);
           },
           err => {
-            this.router.navigate(['/login']);
+            this.router.navigate([FrontURLs.LOGIN_PAGE]);
           });
       });
   }
@@ -69,7 +70,7 @@ export class TutorialsComponent implements OnDestroy, OnInit {
     const queryParams: Params = Object.assign({}, this.route.snapshot.queryParams);
     queryParams['keyword'] = keyword;
     queryParams['page'] = 0;
-    this.router.navigate(['/tutorials'], {queryParams: queryParams});
+    this.router.navigate([FrontURLs.TUTORIALS_PAGE], {queryParams: queryParams});
   }
 
   public getServerData(event?: PageEvent) {

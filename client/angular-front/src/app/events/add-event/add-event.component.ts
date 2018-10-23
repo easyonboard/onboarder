@@ -227,7 +227,7 @@ export class AddEventComponent implements OnInit {
   }
 
   redirectToEventPage() {
-    location.replace(FrontURLs.FRONT_EVENTS_PAGE);
+    location.replace(FrontURLs.EVENTS_PAGE);
   }
 
   getDate(): Date {

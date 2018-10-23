@@ -15,6 +15,6 @@ export class AuthService {
     const credentials = {username: ussername, password: password};
     console.log('attempAuth ::');
 
-    return this.http.post<any>(FrontURLs.GENERATE_TOKEN_URL, credentials);
+    return this.http.post<any>(ServerURLs.GENERATE_TOKEN_URL, credentials);
   }
 }

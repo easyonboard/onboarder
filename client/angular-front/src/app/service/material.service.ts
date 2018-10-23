@@ -20,17 +20,17 @@ export class MaterialService {
     console.log(formData);
 
     const request = new XMLHttpRequest();
-    request.open('POST', `${ServerURLs.SERVER_ADD_TUTORIAL_MATERIAL}`);
+    request.open('POST', `${ServerURLs.ADD_MATERIAL}`);
     request.setRequestHeader('authorization', this.tokenStorage.getTokenBearerString() + this.tokenStorage.getToken());
     return request.send(formData);
   }
 
   getFileWithId(idTutorialMaterial: number): Observable<ArrayBuffer> {
-    return this.http.get(`${ServerURLs.SERVER_FIND_TUTORIAL_MATERIAL_BY_ID}${idTutorialMaterial}`, {responseType: 'arraybuffer'});
+    return this.http.get(`${ServerURLs.FIND_MATERIAL_BY_ID}${idTutorialMaterial}`, {responseType: 'arraybuffer'});
   }
 
 
   deleteMaterialWithId(idMaterial: number): Observable<any> {
-    return this.http.get(`${ServerURLs.SERVER_DELETE_MATERIAL}${idMaterial}`);
+    return this.http.get(`${ServerURLs.DELETE_MATERIAL}${idMaterial}`);
   }
 }
