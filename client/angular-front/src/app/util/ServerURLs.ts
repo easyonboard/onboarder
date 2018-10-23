@@ -40,8 +40,8 @@ export class ServerURLs {
   public static UPCOMING_EVENT_FILTER_BY_KEYWORD = ServerURLs.UPCOMING_EVENT + '?keyword=';
   public static UNENROLL_USER = ServerURLs.ALL_EVENTS + '/unenrollUser';
   public static SERVER_IS_ENROLLED = ServerURLs.ALL_EVENTS + '/isEnrolled';
-  public SERVER_DELETE_UPCOMING_EVENT = ServerURLs.ENDPOINT + '/deleteEvent/upcoming';
-  public SERVER_DELETE_PAST_EVENT = ServerURLs.ENDPOINT + '/deleteEvent/past';
+  public static SERVER_DELETE_UPCOMING_EVENT = ServerURLs.ENDPOINT + '/deleteEvent/upcoming';
+  public static SERVER_DELETE_PAST_EVENT = ServerURLs.ENDPOINT + '/deleteEvent/past';
 
   public static ALL_LOCATIONS = ServerURLs.ENDPOINT + 'locations';
   public static ALL_ROOMS = ServerURLs.ENDPOINT + 'meetingHalls';
