@@ -23,7 +23,6 @@ export class Interceptor implements HttpInterceptor {
     HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
     let authReq = req;
     if (this.token.getToken() !== null) {
-      debugger
       authReq = req.clone({headers: req.headers.set(TOKEN_HEADER_KEY, BEARER_STRING + this.token.getToken())});
     }
     return next.handle(authReq).do(
