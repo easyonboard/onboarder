@@ -18,8 +18,12 @@ import entity.MeetingHall;
 import entity.User;
 import exception.types.DatabaseException;
 import exception.types.EntityNotFoundException;
+import org.apache.poi.hssf.record.formula.functions.Even;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import utilityService.MailSender;
+
+import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -237,11 +241,26 @@ public class EventService {
     }
 
     public List<EventDto> deleteUpcomingEvent(int idEvent) throws EntityNotFoundException {
+        Event eventEntity=eventRepository.findOne(idEvent);
+        MailSender sender = new MailSender();
+        if(eventEntity.getEnrolledUsers()!=null){
+            for(User u: eventEntity.getEnrolledUsers()){
+                String contentMail=createEmailBodyForDeleteEvent(u.getFirstName(), eventEntity.getTitleEvent(), eventEntity.getEventDate().toString());
+                sender.sendMail(u.getMsgMail(), "Eveniment anulat",contentMail);
+            }
+        }
         eventRepository.delete(idEvent);
         return getAllUpcomingEvents();
     }
     public List<EventDto> deletePastEvent(int idEvent) throws EntityNotFoundException {
         eventRepository.delete(idEvent);
         return getAllPastEvents();
+    }
+
+    private String createEmailBodyForDeleteEvent(String employeeName, String eventName, String date) {
+        ResourceBundle bundle = ResourceBundle.getBundle("email_template_delete_event", Locale.ROOT);
+        String email_body = bundle.getString("email_body");
+        String formattedEmailBoddy = MessageFormat.format(email_body, employeeName, eventName, date);
+        return formattedEmailBoddy;
     }
 }
