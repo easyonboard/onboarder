@@ -216,9 +216,22 @@ public class UserController {
     @RequestMapping(value = "/username", method = RequestMethod.GET)
     public ResponseEntity<UserDto> getUserByUsername(@RequestParam(value = "username") String username) {
 
-        UserDto userDto = null;
+        UserDto userDto;
         try {
             userDto = userService.findUserByUsername(username);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity(e, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/msgMail", method = RequestMethod.GET)
+    public ResponseEntity<UserDto> getUserByMsgMail(@RequestParam(value = "msgMail") String msgMail) {
+
+        UserDto userDto;
+        try {
+            userDto = userService.findUserByMsgMail(msgMail);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity(e, HttpStatus.NOT_FOUND);
         }

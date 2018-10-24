@@ -18,7 +18,7 @@ export class UserService {
 
   private allUsers: string = ServerURLs.ALL_USERS;
 
-  constructor(private http: HttpClient, private interceptorExpiredToken: InterceptorExpiredTokenGuard) {
+  constructor(private http: HttpClient) {
     this.message = '';
   }
 
@@ -32,7 +32,7 @@ export class UserService {
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.allUsers}`);
   }
-  
+
   getAllMsgMails(): Observable<String[]> {
     return this.http.get<String[]>(ServerURLs.ALL_MSG_MAILS);
   }
@@ -98,11 +98,11 @@ export class UserService {
   }
 
   getUserByUsername(username: string): Observable<User> {
-    // if (username) {
     return this.http.get<User>(`${ServerURLs.USER_BY_USERNAME}${username}`);
-    // } else {
-    // throw error;
-    // }
+  }
+
+  getUserByMsgMail(msgMail: string): Observable<User> {
+    return this.http.get<User>(`${ServerURLs.USER_BY_MSG_MAIL}${msgMail}`);
   }
 
   getNewUsers(): Observable<User[]> {

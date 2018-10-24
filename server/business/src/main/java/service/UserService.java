@@ -70,6 +70,15 @@ public class UserService {
         return userMapper.mapToDTO(entity.get());
     }
 
+    public UserDto findUserByMsgMail(String msgMail) throws EntityNotFoundException {
+
+        Optional<User> entity = userRepository.findByMsgMail(msgMail);
+        if (!entity.isPresent()) {
+            throw new EntityNotFoundException(userNotFound(msgMail));
+        }
+        return userMapper.mapToDTO(entity.get());
+    }
+
     public void addUser(UserDto userDto) throws InvalidDataException {
         userDto.setPassword("password");
         userValidator.validateUsername(userDto.getUsername());

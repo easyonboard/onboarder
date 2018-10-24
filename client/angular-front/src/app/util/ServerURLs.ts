@@ -17,6 +17,7 @@ export class ServerURLs {
   public static REMOVE_USER = ServerURLs.ENDPOINT + 'users/removeUser';
   public static CHECK_USER_UNICITY = ServerURLs.ENDPOINT + 'users/checkUnicity';
   public static USER_BY_USERNAME = ServerURLs.ENDPOINT + 'username/?username=';
+  public static USER_BY_MSG_MAIL = ServerURLs.ENDPOINT + 'msgMail/?msgMail=';
   public static STATUS_MAIL = ServerURLs.ENDPOINT + 'users/isMailSent';
   public static LEAVE_CHECKLIST = ServerURLs.ENDPOINT + 'users/leaveCheckList';
   public static SAVE_LEAVE_CHECKLIST = ServerURLs.ENDPOINT + 'users/saveLeaveCheckList';

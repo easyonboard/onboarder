@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {UserService} from '../../service/user.service';
 import {User} from '../../domain/user';
+import {LocalStorageConst} from '../../util/LocalStorageConst';
 
 @Component({
   selector: 'app-dialog-profile-info',
@@ -11,20 +12,19 @@ export class DialogProfileInfoComponent implements OnInit {
   [x: string]: any;
 
   public user: User;
-  username: string;
+  msgMail: string;
 
   constructor(private userService: UserService) {
   }
 
   ngOnInit() {
-    this.username = localStorage.getItem('username');
-    console.log(this.username);
-    this.userService.getUserByUsername(this.username).subscribe(
+    this.msgMail = localStorage.getItem(LocalStorageConst._MSG_MAIL);
+    this.userService.getUserByMsgMail(this.msgMail).subscribe(
       resp => {
         this.user = resp;
       },
       err => this.snackBarMessagePopup(err.error.message));
-    this.userService.getUserByUsername(this.username).subscribe(
+    this.userService.getUserByMsgMail(this.msgMail).subscribe(
       resp => {
         this.userInformation = resp;
 
