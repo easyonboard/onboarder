@@ -163,7 +163,7 @@ public class EventService {
 
     public List<EventDto> enrollUser(UserDto userDto, int eventDTO) throws EntityNotFoundException, DatabaseException {
 
-        Optional<User> userOptional = userRepository.findByUsername(userDto.getUsername());
+        Optional<User> userOptional = userRepository.findByMsgMail(userDto.getMsgMail());
         if (userOptional.isPresent()) {
             User userEntity = userOptional.get();
             Event eventEntity = eventRepository.findOne(eventDTO);
@@ -205,7 +205,7 @@ public class EventService {
     public List<EventDto> unenrollUser(UserDto userDto,
                                        int eventDTO) throws DatabaseException, EntityNotFoundException {
 
-        Optional<User> userOptional = userRepository.findByUsername(userDto.getUsername());
+        Optional<User> userOptional = userRepository.findByMsgMail(userDto.getMsgMail());
         if (userOptional.isPresent()) {
             User userEntity = userOptional.get();
             Event eventEntity = eventRepository.findOne(eventDTO);

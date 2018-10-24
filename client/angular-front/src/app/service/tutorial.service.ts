@@ -51,7 +51,7 @@ export class TutorialService implements OnInit {
 
   deleteTutorial(idTutorial: number): Observable<Tutorial[]> {
     const body = JSON.stringify({idTutorial: idTutorial});
-    return this.http.post<Tutorial[]>(ServerURLs.DELETE_TUTORIAL, body, this.httpOptions);
+    return this.http.post<Tutorial[]>(ServerURLs. DELETE_TUTORIAL, body, this.httpOptions);
   }
 
 }
