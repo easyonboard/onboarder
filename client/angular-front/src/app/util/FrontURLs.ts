@@ -1,7 +1,7 @@
 export class FrontURLs {
   public static TUTORIALS_PAGE = 'tutorials';
   public static ADD_TUTORIAL_PAGE = 'tutorials/addTutorial';
-  public static VIEW_TUTORIAL_PAGE = 'tutorial/:id';
+  public static VIEW_TUTORIAL_PAGE = 'tutorials/:id';
 
   public static LOGIN_PAGE = 'login';
 
