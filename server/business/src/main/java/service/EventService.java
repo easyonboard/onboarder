@@ -23,7 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utilityService.MailSender;
 
+import java.text.DateFormat;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -244,8 +246,11 @@ public class EventService {
         Event eventEntity=eventRepository.findOne(idEvent);
         MailSender sender = new MailSender();
         if(eventEntity.getEnrolledUsers()!=null){
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+           String dateWithZeroTime;
+            dateWithZeroTime = formatter.format(eventEntity.getEventDate());
             for(User u: eventEntity.getEnrolledUsers()){
-                String contentMail=createEmailBodyForDeleteEvent(u.getFirstName(), eventEntity.getTitleEvent(), eventEntity.getEventDate().toString());
+                String contentMail=createEmailBodyForDeleteEvent(u.getFirstName(), eventEntity.getTitleEvent(), dateWithZeroTime);
                 sender.sendMail(u.getMsgMail(), "Eveniment anulat",contentMail);
             }
         }
@@ -259,8 +264,9 @@ public class EventService {
 
     private String createEmailBodyForDeleteEvent(String employeeName, String eventName, String date) {
         ResourceBundle bundle = ResourceBundle.getBundle("email_template_delete_event", Locale.ROOT);
-        String email_body = bundle.getString("email_body");
-        String formattedEmailBoddy = MessageFormat.format(email_body, employeeName, eventName, date);
+        String emailBody = bundle.getString("email_body");
+        String formattedEmailBoddy;
+        formattedEmailBoddy = MessageFormat.format(emailBody, employeeName, eventName, date);
         return formattedEmailBoddy;
     }
 }

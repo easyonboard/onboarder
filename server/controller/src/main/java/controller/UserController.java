@@ -7,7 +7,6 @@ import dto.CheckListDto;
 import dto.LeaveCheckListDto;
 import dto.UserDto;
 import entity.Department;
-import entity.enums.RoleType;
 import exception.types.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
