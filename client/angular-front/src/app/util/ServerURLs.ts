@@ -10,7 +10,7 @@ export class ServerURLs {
   public static ADD_USER = ServerURLs.ENDPOINT + 'users/addUser';
   public static UPDATE_USER = ServerURLs.ENDPOINT + 'users/updateUser';
   public static USER_NAME = ServerURLs.ENDPOINT + '/user?name=';
-  public static USER_DEPARTMENT_FOR_USERNAME = ServerURLs.ENDPOINT + 'users/department?username=';
+  public static USER_DEPARTMENT_FOR_USERNAME = ServerURLs.ENDPOINT + 'users/department?msgMail=';
   public static NEW_USERS = ServerURLs.ENDPOINT + 'users/newUsers';
   public static CHECKLIST = ServerURLs.ENDPOINT + 'users/checkList';
   public static SAVE_CHECKLIST = ServerURLs.ENDPOINT + 'users/saveCheckList';

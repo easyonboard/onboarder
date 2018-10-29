@@ -14,7 +14,6 @@ import {ServerURLs} from '../../util/ServerURLs';
 
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
-import {ActivatedRoute, Router} from '@angular/router';
 import {LocalStorageConst} from '../../util/LocalStorageConst';
 import {FrontURLs} from '../../util/FrontURLs';
 
@@ -24,9 +23,6 @@ import {FrontURLs} from '../../util/FrontURLs';
   styleUrls: ['./add-update-tutorial.component.css']
 })
 export class AddUpdateTutorialComponent implements OnInit {
-  private rootConst = new ServerURLs();
-
-  // contact person users
   public dropdownSettings = {};
   public selectedUsers: String[] = [];
   public allUsers: String[] = [];
@@ -46,9 +42,7 @@ export class AddUpdateTutorialComponent implements OnInit {
               private userService: UserService,
               private materialService: MaterialService,
               @Inject(DOCUMENT) private document: any,
-              public snackBar: MatSnackBar,
-              private route: ActivatedRoute,
-              private router: Router) {
+              public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -65,15 +59,6 @@ export class AddUpdateTutorialComponent implements OnInit {
     };
   }
 
-  private getTutorialInformation() {
-    const tutorialId = +this.route.snapshot.paramMap.get('id');
-    this.tutorialService.getTutorialWithId(tutorialId).subscribe(tutorial => {
-      this.tutorial = tutorial;
-      this.materialsForCurrentTutorial = this.tutorial.materials;
-      this.selectedUsers = this.tutorial.contactPersons.map(cp => cp.msgMail);
-      this.keywords = this.tutorial.keywords.split(' ');
-    });
-  }
 
   private setCurrentUserAsContactPerson() {
     this.selectedUsers.push(localStorage.getItem(LocalStorageConst._MSG_MAIL));

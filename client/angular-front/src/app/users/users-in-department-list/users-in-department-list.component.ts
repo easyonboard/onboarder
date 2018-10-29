@@ -61,6 +61,7 @@ export class UsersInDepartmentListComponent implements OnInit {
 
   searchByName() {
     if (this.searchValue !== '' && this.searchValue !== null) {
+      debugger
       this.userDetails = this.allUserDetails.filter(user => user.lastName.toLowerCase().includes(this.searchValue.toLowerCase()));
     } else {
       this.userDetails = this.allUserDetails;

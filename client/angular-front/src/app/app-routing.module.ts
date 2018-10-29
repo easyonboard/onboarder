@@ -41,7 +41,6 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forRoot(routes),
-    StarRatingModule.forRoot()
   ],
   declarations: [],
   exports: [RouterModule]

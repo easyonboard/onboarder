@@ -33,6 +33,7 @@ export class UserAddComponent implements OnInit, OnDestroy {
 
   public users$: Observable<User[]>;
   private searchTerms = new Subject<string>();
+  searchedValue: string;
 
 
   constructor(@Inject(MAT_DIALOG_DATA) protected existingUser: User,

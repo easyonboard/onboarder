@@ -71,7 +71,6 @@ import {DepartmentService} from './service/department.service';
     LoginComponent,
     GeneralInfosComponent,
     UserAddComponent,
-    //  dialogs
     DialogCheckListComponent,
     DialogNewEmployeeComponent,
     ToDoListForBuddyComponent,
