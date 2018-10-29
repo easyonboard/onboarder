@@ -17,11 +17,11 @@ public class LeaveCheckList implements Serializable {
     @JoinColumn(name = "user_account")
     private User userAccount;
 
-    @Column(columnDefinition = "NUMERIC(1)")
+//    @Column(columnDefinition = "NUMERIC(1)")
     private boolean inventoryObjects;
 
-    @Column(columnDefinition = "NUMERIC(1)")
+//    @Column(columnDefinition = "NUMERIC(1)")
     private boolean resignationForm;
-    @Column(columnDefinition = "NUMERIC(1)")
+//    @Column(columnDefinition = "NUMERIC(1)")
     private boolean cards;
 }
