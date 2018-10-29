@@ -20,7 +20,7 @@ import {DialogDeleteUsersComponent} from './common/DialogDeleteUsers/dialog-dele
 import {ExcelService} from './service/excel.service';
 import {TutorialsComponent} from './tutorials/tutorials.component';
 import {DialogLeaveCheckListComponent} from './common/DialogLeaveCheckList/dialog-leave-check-list.component';
-import {AddUpdateTutorialComponent} from './tutorials/add-update-tutorial/add-update-tutorial.component';
+import {AddTutorialComponent} from './tutorials/add-tutorial/add-tutorial.component';
 import {AddEventComponent} from './events/add-event/add-event.component';
 import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {TutorialService} from './service/tutorial.service';
@@ -78,7 +78,7 @@ import {DepartmentService} from './service/department.service';
     UsersInDepartmentListComponent,
     DialogProfileInfoComponent,
     TutorialsComponent,
-    AddUpdateTutorialComponent,
+    AddTutorialComponent,
     AddEventComponent,
     DialogLeaveCheckListComponent,
     ViewTutorialComponent,

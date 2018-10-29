@@ -6,7 +6,7 @@ import {StarRatingModule} from 'angular-star-rating';
 import {GeneralInfosComponent} from './general-infos/general-infos.component';
 import {TutorialsComponent} from './tutorials/tutorials.component';
 import {ToDoListForBuddyComponent} from './common/DialogToDoListForBuddy/dialog-to-do-list-for-buddy.component';
-import {AddUpdateTutorialComponent} from './tutorials/add-update-tutorial/add-update-tutorial.component';
+import {AddTutorialComponent} from './tutorials/add-tutorial/add-tutorial.component';
 import {ViewTutorialComponent} from './tutorials/view-tutorial/view-tutorial.component';
 import {EventsComponent} from './events/events.component';
 import {AddEventComponent} from './events/add-event/add-event.component';
@@ -21,15 +21,17 @@ const routes: Routes = [
   {path: FrontURLs.INFO_PAGE, component: GeneralInfosComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
   {path: FrontURLs.TUTORIALS_PAGE, component: TutorialsComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
   {
+    path: FrontURLs.ADD_TUTORIAL_PAGE,
+    component: AddTutorialComponent,
+    canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]
+  },
+  {
     path: FrontURLs.VIEW_TUTORIAL_PAGE,
     component: ViewTutorialComponent,
     canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]
   },
-  {
-    path: FrontURLs.ADD_TUTORIAL_PAGE,
-    component: AddUpdateTutorialComponent,
-    canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]
-  },
+
+
   {path: FrontURLs.ADD_EVENT, component: AddEventComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
   {path: FrontURLs.MATE_MENU, component: ToDoListForBuddyComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},
   {path: FrontURLs.EVENTS_PAGE, component: EventsComponent, canActivate: [LoggedInGuard, InterceptorExpiredTokenGuard]},

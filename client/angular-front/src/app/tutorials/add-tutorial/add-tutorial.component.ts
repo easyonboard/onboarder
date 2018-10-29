@@ -10,7 +10,6 @@ import {Tutorial} from '../../domain/tutorial';
 import {UserService} from '../../service/user.service';
 import {TutorialService} from '../../service/tutorial.service';
 import {MaterialService} from '../../service/material.service';
-import {ServerURLs} from '../../util/ServerURLs';
 
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -19,10 +18,11 @@ import {FrontURLs} from '../../util/FrontURLs';
 
 @Component({
   selector: 'app-add-tutorial',
-  templateUrl: './add-update-tutorial.component.html',
-  styleUrls: ['./add-update-tutorial.component.css']
+  templateUrl: './add-tutorial.component.html',
+  styleUrls: ['./add-tutorial.component.css']
 })
-export class AddUpdateTutorialComponent implements OnInit {
+export class AddTutorialComponent implements OnInit {
+
   public dropdownSettings = {};
   public selectedUsers: String[] = [];
   public allUsers: String[] = [];
@@ -58,7 +58,6 @@ export class AddUpdateTutorialComponent implements OnInit {
       itemsShowLimit: 1,
     };
   }
-
 
   private setCurrentUserAsContactPerson() {
     this.selectedUsers.push(localStorage.getItem(LocalStorageConst._MSG_MAIL));

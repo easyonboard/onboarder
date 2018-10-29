@@ -142,8 +142,10 @@ export class UserAddComponent implements OnInit, OnDestroy {
     this.user.location = event.value;
   }
 
-  search(term: string): void {
-    this.searchTerms.next(term);
+  search(): void {
+    if (this.searchedValue !== '') {
+      this.searchTerms.next(this.searchedValue);
+    }
     this.show = true;
   }
 
