@@ -20,10 +20,10 @@ import {FrontURLs} from '../../util/FrontURLs';
 
 @Component({
   selector: 'app-add-tutorial',
-  templateUrl: './add-update-tutorial.component.html',
-  styleUrls: ['./add-update-tutorial.component.css']
+  templateUrl: './add-tutorial.component.html',
+  styleUrls: ['./add-tutorial.component.css']
 })
-export class AddUpdateTutorialComponent implements OnInit {
+export class AddTutorialComponent implements OnInit {
   private rootConst = new ServerURLs();
 
   // contact person users
@@ -63,16 +63,6 @@ export class AddUpdateTutorialComponent implements OnInit {
       unSelectAllText: 'Unselect All',
       itemsShowLimit: 1,
     };
-  }
-
-  private getTutorialInformation() {
-    const tutorialId = +this.route.snapshot.paramMap.get('id');
-    this.tutorialService.getTutorialWithId(tutorialId).subscribe(tutorial => {
-      this.tutorial = tutorial;
-      this.materialsForCurrentTutorial = this.tutorial.materials;
-      this.selectedUsers = this.tutorial.contactPersons.map(cp => cp.msgMail);
-      this.keywords = this.tutorial.keywords.split(' ');
-    });
   }
 
   private setCurrentUserAsContactPerson() {
