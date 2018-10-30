@@ -43,7 +43,7 @@
           Tutorials
           <span class="caret" style="margin-left: 3px"></span>
         </button>
-                <mat-menu #tutorials="matMenu" style="margin-top: 10%">
+                <mat-menu #tutorials="matMenu" style="margin-top: 10%" [overlapTrigger]="false">
                     <button mat-menu-item (click)="redirectToTutorialsPage()">View tutorials</button>
                     <button mat-menu-item (click)="redirectToAddTutorialPage()">Add tutorial</button>
           <button mat-menu-item hidden> tutorial</button>
